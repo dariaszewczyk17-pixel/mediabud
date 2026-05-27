@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Strony główne -->
+  <url>
+    <loc>https://mediabud.pl/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <lastmod>2026-05-27</lastmod>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/produkty</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-05-27</lastmod>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/o-nas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/uslugi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kontakt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Kategorie główne -->
+  <url>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-05-27</lastmod>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/izolacje</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/farby-rozpuszczalniki</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/dachy</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/plytki</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/stropy-sciany</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/narzedzia-mocowania</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/pozostale</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Podkategorie chemia budowlana -->
+  <url><loc>https://mediabud.pl/kategoria/tynki</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/tynki-elewacyjne</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/tynki-silikonowe</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/tynki-silikatowe</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/tynki-mineralne</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/tynki-akrylowe</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/tynki-gipsowe</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/kleje</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/kleje-styropian</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/kleje-glazura</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/grunty</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/grunty-pod-tynki</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/gipsy-gladzie</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/gladzie-proszek</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/piany-montazowe</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/piany-pistoletowe</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/uszczelniacze-silikony</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/silikony-sanitarne</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/zaprawy</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/zaprawy-murarskie</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/zaprawy-posadzkowe</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/spoiny</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Podkategorie izolacje -->
+  <url><loc>https://mediabud.pl/kategoria/styropiany</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/styropian-fasadowy-eps</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/welny</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/welna-fasadowa</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/hydroizolacje</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/hydroizolacje-mineralne</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/folie</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/folie-paroprzepuszczalne</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/akcesoria-izolacji</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Podkategorie farby -->
+  <url><loc>https://mediabud.pl/kategoria/farby-wewnetrzne</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/farby-biale</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/farby-kolorowe</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/farby-elewacyjne</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/farby-elaw-silikonowe</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/farby-drewno</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/lakiery-drewno</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/impregnaty-drewno</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Podkategorie płytki -->
+  <url><loc>https://mediabud.pl/kategoria/plytki-ceramiczne</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/plytki-scienne</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/plytki-scienno-podlogowe</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Podkategorie sucha zabudowa -->
+  <url><loc>https://mediabud.pl/kategoria/plyty-sucha-zabudowa</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/plyty-gipsowo-kartonowe</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/profile-sucha-zabudowa</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/profile-sufit</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Podkategorie stropy i ściany -->
+  <url><loc>https://mediabud.pl/kategoria/materialy-konstrukcyjne</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/bloczki</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/bloczki-beton-komorkowy</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/cement</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Podkategorie narzędzia -->
+  <url><loc>https://mediabud.pl/kategoria/elementy-mocujace</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/kolki-wkrety-uniwersalne</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/elektronarzedzia</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/wiertarko-wkretarki</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/narzedzia-malarskie</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/walki-malarskie</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Dachy podkategorie -->
+  <url><loc>https://mediabud.pl/kategoria/pokrycia-dachowe</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/gonty-bitumiczne</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/rynny</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Pozostałe podkategorie -->
+  <url><loc>https://mediabud.pl/kategoria/galanteria-betonowa</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/kategoria/kostka-brukowa</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Produkty -->
+  <url><loc>https://mediabud.pl/produkt/tynk-silikonowy-weber-pas-dr1</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/klej-do-styropianu-atlas-stopter-k-20</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/styropian-fasadowy-eps-100-swisspor</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/welna-fasadowa-rockwool-frontrock-max-e</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/grunt-gruntujacy-ceresit-ct-17</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/gladz-gipsowa-knauf-multifinish-20kg</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/hydroizolacja-bitumiczna-ceresit-cr-65</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/farba-elewacyjna-caparol-silikoncolor-10l</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/piana-montazowa-hilti-cf-812-825ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/siatka-elewacyjna-vertex-r131</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/tynk-gipsowy-knauf-goldband-25kg</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/tynk-mineralny-weber-pas-ma-25kg</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/zaprawa-murarska-baumit-manu2-25kg</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/cement-portlandzki-cem-i-425r-25kg</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/klej-do-plytek-ceresit-cm11-25kg</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/fuga-atlas-grout-25kg-jasny-szary</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/farba-wewnetrzna-biala-dulux-10l</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/farba-lateksowa-caparol-amphibolin-10l</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/lakier-do-drewna-sadolin-extra-25l</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/silikon-sanitarny-ceresit-cs25-bialy-310ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/plyta-gk-knauf-white-125mm</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/profil-cd-60-knauf-3m</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/bloczek-beton-komorkowy-ytong-240</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mediabud.pl/produkt/plytka-scienna-ceramiczna-biala-25x40</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/plytka-gres-podlogowy-jasny-60x60</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/wiertarko-wkretarka-bosch-gsb-18v-55</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/walek-malarski-purolan-wlochaty-25cm</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mediabud.pl/produkt/kolek-rozporowy-fischer-8x60-100szt</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mediabud.pl/produkt/membrana-paroprzepuszczalna-delta-vent-n</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/gont-bitumiczny-katepal-jazzy</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/kostka-brukowa-holland-6cm-szara</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/masa-samopoziomujaca-knauf-boden-25kg</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mediabud.pl/produkt/impregnat-do-drewna-sadolin-classic-25l</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+</urlset>

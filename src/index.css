@@ -1,44 +1,96 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Condensed:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
-/*
-==========================================================================
-【AI HANDOVER NOTE】
-1. DESIGN PHILOSOPHY:
-   - Industrial Professionalism with E-commerce Clarity: Projekt łączy estetykę przemysłową (industrial) z nowoczesnym, czytelnym designem e-commerce B2B/B2C. Główny cel to przewaga konkurencyjna nad bechcicki.pl poprzez lepszą hierarchię wizualną, szybszą nawigację i silniejszy branding.
-   - Bento Modular Surfaces: Układ kafelkowy dla kategorii produktów (10 głównych kategorii + podkategorie) zapewnia szybki dostęp do asortymentu. Każdy moduł ma wyraźne granice, hover states z rim-light effect.
-   - Red Accent Strategy: Czerwony #f81828 jako kolor akcji (CTA, przyciski "Zapytaj o ofertę", "Dodaj do wyceny") tworzy silny kontrast z neutralnym tłem i kieruje uwagę użytkownika na konwersję.
-   - Trust & Authority: Design musi komunikować profesjonalizm dla deweloperów (B2B) oraz przystępność dla klientów indywidualnych. Wykorzystanie dużych, wysokiej jakości zdjęć produktów (1:1 z konkurencji), czytelnej typografii i strukturalnych elementów (breadcrumbs, filtry, FAQ).
+/* ================================================================
+   KEYFRAME ANIMATIONS
+================================================================ */
 
-2. TYPOGRAPHY:
-   - Inter (Sans): Wybrana jako główna czcionka UI ze względu na doskonałą czytelność w interfejsach e-commerce, neutralny charakter i szeroką gamę wag (400-800). Idealna dla długich list produktów, opisów technicznych i nawigacji wielopoziomowej.
-   - Roboto Condensed (Display/Headers): Używana do nagłówków kategorii i sekcji hero – kondensowana forma oszczędza przestrzeń przy zachowaniu mocnego, przemysłowego charakteru. Waga 600-700 dla H1/H2.
-   - JetBrains Mono: Dedykowana do wyświetlania danych technicznych (specyfikacje produktów, kody SKU, wymiary), tabel porównawczych i numerów telefonów. Monospace zapewnia precyzję i profesjonalizm.
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-3. COLOR SYSTEM:
-   - Brand Red (#f81828 → oklch(0.58 0.24 22)): Główny kolor akcji mapowany na --primary i --accent. Wysoka saturacja (C=0.24) zapewnia widoczność na białym tle (light mode) i ciemnym (dark mode). Używany wyłącznie dla CTA, aktywnych stanów nawigacji i ikon koszyka/wyceny.
-   - Semantic Mapping: --primary = Brand Red (przyciski główne), --accent = lekko jaśniejszy odcień (hover states), --ring = focus indicator dla accessibility. --destructive = czerwień o Hue 10 (usuwanie z wyceny). --success = zieleń Hue 150 (potwierdzenia formularzy). --warning = pomarańcz Hue 50 (alerty o dostępności produktów).
-   - Neutral Foundation: Background w light mode to ciepła biel (oklch 0.98), foreground to głęboka czerń (oklch 0.18) dla maksymalnego kontrastu WCAG AAA. Dark mode: background oklch 0.14 (ciepła czerń), foreground oklch 0.92.
-   - Card System: --card z lekkim cieniem (border + shadow) dla modułów produktów. --muted dla tła filtrów i sidebara kategorii. --popover dla dropdownów nawigacji wielopoziomowej.
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
-4. USAGE GUIDE:
-   - Layout: Full-width hero section z karuzelą produktów wyróżnionych, następnie container max-width 1400px dla treści głównej. Sidebar z drzewem kategorii (sticky) + główna kolumna produktów (grid 3-4 kolumny na desktop).
-   - Navigation: Mega-menu z 10 głównymi kategoriami, hover reveal dla podkategorii (poziom 2-4). Breadcrumbs zawsze widoczne. Wyszukiwarka z autocomplete (typy produktów, producenci, kategorie).
-   - Product Cards: Białe tło (--card), border --border, hover: rim-light effect (box-shadow z --accent/20). Zdjęcie produktu 1:1 aspect ratio, nazwa produktu (Inter 500), przycisk "Zapytaj o ofertę" (--primary) + "Dodaj do wyceny" (--secondary outline).
-   - Special Effects: Backdrop-blur dla modali (formularz zapytania, koszyk wyceny). Subtle gradient overlay na hero section (oklch gradient z --background do --muted). Rim-light na hover dla kart kategorii (1px top border z --accent).
-   - Admin Panel: Ciemniejszy schemat kolorów (--sidebar jako base), --sidebar-primary dla aktywnych pozycji menu, tabele z --muted-foreground dla danych wtórnych.
-   - Accessibility: Wszystkie interaktywne elementy mają --ring focus indicator (2px outline). Kontrast minimum WCAG AA (4.5:1 dla tekstu, 3:1 dla UI). Radius 0.5rem dla spójności (--radius).
-==========================================================================
-*/
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.90); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(248, 24, 40, 0.4); }
+  70%  { box-shadow: 0 0 0 12px rgba(248, 24, 40, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(248, 24, 40, 0); }
+}
+
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes draw-line {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes counter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   CSS CUSTOM PROPERTIES
+================================================================ */
 
 :root {
   /* Typography */
-  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: JetBrains Mono, 'Courier New', Consolas, Monaco, monospace;
-  
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Roboto Condensed', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', Consolas, monospace;
+
   /* Radius */
   --radius: 0.5rem;
 
@@ -62,14 +114,27 @@
   --border: oklch(0.88 0.01 85);
   --input: oklch(0.88 0.01 85);
   --ring: oklch(0.58 0.24 22);
-  
+
+  /* Brand */
+  --brand-red: #f81828;
+  --brand-black: #0a0a0a;
+  --brand-white: #ffffff;
+
+  /* Effects */
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 12px 40px rgba(248, 24, 40, 0.12), 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-header: 0 2px 20px rgba(0,0,0,0.15);
+  --gradient-red: linear-gradient(135deg, #f81828 0%, #c8000f 100%);
+  --gradient-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  --grid-color: rgba(248, 24, 40, 0.06);
+
   /* Chart Tokens */
   --chart-1: oklch(0.58 0.24 22);
   --chart-2: oklch(0.48 0.18 150);
   --chart-3: oklch(0.62 0.20 50);
   --chart-4: oklch(0.52 0.16 240);
   --chart-5: oklch(0.58 0.14 280);
-  
+
   /* Sidebar Tokens */
   --sidebar: oklch(0.98 0.005 85);
   --sidebar-foreground: oklch(0.18 0.01 20);
@@ -101,15 +166,11 @@
   --border: oklch(0.28 0.015 20);
   --input: oklch(0.28 0.015 20);
   --ring: oklch(0.62 0.26 22);
-  
-  /* Chart Tokens */
   --chart-1: oklch(0.62 0.26 22);
   --chart-2: oklch(0.58 0.20 150);
   --chart-3: oklch(0.68 0.22 50);
   --chart-4: oklch(0.62 0.18 240);
   --chart-5: oklch(0.64 0.16 280);
-  
-  /* Sidebar Tokens */
   --sidebar: oklch(0.12 0.012 20);
   --sidebar-foreground: oklch(0.88 0.008 85);
   --sidebar-primary: oklch(0.62 0.26 22);
@@ -121,7 +182,6 @@
 }
 
 @theme inline {
-  /* Shadcn Core Mapping */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -141,15 +201,11 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-
-  /* Charts Mapping */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-
-  /* Sidebar Mapping */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -158,17 +214,17 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Typography */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-
-  /* Radius */
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-xl: calc(var(--radius) + 4px);
 }
+
+/* ================================================================
+   BASE LAYER
+================================================================ */
 
 @layer base {
   * {
@@ -180,30 +236,338 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans min-h-screen;
+    @apply bg-background text-foreground min-h-screen;
+    font-family: var(--font-sans);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
+    font-family: var(--font-display);
   }
 
   code, pre {
-    @apply font-mono;
+    font-family: var(--font-mono);
   }
 
   ::selection {
-    @apply bg-primary/20 text-primary;
+    background: rgba(248, 24, 40, 0.18);
+    color: #f81828;
   }
 
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40;
+    background: rgba(248, 24, 40, 0.25);
+    border-radius: 99px;
   }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(248, 24, 40, 0.5);
+  }
+}
+
+/* ================================================================
+   ANIMATION UTILITIES
+================================================================ */
+
+.animate-fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 6s ease infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Stagger delays */
+.delay-75  { animation-delay: 75ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+
+/* ================================================================
+   REVEAL ON SCROLL (IntersectionObserver helper)
+================================================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* ================================================================
+   HERO GRID BACKGROUND
+================================================================ */
+
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-grid-white {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-dots {
+  background-image: radial-gradient(rgba(248,24,40,0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ================================================================
+   CARD EFFECTS
+================================================================ */
+
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(248, 24, 40, 0.35) !important;
+}
+
+/* Shine / glint on product card hover */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+.card-shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.45) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.card-shine:hover::before {
+  transform: translateX(100%);
+}
+
+/* Rim-light effect */
+.rim-light {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: box-shadow 0.3s ease;
+}
+.rim-light:hover {
+  box-shadow: inset 0 1px 0 rgba(248,24,40,0.4),
+              0 8px 32px rgba(248,24,40,0.12);
+}
+
+/* ================================================================
+   TICKER / MARQUEE
+================================================================ */
+
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-content {
+  display: inline-block;
+  animation: ticker 28s linear infinite;
+}
+.ticker-content:hover {
+  animation-play-state: paused;
+}
+
+/* ================================================================
+   TYPOGRAPHY ENHANCEMENTS
+================================================================ */
+
+.font-display { font-family: var(--font-display); }
+.font-mono-custom { font-family: var(--font-mono); }
+
+.text-gradient-red {
+  background: var(--gradient-red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-animate {
+  background: linear-gradient(90deg, #f81828, #ff6b35, #f81828);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-x 3s ease infinite;
+}
+
+/* ================================================================
+   BUTTON ENHANCEMENTS
+================================================================ */
+
+.btn-glow {
+  box-shadow: 0 0 0 0 rgba(248, 24, 40, 0.4);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 6px 24px rgba(248, 24, 40, 0.35);
+  transform: translateY(-1px);
+}
+.btn-glow:active {
+  transform: translateY(0px);
+}
+
+/* ================================================================
+   GLASSMORPHISM
+================================================================ */
+
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.glass-dark {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ================================================================
+   HEADER SCROLL STATE
+================================================================ */
+
+.header-scrolled {
+  box-shadow: var(--shadow-header);
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ================================================================
+   SECTION DIVIDERS
+================================================================ */
+
+.section-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #f81828 30%, #f81828 70%, transparent);
+  border: none;
+}
+
+/* ================================================================
+   NUMBER / STAT HIGHLIGHT
+================================================================ */
+
+.stat-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  animation: counter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ================================================================
+   STEP CONNECTOR
+================================================================ */
+
+.step-connector {
+  position: absolute;
+  top: 28px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #f81828, rgba(248,24,40,0.15));
+}
+
+/* ================================================================
+   IMAGE OVERLAY EFFECTS
+================================================================ */
+
+.img-overlay-red::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(248,24,40,0.5) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.img-overlay-red:hover::after { opacity: 1; }
+
+/* ================================================================
+   FOCUS & ACCESSIBILITY
+================================================================ */
+
+:focus-visible {
+  outline: 2px solid #f81828;
+  outline-offset: 2px;
 }

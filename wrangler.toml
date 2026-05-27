@@ -1,8 +1,9 @@
 # Cloudflare Pages – konfiguracja projektu mediabud.pl
 name = "mediabud"
+pages_build_output_dir = "dist"
 compatibility_date = "2024-01-01"
 
 [env.production]
-# Zmienne środowiskowe ustawiane w panelu Cloudflare Pages
-# VITE_SANITY_PROJECT_ID = "twoj_project_id"
+# Zmienne środowiskowe ustawione automatycznie przez Cloudflare Pages:
+# VITE_SANITY_PROJECT_ID = "jsd4qbs1"
 # VITE_SANITY_DATASET = "production"

@@ -8,7 +8,7 @@ export default defineConfig({
   title: 'Media Bud – CMS',
 
   // ⚠️  UZUPEŁNIJ: skopiuj Project ID z sanity.io/manage
-  projectId: 'SANITY_PROJECT_ID',
+  projectId: 'jsd4qbs1',
   dataset: 'production',
 
   plugins: [

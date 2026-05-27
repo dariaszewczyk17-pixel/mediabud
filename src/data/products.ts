@@ -664,3 +664,358 @@ export const getProductBySlug = (slug: string) => products.find(p => p.slug === 
 export const getRelatedProducts = (slugs: string[]) => products.filter(p => slugs.includes(p.id));
 export const getNewProducts = () => products.filter(p => p.isNew);
 export const getAllBrands = () => [...new Set(products.map(p => p.brand))].sort();
+
+// ─── NOWE PRODUKTY p034-p050 ──────────────────────────────────────────────
+
+const newProducts: Product[] = [
+  // TYNKI CEMENTOWE
+  {
+    id: "p034", slug: "tynk-cementowo-wapienny-baumit-mpi-25-25kg",
+    name: "Tynk cementowo-wapienny Baumit MPI 25 25kg",
+    categorySlug: "tynki-cementowe", brand: "Baumit", sku: "BAU-MPI25-25", unit: "worek 25kg",
+    shortDescription: "Maszynowy tynk cementowo-wapienny do ścian i sufitów wewnątrz i na zewnątrz.",
+    description: "Baumit MPI 25 to maszynowy tynk cementowo-wapienny do stosowania wewnątrz i na zewnątrz budynków. Produkt przeznaczony do nakładania maszynowego na ściany i sufity z cegły ceramicznej, bloczków silikatowych i betonu komórkowego. Charakteryzuje się doskonałą plastycznością i łatwością obróbki.",
+    application: "Tynkowanie maszynowe ścian i sufitów wewnątrz i na zewnątrz. Podłoże: cegła, beton, bloczki. Grubość warstwy 10–25 mm.",
+    technicalSpec: [
+      { label: "Zużycie", value: "ok. 13 kg/m² (przy 10mm)" },
+      { label: "Grubość warstwy", value: "10–25 mm" },
+      { label: "Czas schnięcia", value: "3 dni (min.)" },
+      { label: "Spoiwo", value: "Cementowo-wapienne" },
+      { label: "Klasa tynku", value: "GP CS IV" },
+    ],
+    images: ["/images/products/p034-tynk-cementowy_2.jpg"],
+    tags: ["tynk cementowy", "cementowo-wapienny", "baumit", "maszynowy", "elewacja"],
+    related: ["p012", "p005", "p013"],
+  },
+
+  // WEŁNA SZKLANA DO GK
+  {
+    id: "p035", slug: "welna-szklana-isover-akustik-50mm",
+    name: "Wełna szklana Isover Akustik 50mm m²",
+    categorySlug: "welna-szklana", brand: "Isover", sku: "ISV-AKU-50", unit: "m²",
+    shortDescription: "Wełna szklana do izolacji akustycznej ścian GK i poddaszy. Klasa reakcji na ogień A1.",
+    description: "Isover Akustik to wełna szklana o doskonałych właściwościach izolacji akustycznej, przeznaczona do wypełniania szkieletowych ścian z płyt GK. Elastyczna struktura pozwala na łatwy montaż w przestrzeniach między profilami. Produkt niepalna (A1).",
+    application: "Izolacja akustyczna ścian działowych z GK. Izolacja termiczna i akustyczna poddaszy. Ocieplenie wewnętrzne ścian.",
+    technicalSpec: [
+      { label: "Grubość", value: "50 mm (dostępne: 40, 60, 100 mm)" },
+      { label: "Lambda (λ)", value: "0,036 W/(m·K)" },
+      { label: "Klasa reakcji na ogień", value: "A1" },
+      { label: "Pochłanianie dźwięku", value: "αw = 1,00" },
+      { label: "Wymiar płyty", value: "600 × 1200 mm" },
+    ],
+    images: ["/images/products/p035-welna-szklana_2.jpg"],
+    tags: ["wełna szklana", "isover", "akustyczna", "GK", "izolacja", "ściana"],
+    related: ["p021", "p022", "p004"],
+    isNew: true,
+  },
+
+  // RYNNY PVC
+  {
+    id: "p036", slug: "rynna-pvc-gamrat-125mm-3m-szara",
+    name: "Rynna PVC Gamrat 125mm 3m Szara",
+    categorySlug: "rynny-pvc", brand: "Gamrat", sku: "GAM-R125-3-SZ", unit: "szt. 3mb",
+    shortDescription: "Półokrągła rynna dachowa PVC 125mm o długości 3m w kolorze szarym.",
+    description: "Rynna Gamrat PVC 125mm to element systemu rynnowego do odprowadzania wody deszczowej z dachów. Wykonana z trwałego PVC odpornego na UV i czynniki atmosferyczne. Profil półokrągły, kompatybilny ze złączkami, narożnikami i uchwytami systemu Gamrat 125/90.",
+    application: "Odprowadzanie wody deszczowej z połaci dachowych. Montaż przy okapie dachu na uchwytach. Systemy rynnowe domów jednorodzinnych.",
+    technicalSpec: [
+      { label: "Średnica nominalna", value: "125 mm (wewnętrzna)" },
+      { label: "Długość elementu", value: "3 m" },
+      { label: "Materiał", value: "PVC-U" },
+      { label: "Kolor", value: "Szary (dostępny też: brązowy, antracyt)" },
+      { label: "Odporność na temp.", value: "-20°C do +60°C" },
+    ],
+    images: ["/images/products/p036-rynna-pvc_2.jpg"],
+    tags: ["rynna", "pvc", "gamrat", "dach", "odprowadzenie wody", "125mm"],
+    related: ["p029", "p030", "p037"],
+    isNew: true,
+  },
+
+  // PAPA BITUMICZNA
+  {
+    id: "p037", slug: "papa-bitumiczna-icopal-wentylacyjna-v60-s40",
+    name: "Papa bitumiczna Icopal V60 S40 Wentylacyjna 10m²",
+    categorySlug: "papy-bitumiczne", brand: "Icopal", sku: "ICP-V60S40-10", unit: "rolka 10m²",
+    shortDescription: "Papa podkładowa zgrzewalna V60 S40 do uszczelniania dachów płaskich i skośnych.",
+    description: "Icopal V60 S40 to papa bitumiczna modyfikowana SBS do uszczelniania pokryć dachowych. Przeznaczona jako podkładowa warstwa uszczelniająca na dachach płaskich i jako podkład pod gonty bitumiczne. Osnowa poliestrowa zapewnia stabilność wymiarową.",
+    application: "Podkład uszczelniający na dachach płaskich i skośnych. Warstwa pod gonty bitumiczne. Izolacja pozioma fundamentów.",
+    technicalSpec: [
+      { label: "Grubość", value: "4,0 mm" },
+      { label: "Masa powierzchniowa", value: "ok. 4,2 kg/m²" },
+      { label: "Osnowa", value: "Poliestrowa 180 g/m²" },
+      { label: "Modyfikacja bitumu", value: "SBS" },
+      { label: "Sposób łączenia", value: "Zgrzewanie gazem" },
+    ],
+    images: ["/images/products/p037-papa-bitumiczna_2.jpg"],
+    tags: ["papa bitumiczna", "icopal", "sbs", "dach płaski", "zgrzewana", "podkładowa"],
+    related: ["p029", "p030", "p036"],
+  },
+
+  // PŁYTKI ELEWACYJNE KLINKIEROWE
+  {
+    id: "p038", slug: "plytka-elewacyjna-klinkierowa-lode-jula-czerwona",
+    name: "Płytka elewacyjna klinkierowa Lode Jula Czerwona m²",
+    categorySlug: "plytki-elewacyjne", brand: "Lode", sku: "LDE-JUL-CZW", unit: "m²",
+    shortDescription: "Klinkierowa płytka elewacyjna w kolorze ceglastej czerwieni. Odporność na mróz F100.",
+    description: "Lode Jula to klinkierowa płytka elewacyjna o naturalnym, ceglastym wyglądzie. Produkt charakteryzuje się wyjątkowo wysoką odpornością na mróz (F100), bardzo niską nasiąkliwością i doskonałą trwałością. Idealna do nowoczesnych i tradycyjnych elewacji budynków.",
+    application: "Okładziny elewacyjne budynków. Kominki i grill zewnętrzny. Mury oporowe i podmurówki. Montaż na kleju do klinkieru.",
+    technicalSpec: [
+      { label: "Wymiary (D×W×H)", value: "250 × 65 × 10 mm" },
+      { label: "Nasiąkliwość", value: "< 6%" },
+      { label: "Mrozoodporność", value: "F100 (100 cykli)" },
+      { label: "Klasa wytrzymałości", value: "Klasa 1 EN 771-1" },
+      { label: "Zużycie", value: "ok. 53 szt./m²" },
+    ],
+    images: ["/images/products/p038-plytka-elewacyjna_2.jpg"],
+    tags: ["płytka elewacyjna", "klinkier", "lode", "czerwona", "cegła", "fasada"],
+    related: ["p015", "p002", "p005"],
+    isFeatured: true,
+  },
+
+  // BLOCZKI SILIKATOWE
+  {
+    id: "p039", slug: "bloczek-silikatowy-silka-e24-240mm",
+    name: "Bloczek silikatowy Silka E24 240mm",
+    categorySlug: "bloczki-silikatowe", brand: "Xella", sku: "XEL-SLK-E24-240", unit: "szt.",
+    shortDescription: "Bloczek silikatowy klasy 20/0,9 do murowania ścian konstrukcyjnych z wysoką izolacją akustyczną.",
+    description: "Silka E24 to bloczek silikatowy klasy wytrzymałości 20 do budowy ścian zewnętrznych i wewnętrznych. Charakteryzuje się wysoką izolacyjnością akustyczną (Rw = 54 dB dla ściany 24 cm), doskonałą nośnością i równymi krawędziami umożliwiającymi murowanie na spoiny cienkowarstwowe.",
+    application: "Ściany zewnętrzne i nośne wewnętrzne. Ściany wymagające wysokiej izolacji akustycznej. Budynki mieszkalne i komercyjne.",
+    technicalSpec: [
+      { label: "Klasa wytrzymałości", value: "20 (20 N/mm²)" },
+      { label: "Gęstość pozorna", value: "0,9 g/cm³" },
+      { label: "Wymiary (D×W×H)", value: "333 × 240 × 199 mm" },
+      { label: "Izolacja akustyczna ściany", value: "Rw ≈ 54 dB (grubość 24cm)" },
+      { label: "Lambda (λ)", value: "0,44 W/(m·K)" },
+    ],
+    images: ["/images/products/p039-bloczek-silikatowy_2.jpg"],
+    tags: ["bloczek silikatowy", "silka", "xella", "akustyka", "ściana nośna", "24cm"],
+    related: ["p013", "p023", "p014"],
+    isFeatured: true,
+  },
+
+  // SZLIFIERKA KĄTOWA
+  {
+    id: "p040", slug: "szlifierka-katowa-makita-dga-504-z-18v",
+    name: "Szlifierka kątowa Makita DGA 504Z 18V 125mm",
+    categorySlug: "szlifierki-katowe", brand: "Makita", sku: "MAK-DGA504Z", unit: "szt. (bez akum.)",
+    shortDescription: "Akumulatorowa szlifierka kątowa 18V 125mm. Bezszczotkowa, 8500 obr/min. Bez akumulatora.",
+    description: "Makita DGA 504Z to akumulatorowa szlifierka kątowa 125mm z silnikiem bezszczotkowym BL™ systemu LXT® 18V. Silnik bezszczotkowy zapewnia o 50% dłuższą żywotność narzędzia i większą wydajność od typowych modeli. Idealna do cięcia i szlifowania metalu, betonu i ceramiki.",
+    application: "Cięcie i szlifowanie metalu, betonu, kamienia i ceramiki. Profesjonalne prace budowlane i wykończeniowe. System Makita LXT 18V.",
+    technicalSpec: [
+      { label: "Napięcie", value: "18 V LXT" },
+      { label: "Tarcza", value: "125 mm" },
+      { label: "Prędkość obrotowa", value: "8500 obr/min" },
+      { label: "Silnik", value: "Bezszczotkowy BL™" },
+      { label: "Masa (bez akum.)", value: "1,6 kg" },
+    ],
+    images: ["/images/products/p040-szlifierka-katowa_2.jpg"],
+    tags: ["szlifierka kątowa", "makita", "18v", "bezszczotkowa", "125mm", "lxt"],
+    related: ["p026", "p028"],
+    isNew: true,
+  },
+
+  // WYLEWKA CEMENTOWA
+  {
+    id: "p041", slug: "wylewka-cementowa-atlas-postar-40-25kg",
+    name: "Wylewka cementowa Atlas Postar 40 25kg",
+    categorySlug: "wylewki-cementowe", brand: "Atlas", sku: "ATL-PST40-25", unit: "worek 25kg",
+    shortDescription: "Cementowa masa podkładowa do wylewek i posadzek o grubości 20–80 mm.",
+    description: "Atlas Postar 40 to cementowa masa podkładowa (jastrych) do wykonywania wylewek podłogowych wewnątrz budynków. Stosowana pod płytki ceramiczne, gres, wykładziny PVC i panele podłogowe. Możliwość stosowania na ogrzewaniu podłogowym.",
+    application: "Wylewki podłogowe pod płytki, panele, parkiet i wykładziny. Podłoże: beton, ceramika, stare wylewki. Grubość warstwy 20–80 mm.",
+    technicalSpec: [
+      { label: "Zużycie", value: "ok. 18 kg/m² (przy 10 mm)" },
+      { label: "Grubość warstwy", value: "20–80 mm" },
+      { label: "Czas schnięcia", value: "8 h (chodzenie)" },
+      { label: "Czas do ułożenia okładzin", value: "28 dni" },
+      { label: "Wytrzymałość na ściskanie", value: "≥ 20 MPa" },
+    ],
+    images: ["/images/products/p041-wylewka-cementowa_2.jpg"],
+    tags: ["wylewka", "cementowa", "atlas", "postar", "jastrych", "posadzka"],
+    related: ["p032", "p015", "p025"],
+  },
+
+  // TAŚMA USZCZELNIAJĄCA
+  {
+    id: "p042", slug: "tasma-uszczelniajaca-ceresit-cl-82-10m",
+    name: "Taśma uszczelniająca Ceresit CL 82 10m",
+    categorySlug: "izolacje-przeciwwilgoc", brand: "Ceresit", sku: "CRS-CL82-10", unit: "rolka 10mb",
+    shortDescription: "Elastyczna taśma uszczelniająca do izolacji połączeń ścian i podłóg w łazienkach.",
+    description: "Ceresit CL 82 to elastyczna taśma uszczelniająca do stosowania na połączeniach ściana-podłoga i narożach ściennych w systemach izolacji przeciwwilgociowej. Idealna do stosowania razem z masą uszczelniającą Ceresit CL 50/51. Gwarantuje trwałą wodoszczelność połączeń.",
+    application: "Uszczelnianie połączeń ściana-podłoga w łazienkach, kabinach prysznicowych. Narożniki ścian w strefach mokrych. Stosować z masami KMB lub uszczelniaczami hybrydowymi.",
+    technicalSpec: [
+      { label: "Szerokość", value: "120 mm" },
+      { label: "Długość rolki", value: "10 m" },
+      { label: "Materiał", value: "Poliester/włóknina" },
+      { label: "Grubość", value: "0,65 mm" },
+      { label: "Wytrzymałość na rozciąganie", value: "> 100 N/50mm" },
+    ],
+    images: ["/images/products/p042-tasma-uszczelniajaca_2.jpg"],
+    tags: ["taśma uszczelniająca", "ceresit", "cl82", "łazienka", "hydroizolacja", "narożnik"],
+    related: ["p007", "p020", "p024"],
+  },
+
+  // STYROPIAN PODŁOGOWY
+  {
+    id: "p043", slug: "styropian-podlogowy-eps-100-swisspor-5cm",
+    name: "Styropian podłogowy EPS 100-038 Swisspor 5cm m²",
+    categorySlug: "styropian-podlogowy", brand: "Swisspor", sku: "SWS-EPS100-5-POD", unit: "m²",
+    shortDescription: "Styropian do izolacji podłóg na gruncie i stropów między kondygnacyjnych. Grubość 5cm.",
+    description: "Swisspor EPS 100-038 Podłoga to styropian do izolacji termicznej podłóg na gruncie, między kondygnacyjnych i dachów odwróconych. Charakteryzuje się wysoką odpornością na ściskanie (CS(10)100 kPa), co pozwala na bezpośrednie obciążenie wylewką betonową.",
+    application: "Izolacja podłóg na gruncie. Ocieplenie stropów między kondygnacyjnych. Podłoże pod wylewki i ogrzewanie podłogowe.",
+    technicalSpec: [
+      { label: "Lambda (λ)", value: "0,038 W/(m·K)" },
+      { label: "Grubość", value: "5 cm (dostępne: 2-15 cm)" },
+      { label: "Naprężenie ściskające", value: "CS(10)100 kPa" },
+      { label: "Wymiar płyty", value: "100 × 50 cm" },
+      { label: "Klasa reakcji na ogień", value: "E" },
+    ],
+    images: ["/images/products/p043-styropian-podlogowy_2.jpg"],
+    tags: ["styropian podłogowy", "eps 100", "swisspor", "izolacja podłogi", "jastrych"],
+    related: ["p003", "p032", "p041"],
+  },
+
+  // FOLIA PAROIZOLACYJNA
+  {
+    id: "p044", slug: "folia-paroizolacyjna-strotex-pe-200-75m2",
+    name: "Folia paroizolacyjna Strotex PE 200µ 75m²",
+    categorySlug: "folie-paroizolacyjne", brand: "Strotex", sku: "STR-PE200-75", unit: "rolka 75m²",
+    shortDescription: "Folia paroizolacyjna polietylenowa 200 µm do dachów i stropów. Rola 75m².",
+    description: "Strotex PE 200µ to folia paroizolacyjna wykonana z polietylenu o grubości 200 µm. Stosowana jako warstwa paroizolacyjna w dachach skośnych, stropach drewnianych i poddaszy użytkowych. Zapobiega przenikaniu wilgoci z pomieszczeń do izolacji termicznej.",
+    application: "Paroizolacja dachów skośnych i poddaszy użytkowych. Izolacja paroszczelna stropów drewnianych. Montaż od strony ciepłej, przed warstwą izolacji.",
+    technicalSpec: [
+      { label: "Grubość", value: "200 µm" },
+      { label: "Masa powierzchniowa", value: "188 g/m²" },
+      { label: "Paroprzepuszczalność Sd", value: "≥ 100 m" },
+      { label: "Szerokość rolki", value: "1,5 m" },
+      { label: "Długość rolki", value: "50 m" },
+    ],
+    images: ["/images/products/p044-folia-paroizolacyjna_2.jpg"],
+    tags: ["folia paroizolacyjna", "strotex", "pe200", "dach", "paroizolacja", "poddasze"],
+    related: ["p029", "p004", "p003"],
+  },
+
+  // PROFIL UW
+  {
+    id: "p045", slug: "profil-uw-75-knauf-3m",
+    name: "Profil UW 75/40 Knauf 3m",
+    categorySlug: "profile-scian", brand: "Knauf", sku: "KNF-UW75-3", unit: "szt. 3m",
+    shortDescription: "Profil stalowy UW 75/40mm do budowy ścian działowych z płyt GK.",
+    description: "Profil UW 75/40 Knauf to ocynkowany profil stalowy do budowy ścian działowych z płyt gipsowo-kartonowych. Profil UW to poziomy element ograniczający (górny i dolny) szkieletu ściany, w którym montuje się profile CW 75. Grubość blachy 0,6 mm.",
+    application: "Budowa ścian działowych z płyt GK. Element poziomy (górny i dolny) szkieletu ścian. Montaż na podłożu i suficie za pomocą kołków.",
+    technicalSpec: [
+      { label: "Wymiary profilu", value: "75 × 40 mm" },
+      { label: "Długość", value: "3 m (dostępne: 2,6; 3,0; 4,0 m)" },
+      { label: "Grubość blachy", value: "0,6 mm" },
+      { label: "Materiał", value: "Ocynkowana blacha stalowa" },
+      { label: "System", value: "Knauf W111/W112 (ściana 75mm)" },
+    ],
+    images: ["/images/products/p045-profil-uw_2.jpg"],
+    tags: ["profil UW", "75mm", "knauf", "sucha zabudowa", "ściana działowa"],
+    related: ["p022", "p021", "p011"],
+  },
+
+  // BLOCZEK CERAMICZNY POROTHERM
+  {
+    id: "p046", slug: "bloczek-ceramiczny-wienerberger-porotherm-25",
+    name: "Bloczek ceramiczny Wienerberger Porotherm 25 P+W",
+    categorySlug: "ceramika-budowlana", brand: "Wienerberger", sku: "WNB-PTH25-PW", unit: "szt.",
+    shortDescription: "Pustak ceramiczny szczelinowy Porotherm 25 P+W z piórami i wpustami. λ=0,26 W/(m·K).",
+    description: "Wienerberger Porotherm 25 P+W to ceramiczny pustak ścienny szczelinowy z systemem pióro-wpust umożliwiającym murowanie bez wypełniania spoin pionowych. Wysoka precyzja wymiarowania eliminuje konieczność tynkowania wewnątrz pomieszczeń o normalnych wymaganiach. Gęstość 780 kg/m³.",
+    application: "Ściany zewnętrzne jednorodne i warstwowe. Ściany nośne wewnętrzne budynków mieszkalnych. Murowanie z cienkowarstwową zaprawą Porotherm Profi.",
+    technicalSpec: [
+      { label: "Wymiary (D×W×H)", value: "375 × 250 × 238 mm" },
+      { label: "Lambda deklarowane (λD)", value: "0,26 W/(m·K)" },
+      { label: "Wytrzymałość na ściskanie", value: "≥ 10 N/mm²" },
+      { label: "Gęstość bloczka", value: "780 kg/m³" },
+      { label: "System spoin pionowych", value: "Pióro-wpust (bez zaprawy)" },
+    ],
+    images: ["/images/products/p046-bloczek-ceramiczny_2.jpg"],
+    tags: ["pustak ceramiczny", "porotherm", "wienerberger", "25cm", "ściana", "ceramika"],
+    related: ["p013", "p023", "p039"],
+    isFeatured: true,
+  },
+
+  // TYNK AKRYLOWY
+  {
+    id: "p047", slug: "tynk-akrylowy-weber-pas-ar3-15kg",
+    name: "Tynk akrylowy weber.pas AR3 15kg",
+    categorySlug: "tynki-akrylowe", brand: "Weber", sku: "WEB-AR3-15", unit: "wiadro 15kg",
+    shortDescription: "Akrylowy tynk elewacyjny gotowy do użycia, struktura drapana 1,5 mm lub 2 mm.",
+    description: "Weber.pas AR3 to gotowy tynk akrylowy do elewacji o strukturze drapanej lub kornikowej. Produkt łatwy w aplikacji ręcznej, gotowy do użycia po rozmieszaniu. Charakteryzuje się elastycznością i odpornością na zabrudzenia. Dostępny w gamie kolorów z mieszalnika Weber Color.",
+    application: "Zewnętrzne wykończenie elewacji budynków w systemach ETICS lub na podłożach mineralnych. Renowacja i nowe budowy.",
+    technicalSpec: [
+      { label: "Granulacja", value: "1,5 mm lub 2,0 mm" },
+      { label: "Zużycie", value: "2,5–3,5 kg/m²" },
+      { label: "Czas schnięcia", value: "24–48 h" },
+      { label: "Temperatura aplikacji", value: "+5°C do +25°C" },
+      { label: "Baza", value: "Dyspersja akrylowa" },
+    ],
+    images: ["/images/products/p047-tynk-akrylowy_2.jpg"],
+    tags: ["tynk akrylowy", "weber", "elewacja", "drapany", "gotowy", "etics"],
+    related: ["p001", "p005", "p008"],
+    isNew: true,
+  },
+
+  // FARBA SILIKATOWA
+  {
+    id: "p048", slug: "farba-silikatowa-caparol-capasil-10l",
+    name: "Farba silikatowa elewacyjna Caparol CapaSil 10L",
+    categorySlug: "farby-elaw-silikatowe", brand: "Caparol", sku: "CAP-CSL-10", unit: "wiadro 10L",
+    shortDescription: "Silikatowa farba elewacyjna z dodatkiem silikonu, silnie kryjąca, odporna na UV.",
+    description: "Caparol CapaSil to farba elewacyjna na bazie potasowego szkła wodnego z dodatkiem silikonu. Charakteryzuje się wyjątkową trwałością i odpornością na UV, silną wiązalnością z podłożem i wysoką paroprzepuszczalnością. Produkt przeznaczony do ochrony i dekoracji elewacji mineralnych.",
+    application: "Malowanie elewacji mineralnych (tynki silikatowe, mineralne, cementowe). Renowacja elewacji. Stosować po gruntowaniu preparatem Caparol.",
+    technicalSpec: [
+      { label: "Zużycie", value: "150–200 ml/m² (1 warstwa)" },
+      { label: "Wydajność 10L", value: "50–65 m²" },
+      { label: "Czas schnięcia (dotyk)", value: "ok. 1 h" },
+      { label: "Pełne wyschnięcie", value: "ok. 24 h" },
+      { label: "Klasa odporności na zmywanie", value: "W1" },
+    ],
+    images: ["/images/products/p048-farba-silikatowa_2.jpg"],
+    tags: ["farba silikatowa", "caparol", "capasil", "elewacja", "paroprzepuszczalna"],
+    related: ["p008", "p001", "p005"],
+  },
+
+  // KLEJ ELASTYCZNY C2
+  {
+    id: "p049", slug: "klej-elastyczny-ceresit-cm17-25kg",
+    name: "Klej elastyczny Ceresit CM 17 25kg",
+    categorySlug: "kleje-glazura", brand: "Ceresit", sku: "CRS-CM17-25", unit: "worek 25kg",
+    shortDescription: "Klej cementowy elastyczny C2 do wielkoformatowych płytek i gresu na podłogach i ścianach.",
+    description: "Ceresit CM 17 to wysoko elastyczny klej cementowy (C2TE S1) do przyklejania wielkoformatowych płytek gresowych i ceramicznych na podłogach ogrzewanych i elewacjach. Długi czas otwarty (30 min) ułatwia pracę z dużymi formatami. Certyfikowany wg EN 12004.",
+    application: "Przyklejanie gresów wielkoformatowych 60×60 i 120×60 cm. Ogrzewanie podłogowe. Elewacje zewnętrzne. Podłoża odkształcalne.",
+    technicalSpec: [
+      { label: "Klasa wg EN 12004", value: "C2TE S1" },
+      { label: "Czas otwarty", value: "ok. 30 min" },
+      { label: "Odporność na poślizg", value: "T (pionowe, bez spływu)" },
+      { label: "Odkształcalność poprzeczna", value: "S1 (≥ 2,5 mm)" },
+      { label: "Temperatura aplikacji", value: "+5°C do +25°C" },
+    ],
+    images: ["/images/products/p049-klej-elastyczny_2.jpg"],
+    tags: ["klej elastyczny", "c2", "ceresit", "cm17", "wielkoformatowy", "gres"],
+    related: ["p015", "p025", "p016"],
+    isNew: true,
+  },
+
+  // ZAPRAWA WYRÓWNUJĄCA
+  {
+    id: "p050", slug: "zaprawa-wygladzajaca-atlas-uni-25kg",
+    name: "Zaprawa wyrównująca Atlas Uni 25kg",
+    categorySlug: "tynki-gipsowe", brand: "Atlas", sku: "ATL-UNI-25", unit: "worek 25kg",
+    shortDescription: "Cienkowarstwowa zaprawa gipsowo-cementowa do wyrównywania ścian i sufitów.",
+    description: "Atlas Uni to wielofunkcyjna zaprawa gipsowo-cementowa do szpachlowania i wyrównywania powierzchni ścian i sufitów wewnętrznych. Łączy zalety zapraw gipsowych (biała powierzchnia, łatwość obróbki) i cementowych (większa odporność na wilgoć). Idealna do napraw i wyrównywania przed malowaniem.",
+    application: "Wyrównywanie nierówności ścian i sufitów przed malowaniem. Uzupełnianie pęknięć i ubytków. Podłoża: tynk, beton, GK. Grubość 1–20 mm.",
+    technicalSpec: [
+      { label: "Zużycie", value: "ok. 1,0–1,4 kg/m²/mm" },
+      { label: "Grubość warstwy", value: "1–20 mm" },
+      { label: "Czas otwarty", value: "ok. 45 min" },
+      { label: "Czas schnięcia", value: "3–5 h" },
+      { label: "Spoiwo", value: "Gipsowo-cementowe" },
+    ],
+    images: ["/images/products/p050-zaprawa-wygladzajaca_2.jpg"],
+    tags: ["zaprawa wyrównująca", "atlas", "uni", "szpachlowanie", "gips", "ściana"],
+    related: ["p006", "p011", "p005"],
+  },
+];
+
+// Merge new products into the main array
+products.push(...newProducts);

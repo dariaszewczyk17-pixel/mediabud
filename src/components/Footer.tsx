@@ -1,135 +1,248 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Linkedin } from "lucide-react";
+import {
+  Phone, Mail, MapPin, Clock, Facebook, Instagram, Youtube,
+  ChevronRight, ArrowUpRight, Shield, Truck, Wrench, Award
+} from "lucide-react";
 import { categories } from "@/data/categories";
 
+const QUICK_LINKS = [
+  { label: "Strona główna",      to: "/" },
+  { label: "Produkty",           to: "/produkty" },
+  { label: "Blog techniczny",    to: "/blog" },
+  { label: "O firmie",           to: "/o-firmie" },
+  { label: "Usługi",             to: "/uslugi" },
+  { label: "Kontakt",            to: "/kontakt" },
+  { label: "Zapytaj o ofertę",   to: "/kontakt" },
+  { label: "Wycena projektu",    to: "/kontakt" },
+];
+
+const SERVICES = [
+  "Dostawa materiałów budowlanych",
+  "Doradztwo techniczne i projektowe",
+  "Sprzedaż hurtowa i detaliczna",
+  "Obsługa firm budowlanych",
+  "Zamówienia indywidualne",
+  "Realizacje na terenie Lublina",
+];
+
+const TRUST_BADGES = [
+  { icon: <Truck className="w-5 h-5" />,   label: "Szybka dostawa",    desc: "Na terenie Lublina" },
+  { icon: <Shield className="w-5 h-5" />,  label: "Gwarancja jakości", desc: "Sprawdzone produkty" },
+  { icon: <Wrench className="w-5 h-5" />,  label: "Doradztwo",         desc: "Eksperci budowlani" },
+  { icon: <Award className="w-5 h-5" />,   label: "Lata doświadczenia", desc: "Zaufana marka" },
+];
+
 export default function Footer() {
-  const mainCats = categories.slice(0, 6);
+  const year = new Date().getFullYear();
+  const topCats = categories.slice(0, 8);
+
   return (
-    <footer className="bg-black text-gray-300">
-      {/* CTA strip */}
-      <div className="bg-primary py-8">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h3 className="text-white text-xl font-bold">Potrzebujesz fachowej porady?</h3>
-            <p className="text-red-100 text-sm">Nasi eksperci są do Twojej dyspozycji – bezpłatne doradztwo techniczne</p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a href="tel:+48509567213" className="flex items-center gap-2 bg-white text-primary font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
-              <Phone className="w-4 h-4" /> +48 509 567 213
-            </a>
-            <Link to="/kontakt" className="flex items-center gap-2 bg-transparent border-2 border-white text-white font-bold px-6 py-3 rounded-lg hover:bg-white hover:text-primary transition-colors">
-              <Mail className="w-4 h-4" /> Napisz do nas
-            </Link>
+    <footer className="bg-gray-950 text-gray-300">
+
+      {/* ── Trust badges bar ── */}
+      <div className="border-b border-gray-800/60">
+        <div className="container mx-auto px-4 py-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {TRUST_BADGES.map((b, i) => (
+              <div key={i} className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  {b.icon}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-white leading-tight">{b.label}</div>
+                  <div className="text-xs text-gray-500">{b.desc}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Main footer */}
-      <div className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {/* Company */}
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
-              <span className="text-white font-black text-lg">MB</span>
-            </div>
-            <div>
-              <div className="font-black text-white text-lg leading-none">MEDIA BUD</div>
-              <div className="text-xs text-gray-500 leading-none">Skład Budowlany</div>
-            </div>
-          </div>
-          <p className="text-sm text-gray-400 mb-4">Profesjonalna hurtownia materiałów budowlanych w Lublinie. Obsługujemy deweloperów i klientów indywidualnych od lat.</p>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-              <span>ul. Budowlana 1, 20-001 Lublin</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-              <a href="tel:+48509567213" className="hover:text-white transition-colors">+48 509 567 213</a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-              <a href="mailto:sprzedaz@mediabud.pl" className="hover:text-white transition-colors">sprzedaz@mediabud.pl</a>
-            </div>
-            <div className="flex items-start gap-2">
-              <Clock className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+      {/* ── Main footer content ── */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          {/* Col 1: Brand */}
+          <div className="space-y-5">
+            {/* Logo */}
+            <Link to="/" className="inline-flex items-center gap-3 group">
+              <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                <span className="text-white font-black text-lg">MB</span>
+              </div>
               <div>
-                <div>Pon–Pt: 7:00–17:00</div>
-                <div>Sob: 8:00–14:00</div>
+                <div className="font-black text-xl leading-none text-white tracking-tight">MEDIA BUD</div>
+                <div className="text-xs text-gray-500 leading-none mt-0.5">Skład Budowlany Lublin</div>
+              </div>
+            </Link>
+
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Profesjonalny skład budowlany w Lublinie. Oferujemy szeroki asortyment materiałów budowlanych,
+              chemii budowlanej, izolacji, dachówek i systemów elewacyjnych dla firm i klientów indywidualnych.
+            </p>
+
+            {/* Social */}
+            <div>
+              <div className="text-xs text-gray-500 uppercase tracking-widest mb-2.5">Śledź nas</div>
+              <div className="flex items-center gap-2">
+                {[
+                  { icon: <Facebook className="w-4 h-4" />, href: "https://facebook.com/mediabud", label: "Facebook" },
+                  { icon: <Instagram className="w-4 h-4" />, href: "https://instagram.com/mediabud", label: "Instagram" },
+                  { icon: <Youtube className="w-4 h-4" />, href: "https://youtube.com", label: "YouTube" },
+                ].map(s => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="w-9 h-9 rounded-xl bg-gray-800 hover:bg-primary flex items-center justify-center transition-all duration-200 hover:scale-105"
+                  >
+                    {s.icon}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
-          <div className="flex gap-3 mt-4">
-            <a href="#" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-primary transition-colors">
-              <Facebook className="w-4 h-4 text-white" />
-            </a>
-            <a href="#" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-primary transition-colors">
-              <Instagram className="w-4 h-4 text-white" />
-            </a>
-            <a href="#" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-primary transition-colors">
-              <Linkedin className="w-4 h-4 text-white" />
-            </a>
-          </div>
-        </div>
 
-        {/* Categories */}
-        <div>
-          <h4 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Kategorie produktów</h4>
-          <ul className="space-y-2 text-sm">
-            {mainCats.map(cat => (
-              <li key={cat.id}>
-                <Link to={`/kategoria/${cat.slug}`} className="hover:text-white hover:pl-1 transition-all">{cat.name}</Link>
+          {/* Col 2: Categories */}
+          <div>
+            <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2">
+              <span className="w-3 h-0.5 bg-primary" />
+              Kategorie
+            </h3>
+            <ul className="space-y-1.5">
+              {topCats.map(cat => (
+                <li key={cat.id}>
+                  <Link
+                    to={`/kategoria/${cat.slug}`}
+                    className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors group"
+                  >
+                    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-1 transition-all" />
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  to="/produkty"
+                  className="flex items-center gap-1 text-sm text-primary hover:text-red-400 transition-colors font-semibold mt-1"
+                >
+                  Wszystkie kategorie <ArrowUpRight className="w-3.5 h-3.5" />
+                </Link>
               </li>
-            ))}
-            <li><Link to="/produkty" className="text-primary hover:text-red-400 font-medium">→ Wszystkie kategorie</Link></li>
-          </ul>
-        </div>
-
-        {/* Services */}
-        <div>
-          <h4 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Usługi</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/uslugi/dom-od-podstaw" className="hover:text-white hover:pl-1 transition-all">Program „Dom od podstaw"</Link></li>
-            <li><Link to="/uslugi/doradztwo-techniczne" className="hover:text-white hover:pl-1 transition-all">Doradztwo techniczne</Link></li>
-            <li><Link to="/uslugi/transport" className="hover:text-white hover:pl-1 transition-all">Transport materiałów</Link></li>
-            <li><Link to="/uslugi/podwykonawstwo" className="hover:text-white hover:pl-1 transition-all">Podwykonawstwo</Link></li>
-            <li><Link to="/uslugi/siec-specjalistow" className="hover:text-white hover:pl-1 transition-all">Sieć specjalistów</Link></li>
-          </ul>
-          <h4 className="text-white font-bold mb-4 mt-6 text-sm uppercase tracking-wider">Informacje</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/o-firmie" className="hover:text-white hover:pl-1 transition-all">O firmie</Link></li>
-            <li><Link to="/realizacje" className="hover:text-white hover:pl-1 transition-all">Realizacje</Link></li>
-            <li><Link to="/blog" className="hover:text-white hover:pl-1 transition-all">Blog techniczny</Link></li>
-            <li><Link to="/kontakt" className="hover:text-white hover:pl-1 transition-all">Kontakt</Link></li>
-          </ul>
-        </div>
-
-        {/* Map */}
-        <div>
-          <h4 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Znajdź nas</h4>
-          <div className="w-full h-40 bg-gray-800 rounded-lg overflow-hidden mb-3">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d156388.35438088064!2d22.4083836!3d51.246452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4722517b51b87de3%3A0x5b0ff7cbec274f1e!2sLublin!5e0!3m2!1spl!2spl!4v1700000000000"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              title="Media Bud Lublin"
-            />
+            </ul>
           </div>
-          <p className="text-xs text-gray-500">Skład budowlany zlokalizowany w Lublinie, woj. lubelskie. Obsługujemy cały region lubelski.</p>
+
+          {/* Col 3: Quick links + Services */}
+          <div>
+            <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2">
+              <span className="w-3 h-0.5 bg-primary" />
+              Informacje
+            </h3>
+            <ul className="space-y-1.5 mb-6">
+              {QUICK_LINKS.map(l => (
+                <li key={l.label}>
+                  <Link
+                    to={l.to}
+                    className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors group"
+                  >
+                    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-1 transition-all" />
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div>
+              <h4 className="text-xs text-gray-500 uppercase tracking-widest mb-2">Nasze usługi</h4>
+              <ul className="space-y-1">
+                {SERVICES.map(s => (
+                  <li key={s} className="text-xs text-gray-500 flex items-start gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-primary/60 flex-shrink-0 mt-1.5" />
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Col 4: Contact */}
+          <div>
+            <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2">
+              <span className="w-3 h-0.5 bg-primary" />
+              Kontakt
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <a href="tel:+48509567213" className="flex items-start gap-3 group">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors mt-0.5">
+                    <Phone className="w-3.5 h-3.5 text-primary group-hover:text-white transition-colors" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500 mb-0.5">Telefon</div>
+                    <div className="text-white font-semibold text-sm group-hover:text-primary transition-colors">+48 509 567 213</div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:sprzedaz@mediabud.pl" className="flex items-start gap-3 group">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors mt-0.5">
+                    <Mail className="w-3.5 h-3.5 text-primary group-hover:text-white transition-colors" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500 mb-0.5">E-mail</div>
+                    <div className="text-white font-semibold text-sm group-hover:text-primary transition-colors">sprzedaz@mediabud.pl</div>
+                  </div>
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <MapPin className="w-3.5 h-3.5 text-primary" />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 mb-0.5">Adres</div>
+                  <div className="text-white font-semibold text-sm">Lublin</div>
+                  <div className="text-xs text-gray-500">woj. lubelskie</div>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Clock className="w-3.5 h-3.5 text-primary" />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 mb-0.5">Godziny otwarcia</div>
+                  <div className="text-white font-semibold text-sm">Pon–Pt: 7:00–17:00</div>
+                  <div className="text-xs text-gray-400">Sob: 7:00–13:00</div>
+                </div>
+              </li>
+            </ul>
+
+            {/* CTA */}
+            <a
+              href="/kontakt"
+              className="mt-5 flex items-center justify-center gap-2 w-full bg-primary hover:bg-red-700 text-white text-sm font-bold py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
+            >
+              Zapytaj o ofertę <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-gray-800 py-4">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-gray-500">
-          <span>© 2026 Media Bud – Skład Budowlany Lublin. Wszelkie prawa zastrzeżone.</span>
-          <div className="flex gap-4">
-            <Link to="/polityka-prywatnosci" className="hover:text-gray-300 transition-colors">Polityka prywatności</Link>
-            <Link to="/rodo" className="hover:text-gray-300 transition-colors">RODO</Link>
-            <Link to="/regulamin" className="hover:text-gray-300 transition-colors">Regulamin</Link>
+      {/* ── Bottom bar ── */}
+      <div className="border-t border-gray-800/60">
+        <div className="container mx-auto px-4 py-5">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
+            <div className="flex items-center gap-1.5">
+              <span>© {year} Media Bud – Skład Budowlany Lublin.</span>
+              <span>Wszelkie prawa zastrzeżone.</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <Link to="/polityka-prywatnosci" className="hover:text-gray-400 transition-colors">Polityka prywatności</Link>
+              <Link to="/regulamin" className="hover:text-gray-400 transition-colors">Regulamin</Link>
+              <Link to="/sitemap" className="hover:text-gray-400 transition-colors">Mapa strony</Link>
+            </div>
+            <div className="font-mono text-gray-700 text-xs">
+              mediabud.pl · Lublin
+            </div>
           </div>
         </div>
       </div>

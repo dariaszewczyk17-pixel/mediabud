@@ -1,24 +1,36 @@
 import { useParams, Link } from "react-router-dom";
-import { ChevronRight, ShoppingCart, Phone, Mail, Check, ChevronDown, Star, Truck, ShieldCheck, Clock } from "lucide-react";
+import {
+  ChevronRight, ShoppingCart, Phone, Mail, Download, Check,
+  ZoomIn, ChevronLeft, ChevronRight as ChevronNext,
+  Info, Wrench, BarChart2, Star, ArrowRight, Shield
+} from "lucide-react";
 import { getProductBySlug, products } from "@/data/products";
 import { getCategoryBySlug, getBreadcrumbs } from "@/data/categories";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useWycena } from "@/hooks/useWycena";
-import { useSEO } from "@/hooks/useSEO";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 
-const TABS = ["Opis", "Specyfikacja", "Zastosowanie", "FAQ"] as const;
-type Tab = typeof TABS[number];
+/* ---------- tiny reveal hook ---------- */
+function useReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
+      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, vis };
+}
 
-const FAQ_GENERIC = [
-  { q: "Jak zamówić produkt?", a: "Dodaj do wyceny lub zadzwoń na +48 509 567 213. Możesz też napisać przez formularz kontaktowy. Przygotujemy indywidualną ofertę z terminem dostawy." },
-  { q: "Czy dostawa na plac budowy jest możliwa?", a: "Tak – dowozimy na terenie Lublina i województwa lubelskiego. Transport ciężarowy z rozładunkiem przy budynku. Termin dostawy ustalamy telefonicznie." },
-  { q: "Czy możliwy jest zakup na fakturę VAT?", a: "Oczywiście. Sprzedajemy zarówno osobom prywatnym (paragon), jak i firmom (FV). Dane do faktury podaj przy zamówieniu." },
-  { q: "Ile produktów mam zamówić? Jak obliczyć zużycie?", a: "W karcie technicznej i opisie podajemy zużycie na m². Nasi eksperci chętnie pomogą wyliczyć zapotrzebowanie – zadzwoń lub napisz z wymiarami." },
-];
+type Tab = "opis" | "specyfikacja" | "zastosowanie";
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -26,93 +38,65 @@ export default function ProductDetail() {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
-  const [tab, setTab] = useState<Tab>("Opis");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState<Tab>("opis");
+  const [activeImg, setActiveImg] = useState(0);
+  const [zoomed, setZoomed] = useState(false);
   const { addItem } = useWycena();
 
-  const cat = product ? getCategoryBySlug(product.categorySlug) : null;
-  const breadcrumbs = product ? getBreadcrumbs(product.categorySlug) : [];
-  const related = product ? products.filter(p => product.related.includes(p.id) && p.id !== product.id).slice(0, 4) : [];
-
-  // ─── SEO per page ────────────────────────────────────────────────────────────
-  useSEO({
-    title: product
-      ? `${product.name} – ${product.brand} | Media Bud Skład Budowlany Lublin`
-      : "Produkt nie znaleziony | Media Bud",
-    description: product
-      ? `${product.shortDescription} Dostępny w Media Bud – skład budowlany Lublin. SKU: ${product.sku}. Zamów z dostawą 24h.`
-      : "Skład budowlany Media Bud Lublin – materiały budowlane, tynki, izolacje, narzędzia.",
-    canonical: product ? `/produkt/${product.slug}` : "/produkty",
-    ogType: "product",
-    schema: product ? [
-      {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": product.name,
-        "description": product.description,
-        "sku": product.sku,
-        "brand": { "@type": "Brand", "name": product.brand },
-        "image": product.images.map(img => `https://mediabud.pl${img}`),
-        "offers": {
-          "@type": "Offer",
-          "availability": "https://schema.org/InStock",
-          "priceCurrency": "PLN",
-          "seller": {
-            "@type": "LocalBusiness",
-            "name": "Media Bud – Skład Budowlany",
-            "address": { "@type": "PostalAddress", "addressLocality": "Lublin", "addressCountry": "PL" }
-          }
-        },
-        "additionalProperty": product.technicalSpec.map(s => ({
-          "@type": "PropertyValue",
-          "name": s.label,
-          "value": s.value
-        }))
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
-          ...breadcrumbs.map((bc, i) => ({
-            "@type": "ListItem",
-            "position": i + 2,
-            "name": bc.name,
-            "item": `https://mediabud.pl/kategoria/${bc.slug}`
-          })),
-          { "@type": "ListItem", "position": breadcrumbs.length + 2, "name": product.name }
-        ]
-      }
-    ] : undefined
-  });
+  const heroReveal   = useReveal();
+  const tabsReveal   = useReveal();
+  const relReveal    = useReveal();
 
   if (!product) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold mb-4">Produkt nie znaleziony</h1>
-        <Link to="/produkty"><Button className="bg-primary">Przeglądaj produkty</Button></Link>
+        <div className="text-6xl mb-4">🔍</div>
+        <h1 className="text-2xl font-bold mb-2">Produkt nie znaleziony</h1>
+        <p className="text-gray-500 mb-6">Sprawdź adres URL lub wróć do katalogu.</p>
+        <Link to="/produkty"><Button className="bg-primary shadow-sm">Przeglądaj produkty</Button></Link>
       </div>
     );
   }
+
+  const cat = getCategoryBySlug(product.categorySlug);
+  const breadcrumbs = getBreadcrumbs(product.categorySlug);
+  const related = products.filter(p => product.related.includes(p.id) && p.id !== product.id).slice(0, 4);
+  const images = product.images?.length ? product.images : ["/placeholder.svg"];
 
   const handleAdd = () => {
     addItem(product, qty);
     setAdded(true);
     toast.success(`${product.name} dodano do wyceny`);
-    setTimeout(() => setAdded(false), 2000);
+    setTimeout(() => setAdded(false), 2500);
   };
+
+  const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
+    { id: "opis",         label: "Opis produktu",         icon: <Info className="w-4 h-4" /> },
+    { id: "specyfikacja", label: "Specyfikacja techniczna", icon: <BarChart2 className="w-4 h-4" /> },
+    { id: "zastosowanie", label: "Zastosowanie",            icon: <Wrench className="w-4 h-4" /> },
+  ];
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      {/* JSON-LD */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org", "@type": "Product",
+        "name": product.name, "description": product.description,
+        "brand": { "@type": "Brand", "name": product.brand },
+        "sku": product.sku, "image": images,
+        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock", "priceCurrency": "PLN",
+          "seller": { "@type": "Organization", "name": "Media Bud" } }
+      })}} />
+
       {/* Breadcrumbs */}
-      <div className="bg-white border-b">
+      <div className="bg-white border-b border-gray-100">
         <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-1 text-sm text-gray-500 flex-wrap" aria-label="Breadcrumb">
-            <Link to="/" className="hover:text-primary">Strona główna</Link>
+          <nav className="flex items-center gap-1 text-sm text-gray-500 flex-wrap">
+            <Link to="/" className="hover:text-primary transition-colors">Strona główna</Link>
             {breadcrumbs.map((bc) => (
               <span key={bc.id} className="flex items-center gap-1">
                 <ChevronRight className="w-3 h-3" />
-                <Link to={`/kategoria/${bc.slug}`} className="hover:text-primary">{bc.name}</Link>
+                <Link to={`/kategoria/${bc.slug}`} className="hover:text-primary transition-colors">{bc.name}</Link>
               </span>
             ))}
             <ChevronRight className="w-3 h-3" />
@@ -122,101 +106,132 @@ export default function ProductDetail() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        {/* ── Main grid ──────────────────────────────────────────────────────── */}
-        <div className="grid lg:grid-cols-2 gap-10 mb-12">
-          {/* Image gallery */}
-          <div>
-            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden aspect-video flex items-center justify-center p-8 shadow-sm">
-              <img
-                src={product.images[0]}
-                alt={product.name}
-                className="max-w-full max-h-full object-contain"
-                onError={(e) => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }}
-              />
-            </div>
-            <div className="flex gap-2 mt-3">
-              {product.isNew && <Badge className="bg-green-500 text-white">Nowość</Badge>}
-              {product.isFeatured && <Badge className="bg-primary text-white">⭐ Polecany</Badge>}
-              <Badge variant="outline" className="border-gray-300 text-gray-500 text-xs">
-                SKU: {product.sku}
-              </Badge>
-            </div>
-            {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-3 mt-4">
-              {[
-                { icon: <Truck className="w-4 h-4 text-primary" />, text: "Dostawa 24h" },
-                { icon: <ShieldCheck className="w-4 h-4 text-primary" />, text: "Oryginał" },
-                { icon: <Clock className="w-4 h-4 text-primary" />, text: "Pn–Sob 7–17" },
-              ].map(({ icon, text }) => (
-                <div key={text} className="flex flex-col items-center gap-1 bg-white rounded-lg border border-gray-200 p-3 text-center">
-                  {icon}
-                  <span className="text-xs font-medium text-gray-700">{text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Details panel */}
-          <div>
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-              <Badge variant="secondary">{product.brand}</Badge>
-              {cat && (
-                <Link to={`/kategoria/${cat.slug}`} className="text-xs text-primary hover:underline">
-                  {cat.name}
-                </Link>
+        {/* ── Main section: Gallery + Details ── */}
+        <div
+          ref={heroReveal.ref as React.RefObject<HTMLDivElement>}
+          className={`grid lg:grid-cols-2 gap-10 mb-10 transition-all duration-700 ease-out ${heroReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        >
+
+          {/* ── Gallery ── */}
+          <div className="space-y-3">
+            {/* Main image */}
+            <div
+              className="relative bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden aspect-square group cursor-zoom-in"
+              onClick={() => setZoomed(true)}
+            >
+              <img
+                src={images[activeImg]}
+                alt={product.name}
+                className="w-full h-full object-contain p-8 transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Zoom hint */}
+              <div className="absolute bottom-3 right-3 bg-black/50 text-white rounded-lg px-2 py-1 text-xs flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <ZoomIn className="w-3 h-3" /> Powiększ
+              </div>
+              {/* Nav arrows */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={e => { e.stopPropagation(); setActiveImg(i => (i - 1 + images.length) % images.length); }}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-xl bg-white/90 shadow flex items-center justify-center hover:bg-white transition-all opacity-0 group-hover:opacity-100"
+                  ><ChevronLeft className="w-4 h-4" /></button>
+                  <button
+                    onClick={e => { e.stopPropagation(); setActiveImg(i => (i + 1) % images.length); }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-xl bg-white/90 shadow flex items-center justify-center hover:bg-white transition-all opacity-0 group-hover:opacity-100"
+                  ><ChevronNext className="w-4 h-4" /></button>
+                </>
               )}
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                ))}
-                <span className="text-xs text-gray-500 ml-1">(Zapytaj o opinię)</span>
+              {/* Badges */}
+              <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+                {product.isNew && <Badge className="bg-emerald-500 text-white text-xs shadow">Nowość</Badge>}
+                {product.isFeatured && <Badge className="bg-primary text-white text-xs shadow">Polecany</Badge>}
               </div>
             </div>
+            {/* Thumbnails */}
+            {images.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImg(i)}
+                    className={`flex-shrink-0 w-16 h-16 rounded-xl border-2 overflow-hidden bg-white transition-all ${
+                      activeImg === i ? "border-primary shadow-md shadow-primary/20" : "border-gray-200 hover:border-gray-400"
+                    }`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-contain p-1" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-            <h1 className="text-2xl md:text-3xl font-black text-gray-900 mb-2 leading-snug">{product.name}</h1>
-            <p className="text-sm text-gray-500 mb-4">
-              Jednostka: <strong>{product.unit}</strong>
-            </p>
-            <p className="text-gray-700 leading-relaxed mb-6 text-[15px]">{product.shortDescription}</p>
+          {/* ── Details ── */}
+          <div>
+            {/* Brand + category */}
+            <div className="flex items-center gap-2 mb-3 flex-wrap">
+              <Badge variant="secondary" className="font-semibold">{product.brand}</Badge>
+              {cat && (
+                <Link to={`/kategoria/${cat.slug}`} className="flex items-center gap-1 text-xs text-primary hover:underline font-medium">
+                  {cat.name} <ArrowRight className="w-3 h-3" />
+                </Link>
+              )}
+            </div>
 
-            {/* Quick specs */}
+            <h1 className="text-2xl md:text-3xl font-black text-gray-900 leading-tight mb-2">
+              {product.name}
+            </h1>
+
+            <div className="flex items-center gap-3 mb-4">
+              <span className="font-mono text-xs text-gray-400 bg-gray-50 border border-gray-200 px-2 py-1 rounded-lg">
+                SKU: {product.sku}
+              </span>
+              <span className="text-xs text-gray-500">
+                Jednostka: <strong className="text-gray-700">{product.unit}</strong>
+              </span>
+            </div>
+
+            {/* Stars placeholder */}
+            <div className="flex items-center gap-1.5 mb-4">
+              {[1,2,3,4,5].map(s => <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />)}
+              <span className="text-xs text-gray-500 ml-1">Produkt profesjonalny</span>
+            </div>
+
+            <p className="text-gray-700 leading-relaxed mb-6 text-sm">{product.shortDescription}</p>
+
+            {/* Quick Specs strip */}
             {product.technicalSpec.length > 0 && (
-              <div className="bg-gray-50 rounded-xl border border-gray-200 p-4 mb-5">
-                <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Kluczowe parametry</h3>
-                <div className="space-y-1.5">
-                  {product.technicalSpec.slice(0, 4).map((spec, i) => (
-                    <div key={i} className="flex justify-between text-sm">
-                      <span className="text-gray-500">{spec.label}</span>
-                      <span className="font-semibold text-gray-900">{spec.value}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="grid grid-cols-2 gap-2 mb-6">
+                {product.technicalSpec.slice(0, 4).map((spec, i) => (
+                  <div key={i} className="bg-gray-50 border border-gray-100 rounded-xl px-3 py-2">
+                    <div className="text-xs text-gray-500">{spec.label}</div>
+                    <div className="text-sm font-bold text-gray-900 mt-0.5 truncate">{spec.value}</div>
+                  </div>
+                ))}
               </div>
             )}
 
-            {/* CTA block */}
-            <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-3 shadow-sm">
-              <p className="text-sm font-semibold text-gray-700">Zapytaj o dostępność i cenę:</p>
+            {/* CTA box */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
+              {/* Qty */}
               <div className="flex items-center gap-3">
-                <span className="text-sm text-gray-600">Ilość:</span>
-                <div className="flex items-center rounded-lg border border-gray-200 overflow-hidden">
+                <span className="text-sm font-semibold text-gray-700">Ilość:</span>
+                <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden">
                   <button
-                    onClick={() => setQty(q => Math.max(1, q - 1))}
-                    className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 text-gray-700 font-bold transition-colors"
-                    aria-label="Zmniejsz ilość"
+                    onClick={() => setQty(q => Math.max(1, q-1))}
+                    className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 font-bold text-gray-700 transition-colors"
                   >−</button>
-                  <span className="w-10 text-center font-bold text-sm">{qty}</span>
+                  <span className="w-12 text-center font-bold text-gray-900 text-sm">{qty}</span>
                   <button
-                    onClick={() => setQty(q => q + 1)}
-                    className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 text-gray-700 font-bold transition-colors"
-                    aria-label="Zwiększ ilość"
+                    onClick={() => setQty(q => q+1)}
+                    className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 font-bold text-gray-700 transition-colors"
                   >+</button>
                 </div>
                 <span className="text-sm text-gray-500">{product.unit}</span>
               </div>
 
               <Button
-                className="w-full bg-primary hover:bg-red-700 font-bold text-base py-3 transition-colors"
+                className="w-full bg-primary hover:bg-red-700 font-bold text-base py-3 shadow-md shadow-primary/20 transition-all hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
                 onClick={() => setQuoteOpen(true)}
               >
                 <Mail className="w-4 h-4 mr-2" /> Zapytaj o ofertę
@@ -224,7 +239,11 @@ export default function ProductDetail() {
 
               <Button
                 variant="outline"
-                className={`w-full border-primary text-primary hover:bg-primary hover:text-white font-bold py-3 transition-all ${added ? "bg-green-50 border-green-500 text-green-700 hover:bg-green-50 hover:text-green-700" : ""}`}
+                className={`w-full font-bold py-3 transition-all ${
+                  added
+                    ? "bg-emerald-50 border-emerald-400 text-emerald-700"
+                    : "border-primary text-primary hover:bg-primary hover:text-white"
+                }`}
                 onClick={handleAdd}
               >
                 {added
@@ -233,43 +252,57 @@ export default function ProductDetail() {
                 }
               </Button>
 
-              <a
-                href="tel:+48509567213"
-                className="flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-primary transition-colors font-medium py-2 border border-dashed border-gray-200 rounded-lg"
-              >
-                <Phone className="w-4 h-4" /> <strong>+48 509 567 213</strong> – zamów telefonicznie
-              </a>
+              <div className="flex items-center justify-between pt-1">
+                <a
+                  href="tel:+48509567213"
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-primary transition-colors font-medium"
+                >
+                  <Phone className="w-4 h-4 text-primary flex-shrink-0" />
+                  +48 509 567 213
+                </a>
+                <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                  <Shield className="w-3.5 h-3.5 text-emerald-500" />
+                  Dostawa Lublin 24h
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* ── Tabs ───────────────────────────────────────────────────────────── */}
-        <div className="bg-white rounded-xl border border-gray-200 mb-12 overflow-hidden shadow-sm">
-          {/* Tab bar */}
-          <div className="flex border-b overflow-x-auto">
-            {TABS.map((t) => (
+        {/* ── Tabs: Description / Spec / Application ── */}
+        <div
+          ref={tabsReveal.ref as React.RefObject<HTMLDivElement>}
+          className={`bg-white rounded-2xl border border-gray-100 shadow-sm mb-10 overflow-hidden transition-all duration-700 ease-out ${tabsReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        >
+          {/* Tab header */}
+          <div className="flex border-b border-gray-100 overflow-x-auto">
+            {TABS.map(tab => (
               <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={`px-6 py-4 font-semibold text-sm whitespace-nowrap border-b-2 transition-colors ${
-                  tab === t
-                    ? "border-primary text-primary bg-red-50"
-                    : "border-transparent text-gray-600 hover:text-primary hover:bg-gray-50"
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-5 py-4 text-sm font-semibold whitespace-nowrap transition-all border-b-2 -mb-px ${
+                  activeTab === tab.id
+                    ? "border-primary text-primary bg-primary/3"
+                    : "border-transparent text-gray-500 hover:text-gray-800 hover:bg-gray-50"
                 }`}
               >
-                {t}
+                {tab.icon} {tab.label}
               </button>
             ))}
+            <div className="flex-1" />
+            <a href="#" className="hidden sm:flex items-center gap-1.5 px-4 text-xs text-gray-400 hover:text-primary transition-colors">
+              <Download className="w-3.5 h-3.5" /> Karta techniczna
+            </a>
           </div>
 
           {/* Tab content */}
-          <div className="p-6 md:p-8">
-            {tab === "Opis" && (
+          <div className="p-6">
+            {activeTab === "opis" && (
               <div className="max-w-3xl">
-                <p className="text-gray-700 leading-relaxed text-[15px] mb-5">{product.description}</p>
-                <div className="flex flex-wrap gap-1.5">
+                <p className="text-gray-700 leading-relaxed mb-4">{product.description}</p>
+                <div className="flex flex-wrap gap-1.5 mt-4">
                   {product.tags.map(tag => (
-                    <span key={tag} className="px-2.5 py-1 bg-gray-100 text-gray-600 text-xs rounded-full hover:bg-primary/10 hover:text-primary transition-colors cursor-default">
+                    <span key={tag} className="px-2.5 py-1 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded-full font-medium">
                       #{tag}
                     </span>
                   ))}
@@ -277,81 +310,104 @@ export default function ProductDetail() {
               </div>
             )}
 
-            {tab === "Specyfikacja" && (
+            {activeTab === "specyfikacja" && (
               <div className="max-w-2xl">
-                <table className="w-full">
-                  <tbody className="divide-y divide-gray-100">
+                {product.technicalSpec.length > 0 ? (
+                  <div className="overflow-hidden rounded-xl border border-gray-100">
                     {product.technicalSpec.map((spec, i) => (
-                      <tr key={i} className="hover:bg-gray-50 transition-colors">
-                        <td className="py-3 pr-6 text-sm text-gray-500 font-medium w-1/2">{spec.label}</td>
-                        <td className="py-3 text-sm font-bold text-gray-900">{spec.value}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <p className="mt-4 text-xs text-gray-400">* Parametry podane przez producenta. Szczegółowe dane w karcie technicznej produktu.</p>
-              </div>
-            )}
-
-            {tab === "Zastosowanie" && (
-              <div className="max-w-3xl space-y-4">
-                <p className="text-gray-700 leading-relaxed text-[15px]">{product.application}</p>
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
-                  <h4 className="font-bold text-amber-900 mb-2">💡 Porada eksperta</h4>
-                  <p className="text-sm text-amber-800">Nie jesteś pewien, czy ten produkt jest odpowiedni do Twojego projektu? Nasi specjaliści budowlani doradzą bezpłatnie – zadzwoń lub napisz.</p>
-                  <div className="flex flex-wrap gap-3 mt-3">
-                    <a href="tel:+48509567213">
-                      <Button size="sm" className="bg-primary hover:bg-red-700">
-                        <Phone className="w-3 h-3 mr-1" /> +48 509 567 213
-                      </Button>
-                    </a>
-                    <Link to="/kontakt">
-                      <Button size="sm" variant="outline" className="border-amber-400 text-amber-800 hover:bg-amber-100">
-                        <Mail className="w-3 h-3 mr-1" /> Wyślij zapytanie
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {tab === "FAQ" && (
-              <div className="max-w-3xl space-y-3">
-                {FAQ_GENERIC.map((item, i) => (
-                  <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
-                    <button
-                      className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
-                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    >
-                      <span className="font-semibold text-gray-900 text-sm pr-4">{item.q}</span>
-                      <ChevronDown className={`w-4 h-4 text-primary flex-shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
-                    </button>
-                    {openFaq === i && (
-                      <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
-                        {item.a}
+                      <div
+                        key={i}
+                        className={`flex items-center justify-between px-4 py-3 text-sm ${i % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
+                      >
+                        <span className="text-gray-600 font-medium">{spec.label}</span>
+                        <span className="font-bold text-gray-900 text-right">{spec.value}</span>
                       </div>
-                    )}
+                    ))}
                   </div>
-                ))}
-                <p className="text-xs text-gray-400 pt-2">Masz inne pytanie? <a href="tel:+48509567213" className="text-primary hover:underline">Zadzwoń: +48 509 567 213</a></p>
+                ) : (
+                  <p className="text-gray-500 text-sm">Specyfikacja techniczna w przygotowaniu. Zapytaj naszych doradców.</p>
+                )}
+              </div>
+            )}
+
+            {activeTab === "zastosowanie" && (
+              <div className="max-w-3xl">
+                <p className="text-gray-700 leading-relaxed">{product.application}</p>
+                <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                  <div className="flex-1 bg-primary/5 border border-primary/15 rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <span className="font-semibold text-sm text-gray-900">Doradztwo techniczne</span>
+                    </div>
+                    <p className="text-xs text-gray-600 mb-2">Pomożemy dobrać produkt do Twojego projektu.</p>
+                    <a href="tel:+48509567213" className="text-sm font-bold text-primary hover:underline">
+                      +48 509 567 213
+                    </a>
+                  </div>
+                  <Button variant="outline" className="sm:self-end border-gray-200 text-gray-600 hover:border-primary hover:text-primary text-sm">
+                    <Download className="w-3.5 h-3.5 mr-1.5" /> Karta techniczna (PDF)
+                  </Button>
+                </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* ── Related products ────────────────────────────────────────────────── */}
+        {/* ── Related products ── */}
         {related.length > 0 && (
-          <section>
-            <h2 className="text-xl font-black text-gray-900 mb-5 flex items-center gap-2">
-              <span className="w-1 h-6 bg-primary rounded-full inline-block"></span>
-              Produkty powiązane
-            </h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {related.map(p => <ProductCard key={p.id} product={p} />)}
+          <div ref={relReveal.ref as React.RefObject<HTMLDivElement>}>
+            <div className={`flex items-center justify-between mb-5 transition-all duration-700 ease-out ${relReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              <h2 className="text-xl font-black text-gray-900 flex items-center gap-2">
+                <span className="w-1 h-5 bg-primary rounded-full" />
+                Produkty powiązane
+              </h2>
+              {cat && (
+                <Link to={`/kategoria/${cat.slug}`} className="text-sm text-primary hover:underline flex items-center gap-1 font-medium">
+                  Więcej z kategorii <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              )}
             </div>
-          </section>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {related.map((p, i) => (
+                <div
+                  key={p.id}
+                  className={`transition-all duration-500 ease-out ${relReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  style={{ transitionDelay: `${i * 80}ms` }}
+                >
+                  <ProductCard product={p} />
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </div>
+
+      {/* Zoom lightbox */}
+      {zoomed && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
+          onClick={() => setZoomed(false)}
+        >
+          <button className="absolute top-4 right-4 text-white/70 hover:text-white text-3xl leading-none">×</button>
+          <img
+            src={images[activeImg]}
+            alt={product.name}
+            className="max-w-full max-h-full object-contain rounded-xl"
+            onClick={e => e.stopPropagation()}
+          />
+          {images.length > 1 && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={e => { e.stopPropagation(); setActiveImg(i); }}
+                  className={`w-2 h-2 rounded-full transition-all ${activeImg === i ? "bg-white w-5" : "bg-white/40"}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       <QuoteModal open={quoteOpen} onClose={() => setQuoteOpen(false)} productName={product.name} />
     </div>

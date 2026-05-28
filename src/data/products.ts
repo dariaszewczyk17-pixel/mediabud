@@ -1023,6 +1023,3 @@ const newProducts: Product[] = [
     related: ["p006", "p011", "p005"],
   },
 ];
-
-// Merge new products into the main array
-products.push(...newProducts);

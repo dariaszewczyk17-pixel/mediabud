@@ -11,6 +11,7 @@ import {
   buildBreadcrumbs as buildSanityBreadcrumbs, collectAllSlugs,
   type SanityCategory,
 } from "@/lib/adapters";
+import { mergeProductCollections } from "@/lib/productMerge";
 import { ProductCard } from "@/components/Commerce";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -90,12 +91,12 @@ export default function CategoryPage() {
 
   const { data: sanityProducts } = useProductsByCategorySlugs(allSubSlugs);
 
-  const catProducts = useMemo(
-    () => sanityProducts && (sanityProducts as any[]).length > 0
-      ? (sanityProducts as any[]).map(sanityProductToLegacy)
-      : staticProducts.filter(p => allSubSlugs.includes(p.categorySlug)),
-    [sanityProducts, allSubSlugs],
-  );
+  const catProducts = useMemo(() => {
+    const staticCategoryProducts = staticProducts.filter(p => allSubSlugs.includes(p.categorySlug));
+    const sanityCategoryProducts = ((sanityProducts as any[] | undefined) ?? []).map(sanityProductToLegacy);
+
+    return mergeProductCollections(sanityCategoryProducts, staticCategoryProducts);
+  }, [sanityProducts, allSubSlugs]);
 
   const availableBrands = useMemo(
     () => [...new Set(catProducts.map(p => p.brand))].sort(),

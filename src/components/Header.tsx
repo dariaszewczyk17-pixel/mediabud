@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Search, Phone, Mail, Menu, X, ChevronDown, Calculator,
@@ -9,7 +9,10 @@ import {
 import { categories } from "@/data/categories";
 import { useWycena } from "@/hooks/useWycena";
 import { Input } from "@/components/ui/input";
-import { products } from "@/data/products";
+import { products, type Product } from "@/data/products";
+import { useAllProducts } from "@/hooks/useSanityData";
+import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
+import { mergeProductCollections } from "@/lib/productMerge";
 
 /* ── Category icon map ───────────────────────────────────────────── */
 const CAT_ICONS: Record<string, React.ReactNode> = {
@@ -37,7 +40,7 @@ const CAT_IMAGES: Record<string, string> = {
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<typeof products>([]);
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const { items, openDrawer } = useWycena();
@@ -46,6 +49,12 @@ export default function Header() {
   const location  = useLocation();
   const searchRef = useRef<HTMLDivElement>(null);
   const menuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { data: sanityProducts } = useAllProducts();
+
+  const mergedProducts = useMemo(() => {
+    const sanityLegacyProducts = ((sanityProducts as SanityProduct[] | undefined) ?? []).map(sanityProductToLegacy);
+    return mergeProductCollections(sanityLegacyProducts, products);
+  }, [sanityProducts]);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 48);
@@ -55,16 +64,35 @@ export default function Header() {
 
   useEffect(() => {
     if (searchQuery.length > 1) {
-      const q = searchQuery.toLowerCase();
-      setSearchResults(
-        products.filter(p =>
-          p.name.toLowerCase().includes(q) ||
-          p.brand.toLowerCase().includes(q) ||
-          p.tags.some(t => t.includes(q))
-        ).slice(0, 6)
-      );
+      const q = searchQuery.toLowerCase().trim();
+      const rankedResults = mergedProducts
+        .map((product) => {
+          const name = product.name.toLowerCase();
+          const brand = product.brand.toLowerCase();
+          const sku = product.sku.toLowerCase();
+          const shortDescription = product.shortDescription.toLowerCase();
+          const tags = product.tags.map((tag) => tag.toLowerCase());
+
+          let score = 0;
+          if (name.startsWith(q)) score += 120;
+          if (name.includes(q)) score += 80;
+          if (brand.startsWith(q)) score += 50;
+          if (brand.includes(q)) score += 30;
+          if (sku.includes(q)) score += 70;
+          if (shortDescription.includes(q)) score += 25;
+          if (tags.some((tag) => tag === q)) score += 60;
+          if (tags.some((tag) => tag.includes(q))) score += 20;
+
+          return { product, score };
+        })
+        .filter(({ score }) => score > 0)
+        .sort((a, b) => b.score - a.score || a.product.name.localeCompare(b.product.name, "pl"))
+        .slice(0, 6)
+        .map(({ product }) => product);
+
+      setSearchResults(rankedResults);
     } else setSearchResults([]);
-  }, [searchQuery]);
+  }, [searchQuery, mergedProducts]);
 
   useEffect(() => {
     const fn = (e: MouseEvent) => {
@@ -223,7 +251,7 @@ export default function Header() {
                     className="flex items-center gap-3 px-4 py-2.5 border-b border-black/5 hover:bg-[#f81828]/5 transition-colors group/sr last:border-0"
                     onClick={() => { setSearchResults([]); setSearchQuery(""); }}>
                     <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-                      <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
+                      <img src={p.images?.[0] || "/placeholder.svg"} alt={p.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-semibold text-gray-800 group-hover/sr:text-[#f81828] transition-colors truncate">{p.name}</div>

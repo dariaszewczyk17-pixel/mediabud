@@ -5,10 +5,11 @@ import {
   Info, Wrench, BarChart2, Star, ArrowRight, Shield, X,
   ThumbsUp, HelpCircle, AlertTriangle, FileText
 } from "lucide-react";
-import { getProductBySlug, products as staticProducts } from "@/data/products";
+import { getProductBySlug, products as staticProducts, type Product } from "@/data/products";
 import { getCategoryBySlug, getBreadcrumbs } from "@/data/categories";
 import { useProductBySlug, useRelatedProducts } from "@/hooks/useSanityData";
-import { sanityProductToLegacy } from "@/lib/adapters";
+import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
+import { mergeProductCollections, mergeProductSources } from "@/lib/productMerge";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useWycena } from "@/hooks/useWycena";
 import { Button } from "@/components/ui/button";
@@ -40,22 +41,47 @@ export default function ProductDetail() {
 
   const { data: sanityProduct, loading: productLoading } = useProductBySlug(slug ?? '');
 
+  const staticProduct = useMemo(
+    () => (slug ? getProductBySlug(slug) : null),
+    [slug],
+  );
+
+  const legacySanityProduct = useMemo(
+    () => sanityProduct ? sanityProductToLegacy(sanityProduct as SanityProduct) : null,
+    [sanityProduct],
+  );
+
   const product = useMemo(
-    () => sanityProduct
-      ? sanityProductToLegacy(sanityProduct as SanityProduct)
-      : (slug ? getProductBySlug(slug) : null),
-    [sanityProduct, slug],
+    () => mergeProductSources(legacySanityProduct, staticProduct),
+    [legacySanityProduct, staticProduct],
   );
 
   const categorySlug = (sanityProduct as any)?.categorySlug ?? product?.categorySlug ?? '';
   const { data: sanityRelated } = useRelatedProducts(categorySlug, slug ?? '');
 
-  const related = useMemo(
-    () => sanityRelated && (sanityRelated as any[]).length > 0
-      ? (sanityRelated as any[]).map((p: SanityProduct) => sanityProductToLegacy(p))
-      : staticProducts.filter(p => (product?.related ?? []).includes(p.id)).slice(0, 4),
-    [sanityRelated, product],
-  );
+  const related = useMemo(() => {
+    const sanityRelatedMerged =
+      ((sanityRelated as SanityProduct[] | undefined) ?? [])
+        .map((item) => {
+          const sanityLegacy = sanityProductToLegacy(item);
+          const staticMatch = staticProducts.find(
+            (p) =>
+              p.slug === sanityLegacy.slug ||
+              (p.sku && sanityLegacy.sku && p.sku === sanityLegacy.sku)
+          ) ?? null;
+
+          return mergeProductSources(sanityLegacy, staticMatch);
+        })
+        .filter(Boolean) as Product[];
+
+    const staticRelated = staticProducts.filter((p) =>
+      (product?.related ?? []).includes(p.id)
+    );
+
+    return mergeProductCollections(sanityRelatedMerged, staticRelated)
+      .filter((item) => item.slug !== product?.slug)
+      .slice(0, 4);
+  }, [sanityRelated, product]);
 
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [added, setAdded]         = useState(false);

@@ -67,3 +67,7 @@
 [2026-05-28 20:03] Zbudowano projekt po wdrożeniu ulepszonej karty produktu i fallbacków obrazów; rozpoczęto finalną weryfikację zmian oraz przygotowanie stanu do commit/push.
 [2026-05-28 20:05] Zweryfikowano UI na lokalnym serwerze dla karty produktu, listingu kategorii i widoku produktu; build przeszedł poprawnie i fallbacki obrazów działają dla rekordów bez zdjęć.
 [2026-05-28 20:05] Przygotowano commit zmian obejmujących ulepszoną kartę produktu, bezpieczne fallbacki obrazów oraz rozszerzenie szybkiej specyfikacji w widoku produktu.
+[2026-05-28 20:07] Rozpoczęto wybór priorytetowych luk kategorii i podkategorii do dalszego rozszerzenia lokalnego katalogu produktów na bazie zamrożonej struktury Bechcicki.
+[2026-05-28 20:08] Wybrano priorytetowe luki katalogu do uzupełnienia: dachy, rynny, okna dachowe, narzędzia, płytki oraz stropy i ściany; rozpoczynam rozszerzanie local catalog w products.ts.
+[2026-05-28 20:13] Dodano nową paczkę produktów do priorytetowych podkategorii: okna dachowe, wyłazy, rynny PVC, akcesoria rynnowe, pokrycia dachowe z blachy, pustaki ceramiczne, nadproża, płytki tarasowe i stopnice.
+[2026-05-28 20:14] Build po rozszerzeniu katalogu przeszedł poprawnie; przygotowuję finalną weryfikację zmian w repo oraz commit/push dla nowej paczki produktów.

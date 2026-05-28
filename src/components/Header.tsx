@@ -172,8 +172,8 @@ export default function Header() {
             <img
               src="/images/logo-mediabud-main.png"
               alt="Media Bud – Skład Budowlany"
-              className={`object-contain transition-all duration-300 group-hover:brightness-110 ${scrolled ? "h-9" : "h-10"}`}
-              style={{ maxWidth: "148px" }}
+              className={`object-contain transition-all duration-300 group-hover:brightness-110 ${scrolled ? "h-12" : "h-14"}`}
+              style={{ maxWidth: "200px", minWidth: "120px" }}
             />
           </Link>
 
@@ -313,7 +313,7 @@ export default function Header() {
                     <div className="relative z-10">
                       {CAT_ICONS[cat.slug] ?? <Package className="w-6 h-6" />}
                     </div>
-                    <span className="relative z-10 text-[10px] font-bold leading-tight text-center whitespace-nowrap" style={{ maxWidth: "72px", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <span className="relative z-10 text-[10px] font-bold leading-tight text-center break-words hyphens-auto" style={{ maxWidth: "80px", wordBreak: "break-word" }}>
                       {cat.name}
                     </span>
                     {cat.children && (

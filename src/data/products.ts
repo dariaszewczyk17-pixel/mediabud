@@ -5319,4 +5319,258 @@ const newProducts: Product[] = [
     ],
     seoDescription: "Strop Teriva Panel 3,0/4,0 to systemowe rozwiązanie gęstożebrowe do wykonywania stropów międzykondygnacyjnych w budownictwie mieszkaniowym. Jeśli szukasz stropu Teriva do domu jednorodzinnego, system przyspiesza montaż, porządkuje organizację robót i dobrze sprawdza się na typowych budowach."
   },
+  {
+    id: "p161", slug: "silikat-white-plus-25x12x6-5",
+    name: "Silikat Silka White Plus 25x12x6,5 cm",
+    categorySlug: "silikaty", brand: "Silka", sku: "SIL-WP-25-12-65", unit: "szt.",
+    shortDescription: "Bloczek silikatowy do ścian działowych i nośnych wewnętrznych w budownictwie jednorodzinnym.",
+    description: "Silka White Plus 25x12x6,5 cm to element murowy z betonu wapienno-piaskowego stosowany do wznoszenia ścian wewnętrznych nośnych i działowych. Cechuje go dobra akumulacyjność cieplna, wysoka masa pozwalająca na tłumienie hałasu oraz gładka powierzchnia ułatwiająca wykończenie. Materiał chętnie wybierany przy budowie domów jednorodzinnych i inwestycjach wielorodzinnych.",
+    application: "Do ścian nośnych i działowych wewnętrznych. Murowanie na cienkiej spoinie lub zaprawie systemowej; element stosować zgodnie z projektem i wymaganiami izolacyjności akustycznej.",
+    technicalSpec: [
+      { label: "Wymiar", value: "25 × 12 × 6,5 cm" },
+      { label: "Materiał", value: "Beton wapienno-piaskowy" },
+      { label: "Zastosowanie", value: "Ściany nośne i działowe" },
+      { label: "Właściwości", value: "Akumulacja ciepła, izolacja akustyczna" },
+    ],
+    images: [],
+    tags: ["silikat", "silka", "ściana działowa", "ściana nośna", "beton wapienno-piaskowy", "murowanie"],
+    related: ["p158", "p039", "p150"],
+    advantages: [
+      "Dobra akumulacyjność cieplna wspomagająca stabilność temperatury.",
+      "Wysoka masa wspierająca izolację akustyczną przegród.",
+      "Gładka powierzchnia ułatwiająca wykończenie i tynkowanie.",
+    ],
+    warnings: [
+      "Chronić przed zawilgoceniem podczas składowania na budowie.",
+      "Stosować z zaprawą dobraną do wymagań systemowych i cieplnych.",
+    ],
+    faq: [
+      { q: "Do czego stosuje się bloczki silikatowe?", a: "Głównie do ścian nośnych i działowych wewnętrznych, gdzie ważna jest akumulacja ciepła i izolacja akustyczna." },
+      { q: "Jaka jest różnica między silikatem a ceramiką?", a: "Silikat jest cięższy i lepiej izoluje akustycznie, ceramika jest lżejsza i lepiej izoluje termicznie w typowych grubościach." },
+    ],
+    seoDescription: "Silikat Silka White Plus 25x12x6,5 cm to bloczek wapienno-piaskowy do ścian nośnych i działowych. Jeśli szukasz silikatów do budowy ścian wewnętrznych, model Silka White Plus zapewnia dobrą akumulację cieplną i izolację akustyczną."
+  },
+  {
+    id: "p162", slug: "klej-do-plytek-atlas-plus-25kg",
+    name: "Klej do płytek Atlas Plus C2T 25 kg",
+    categorySlug: "kleje-plytek", brand: "Atlas", sku: "ATL-PLUS-C2T-25", unit: "worek 25 kg",
+    shortDescription: "Elastyczny klej do płytek ceramicznych, gresowych i kamienia naturalnego do stosowania wewnątrz i na zewnątrz.",
+    description: "Atlas Plus C2T to klej o podwyższonej przyczepności i zwiększonej elastyczności, przeznaczony do przyklejania płytek ceramicznych, gresu i kamienia na podłożach wewnętrznych i zewnętrznych. Klasyfikacja C2T oznacza ulepszone wiązanie i zmniejszony poślizg, co ułatwia pracę z dużymi formatami. Klej stosowany jest przy podłogach, ścianach, tarasach i basenach.",
+    application: "Do płytek ceramicznych, gresu, kamienia naturalnego i sztucznego na podłożach cementowych i anhydrytowych. Zarówno do zastosowań wewnętrznych, jak i zewnętrznych z zachowaniem odpowiedniej klasy ekspozycji.",
+    technicalSpec: [
+      { label: "Klasa", value: "C2T" },
+      { label: "Spoiwo", value: "Cementowe" },
+      { label: "Opakowanie", value: "25 kg" },
+      { label: "Zastosowanie", value: "Wewnętrzne i zewnętrzne" },
+      { label: "Elastyczność", value: "Podwyższona" },
+    ],
+    images: [],
+    tags: ["klej do płytek", "atlas", "c2t", "gres", "ceramika", "taras", "basen"],
+    related: ["p152", "p153", "p156"],
+    isFeatured: true,
+    advantages: [
+      "Klasa C2T zapewnia lepsze wiązanie i zmniejszony poślizg.",
+      "Nadaje się do dużych formatów płytek i gresu.",
+      "Wszechstronne zastosowanie wewnątrz i na zewnątrz.",
+    ],
+    warnings: [
+      "Zachować wymagany czas otwarty i czas wiązania zgodny z kartą techniczną.",
+      "Na zewnątrz stosować z odpowiednim zabezpieczeniem przed mrozem w czasie twardnienia.",
+    ],
+    faq: [
+      { q: "Co oznacza klasa C2T?", a: "C2 to klej o ulepszonym wiązaniu, T oznacza zmniejszony poślizg (thixotropic), co ułatwia pracę ze ścianami i dużymi formatami." },
+      { q: "Czy klej Atlas Plus nadaje się na taras?", a: "Tak, pod warunkiem właściwej klasyfikacji zastosowania zewnętrznego i odpowiedniego zabezpieczenia spoin fugą mrozoodporną." },
+    ],
+    seoDescription: "Klej do płytek Atlas Plus C2T 25 kg to elastyczny klej cementowy do ceramiki, gresu i kamienia. Jeśli szukasz kleju do płytek klasy C2T do podłóg, ścian i tarasów, model Atlas Plus sprawdzi się w szerokim zakresie zastosowań wewnętrznych i zewnętrznych."
+  },
+  {
+    id: "p163", slug: "fuga-ceramiczna-atlas-2-3mm-szara-2kg",
+    name: "Fuga ceramiczna Atlas Fuga Nanotech 2–3 mm szara 2 kg",
+    categorySlug: "fugi", brand: "Atlas", sku: "ATL-FUGNANO-23-SZ-2", unit: "opak. 2 kg",
+    shortDescription: "Fuga cementowa do spoin 2–3 mm do płytek ceramicznych i gresowych wewnątrz i na zewnątrz.",
+    description: "Atlas Fuga Nanotech to zaawansowana fuga cementowa z technologią nanocząstek, zapewniająca odporność na zabrudzenia i ułatwiająca utrzymanie czystości spoin. Przeznaczona do płytek ceramicznych, gresowych i mozaik na podłogach i ścianach. Szeroka paleta kolorów pozwala estetycznie dopasować fugę do każdej okładziny.",
+    application: "Do fugowania spoin 2–3 mm w płytkach ceramicznych, gresie i mozaice. Stosować wewnątrz i na zewnątrz zgodnie z kartą techniczną, z zachowaniem odpowiedniej temperatury aplikacji.",
+    technicalSpec: [
+      { label: "Szerokość spoiny", value: "2–3 mm" },
+      { label: "Technologia", value: "Nanocząstki" },
+      { label: "Kolor", value: "Szara" },
+      { label: "Opakowanie", value: "2 kg" },
+      { label: "Zastosowanie", value: "Wewnątrz i zewnątrz" },
+    ],
+    images: [],
+    tags: ["fuga", "atlas", "nanotech", "spoina", "płytki", "gres", "ceramika"],
+    related: ["p162", "p152", "p156"],
+    advantages: [
+      "Technologia nanocząstek ułatwia utrzymanie czystości spoin.",
+      "Dobra odporność na zabrudzenia i ścieranie.",
+      "Szeroka paleta kolorów do dopasowania do każdej okładziny.",
+    ],
+    warnings: [
+      "Po nałożeniu fugę należy starannie usunąć z powierzchni płytek przed zaschnięciem.",
+      "Spoiny w strefach narażonych na ruch należy wyciąć i uzupełnić uszczelniaczem silikonowym.",
+    ],
+    faq: [
+      { q: "Czy fuga Nanotech nadaje się na zewnątrz?", a: "Tak, zgodnie z kartą techniczną można ją stosować na zewnątrz z zachowaniem wymogów dotyczących temperatury i wilgotności." },
+      { q: "Na czym polega technologia Nanotech?", a: "Nanocząstki w składzie fugi zmniejszają przyczepność zabrudzeń do powierzchni spoiny, ułatwiając jej czyszczenie." },
+    ],
+    seoDescription: "Fuga ceramiczna Atlas Nanotech 2–3 mm szara 2 kg to nowoczesna fuga cementowa do płytek i gresu. Jeśli szukasz fugi 2–3 mm do płytek ceramicznych z łatwym utrzymaniem czystości, Atlas Nanotech zapewnia odporność na zabrudzenia i estetyczne wykończenie spoin."
+  },
+  {
+    id: "p164", slug: "rura-spustowa-galeco-pvc-90-3m-grafit",
+    name: "Rura spustowa PVC Galeco 90 mm 3 mb grafit",
+    categorySlug: "rury-spustowe", brand: "Galeco", sku: "GAL-RS90-3-GRA", unit: "szt. 3 m",
+    shortDescription: "Rura spustowa PVC Galeco 90 mm do odprowadzania wody z systemu rynnowego.",
+    description: "Rura spustowa PVC Galeco 90 mm to element pionowego odprowadzenia wody z rynny do gruntu lub kanalizacji deszczowej. Wykonana z odpornego na UV tworzywa sztucznego, stanowi uzupełnienie systemu rynnowego Galeco PVC. Produkt stosowany w budownictwie jednorodzinnym i małych obiektach.",
+    application: "Do systemów rynnowych Galeco PVC jako pionowe odprowadzenie wody. Montować z zachowaniem odpowiedniego mocowania do ściany i prawidłowego ukierunkowania odpływu.",
+    technicalSpec: [
+      { label: "Średnica", value: "90 mm" },
+      { label: "Długość", value: "3 m" },
+      { label: "Materiał", value: "PVC" },
+      { label: "Kolor", value: "Grafit" },
+      { label: "System", value: "Galeco PVC" },
+    ],
+    images: [],
+    tags: ["rura spustowa", "galeco", "pvc", "90 mm", "system rynnowy", "grafit"],
+    related: ["p147", "p148", "p083"],
+    advantages: [
+      "Odporność na UV i warunki atmosferyczne.",
+      "Systemowa kompatybilność z rynnami Galeco PVC 135.",
+      "Lekka i łatwa w montażu konstrukcja.",
+    ],
+    warnings: [
+      "Rura musi być mocowana do ściany w odpowiednich odstępach.",
+      "Stosować wyłącznie z akcesoriami z systemu Galeco PVC.",
+    ],
+    faq: [
+      { q: "Czy rura spustowa 90 mm pasuje do rynny 135?", a: "Tak, w systemie Galeco PVC rura 90 mm jest standardowym dopasowaniem do rynny 135." },
+      { q: "Jak przebiega montaż rury spustowej?", a: "Rura jest mocowana do ściany uchwytami i łączona z lejkiem rynnowym przy połaci dachowej." },
+    ],
+    seoDescription: "Rura spustowa PVC Galeco 90 mm 3 mb grafit to element systemu rynnowego do pionowego odprowadzenia wody z dachu. Jeśli kompletujesz system rynnowy Galeco PVC, rura spustowa 90 mm dopasowuje się do rynny 135 i zapewnia trwałe odprowadzenie wody."
+  },
+  {
+    id: "p165", slug: "wietrznik-dachowy-fakro-dwz-125",
+    name: "Wietrznik dachowy Fakro DWZ 125",
+    categorySlug: "komunikacja-dachowa", brand: "Fakro", sku: "FAK-DWZ-125", unit: "szt.",
+    shortDescription: "Kalenicowy wietrznik dachowy do wentylacji przestrzeni dachowej pod pokryciem.",
+    description: "Fakro DWZ 125 to wietrznik kalenicowy służący do wentylacji przestrzeni pod pokryciem dachowym. Poprawia cyrkulację powietrza w warstwie wentylacyjnej dachu, zapobiegając kondensacji pary wodnej i niszczeniu drewnianej konstrukcji. Stosowany jest w nowych budowach i przy modernizacji wentylacji dachowej.",
+    application: "Do montażu wzdłuż kalenicy na dachach skośnych z pokryciem blachodachówkowym, dachówką ceramiczną lub betonową. Wymagany dobór modelu do rodzaju pokrycia.",
+    technicalSpec: [
+      { label: "Typ", value: "Wietrznik kalenicowy" },
+      { label: "Średnica", value: "125 mm" },
+      { label: "Zastosowanie", value: "Wentylacja przestrzeni dachowej" },
+      { label: "Montaż", value: "Wzdłuż kalenicy" },
+    ],
+    images: [],
+    tags: ["wietrznik dachowy", "fakro", "kalenicowy", "wentylacja dachu", "dachówka", "blachodachówka"],
+    related: ["p145", "p149", "p082"],
+    advantages: [
+      "Poprawia wentylację przestrzeni dachowej i zapobiega kondensacji.",
+      "Chroni drewnianą konstrukcję dachową przed wilgocią.",
+      "Dopasowany do popularnych pokryć dachowych.",
+    ],
+    warnings: [
+      "Model należy dobrać odpowiednio do rodzaju i profilu pokrycia dachowego.",
+      "Montaż należy prowadzić zgodnie z instrukcją producenta, zachowując szczelność na styku z pokryciem.",
+    ],
+    faq: [
+      { q: "Do czego służy wietrznik kalenicowy?", a: "Do wentylowania przestrzeni między pokryciem a membraną dachową, zapobiegając gromadzeniu się wilgoci i parze wodnej." },
+      { q: "Czy wietrznik można zamontować na każdym dachu?", a: "Dobór modelu zależy od rodzaju pokrycia, dlatego ważne jest dobranie odpowiedniego wariantu zgodnie z instalowanym systemem." },
+    ],
+    seoDescription: "Wietrznik dachowy Fakro DWZ 125 to kalenicowy element wentylacyjny do przestrzeni dachowej. Jeśli szukasz wietrznika dachowego do dachu z blachodachówką lub dachówką, model Fakro DWZ 125 poprawia wentylację i chroni konstrukcję dachową przed wilgocią."
+  },
+  {
+    id: "p166", slug: "grunt-gleboko-penetrujacy-atlas-uniflexatt-10l",
+    name: "Grunt głęboko penetrujący Atlas Uni-Grunt 10 l",
+    categorySlug: "grunty-tynki", brand: "Atlas", sku: "ATL-UNIGR-10", unit: "op. 10 l",
+    shortDescription: "Preparat gruntujący do wyrównania chłonności podłoża przed tynkowaniem i klejeniem.",
+    description: "Atlas Uni-Grunt to środek gruntujący o działaniu głęboko penetrującym, stosowany przed nakładaniem tynków, klejów do płytek i mas wyrównujących. Wyrównuje chłonność podłoża, poprawia przyczepność kolejnych warstw i redukuje ryzyko zbyt szybkiego odciągania wody z zapraw. Produkt nadaje się do podłoży porowatych, gazobetonowych, ceglanych i mineralnych.",
+    application: "Nanosić na oczyszczone i stabilne podłoże wałkiem, pędzlem lub przez natrysk. Czas schnięcia przed nałożeniem kolejnej warstwy zgodny z kartą techniczną — zazwyczaj 2–4 godziny.",
+    technicalSpec: [
+      { label: "Typ", value: "Grunt penetrujący" },
+      { label: "Opakowanie", value: "10 l" },
+      { label: "Podłoże", value: "Beton, gazobeton, cegła, tynk mineralny" },
+      { label: "Rozcieńczenie", value: "Woda (zależnie od chłonności)" },
+    ],
+    images: [],
+    tags: ["grunt", "atlas", "gruntowanie", "przyczepność", "tynk", "podłoże"],
+    related: ["p162", "p158", "p039"],
+    advantages: [
+      "Wyrównuje chłonność i wzmacnia słabe podłoża przed kolejnymi warstwami.",
+      "Poszerza adhezję klejów i tynków.",
+      "Nadaje się do wielu typowych podłoży w budownictwie.",
+    ],
+    warnings: [
+      "Nie stosować w temperaturach poniżej +5°C.",
+      "Podłoże musi być czyste, stabilne i wolne od kurzu i olejów.",
+    ],
+    faq: [
+      { q: "Czy gruntowanie jest konieczne przed tynkiem?", a: "W wielu przypadkach tak — szczególnie na chłonnych lub słabych podłożach gruntowanie znacząco poprawia przyczepność tynku." },
+      { q: "Do jakich podłoży nadaje się Atlas Uni-Grunt?", a: "Do betonu, gazobetonu, cegły, pustaków ceramicznych, starych tynków mineralnych i podobnych podłoży mineralnych." },
+    ],
+    seoDescription: "Grunt głęboko penetrujący Atlas Uni-Grunt 10 l to preparat gruntujący do betonu, gazobetonu i cegły. Jeśli szukasz gruntu wyrównującego chłonność podłoża przed tynkowaniem lub klejeniem płytek, Atlas Uni-Grunt poprawi przyczepność i przygotuje podłoże do dalszych prac."
+  },
+  {
+    id: "p167", slug: "tynk-cementowo-wapienny-baumit-rk39-30kg",
+    name: "Tynk cementowo-wapienny Baumit RK 39 30 kg",
+    categorySlug: "tynki-wewnetrzne", brand: "Baumit", sku: "BAU-RK39-30", unit: "worek 30 kg",
+    shortDescription: "Tynk cementowo-wapienny do stosowania ręcznego i maszynowego na ścianach wewnętrznych.",
+    description: "Baumit RK 39 to tynk cementowo-wapienny przeznaczony do tynkowania ręcznego i maszynowego wewnątrz budynków. Dobrze przylega do cegły, bloczków ceramicznych, silikatowych i betonowych. Może być stosowany jako warstwa podkładowa (obrzutka, narzut) w tradycyjnym systemie tynkarskim.",
+    application: "Do tynkowania ścian wewnętrznych z ceramiki, silikatów, betonu komórkowego i podobnych podłoży. Stosować metodą ręczną lub maszynową zgodnie z instrukcją producenta.",
+    technicalSpec: [
+      { label: "Typ", value: "Cementowo-wapienny" },
+      { label: "Opakowanie", value: "30 kg" },
+      { label: "Metoda nakładania", value: "Ręczna i maszynowa" },
+      { label: "Zastosowanie", value: "Wewnętrzne" },
+    ],
+    images: [],
+    tags: ["tynk", "baumit", "cementowo-wapienny", "maszynowy", "ściany", "wewnętrzny"],
+    related: ["p166", "p158", "p150"],
+    advantages: [
+      "Możliwość nakładania ręcznego i maszynowego.",
+      "Dobra przyczepność do typowych podłoży mineralnych.",
+      "Sprawdzony tynk do tradycyjnych systemów tynkarskich.",
+    ],
+    warnings: [
+      "Stosować w temperaturach powyżej +5°C i chronić przed zbyt szybkim wysychaniem.",
+      "Podłoże powinno być zagruntowane odpowiednim preparatem gruntującym.",
+    ],
+    faq: [
+      { q: "Czym różni się tynk maszynowy od ręcznego?", a: "Tynk maszynowy jest zoptymalizowany pod kątem retencji wody i czasu otwarcia do pracy agregatem tynkarskim, choć wiele produktów nadaje się do obu metod." },
+      { q: "Czy tynk RK 39 nadaje się na gazobeton?", a: "Tak, do gazobetonu można go stosować po uprzednim zagruntowaniu podłoża odpowiednim gruntem." },
+    ],
+    seoDescription: "Tynk cementowo-wapienny Baumit RK 39 30 kg to materiał do tynkowania wewnętrznego ręcznego i maszynowego. Jeśli szukasz tynku cementowo-wapiennego do ścian wewnętrznych z ceramiki lub silikatów, Baumit RK 39 zapewnia dobrą przyczepność i sprawne prowadzenie robót tynkarskich."
+  },
+  {
+    id: "p168", slug: "membrana-dachowa-pro-fi-150-50m2",
+    name: "Membrana dachowa Foliarex PRO FI 150 rolka 50 m²",
+    categorySlug: "membrany-dachowe", brand: "Foliarex", sku: "FOL-PROFI150-50", unit: "rolka 50 m²",
+    shortDescription: "Trójwarstwowa membrana wysokoparoprzepuszczalna do stosowania na krokwiach bez kontrłaty wentylacyjnej.",
+    description: "Foliarex PRO FI 150 to trójwarstwowa membrana wstępnego krycia o podwyższonej paroprzepuszczalności, przeznaczona do stosowania bezpośrednio na pełnym deskowaniu lub krokwiach. Membrana chroni dach przed wodą i wiatrem, jednocześnie pozwalając na odprowadzenie pary wodnej z izolacji. Popularny wybór przy budowie domów jednorodzinnych z drewnianą więźbą dachową.",
+    application: "Na krokwiach lub pełnym deskowaniu jako folia podkładowa pod pokrycie dachowe. Szczeliny wentylacyjne i metoda układania zgodnie z instrukcją producenta oraz wymaganiami projektowymi.",
+    technicalSpec: [
+      { label: "Typ", value: "Membrana wstępnego krycia" },
+      { label: "Warstwy", value: "3" },
+      { label: "Paroprzepuszczalność", value: "Sd ≤ 0,02 m" },
+      { label: "Powierzchnia", value: "50 m²" },
+      { label: "Zastosowanie", value: "Bezpośrednio na krokwiach" },
+    ],
+    images: [],
+    tags: ["membrana dachowa", "foliarex", "wstępne krycie", "paroprzepuszczalna", "dach", "więźba"],
+    related: ["p145", "p149", "p165"],
+    advantages: [
+      "Wysoka paroprzepuszczalność chroniąca izolację przed zawilgoceniem.",
+      "Dopuszcza montaż bezpośrednio na krokwiach bez kontrłaty.",
+      "Trójwarstwowa budowa zapewnia trwałość i wytrzymałość mechaniczną.",
+    ],
+    warnings: [
+      "Paski zakładki łączyć taśmą klejącą zgodną z systemem producenta.",
+      "Przechowywać z dala od bezpośredniego nasłonecznienia do czasu montażu.",
+    ],
+    faq: [
+      { q: "Czy membrana zastępuje papę podkładową?", a: "W nowoczesnym budownictwie membrana wstępnego krycia zastąpiła tradycyjną papę jako warstwa wiatroizolacyjna i wstępnego krycia pod pokryciem." },
+      { q: "Czy membrany wysokoparoprzepuszczalne wymagają szczeliny wentylacyjnej?", a: "Wymagania dotyczące szczeliny zależą od projektu; membrany Sd ≤ 0,02 m często umożliwiają układanie bezpośrednio na krokwi, ale zawsze należy sprawdzić projekt." },
+    ],
+    seoDescription: "Membrana dachowa Foliarex PRO FI 150 50 m² to trójwarstwowa membrana wstępnego krycia do dachów skośnych. Jeśli szukasz membrany wysokoparoprzepuszczalnej do montażu na krokwiach, Foliarex PRO FI 150 zapewnia ochronę przed wodą i wiatrem oraz swobodne odprowadzenie pary z izolacji."
+  },
 ];
+

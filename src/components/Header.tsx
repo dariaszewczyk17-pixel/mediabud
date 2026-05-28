@@ -160,9 +160,9 @@ export default function Header() {
       <div
         className="transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(8,8,8,0.97)" : "#0a0a0a",
+          background: scrolled ? "rgba(255,255,255,0.97)" : "#ffffff",
           backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid rgba(0,0,0,0.08)",
         }}
       >
         <div className={`container mx-auto px-4 flex items-center gap-4 transition-all duration-300 ${scrolled ? "py-2" : "py-3"}`}>
@@ -172,7 +172,7 @@ export default function Header() {
             <img
               src="/images/logo-mediabud-main.png"
               alt="Media Bud – Skład Budowlany"
-              className={`object-contain transition-all duration-300 group-hover:brightness-110 ${scrolled ? "h-12" : "h-14"}`}
+              className={`object-contain transition-all duration-300 group-hover:brightness-90 ${scrolled ? "h-12" : "h-14"}`}
               style={{ maxWidth: "200px", minWidth: "120px" }}
             />
           </Link>
@@ -181,19 +181,19 @@ export default function Header() {
           <div className="flex-1 relative" ref={searchRef}>
             <div className="flex">
               <div className="relative flex-1">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 pointer-events-none" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 <Input
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="Szukaj produktów, marek, kategorii..."
-                  className="pl-10 rounded-r-none border-r-0 text-white placeholder:text-gray-600 focus-visible:ring-0 text-sm h-11 transition-all"
+                  className="pl-10 rounded-r-none border-r-0 text-gray-900 placeholder:text-gray-400 focus-visible:ring-0 text-sm h-11 transition-all"
                   style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.09)",
+                    background: "#f5f5f5",
+                    border: "1px solid rgba(0,0,0,0.12)",
                     borderRight: "none",
                   }}
-                  onFocus={e => { e.currentTarget.style.background = "rgba(255,255,255,0.09)"; e.currentTarget.style.borderColor = "rgba(248,24,40,0.5)"; }}
-                  onBlur={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)"; }}
+                  onFocus={e => { e.currentTarget.style.background = "#efefef"; e.currentTarget.style.borderColor = "rgba(248,24,40,0.5)"; }}
+                  onBlur={e => { e.currentTarget.style.background = "#f5f5f5"; e.currentTarget.style.borderColor = "rgba(0,0,0,0.12)"; }}
                   onKeyDown={e => {
                     if (e.key === "Enter" && searchQuery) {
                       navigate(`/szukaj?q=${encodeURIComponent(searchQuery)}`);
@@ -205,7 +205,7 @@ export default function Header() {
               <button
                 className="h-11 px-6 flex items-center justify-center gap-2 font-bold text-sm text-white flex-shrink-0 transition-all"
                 style={{ background: "#f81828", borderRadius: "0 8px 8px 0" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.5)"; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.4)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                 onClick={() => { if (searchQuery) { navigate(`/szukaj?q=${encodeURIComponent(searchQuery)}`); setSearchResults([]); } }}
               >
@@ -217,22 +217,22 @@ export default function Header() {
             {/* Autocomplete */}
             {searchResults.length > 0 && (
               <div className="absolute top-full left-0 right-0 z-50 rounded-b-xl overflow-hidden shadow-2xl"
-                style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.08)", borderTop: "2px solid #f81828" }}>
+                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.1)", borderTop: "2px solid #f81828" }}>
                 {searchResults.map(p => (
                   <Link key={p.id} to={`/produkt/${p.slug}`}
-                    className="flex items-center gap-3 px-4 py-2.5 border-b border-white/5 hover:bg-[#f81828]/10 transition-colors group/sr last:border-0"
+                    className="flex items-center gap-3 px-4 py-2.5 border-b border-black/5 hover:bg-[#f81828]/5 transition-colors group/sr last:border-0"
                     onClick={() => { setSearchResults([]); setSearchQuery(""); }}>
-                    <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-800">
+                    <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
                       <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-semibold text-gray-200 group-hover/sr:text-[#f81828] transition-colors truncate">{p.name}</div>
+                      <div className="text-sm font-semibold text-gray-800 group-hover/sr:text-[#f81828] transition-colors truncate">{p.name}</div>
                       <div className="text-xs text-gray-500">{p.brand} · {p.unit}</div>
                     </div>
-                    <ArrowRight className="w-3 h-3 text-gray-600 opacity-0 group-hover/sr:opacity-100 transition-opacity" />
+                    <ArrowRight className="w-3 h-3 text-gray-400 opacity-0 group-hover/sr:opacity-100 transition-opacity" />
                   </Link>
                 ))}
-                <div className="px-4 py-2 text-[10px] text-center text-gray-600 font-medium" style={{ background: "rgba(255,255,255,0.03)" }}>
+                <div className="px-4 py-2 text-[10px] text-center text-gray-500 font-medium" style={{ background: "rgba(0,0,0,0.02)" }}>
                   Naciśnij Enter, aby zobaczyć wszystkie wyniki
                 </div>
               </div>
@@ -241,18 +241,18 @@ export default function Header() {
 
           {/* ── CTA buttons ── */}
           <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Phone — prominent red button */}
+            {/* Phone — ghost red button */}
             <a href="tel:+48509567213"
-              className="hidden lg:flex items-center gap-2 h-11 px-5 rounded-lg font-bold text-sm text-white transition-all duration-200 flex-shrink-0"
-              style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.3)" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.4)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(248,24,40,0.12)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
+              className="hidden lg:flex items-center gap-2 h-11 px-5 rounded-lg font-bold text-sm transition-all duration-200 flex-shrink-0"
+              style={{ background: "rgba(248,24,40,0.07)", border: "1px solid rgba(248,24,40,0.25)", color: "#1a1a1a" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.color = "#ffffff"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.3)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(248,24,40,0.07)"; (e.currentTarget as HTMLElement).style.color = "#1a1a1a"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
               <div className="w-6 h-6 rounded-full bg-[#f81828] flex items-center justify-center flex-shrink-0">
                 <Phone className="w-3 h-3 text-white" />
               </div>
               <div className="text-left leading-none">
-                <div className="text-[9px] text-gray-400 font-normal">Zadzwoń teraz</div>
-                <div className="text-xs font-black text-white">509 567 213</div>
+                <div className="text-[9px] text-gray-500 font-normal">Zadzwoń teraz</div>
+                <div className="text-xs font-black">509 567 213</div>
               </div>
             </a>
 
@@ -260,7 +260,7 @@ export default function Header() {
             <button onClick={openDrawer}
               className="relative flex items-center gap-2 h-11 px-4 rounded-lg font-bold text-sm transition-all duration-200 flex-shrink-0"
               style={{ background: "#f81828", color: "#fff" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.5)"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.4)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
               <Calculator className="w-4 h-4" />
               <div className="text-left leading-none hidden sm:block">
@@ -275,7 +275,7 @@ export default function Header() {
             </button>
 
             {/* Hamburger */}
-            <button className="lg:hidden p-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/8 transition-colors"
+            <button className="lg:hidden p-2.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}>
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>

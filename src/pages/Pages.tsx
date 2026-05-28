@@ -927,3 +927,104 @@ export function AdminPanel() {
     </div>
   );
 }
+
+// ─── ALL CATEGORIES PAGE ──────────────────────────────────────────
+export function AllCategoriesPage() {
+  return (
+    <div className="min-h-screen" style={{ background: "#080808" }}>
+      <div className="relative overflow-hidden" style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" />
+        <div className="relative container mx-auto px-4 pl-10 py-12">
+          <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-2">Katalog produktów</p>
+          <h1 className="font-display text-3xl md:text-4xl font-black text-white mb-2">Wszystkie kategorie</h1>
+          <p className="text-gray-400 text-sm">Pełna oferta materiałów budowlanych dla firm i klientów indywidualnych.</p>
+        </div>
+      </div>
+      <div className="container mx-auto px-4 py-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {categories.map(cat => (
+            <Link key={cat.id} to={`/kategoria/${cat.slug}`}
+              className="group rounded-xl p-5 transition-all duration-300 hover:border-[#f81828]/40 hover:shadow-[0_8px_32px_rgba(248,24,40,0.12)] hover:-translate-y-0.5"
+              style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-all group-hover:scale-110"
+                style={{ background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.2)", color: "#f81828" }}>
+                <Package className="w-5 h-5" />
+              </div>
+              <h2 className="font-display font-black text-white text-base mb-1 group-hover:text-[#f81828] transition-colors">{cat.name}</h2>
+              {cat.description && <p className="text-xs text-gray-500 line-clamp-2">{cat.description}</p>}
+              {cat.children && <p className="text-[10px] text-[#f81828]/70 font-bold mt-2 uppercase tracking-wider">{cat.children.length} podkategorii →</p>}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── POLICY PAGE ──────────────────────────────────────────────────
+export function PolicyPage() {
+  const path = typeof window !== "undefined" ? window.location.pathname : "";
+  const isPolicy   = path.includes("polityka");
+  const isRegulamin = path.includes("regulamin");
+
+  const title = isRegulamin ? "Regulamin sklepu" : "Polityka prywatności i RODO";
+  const subtitle = isRegulamin
+    ? "Regulamin korzystania z serwisu mediabud.pl"
+    : "Zasady przetwarzania danych osobowych";
+
+  return (
+    <div className="min-h-screen" style={{ background: "#080808" }}>
+      <div className="relative overflow-hidden" style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" />
+        <div className="relative container mx-auto px-4 pl-10 py-10">
+          <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-2">Dokumenty prawne</p>
+          <h1 className="font-display text-2xl md:text-3xl font-black text-white mb-1">{title}</h1>
+          <p className="text-gray-500 text-sm">{subtitle}</p>
+        </div>
+      </div>
+      <div className="container mx-auto px-4 py-10 max-w-3xl">
+        <div className="rounded-xl p-8 space-y-6" style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}>
+          {isRegulamin ? (
+            <>
+              <Section t="§1 Postanowienia ogólne" c="Regulamin określa zasady korzystania z serwisu internetowego mediabud.pl prowadzonego przez Media Bud z siedzibą przy ul. Chemicznej 8d, 20-329 Lublin. Korzystanie z serwisu oznacza akceptację niniejszego regulaminu." />
+              <Section t="§2 Składanie zamówień" c="Zamówienia przyjmowane są telefonicznie (+48 509 567 213), mailowo (sprzedaz@mediabud.pl) oraz przez formularz kontaktowy. Po złożeniu zamówienia klient otrzymuje potwierdzenie w ciągu 2 godzin roboczych." />
+              <Section t="§3 Ceny i płatności" c="Wszystkie ceny podawane są w złotych polskich (PLN) i nie zawierają podatku VAT (ceny netto). Media Bud wystawia faktury VAT. Dostępne formy płatności: przelew bankowy, gotówka przy odbiorze, płatność kartą w hurtowni." />
+              <Section t="§4 Dostawa" c="Dostawy realizowane są na terenie Lublina i województwa lubelskiego. Termin dostawy: 1–3 dni robocze dla zamówień standardowych, dostawa ekspresowa (tego samego dnia) dla zamówień złożonych do godziny 10:00 w promieniu 30 km od Lublina." />
+              <Section t="§5 Reklamacje" c="Reklamacje dotyczące jakości produktów należy zgłaszać w ciągu 7 dni od daty zakupu. Reklamacje przyjmujemy telefonicznie lub mailowo. Rozpatrujemy je w ciągu 14 dni roboczych." />
+              <Section t="§6 Kontakt" c="W sprawach dotyczących regulaminu prosimy o kontakt: Media Bud, ul. Chemiczna 8d, 20-329 Lublin, tel. +48 509 567 213, e-mail: sprzedaz@mediabud.pl." />
+            </>
+          ) : (
+            <>
+              <Section t="1. Administrator danych" c="Administratorem danych osobowych jest Media Bud z siedzibą przy ul. Chemicznej 8d, 20-329 Lublin. Kontakt w sprawach ochrony danych: sprzedaz@mediabud.pl." />
+              <Section t="2. Zakres i cel przetwarzania" c="Przetwarzamy dane osobowe podane w formularzach kontaktowych (imię, nazwisko, adres e-mail, telefon) wyłącznie w celu odpowiedzi na zapytania ofertowe i realizacji zamówień. Podstawa prawna: art. 6 ust. 1 lit. b i f RODO." />
+              <Section t="3. Okres przechowywania" c="Dane osobowe przechowujemy przez okres niezbędny do realizacji celu, nie dłużej niż 5 lat od ostatniego kontaktu, chyba że przepisy prawa wymagają dłuższego okresu." />
+              <Section t="4. Prawa osób" c="Przysługuje Ci prawo: dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz sprzeciwu. Wnioski prosimy kierować na adres: sprzedaz@mediabud.pl." />
+              <Section t="5. Pliki cookies" c="Serwis wykorzystuje pliki cookies do analizy ruchu (Google Analytics 4) i poprawy działania strony. Możesz wyłączyć cookies w ustawieniach przeglądarki." />
+              <Section t="6. Skargi" c="Masz prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, jeśli sądzisz, że przetwarzamy Twoje dane niezgodnie z prawem." />
+            </>
+          )}
+          <div className="pt-4 border-t border-white/5 text-xs text-gray-600">
+            Ostatnia aktualizacja: styczeń 2026 · Media Bud, ul. Chemiczna 8d, 20-329 Lublin
+          </div>
+        </div>
+        <div className="mt-6 text-center">
+          <Link to="/kontakt" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#f81828] text-white font-bold text-sm hover:bg-[#c8000f] transition-all">
+            Pytania? Napisz do nas
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Section({ t, c }: { t: string; c: string }) {
+  return (
+    <div>
+      <h2 className="font-display font-bold text-white text-base mb-2 flex items-center gap-2">
+        <span className="w-[3px] h-4 bg-[#f81828] rounded-full flex-shrink-0" />{t}
+      </h2>
+      <p className="text-sm text-gray-400 leading-relaxed pl-3">{c}</p>
+    </div>
+  );
+}

@@ -58,8 +58,13 @@ export default function Header() {
     return mergeProductCollections(sanityLegacyProducts, products);
   }, [sanityProducts]);
 
+  const isValidBrand = (b: string) =>
+    !!b && b.length >= 2 && /^[A-Za-zÀ-ÿĄąĆćĘęŁłŃńÓóŚśŹźŻż]/.test(b);
+
   const topBrands = useMemo(
-    () => Array.from(new Set(mergedProducts.map((product) => product.brand).filter(Boolean))).slice(0, 5),
+    () => Array.from(new Set(
+      mergedProducts.map(p => p.brand).filter(isValidBrand)
+    )).slice(0, 5),
     [mergedProducts],
   );
 

@@ -15,23 +15,20 @@ import { mergeProductCollections } from "@/lib/productMerge";
 import { ProductCard } from "@/components/Commerce";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 
 const PRODUCTS_PER_PAGE = 12;
 
-/* ---------- tiny reveal hook ---------- */
+/* Callback-ref reveal — działa nawet gdy element pojawia się po załadowaniu danych */
 function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  const ref = useCallback((node: HTMLDivElement | null) => {
+    if (!node) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
       { threshold: 0.06, rootMargin: "0px 0px -20px 0px" }
     );
-    obs.observe(el);
-    return () => obs.disconnect();
+    obs.observe(node);
   }, []);
   return { ref, vis };
 }
@@ -80,6 +77,12 @@ export default function CategoryPage() {
   const selectedBrand = searchParams.get("brand") || "";
   const sortBy = searchParams.get("sort") || "default";
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
+
+  /* Reset filtrów i strony gdy zmienia się kategoria */
+  useEffect(() => {
+    setSearchParams(new URLSearchParams(), { replace: true });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
 
   const allSubSlugs = useMemo(() => {
     if (!cat) return [];
@@ -262,7 +265,7 @@ export default function CategoryPage() {
 
       {/* ── Hero banner ── */}
       <div
-        ref={heroReveal.ref as React.RefObject<HTMLDivElement>}
+        ref={heroReveal.ref}
         className="relative overflow-hidden"
         style={{ minHeight: "200px", background: "#0a0a0a" }}
       >
@@ -417,7 +420,7 @@ export default function CategoryPage() {
 
             {/* Subcategories */}
             {cat.children && cat.children.length > 0 && (
-              <div ref={subReveal.ref as React.RefObject<HTMLDivElement>} className="mb-8">
+              <div ref={subReveal.ref} className="mb-8">
                 <h2 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
                   <span className="w-[3px] h-4 bg-[#f81828] rounded-full inline-block" />
                   Podkategorie
@@ -557,7 +560,7 @@ export default function CategoryPage() {
             {paginated.length > 0 ? (
               <>
                 <div
-                  ref={gridReveal.ref as React.RefObject<HTMLDivElement>}
+                  ref={gridReveal.ref}
                   className={view === "grid"
                     ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
                     : "space-y-3"}

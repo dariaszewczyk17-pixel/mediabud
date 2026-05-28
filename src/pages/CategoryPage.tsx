@@ -312,11 +312,14 @@ export default function CategoryPage() {
         <div className="flex flex-col lg:flex-row gap-6">
 
           {/* ── Sidebar ── */}
-          <aside className="lg:w-60 flex-shrink-0 space-y-4">
+          <aside
+            className="lg:w-60 flex-shrink-0 space-y-4 lg:sticky lg:top-24 lg:self-start"
+            style={{ maxHeight: "calc(100vh - 7rem)", overflowY: "auto", scrollbarWidth: "none" }}
+          >
 
             {/* Categories tree */}
             <div
-              className="rounded-xl overflow-hidden sticky top-24"
+              className="rounded-xl overflow-hidden"
               style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
             >
               <div
@@ -365,7 +368,7 @@ export default function CategoryPage() {
             {/* Filter panel - desktop */}
             {catProducts.length > 0 && (
               <div
-                className="rounded-xl p-4 sticky top-[calc(24rem+1rem)]"
+                className="rounded-xl p-4"
                 style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
               >
                 <div className="flex items-center gap-2 font-bold text-sm text-white mb-4 pb-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>

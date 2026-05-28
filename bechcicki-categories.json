@@ -1,0 +1,1005 @@
+{
+  "scraped": "2026-05-28",
+  "source": "bechcicki.pl — nazwy kategorii (dane faktyczne, nie treści autorskie)",
+  "categories": [
+    {
+      "slug": "chemia-budowlana",
+      "name": "Chemia budowlana",
+      "subcategories": [
+        {
+          "slug": "kleje",
+          "name": "Kleje",
+          "sub": [
+            {
+              "slug": "kleje-do-glazury",
+              "name": "Kleje do glazury"
+            },
+            {
+              "slug": "kleje-montazowe",
+              "name": "Kleje montażowe"
+            },
+            {
+              "slug": "kleje-do-styropianu-i-styroduru",
+              "name": "Kleje do styropianu i styroduru"
+            },
+            {
+              "slug": "kleje-do-drewna",
+              "name": "Kleje do drewna"
+            },
+            {
+              "slug": "kleje-do-welen",
+              "name": "Kleje do wełen"
+            }
+          ]
+        },
+        {
+          "slug": "grunty",
+          "name": "Grunty",
+          "sub": [
+            {
+              "slug": "grunty-uniwersalne",
+              "name": "Grunty uniwersalne"
+            },
+            {
+              "slug": "grunty-pod-tynki",
+              "name": "Grunty pod tynki"
+            },
+            {
+              "slug": "grunty-specjalistyczne",
+              "name": "Grunty specjalistyczne"
+            },
+            {
+              "slug": "grunty-do-posadzek",
+              "name": "Grunty do posadzek"
+            },
+            {
+              "slug": "masy-bitumiczne-gruntujace",
+              "name": "Masy bitumiczne gruntujące"
+            }
+          ]
+        },
+        {
+          "slug": "piany-montazowe",
+          "name": "Piany montażowe",
+          "sub": [
+            {
+              "slug": "piany-montazowe-pistoletowe",
+              "name": "Piany montażowe pistoletowe"
+            },
+            {
+              "slug": "piany-montazowe-wezykowe",
+              "name": "Piany montażowe wężykowe"
+            },
+            {
+              "slug": "czysciki-do-pian-montazowych",
+              "name": "Czyściki do pian montażowych"
+            }
+          ]
+        },
+        {
+          "slug": "gipsy-i-gladzie",
+          "name": "Gipsy i gładzie",
+          "sub": [
+            {
+              "slug": "gladzie-gipsowe-w-proszku",
+              "name": "Gładzie gipsowe w proszku"
+            },
+            {
+              "slug": "gipsy-szpachlowe",
+              "name": "Gipsy szpachlowe"
+            },
+            {
+              "slug": "gladzie-masy-gotowe",
+              "name": "Gładzie masy gotowe"
+            },
+            {
+              "slug": "kleje-gipsowe",
+              "name": "Kleje gipsowe"
+            },
+            {
+              "slug": "gipsy-budowlane",
+              "name": "Gipsy budowlane"
+            },
+            {
+              "slug": "masy-szpachlowe-gotowe",
+              "name": "Masy szpachlowe gotowe"
+            }
+          ]
+        },
+        {
+          "slug": "tynki",
+          "name": "Tynki",
+          "sub": [
+            {
+              "slug": "tynki-elewacyjne",
+              "name": "Tynki elewacyjne"
+            },
+            {
+              "slug": "tynki-cementowo-wapienne",
+              "name": "Tynki cementowo-wapienne"
+            },
+            {
+              "slug": "tynki-gipsowe",
+              "name": "Tynki gipsowe"
+            },
+            {
+              "slug": "tynki-wapienne",
+              "name": "Tynki wapienne"
+            },
+            {
+              "slug": "tynki-specjalne",
+              "name": "Tynki specjalne"
+            }
+          ]
+        },
+        {
+          "slug": "uszczelniacze-i-silikony",
+          "name": "Uszczelniacze i silikony",
+          "sub": [
+            {
+              "slug": "silikony-sanitarne",
+              "name": "Silikony sanitarne"
+            },
+            {
+              "slug": "silikony-uniwersalne",
+              "name": "Silikony uniwersalne"
+            },
+            {
+              "slug": "silikony-wysokotemperaturowe",
+              "name": "Silikony wysokotemperaturowe"
+            },
+            {
+              "slug": "silikony-dekarskie",
+              "name": "Silikony dekarskie"
+            },
+            {
+              "slug": "silikony-szklarskie",
+              "name": "Silikony szklarskie"
+            },
+            {
+              "slug": "uszczelniacze-poliuretanowe",
+              "name": "Uszczelniacze poliuretanowe"
+            }
+          ]
+        },
+        {
+          "slug": "spoiny",
+          "name": "Spoiny",
+          "sub": [
+            {
+              "slug": "spoiny-elastyczne",
+              "name": "Spoiny elastyczne"
+            },
+            {
+              "slug": "spoiny-specjalistyczne",
+              "name": "Spoiny specjalistyczne"
+            },
+            {
+              "slug": "zaprawy-do-spoin",
+              "name": "Zaprawy do spoin"
+            },
+            {
+              "slug": "spoiny-zwykle",
+              "name": "Spoiny zwykłe"
+            }
+          ]
+        },
+        {
+          "slug": "zaprawy",
+          "name": "Zaprawy",
+          "sub": [
+            {
+              "slug": "zaprawy-murarskie-ogolnego-zastosowania",
+              "name": "Zaprawy murarskie ogólnego zastosowania"
+            },
+            {
+              "slug": "zaprawy-posadzkowe-masy-samopoziomujace",
+              "name": "Zaprawy posadzkowe masy samopoziomujące"
+            },
+            {
+              "slug": "zaprawy-uszczelniajace",
+              "name": "Zaprawy uszczelniające"
+            },
+            {
+              "slug": "zaprawy-naprawcze",
+              "name": "Zaprawy naprawcze"
+            },
+            {
+              "slug": "zaprawy-specjalistyczne",
+              "name": "Zaprawy specjalistyczne"
+            }
+          ]
+        },
+        {
+          "slug": "kotwy-chemiczne",
+          "name": "Kotwy chemiczne",
+          "sub": []
+        },
+        {
+          "slug": "powloki-epoksydowe",
+          "name": "Powłoki epoksydowe",
+          "sub": []
+        }
+      ]
+    },
+    {
+      "slug": "farby-i-rozpuszczalniki",
+      "name": "Farby i rozpuszczalniki",
+      "subcategories": [
+        {
+          "slug": "farby-wewnetrzne",
+          "name": "Farby wewnętrzne",
+          "sub": [
+            {
+              "slug": "farby-wewnetrzne-biale",
+              "name": "Farby wewnętrzne białe"
+            },
+            {
+              "slug": "farby-wewnetrzne-kolorowe",
+              "name": "Farby wewnętrzne kolorowe"
+            }
+          ]
+        },
+        {
+          "slug": "farby-elewacyjne",
+          "name": "Farby elewacyjne",
+          "sub": [
+            {
+              "slug": "farby-elewacyjne-silikonowe",
+              "name": "Farby elewacyjne silikonowe"
+            },
+            {
+              "slug": "farby-elewacyjne-emulsyjne",
+              "name": "Farby elewacyjne emulsyjne"
+            },
+            {
+              "slug": "farby-elewacyjne-akrylowe",
+              "name": "Farby elewacyjne akrylowe"
+            },
+            {
+              "slug": "farby-elewacyjne-silikatowe",
+              "name": "Farby elewacyjne silikatowe"
+            },
+            {
+              "slug": "farby-elewacyjne-specjalne",
+              "name": "Farby elewacyjne specjalne"
+            }
+          ]
+        },
+        {
+          "slug": "farby-do-drewna",
+          "name": "Farby do drewna",
+          "sub": [
+            {
+              "slug": "lakiery-do-drewna",
+              "name": "Lakiery do drewna"
+            },
+            {
+              "slug": "lakierobejce",
+              "name": "Lakierobejce"
+            },
+            {
+              "slug": "oleje",
+              "name": "Oleje do drewna"
+            },
+            {
+              "slug": "impregnaty",
+              "name": "Impregnaty do drewna"
+            },
+            {
+              "slug": "podklady-wypelniajace",
+              "name": "Podkłady wypełniające"
+            }
+          ]
+        },
+        {
+          "slug": "farby-do-metalu",
+          "name": "Farby do metalu",
+          "sub": [
+            {
+              "slug": "emalie-chlorokauczukowe",
+              "name": "Emalie chlorokauczukowe"
+            },
+            {
+              "slug": "emalie-ftalowe",
+              "name": "Emalie ftalowe"
+            },
+            {
+              "slug": "emalie-poliuretanowe",
+              "name": "Emalie poliuretanowe"
+            },
+            {
+              "slug": "emalie-akrylowe",
+              "name": "Emalie akrylowe"
+            },
+            {
+              "slug": "lakiery-do-metalu",
+              "name": "Lakiery do metalu"
+            }
+          ]
+        },
+        {
+          "slug": "bazy-i-koloranty",
+          "name": "Bazy i koloranty",
+          "sub": []
+        },
+        {
+          "slug": "farby-specjalistyczne",
+          "name": "Farby specjalistyczne",
+          "sub": [
+            {
+              "slug": "farby-przemyslowe",
+              "name": "Farby przemysłowe"
+            },
+            {
+              "slug": "farby-proszkowe",
+              "name": "Farby proszkowe"
+            }
+          ]
+        },
+        {
+          "slug": "farby-pozostale",
+          "name": "Farby pozostałe",
+          "sub": [
+            {
+              "slug": "farby-do-betonu",
+              "name": "Farby do betonu"
+            },
+            {
+              "slug": "produkty-do-renowacji",
+              "name": "Produkty do renowacji"
+            },
+            {
+              "slug": "pigmenty",
+              "name": "Pigmenty"
+            },
+            {
+              "slug": "farby-zaprawkowe",
+              "name": "Farby zaprawkowe"
+            },
+            {
+              "slug": "spraye",
+              "name": "Spraye"
+            }
+          ]
+        },
+        {
+          "slug": "rozpuszczalniki",
+          "name": "Rozpuszczalniki",
+          "sub": []
+        },
+        {
+          "slug": "preparaty-do-chemicznego-oczyszczania-powierzchni",
+          "name": "Preparaty do chemicznego oczyszczania powierzchni",
+          "sub": []
+        }
+      ]
+    },
+    {
+      "slug": "dachy",
+      "name": "Dachy",
+      "subcategories": [
+        {
+          "slug": "pokrycia-dachowe",
+          "name": "Pokrycia dachowe",
+          "sub": [
+            {
+              "slug": "blachodachowki",
+              "name": "Blachodachówki"
+            },
+            {
+              "slug": "gonty-bitumiczne",
+              "name": "Gonty bitumiczne"
+            },
+            {
+              "slug": "dachowki-ceramiczne",
+              "name": "Dachówki ceramiczne"
+            },
+            {
+              "slug": "papa-dachowa",
+              "name": "Papa dachowa"
+            }
+          ]
+        },
+        {
+          "slug": "okna-dachowe-i-akcesoria",
+          "name": "Okna dachowe i akcesoria",
+          "sub": [
+            {
+              "slug": "okna-dachowe",
+              "name": "Okna dachowe"
+            },
+            {
+              "slug": "kolnierze-i-produkty-instalacyjne",
+              "name": "Kołnierze i produkty instalacyjne"
+            },
+            {
+              "slug": "rolety-i-akcesoria-do-okien-dachowych",
+              "name": "Rolety i akcesoria do okien dachowych"
+            }
+          ]
+        },
+        {
+          "slug": "rynny",
+          "name": "Rynny",
+          "sub": [
+            {
+              "slug": "rynny-pvc",
+              "name": "Rynny PVC"
+            },
+            {
+              "slug": "rynny-metalowe",
+              "name": "Rynny metalowe"
+            },
+            {
+              "slug": "akcesoria-rynnowe",
+              "name": "Akcesoria rynnowe"
+            }
+          ]
+        },
+        {
+          "slug": "zamocowania-dachowe",
+          "name": "Zamocowania dachowe",
+          "sub": [
+            {
+              "slug": "laty-i-kontrlatwy",
+              "name": "Łaty i kontrłaty"
+            },
+            {
+              "slug": "haki-rynnowe",
+              "name": "Haki rynnowe"
+            }
+          ]
+        },
+        {
+          "slug": "komunikacja-dachowa",
+          "name": "Komunikacja dachowa",
+          "sub": [
+            {
+              "slug": "wylazy-dachowe",
+              "name": "Wyłazy dachowe"
+            },
+            {
+              "slug": "stopnie-kominiarskie",
+              "name": "Stopnie kominiarskie"
+            }
+          ]
+        },
+        {
+          "slug": "zabezpieczenia-przeciwsniegowe",
+          "name": "Zabezpieczenia przeciwśniegowe",
+          "sub": []
+        }
+      ]
+    },
+    {
+      "slug": "sucha-zabudowa",
+      "name": "Sucha zabudowa",
+      "subcategories": [
+        {
+          "slug": "plyty",
+          "name": "Płyty",
+          "sub": [
+            {
+              "slug": "plyty-gipsowo-kartonowe",
+              "name": "Płyty gipsowo-kartonowe"
+            },
+            {
+              "slug": "plyty-cementowe",
+              "name": "Płyty cementowe"
+            }
+          ]
+        },
+        {
+          "slug": "profile-do-suchej-zabudowy",
+          "name": "Profile",
+          "sub": [
+            {
+              "slug": "profile-do-suchej-zabudowy-konstrukcja-scienna",
+              "name": "Profile konstrukcja ścienna"
+            },
+            {
+              "slug": "profile-cd-ud",
+              "name": "Profile CD/UD"
+            }
+          ]
+        },
+        {
+          "slug": "wieszaki-do-suchej-zabudowy",
+          "name": "Wieszaki",
+          "sub": [
+            {
+              "slug": "wieszaki-do-suchej-zabudowy-z-noniuszem",
+              "name": "Wieszaki z noniuszem"
+            }
+          ]
+        },
+        {
+          "slug": "mocowania-do-suchej-zabudowy",
+          "name": "Mocowania",
+          "sub": [
+            {
+              "slug": "wkrety-do-suchej-zabudowy",
+              "name": "Wkręty do suchej zabudowy"
+            },
+            {
+              "slug": "laczniki-do-profili",
+              "name": "Łączniki do profili"
+            }
+          ]
+        },
+        {
+          "slug": "narozniki-i-listwy",
+          "name": "Narożniki i listwy",
+          "sub": [
+            {
+              "slug": "narozniki-do-suchej-zabudowy-aluminiowe",
+              "name": "Narożniki aluminiowe"
+            }
+          ]
+        },
+        {
+          "slug": "tasmy-do-suchej-zabudowy",
+          "name": "Taśmy",
+          "sub": []
+        },
+        {
+          "slug": "rewizje",
+          "name": "Rewizje",
+          "sub": [
+            {
+              "slug": "klapy-rewizyjne",
+              "name": "Klapy rewizyjne"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sufity-podwieszane",
+      "name": "Sufity podwieszane",
+      "subcategories": [
+        {
+          "slug": "plyty-sufitowe",
+          "name": "Płyty sufitowe",
+          "sub": [
+            {
+              "slug": "plyty-sufitowe-z-welny-mineralnej",
+              "name": "Płyty sufitowe z wełny mineralnej"
+            },
+            {
+              "slug": "plyty-sufitowe-z-welny-szklanej",
+              "name": "Płyty sufitowe z wełny szklanej"
+            }
+          ]
+        },
+        {
+          "slug": "profile-do-sufitow-podwieszanych",
+          "name": "Profile do sufitów podwieszanych",
+          "sub": [
+            {
+              "slug": "profile-nosne-glowne-do-sufitow-podwieszanych",
+              "name": "Profile nośne/główne"
+            },
+            {
+              "slug": "profile-poprzeczne-do-sufitow-podwieszanych",
+              "name": "Profile poprzeczne"
+            }
+          ]
+        },
+        {
+          "slug": "mocowania-do-sufitow-podwieszanych",
+          "name": "Mocowania do sufitów",
+          "sub": [
+            {
+              "slug": "elementy-wykonczeniowe-do-mocowania-sufitow-podwieszanych",
+              "name": "Elementy wykończeniowe"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "izolacje",
+      "name": "Izolacje",
+      "subcategories": [
+        {
+          "slug": "styropiany",
+          "name": "Styropiany",
+          "sub": [
+            {
+              "slug": "styropiany-fasadowe-eps",
+              "name": "Styropiany fasadowe EPS"
+            },
+            {
+              "slug": "styropian-dach-podloga-eps",
+              "name": "Styropian dach-podłoga EPS"
+            },
+            {
+              "slug": "styropiany-do-fundamentow",
+              "name": "Styropiany do fundamentów"
+            }
+          ]
+        },
+        {
+          "slug": "plyty-xps",
+          "name": "Płyty XPS",
+          "sub": []
+        },
+        {
+          "slug": "welny",
+          "name": "Wełny",
+          "sub": [
+            {
+              "slug": "welny-do-poddaszy",
+              "name": "Wełny do poddaszy"
+            },
+            {
+              "slug": "welny-do-dachow-plaskich",
+              "name": "Wełny do dachów płaskich"
+            },
+            {
+              "slug": "welny-fasadowe",
+              "name": "Wełny fasadowe"
+            }
+          ]
+        },
+        {
+          "slug": "izolacje-budowlane",
+          "name": "Izolacje budowlane",
+          "sub": [
+            {
+              "slug": "izolacje-stropow-i-podlog",
+              "name": "Izolacje stropów i podłóg"
+            },
+            {
+              "slug": "izolacje-fasadowe",
+              "name": "Izolacje fasadowe"
+            },
+            {
+              "slug": "izolacje-dachow-plaskich",
+              "name": "Izolacje dachów płaskich"
+            }
+          ]
+        },
+        {
+          "slug": "izolacje-techniczne",
+          "name": "Izolacje techniczne",
+          "sub": [
+            {
+              "slug": "izolacje-przemyslowe",
+              "name": "Izolacje przemysłowe"
+            },
+            {
+              "slug": "izolacje-hvac",
+              "name": "Izolacje HVAC"
+            }
+          ]
+        },
+        {
+          "slug": "hydroizolacje",
+          "name": "Hydroizolacje",
+          "sub": [
+            {
+              "slug": "hydroizolacje-bitumiczne",
+              "name": "Hydroizolacje bitumiczne"
+            },
+            {
+              "slug": "masy-uszczelniajace",
+              "name": "Masy uszczelniające"
+            },
+            {
+              "slug": "membrany-dachowe",
+              "name": "Membrany dachowe"
+            },
+            {
+              "slug": "hydroizolacje-mineralne",
+              "name": "Hydroizolacje mineralne"
+            }
+          ]
+        },
+        {
+          "slug": "folie",
+          "name": "Folie",
+          "sub": [
+            {
+              "slug": "folie-fundamentowe",
+              "name": "Folie fundamentowe"
+            },
+            {
+              "slug": "folie-budowlane",
+              "name": "Folie budowlane"
+            },
+            {
+              "slug": "folie-paroizolacyjne",
+              "name": "Folie paroizolacyjne"
+            }
+          ]
+        },
+        {
+          "slug": "akcesoria-do-izolacji",
+          "name": "Akcesoria do izolacji",
+          "sub": [
+            {
+              "slug": "profile-i-narozniki-do-izolacji-budowlanych",
+              "name": "Profile i narożniki do izolacji"
+            },
+            {
+              "slug": "laczniki-do-izolacji-fasadowych",
+              "name": "Łączniki do izolacji fasadowych"
+            },
+            {
+              "slug": "siatki-elewacyjne",
+              "name": "Siatki elewacyjne"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "plytki",
+      "name": "Płytki",
+      "subcategories": [
+        {
+          "slug": "plytki-ceramiczne",
+          "name": "Płytki ceramiczne",
+          "sub": [
+            {
+              "slug": "plytki-scienne",
+              "name": "Płytki ścienne"
+            },
+            {
+              "slug": "plytki-podlogowe",
+              "name": "Płytki podłogowe"
+            },
+            {
+              "slug": "plytki-elewacyjne",
+              "name": "Płytki elewacyjne"
+            },
+            {
+              "slug": "plytki-tarasowe",
+              "name": "Płytki tarasowe"
+            }
+          ]
+        },
+        {
+          "slug": "plytki-dekoracyjne",
+          "name": "Płytki dekoracyjne",
+          "sub": [
+            {
+              "slug": "panele-i-dekory-scienne",
+              "name": "Panele i dekory ścienne"
+            },
+            {
+              "slug": "mozaiki",
+              "name": "Mozaiki"
+            }
+          ]
+        },
+        {
+          "slug": "listwy-i-akcesoria",
+          "name": "Listwy i akcesoria",
+          "sub": [
+            {
+              "slug": "listwy-przypodlogowe",
+              "name": "Listwy przypodłogowe"
+            },
+            {
+              "slug": "akcesoria-instalacyjne",
+              "name": "Akcesoria instalacyjne"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "stropy-i-sciany",
+      "name": "Stropy i ściany",
+      "subcategories": [
+        {
+          "slug": "materialy-konstrukcyjne",
+          "name": "Materiały konstrukcyjne",
+          "sub": [
+            {
+              "slug": "bloczki",
+              "name": "Bloczki"
+            },
+            {
+              "slug": "pustaki",
+              "name": "Pustaki"
+            },
+            {
+              "slug": "belki-stropowe-betonowe",
+              "name": "Belki stropowe betonowe"
+            },
+            {
+              "slug": "belki-stropowe-ceramiczne",
+              "name": "Belki stropowe ceramiczne"
+            }
+          ]
+        },
+        {
+          "slug": "panele-scienne-i-tapety",
+          "name": "Panele ścienne i tapety",
+          "sub": [
+            {
+              "slug": "okladziny-z-wlokna-szklanego",
+              "name": "Okładziny z włókna szklanego"
+            },
+            {
+              "slug": "tapety-scienne",
+              "name": "Tapety ścienne"
+            }
+          ]
+        },
+        {
+          "slug": "schody-i-akcesoria-strychowe",
+          "name": "Schody i akcesoria strychowe",
+          "sub": [
+            {
+              "slug": "schody-strychowe",
+              "name": "Schody strychowe"
+            },
+            {
+              "slug": "drzwi-kolankowe",
+              "name": "Drzwi kolankowe"
+            }
+          ]
+        },
+        {
+          "slug": "systemy-kominowe",
+          "name": "Systemy kominowe",
+          "sub": [
+            {
+              "slug": "kominy-ceramiczne",
+              "name": "Kominy ceramiczne"
+            },
+            {
+              "slug": "kominy-stalowe",
+              "name": "Kominy stalowe"
+            },
+            {
+              "slug": "akcesoria-do-kominow",
+              "name": "Akcesoria do kominów"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "narzedzia-i-mocowania",
+      "name": "Narzędzia i mocowania",
+      "subcategories": [
+        {
+          "slug": "elementy-mocujace-uniwersalne",
+          "name": "Elementy mocujące",
+          "sub": [
+            {
+              "slug": "kolki-i-wkrety-uniwersalne",
+              "name": "Kołki i wkręty uniwersalne"
+            },
+            {
+              "slug": "kotwy-mechaniczne",
+              "name": "Kotwy mechaniczne"
+            }
+          ]
+        },
+        {
+          "slug": "narzedzia-reczne",
+          "name": "Narzędzia ręczne",
+          "sub": [
+            {
+              "slug": "mlotki-i-lomy",
+              "name": "Młotki i łomy"
+            },
+            {
+              "slug": "poziomice-i-laty",
+              "name": "Poziomice i łaty"
+            },
+            {
+              "slug": "pace-i-kielnie",
+              "name": "Pace i kielnie"
+            }
+          ]
+        },
+        {
+          "slug": "elektronarzedzia",
+          "name": "Elektronarzędzia",
+          "sub": [
+            {
+              "slug": "wiertarko-wkretarki",
+              "name": "Wiertarko-wkrętarki"
+            },
+            {
+              "slug": "szlifierki",
+              "name": "Szlifierki"
+            },
+            {
+              "slug": "przecinarki",
+              "name": "Przecinarki"
+            }
+          ]
+        },
+        {
+          "slug": "narzedzia-malarskie",
+          "name": "Narzędzia malarskie",
+          "sub": [
+            {
+              "slug": "walki-malarskie",
+              "name": "Wałki malarskie"
+            },
+            {
+              "slug": "pedzle",
+              "name": "Pędzle"
+            },
+            {
+              "slug": "kuwety-i-siatki-malarskie",
+              "name": "Kuwety i siatki malarskie"
+            }
+          ]
+        },
+        {
+          "slug": "narzedzia-i-akcesoria-glazurnicze",
+          "name": "Narzędzia glazurnicze",
+          "sub": [
+            {
+              "slug": "przecinarki-do-plytek",
+              "name": "Przecinarki do płytek"
+            },
+            {
+              "slug": "pace-zebate",
+              "name": "Pace zębate"
+            }
+          ]
+        },
+        {
+          "slug": "akcesoria-malarskie-i-tynkarskie",
+          "name": "Akcesoria malarskie i tynkarskie",
+          "sub": []
+        },
+        {
+          "slug": "akcesoria-murarskie",
+          "name": "Akcesoria murarskie",
+          "sub": []
+        },
+        {
+          "slug": "artykuly-scierne",
+          "name": "Artykuły ścierne",
+          "sub": []
+        },
+        {
+          "slug": "narzedzia-budowlane",
+          "name": "Narzędzia budowlane",
+          "sub": []
+        },
+        {
+          "slug": "narzedzia-pomiarowe",
+          "name": "Narzędzia pomiarowe",
+          "sub": []
+        }
+      ]
+    },
+    {
+      "slug": "pozostale",
+      "name": "Pozostałe",
+      "subcategories": [
+        {
+          "slug": "akcesoria-budowlane",
+          "name": "Akcesoria budowlane",
+          "sub": []
+        },
+        {
+          "slug": "chemia-gospodarcza",
+          "name": "Chemia gospodarcza",
+          "sub": []
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "mainCategories": 10,
+    "subcategories": 63,
+    "subSubcategories": 98,
+    "totalNodes": 171
+  }
+}

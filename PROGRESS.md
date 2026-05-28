@@ -84,3 +84,8 @@
 [2026-05-28 21:21] Faza 2A: rozbudowa schematów Sanity – product, brand, category, index, config
 [2026-05-28 21:25] Faza 2 OK: schematy Sanity (product+brand+category), skrypty migracji, NDJSON 175 prod / 74 marek / 127 kategorii
 [2026-05-28 21:38] Faza 4: queries.ts (GROQ), useSanityProducts.ts, build OK
+[2026-05-28 21:42] Faza 5 start: scraping produktów bechcicki.pl kategorię po kategorii
+[2026-05-28 22:36] Faza 5 scraping bechcicki.pl: httpx async bez przeglądarki. 10103 produktów z 98/159 kategorii (kat 1-98). Resume scraper uruchomiony dla kat 99-159 (bg-274a108b). Selektor DOM: .one-product-tile-information, paginacja ?page=N. Dane: SKU, name(z URL slug), brand(alternativeId), manufacturerIndex, EAN, url.
+[2026-05-28 22:52] Faza 5 UKOŃCZONA: 15739 produktów + 1936 nowych marek zaimportowanych do Sanity (project nzcwegq7). Dane: SKU, name, brand, EAN, manufacturerIndex, category. Łącznie w Sanity: ~15914 produktów (175 stare + 15739 nowe), ~2010 marek.
+[2026-05-28 22:54] Weryfikacja frontendu + commit/deploy po imporcie 15739 produktów do Sanity
+[2026-05-28 22:55] Build OK (8.29s, 1925 modules). Committing Faza 5: import 15739 produktów + 1936 marek do Sanity. Frontend bez zmian kodu — działa z Sanity.

@@ -15,6 +15,13 @@ export interface Product {
   related: string[];
   isNew?: boolean;
   isFeatured?: boolean;
+  /* SEO / AI-search enrichment */
+  advantages?: string[];                    // punkty "dlaczego warto"
+  warnings?: string[];                      // ostrzeżenia / uwagi montażowe
+  faq?: { q: string; a: string }[];        // FAQ – People Also Ask
+  seoDescription?: string;                 // długi opis SEO (min. 300 słów)
+  metaTitle?: string;
+  metaDesc?: string;
 }
 
 export const products: Product[] = [

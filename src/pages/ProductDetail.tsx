@@ -2,7 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import {
   ChevronRight, ShoppingCart, Phone, Mail, Download, Check,
   ZoomIn, ChevronLeft, ChevronRight as ChevronNext,
-  Info, Wrench, BarChart2, Star, ArrowRight, Shield, X
+  Info, Wrench, BarChart2, Star, ArrowRight, Shield, X,
+  ThumbsUp, HelpCircle, AlertTriangle, FileText
 } from "lucide-react";
 import { getProductBySlug, products as staticProducts } from "@/data/products";
 import { getCategoryBySlug, getBreadcrumbs } from "@/data/categories";
@@ -32,7 +33,7 @@ function useReveal() {
   return { ref, vis };
 }
 
-type Tab = "opis" | "specyfikacja" | "zastosowanie";
+type Tab = "opis" | "specyfikacja" | "zastosowanie" | "zalety" | "faq";
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -100,11 +101,13 @@ export default function ProductDetail() {
     { id: "opis",         label: "Opis produktu",          icon: <Info className="w-4 h-4" /> },
     { id: "specyfikacja", label: "Specyfikacja techniczna", icon: <BarChart2 className="w-4 h-4" /> },
     { id: "zastosowanie", label: "Zastosowanie",            icon: <Wrench className="w-4 h-4" /> },
+    ...(product.advantages && product.advantages.length > 0 ? [{ id: "zalety" as Tab, label: "Zalety", icon: <ThumbsUp className="w-4 h-4" /> }] : []),
+    ...(product.faq && product.faq.length > 0 ? [{ id: "faq" as Tab, label: "FAQ", icon: <HelpCircle className="w-4 h-4" /> }] : []),
   ];
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
-      {/* JSON-LD */}
+      {/* JSON-LD Product + FAQ */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "Product",
         "name": product.name, "description": product.description,
@@ -113,6 +116,15 @@ export default function ProductDetail() {
         "offers": { "@type": "Offer", "availability": "https://schema.org/InStock", "priceCurrency": "PLN",
           "seller": { "@type": "Organization", "name": "Media Bud" } }
       })}} />
+      {product.faq && product.faq.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org", "@type": "FAQPage",
+          "mainEntity": product.faq.map(f => ({
+            "@type": "Question", "name": f.q,
+            "acceptedAnswer": { "@type": "Answer", "text": f.a }
+          }))
+        })}} />
+      )}
 
       {/* ── Breadcrumbs ── */}
       <div style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
@@ -417,27 +429,64 @@ export default function ProductDetail() {
             {activeTab === "zastosowanie" && (
               <div className="max-w-3xl">
                 <p className="text-gray-400 leading-relaxed text-sm">{product.application}</p>
+                {product.seoDescription && (
+                  <p className="text-gray-500 leading-relaxed text-sm mt-4">{product.seoDescription}</p>
+                )}
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <div
-                    className="flex-1 rounded-xl p-4"
-                    style={{ background: "rgba(248,24,40,0.07)", border: "1px solid rgba(248,24,40,0.16)" }}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <Phone className="w-4 h-4 text-[#f81828]" />
-                      <span className="font-semibold text-sm text-white">Doradztwo techniczne</span>
-                    </div>
+                  <div className="flex-1 rounded-xl p-4" style={{ background: "rgba(248,24,40,0.07)", border: "1px solid rgba(248,24,40,0.16)" }}>
+                    <div className="flex items-center gap-2 mb-1"><Phone className="w-4 h-4 text-[#f81828]" /><span className="font-semibold text-sm text-white">Doradztwo techniczne</span></div>
                     <p className="text-xs text-gray-500 mb-2">Pomożemy dobrać produkt do Twojego projektu.</p>
-                    <a href="tel:+48509567213" className="text-sm font-bold text-[#f81828] hover:underline">
-                      +48 509 567 213
-                    </a>
+                    <a href="tel:+48509567213" className="text-sm font-bold text-[#f81828] hover:underline">+48 509 567 213</a>
                   </div>
-                  <button
-                    className="sm:self-end flex items-center gap-1.5 text-sm font-medium px-4 py-2.5 rounded-xl text-gray-400 hover:text-white transition-colors"
-                    style={{ border: "1px solid rgba(255,255,255,0.1)" }}
-                  >
-                    <Download className="w-3.5 h-3.5" /> Karta techniczna (PDF)
+                  <button className="sm:self-end flex items-center gap-1.5 text-sm font-medium px-4 py-2.5 rounded-xl text-gray-400 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <FileText className="w-3.5 h-3.5" /> Karta techniczna (PDF)
                   </button>
                 </div>
+              </div>
+            )}
+
+            {activeTab === "zalety" && product.advantages && (
+              <div className="max-w-3xl space-y-4">
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {product.advantages.map((adv, i) => (
+                    <div key={i} className="flex items-start gap-3 rounded-xl p-4" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                      <Check className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-gray-300">{adv}</span>
+                    </div>
+                  ))}
+                </div>
+                {product.warnings && product.warnings.length > 0 && (
+                  <div className="rounded-xl p-4 mt-4" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.2)" }}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <AlertTriangle className="w-4 h-4 text-amber-400" />
+                      <span className="text-sm font-bold text-amber-400">Ważne informacje i ostrzeżenia</span>
+                    </div>
+                    <ul className="space-y-2">
+                      {product.warnings.map((w, i) => (
+                        <li key={i} className="text-sm text-gray-400 flex items-start gap-2">
+                          <span className="text-amber-500 mt-0.5 flex-shrink-0">▸</span>{w}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === "faq" && product.faq && (
+              <div className="max-w-3xl space-y-3">
+                <p className="text-xs text-gray-600 mb-4">Najczęściej zadawane pytania dotyczące tego produktu</p>
+                {product.faq.map((item, i) => (
+                  <details key={i} className="rounded-xl overflow-hidden group" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+                    <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none hover:bg-[#f81828]/05 transition-colors" style={{ background: "rgba(255,255,255,0.02)" }}>
+                      <span className="text-sm font-semibold text-gray-200 pr-4">{item.q}</span>
+                      <ChevronNext className="w-4 h-4 text-gray-500 flex-shrink-0 group-open:rotate-90 transition-transform" />
+                    </summary>
+                    <div className="px-5 py-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", background: "#0a0a0a" }}>
+                      <p className="text-sm text-gray-400 leading-relaxed">{item.a}</p>
+                    </div>
+                  </details>
+                ))}
               </div>
             )}
           </div>

@@ -292,53 +292,466 @@ export function AboutPage() {
 }
 
 // ─── SERVICES PAGE ─────────────────────────────────────────────────
+
+type ServiceDetail = {
+  id: string;
+  icon: React.ReactNode;
+  title: string;
+  badge: string;
+  shortDesc: string;
+  longDesc: string;
+  features: string[];
+  faq: { q: string; a: string }[];
+};
+
+type FaqItem = { q: string; a: string };
+
+function ServiceCard({ svc, isOpen, onToggle }: { svc: ServiceDetail; isOpen: boolean; onToggle: () => void }) {
+  return (
+    <div className={`rounded-xl overflow-hidden transition-all duration-300 ${cardHover}`} style={card}>
+      {/* Card header – always visible */}
+      <button
+        onClick={onToggle}
+        className="w-full text-left p-6 flex items-start gap-4 focus:outline-none group"
+        aria-expanded={isOpen}
+      >
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-105"
+          style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)" }}>
+          {svc.icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <span className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">{svc.badge}</span>
+          </div>
+          <h2 className="font-display font-black text-white text-base leading-tight mb-1">{svc.title}</h2>
+          <p className="text-xs text-gray-500 leading-relaxed">{svc.shortDesc}</p>
+        </div>
+        <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-300 ${isOpen ? "bg-[#f81828] rotate-90" : "bg-white/5"}`}>
+          <ChevronRight className="w-4 h-4 text-white" />
+        </div>
+      </button>
+
+      {/* Expanded content */}
+      {isOpen && (
+        <div className="px-6 pb-6 space-y-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <p className="text-sm text-gray-400 leading-relaxed pt-5">{svc.longDesc}</p>
+
+          {/* Features */}
+          <div>
+            <div className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-3">Co obejmuje usługa</div>
+            <ul className="grid sm:grid-cols-2 gap-2">
+              {svc.features.map((f, fi) => (
+                <li key={fi} className="flex items-start gap-2 text-xs text-gray-300">
+                  <Check className="w-3.5 h-3.5 text-[#f81828] flex-shrink-0 mt-0.5" />{f}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* FAQ per service */}
+          <div>
+            <div className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-3">Najczęstsze pytania</div>
+            <div className="space-y-2">
+              {svc.faq.map((item, fi) => (
+                <div key={fi} className="rounded-lg p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                  <div className="font-semibold text-white text-xs mb-1.5 flex items-start gap-2">
+                    <span className="text-[#f81828] font-black flex-shrink-0">Q:</span>{item.q}
+                  </div>
+                  <div className="text-xs text-gray-500 leading-relaxed pl-4">{item.a}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Link to="/kontakt">
+            <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_16px_rgba(248,24,40,0.35)] mt-2">
+              <Phone className="w-3.5 h-3.5" /> Zapytaj o wycenę
+            </button>
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FaqAccordion({ items }: { items: FaqItem[] }) {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  return (
+    <div className="space-y-2">
+      {items.map((item, i) => (
+        <div key={i} className={`rounded-xl overflow-hidden transition-all duration-300 ${cardHover}`} style={card}>
+          <button
+            onClick={() => setOpenIdx(openIdx === i ? null : i)}
+            className="w-full text-left px-5 py-4 flex items-center gap-3 focus:outline-none"
+            aria-expanded={openIdx === i}
+          >
+            <span className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-black text-white"
+              style={{ background: openIdx === i ? "#f81828" : "rgba(248,24,40,0.15)" }}>
+              {i + 1}
+            </span>
+            <span className="flex-1 font-semibold text-white text-sm">{item.q}</span>
+            <ChevronRight className={`w-4 h-4 text-[#f81828] transition-transform duration-200 ${openIdx === i ? "rotate-90" : ""}`} />
+          </button>
+          {openIdx === i && (
+            <div className="px-5 pb-4 pl-14 text-sm text-gray-400 leading-relaxed" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+              <div className="pt-3">{item.a}</div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function ServicesPage() {
-  const services = [
-    { icon: "🏗️", title: 'Program "Dom od podstaw"', slug: "dom-od-podstaw", desc: "Kompleksowe wsparcie przez cały proces budowy – od fundamentów po wykończenie.", features: ["Dobór materiałów do każdego etapu budowy","Koordynacja dostaw na harmonogram","Optymalizacja kosztów materiałowych","Wsparcie techniczne na każdym kroku"] },
-    { icon: "🔧", title: "Doradztwo techniczne", slug: "doradztwo-techniczne", desc: "Bezpłatne konsultacje z ekspertami – telefonicznie, online lub w naszym składzie.", features: ["Dobór systemu ociepleń ETICS","Analiza projektów budowlanych","Optymalizacja specyfikacji materiałowej","Doradztwo w zakresie energooszczędności"] },
-    { icon: "🚚", title: "Transport materiałów", slug: "transport", desc: "Szybka dostawa materiałów na teren Lublina i województwa lubelskiego.", features: ["Dostawy na plac budowy","Elastyczne terminy dostaw","Rozładunek przy budynku","Koordynacja wielu dostaw"] },
-    { icon: "👷", title: "Podwykonawstwo", slug: "podwykonawstwo", desc: "Realizacja prac tynkarskich i ociepleniowych przez naszych wykwalifikowanych specjalistów.", features: ["Tynkowanie maszynowe i ręczne","Wykonanie systemów ociepleń ETICS","Doświadczone ekipy wykonawcze","Gwarancja na wykonane prace"] },
-    { icon: "🤝", title: "Sieć specjalistów", slug: "siec-specjalistow", desc: "Polecamy sprawdzonych wykonawców – tynkarzy, układaczy, ekipy budowlane.", features: ["Zweryfikowani i polecani fachowcy","Tynkarze i specjaliści ETICS","Ekipy do kompleksowych remontów","Koordynacja z dostawą materiałów"] },
-    { icon: "🏢", title: "Obsługa deweloperów B2B", slug: "deweloperzy", desc: "Dedykowane warunki dla firm deweloperskich realizujących inwestycje wielorodzinne.", features: ["Indywidualne cenniki wolumenowe","Dedykowany opiekun handlowy","Faktury zbiorcze i odroczona płatność","Dokumentacja techniczna dla inwestorów"] },
+  const [openService, setOpenService] = useState<string | null>(null);
+
+  const services: ServiceDetail[] = [
+    {
+      id: "dom-od-podstaw",
+      icon: <Shield className="w-6 h-6 text-[#f81828]" />,
+      badge: "Kompleksowa realizacja",
+      title: 'Dom od podstaw — etapy budowy i materiały',
+      shortDesc: "Wsparcie na każdym etapie budowy domu — od fundamentów, przez stan surowy, aż po wykończenie wnętrz. Dobieramy materiały odpowiednie do każdego kroku.",
+      longDesc: "Budowa domu krok po kroku to złożony proces, który wymaga precyzyjnego planowania i doboru właściwych materiałów na każdy etap. W Media Bud oferujemy kompleksowe wsparcie: zaczynając od fundamentów i izolacji poziomej, poprzez bloczki i cegły na stan surowy, systemy ociepleń ETICS, tynki wewnętrzne i zewnętrzne, aż po wylewki, płyty GK i materiały wykończeniowe. Nasi doradcy pomagają zoptymalizować koszty zakupu materiałów bez uszczerbku na jakości — dla budynków jednorodzinnych, bliźniaków i szeregówek. Obsługujemy zarówno inwestorów indywidualnych, jak i deweloperów budujących osiedla w Lublinie i okolicach.",
+      features: [
+        "Kompleksowy dobór materiałów do każdego etapu",
+        "Fundamenty: styropian XPS, masy KMB, dysperbit",
+        "Stan surowy: bloczki, pustaki, cegła ceramiczna",
+        "Ocieplenie: styropian EPS 100/031, wełna fasadowa",
+        "Tynki wewnętrzne: gips maszynowy, tynk cementowo-wapienny",
+        "Wylewki: anhydryt, jastrych cementowy, beton",
+        "Wykończenie: tynki silikonowe, farby, płyty GK",
+        "Koordynacja dostaw zgodna z harmonogramem budowy",
+      ],
+      faq: [
+        { q: "Jakie materiały są potrzebne do budowy domu krok po kroku?", a: "Na budowę domu potrzebne są materiały podzielone na etapy: fundamenty (beton, styropian XPS, masa KMB), stan surowy otwarty (bloczki, pustaki, stropy), stan surowy zamknięty (okna, dach), ocieplenie ETICS (styropian EPS 100 lub 031, tynk silikonowy), instalacje, wylewki (anhydryt lub cement) i wykończenie (płyty GK, farby, tynki)." },
+        { q: "Ile kosztują materiały budowlane na dom 150 m²?", a: "Szacunkowy koszt materiałów na dom 150 m² to od 180 000 do 350 000 zł w zależności od standardu. Największe pozycje to: fundamenty i stan surowy (ok. 40%), ocieplenie i elewacja (15–20%), wylewki i posadzki (10%), dach (15–20%). Skontaktuj się z nami — wycenimy materiały na podstawie projektu." },
+        { q: "Czy Media Bud oferuje doradztwo techniczne przy wyborze materiałów?", a: "Tak, nasze bezpłatne doradztwo techniczne obejmuje dobór materiałów do projektu, optymalizację kosztów, przeliczenie ilości i dobór systemu ociepleń. Zapraszamy do oddziału przy ul. Chemicznej 8d w Lublinie lub na konsultację telefoniczną." },
+      ],
+    },
+    {
+      id: "ocieplenie-etics",
+      icon: <Zap className="w-6 h-6 text-[#f81828]" />,
+      badge: "Energooszczędność",
+      title: "Ocieplenie ETICS — styropian, wełna, tynki",
+      shortDesc: "Kompleksowe systemy ociepleń ETICS: dobór grubości styropianu lub wełny, parametry lambda, instrukcja montażu i wybór tynku końcowego.",
+      longDesc: "System ociepleń ETICS (External Thermal Insulation Composite System) to najskuteczniejsza metoda termoizolacji budynków w Polsce. W Media Bud oferujemy pełen zakres materiałów do ociepleń: styropian EPS 100 o lambdzie 0,031–0,040 W/mK w grubościach 15–20 cm, wełnę fasadową Rockwool/Isover λ 0,035–0,040, kleje i masy szpachlowe Weber/Atlas/Ceresit, siatki z włókna szklanego, profile startowe i narożnikowe oraz tynki końcowe: silikonowe, silikatowe, akrylowe i mineralne. Dobieramy system do klasy energetycznej budynku — dla domów pasywnych rekomendujemy styropian graphite EPS 031 o grubości 20–25 cm.",
+      features: [
+        "Styropian EPS 100 λ=0,038 W/mK — grubości 15, 18, 20 cm",
+        "Styropian grafitowy EPS 031 — najlepsze parametry izolacyjne",
+        "Wełna fasadowa lamelowa i płytowa λ=0,035–0,040",
+        "Kleje i masy zbrojące: Weber, Atlas, Ceresit, Caparol",
+        "Siatki z włókna szklanego 145–160 g/m²",
+        "Profile startowe, narożne, okapnikowe ze stali nierdzewnej",
+        "Tynki końcowe: silikonowy, silikatowy, akrylowy, mineralny",
+        "Farby elewacyjne — cała paleta kolorów RAL i NCS",
+      ],
+      faq: [
+        { q: "Jaki styropian na elewację — 15 cm czy 20 cm?", a: "Zgodnie z wymogami Warunków Technicznych 2021 minimalny współczynnik U ściany to 0,20 W/m²K. Dla standardowego muru 25 cm (bloczek PP2) wystarczy 15 cm styropianu EPS 100 λ=0,038. Dla domów energooszczędnych (klasa A) zalecamy 20 cm EPS 031 λ=0,031. Grubość 20 cm jest dziś standardem przy nowych inwestycjach, bo zwrot z inwestycji nastąpi w 6–8 lat przez niższe rachunki za ogrzewanie." },
+        { q: "Czym różni się styropian EPS od grafitowego (EPS 031)?", a: "Styropian grafitowy (szary, np. Swisspor Lambda, Styropmin Platinum) ma współczynnik λ=0,030–0,033 W/mK — nawet 20% lepszy niż biały EPS (λ=0,038–0,040). Oznacza to, że 15 cm EPS 031 izoluje tak samo jak 18–19 cm białego EPS. Cena styropianu grafitowego jest o ok. 15–25% wyższa, ale przy tej samej grubości ściany uzyska lepszą izolację." },
+        { q: "Jak przebiega montaż systemu ociepleń ETICS krok po kroku?", a: "Montaż ETICS obejmuje: 1) Gruntowanie podłoża, 2) Klejenie płyt styropianu (metoda obwodowo-punktowa lub grzebieniowa), 3) Łączniki mechaniczne (6–8 szt./m²), 4) Nakładanie masy zbrojącej + wtapianie siatki, 5) Gruntowanie głębokopenetrujące, 6) Nanoszenie tynku końcowego (faktura baranek lub kornik), 7) Malowanie farbą elewacyjną. Każdy etap wymaga odpowiednich przerw technologicznych (24–72h)." },
+      ],
+    },
+    {
+      id: "elewacje-tynkowanie",
+      icon: <Award className="w-6 h-6 text-[#f81828]" />,
+      badge: "Wykończenie zewnętrzne",
+      title: "Elewacje i tynkowanie — tynki silikonowe vs silikatowe",
+      shortDesc: "Dobór tynku elewacyjnego: silikonowy czy silikatowy? Porównanie parametrów, kolorystyka RAL/NCS i rekomendacje dla konkretnych podłoży.",
+      longDesc: "Wybór tynku elewacyjnego to kluczowa decyzja wpływająca na trwałość i estetykę budynku. W Media Bud oferujemy wszystkie rodzaje tynków zewnętrznych: silikonowe (najodporniejsze na brudzenie, elastyczne, paroprzepuszczalne), silikatowe (mineralne, odporne biologicznie, idealne na budynki przy drogach), akrylowe (tanie, szeroka kolorystyka, gorsza paroprzepuszczalność) i mineralne (kamyczek, mozaikowe, trwałe). W ofercie posiadamy systemy Weber, Ceresit, Atlas, Caparol i Bolix — z pełną paletą kolorów NCS i RAL. Wykonujemy tynkowanie maszynowe agregatem tynkarskim oraz ręczne — ściany, sufity, podcienia i elementy architektoniczne.",
+      features: [
+        "Tynki silikonowe: elastyczne, samoczyszczące, paroprzepuszczalne",
+        "Tynki silikatowe: odporne biologicznie, mrozoodporne",
+        "Tynki akrylowe: tanie, szeroka kolorystyka, łatwe w aplikacji",
+        "Tynki mozaikowe i kamyczkowe: do cokołów i akcentów",
+        "Tynkowanie maszynowe agregatem — szybko i ekonomicznie",
+        "Pełna paleta kolorów NCS i RAL — dobór online",
+        "Systemy: Weber, Ceresit, Atlas, Caparol, Bolix",
+        "Grunty sczepne i podkłady kwarcowe pod tynki",
+      ],
+      faq: [
+        { q: "Tynk silikonowy czy silikatowy — który wybrać?", a: "Tynk silikonowy jest lepszy dla domów w miejscach narażonych na zabrudzenia (kurz, spaliny) — dzięki właściwościom hydrofobowym brud zmywa deszcz. Tynk silikatowy (krzemianowy) jest bardziej paroprzepuszczalny i odporny biologicznie — polecany na budynki stare, remontowane lub w wilgotnych lokalizacjach. Oba mają zbliżoną cenę (ok. 30–45 zł/m²). Tynk silikonowo-silikatowy łączy zalety obu — to dziś najczęściej wybierany kompromis." },
+        { q: "Ile kosztuje tynkowanie elewacji w Lublinie 2026?", a: "Koszt tynku elewacyjnego silikonowego to ok. 25–45 zł/m² materiału + robocizna ok. 25–40 zł/m². Całościowo elewacja (ociepleenie + tynk) to 120–200 zł/m² przy domu 150 m² (ok. 400 m² elewacji). W Media Bud oferujemy materiały w cenach hurtowych — zapraszamy po bezpłatną wycenę." },
+        { q: "Jaka faktura tynku jest najtrwalsza — baranek czy kornik?", a: "Faktura kornik (deska, rowkowana) gromadzi nieco mniej brudu niż baranek — linie rowków odprowadzają wodę kierunkowo. Baranek (ziarnistość 1,5–3 mm) jest klasyczny i łatwiejszy do naprawy punktowej. Trwałość obu faktur przy tynku silikonowym jest porównywalna i wynosi 15–25 lat. Wybór to kwestia estetyki i projektu architektonicznego." },
+      ],
+    },
+    {
+      id: "wylewki-jastrychy",
+      icon: <Truck className="w-6 h-6 text-[#f81828]" />,
+      badge: "Podłogi i posadzki",
+      title: "Wylewki i jastrychy — anhydryt vs cement pod ogrzewanie",
+      shortDesc: "Porównanie wylewek anhydrytowych i cementowych pod ogrzewanie podłogowe. Grubości, przerwy technologiczne, dobór materiału do systemu grzewczego.",
+      longDesc: "Wybór między wylewką anhydrytową a cementową ma kluczowe znaczenie dla systemu ogrzewania podłogowego. Jastrych anhydrytowy (samonieczący, płynny) idealnie otula rury grzewcze, zapewniając przewodność cieplną λ=2,0 W/mK przy grubości zaledwie 35–45 mm nad rurą. Wylewka cementowa jest tańsza, bardziej odporna na wilgoć i sprawdza się w łazienkach, garażach i pomieszczeniach bez ogrzewania podłogowego. W Media Bud oferujemy gotowe mieszanki anhydrytowe Anhyment, Knauf/Weber, cementy portlandzkie i posypki uszczelniające, a także dodatki przyspieszające wiązanie i preparaty do pielęgnacji. Doradzamy w doborze grubości i składu mieszanki do konkretnego projektu.",
+      features: [
+        "Anhydryt płynny: samonieczący, grubość min. 35 mm nad rurą",
+        "Jastrych cementowy: odporny na wilgoć, garaże i łazienki",
+        "Masy wyrównujące: szybkoschnące, grubości 3–50 mm",
+        "Zbrojenie z siatki lub włókna polipropylenowego",
+        "Preparaty do pielęgnacji i dylatacji wylewek",
+        "Posypki utwardzające do posadzek przemysłowych",
+        "Dobór grubości do systemu ogrzewania podłogowego",
+        "Przeliczenie ilości i dobór składu mieszanki cementowej",
+      ],
+      faq: [
+        { q: "Wylewka anhydrytowa czy cementowa pod ogrzewanie podłogowe?", a: "Pod ogrzewanie podłogowe zaleca się anhydryt: przewodność cieplna λ=2,0 W/mK (vs 1,2–1,6 W/mK dla cementu), idealne wypełnienie wokół rur, minimalny skurcz, grubość zaledwie 35–40 mm nad rurą. Wada: anhydryt jest wrażliwy na wilgoć — nie nadaje się do łazienek bez dodatkowego uszczelnienia. Wylewka cementowa jest wszechstronniejsza i tańsza, ale wymaga grubości 45–65 mm nad rurą i dłuższego czasu schnięcia (1 mm/dobę)." },
+        { q: "Ile schnięca wylewka anhydrytowa przed układaniem podłogi?", a: "Wylewka anhydrytowa schnie ok. 1 mm na dzień w warunkach standardowych (20°C, wilgotność 65%). Wylewka 50 mm jest gotowa po ok. 4–5 tygodniach. Przed układaniem paneli wilgotność resztkowa musi wynosić ≤0,5% CM. Można przyspieszyć suszenie wentylacją mechaniczną i uruchomieniem ogrzewania podłogowego (po 7 dniach, stopniowo od 25°C do 45°C)." },
+        { q: "Jaka minimalna grubość wylewki anhydrytowej nad rurą grzewczą?", a: "Norma PN-EN 1264 zaleca min. 30 mm przykrycia rury anhydrytem (ok. 35 mm nad systemem 17×2 mm). W praktyce stosuje się 40–50 mm nad rurą dla lepszej akumulacji ciepła. Zbyt mała grubość grozi pęknięciem i widocznym efektem cętkowania temperatury na podłodze." },
+      ],
+    },
+    {
+      id: "sucha-zabudowa",
+      icon: <Package className="w-6 h-6 text-[#f81828]" />,
+      badge: "Ściany i sufity",
+      title: "Sucha zabudowa — płyty GK, profile, ściany działowe",
+      shortDesc: "Montaż płyt GK na stelażu metalowym: sufity podwieszane, ściany działowe, obudowy instalacji i poddasza. Dobór profili CW/UW i płyt do zastosowania.",
+      longDesc: "Sucha zabudowa z płyt gipsowo-kartonowych to szybka i czysta metoda aranżacji wnętrz. W Media Bud oferujemy pełen asortyment Knauf, Rigips i Siniat: płyty GKB (standardowe), GKBI (impregowane, łazienki), GKF (ognioodporne) i GKFI (impregowane ognioodporne), profile metalowe CW/UW (ściany), CD/UD (sufity), kształtowniki narożne, złącza i wkręty TN/TB. Doradzamy w doborze rodzaju płyty i profilu do konkretnego zastosowania: ścianki działowe, obudowy instalacji (piony kanalizacyjne), sufity podwieszane, skosach dachowych i zabudowy poddaszy. Oferujemy także izolacje akustyczne (wełna, Isover Aku) montowane między profilami.",
+      features: [
+        "Płyty GKB 12,5 mm — standardowe do ścian i sufitów",
+        "Płyty GKBI — impregnowane do łazienek i kuchni",
+        "Płyty GKF — ognioodporne do klatek schodowych",
+        "Profile CW/UW do ścianek działowych 75/100 mm",
+        "Profile CD/UD do sufitów podwieszanych",
+        "Łączniki, kołki rozporowe, wkręty TN 25/35/45 mm",
+        "Wełna akustyczna Isover Aku do wypełnienia ścianek",
+        "Szpachlówki, taśmy perforowane i narożniki do GK",
+      ],
+      faq: [
+        { q: "Jak zamontować płyty GK na stelażu sufitowym krok po kroku?", a: "Montaż sufitu GK: 1) Wyznaczenie poziomu i montaż profili UD pod sufitem i na ścianach, 2) Montaż wieszaków bezpośrednich lub noniuszy co 90–100 cm, 3) Osadzenie profili CD 60×27 co 50 cm, 4) Przykręcenie płyt GK wkrętami TN 25 mm co 15–17 cm, 5) Spoinowanie taśmą i szpachlówką (3 warstwy), 6) Szlifowanie i malowanie. Między płytami zachowaj szczelinę 2–3 mm." },
+        { q: "Jaka grubość ścianki działowej GK zapewnia dobrą izolację akustyczną?", a: "Ścianka C75/GKB 12,5 + wełna akustyczna 75 mm + GKB 12,5 (łącznie ok. 100 mm) osiąga izolacyjność Rw=43–48 dB — wystarczającą dla pokoi mieszkalnych. Dla lepszej izolacji (Rw≥50 dB) stosuje się podwójne poszycie GKF 15 mm i wełnę min. 60 mm: razem ok. 125 mm grubości. W Media Bud dobierzemy optymalny system do Twojego projektu." },
+        { q: "Ile płyt GK i profili potrzebuję na ściankę 10 m²?", a: "Na 10 m² ścianki działowej potrzebujesz: ok. 5 płyt GKB 120×260 cm (strona), profile UW 2×10,5 mb (górny + dolny), profile CW ok. 20 mb (co 60 cm), wieszaki narożne i wkręty. Razem ok. 20–25% materiału zapasowego. Skorzystaj z naszego kalkulatora w sklepie lub zadzwoń — przeliczymy ilości do Twojego projektu." },
+      ],
+    },
+    {
+      id: "transport-logistyka",
+      icon: <Truck className="w-6 h-6 text-[#f81828]" />,
+      badge: "Dostawa Lublin i region",
+      title: "Transport i logistyka — dostawa materiałów budowlanych Lublin",
+      shortDesc: "Szybka dostawa materiałów budowlanych na plac budowy w Lublinie i województwie lubelskim. Samochody HDS, palety, rozładunek przy budynku.",
+      longDesc: "Media Bud oferuje kompleksową logistykę dostaw materiałów budowlanych na terenie Lublina i całego województwa lubelskiego. Dysponujemy flotą samochodów z dźwigiem HDS (HIAB), co pozwala na precyzyjne rozłożenie materiałów bezpośrednio na placu budowy — nawet na wyższe kondygnacje lub do trudnodostępnych miejsc. Dostarczamy palety ze styropianem, worki z cementem i gipsem, paczki z płytami GK, systemy ociepleń i drobnicę. Harmonogramujemy dostawy zgodnie z etapami budowy, co eliminuje konieczność magazynowania dużych ilości materiałów na placu. Możliwa jest dostawa ekspresowa (tego samego dnia dla zamówień do godz. 10:00) w promieniu 30 km od Lublina.",
+      features: [
+        "Dostawa HDS — rozładunek na plac budowy, wyższe kondygnacje",
+        "Zasięg: Lublin + 80 km (całe woj. lubelskie)",
+        "Dostawy etapowe zgodnie z harmonogramem budowy",
+        "Ekspresowa dostawa tego samego dnia (dla zam. do 10:00)",
+        "Transport palet, worków, płyt i drobnych materiałów",
+        "Dostawa do trudnodostępnych lokalizacji i wąskich działek",
+        "Powiadomienia SMS/email o statusie dostawy",
+        "Możliwość odbioru własnego ze składu ul. Chemiczna 8d",
+      ],
+      faq: [
+        { q: "Na jaki teren Media Bud realizuje dostawy materiałów budowlanych?", a: "Dostarczamy na terenie Lublina i całego województwa lubelskiego — m.in. do Świdnika, Chełma, Zamościa, Biłgoraja, Puław, Kraśnika i Hrubieszowa. Koszt dostawy zależy od odległości i wagi zamówienia. Dla zamówień powyżej określonej wartości dostawa gratis — szczegóły przy składaniu zamówienia lub pod numerem +48 509 567 213." },
+        { q: "Czy możliwa jest dostawa materiałów budowlanych tego samego dnia?", a: "Tak — dla zamówień złożonych do godziny 10:00 realizujemy dostawę ekspresową tego samego dnia w promieniu 30 km od Lublina (w miarę dostępności floty). Dla dalszych lokalizacji czas dostawy to 1–2 dni robocze. Skontaktuj się z nami, aby potwierdzić termin." },
+        { q: "Czy przy dostawie możliwy jest rozładunek HDS na wyższe piętra?", a: "Tak — nasz samochód z dźwigiem HDS pozwala na precyzyjne umieszczenie materiałów na balkonach, stropach lub w pobliżu budynku. Wymagana jest dostępność terenu dla pojazdu ciężarowego (min. 3,5 m szerokości przejazdu). Przy zamówieniu prosimy poinformować o specyfice placu budowy." },
+      ],
+    },
   ];
+
+  const generalFaq: FaqItem[] = [
+    { q: "Czym jest hurtownia Media Bud i jaki jest jej zakres działalności?", a: "Media Bud to profesjonalna hurtownia i skład materiałów budowlanych w Lublinie przy ul. Chemicznej 8d. Oferujemy pełen asortyment materiałów do budowy i remontu: systemy ociepleń ETICS, tynki, wylewki, płyty GK, farby elewacyjne, cement, gips, styropian, wełna mineralna, kleje i chemia budowlana. Obsługujemy klientów indywidualnych, firmy wykonawcze i deweloperów." },
+    { q: "Czy Media Bud oferuje bezpłatne doradztwo techniczne?", a: "Tak — doradztwo techniczne jest bezpłatne. Nasi specjaliści pomogą dobrać system ociepleń, rodzaj tynku, skład wylewki i optymalne materiały do Twojego projektu. Konsultacja możliwa telefonicznie (+48 509 567 213), mailowo (sprzedaz@mediabud.pl) lub osobiście w hurtowni w Lublinie." },
+    { q: "Jakie systemy ociepleń ETICS są dostępne w Media Bud?", a: "Oferujemy systemy ociepleń czołowych producentów: Weber (Webertherm), Ceresit (CT), Atlas (Stopter), Caparol (Capatect) i Bolix. Dostępne są systemy ze styropianem EPS 100, EPS 031 (grafitowy) oraz wełną mineralną fasadową. Do każdego systemu oferujemy kompletny zestaw materiałów: klej, łączniki, siatkę, grunt i tynk końcowy." },
+    { q: "Czy Media Bud realizuje zamówienia dla firm budowlanych i deweloperów?", a: "Tak — posiadamy dedykowaną ofertę B2B dla firm wykonawczych i deweloperów: indywidualne cenniki wolumenowe, faktury z odroczonym terminem płatności, priorytetowe terminy dostaw i dedykowany opiekun handlowy. Skontaktuj się z nami, aby omówić warunki współpracy dla Twojej firmy." },
+    { q: "Jakie są godziny otwarcia hurtowni przy ul. Chemicznej 8d w Lublinie?", a: "Hurtownia jest otwarta od poniedziałku do piątku w godzinach 7:00–17:00 oraz w soboty od 8:00 do 14:00. W niedzielę i święta nieczynne. Zamówienia z dostawą można składać telefonicznie lub przez formularz kontaktowy na stronie — odpowiadamy w ciągu 2 godzin w dni robocze." },
+    { q: "Czy materiały budowlane w Media Bud posiadają certyfikaty i atesty?", a: "Tak — wszystkie produkty w naszej ofercie posiadają wymagane certyfikaty, aprobaty techniczne i deklaracje zgodności (CE, ITB). Oferujemy wyłącznie materiały renomowanych producentów: Rockwool, Swisspor, Weber, Knauf, Ceresit, Atlas, Caparol, Isover — co gwarantuje jakość i bezpieczeństwo stosowania." },
+    { q: "Jak zamówić materiały budowlane z dostawą do Lublina?", a: "Zamówienie z dostawą możesz złożyć: telefonicznie (+48 509 567 213), mailowo (sprzedaz@mediabud.pl) lub przez formularz kontaktowy na naszej stronie. Podaj listę materiałów, adres budowy i preferowany termin — wycenimy zamówienie i uzgodnimy logistykę. Dostawy realizujemy na terenie Lublina i całego województwa lubelskiego." },
+    { q: "Czy Media Bud poleca sprawdzonych wykonawców i ekipy budowlane?", a: "Tak — współpracujemy z siecią sprawdzonych ekip wykonawczych: tynkarzy maszynowych, specjalistów ETICS, układaczy wylewek i ekip remontowych. Na życzenie klienta możemy polecić zweryfikowanego wykonawcę z doświadczeniem w montażu materiałów z naszej oferty." },
+  ];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Media Bud — Hurtownia Materiałów Budowlanych",
+    "description": "Kompleksowe usługi budowlane Lublin: systemy ociepleń ETICS, tynki elewacyjne, wylewki, płyty GK, transport materiałów budowlanych.",
+    "url": "https://mediabud.pl",
+    "telephone": "+48509567213",
+    "email": "sprzedaz@mediabud.pl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ul. Chemiczna 8d",
+      "addressLocality": "Lublin",
+      "postalCode": "20-145",
+      "addressCountry": "PL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "51.2463",
+      "longitude": "22.5745"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "14:00" }
+    ],
+    "sameAs": ["https://www.google.com/maps/search/Media+Bud+Lublin"],
+    "priceRange": "$$",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Usługi budowlane Lublin",
+      "itemListElement": services.map(s => ({ "@type": "Offer", "name": s.title }))
+    }
+  };
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
 
-      {/* Hero */}
+      {/* JSON-LD LocalBusiness */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* ── Hero ── */}
       <div className="relative overflow-hidden" style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
         <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.4)" }} />
         <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.2) 60%,transparent)" }} />
-        <div className="relative container mx-auto px-4 pl-10 py-12">
-          <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-2">Usługi</p>
-          <h1 className="font-display text-3xl md:text-4xl font-black text-white mb-2">Nasze usługi</h1>
-          <p className="text-gray-400 text-sm">Kompleksowa obsługa Twojego projektu budowlanego — od doradztwa po realizację.</p>
+        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top,#080808,transparent)" }} />
+        <div className="relative container mx-auto px-4 pl-10 py-14">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-3">Hurtownia budowlana Lublin</p>
+              <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">
+                Kompleksowe<br />
+                <span style={{ color: "#f81828" }}>usługi budowlane</span><br />
+                Lublin
+              </h1>
+              <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-lg">
+                Hurtownia materiałów budowlanych Media Bud w Lublinie oferuje kompleksowe wsparcie przy każdym projekcie budowlanym — od systemu ociepleń ETICS, przez wylewki i suchą zabudowę, po transport materiałów na plac budowy. Obsługujemy klientów indywidualnych, wykonawców i deweloperów na terenie Lublina i województwa lubelskiego.
+              </p>
+              <div className="flex gap-3 flex-wrap">
+                <a href="tel:+48509567213">
+                  <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#f81828] text-white text-sm font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_20px_rgba(248,24,40,0.5)]">
+                    <Phone className="w-4 h-4" /> +48 509 567 213
+                  </button>
+                </a>
+                <Link to="/kontakt">
+                  <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold text-gray-300 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.15)" }}>
+                    Wyślij zapytanie <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { value: "15+", label: "Lat doświadczenia" },
+                { value: "50+", label: "Marek w ofercie" },
+                { value: "6", label: "Obszarów usług" },
+                { value: "24h", label: "Czas reakcji" },
+              ].map((s, i) => (
+                <div key={i} className="rounded-xl p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <div className="font-display font-black text-3xl text-[#f81828] mb-1">{s.value}</div>
+                  <div className="text-xs text-gray-500">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {services.map((s, i) => (
-            <div key={i} className={`rounded-xl p-6 ${cardHover}`} style={card}>
-              <div className="text-4xl mb-4">{s.icon}</div>
-              <h2 className="font-display font-black text-white text-base mb-2">{s.title}</h2>
-              <p className="text-xs text-gray-500 mb-4 leading-relaxed">{s.desc}</p>
-              <ul className="space-y-2 mb-6">
-                {s.features.map((f, fi) => (
-                  <li key={fi} className="flex items-center gap-2 text-xs text-gray-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />{f}
-                  </li>
-                ))}
-              </ul>
-              <Link to="/kontakt">
-                <button className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_12px_rgba(248,24,40,0.3)]">
-                  Zapytaj o usługę <ChevronRight className="w-3.5 h-3.5" />
-                </button>
-              </Link>
-            </div>
-          ))}
+      <div className="container mx-auto px-4 py-12 space-y-14">
+
+        {/* ── Intro text (SEO) ── */}
+        <div className="rounded-xl p-7" style={card}>
+          <h2 className="font-display text-xl font-black text-white mb-3 flex items-center gap-2">
+            <span className="w-[3px] h-5 bg-[#f81828] rounded-full" /> Dlaczego warto wybrać Media Bud?
+          </h2>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            Media Bud to hurtownia i skład materiałów budowlanych w Lublinie przy ul. Chemicznej 8d, specjalizująca się w kompleksowej obsłudze projektów budowlanych i remontowych. Oferujemy nie tylko sprzedaż materiałów — zapewniamy bezpłatne doradztwo techniczne przy doborze systemu ociepleń ETICS, wyborze tynku elewacyjnego (silikonowy vs silikatowy), rodzaju wylewki pod ogrzewanie podłogowe i montażu suchej zabudowy GK. Nasi klienci to zarówno osoby budujące domy jednorodzinne, jak i firmy wykonawcze oraz deweloperzy realizujący inwestycje wielorodzinne na terenie Lublina i całego województwa lubelskiego. Gwarantujemy materiały od renomowanych producentów z certyfikatami (Rockwool, Swisspor, Weber, Knauf, Ceresit, Atlas) oraz transport z rozładunkiem HDS bezpośrednio na plac budowy.
+          </p>
         </div>
+
+        {/* ── 6 Service Cards ── */}
+        <div>
+          <div className="flex items-center gap-3 mb-8">
+            <span className="w-[3px] h-7 bg-[#f81828] rounded-full" />
+            <div>
+              <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">Zakres usług</p>
+              <h2 className="font-display text-2xl font-black text-white">Co oferuje Media Bud?</h2>
+            </div>
+          </div>
+          <p className="text-gray-500 text-sm mb-6 max-w-2xl">Kliknij kartę usługi, aby zobaczyć szczegółowy opis, listę funkcji i najczęstsze pytania. Każda usługa obejmuje bezpłatne doradztwo techniczne.</p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {services.map(svc => (
+              <ServiceCard
+                key={svc.id}
+                svc={svc}
+                isOpen={openService === svc.id}
+                onToggle={() => setOpenService(openService === svc.id ? null : svc.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ── General FAQ ── */}
+        <div>
+          <div className="flex items-center gap-3 mb-8">
+            <span className="w-[3px] h-7 bg-[#f81828] rounded-full" />
+            <div>
+              <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">People Also Ask</p>
+              <h2 className="font-display text-2xl font-black text-white">Najczęstsze pytania — usługi budowlane Lublin</h2>
+            </div>
+          </div>
+          <p className="text-gray-500 text-sm mb-6 max-w-2xl">Odpowiadamy na najczęściej zadawane pytania dotyczące naszej oferty, dostaw i doradztwa technicznego.</p>
+          <FaqAccordion items={generalFaq} />
+        </div>
+
+        {/* ── Process strip ── */}
+        <div className="rounded-xl overflow-hidden" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.08),rgba(248,24,40,0.03))", border: "1px solid rgba(248,24,40,0.15)" }}>
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828]" style={{ position: "relative" }} />
+          <div className="p-7">
+            <h2 className="font-display text-xl font-black text-white mb-6 text-center">Jak wygląda współpraca z Media Bud?</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[
+                { step: "01", title: "Kontakt i wstępna wycena", desc: "Zadzwoń lub napisz — przedstaw projekt lub listę potrzeb. Bezpłatna konsultacja techniczna." },
+                { step: "02", title: "Dobór materiałów", desc: "Nasi doradcy dobierają optymalne materiały do budżetu, projektu i etapu budowy." },
+                { step: "03", title: "Realizacja zamówienia", desc: "Kompletujemy zamówienie ze stanu magazynowego lub zamawiamy u producenta w ciągu 24–48h." },
+                { step: "04", title: "Dostawa HDS", desc: "Dowozimy materiały na plac budowy w Lublinie i regionie — z rozładunkiem dźwigiem." },
+              ].map((item, i) => (
+                <div key={i} className="text-center">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 font-black text-[#f81828] text-lg" style={{ background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.25)" }}>
+                    {item.step}
+                  </div>
+                  <h3 className="font-bold text-white text-sm mb-1">{item.title}</h3>
+                  <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Final CTA ── */}
+        <div className="rounded-2xl p-8 md:p-12 text-center relative overflow-hidden" style={{ background: "#0f0f0f", border: "1px solid rgba(248,24,40,0.2)" }}>
+          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 50% 0%,rgba(248,24,40,0.12),transparent 60%)" }} />
+          <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,transparent,#f81828 50%,transparent)" }} />
+          <div className="relative">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.25)" }}>
+              <Phone className="w-7 h-7 text-[#f81828]" />
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-3">
+              Gotowy na realizację projektu?
+            </h2>
+            <p className="text-gray-400 text-sm max-w-lg mx-auto mb-7 leading-relaxed">
+              Skontaktuj się z nami — bezpłatnie doradzimy, jakie materiały i w jakiej ilości potrzebujesz. Obsługujemy Lublin i całe województwo lubelskie. Odpowiadamy w ciągu 2 godzin roboczych.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <a href="tel:+48509567213">
+                <button className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#f81828] text-white font-bold text-base hover:bg-[#c8000f] transition-all hover:shadow-[0_0_24px_rgba(248,24,40,0.5)] hover:-translate-y-0.5">
+                  <Phone className="w-5 h-5" /> +48 509 567 213
+                </button>
+              </a>
+              <a href="mailto:sprzedaz@mediabud.pl">
+                <button className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-base text-gray-300 hover:text-white transition-all hover:-translate-y-0.5" style={{ border: "1px solid rgba(255,255,255,0.15)" }}>
+                  <Mail className="w-5 h-5" /> sprzedaz@mediabud.pl
+                </button>
+              </a>
+            </div>
+            <div className="flex items-center justify-center gap-1.5 mt-5 text-xs text-gray-600">
+              <MapPin className="w-3.5 h-3.5 text-[#f81828]" />
+              ul. Chemiczna 8d, 20-145 Lublin &nbsp;·&nbsp; Pon–Pt 7:00–17:00 &nbsp;·&nbsp; Sob 8:00–14:00
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

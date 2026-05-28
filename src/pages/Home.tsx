@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Award, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { categories } from "@/data/categories";
+import { categories as staticCategories } from "@/data/categories";
 import { getFeaturedProducts } from "@/data/products";
 import { getRecentBlogPosts } from "@/data/blog";
+import { useAllCategories, useFeaturedProducts as useSanityFeatured } from "@/hooks/useSanityData";
+import { sanityCategoryToLegacy, sanityProductToLegacy } from "@/lib/adapters";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 /* ─── Reveal hook ─────────────────────────────────────────────── */
 function useReveal(threshold = 0.12) {
@@ -96,7 +98,24 @@ const heroCards = [
    COMPONENT
 ================================================================ */
 export default function Home() {
-  const featured = getFeaturedProducts();
+  /* ── Sanity data z fallbackiem na dane statyczne ─────────────── */
+  const { data: sanityCats }      = useAllCategories()
+  const { data: sanityFeatured }  = useSanityFeatured()
+
+  const categories = useMemo(
+    () => sanityCats && (sanityCats as any[]).length > 0
+      ? (sanityCats as any[]).map(sanityCategoryToLegacy)
+      : staticCategories,
+    [sanityCats],
+  )
+
+  const featured = useMemo(
+    () => sanityFeatured && (sanityFeatured as any[]).length > 0
+      ? (sanityFeatured as any[]).map(sanityProductToLegacy)
+      : getFeaturedProducts(),
+    [sanityFeatured],
+  )
+
   const recentPosts = getRecentBlogPosts(3);
   const [quoteOpen, setQuoteOpen] = useState(false);
 

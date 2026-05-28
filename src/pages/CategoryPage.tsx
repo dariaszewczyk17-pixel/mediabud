@@ -3,8 +3,14 @@ import {
   ChevronRight, Grid, List, Filter, SlidersHorizontal, X,
   ChevronLeft, ChevronRight as ChevronNext, Tag, Zap, ArrowRight
 } from "lucide-react";
-import { getCategoryBySlug, getBreadcrumbs, categories } from "@/data/categories";
-import { products } from "@/data/products";
+import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories } from "@/data/categories";
+import { products as staticProducts } from "@/data/products";
+import { useCategoryBySlug, useAllCategories, useProductsByCategorySlugs } from "@/hooks/useSanityData";
+import {
+  sanityCategoryToLegacy, sanityProductToLegacy,
+  buildBreadcrumbs as buildSanityBreadcrumbs, collectAllSlugs,
+  type SanityCategory,
+} from "@/lib/adapters";
 import { ProductCard } from "@/components/Commerce";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,8 +41,31 @@ export default function CategoryPage() {
   const [view, setView] = useState<"grid" | "list">("grid");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const cat = slug ? getCategoryBySlug(slug) : null;
-  const breadcrumbs = slug ? getBreadcrumbs(slug) : [];
+  // ── Sanity data (z fallbackiem na dane statyczne) ─────────────
+  const { data: sanityCategory } = useCategoryBySlug(slug ?? '');
+  const { data: sanityTopCats }  = useAllCategories();
+
+  const cat = useMemo(
+    () => sanityCategory
+      ? sanityCategoryToLegacy(sanityCategory as SanityCategory)
+      : (slug ? getCategoryBySlug(slug) : null),
+    [sanityCategory, slug],
+  );
+
+  const breadcrumbs = useMemo(
+    () => sanityCategory
+      ? buildSanityBreadcrumbs(sanityCategory as SanityCategory).slice(0, -1)
+      : (slug ? getBreadcrumbs(slug) : []),
+    [sanityCategory, slug],
+  );
+
+  const categories = useMemo(
+    () => sanityTopCats && (sanityTopCats as any[]).length > 0
+      ? (sanityTopCats as any[]).map(sanityCategoryToLegacy)
+      : staticCategories,
+    [sanityTopCats],
+  );
+  // ──────────────────────────────────────────────────────────────
 
   const selectedBrand = searchParams.get("brand") || "";
   const sortBy = searchParams.get("sort") || "default";
@@ -50,9 +79,13 @@ export default function CategoryPage() {
     return collect(cat);
   }, [cat]);
 
+  const { data: sanityProducts } = useProductsByCategorySlugs(allSubSlugs);
+
   const catProducts = useMemo(
-    () => products.filter(p => allSubSlugs.includes(p.categorySlug)),
-    [allSubSlugs]
+    () => sanityProducts && (sanityProducts as any[]).length > 0
+      ? (sanityProducts as any[]).map(sanityProductToLegacy)
+      : staticProducts.filter(p => allSubSlugs.includes(p.categorySlug)),
+    [sanityProducts, allSubSlugs],
   );
 
   const availableBrands = useMemo(

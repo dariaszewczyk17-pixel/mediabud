@@ -1,0 +1,112 @@
+/**
+ * Typy danych Sanity i adaptery konwertujące do legacy typów
+ * używanych przez istniejące komponenty (ProductCard, CategoryPage, itp.)
+ */
+
+import type { Category } from '@/data/categories'
+import type { Product } from '@/data/products'
+
+// ─── Typy Sanity ─────────────────────────────────────────────────────────────
+
+export interface SanitySlug { current: string }
+
+export interface SanityCategory {
+  _id: string
+  name: string
+  slug: SanitySlug
+  icon?: string
+  description?: string
+  parent?: SanityCategory
+  children?: SanityCategory[]
+  order?: number
+}
+
+export interface SanityProduct {
+  _id: string
+  name: string
+  slug: SanitySlug
+  sku?: string
+  brand?: string
+  unit?: string
+  shortDescription?: string
+  description?: any[]
+  tags?: string[]
+  featured?: boolean
+  inStock?: boolean
+  priceMin?: number
+  priceMax?: number
+  metaTitle?: string
+  metaDescription?: string
+  categorySlug?: string
+  categoryName?: string
+  categoryParentSlug?: string
+  images?: (string | null)[]
+  specs?: { key: string; value: string }[]
+}
+
+// ─── Konwertery ───────────────────────────────────────────────────────────────
+
+/** Sanity category → legacy Category (dla istniejących komponentów) */
+export function sanityCategoryToLegacy(c: SanityCategory): Category {
+  return {
+    id: c._id,
+    slug: c.slug.current,
+    name: c.name,
+    icon: c.icon,
+    description: c.description,
+    children: c.children?.map(sanityCategoryToLegacy),
+  }
+}
+
+/** Sanity product → legacy Product (dla ProductCard, useWycena, itp.) */
+export function sanityProductToLegacy(p: SanityProduct): Product {
+  const images = (p.images ?? []).filter((u): u is string => !!u)
+  return {
+    id: p._id,
+    slug: p.slug.current,
+    name: p.name,
+    categorySlug: p.categorySlug ?? '',
+    brand: p.brand ?? 'Media Bud',
+    sku: p.sku ?? p._id.slice(-8).toUpperCase(),
+    unit: p.unit ?? 'szt',
+    description: p.shortDescription ?? '',
+    shortDescription: p.shortDescription ?? '',
+    application: '',
+    technicalSpec: (p.specs ?? []).map(s => ({ label: s.key, value: s.value })),
+    images: images.length ? images : ['/placeholder.svg'],
+    tags: p.tags ?? [],
+    related: [],
+    isNew: false,
+    isFeatured: p.featured ?? false,
+  }
+}
+
+// ─── Pomocniki ────────────────────────────────────────────────────────────────
+
+/**
+ * Buduje okruszki (breadcrumbs) z łańcucha rodziców kategorii Sanity.
+ * Zwraca tablicę od korzenia do bieżącej kategorii (włącznie).
+ */
+export function buildBreadcrumbs(
+  cat: SanityCategory,
+): Array<{ id: string; name: string; slug: string }> {
+  const chain: SanityCategory[] = []
+  let cur: SanityCategory | undefined = cat
+  while (cur) {
+    chain.unshift(cur)
+    cur = cur.parent
+  }
+  return chain.map(c => ({ id: c._id, name: c.name, slug: c.slug.current }))
+}
+
+/**
+ * Zbiera slug bieżącej kategorii i wszystkich potomków (rekurencyjnie).
+ * Używane do filtrowania produktów w CategoryPage.
+ */
+export function collectAllSlugs(cat: SanityCategory): string[] {
+  const slugs: string[] = [cat.slug.current]
+  for (const child of cat.children ?? []) {
+    slugs.push(...collectAllSlugs(child))
+  }
+  return slugs
+}

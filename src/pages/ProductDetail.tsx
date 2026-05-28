@@ -4,13 +4,15 @@ import {
   ZoomIn, ChevronLeft, ChevronRight as ChevronNext,
   Info, Wrench, BarChart2, Star, ArrowRight, Shield
 } from "lucide-react";
-import { getProductBySlug, products } from "@/data/products";
+import { getProductBySlug, products as staticProducts } from "@/data/products";
 import { getCategoryBySlug, getBreadcrumbs } from "@/data/categories";
+import { useProductBySlug, useRelatedProducts } from "@/hooks/useSanityData";
+import { sanityProductToLegacy } from "@/lib/adapters";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useWycena } from "@/hooks/useWycena";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 
 /* ---------- tiny reveal hook ---------- */
@@ -34,7 +36,28 @@ type Tab = "opis" | "specyfikacja" | "zastosowanie";
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const product = slug ? getProductBySlug(slug) : null;
+
+  // ── Sanity hooks – muszą być przed każdym early return ──────────
+  const { data: sanityProduct, loading: productLoading } = useProductBySlug(slug ?? '')
+
+  const product = useMemo(
+    () => sanityProduct
+      ? sanityProductToLegacy(sanityProduct as SanityProduct)
+      : (slug ? getProductBySlug(slug) : null),
+    [sanityProduct, slug],
+  )
+
+  const categorySlug = (sanityProduct as any)?.categorySlug ?? product?.categorySlug ?? ''
+  const { data: sanityRelated } = useRelatedProducts(categorySlug, slug ?? '')
+
+  const related = useMemo(
+    () => sanityRelated && (sanityRelated as any[]).length > 0
+      ? (sanityRelated as any[]).map((p: SanityProduct) => sanityProductToLegacy(p))
+      : staticProducts.filter(p => (product?.related ?? []).includes(p.id)).slice(0, 4),
+    [sanityRelated, product],
+  )
+  // ─────────────────────────────────────────────────────────────────
+
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
@@ -47,7 +70,7 @@ export default function ProductDetail() {
   const tabsReveal   = useReveal();
   const relReveal    = useReveal();
 
-  if (!product) {
+  if (!product && !productLoading) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
         <div className="text-6xl mb-4">🔍</div>
@@ -58,9 +81,11 @@ export default function ProductDetail() {
     );
   }
 
+  // loading – Sanity jeszcze ładuje, czekamy na dane
+  if (!product) return null;
+
   const cat = getCategoryBySlug(product.categorySlug);
   const breadcrumbs = getBreadcrumbs(product.categorySlug);
-  const related = products.filter(p => product.related.includes(p.id) && p.id !== product.id).slice(0, 4);
   const images = product.images?.length ? product.images : ["/placeholder.svg"];
 
   const handleAdd = () => {

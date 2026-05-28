@@ -137,7 +137,7 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
 
         {/* ── Content ── */}
         <div className="p-4">
-          {showBrand && (
+          {showBrand && product.brand && /^[A-Za-zÀ-ÿĄąĆćĘęŁłŃńÓóŚśŹźŻż]/.test(product.brand) && (
             <div className="flex items-center justify-between gap-3 mb-2">
               <span className="text-[9px] font-black tracking-widest uppercase text-[#f81828]">{product.brand}</span>
               <span className="text-[9px] font-mono text-gray-500 truncate">{product.sku}</span>

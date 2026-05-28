@@ -98,8 +98,18 @@ export default function CategoryPage() {
     return mergeProductCollections(sanityCategoryProducts, staticCategoryProducts);
   }, [sanityProducts, allSubSlugs]);
 
+  /** Filtruje śmieciowe wartości brand (jednostki, znaki specjalne, puste) */
+  const isValidBrand = (b: string) => {
+    if (!b || b.length < 2) return false;
+    // Musi zaczynać się od litery (nie cyfra, nie znak specjalny)
+    if (!/^[A-Za-zÀ-ÿĄąĆćĘęŁłŃńÓóŚśŹźŻż]/.test(b)) return false;
+    // Odrzuć jednostki: 1L, 5L, 25Kg, 0,75L, 10Szt itp.
+    if (/^\d/.test(b)) return false;
+    return true;
+  };
+
   const availableBrands = useMemo(
-    () => [...new Set(catProducts.map(p => p.brand))].sort(),
+    () => [...new Set(catProducts.map(p => p.brand).filter(isValidBrand))].sort(),
     [catProducts]
   );
 

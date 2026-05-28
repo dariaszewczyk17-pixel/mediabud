@@ -89,3 +89,6 @@
 [2026-05-28 22:52] Faza 5 UKOŃCZONA: 15739 produktów + 1936 nowych marek zaimportowanych do Sanity (project nzcwegq7). Dane: SKU, name, brand, EAN, manufacturerIndex, category. Łącznie w Sanity: ~15914 produktów (175 stare + 15739 nowe), ~2010 marek.
 [2026-05-28 22:54] Weryfikacja frontendu + commit/deploy po imporcie 15739 produktów do Sanity
 [2026-05-28 22:55] Build OK (8.29s, 1925 modules). Committing Faza 5: import 15739 produktów + 1936 marek do Sanity. Frontend bez zmian kodu — działa z Sanity.
+[2026-05-28 22:56] Faza 5 ukończona: commit ea1fc5e — 15739 produktów + 1936 marek w Sanity. Build OK. Push → Cloudflare Pages deploy w toku.
+[2026-05-28 23:10] fix: useCdn=false, naprawiono parent kategorii category-*, przeniesiono 180 produktów z category-* na cat-*. Commit 601139c.
+[2026-05-28 23:22] fix commit 65952e9: SanityCategory.slug jako string (nie SanitySlug obiekt). Bug: c.slug.current na stringu = undefined → [null] w query. Sanity zwraca 90 produktów dla kleje-montazowe poprawnie.

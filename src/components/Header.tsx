@@ -13,6 +13,7 @@ import { products, type Product } from "@/data/products";
 import { useAllProducts } from "@/hooks/useSanityData";
 import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
 import { mergeProductCollections } from "@/lib/productMerge";
+import { searchProducts } from "@/lib/productSearch";
 
 /* ── Category icon map ───────────────────────────────────────────── */
 const CAT_ICONS: Record<string, React.ReactNode> = {
@@ -64,33 +65,7 @@ export default function Header() {
 
   useEffect(() => {
     if (searchQuery.length > 1) {
-      const q = searchQuery.toLowerCase().trim();
-      const rankedResults = mergedProducts
-        .map((product) => {
-          const name = product.name.toLowerCase();
-          const brand = product.brand.toLowerCase();
-          const sku = product.sku.toLowerCase();
-          const shortDescription = product.shortDescription.toLowerCase();
-          const tags = product.tags.map((tag) => tag.toLowerCase());
-
-          let score = 0;
-          if (name.startsWith(q)) score += 120;
-          if (name.includes(q)) score += 80;
-          if (brand.startsWith(q)) score += 50;
-          if (brand.includes(q)) score += 30;
-          if (sku.includes(q)) score += 70;
-          if (shortDescription.includes(q)) score += 25;
-          if (tags.some((tag) => tag === q)) score += 60;
-          if (tags.some((tag) => tag.includes(q))) score += 20;
-
-          return { product, score };
-        })
-        .filter(({ score }) => score > 0)
-        .sort((a, b) => b.score - a.score || a.product.name.localeCompare(b.product.name, "pl"))
-        .slice(0, 6)
-        .map(({ product }) => product);
-
-      setSearchResults(rankedResults);
+      setSearchResults(searchProducts(mergedProducts, searchQuery, 6));
     } else setSearchResults([]);
   }, [searchQuery, mergedProducts]);
 

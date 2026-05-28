@@ -16,3 +16,28 @@
 [2026-05-28 17:40] Rozpoczęcie fazy rozbudowy: SEO research + dodanie produktów + rozbudowa usług. Planowanie 6-etapowego pipeline.
 [2026-05-28 17:43] Uruchomiono równoległe research subagenty (SEO frazy PL + crawl bechcicki.pl). Zaplanowano 6-etapowy pipeline rozbudowy. Implementacja Product interface + ProductDetail.tsx SEO sekcji w toku.
 [2026-05-28 17:50] ProductDetail.tsx: dodano zakładki Zalety+FAQ, JSON-LD FAQPage schema, nowe pola interfejsu (advantages/warnings/faq/seoDescription). Uruchomiono 3 subagenty: batch1 (p051-p110, chemia/izolacje/farby/sucha), batch2 (p111-p170, dachy/stropy/plytki/narzedzia/sufity), services (rozbudowa ServicesPage). Czekam na wyniki.
+[2026-05-28 18:10] Fix products.ts (usunięcie błędnej linii push). Build czysty. Faza produktów p051-p170 odłożona na kolejną turę (jupyter batch_llm).
+[2026-05-28 18:11] Nowa tura: dodawanie ~120 produktów p051-p170 przez jupyter batch_llm. Build czysty (aa0c5aa).
+[2026-05-28 18:15] Nowa tura: dodawanie produktów p051-p148 przez jupyter. Build czysty (aa0c5aa). Interfejs Product rozszerzony o SEO pola.
+[2026-05-28 18:23] +94 produkty p051-p144 zapisane i wypchnięte. Build czysty.
+[2026-05-28 18:23] +94 produkty p051-p144 wygenerowane przez batch_llm i wypchnięte (commit 6562acc). TSC OK. Łącznie w bazie: 144 produkty z pełnymi danymi SEO.
+[2026-05-28 18:35] Rozpoczęto analizę CategoryPage.tsx, Commerce.tsx i useSanityData.ts pod kątem blokady wyświetlania nowych produktów.
+[2026-05-28 18:38] Rozpoczęto zapis skilla Optymalizator Treści E-commerce SEO/AI; kolejnym krokiem jest załadowanie skill-creator i przygotowanie definicji skilla.
+[2026-05-28 18:38] Załadowano skill-creator i rozpoczęto przygotowanie treści skilla Optymalizator Treści E-commerce SEO/AI z obowiązkowym Krokiem 1 load_skill(skill_name="website").
+[2026-05-28 18:41] Rozpoczęto wdrożenie merge źródeł produktów w CategoryPage.tsx z deduplikacją po slug/sku oraz zachowaniem filtrów i paginacji.
+[2026-05-28 18:42] Wdrożono merge źródeł Sanity + products.ts w CategoryPage.tsx z deduplikacją po slug, fallbackiem do sku i zachowaniem istniejących filtrów oraz paginacji.
+[2026-05-28 18:43] Rozpoczęto diagnozę niedziałających stron produktów pod /produkt/:slug po wdrożeniu merge źródeł w listingach kategorii.
+[2026-05-28 18:45] Rozpoczęto dokładną analizę logiki ProductDetail.tsx pod merge/fallback danych Sanity i products.ts wraz z oceną pobierania produktów powiązanych.
+[2026-05-28 18:47] Zakończono analizę ProductDetail.tsx i rozpoczęto wdrożenie merge/fallback Sanity + products.ts dla produktu głównego oraz produktów powiązanych.
+[2026-05-28 18:49] Rozpoczęto lokalizację źródła niedziałającego sluga oraz analizę linkowania produktów, aby domknąć działanie stron produktów end-to-end.
+[2026-05-28 18:52] Zaktualizowano Header.tsx: autocomplete korzysta teraz z merge Sanity + products.ts z deduplikacją po slug/sku, aby linkowanie produktów było spójne z listingami i ProductDetail.
+[2026-05-28 18:58] Rozpoczęto refaktor wspólnego merge/deduplikacji produktów oraz ulepszenie autocomplete w Header.tsx dla pełnej spójności źródeł danych.
+[2026-05-28 19:00] Zrefaktoryzowano wspólny merge produktów w productMerge.ts oraz przepięto CategoryPage, ProductDetail i Header na jedną logikę; autocomplete otrzymał ranking i fallback obrazka.
+[2026-05-28 19:02] Zakończono refaktor merge/autocomplete produktów i rozpoczęto przegląd diffów oraz przygotowanie commita z naprawą spójności danych.
+[2026-05-28 19:02] Po przeglądzie diffów przygotowano selektywny zakres plików do commita naprawiającego spójność danych produktów i autocomplete.
+[2026-05-28 19:03] Wykonano commit 740c9be z naprawą spójności danych produktów; kolejnym krokiem jest wypchnięcie zmian do repozytorium i potwierdzenie wyniku.
+[2026-05-28 19:08] Rozpoczęto wdrożenie wspólnego helpera wyszukiwania produktów oraz dedykowanej strony /szukaj z query param q i rankingiem wyników.
+[2026-05-28 19:09] Utworzono productSearch.ts oraz SearchResultsPage.tsx i przepięto routing /szukaj; kolejnym krokiem jest podłączenie Header.tsx do wspólnej logiki wyszukiwania i końcowa weryfikacja builda.
+[2026-05-28 19:10] Header.tsx przełączono na wspólny helper productSearch.ts; uruchomiono końcową weryfikację builda dla nowej strony /szukaj i wspólnego wyszukiwania.
+[2026-05-28 19:13] Zweryfikowano status repo, przygotowano plan rozdzielenia zmian wyszukiwania od nowego skilla przed commitem i publikacją.
+[2026-05-28 19:13] Zweryfikowano diff zmian wyszukiwania, potwierdzono rozdzielenie ich od katalogu nowego skilla i przygotowano commit aplikacji.

@@ -4,3 +4,5 @@
 [2026-05-28 11:43] Rozpoczęcie redesignu – analiza szablonu i struktury projektu MediaBud
 [2026-05-28 11:44] Analiza szablonu + kodu zakończona. Rozpoczynam redesign: Header, Home, CSS.
 [2026-05-28 11:48] Header.tsx (dark theme) i Home.tsx (hero slider, brand bar, ciemne kategorie) przepisane. Przechodzę do CSS + build.
+[2026-05-28 11:49] Redesign Faza 3 wypchnięty na GitHub (commit 1110f3f). Auto-deploy uruchomiony. Zmienione: Header.tsx (dark), Home.tsx (hero slider, brand bar, ciemne kategorie). Build OK.
+[2026-05-28 11:49] Redesign Faza 3 ukończony i wdrożony. Auto-deploy aktywny na mediabud.pages.dev.

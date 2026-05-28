@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Phone, Mail, MapPin, Clock, Facebook, Instagram, Youtube,
-  ChevronRight, ArrowUpRight, Shield, Truck, Wrench, Award
+  ChevronRight, ArrowUpRight, Shield, Truck, Wrench, Award,
+  Send, CheckCircle2
 } from "lucide-react";
 import { categories } from "@/data/categories";
 
@@ -35,9 +37,52 @@ const TRUST_BADGES = [
 export default function Footer() {
   const year = new Date().getFullYear();
   const topCats = categories.slice(0, 8);
+  const [email, setEmail] = useState("");
+  const [sent, setSent]   = useState(false);
+
+  const handleNewsletter = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.includes("@")) setSent(true);
+  };
 
   return (
     <footer className="bg-gray-950 text-gray-300">
+
+      {/* ── Newsletter CTA bar ── */}
+      <div className="bg-[#f81828] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 10% 50%, #fff 0%, transparent 50%), radial-gradient(circle at 90% 50%, #fff 0%, transparent 50%)" }} />
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <h3 className="font-display font-black text-white text-xl mb-1">Bądź na bieżąco z naszą ofertą</h3>
+              <p className="text-red-100 text-sm">Promocje, nowe produkty i porady techniczne — prosto na Twoją skrzynkę.</p>
+            </div>
+            {sent ? (
+              <div className="flex items-center gap-2 text-white font-bold text-sm bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl py-3 px-5 flex-shrink-0">
+                <CheckCircle2 className="w-5 h-5" />
+                Dziękujemy za zapis!
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletter} className="flex gap-2 w-full md:w-auto md:min-w-[360px] flex-shrink-0">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="Twój adres e-mail..."
+                  required
+                  className="flex-1 h-10 px-4 rounded-l-xl bg-white/15 backdrop-blur-sm border border-white/20 text-white placeholder:text-red-200 text-sm focus:outline-none focus:bg-white/25 transition-all"
+                />
+                <button
+                  type="submit"
+                  className="h-10 px-5 bg-black/30 hover:bg-black/50 text-white font-bold rounded-r-xl flex items-center gap-2 transition-colors text-sm flex-shrink-0 border border-white/10"
+                >
+                  Zapisz <Send className="w-3.5 h-3.5" />
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
 
       {/* ── Trust badges bar ── */}
       <div className="border-b border-gray-800/60">

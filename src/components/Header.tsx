@@ -114,9 +114,8 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 group">
             <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 bg-[#f81828] rounded-lg flex items-center justify-center overflow-hidden shadow-[0_2px_12px_rgba(248,24,40,0.4)] transition-all group-hover:shadow-[0_4px_20px_rgba(248,24,40,0.6)] group-hover:scale-105">
-                <span className="text-white font-black text-[15px] font-display tracking-tight leading-none">MB</span>
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
+              <div className="relative w-10 h-10 rounded-lg overflow-hidden shadow-[0_2px_12px_rgba(248,24,40,0.4)] transition-all group-hover:shadow-[0_4px_20px_rgba(248,24,40,0.6)] group-hover:scale-105 bg-[#0a0a0a]">
+                <img src="/images/logo-mediabud_2.png" alt="Media Bud logo" className="w-full h-full object-cover" />
               </div>
               <div className="leading-none hidden sm:block">
                 <div className="font-black text-white text-[15px] tracking-tight font-display leading-tight">

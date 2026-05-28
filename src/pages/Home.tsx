@@ -55,7 +55,7 @@ function CountUp({ to, suffix = "", duration = 1600 }: { to: number; suffix?: st
 /* ─── Hero Slides ─────────────────────────────────────────────── */
 const heroSlides = [
   {
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=85&auto=format&fit=crop",
+    image: "/images/hero-materialy_2.png",
     label: "Materiały budowlane",
     title: "Kompleksowe materiały dla\nkażdej budowy",
     subtitle: "Ponad 1000 produktów od wiodących marek. Tynki, ocieplenia, chemia budowlana, farby — wszystko w jednym miejscu.",
@@ -63,7 +63,7 @@ const heroSlides = [
     ctaLink: "/produkty",
   },
   {
-    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=85&auto=format&fit=crop",
+    image: "/images/hero-etics_2.png",
     label: "Systemy ociepleń",
     title: "Systemy ETICS i\nocieplenia dla profesjonalistów",
     subtitle: "Rockwool, Swisspor, Weber, Knauf — renomowane marki i bezpłatne doradztwo techniczne dla Twojego projektu.",
@@ -71,7 +71,7 @@ const heroSlides = [
     ctaLink: "/kontakt",
   },
   {
-    image: "https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=1600&q=85&auto=format&fit=crop",
+    image: "/images/hero-chemia_2.png",
     label: "Chemia budowlana",
     title: "Profesjonalna chemia\nbudowlana Ceresit, Atlas, Weber",
     subtitle: "Dostawa materiałów na teren Lublina i województwa lubelskiego. Obsługa deweloperów, firm budowlanych i klientów indywidualnych.",
@@ -87,14 +87,14 @@ const catIcons: Record<string, string> = {
   "plytki": "⬜", "stropy-sciany": "🧱", "sucha-zabudowa": "🔲", "sufity-podwieszane": "⬛",
 };
 const catImages: Record<string, string> = {
-  "chemia-budowlana": "https://images.unsplash.com/photo-1517646458010-ea6bd7ff5f34?w=400&q=70",
-  "dachy": "https://images.unsplash.com/photo-1632323469474-f59d89f03d37?w=400&q=70",
-  "farby-rozpuszczalniki": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=400&q=70",
-  "izolacje": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=70",
-  "narzedzia-mocowania": "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=400&q=70",
-  "plytki": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=70",
-  "stropy-sciany": "https://images.unsplash.com/photo-1565008576549-57569a49371d?w=400&q=70",
-  "sucha-zabudowa": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=70",
+  "chemia-budowlana": "/images/cat-chemia_2.png",
+  "dachy": "/images/cat-dachy_2.png",
+  "farby-rozpuszczalniki": "/images/cat-farby_2.png",
+  "izolacje": "/images/cat-ocieplenia_2.png",
+  "narzedzia-mocowania": "/images/cat-narzedzia_2.png",
+  "plytki": "/images/cat-plytki_2.png",
+  "stropy-sciany": "/images/cat-sciany_2.png",
+  "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
 };
 
 const stats = [
@@ -138,6 +138,7 @@ const testimonials = [
     role: "Kierownik budowy",
     company: "Deweloper, Lublin",
     avatar: "KN",
+    avatarImg: "/images/avatar-1_2.png",
     rating: 5,
     text: "Współpracujemy z Media Bud od ponad 3 lat. Zawsze terminowa dostawa, świetne doradztwo techniczne i uczciwe ceny. Polecam każdej firmie budowlanej w regionie.",
     tag: "Firma budowlana",
@@ -147,6 +148,7 @@ const testimonials = [
     role: "Architekt wnętrz",
     company: "Studio A+K, Lublin",
     avatar: "AK",
+    avatarImg: "/images/avatar-2_2.png",
     rating: 5,
     text: "Profesjonalne podejście, bogaty asortyment i sprawna obsługa. Zawsze pomogą w doborze odpowiednich materiałów. Doceniam szczególnie bezpłatne doradztwo techniczne.",
     tag: "Architekt",
@@ -156,6 +158,7 @@ const testimonials = [
     role: "Właściciel domu",
     company: "Klient indywidualny",
     avatar: "MW",
+    avatarImg: "/images/avatar-3_2.png",
     rating: 5,
     text: "Budowałem dom i Media Bud towarzyszył mi przez cały czas budowy. Doskonała obsługa, rzetelne ceny i szybka dostawa na plac budowy. Gorąco polecam!",
     tag: "Dom jednorodzinny",
@@ -168,7 +171,7 @@ const realizacje = [
     title: "Ocieplenie budynku wielorodzinnego",
     category: "System ETICS",
     location: "Lublin, ul. Zana",
-    image: "https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=600&q=75&auto=format&fit=crop",
+    image: "/images/real-ocieplenie_2.png",
     tags: ["Rockwool", "Weber", "Tynk silikonowy"],
     icon: Building2,
   },
@@ -176,7 +179,7 @@ const realizacje = [
     title: "Kompleksowe materiały dla dewelopera",
     category: "Budownictwo mieszkaniowe",
     location: "Lublin, Sławin",
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=75&auto=format&fit=crop",
+    image: "/images/real-deweloper_2.png",
     tags: ["Knauf", "Ceresit", "Chemia budowlana"],
     icon: HomeIcon,
   },
@@ -184,7 +187,7 @@ const realizacje = [
     title: "Izolacja fundamentów — dom jednorodzinny",
     category: "Izolacje termiczne",
     location: "Świdnik k. Lublina",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75&auto=format&fit=crop",
+    image: "/images/real-hydroizolacja_2.png",
     tags: ["Swisspor EPS", "Masy uszczelniające"],
     icon: Layers,
   },
@@ -192,7 +195,7 @@ const realizacje = [
     title: "Kompleksowe wykończenie hal magazynowych",
     category: "Budownictwo przemysłowe",
     location: "Lublin, Strefa Przemysłowa",
-    image: "https://images.unsplash.com/photo-1565008576549-57569a49371d?w=600&q=75&auto=format&fit=crop",
+    image: "/images/real-hala_2.png",
     tags: ["Sucha zabudowa", "Knauf", "Atlas"],
     icon: HardHat,
   },
@@ -760,8 +763,11 @@ export default function Home() {
 
                 {/* Author */}
                 <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-10 h-10 rounded-full bg-[#f81828] flex items-center justify-center text-white text-xs font-black flex-shrink-0">
-                    {t.avatar}
+                  <div className="w-10 h-10 rounded-full bg-[#f81828] flex items-center justify-center text-white text-xs font-black flex-shrink-0 overflow-hidden">
+                    {t.avatarImg
+                      ? <img src={t.avatarImg} alt={t.name} className="w-full h-full object-cover" />
+                      : t.avatar
+                    }
                   </div>
                   <div>
                     <div className="text-sm font-bold text-gray-900">{t.name}</div>
@@ -783,7 +789,10 @@ export default function Home() {
         className={`bg-[#0a0a0a] py-12 relative overflow-hidden transition-all duration-700 ${r10.visible ? "opacity-100" : "opacity-0"}`}
       >
         {/* Decorative bg */}
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #f81828 0%, transparent 60%), radial-gradient(circle at 80% 50%, #f81828 0%, transparent 60%)" }} />
+        <div className="absolute inset-0">
+          <img src="/images/newsletter-bg_2.png" alt="" className="w-full h-full object-cover opacity-20" />
+        </div>
+        <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #f81828 0%, transparent 60%), radial-gradient(circle at 80% 50%, #f81828 0%, transparent 60%)" }} />
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#f81828]/60 to-transparent" />
 
         <div className="relative container mx-auto px-4">

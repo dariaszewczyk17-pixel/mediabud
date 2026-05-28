@@ -889,7 +889,7 @@ export function AdminPanel() {
                 <tbody>
                   {products.map((p, i) => (
                     <tr key={p.id} className="hover:bg-white/3 transition-colors" style={{ borderBottom: i < products.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
-                      <td className="px-4 py-3"><div className="flex items-center gap-3"><img src={p.images[0]} alt={p.name} className="w-9 h-9 object-cover rounded-lg" style={{ border: "1px solid rgba(255,255,255,0.07)" }} /><div className="font-medium text-gray-300 text-xs line-clamp-1">{p.name}</div></div></td>
+                      <td className="px-4 py-3"><div className="flex items-center gap-3"><img src={p.images?.[0] || "/placeholder.svg"} alt={p.name} className="w-9 h-9 object-cover rounded-lg" style={{ border: "1px solid rgba(255,255,255,0.07)" }} onError={e => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }} /><div className="font-medium text-gray-300 text-xs line-clamp-1">{p.name}</div></div></td>
                       <td className="px-4 py-3 text-gray-500 text-xs hidden md:table-cell">{p.brand}</td>
                       <td className="px-4 py-3 text-gray-500 text-xs hidden sm:table-cell">{p.unit}</td>
                       <td className="px-4 py-3"><div className="flex gap-1"><button className="w-7 h-7 flex items-center justify-center rounded text-blue-400 hover:bg-blue-400/10 transition-colors"><Pencil className="w-3 h-3" /></button><button className="w-7 h-7 flex items-center justify-center rounded text-red-400 hover:bg-red-400/10 transition-colors"><Trash2 className="w-3 h-3" /></button></div></td>

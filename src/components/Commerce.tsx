@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Phone, Mail, Plus, Check, ExternalLink, X, ArrowLeft, Trash2, Package } from "lucide-react";
+import { ShoppingCart, Phone, Mail, Plus, Check, ExternalLink, X, ArrowLeft, Trash2, Package, ShieldCheck, Layers3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useWycena } from "@/hooks/useWycena";
 import type { Product } from "@/data/products";
 import { toast } from "sonner";
+
+const PRODUCT_PLACEHOLDER = "/placeholder.svg";
+
+const getProductImage = (product: Pick<Product, "images">) => product.images?.[0] || PRODUCT_PLACEHOLDER;
 
 /* ================================================================
    PRODUCT CARD  – dark industrial
@@ -24,6 +28,9 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
   const [added, setAdded]     = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const mainImage = getProductImage(product);
+  const topSpecs = product.technicalSpec.slice(0, 2);
+  const topTags = product.tags.slice(0, 3);
 
   /* 3-D tilt */
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -70,16 +77,16 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
         <Link to={`/produkt/${product.slug}`} className="block relative overflow-hidden aspect-square"
           style={{ background: "#141414" }}>
           <img
-            src={product.images[0]}
+            src={mainImage}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             style={{ filter: "brightness(0.88)" }}
-            onError={e => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }}
+            onError={e => { (e.target as HTMLImageElement).src = PRODUCT_PLACEHOLDER; }}
           />
 
           {/* Vignette overlay */}
           <div className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)" }} />
+            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.12) 58%, transparent 100%)" }} />
 
           {/* Top accent line on hover */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -101,6 +108,24 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
             )}
           </div>
 
+          <div className="absolute left-2.5 right-2.5 bottom-2.5 rounded-xl p-2.5"
+            style={{ background: "rgba(8,8,8,0.72)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(8px)" }}>
+            <div className="flex items-center justify-between gap-2 text-[10px] text-gray-300">
+              <span className="inline-flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-emerald-400" /> Oferta B2B</span>
+              <span className="text-gray-400 font-medium">{product.unit}</span>
+            </div>
+            {topSpecs.length > 0 && (
+              <div className="mt-2 grid grid-cols-2 gap-1.5">
+                {topSpecs.map((spec) => (
+                  <div key={spec.label} className="rounded-lg px-2 py-1.5" style={{ background: "rgba(255,255,255,0.04)" }}>
+                    <div className="text-[9px] uppercase tracking-wide text-gray-500">{spec.label}</div>
+                    <div className="text-[10px] font-semibold text-gray-100 line-clamp-1">{spec.value}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Quick view pill */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200">
             <span className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-white"
@@ -113,20 +138,49 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
         {/* ── Content ── */}
         <div className="p-4">
           {showBrand && (
-            <div className="flex items-center justify-between mb-1.5">
+            <div className="flex items-center justify-between gap-3 mb-2">
               <span className="text-[9px] font-black tracking-widest uppercase text-[#f81828]">{product.brand}</span>
-              <span className="text-[9px] font-mono text-gray-700">{product.sku}</span>
+              <span className="text-[9px] font-mono text-gray-500 truncate">{product.sku}</span>
             </div>
           )}
 
           <Link to={`/produkt/${product.slug}`} className="block">
-            <h3 className="text-sm font-bold text-gray-200 leading-snug mb-1 group-hover:text-[#f88090] transition-colors line-clamp-2 font-display">
+            <h3 className="text-sm font-bold text-gray-200 leading-snug mb-2 group-hover:text-[#f88090] transition-colors line-clamp-2 font-display min-h-[2.7rem]">
               {product.name}
             </h3>
           </Link>
 
-          <p className="text-[10px] text-gray-600 mb-1 font-medium">{product.unit}</p>
-          <p className="text-[11px] text-gray-600 mb-4 line-clamp-2 leading-relaxed">{product.shortDescription}</p>
+          <p className="text-[11px] text-gray-400 mb-3 line-clamp-2 leading-relaxed min-h-[2.5rem]">{product.shortDescription}</p>
+
+          <div className="flex flex-wrap items-center gap-1.5 mb-3">
+            <span className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-medium text-gray-300"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <Layers3 className="w-3 h-3 text-[#f81828]" /> {product.categorySlug.replace(/-/g, " ")}
+            </span>
+            {topTags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full px-2 py-1 text-[10px] text-gray-400"
+                style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.14)" }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {product.advantages && product.advantages.length > 0 && (
+            <div className="mb-4 rounded-xl p-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-gray-500 mb-2">Najważniejsze atuty</div>
+              <ul className="space-y-1.5">
+                {product.advantages.slice(0, 2).map((advantage) => (
+                  <li key={advantage} className="flex items-start gap-2 text-[11px] text-gray-300 leading-relaxed">
+                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#f81828] flex-shrink-0" />
+                    <span className="line-clamp-2">{advantage}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Action buttons */}
           <div className="flex flex-col gap-2">
@@ -413,8 +467,8 @@ export function WycenaDrawer() {
                     {/* Thumb */}
                     <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0"
                       style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
-                      <img src={item.product.images[0]} alt={item.product.name}
-                        className="w-full h-full object-cover" style={{ filter: "brightness(0.85)" }} />
+                      <img src={getProductImage(item.product)} alt={item.product.name}
+                        className="w-full h-full object-cover" style={{ filter: "brightness(0.85)" }} onError={e => { (e.target as HTMLImageElement).src = PRODUCT_PLACEHOLDER; }} />
                     </div>
                     {/* Info */}
                     <div className="flex-1 min-w-0">

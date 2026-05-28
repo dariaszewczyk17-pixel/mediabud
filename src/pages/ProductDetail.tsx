@@ -297,7 +297,7 @@ export default function ProductDetail() {
             {/* Quick Specs strip */}
             {product.technicalSpec.length > 0 && (
               <div className="grid grid-cols-2 gap-2 mb-6">
-                {product.technicalSpec.slice(0, 4).map((spec, i) => (
+                {product.technicalSpec.slice(0, 6).map((spec, i) => (
                   <div
                     key={i}
                     className="rounded-xl px-3 py-2.5"

@@ -58,3 +58,12 @@
 [2026-05-28 19:39] Potwierdzono praktycznie render premium panelu filtrów na /szukaj oraz zacommitowano i wypchnięto dopracowane wyszukiwanie i autocomplete (commit 20622e9).
 [2026-05-28 19:42] Rozpisano końcowy pakiet prac: interakcyjny test autocomplete, migracja na czyste URL-e oraz optymalizacja chunków Vite przed końcową publikacją.
 [2026-05-28 19:46] Udokumentowano ograniczenie narzędziowe pełnego testu autocomplete i rozpoczęto migrację routingu z HashRouter na czyste URL-e wraz z dostosowaniem ścieżek wyszukiwania.
+[2026-05-28 19:49] Zakończono migrację na BrowserRouter z czystymi URL-ami oraz wdrożono podział chunków Vite; potwierdzono działanie /szukaj?q=tynk&brand=Weber i wypchnięto zmiany (commit 072a4fb).
+[2026-05-28 19:54] Rozpoczęto research referencyjny struktury kategorii, podkategorii i katalogu bechcicki.pl pod rozbudowę asortymentu oraz ulepszenie karty produktu.
+[2026-05-28 19:58] Zakończono rekonesans katalogu bechcicki.pl i rozpoczęto weryfikację źródłowych dowodów pod zamrożenie docelowej struktury kategorii oraz podkategorii dla Media Bud.
+[2026-05-28 19:59] Zamrożono strukturę 9 głównych pionów katalogu na podstawie źródeł Bechcicki i rozpoczęto analizę modelu danych Media Bud oraz zakresu rozszerzenia produktów i kart produktowych.
+[2026-05-28 20:01] Zakończono analizę modelu danych katalogu; potwierdzono duży zbiór produktów oraz liczne rekordy bez zdjęć i rozpoczęto wdrażanie ulepszeń karty produktu oraz bezpiecznych fallbacków obrazów.
+[2026-05-28 20:03] Wdrożono ulepszoną kartę produktu z szybkimi specyfikacjami, tagami, sekcją atutów oraz fallbackami obrazów w karcie, koszyku wyceny i tabeli panelu produktów; zwiększono też liczbę specyfikacji w ProductDetail.
+[2026-05-28 20:03] Zbudowano projekt po wdrożeniu ulepszonej karty produktu i fallbacków obrazów; rozpoczęto finalną weryfikację zmian oraz przygotowanie stanu do commit/push.
+[2026-05-28 20:05] Zweryfikowano UI na lokalnym serwerze dla karty produktu, listingu kategorii i widoku produktu; build przeszedł poprawnie i fallbacki obrazów działają dla rekordów bez zdjęć.
+[2026-05-28 20:05] Przygotowano commit zmian obejmujących ulepszoną kartę produktu, bezpieczne fallbacki obrazów oraz rozszerzenie szybkiej specyfikacji w widoku produktu.

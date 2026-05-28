@@ -5098,4 +5098,225 @@ const newProducts: Product[] = [
     ],
     seoDescription: "Stopnica Paradyż Semir Beige 30x120 cm to gresowy element do estetycznego wykończenia schodów wewnętrznych i zewnętrznych. Jeśli szukasz stopnicy Paradyż 30x120 dopasowanej do nowoczesnych aranżacji schodów i tarasów, model Semir zapewnia spójny wygląd i trwałe wykończenie."
   },
+  {
+    id: "p154", slug: "wkret-do-metalu-wurth-din-7504k-48x19-250",
+    name: "Wkręt samowiercący do metalu Würth DIN 7504K 4,8x19 mm 250 szt.",
+    categorySlug: "wkrety-metal", brand: "Würth", sku: "WUR-7504K-4.8-19-250", unit: "opak. 250 szt.",
+    shortDescription: "Wkręt samowiercący z łbem sześciokątnym do blach i cienkościennych profili stalowych.",
+    description: "Wkręt samowiercący Würth DIN 7504K 4,8x19 mm to popularny łącznik do montażu obróbek blacharskich, lekkich konstrukcji stalowych i elementów mocowanych do cienkościennych profili. Końcówka samowiercąca przyspiesza montaż i ogranicza potrzebę wstępnego nawiercania. Produkt sprawdza się w pracach dachowych, elewacyjnych i warsztatowych.",
+    application: "Do mocowania blach, obróbek, profili stalowych i akcesoriów instalacyjnych. Stosować zgodnie z grubością łączonych elementów oraz wymaganiami systemowymi producenta.",
+    technicalSpec: [
+      { label: "Średnica", value: "4,8 mm" },
+      { label: "Długość", value: "19 mm" },
+      { label: "Norma", value: "DIN 7504K" },
+      { label: "Łeb", value: "Sześciokątny" },
+      { label: "Końcówka", value: "Samowiercąca" },
+    ],
+    images: [],
+    tags: ["wkręt do metalu", "würth", "samowiercący", "din 7504k", "blacha", "profil stalowy"],
+    related: ["p149", "p140", "p141"],
+    advantages: [
+      "Szybki montaż bez konieczności wstępnego wiercenia w wielu zastosowaniach.",
+      "Popularny format do prac dekarskich i montażowych.",
+      "Dobra powtarzalność i wygoda pracy na budowie.",
+    ],
+    warnings: [
+      "Dobór długości i typu wkręta należy uzależnić od grubości oraz rodzaju łączonych elementów.",
+      "Do zastosowań zewnętrznych należy stosować właściwą klasę zabezpieczenia antykorozyjnego.",
+    ],
+    faq: [
+      { q: "Do czego służy wkręt samowiercący do metalu?", a: "Do szybkiego łączenia blach i cienkościennych profili stalowych bez osobnego etapu nawiercania w wielu typowych zastosowaniach." },
+      { q: "Czy ten wkręt nadaje się do obróbek blacharskich?", a: "Tak, to jeden z typowych łączników stosowanych przy montażu lekkich elementów blaszanych i akcesoriów dachowych." },
+    ],
+    seoDescription: "Wkręt samowiercący do metalu Würth DIN 7504K 4,8x19 mm 250 szt. to praktyczny łącznik do blach, lekkich konstrukcji stalowych i obróbek. Jeśli szukasz wkrętów do metalu samowiercących do prac dachowych i montażowych, model Würth zapewnia szybki montaż i wysoką wygodę pracy."
+  },
+  {
+    id: "p155", slug: "kotwa-mechaniczna-rawlplug-rbl-m12-10szt",
+    name: "Kotwa mechaniczna Rawlplug RBL M12 10 szt.",
+    categorySlug: "kotwy-mechaniczne", brand: "Rawlplug", sku: "RAW-RBL-M12-10", unit: "opak. 10 szt.",
+    shortDescription: "Kotwa stalowa do mocowania konstrukcji stalowych, konsol, balustrad i elementów instalacyjnych w betonie.",
+    description: "Rawlplug RBL M12 to mechaniczna kotwa rozporowa przeznaczona do mocowania elementów w podłożach betonowych. Produkt wykorzystywany jest przy montażu wsporników, balustrad, konstrukcji stalowych, tras kablowych i cięższych akcesoriów technicznych. Prosty montaż i szerokie zastosowanie czynią z niej uniwersalny element wyposażenia ekipy montażowej.",
+    application: "Do betonu niezarysowanego i typowych zastosowań montażowych w budownictwie. Stosować zgodnie z kartą techniczną, głębokością kotwienia i wymaganym momentem dokręcenia.",
+    technicalSpec: [
+      { label: "Typ", value: "Kotwa rozporowa" },
+      { label: "Rozmiar", value: "M12" },
+      { label: "Materiał", value: "Stal ocynkowana" },
+      { label: "Podłoże", value: "Beton" },
+      { label: "Opakowanie", value: "10 szt." },
+    ],
+    images: [],
+    tags: ["kotwa mechaniczna", "rawlplug", "m12", "beton", "mocowanie", "kotwa rozporowa"],
+    related: ["p154", "p140", "p141"],
+    advantages: [
+      "Szybki montaż w betonie bez stosowania żywicy.",
+      "Dobre rozwiązanie do wsporników, konstrukcji i instalacji.",
+      "Popularny standard dla ekip montażowych i wykonawców.",
+    ],
+    warnings: [
+      "Należy przestrzegać wymaganej głębokości osadzenia i momentu dokręcania.",
+      "Dobór kotwy musi być zgodny z obciążeniem i klasą podłoża.",
+    ],
+    faq: [
+      { q: "Do jakiego podłoża stosuje się kotwę mechaniczną RBL?", a: "Przede wszystkim do betonu, zgodnie z kartą techniczną i wymaganiami danego zastosowania." },
+      { q: "Kiedy wybrać kotwę mechaniczną zamiast chemicznej?", a: "Najczęściej wtedy, gdy potrzebny jest szybki montaż w odpowiednim podłożu betonowym i nie ma potrzeby stosowania żywicy." },
+    ],
+    seoDescription: "Kotwa mechaniczna Rawlplug RBL M12 10 szt. to sprawdzone mocowanie do betonu dla konstrukcji stalowych, konsol, balustrad i instalacji. Jeśli szukasz kotwy rozporowej M12 do zastosowań montażowych na budowie, model Rawlplug zapewnia szybki montaż i szerokie możliwości użycia."
+  },
+  {
+    id: "p156", slug: "paca-zebata-stalco-280x130-8mm",
+    name: "Paca zębata Stalco 280x130 mm ząb 8 mm",
+    categorySlug: "pace-gladzie", brand: "Stalco", sku: "STA-PACA-Z8-280", unit: "szt.",
+    shortDescription: "Paca stalowa z zębem 8 mm do rozprowadzania klejów pod płytki i okładziny.",
+    description: "Paca zębata Stalco 280x130 mm z zębem 8 mm to podstawowe narzędzie glazurnicze do nakładania kleju na podłoże. Odpowiedni rozmiar zęba ułatwia równomierne rozprowadzenie zaprawy klejowej pod płytki ścienne i podłogowe. Narzędzie sprawdza się zarówno przy pracach wykończeniowych w mieszkaniach, jak i w większych realizacjach inwestycyjnych.",
+    application: "Do rozprowadzania klejów cementowych i elastycznych pod płytki ceramiczne, gresowe i okładziny ścienne. Dobór wielkości zęba powinien odpowiadać formatowi płytki oraz zaleceniom producenta kleju.",
+    technicalSpec: [
+      { label: "Wymiar", value: "280 × 130 mm" },
+      { label: "Ząb", value: "8 mm" },
+      { label: "Materiał roboczy", value: "Stal" },
+      { label: "Uchwyt", value: "Ergonomiczny" },
+    ],
+    images: [],
+    tags: ["paca zębata", "stalco", "8 mm", "glazurnictwo", "klej do płytek", "narzędzie"],
+    related: ["p152", "p153", "p156"],
+    advantages: [
+      "Ułatwia równomierne rozprowadzenie kleju pod płytki.",
+      "Popularny ząb 8 mm do wielu standardowych formatów.",
+      "Praktyczne narzędzie do prac glazurniczych i wykończeniowych.",
+    ],
+    warnings: [
+      "Wielkość zęba należy dobrać do formatu płytki i zaleceń producenta kleju.",
+      "Po pracy narzędzie należy oczyścić przed zaschnięciem zaprawy.",
+    ],
+    faq: [
+      { q: "Do czego służy paca zębata 8 mm?", a: "Do równomiernego nakładania kleju pod płytki i okładziny, tak aby uzyskać odpowiednią warstwę roboczą." },
+      { q: "Czy paca 8 mm nadaje się do gresu?", a: "Tak, w wielu przypadkach tak, ale ostateczny dobór zależy od formatu płytki i zaleceń systemowych." },
+    ],
+    seoDescription: "Paca zębata Stalco 280x130 mm ząb 8 mm to praktyczne narzędzie do układania płytek i rozprowadzania kleju. Jeśli szukasz pacy zębatej 8 mm do prac glazurniczych, model Stalco sprawdzi się przy płytkach ściennych, podłogowych i standardowych pracach wykończeniowych."
+  },
+  {
+    id: "p157", slug: "przecinarka-reczna-rubi-speed-62",
+    name: "Przecinarka ręczna Rubi Speed-62",
+    categorySlug: "narzedzia-glazurnicze", brand: "Rubi", sku: "RUB-SPEED-62", unit: "szt.",
+    shortDescription: "Ręczna przecinarka do płytek ściennych i podłogowych do standardowych prac glazurniczych.",
+    description: "Rubi Speed-62 to popularna przecinarka ręczna przeznaczona do docinania płytek ceramicznych i gresowych w pracach wykończeniowych. Konstrukcja urządzenia ułatwia powtarzalne cięcia, a kompaktowy format sprawdza się w mieszkaniach, lokalach usługowych i na typowych budowach. Model ceniony jest przez glazurników za mobilność i wygodę pracy.",
+    application: "Do cięcia płytek ściennych, podłogowych oraz wybranych formatów gresu zgodnie z możliwościami urządzenia. Stosować z odpowiednim kółkiem tnącym i techniką cięcia zalecaną przez producenta.",
+    technicalSpec: [
+      { label: "Typ", value: "Przecinarka ręczna" },
+      { label: "Długość cięcia", value: "do 62 cm" },
+      { label: "Zastosowanie", value: "Płytki ceramiczne i gres" },
+      { label: "Mobilność", value: "Do pracy na budowie i w wykończeniach" },
+    ],
+    images: [],
+    tags: ["przecinarka do płytek", "rubi", "speed-62", "glazurnictwo", "gres", "narzędzie"],
+    related: ["p152", "p153", "p156"],
+    isFeatured: true,
+    advantages: [
+      "Wygodne docinanie płytek na budowie bez zasilania elektrycznego.",
+      "Sprawdzony model do typowych prac glazurniczych.",
+      "Mobilna konstrukcja ułatwiająca transport i pracę w pomieszczeniach.",
+    ],
+    warnings: [
+      "Zakres cięcia należy dopasować do formatu i twardości obrabianej płytki.",
+      "Do trudniejszych materiałów może być potrzebne odpowiednie kółko lub przecinarka elektryczna.",
+    ],
+    faq: [
+      { q: "Do jakich płytek nadaje się Rubi Speed-62?", a: "Do typowych płytek ceramicznych oraz wybranych formatów gresu mieszczących się w parametrach urządzenia." },
+      { q: "Czy przecinarka ręczna wystarcza do prac mieszkaniowych?", a: "W wielu standardowych realizacjach tak, szczególnie przy klasycznych formatach płytek i pracach wykończeniowych." },
+    ],
+    seoDescription: "Przecinarka ręczna Rubi Speed-62 to praktyczne narzędzie do docinania płytek ściennych i podłogowych. Jeśli szukasz przecinarki do płytek do prac glazurniczych na budowie lub podczas wykończeń wnętrz, model Rubi Speed-62 zapewnia mobilność, wygodę i powtarzalne cięcie."
+  },
+  {
+    id: "p158", slug: "bloczek-komorkowy-solbet-24x24x59",
+    name: "Bloczek z betonu komórkowego Solbet 24x24x59 cm",
+    categorySlug: "bloczek-komorkowy", brand: "Solbet", sku: "SOL-24-24-59", unit: "szt.",
+    shortDescription: "Bloczek z betonu komórkowego do ścian nośnych i działowych w budownictwie jednorodzinnym.",
+    description: "Bloczek Solbet 24x24x59 cm to popularny element murowy z betonu komórkowego, chętnie wybierany przy budowie domów jednorodzinnych. Dzięki niewielkiej masie objętościowej i łatwej obróbce przyspiesza prace murarskie oraz ułatwia wykonywanie docinek na budowie. Produkt stosowany jest do ścian zewnętrznych, wewnętrznych i działowych zgodnie z projektem.",
+    application: "Do wznoszenia ścian nośnych, osłonowych i działowych w technologii betonu komórkowego. Murowanie prowadzić na odpowiednio dobrą zaprawę cienkowarstwową lub systemową zgodnie z wytycznymi producenta.",
+    technicalSpec: [
+      { label: "Wymiar", value: "24 × 24 × 59 cm" },
+      { label: "Materiał", value: "Beton komórkowy" },
+      { label: "Zastosowanie", value: "Ściany nośne i działowe" },
+      { label: "Obróbka", value: "Łatwa docinka" },
+    ],
+    images: [],
+    tags: ["bloczek komórkowy", "solbet", "24 cm", "beton komórkowy", "ściana", "murowanie"],
+    related: ["p150", "p151", "p039"],
+    advantages: [
+      "Lekki materiał ułatwiający transport i murowanie.",
+      "Łatwa obróbka na budowie i szybkie wykonywanie docinek.",
+      "Popularne rozwiązanie w budownictwie jednorodzinnym.",
+    ],
+    warnings: [
+      "Parametry ściany należy dobrać zgodnie z projektem i wymogami cieplnymi budynku.",
+      "Bloczki trzeba chronić przed nadmiernym zawilgoceniem podczas składowania.",
+    ],
+    faq: [
+      { q: "Do czego stosuje się bloczki z betonu komórkowego?", a: "Do budowy ścian nośnych, osłonowych i działowych w domach jednorodzinnych oraz innych lekkich obiektach murowanych." },
+      { q: "Jaką zaletę ma beton komórkowy na budowie?", a: "Jest stosunkowo lekki, łatwy w obróbce i przyspiesza prowadzenie robót murarskich." },
+    ],
+    seoDescription: "Bloczek z betonu komórkowego Solbet 24x24x59 cm to sprawdzony materiał do ścian nośnych i działowych. Jeśli szukasz bloczków Solbet 24 cm do budowy domu, beton komórkowy zapewnia łatwą obróbkę, sprawne murowanie i wygodę pracy na budowie."
+  },
+  {
+    id: "p159", slug: "ksztaltka-wiencowa-ytong-u-24",
+    name: "Kształtka wieńcowa Ytong U 24 cm",
+    categorySlug: "ksztaltki-wience", brand: "Ytong", sku: "YTO-U24", unit: "szt.",
+    shortDescription: "Kształtka U do wykonywania wieńców, belek i nadproży w systemie betonu komórkowego.",
+    description: "Kształtka wieńcowa Ytong U 24 cm to systemowy element do wykonywania wieńców, belek i innych wzmocnień żelbetowych w ścianach z betonu komórkowego. Ułatwia prowadzenie prac z zachowaniem ciągłości materiałowej przegrody oraz przyspiesza przygotowanie deskowania traconego. Rozwiązanie często stosowane jest w budownictwie jednorodzinnym.",
+    application: "Do wykonywania wieńców obwodowych, nadproży i belek żelbetowych w systemie Ytong lub kompatybilnych rozwiązaniach projektowych. Produkt stosować zgodnie z dokumentacją konstrukcyjną.",
+    technicalSpec: [
+      { label: "Szerokość", value: "24 cm" },
+      { label: "Typ", value: "Kształtka U" },
+      { label: "Materiał", value: "Beton komórkowy" },
+      { label: "Zastosowanie", value: "Wieńce i nadproża" },
+    ],
+    images: [],
+    tags: ["kształtka wieńcowa", "ytong", "u24", "wieniec", "nadproże", "beton komórkowy"],
+    related: ["p158", "p151", "p150"],
+    advantages: [
+      "Ułatwia wykonanie wieńców i belek w technologii betonu komórkowego.",
+      "Pozwala zachować systemową spójność przegrody.",
+      "Ogranicza ilość tradycyjnego deskowania na budowie.",
+    ],
+    warnings: [
+      "Zbrojenie i betonowanie należy wykonać zgodnie z projektem konstrukcyjnym.",
+      "Nie wolno stosować elementu poza zakresem przewidzianym przez dokumentację techniczną.",
+    ],
+    faq: [
+      { q: "Do czego służy kształtka U w systemie ściennym?", a: "Do wykonywania wieńców, nadproży i innych elementów żelbetowych w sposób zintegrowany z murem." },
+      { q: "Czy kształtka U zastępuje deskowanie?", a: "W wielu rozwiązaniach pełni funkcję deskowania traconego, ale sposób użycia zawsze powinien wynikać z projektu." },
+    ],
+    seoDescription: "Kształtka wieńcowa Ytong U 24 cm to systemowy element do wykonywania wieńców, belek i nadproży w ścianach z betonu komórkowego. Jeśli szukasz kształtek U 24 cm do budowy domu, rozwiązanie Ytong ułatwia prace konstrukcyjne i porządkuje montaż elementów żelbetowych."
+  },
+  {
+    id: "p160", slug: "strop-teriva-panel-34-4-0",
+    name: "Strop Teriva Panel 3,0/4,0",
+    categorySlug: "stropy-systemowe", brand: "Teriva", sku: "TER-PANEL-3-0-4-0", unit: "kpl.",
+    shortDescription: "Systemowy strop gęstożebrowy do budownictwa jednorodzinnego i małych obiektów inwestycyjnych.",
+    description: "Strop Teriva Panel 3,0/4,0 to systemowe rozwiązanie stropowe przeznaczone do budownictwa mieszkaniowego. Prefabrykowane elementy i powtarzalna technologia ułatwiają organizację robót, ograniczają ilość deskowania i przyspieszają wykonanie kondygnacji. Rozwiązanie stosowane jest w domach jednorodzinnych, bliźniakach i mniejszych obiektach użytkowych.",
+    application: "Do wykonywania stropów międzykondygnacyjnych zgodnie z projektem konstrukcyjnym. Dobór wariantu nośności, rozpiętości i układu elementów musi być zgodny z dokumentacją techniczną inwestycji.",
+    technicalSpec: [
+      { label: "Typ", value: "Strop systemowy gęstożebrowy" },
+      { label: "Zastosowanie", value: "Stropy międzykondygnacyjne" },
+      { label: "Montaż", value: "Prefabrykowane elementy systemowe" },
+      { label: "Obiekty", value: "Domy i małe inwestycje" },
+    ],
+    images: [],
+    tags: ["strop teriva", "strop systemowy", "gęstożebrowy", "kondygnacja", "budowa domu", "teriva"],
+    related: ["p158", "p159", "p151"],
+    isFeatured: true,
+    advantages: [
+      "Przyspiesza wykonanie stropu w porównaniu z rozwiązaniami monolitycznymi.",
+      "Powtarzalna technologia ułatwia logistykę i organizację robót.",
+      "Popularne rozwiązanie w budownictwie jednorodzinnym.",
+    ],
+    warnings: [
+      "Dobór systemu i wariantu nośności musi wynikać z projektu konstrukcyjnego.",
+      "Montaż stropu wymaga tymczasowego podparcia i prowadzenia robót zgodnie z instrukcją systemową.",
+    ],
+    faq: [
+      { q: "Gdzie stosuje się stropy systemowe Teriva?", a: "Najczęściej w domach jednorodzinnych, zabudowie bliźniaczej i małych obiektach, gdzie liczy się sprawny montaż kondygnacji." },
+      { q: "Czy strop Teriva dobiera się z katalogu bez projektu?", a: "Nie, wariant systemu, rozpiętość i parametry nośności muszą być zgodne z projektem konstrukcyjnym." },
+    ],
+    seoDescription: "Strop Teriva Panel 3,0/4,0 to systemowe rozwiązanie gęstożebrowe do wykonywania stropów międzykondygnacyjnych w budownictwie mieszkaniowym. Jeśli szukasz stropu Teriva do domu jednorodzinnego, system przyspiesza montaż, porządkuje organizację robót i dobrze sprawdza się na typowych budowach."
+  },
 ];

@@ -309,16 +309,25 @@ export default function Home() {
               src={s.image}
               alt={s.label}
               className="w-full h-full object-cover"
-              style={{ filter: "brightness(0.38) saturate(0.9)" }}
+              style={{ filter: "brightness(0.34) saturate(0.8)" }}
             />
           </div>
         ))}
 
         {/* Overlays */}
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.1) 100%)" }} />
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(0deg, rgba(0,0,0,0.65) 0%, transparent 50%)" }} />
-        <div className="absolute top-0 left-0 right-0 h-[3px] z-20 bg-gradient-to-r from-[#f81828] via-[#ff4455] to-[#f81828]" />
-        <div className="absolute left-0 top-0 bottom-0 w-1 z-20 bg-[#f81828]" />
+        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.60) 55%, rgba(0,0,0,0.1) 100%)" }} />
+        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(0deg, rgba(0,0,0,0.70) 0%, transparent 50%)" }} />
+
+        {/* Dot grid overlay */}
+        <div className="absolute inset-0 z-10 bg-hero-dots opacity-60" />
+
+        {/* Scan line effect */}
+        <div className="scan-overlay z-11" />
+
+        {/* Top red bar */}
+        <div className="absolute top-0 left-0 right-0 h-[3px] z-20" style={{ background: "linear-gradient(90deg, #f81828, #ff4455 50%, #f81828)" }} />
+        {/* Left red accent */}
+        <div className="absolute left-0 top-0 bottom-0 w-[3px] z-20 bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.4)" }} />
 
         {/* Content */}
         <div className="absolute inset-0 z-20 flex items-center">
@@ -406,17 +415,22 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r3.ref as React.RefObject<HTMLElement>}
-        className={`bg-[#f81828] py-10 transition-all duration-700 ${r3.visible ? "opacity-100" : "opacity-0"}`}
+        className={`relative overflow-hidden py-10 transition-all duration-700 ${r3.visible ? "opacity-100" : "opacity-0"}`}
+        style={{ background: "#0d0d0d", borderTop: "2px solid rgba(248,24,40,0.3)", borderBottom: "2px solid rgba(248,24,40,0.1)" }}
       >
-        <div className="container mx-auto px-4">
+        {/* Grid bg */}
+        <div className="absolute inset-0 bg-grid-white opacity-40 pointer-events-none" />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(248,24,40,0.07) 0%, transparent 70%)" }} />
+        <div className="relative container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map(({ icon: Icon, num, suffix, label }, i) => (
               <div key={i} className="text-center group">
                 <div className="flex items-center justify-center gap-2 mb-1">
-                  <Icon className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
+                  <Icon className="w-5 h-5 text-[#f81828]/60 group-hover:text-[#f81828] transition-colors" />
                   <CountUp to={num} suffix={suffix} />
                 </div>
-                <p className="text-red-100 text-sm font-medium tracking-wide">{label}</p>
+                <p className="text-gray-500 text-sm font-medium tracking-wide">{label}</p>
+                <div className="mx-auto mt-2 h-px w-8 bg-[#f81828]/30 group-hover:w-16 group-hover:bg-[#f81828]/60 transition-all duration-300" />
               </div>
             ))}
           </div>

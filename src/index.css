@@ -571,3 +571,176 @@
   outline: 2px solid #f81828;
   outline-offset: 2px;
 }
+
+/* ================================================================
+   TYPEWRITER ANIMATION
+================================================================ */
+
+@keyframes typewriter {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { border-right-color: #f81828; }
+  50%       { border-right-color: transparent; }
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #f81828;
+  animation:
+    typewriter 1.8s steps(30) forwards,
+    blink-cursor 0.75s step-end infinite;
+}
+
+/* ================================================================
+   NEON GLOW EFFECTS
+================================================================ */
+
+.neon-red {
+  box-shadow:
+    0 0 5px rgba(248,24,40,0.5),
+    0 0 20px rgba(248,24,40,0.3),
+    0 0 40px rgba(248,24,40,0.15);
+}
+
+.neon-red-text {
+  text-shadow:
+    0 0 8px rgba(248,24,40,0.8),
+    0 0 20px rgba(248,24,40,0.4);
+}
+
+.neon-border {
+  border-color: rgba(248,24,40,0.7) !important;
+  box-shadow:
+    0 0 4px rgba(248,24,40,0.4),
+    inset 0 0 4px rgba(248,24,40,0.1);
+}
+
+/* ================================================================
+   KINETIC SCAN LINE
+================================================================ */
+
+@keyframes kinetic-scan {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  5%   { opacity: 0.6; }
+  95%  { opacity: 0.6; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.scan-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.scan-overlay::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(248,24,40,0.6) 50%, transparent);
+  animation: kinetic-scan 4s linear infinite;
+}
+
+/* ================================================================
+   INDUSTRIAL GRID PULSE
+================================================================ */
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.04; }
+  50%       { opacity: 0.08; }
+}
+
+.bg-grid-pulse {
+  background-image:
+    linear-gradient(rgba(248,24,40,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(248,24,40,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-pulse 4s ease-in-out infinite;
+}
+
+/* ================================================================
+   GLASSMORPHISM DARK (enhanced)
+================================================================ */
+
+.glass-industrial {
+  background: rgba(10,10,10,0.75);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(248,24,40,0.12);
+}
+
+/* ================================================================
+   HERO PARTICLE DOT GRID
+================================================================ */
+
+.bg-hero-dots {
+  background-image: radial-gradient(rgba(248,24,40,0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ================================================================
+   SECTION RED LINE ACCENT
+================================================================ */
+
+.section-accent-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f81828;
+}
+.section-accent-line::before,
+.section-accent-line::after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #f81828;
+  border-radius: 1px;
+}
+
+/* ================================================================
+   CARD GLOW HOVER
+================================================================ */
+
+.card-glow-hover {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-glow-hover:hover {
+  box-shadow:
+    0 8px 32px rgba(248,24,40,0.18),
+    0 2px 8px rgba(0,0,0,0.4);
+  transform: translateY(-4px);
+  border-color: rgba(248,24,40,0.3) !important;
+}
+
+/* ================================================================
+   STAGGER FADE-UP for grids
+================================================================ */
+
+.stagger-child {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stagger-parent.visible .stagger-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-parent.visible .stagger-child:nth-child(1) { transition-delay: 0ms; }
+.stagger-parent.visible .stagger-child:nth-child(2) { transition-delay: 80ms; }
+.stagger-parent.visible .stagger-child:nth-child(3) { transition-delay: 160ms; }
+.stagger-parent.visible .stagger-child:nth-child(4) { transition-delay: 240ms; }
+.stagger-parent.visible .stagger-child:nth-child(5) { transition-delay: 320ms; }
+.stagger-parent.visible .stagger-child:nth-child(6) { transition-delay: 400ms; }
+.stagger-parent.visible .stagger-child:nth-child(7) { transition-delay: 480ms; }
+.stagger-parent.visible .stagger-child:nth-child(8) { transition-delay: 560ms; }
+

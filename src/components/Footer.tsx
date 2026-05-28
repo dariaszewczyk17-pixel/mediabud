@@ -46,10 +46,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gray-950 text-gray-300">
+    <footer className="text-gray-300" style={{ background: "#080808" }}>
 
       {/* ── Newsletter CTA bar ── */}
-      <div className="bg-[#f81828] relative overflow-hidden">
+      <div className="relative overflow-hidden" style={{ background: "#f81828" }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 10% 50%, #fff 0%, transparent 50%), radial-gradient(circle at 90% 50%, #fff 0%, transparent 50%)" }} />
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -85,17 +85,19 @@ export default function Footer() {
       </div>
 
       {/* ── Trust badges bar ── */}
-      <div className="border-b border-gray-800/60">
+      <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="container mx-auto px-4 py-5">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {TRUST_BADGES.map((b, i) => (
               <div key={i} className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                  style={{ background: "rgba(248,24,40,0.10)", border: "1px solid rgba(248,24,40,0.18)", color: "#f81828" }}
+                >
                   {b.icon}
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-white leading-tight">{b.label}</div>
-                  <div className="text-xs text-gray-500">{b.desc}</div>
+                  <div className="text-xs text-gray-600">{b.desc}</div>
                 </div>
               </div>
             ))}
@@ -104,20 +106,26 @@ export default function Footer() {
       </div>
 
       {/* ── Main footer content ── */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="relative container mx-auto px-4 py-12">
+        {/* Grid pattern bg */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "linear-gradient(rgba(248,24,40,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.025) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* Col 1: Brand */}
           <div className="space-y-5">
             {/* Logo */}
-            <Link to="/" className="inline-flex items-center gap-3 group">
-              <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-                <span className="text-white font-black text-lg">MB</span>
-              </div>
-              <div>
-                <div className="font-black text-xl leading-none text-white tracking-tight">MEDIA BUD</div>
-                <div className="text-xs text-gray-500 leading-none mt-0.5">Skład Budowlany Lublin</div>
-              </div>
+            <Link to="/" className="inline-flex items-center group">
+              <img
+                src="/images/logo-mediabud-main.png"
+                alt="Media Bud – Skład Budowlany"
+                className="h-10 object-contain group-hover:brightness-110 transition-all"
+                style={{ maxWidth: "150px" }}
+              />
             </Link>
 
             <p className="text-sm text-gray-400 leading-relaxed">

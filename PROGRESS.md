@@ -79,3 +79,7 @@
 [2026-05-28 20:20] Zakończono build drugiej paczki katalogu i rozpoczynam weryfikację statusu repo przed commitem/pushem.
 [2026-05-28 20:21] Utworzono commit 5bb51f4 dla drugiej paczki katalogu; przygotowuję push na origin/main i zamknięcie etapu.
 [2026-05-28 20:52] Paczka 4 (p169-p176): zaprawa murarska Atlas UNI, samopoziomująca Baumit Nivello, uszczelniająca Atlas Woder D, wylewka Atlas ZW310, klej Mapei Keraflex C2TE, fuga Mapei Ultracolor Plus, wiertarko-wkrętarka Makita DHP484 18V, poziomica Stanley FatMax 100cm. Skill Optymalizator SEO/AI – 6-sekcyjna struktura. Build OK.
+[2026-05-28 21:08] START Fazy C: pełna migracja do Sanity. Faza 1 – scraping struktury kategorii bechcicki.pl
+[2026-05-28 21:18] FAZA 1 ukończona: scraping 10 kategorii gł., 63 podkategorii, 98 sub-subkategorii z bechcicki.pl → bechcicki-categories.json (26KB). Faza 2 w toku: projekt schematu Sanity.
+[2026-05-28 21:21] Faza 2A: rozbudowa schematów Sanity – product, brand, category, index, config
+[2026-05-28 21:25] Faza 2 OK: schematy Sanity (product+brand+category), skrypty migracji, NDJSON 175 prod / 74 marek / 127 kategorii

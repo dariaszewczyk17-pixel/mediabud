@@ -1,0 +1,127 @@
+{"_id": "category-tynki-silikonowe", "_type": "category", "name": "Tynki Silikonowe", "slug": {"_type": "slug", "current": "tynki-silikonowe"}, "order": 0}
+{"_id": "category-tynki-gipsowe", "_type": "category", "name": "Tynki Gipsowe", "slug": {"_type": "slug", "current": "tynki-gipsowe"}, "order": 0}
+{"_id": "category-tynki-mineralne", "_type": "category", "name": "Tynki Mineralne", "slug": {"_type": "slug", "current": "tynki-mineralne"}, "order": 0}
+{"_id": "category-kleje-styropian", "_type": "category", "name": "Kleje Styropian", "slug": {"_type": "slug", "current": "kleje-styropian"}, "order": 0}
+{"_id": "category-kleje-glazura", "_type": "category", "name": "Kleje Glazura", "slug": {"_type": "slug", "current": "kleje-glazura"}, "order": 0}
+{"_id": "category-gladzie-proszek", "_type": "category", "name": "Gladzie Proszek", "slug": {"_type": "slug", "current": "gladzie-proszek"}, "order": 0}
+{"_id": "category-grunty-pod-tynki", "_type": "category", "name": "Grunty Pod Tynki", "slug": {"_type": "slug", "current": "grunty-pod-tynki"}, "order": 0}
+{"_id": "category-piany-pistoletowe", "_type": "category", "name": "Piany Pistoletowe", "slug": {"_type": "slug", "current": "piany-pistoletowe"}, "order": 0}
+{"_id": "category-silikony-sanitarne", "_type": "category", "name": "Silikony Sanitarne", "slug": {"_type": "slug", "current": "silikony-sanitarne"}, "order": 0}
+{"_id": "category-styropian-fasadowy-eps", "_type": "category", "name": "Styropian Fasadowy Eps", "slug": {"_type": "slug", "current": "styropian-fasadowy-eps"}, "order": 0}
+{"_id": "category-welna-fasadowa", "_type": "category", "name": "Welna Fasadowa", "slug": {"_type": "slug", "current": "welna-fasadowa"}, "order": 0}
+{"_id": "category-hydroizolacje-mineralne", "_type": "category", "name": "Hydroizolacje Mineralne", "slug": {"_type": "slug", "current": "hydroizolacje-mineralne"}, "order": 0}
+{"_id": "category-akcesoria-izolacji", "_type": "category", "name": "Akcesoria Izolacji", "slug": {"_type": "slug", "current": "akcesoria-izolacji"}, "order": 0}
+{"_id": "category-folie-paroprzepuszczalne", "_type": "category", "name": "Folie Paroprzepuszczalne", "slug": {"_type": "slug", "current": "folie-paroprzepuszczalne"}, "order": 0}
+{"_id": "category-farby-elaw-silikonowe", "_type": "category", "name": "Farby Elaw Silikonowe", "slug": {"_type": "slug", "current": "farby-elaw-silikonowe"}, "order": 0}
+{"_id": "category-farby-biale", "_type": "category", "name": "Farby Biale", "slug": {"_type": "slug", "current": "farby-biale"}, "order": 0}
+{"_id": "category-farby-kolorowe", "_type": "category", "name": "Farby Kolorowe", "slug": {"_type": "slug", "current": "farby-kolorowe"}, "order": 0}
+{"_id": "category-lakiery-drewno", "_type": "category", "name": "Lakiery Drewno", "slug": {"_type": "slug", "current": "lakiery-drewno"}, "order": 0}
+{"_id": "category-impregnaty-drewno", "_type": "category", "name": "Impregnaty Drewno", "slug": {"_type": "slug", "current": "impregnaty-drewno"}, "order": 0}
+{"_id": "category-plyty-gipsowo-kartonowe", "_type": "category", "name": "Plyty Gipsowo Kartonowe", "slug": {"_type": "slug", "current": "plyty-gipsowo-kartonowe"}, "order": 0}
+{"_id": "category-profile-sufit", "_type": "category", "name": "Profile Sufit", "slug": {"_type": "slug", "current": "profile-sufit"}, "order": 0}
+{"_id": "category-bloczki-beton-komorkowy", "_type": "category", "name": "Bloczki Beton Komorkowy", "slug": {"_type": "slug", "current": "bloczki-beton-komorkowy"}, "order": 0}
+{"_id": "category-zaprawy-murarskie", "_type": "category", "name": "Zaprawy Murarskie", "slug": {"_type": "slug", "current": "zaprawy-murarskie"}, "order": 0}
+{"_id": "category-cement", "_type": "category", "name": "Cement", "slug": {"_type": "slug", "current": "cement"}, "order": 0}
+{"_id": "category-plytki-scienne", "_type": "category", "name": "Plytki Scienne", "slug": {"_type": "slug", "current": "plytki-scienne"}, "order": 0}
+{"_id": "category-plytki-scienno-podlogowe", "_type": "category", "name": "Plytki Scienno Podlogowe", "slug": {"_type": "slug", "current": "plytki-scienno-podlogowe"}, "order": 0}
+{"_id": "category-spoiny", "_type": "category", "name": "Spoiny", "slug": {"_type": "slug", "current": "spoiny"}, "order": 0}
+{"_id": "category-wiertarko-wkretarki", "_type": "category", "name": "Wiertarko Wkretarki", "slug": {"_type": "slug", "current": "wiertarko-wkretarki"}, "order": 0}
+{"_id": "category-walki-malarskie", "_type": "category", "name": "Walki Malarskie", "slug": {"_type": "slug", "current": "walki-malarskie"}, "order": 0}
+{"_id": "category-kolki-wkrety-uniwersalne", "_type": "category", "name": "Kolki Wkrety Uniwersalne", "slug": {"_type": "slug", "current": "kolki-wkrety-uniwersalne"}, "order": 0}
+{"_id": "category-gonty-bitumiczne", "_type": "category", "name": "Gonty Bitumiczne", "slug": {"_type": "slug", "current": "gonty-bitumiczne"}, "order": 0}
+{"_id": "category-kostka-brukowa", "_type": "category", "name": "Kostka Brukowa", "slug": {"_type": "slug", "current": "kostka-brukowa"}, "order": 0}
+{"_id": "category-zaprawy-posadzkowe", "_type": "category", "name": "Zaprawy Posadzkowe", "slug": {"_type": "slug", "current": "zaprawy-posadzkowe"}, "order": 0}
+{"_id": "category-tynki-cementowe", "_type": "category", "name": "Tynki Cementowe", "slug": {"_type": "slug", "current": "tynki-cementowe"}, "order": 0}
+{"_id": "category-welna-szklana", "_type": "category", "name": "Welna Szklana", "slug": {"_type": "slug", "current": "welna-szklana"}, "order": 0}
+{"_id": "category-rynny-pvc", "_type": "category", "name": "Rynny Pvc", "slug": {"_type": "slug", "current": "rynny-pvc"}, "order": 0}
+{"_id": "category-papy-bitumiczne", "_type": "category", "name": "Papy Bitumiczne", "slug": {"_type": "slug", "current": "papy-bitumiczne"}, "order": 0}
+{"_id": "category-plytki-elewacyjne", "_type": "category", "name": "Plytki Elewacyjne", "slug": {"_type": "slug", "current": "plytki-elewacyjne"}, "order": 0}
+{"_id": "category-bloczki-silikatowe", "_type": "category", "name": "Bloczki Silikatowe", "slug": {"_type": "slug", "current": "bloczki-silikatowe"}, "order": 0}
+{"_id": "category-szlifierki-katowe", "_type": "category", "name": "Szlifierki Katowe", "slug": {"_type": "slug", "current": "szlifierki-katowe"}, "order": 0}
+{"_id": "category-wylewki-cementowe", "_type": "category", "name": "Wylewki Cementowe", "slug": {"_type": "slug", "current": "wylewki-cementowe"}, "order": 0}
+{"_id": "category-izolacje-przeciwwilgoc", "_type": "category", "name": "Izolacje Przeciwwilgoc", "slug": {"_type": "slug", "current": "izolacje-przeciwwilgoc"}, "order": 0}
+{"_id": "category-styropian-podlogowy", "_type": "category", "name": "Styropian Podlogowy", "slug": {"_type": "slug", "current": "styropian-podlogowy"}, "order": 0}
+{"_id": "category-folie-paroizolacyjne", "_type": "category", "name": "Folie Paroizolacyjne", "slug": {"_type": "slug", "current": "folie-paroizolacyjne"}, "order": 0}
+{"_id": "category-profile-scian", "_type": "category", "name": "Profile Scian", "slug": {"_type": "slug", "current": "profile-scian"}, "order": 0}
+{"_id": "category-ceramika-budowlana", "_type": "category", "name": "Ceramika Budowlana", "slug": {"_type": "slug", "current": "ceramika-budowlana"}, "order": 0}
+{"_id": "category-tynki-akrylowe", "_type": "category", "name": "Tynki Akrylowe", "slug": {"_type": "slug", "current": "tynki-akrylowe"}, "order": 0}
+{"_id": "category-farby-elaw-silikatowe", "_type": "category", "name": "Farby Elaw Silikatowe", "slug": {"_type": "slug", "current": "farby-elaw-silikatowe"}, "order": 0}
+{"_id": "category-tynki-silikatowe", "_type": "category", "name": "Tynki Silikatowe", "slug": {"_type": "slug", "current": "tynki-silikatowe"}, "order": 0}
+{"_id": "category-tynki-silikonowo-silikatowe", "_type": "category", "name": "Tynki Silikonowo Silikatowe", "slug": {"_type": "slug", "current": "tynki-silikonowo-silikatowe"}, "order": 0}
+{"_id": "category-tynki-mozaikowe", "_type": "category", "name": "Tynki Mozaikowe", "slug": {"_type": "slug", "current": "tynki-mozaikowe"}, "order": 0}
+{"_id": "category-tynki-cementowo-wapienne", "_type": "category", "name": "Tynki Cementowo Wapienne", "slug": {"_type": "slug", "current": "tynki-cementowo-wapienne"}, "order": 0}
+{"_id": "category-kleje-montazowe", "_type": "category", "name": "Kleje Montazowe", "slug": {"_type": "slug", "current": "kleje-montazowe"}, "order": 0}
+{"_id": "category-kleje-welna", "_type": "category", "name": "Kleje Welna", "slug": {"_type": "slug", "current": "kleje-welna"}, "order": 0}
+{"_id": "category-kotwy-chemiczne", "_type": "category", "name": "Kotwy Chemiczne", "slug": {"_type": "slug", "current": "kotwy-chemiczne"}, "order": 0}
+{"_id": "category-srodki-grzybobojcze", "_type": "category", "name": "Srodki Grzybobojcze", "slug": {"_type": "slug", "current": "srodki-grzybobojcze"}, "order": 0}
+{"_id": "category-zaprawy-uszczelniajace", "_type": "category", "name": "Zaprawy Uszczelniajace", "slug": {"_type": "slug", "current": "zaprawy-uszczelniajace"}, "order": 0}
+{"_id": "category-masy-bitumiczne", "_type": "category", "name": "Masy Bitumiczne", "slug": {"_type": "slug", "current": "masy-bitumiczne"}, "order": 0}
+{"_id": "category-styropian-dach-podloga", "_type": "category", "name": "Styropian Dach Podloga", "slug": {"_type": "slug", "current": "styropian-dach-podloga"}, "order": 0}
+{"_id": "category-styropian-fundamenty", "_type": "category", "name": "Styropian Fundamenty", "slug": {"_type": "slug", "current": "styropian-fundamenty"}, "order": 0}
+{"_id": "category-plyty-xps", "_type": "category", "name": "Plyty Xps", "slug": {"_type": "slug", "current": "plyty-xps"}, "order": 0}
+{"_id": "category-welna-sucha-zabudowa", "_type": "category", "name": "Welna Sucha Zabudowa", "slug": {"_type": "slug", "current": "welna-sucha-zabudowa"}, "order": 0}
+{"_id": "category-welna-stropy", "_type": "category", "name": "Welna Stropy", "slug": {"_type": "slug", "current": "welna-stropy"}, "order": 0}
+{"_id": "category-welna-poddasza", "_type": "category", "name": "Welna Poddasza", "slug": {"_type": "slug", "current": "welna-poddasza"}, "order": 0}
+{"_id": "category-hydroizolacje-bitumiczne", "_type": "category", "name": "Hydroizolacje Bitumiczne", "slug": {"_type": "slug", "current": "hydroizolacje-bitumiczne"}, "order": 0}
+{"_id": "category-folie-w-plynie", "_type": "category", "name": "Folie W Plynie", "slug": {"_type": "slug", "current": "folie-w-plynie"}, "order": 0}
+{"_id": "category-papy-hydroizolacyjne", "_type": "category", "name": "Papy Hydroizolacyjne", "slug": {"_type": "slug", "current": "papy-hydroizolacyjne"}, "order": 0}
+{"_id": "category-farby-elaw-emulsyjne", "_type": "category", "name": "Farby Elaw Emulsyjne", "slug": {"_type": "slug", "current": "farby-elaw-emulsyjne"}, "order": 0}
+{"_id": "category-farby-elaw-akrylowe", "_type": "category", "name": "Farby Elaw Akrylowe", "slug": {"_type": "slug", "current": "farby-elaw-akrylowe"}, "order": 0}
+{"_id": "category-lakierobejce", "_type": "category", "name": "Lakierobejce", "slug": {"_type": "slug", "current": "lakierobejce"}, "order": 0}
+{"_id": "category-emalie-akrylowe", "_type": "category", "name": "Emalie Akrylowe", "slug": {"_type": "slug", "current": "emalie-akrylowe"}, "order": 0}
+{"_id": "category-emalie-ftalowe", "_type": "category", "name": "Emalie Ftalowe", "slug": {"_type": "slug", "current": "emalie-ftalowe"}, "order": 0}
+{"_id": "category-rozpuszczalniki", "_type": "category", "name": "Rozpuszczalniki", "slug": {"_type": "slug", "current": "rozpuszczalniki"}, "order": 0}
+{"_id": "category-plyty-gipsowo-wloknowe", "_type": "category", "name": "Plyty Gipsowo Wloknowe", "slug": {"_type": "slug", "current": "plyty-gipsowo-wloknowe"}, "order": 0}
+{"_id": "category-plyty-cementowe", "_type": "category", "name": "Plyty Cementowe", "slug": {"_type": "slug", "current": "plyty-cementowe"}, "order": 0}
+{"_id": "category-profile-sciana", "_type": "category", "name": "Profile Sciana", "slug": {"_type": "slug", "current": "profile-sciana"}, "order": 0}
+{"_id": "category-tasmy-sucha-zabudowa", "_type": "category", "name": "Tasmy Sucha Zabudowa", "slug": {"_type": "slug", "current": "tasmy-sucha-zabudowa"}, "order": 0}
+{"_id": "category-narozniki-aluminiowe", "_type": "category", "name": "Narozniki Aluminiowe", "slug": {"_type": "slug", "current": "narozniki-aluminiowe"}, "order": 0}
+{"_id": "category-dachowki-ceramiczne", "_type": "category", "name": "Dachowki Ceramiczne", "slug": {"_type": "slug", "current": "dachowki-ceramiczne"}, "order": 0}
+{"_id": "category-dachowki-betonowe", "_type": "category", "name": "Dachowki Betonowe", "slug": {"_type": "slug", "current": "dachowki-betonowe"}, "order": 0}
+{"_id": "category-pokrycia-blacha", "_type": "category", "name": "Pokrycia Blacha", "slug": {"_type": "slug", "current": "pokrycia-blacha"}, "order": 0}
+{"_id": "category-papy-dachowe", "_type": "category", "name": "Papy Dachowe", "slug": {"_type": "slug", "current": "papy-dachowe"}, "order": 0}
+{"_id": "category-okna-dachowe-std", "_type": "category", "name": "Okna Dachowe Std", "slug": {"_type": "slug", "current": "okna-dachowe-std"}, "order": 0}
+{"_id": "category-rynny-blacha", "_type": "category", "name": "Rynny Blacha", "slug": {"_type": "slug", "current": "rynny-blacha"}, "order": 0}
+{"_id": "category-membrany-dachowe", "_type": "category", "name": "Membrany Dachowe", "slug": {"_type": "slug", "current": "membrany-dachowe"}, "order": 0}
+{"_id": "category-podbitki-dachowe", "_type": "category", "name": "Podbitki Dachowe", "slug": {"_type": "slug", "current": "podbitki-dachowe"}, "order": 0}
+{"_id": "category-pustaki-ceramiczne", "_type": "category", "name": "Pustaki Ceramiczne", "slug": {"_type": "slug", "current": "pustaki-ceramiczne"}, "order": 0}
+{"_id": "category-belki-stropowe-betonowe", "_type": "category", "name": "Belki Stropowe Betonowe", "slug": {"_type": "slug", "current": "belki-stropowe-betonowe"}, "order": 0}
+{"_id": "category-nadproza", "_type": "category", "name": "Nadproza", "slug": {"_type": "slug", "current": "nadproza"}, "order": 0}
+{"_id": "category-cegly", "_type": "category", "name": "Cegly", "slug": {"_type": "slug", "current": "cegly"}, "order": 0}
+{"_id": "category-kominy-ceramiczne", "_type": "category", "name": "Kominy Ceramiczne", "slug": {"_type": "slug", "current": "kominy-ceramiczne"}, "order": 0}
+{"_id": "category-plytki-tarasowe", "_type": "category", "name": "Plytki Tarasowe", "slug": {"_type": "slug", "current": "plytki-tarasowe"}, "order": 0}
+{"_id": "category-stopnice", "_type": "category", "name": "Stopnice", "slug": {"_type": "slug", "current": "stopnice"}, "order": 0}
+{"_id": "category-mozaiki", "_type": "category", "name": "Mozaiki", "slug": {"_type": "slug", "current": "mozaiki"}, "order": 0}
+{"_id": "category-listwy-akcesoria", "_type": "category", "name": "Listwy Akcesoria", "slug": {"_type": "slug", "current": "listwy-akcesoria"}, "order": 0}
+{"_id": "category-lamele-dekoracyjne", "_type": "category", "name": "Lamele Dekoracyjne", "slug": {"_type": "slug", "current": "lamele-dekoracyjne"}, "order": 0}
+{"_id": "category-kolki-rozpozowe", "_type": "category", "name": "Kolki Rozpozowe", "slug": {"_type": "slug", "current": "kolki-rozpozowe"}, "order": 0}
+{"_id": "category-wkrety-drewno", "_type": "category", "name": "Wkrety Drewno", "slug": {"_type": "slug", "current": "wkrety-drewno"}, "order": 0}
+{"_id": "category-pedzle", "_type": "category", "name": "Pedzle", "slug": {"_type": "slug", "current": "pedzle"}, "order": 0}
+{"_id": "category-szpachle", "_type": "category", "name": "Szpachle", "slug": {"_type": "slug", "current": "szpachle"}, "order": 0}
+{"_id": "category-kielnie", "_type": "category", "name": "Kielnie", "slug": {"_type": "slug", "current": "kielnie"}, "order": 0}
+{"_id": "category-poziomnice", "_type": "category", "name": "Poziomnice", "slug": {"_type": "slug", "current": "poziomnice"}, "order": 0}
+{"_id": "category-tasmy-malarskie", "_type": "category", "name": "Tasmy Malarskie", "slug": {"_type": "slug", "current": "tasmy-malarskie"}, "order": 0}
+{"_id": "category-plyty-welna-mineralna", "_type": "category", "name": "Plyty Welna Mineralna", "slug": {"_type": "slug", "current": "plyty-welna-mineralna"}, "order": 0}
+{"_id": "category-plyty-welna-szklana", "_type": "category", "name": "Plyty Welna Szklana", "slug": {"_type": "slug", "current": "plyty-welna-szklana"}, "order": 0}
+{"_id": "category-plyty-gipsowe-sufitowe", "_type": "category", "name": "Plyty Gipsowe Sufitowe", "slug": {"_type": "slug", "current": "plyty-gipsowe-sufitowe"}, "order": 0}
+{"_id": "category-profile-nosne-glowne", "_type": "category", "name": "Profile Nosne Glowne", "slug": {"_type": "slug", "current": "profile-nosne-glowne"}, "order": 0}
+{"_id": "category-profile-poprzeczne", "_type": "category", "name": "Profile Poprzeczne", "slug": {"_type": "slug", "current": "profile-poprzeczne"}, "order": 0}
+{"_id": "category-profile-przysc-sufity", "_type": "category", "name": "Profile Przysc Sufity", "slug": {"_type": "slug", "current": "profile-przysc-sufity"}, "order": 0}
+{"_id": "category-wieszaki-dwuhakowe", "_type": "category", "name": "Wieszaki Dwuhakowe", "slug": {"_type": "slug", "current": "wieszaki-dwuhakowe"}, "order": 0}
+{"_id": "category-okna-wylazowe", "_type": "category", "name": "Okna Wylazowe", "slug": {"_type": "slug", "current": "okna-wylazowe"}, "order": 0}
+{"_id": "category-akcesoria-rynny", "_type": "category", "name": "Akcesoria Rynny", "slug": {"_type": "slug", "current": "akcesoria-rynny"}, "order": 0}
+{"_id": "category-wkrety-metal", "_type": "category", "name": "Wkrety Metal", "slug": {"_type": "slug", "current": "wkrety-metal"}, "order": 0}
+{"_id": "category-kotwy-mechaniczne", "_type": "category", "name": "Kotwy Mechaniczne", "slug": {"_type": "slug", "current": "kotwy-mechaniczne"}, "order": 0}
+{"_id": "category-pace-gladzie", "_type": "category", "name": "Pace Gladzie", "slug": {"_type": "slug", "current": "pace-gladzie"}, "order": 0}
+{"_id": "category-narzedzia-glazurnicze", "_type": "category", "name": "Narzedzia Glazurnicze", "slug": {"_type": "slug", "current": "narzedzia-glazurnicze"}, "order": 0}
+{"_id": "category-bloczek-komorkowy", "_type": "category", "name": "Bloczek Komorkowy", "slug": {"_type": "slug", "current": "bloczek-komorkowy"}, "order": 0}
+{"_id": "category-ksztaltki-wience", "_type": "category", "name": "Ksztaltki Wience", "slug": {"_type": "slug", "current": "ksztaltki-wience"}, "order": 0}
+{"_id": "category-stropy-systemowe", "_type": "category", "name": "Stropy Systemowe", "slug": {"_type": "slug", "current": "stropy-systemowe"}, "order": 0}
+{"_id": "category-silikaty", "_type": "category", "name": "Silikaty", "slug": {"_type": "slug", "current": "silikaty"}, "order": 0}
+{"_id": "category-kleje-plytek", "_type": "category", "name": "Kleje Plytek", "slug": {"_type": "slug", "current": "kleje-plytek"}, "order": 0}
+{"_id": "category-fugi", "_type": "category", "name": "Fugi", "slug": {"_type": "slug", "current": "fugi"}, "order": 0}
+{"_id": "category-rury-spustowe", "_type": "category", "name": "Rury Spustowe", "slug": {"_type": "slug", "current": "rury-spustowe"}, "order": 0}
+{"_id": "category-komunikacja-dachowa", "_type": "category", "name": "Komunikacja Dachowa", "slug": {"_type": "slug", "current": "komunikacja-dachowa"}, "order": 0}
+{"_id": "category-grunty-tynki", "_type": "category", "name": "Grunty Tynki", "slug": {"_type": "slug", "current": "grunty-tynki"}, "order": 0}
+{"_id": "category-tynki-wewnetrzne", "_type": "category", "name": "Tynki Wewnetrzne", "slug": {"_type": "slug", "current": "tynki-wewnetrzne"}, "order": 0}
+{"_id": "category-poziomice-laty", "_type": "category", "name": "Poziomice Laty", "slug": {"_type": "slug", "current": "poziomice-laty"}, "order": 0}

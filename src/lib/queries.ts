@@ -37,7 +37,7 @@ const CATEGORY_FIELDS = `{
 // ── Stałe queries (eksportowane dla useSanityData.ts) ───────────────────────
 
 export const ALL_CATEGORIES_QUERY =
-  `*[_type == "category"] | order(order asc, name asc) ${CATEGORY_FIELDS}`
+  `*[_type == "category" && !defined(parent)] | order(order asc, name asc) ${CATEGORY_FIELDS}`
 
 export const ALL_PRODUCTS_QUERY =
   `*[_type == "product"] | order(name asc) ${PRODUCT_CARD_FIELDS}`

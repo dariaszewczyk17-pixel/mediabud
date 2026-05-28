@@ -52,3 +52,6 @@
 [2026-05-28 19:29] Rozpoczęto praktyczną weryfikację UI filtrów i sortowania na stronie /szukaj przed commitem i publikacją zmian.
 [2026-05-28 19:30] Potwierdzono praktycznie UI filtrów i sortowania na /szukaj: stan bazowy dla 'tynk', wariant featured=1&sort=featured (3 wyniki) oraz brand=Weber (2 wyniki) renderują się poprawnie.
 [2026-05-28 19:31] Zakończono praktyczny test UI filtrów i sortowania na stronie /szukaj; rozpoczynam commit i push zmian do repozytorium.
+[2026-05-28 19:33] Rozpoczęto analizę kolejnego etapu rozwoju wyszukiwania: premium UI filtrów, dodatkowe filtry na /szukaj oraz dopracowanie autocomplete w Header.tsx.
+[2026-05-28 19:33] Zakończono analizę SearchResultsPage i Header.tsx; przygotowano zakres dalszych prac: premium UI filtrów, dodatkowe filtry oraz ulepszenia autocomplete.
+[2026-05-28 19:37] Wdrożono premium panel filtrów z dodatkowymi filtrami tagów i nowości oraz rozbudowano autocomplete w Header; build zakończony sukcesem, rozpoczynam praktyczną weryfikację UI i przygotowanie commita.

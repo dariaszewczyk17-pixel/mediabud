@@ -1,5 +1,17 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { Search, ChevronRight, ArrowRight, SlidersHorizontal, Sparkles, Star } from "lucide-react";
+import {
+  Search,
+  ChevronRight,
+  ArrowRight,
+  SlidersHorizontal,
+  Sparkles,
+  Star,
+  ShieldCheck,
+  Tags,
+  Filter,
+  X,
+  ArrowUpDown,
+} from "lucide-react";
 import { useMemo } from "react";
 import { products as staticProducts } from "@/data/products";
 import { useAllProducts } from "@/hooks/useSanityData";
@@ -14,7 +26,14 @@ type SortOption = "relevance" | "name-asc" | "name-desc" | "brand-asc" | "featur
 const RESULTS_PER_PAGE = 12;
 const ALL_BRANDS = "__all_brands__";
 const ALL_CATEGORIES = "__all_categories__";
+const ALL_TAGS = "__all_tags__";
 const DEFAULT_SORT: SortOption = "relevance";
+
+const categoryLabel = (value: string) =>
+  value
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 
 export default function SearchResultsPage() {
   const [searchParams] = useSearchParams();
@@ -22,7 +41,9 @@ export default function SearchResultsPage() {
   const currentPage = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
   const selectedBrand = searchParams.get("brand") || ALL_BRANDS;
   const selectedCategory = searchParams.get("category") || ALL_CATEGORIES;
+  const selectedTag = searchParams.get("tag") || ALL_TAGS;
   const featuredOnly = searchParams.get("featured") === "1";
+  const newOnly = searchParams.get("new") === "1";
   const sortBy = (searchParams.get("sort") as SortOption) || DEFAULT_SORT;
   const { data: sanityProducts } = useAllProducts();
 
@@ -46,11 +67,21 @@ export default function SearchResultsPage() {
     [results],
   );
 
+  const availableTags = useMemo(() => {
+    const tags = new Set<string>();
+    results.forEach((product) => {
+      product.tags.forEach((tag) => tags.add(tag));
+    });
+    return Array.from(tags).sort((a, b) => a.localeCompare(b, "pl"));
+  }, [results]);
+
   const filteredResults = useMemo(() => {
     const next = results.filter((product) => {
       if (selectedBrand !== ALL_BRANDS && product.brand !== selectedBrand) return false;
       if (selectedCategory !== ALL_CATEGORIES && product.categorySlug !== selectedCategory) return false;
+      if (selectedTag !== ALL_TAGS && !product.tags.includes(selectedTag)) return false;
       if (featuredOnly && !product.isFeatured) return false;
+      if (newOnly && !product.isNew) return false;
       return true;
     });
 
@@ -67,7 +98,12 @@ export default function SearchResultsPage() {
         sorted.sort((a, b) => a.brand.localeCompare(b.brand, "pl") || a.name.localeCompare(b.name, "pl"));
         break;
       case "featured":
-        sorted.sort((a, b) => Number(Boolean(b.isFeatured)) - Number(Boolean(a.isFeatured)) || a.name.localeCompare(b.name, "pl"));
+        sorted.sort(
+          (a, b) =>
+            Number(Boolean(b.isFeatured)) - Number(Boolean(a.isFeatured)) ||
+            Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)) ||
+            a.name.localeCompare(b.name, "pl"),
+        );
         break;
       case "relevance":
       default:
@@ -80,7 +116,27 @@ export default function SearchResultsPage() {
     }
 
     return sorted;
-  }, [featuredOnly, query, results, selectedBrand, selectedCategory, sortBy]);
+  }, [featuredOnly, newOnly, query, results, selectedBrand, selectedCategory, selectedTag, sortBy]);
+
+  const activeFilterChips = useMemo(() => {
+    const chips: Array<{ label: string; updates: Record<string, string | null> }> = [];
+    if (selectedBrand !== ALL_BRANDS) chips.push({ label: `Marka: ${selectedBrand}`, updates: { brand: null } });
+    if (selectedCategory !== ALL_CATEGORIES) chips.push({ label: `Kategoria: ${categoryLabel(selectedCategory)}`, updates: { category: null } });
+    if (selectedTag !== ALL_TAGS) chips.push({ label: `Tag: ${selectedTag}`, updates: { tag: null } });
+    if (featuredOnly) chips.push({ label: "Tylko polecane", updates: { featured: null } });
+    if (newOnly) chips.push({ label: "Tylko nowości", updates: { new: null } });
+    if (sortBy !== DEFAULT_SORT) {
+      const sortLabels: Record<SortOption, string> = {
+        relevance: "Najtrafniejsze",
+        featured: "Najpierw polecane",
+        "name-asc": "Nazwa A–Z",
+        "name-desc": "Nazwa Z–A",
+        "brand-asc": "Marka A–Z",
+      };
+      chips.push({ label: `Sortowanie: ${sortLabels[sortBy]}`, updates: { sort: null } });
+    }
+    return chips;
+  }, [featuredOnly, newOnly, selectedBrand, selectedCategory, selectedTag, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filteredResults.length / RESULTS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
@@ -89,7 +145,13 @@ export default function SearchResultsPage() {
   const createSearchLink = (updates: Record<string, string | null>) => {
     const nextParams = new URLSearchParams(searchParams);
     Object.entries(updates).forEach(([key, value]) => {
-      if (!value || value === ALL_BRANDS || value === ALL_CATEGORIES || (key === "sort" && value === DEFAULT_SORT)) {
+      if (
+        !value ||
+        value === ALL_BRANDS ||
+        value === ALL_CATEGORIES ||
+        value === ALL_TAGS ||
+        (key === "sort" && value === DEFAULT_SORT)
+      ) {
         nextParams.delete(key);
       } else {
         nextParams.set(key, value);
@@ -104,6 +166,15 @@ export default function SearchResultsPage() {
     nextParams.set("page", String(page));
     return `/szukaj?${nextParams.toString()}`;
   };
+
+  const clearAllLink = createSearchLink({
+    brand: null,
+    category: null,
+    tag: null,
+    featured: null,
+    new: null,
+    sort: null,
+  });
 
   if (!query) {
     return (
@@ -135,111 +206,197 @@ export default function SearchResultsPage() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="rounded-3xl p-8 mb-8" style={{ background: "linear-gradient(135deg, rgba(248,24,40,0.12), rgba(248,24,40,0.03))", border: "1px solid rgba(248,24,40,0.15)" }}>
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.18)" }}>
-              <Search className="w-6 h-6 text-[#f81828]" />
+        <div
+          className="rounded-[28px] p-8 mb-8 overflow-hidden relative"
+          style={{
+            background: "linear-gradient(135deg, rgba(248,24,40,0.14), rgba(248,24,40,0.04) 38%, rgba(255,255,255,0.02) 100%)",
+            border: "1px solid rgba(248,24,40,0.15)",
+            boxShadow: "0 24px 80px rgba(0,0,0,0.35)",
+          }}
+        >
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)",
+              backgroundSize: "28px 28px",
+            }}
+          />
+          <div className="relative flex items-start gap-4">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.18)" }}>
+              <Search className="w-7 h-7 text-[#f81828]" />
             </div>
-            <div>
+            <div className="flex-1 min-w-0">
               <div className="text-[11px] uppercase tracking-[0.25em] text-[#f88090] font-bold mb-2">Wyszukiwanie w katalogu</div>
               <h1 className="text-3xl md:text-4xl font-black text-white leading-tight font-display mb-2">Wyniki dla: „{query}”</h1>
-              <p className="text-gray-400 text-sm md:text-base">Znaleziono <strong className="text-white">{results.length}</strong> dopasowań w produktach z Sanity i lokalnej bazy, a po filtrach pozostało <strong className="text-white">{filteredResults.length}</strong>.</p>
+              <p className="text-gray-300 text-sm md:text-base max-w-3xl">
+                Znaleziono <strong className="text-white">{results.length}</strong> dopasowań w produktach z Sanity i lokalnej bazy, a po filtrach pozostało <strong className="text-white">{filteredResults.length}</strong>.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-3xl p-5 md:p-6 mb-8" style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}>
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-5">
-            <div>
-              <div className="flex items-center gap-2 text-white font-bold text-lg font-display mb-1">
-                <SlidersHorizontal className="w-5 h-5 text-[#f81828]" /> Filtry i sortowanie
+        <div
+          className="rounded-[30px] p-5 md:p-6 mb-8 overflow-hidden relative"
+          style={{
+            background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: "0 18px 40px rgba(0,0,0,0.28)",
+          }}
+        >
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: "radial-gradient(circle at top right, rgba(248,24,40,0.18), transparent 30%)",
+            }}
+          />
+
+          <div className="relative flex flex-col gap-6">
+            <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 text-white font-bold text-lg font-display mb-1">
+                  <SlidersHorizontal className="w-5 h-5 text-[#f81828]" /> Filtry i sortowanie premium
+                </div>
+                <p className="text-sm text-gray-400 max-w-2xl">
+                  Zawęź wyniki po marce, kategorii i tagach technicznych, wyeksponuj nowości albo produkty polecane i ustaw kolejność dopasowań.
+                </p>
               </div>
-              <p className="text-sm text-gray-500">Zawęź wyniki po marce i kategorii albo zmień kolejność wyświetlania produktów.</p>
+
+              <div className="flex flex-wrap gap-2">
+                {activeFilterChips.length > 0 && (
+                  <Link
+                    to={clearAllLink}
+                    className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold text-gray-200 hover:text-white"
+                    style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+                  >
+                    <X className="w-3.5 h-3.5" /> Wyczyść wszystkie
+                  </Link>
+                )}
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              {featuredOnly && (
-                <Link
-                  to={createSearchLink({ featured: null })}
-                  className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-semibold text-white"
-                  style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.28)" }}
-                >
-                  <Star className="w-3.5 h-3.5 text-[#f81828]" /> Tylko polecane
-                </Link>
-              )}
-              {(selectedBrand !== ALL_BRANDS || selectedCategory !== ALL_CATEGORIES || featuredOnly || sortBy !== DEFAULT_SORT) && (
-                <Link
-                  to={createSearchLink({ brand: null, category: null, featured: null, sort: null })}
-                  className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-semibold text-gray-300 hover:text-white"
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+              <label className="block">
+                <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 flex items-center gap-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#f81828]" /> Marka
+                </span>
+                <select
+                  value={selectedBrand}
+                  onChange={(e) => { window.location.hash = createSearchLink({ brand: e.target.value }); }}
+                  className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  Wyczyść ustawienia
-                </Link>
-              )}
+                  <option value={ALL_BRANDS}>Wszystkie marki</option>
+                  {availableBrands.map((brand) => (
+                    <option key={brand} value={brand}>{brand}</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block">
+                <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 flex items-center gap-2">
+                  <Filter className="w-3.5 h-3.5 text-[#f81828]" /> Kategoria
+                </span>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => { window.location.hash = createSearchLink({ category: e.target.value }); }}
+                  className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                >
+                  <option value={ALL_CATEGORIES}>Wszystkie kategorie</option>
+                  {availableCategories.map((category) => (
+                    <option key={category} value={category}>{categoryLabel(category)}</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block">
+                <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 flex items-center gap-2">
+                  <Tags className="w-3.5 h-3.5 text-[#f81828]" /> Tag techniczny
+                </span>
+                <select
+                  value={selectedTag}
+                  onChange={(e) => { window.location.hash = createSearchLink({ tag: e.target.value }); }}
+                  className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                >
+                  <option value={ALL_TAGS}>Wszystkie tagi</option>
+                  {availableTags.map((tag) => (
+                    <option key={tag} value={tag}>{tag}</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block xl:col-span-2">
+                <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 flex items-center gap-2">
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#f81828]" /> Sortowanie
+                </span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => { window.location.hash = createSearchLink({ sort: e.target.value }); }}
+                  className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                >
+                  <option value="relevance">Najtrafniejsze</option>
+                  <option value="featured">Najpierw polecane</option>
+                  <option value="name-asc">Nazwa A–Z</option>
+                  <option value="name-desc">Nazwa Z–A</option>
+                  <option value="brand-asc">Marka A–Z</option>
+                </select>
+              </label>
             </div>
-          </div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <label className="block">
-              <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 block">Marka</span>
-              <select
-                value={selectedBrand}
-                onChange={(e) => { window.location.hash = createSearchLink({ brand: e.target.value }); }}
-                className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
-                style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)" }}
-              >
-                <option value={ALL_BRANDS}>Wszystkie marki</option>
-                {availableBrands.map((brand) => (
-                  <option key={brand} value={brand}>{brand}</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="block">
-              <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 block">Kategoria</span>
-              <select
-                value={selectedCategory}
-                onChange={(e) => { window.location.hash = createSearchLink({ category: e.target.value }); }}
-                className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
-                style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)" }}
-              >
-                <option value={ALL_CATEGORIES}>Wszystkie kategorie</option>
-                {availableCategories.map((category) => (
-                  <option key={category} value={category}>{category.replace(/-/g, " ")}</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="block">
-              <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 block">Sortowanie</span>
-              <select
-                value={sortBy}
-                onChange={(e) => { window.location.hash = createSearchLink({ sort: e.target.value }); }}
-                className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
-                style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)" }}
-              >
-                <option value="relevance">Najtrafniejsze</option>
-                <option value="featured">Najpierw polecane</option>
-                <option value="name-asc">Nazwa A–Z</option>
-                <option value="name-desc">Nazwa Z–A</option>
-                <option value="brand-asc">Marka A–Z</option>
-              </select>
-            </label>
-
-            <div className="rounded-2xl px-4 py-3 flex items-center justify-between gap-3" style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <div>
-                <div className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-1">Wyróżnienie</div>
-                <div className="text-sm text-white font-medium">Pokaż tylko polecane</div>
+            <div className="grid gap-4 lg:grid-cols-[1.2fr_1fr_1fr]">
+              <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2">Aktywne ustawienia</div>
+                {activeFilterChips.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {activeFilterChips.map((chip) => (
+                      <Link
+                        key={chip.label}
+                        to={createSearchLink(chip.updates)}
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-white"
+                        style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)" }}
+                      >
+                        {chip.label} <X className="w-3 h-3" />
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-500">Brak dodatkowych ograniczeń — pokazuję pełną listę wyników dla tej frazy.</p>
+                )}
               </div>
-              <Link
-                to={createSearchLink({ featured: featuredOnly ? null : "1" })}
-                className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-bold text-white"
-                style={featuredOnly
-                  ? { background: "#f81828", boxShadow: "0 0 16px rgba(248,24,40,0.35)" }
-                  : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
-              >
-                <Sparkles className="w-3.5 h-3.5" /> {featuredOnly ? "Aktywne" : "Włącz"}
-              </Link>
+
+              <div className="rounded-2xl p-4 flex items-center justify-between gap-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-1">Wyróżnienie</div>
+                  <div className="text-sm text-white font-medium">Tylko polecane</div>
+                </div>
+                <Link
+                  to={createSearchLink({ featured: featuredOnly ? null : "1" })}
+                  className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-bold text-white"
+                  style={featuredOnly
+                    ? { background: "#f81828", boxShadow: "0 0 16px rgba(248,24,40,0.35)" }
+                    : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+                >
+                  <Sparkles className="w-3.5 h-3.5" /> {featuredOnly ? "Aktywne" : "Włącz"}
+                </Link>
+              </div>
+
+              <div className="rounded-2xl p-4 flex items-center justify-between gap-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-1">Nowości</div>
+                  <div className="text-sm text-white font-medium">Tylko nowe produkty</div>
+                </div>
+                <Link
+                  to={createSearchLink({ new: newOnly ? null : "1" })}
+                  className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-bold text-white"
+                  style={newOnly
+                    ? { background: "#10b981", boxShadow: "0 0 16px rgba(16,185,129,0.35)" }
+                    : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+                >
+                  <Star className="w-3.5 h-3.5" /> {newOnly ? "Aktywne" : "Włącz"}
+                </Link>
+              </div>
             </div>
           </div>
         </div>

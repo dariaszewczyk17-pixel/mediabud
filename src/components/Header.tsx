@@ -4,7 +4,7 @@ import {
   Search, Phone, Mail, Menu, X, ChevronDown, Calculator,
   ShoppingBag, MapPin, Clock, ArrowRight, Zap, FlaskConical,
   Home, Paintbrush, Shield, Wrench, LayoutGrid, Layers,
-  Package, Facebook, Instagram, CheckCircle2,
+  Package, Facebook, Instagram, CheckCircle2, Star, Sparkles,
 } from "lucide-react";
 import { categories } from "@/data/categories";
 import { useWycena } from "@/hooks/useWycena";
@@ -42,6 +42,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [searchFocused, setSearchFocused] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const { items, openDrawer } = useWycena();
@@ -57,6 +58,24 @@ export default function Header() {
     return mergeProductCollections(sanityLegacyProducts, products);
   }, [sanityProducts]);
 
+  const topBrands = useMemo(
+    () => Array.from(new Set(mergedProducts.map((product) => product.brand).filter(Boolean))).slice(0, 5),
+    [mergedProducts],
+  );
+
+  const quickSuggestions = useMemo(
+    () => ["tynk", "weber", "styropian", "atlas", "grunt"],
+    [],
+  );
+
+  const submitSearch = (value: string) => {
+    const trimmedValue = value.trim();
+    if (!trimmedValue) return;
+    navigate(`/szukaj?q=${encodeURIComponent(trimmedValue)}`);
+    setSearchResults([]);
+    setSearchFocused(false);
+  };
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 48);
     window.addEventListener("scroll", fn, { passive: true });
@@ -64,15 +83,17 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.length > 1) {
+    if (searchQuery.trim().length > 1) {
       setSearchResults(searchProducts(mergedProducts, searchQuery, 6));
     } else setSearchResults([]);
   }, [searchQuery, mergedProducts]);
 
   useEffect(() => {
     const fn = (e: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node))
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
         setSearchResults([]);
+        setSearchFocused(false);
+      }
     };
     document.addEventListener("mousedown", fn);
     return () => document.removeEventListener("mousedown", fn);
@@ -188,6 +209,7 @@ export default function Header() {
                 <Input
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
+                  onFocus={() => setSearchFocused(true)}
                   placeholder="Szukaj produktów, marek, kategorii..."
                   className="pl-10 rounded-r-none border-r-0 text-gray-900 placeholder:text-gray-400 focus-visible:ring-0 text-sm h-11 transition-all"
                   style={{
@@ -195,12 +217,9 @@ export default function Header() {
                     border: "1px solid rgba(0,0,0,0.12)",
                     borderRight: "none",
                   }}
-                  onFocus={e => { e.currentTarget.style.background = "#efefef"; e.currentTarget.style.borderColor = "rgba(248,24,40,0.5)"; }}
-                  onBlur={e => { e.currentTarget.style.background = "#f5f5f5"; e.currentTarget.style.borderColor = "rgba(0,0,0,0.12)"; }}
                   onKeyDown={e => {
                     if (e.key === "Enter" && searchQuery) {
-                      navigate(`/szukaj?q=${encodeURIComponent(searchQuery)}`);
-                      setSearchResults([]);
+                      submitSearch(searchQuery);
                     }
                   }}
                 />
@@ -210,7 +229,7 @@ export default function Header() {
                 style={{ background: "#f81828", borderRadius: "0 8px 8px 0" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.4)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
-                onClick={() => { if (searchQuery) { navigate(`/szukaj?q=${encodeURIComponent(searchQuery)}`); setSearchResults([]); } }}
+                onClick={() => submitSearch(searchQuery)}
               >
                 <Search className="w-4 h-4" />
                 <span className="hidden sm:inline">Szukaj</span>
@@ -218,26 +237,93 @@ export default function Header() {
             </div>
 
             {/* Autocomplete */}
-            {searchResults.length > 0 && (
-              <div className="absolute top-full left-0 right-0 z-50 rounded-b-xl overflow-hidden shadow-2xl"
-                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.1)", borderTop: "2px solid #f81828" }}>
-                {searchResults.map(p => (
-                  <Link key={p.id} to={`/produkt/${p.slug}`}
-                    className="flex items-center gap-3 px-4 py-2.5 border-b border-black/5 hover:bg-[#f81828]/5 transition-colors group/sr last:border-0"
-                    onClick={() => { setSearchResults([]); setSearchQuery(""); }}>
-                    <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-                      <img src={p.images?.[0] || "/placeholder.svg"} alt={p.name} className="w-full h-full object-cover" />
+            {(searchFocused || searchResults.length > 0) && (
+              <div
+                className="absolute top-full left-0 right-0 z-50 mt-2 rounded-2xl overflow-hidden shadow-2xl"
+                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.1)", boxShadow: "0 18px 50px rgba(0,0,0,0.18)" }}
+              >
+                {searchResults.length > 0 ? (
+                  <>
+                    <div className="px-4 py-2.5 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-500" style={{ background: "rgba(0,0,0,0.025)", borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
+                      <span>Najlepsze dopasowania</span>
+                      <span>{searchResults.length} / 6</span>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-semibold text-gray-800 group-hover/sr:text-[#f81828] transition-colors truncate">{p.name}</div>
-                      <div className="text-xs text-gray-500">{p.brand} · {p.unit}</div>
+                    {searchResults.map(p => (
+                      <Link
+                        key={p.id}
+                        to={`/produkt/${p.slug}`}
+                        className="flex items-center gap-3 px-4 py-3 border-b border-black/5 hover:bg-[#f81828]/5 transition-colors group/sr last:border-0"
+                        onClick={() => { setSearchResults([]); setSearchQuery(""); setSearchFocused(false); }}
+                      >
+                        <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 border border-black/5">
+                          <img src={p.images?.[0] || "/placeholder.svg"} alt={p.name} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <div className="text-sm font-semibold text-gray-800 group-hover/sr:text-[#f81828] transition-colors truncate max-w-[320px]">{p.name}</div>
+                            {p.isFeatured && (
+                              <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-white" style={{ background: "#f81828" }}>
+                                <Sparkles className="w-3 h-3" /> Polecany
+                              </span>
+                            )}
+                            {p.isNew && (
+                              <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-white" style={{ background: "#10b981" }}>
+                                <Star className="w-3 h-3" /> Nowość
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-xs text-gray-500 mb-1">{p.brand} · {p.unit} · {p.sku}</div>
+                          <div className="text-[11px] text-gray-500 line-clamp-1">{p.shortDescription}</div>
+                        </div>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400 opacity-0 group-hover/sr:opacity-100 transition-opacity" />
+                      </Link>
+                    ))}
+                    <div className="px-4 py-3 flex flex-wrap items-center justify-between gap-3" style={{ background: "rgba(0,0,0,0.02)" }}>
+                      <div className="text-[11px] text-gray-500 font-medium">Naciśnij Enter, aby zobaczyć wszystkie wyniki</div>
+                      <button
+                        className="text-[11px] font-bold text-[#f81828] hover:underline"
+                        onClick={() => submitSearch(searchQuery)}
+                      >
+                        Zobacz pełną listę
+                      </button>
                     </div>
-                    <ArrowRight className="w-3 h-3 text-gray-400 opacity-0 group-hover/sr:opacity-100 transition-opacity" />
-                  </Link>
-                ))}
-                <div className="px-4 py-2 text-[10px] text-center text-gray-500 font-medium" style={{ background: "rgba(0,0,0,0.02)" }}>
-                  Naciśnij Enter, aby zobaczyć wszystkie wyniki
-                </div>
+                  </>
+                ) : (
+                  <div className="p-4">
+                    <div className="text-[11px] uppercase tracking-[0.16em] text-gray-500 font-semibold mb-3">Popularne skróty wyszukiwania</div>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {quickSuggestions.map((suggestion) => (
+                        <button
+                          key={suggestion}
+                          className="rounded-full px-3 py-1.5 text-xs font-semibold text-gray-700 hover:text-white transition-colors"
+                          style={{ background: "rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.06)" }}
+                          onClick={() => {
+                            setSearchQuery(suggestion);
+                            submitSearch(suggestion);
+                          }}
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="text-[11px] uppercase tracking-[0.16em] text-gray-500 font-semibold mb-2">Najczęstsze marki</div>
+                    <div className="flex flex-wrap gap-2">
+                      {topBrands.map((brand) => (
+                        <button
+                          key={brand}
+                          className="rounded-full px-3 py-1.5 text-xs font-semibold text-[#f81828] hover:text-white transition-colors"
+                          style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.14)" }}
+                          onClick={() => {
+                            setSearchQuery(brand);
+                            submitSearch(brand);
+                          }}
+                        >
+                          {brand}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

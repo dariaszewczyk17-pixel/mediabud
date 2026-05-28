@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "@/components/Layout";
 import Home from "@/pages/Home";
 import CategoryPage from "@/pages/CategoryPage";
@@ -10,7 +10,7 @@ import { ContactPage, AboutPage, ServicesPage, AdminPanel } from "@/pages/Pages"
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/admin" element={<AdminPanel />} />
         <Route element={<Layout />}>
@@ -32,6 +32,6 @@ export default function App() {
           <Route path="*" element={<Home />} />
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

@@ -55,3 +55,6 @@
 [2026-05-28 19:33] Rozpoczęto analizę kolejnego etapu rozwoju wyszukiwania: premium UI filtrów, dodatkowe filtry na /szukaj oraz dopracowanie autocomplete w Header.tsx.
 [2026-05-28 19:33] Zakończono analizę SearchResultsPage i Header.tsx; przygotowano zakres dalszych prac: premium UI filtrów, dodatkowe filtry oraz ulepszenia autocomplete.
 [2026-05-28 19:37] Wdrożono premium panel filtrów z dodatkowymi filtrami tagów i nowości oraz rozbudowano autocomplete w Header; build zakończony sukcesem, rozpoczynam praktyczną weryfikację UI i przygotowanie commita.
+[2026-05-28 19:39] Potwierdzono praktycznie render premium panelu filtrów na /szukaj oraz zacommitowano i wypchnięto dopracowane wyszukiwanie i autocomplete (commit 20622e9).
+[2026-05-28 19:42] Rozpisano końcowy pakiet prac: interakcyjny test autocomplete, migracja na czyste URL-e oraz optymalizacja chunków Vite przed końcową publikacją.
+[2026-05-28 19:46] Udokumentowano ograniczenie narzędziowe pełnego testu autocomplete i rozpoczęto migrację routingu z HashRouter na czyste URL-e wraz z dostosowaniem ścieżek wyszukiwania.

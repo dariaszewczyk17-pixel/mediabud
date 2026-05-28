@@ -212,6 +212,10 @@ export default defineConfig(({ mode }) => {
       host: "::",
       port: 8080,
     },
+    preview: {
+      host: "::",
+      port: 8080,
+    },
     plugins: [
       tailwindcss(),
       react(),
@@ -228,15 +232,37 @@ export default defineConfig(({ mode }) => {
         "react-router-dom-original": "react-router-dom",
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes("node_modules")) return;
+            if (id.includes("react-dom") || id.includes("react-router") || id.includes("react")) {
+              return "vendor-react";
+            }
+            if (id.includes("@radix-ui")) {
+              return "vendor-radix";
+            }
+            if (id.includes("lucide-react") || id.includes("sonner")) {
+              return "vendor-ui";
+            }
+            if (id.includes("@sanity") || id.includes("groq") || id.includes("stega")) {
+              return "vendor-sanity";
+            }
+          },
+        },
+      },
+    },
     define: {
       // Define environment variables for build-time configuration
       // In production, this will be false by default unless explicitly set to 'true'
       // In development and test, this will be true by default
       __ROUTE_MESSAGING_ENABLED__: JSON.stringify(
-        mode === 'production' 
+        mode === 'production'
           ? process.env.VITE_ENABLE_ROUTE_MESSAGING === 'true'
           : process.env.VITE_ENABLE_ROUTE_MESSAGING !== 'false'
       ),
     },
   }
 });
+

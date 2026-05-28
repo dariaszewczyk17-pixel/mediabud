@@ -83,3 +83,4 @@
 [2026-05-28 21:18] FAZA 1 ukończona: scraping 10 kategorii gł., 63 podkategorii, 98 sub-subkategorii z bechcicki.pl → bechcicki-categories.json (26KB). Faza 2 w toku: projekt schematu Sanity.
 [2026-05-28 21:21] Faza 2A: rozbudowa schematów Sanity – product, brand, category, index, config
 [2026-05-28 21:25] Faza 2 OK: schematy Sanity (product+brand+category), skrypty migracji, NDJSON 175 prod / 74 marek / 127 kategorii
+[2026-05-28 21:38] Faza 4: queries.ts (GROQ), useSanityProducts.ts, build OK

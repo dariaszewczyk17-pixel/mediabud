@@ -41,3 +41,14 @@
 [2026-05-28 19:10] Header.tsx przełączono na wspólny helper productSearch.ts; uruchomiono końcową weryfikację builda dla nowej strony /szukaj i wspólnego wyszukiwania.
 [2026-05-28 19:13] Zweryfikowano status repo, przygotowano plan rozdzielenia zmian wyszukiwania od nowego skilla przed commitem i publikacją.
 [2026-05-28 19:13] Zweryfikowano diff zmian wyszukiwania, potwierdzono rozdzielenie ich od katalogu nowego skilla i przygotowano commit aplikacji.
+[2026-05-28 19:13] Zacommitowano i wypchnięto zmiany wyszukiwania (commit b82afc1); rozpoczynam pakowanie i publikację skilla Optymalizator Treści E-commerce SEO/AI.
+[2026-05-28 19:15] Rozpoczęto praktyczną weryfikację wyszukiwania: przygotowanie uruchomienia aplikacji lokalnie i scenariuszy testowych dla Header oraz /szukaj.
+[2026-05-28 19:19] Uruchomiono lokalny serwer Vite na porcie 8081 i potwierdzono wizualnie ładowanie strony głównej aplikacji w przeglądarce.
+[2026-05-28 19:19] Przygotowano przejście do testów scenariuszy autocomplete w Header oraz strony wyników /szukaj po potwierdzeniu działania serwera lokalnego.
+[2026-05-28 19:23] Zweryfikowano praktycznie stronę wyników wyszukiwania na lokalnym serwerze 8081: fraza 'tynk' renderuje 9 wyników, a fraza 'brakdopasowania123' poprawnie pokazuje pusty stan; potwierdzono routing hashowy #/szukaj?q=... .
+[2026-05-28 19:25] Rozpoczęto analizę SearchResultsPage i struktury danych produktów pod wdrożenie filtrów oraz sortowania na stronie /szukaj.
+[2026-05-28 19:26] Zakończono analizę SearchResultsPage i Commerce.tsx; zidentyfikowano pola do filtrowania (brand, categorySlug, isFeatured, isNew) oraz kierunki sortowania wyników na stronie /szukaj.
+[2026-05-28 19:28] Wdrożono filtry marki, kategorii i wyróżnionych produktów oraz sortowanie wyników na stronie /szukaj; build zakończony sukcesem.
+[2026-05-28 19:29] Rozpoczęto praktyczną weryfikację UI filtrów i sortowania na stronie /szukaj przed commitem i publikacją zmian.
+[2026-05-28 19:30] Potwierdzono praktycznie UI filtrów i sortowania na /szukaj: stan bazowy dla 'tynk', wariant featured=1&sort=featured (3 wyniki) oraz brand=Weber (2 wyniki) renderują się poprawnie.
+[2026-05-28 19:31] Zakończono praktyczny test UI filtrów i sortowania na stronie /szukaj; rozpoczynam commit i push zmian do repozytorium.

@@ -13,7 +13,7 @@ export interface SanitySlug { current: string }
 export interface SanityCategory {
   _id: string
   name: string
-  slug: SanitySlug
+  slug: string          // GROQ zwraca "slug": slug.current — już string, nie obiekt
   icon?: string
   description?: string
   parent?: SanityCategory
@@ -50,7 +50,7 @@ export interface SanityProduct {
 export function sanityCategoryToLegacy(c: SanityCategory): Category {
   return {
     id: c._id,
-    slug: c.slug.current,
+    slug: c.slug,
     name: c.name,
     icon: c.icon,
     description: c.description,
@@ -63,7 +63,7 @@ export function sanityProductToLegacy(p: SanityProduct): Product {
   const images = (p.images ?? []).filter((u): u is string => !!u)
   return {
     id: p._id,
-    slug: p.slug.current,
+    slug: p.slug,
     name: p.name,
     categorySlug: p.categorySlug ?? '',
     brand: p.brand ?? 'Media Bud',
@@ -96,7 +96,7 @@ export function buildBreadcrumbs(
     chain.unshift(cur)
     cur = cur.parent
   }
-  return chain.map(c => ({ id: c._id, name: c.name, slug: c.slug.current }))
+  return chain.map(c => ({ id: c._id, name: c.name, slug: c.slug }))
 }
 
 /**
@@ -104,7 +104,7 @@ export function buildBreadcrumbs(
  * Używane do filtrowania produktów w CategoryPage.
  */
 export function collectAllSlugs(cat: SanityCategory): string[] {
-  const slugs: string[] = [cat.slug.current]
+  const slugs: string[] = [cat.slug]
   for (const child of cat.children ?? []) {
     slugs.push(...collectAllSlugs(child))
   }

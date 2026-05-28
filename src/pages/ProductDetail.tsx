@@ -14,23 +14,25 @@ import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useWycena } from "@/hooks/useWycena";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { toast } from "sonner";
 
-/* ---------- tiny reveal hook ---------- */
+/* ---------- tiny reveal hook ----------
+ * Używa callback ref zamiast useEffect([]) żeby IntersectionObserver
+ * był tworzony nawet gdy element pojawia się w DOM po załadowaniu danych.
+ */
 function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+
+  const ref = useCallback((node: HTMLDivElement | null) => {
+    if (!node) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
       { threshold: 0.06, rootMargin: "0px 0px -20px 0px" }
     );
-    obs.observe(el);
-    return () => obs.disconnect();
+    obs.observe(node);
   }, []);
+
   return { ref, vis };
 }
 
@@ -173,7 +175,7 @@ export default function ProductDetail() {
 
         {/* ── Main section: Gallery + Details ── */}
         <div
-          ref={heroReveal.ref as React.RefObject<HTMLDivElement>}
+          ref={heroReveal.ref}
           className={`grid lg:grid-cols-2 gap-8 mb-8 transition-all duration-700 ease-out ${heroReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
 
@@ -383,7 +385,7 @@ export default function ProductDetail() {
 
         {/* ── Tabs ── */}
         <div
-          ref={tabsReveal.ref as React.RefObject<HTMLDivElement>}
+          ref={tabsReveal.ref}
           className={`rounded-2xl overflow-hidden mb-8 transition-all duration-700 ease-out ${tabsReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}
         >
@@ -520,7 +522,7 @@ export default function ProductDetail() {
 
         {/* ── Related products ── */}
         {related.length > 0 && (
-          <div ref={relReveal.ref as React.RefObject<HTMLDivElement>}>
+          <div ref={relReveal.ref}>
             <div className={`flex items-center justify-between mb-5 transition-all duration-700 ease-out ${relReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
               <h2 className="text-xl font-black text-white flex items-center gap-2 font-display">
                 <span className="w-[3px] h-5 bg-[#f81828] rounded-full" />

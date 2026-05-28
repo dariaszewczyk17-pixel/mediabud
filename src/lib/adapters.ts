@@ -24,12 +24,17 @@ export interface SanityCategory {
 export interface SanityProduct {
   _id: string
   name: string
-  slug: SanitySlug
+  slug: string          // GROQ zwraca slug.current (string), nie obiekt SanitySlug
   sku?: string
   brand?: string
   unit?: string
   shortDescription?: string
-  description?: any[]
+  description?: string  // GROQ zwraca pole description (tekst lub bloki)
+  application?: string
+  advantages?: string[]
+  warnings?: string[]
+  faq?: { q: string; a: string }[]
+  seoDescription?: string
   tags?: string[]
   featured?: boolean
   inStock?: boolean
@@ -40,8 +45,8 @@ export interface SanityProduct {
   categorySlug?: string
   categoryName?: string
   categoryParentSlug?: string
+  technicalSpec?: { label: string; value: string }[]
   images?: (string | null)[]
-  specs?: { key: string; value: string }[]
 }
 
 // ─── Konwertery ───────────────────────────────────────────────────────────────
@@ -69,10 +74,14 @@ export function sanityProductToLegacy(p: SanityProduct): Product {
     brand: p.brand ?? 'Media Bud',
     sku: p.sku ?? p._id.slice(-8).toUpperCase(),
     unit: p.unit ?? 'szt',
-    description: p.shortDescription ?? '',
+    description: typeof p.description === 'string' ? p.description : (p.shortDescription ?? ''),
     shortDescription: p.shortDescription ?? '',
-    application: '',
-    technicalSpec: (p.specs ?? []).map(s => ({ label: s.key, value: s.value })),
+    application: p.application ?? '',
+    technicalSpec: (p.technicalSpec ?? []),
+    advantages: p.advantages ?? [],
+    warnings: p.warnings ?? [],
+    faq: p.faq ?? [],
+    seoDescription: p.seoDescription ?? '',
     images: images.length ? images : ['/placeholder.svg'],
     tags: p.tags ?? [],
     related: [],

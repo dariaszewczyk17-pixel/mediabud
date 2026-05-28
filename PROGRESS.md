@@ -93,3 +93,4 @@
 [2026-05-28 23:10] fix: useCdn=false, naprawiono parent kategorii category-*, przeniesiono 180 produktów z category-* na cat-*. Commit 601139c.
 [2026-05-28 23:22] fix commit 65952e9: SanityCategory.slug jako string (nie SanitySlug obiekt). Bug: c.slug.current na stringu = undefined → [null] w query. Sanity zwraca 90 produktów dla kleje-montazowe poprawnie.
 [2026-05-28 23:23] BUG FIX: adapters.ts SanityCategory.slug jako string. Kategoria Spoiny: 420 produktów widoczne. Strona działa poprawnie.
+[2026-05-28 23:31] Zidentyfikowano 3 bugi strony produktu: (1) useReveal opacity-0 bug — observer nigdy nie odpala bo ref.current=null przy mount, (2) SanityProduct brakujące pola application/advantages/warnings/faq/technicalSpec, (3) useSanityQuery wywołuje sanityFetch z pustym query → 400

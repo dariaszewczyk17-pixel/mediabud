@@ -24,6 +24,7 @@ function useSanityQuery<T>(query: string, params?: Record<string, any>) {
   const paramsKey = JSON.stringify(params)
 
   useEffect(() => {
+    if (!query) { setData(null); setLoading(false); return }
     let cancelled = false
     setLoading(true)
     sanityFetch<T>(query, params)

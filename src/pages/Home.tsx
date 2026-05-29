@@ -132,6 +132,16 @@ const brands = [
   { name: "Termo Organika",color: "#F39200", short: "TO" },
 ];
 
+const brandLogos = [
+  { name: "Weber", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/images_4cda83606a6d42658ace1a422cdb2bdd.png" },
+  { name: "Knauf", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/images%20%281%29_a580c754733a435c8d80ed98f55a2c48.png" },
+  { name: "Atlas", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/images%20%282%29_745c7971373b4fe0944f92114b3561b0.png" },
+  { name: "Baumit", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/logo_maleB_rgb_5224c955269f4d609eec1a776c56b0b1.jpg" },
+  { name: "Rockwool", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/RGB%20ROCKWOOL%C2%AE%20logo%20-%20Primary%20Colour%20RGB_196a37e190f64344a8f547b638c05f16.jpg" },
+  { name: "Rigips", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/rigips-saint-gobain-logo-png_seeklogo-259520_74ca93fb5ba4404cb962e4582baa88e2.png" },
+  { name: "Ursa", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/Ursa-Logo_4062e70ef71e422eb154bdfd0fcdff14.png" },
+];
+
 /* ─── Testimonials ────────────────────────────────────────────── */
 const testimonials = [
   {
@@ -305,8 +315,8 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
           HERO SLIDER
       ═══════════════════════════════════════════════════════ */}
-      <section className="relative bg-[#0a0a0a] h-[600px] md:h-[680px] overflow-hidden">
-
+      {/* ── Hero Section ── */}
+      <section className="relative min-h-[92vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
         {/* Slides */}
         {heroSlides.map((s, i) => (
           <div
@@ -318,74 +328,101 @@ export default function Home() {
               src={s.image}
               alt={s.label}
               className="w-full h-full object-cover"
-              style={{ filter: "brightness(0.34) saturate(0.8)" }}
+              style={{ filter: "brightness(0.22) saturate(0.72)" }}
             />
           </div>
         ))}
 
-        {/* Overlays */}
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.60) 55%, rgba(0,0,0,0.1) 100%)" }} />
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(0deg, rgba(0,0,0,0.70) 0%, transparent 50%)" }} />
+        {/* Warstwa 1: Siatka techniczna CSS */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(248,24,40,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.06) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+          opacity: 0.4,
+        }} />
+        {/* Warstwa 2: Vignette */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(248,24,40,0.15), transparent)",
+        }} />
+        {/* Warstwa 3: Gradient dolny */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{
+          background: "linear-gradient(to top, #000, transparent)",
+        }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.68) 42%, rgba(0,0,0,0.35) 72%, rgba(0,0,0,0.2) 100%)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px] z-20" style={{ background: "linear-gradient(90deg, #f81828, #ff6b35 50%, #f81828)" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-[2px] z-20 bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.45)" }} />
 
-        {/* Dot grid overlay */}
-        <div className="absolute inset-0 z-10 bg-hero-dots opacity-60" />
+        <div className="relative z-10 container mx-auto px-4 py-24">
+          <div className="max-w-3xl">
+            {/* Eyebrow badge */}
+            <div
+              key={`label-${slide}`}
+              className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full text-xs font-bold uppercase tracking-widest animate-fade-up"
+              style={{ border: "1px solid rgba(248,24,40,0.4)", color: "#f81828" }}
+            >
+              <span className="w-2 h-2 rounded-full bg-[#f81828] animate-pulse" />
+              {current.label} — Lublin
+            </div>
 
-        {/* Scan line effect */}
-        <div className="scan-overlay z-11" />
-
-        {/* Top red bar */}
-        <div className="absolute top-0 left-0 right-0 h-[3px] z-20" style={{ background: "linear-gradient(90deg, #f81828, #ff4455 50%, #f81828)" }} />
-        {/* Left red accent */}
-        <div className="absolute left-0 top-0 bottom-0 w-[3px] z-20 bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.4)" }} />
-
-        {/* Content */}
-        <div className="absolute inset-0 z-20 flex items-center">
-          <div className="container mx-auto px-4 pl-8 md:pl-10">
-            <div className="max-w-2xl">
-              <div key={`label-${slide}`} className="animate-fade-up mb-4">
-                <span className="inline-flex items-center gap-2 bg-[#f81828]/20 border border-[#f81828]/40 text-[#f88090] px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] animate-pulse" />
-                  {current.label}
+            {/* Główny tytuł */}
+            <h1
+              key={`title-${slide}`}
+              className="font-black uppercase leading-[1.05] tracking-tight mb-4 text-white animate-fade-up delay-100"
+              style={{ fontSize: "clamp(2.5rem, 6vw, 6rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}
+            >
+              {current.title.split("\n").map((line, i) => (
+                <span key={i} className="block">
+                  {i === 1 ? (
+                    <span style={{ background: "linear-gradient(135deg, #f81828, #ff6b35)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                      {line}
+                    </span>
+                  ) : (
+                    line
+                  )}
                 </span>
-              </div>
+              ))}
+            </h1>
 
-              <h1
-                key={`title-${slide}`}
-                className="font-display text-4xl md:text-5xl xl:text-6xl font-black text-white leading-[1.06] mb-5 animate-fade-up delay-100"
-                style={{ textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}
+            {/* Podtytuł */}
+            <p
+              key={`sub-${slide}`}
+              className="text-lg mb-8 max-w-xl leading-relaxed animate-fade-up delay-200"
+              style={{ color: "#888", fontFamily: "Inter,sans-serif" }}
+            >
+              {current.subtitle}
+            </p>
+
+            {/* CTA buttons */}
+            <div key={`cta-${slide}`} className="flex flex-wrap gap-4 mb-10 animate-fade-up delay-300">
+              <Link
+                to={current.ctaLink}
+                className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-wider text-white rounded-lg relative overflow-hidden group"
+                style={{ background: "#f81828", fontSize: "0.875rem", letterSpacing: "0.1em", boxShadow: "0 16px 36px rgba(248,24,40,0.22)" }}
               >
-                {current.title.split("\n").map((line, i) => (
-                  <span key={i} className={`block ${i === 1 ? "text-gradient-animate" : ""}`}>{line}</span>
-                ))}
-              </h1>
+                <span className="relative z-10">{current.cta} →</span>
+                <span
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"
+                  style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)", transform: "skewX(-12deg)" }}
+                />
+              </Link>
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 px-8 py-4 font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-white hover:text-white"
+                style={{ border: "1px solid rgba(255,255,255,0.2)", fontSize: "0.875rem", letterSpacing: "0.1em" }}
+                onClick={() => setQuoteOpen(true)}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(248,24,40,0.6)")}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)")}
+              >
+                Zapytaj o wycenę B2B
+              </button>
+            </div>
 
-              <p key={`sub-${slide}`} className="text-gray-300 text-base md:text-lg mb-8 max-w-xl leading-relaxed animate-fade-up delay-200">
-                {current.subtitle}
-              </p>
-
-              <div key={`cta-${slide}`} className="flex flex-col sm:flex-row gap-3 animate-fade-up delay-300">
-                <Link to={current.ctaLink}>
-                  <Button size="lg" className="bg-[#f81828] hover:bg-[#c8000f] font-bold px-8 btn-glow text-base h-12 w-full sm:w-auto">
-                    {current.cta} <ArrowRight className="w-4 h-4 ml-1" />
-                  </Button>
-                </Link>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/40 text-white hover:bg-white hover:text-black font-bold px-8 text-base h-12 transition-all"
-                  onClick={() => setQuoteOpen(true)}
-                >
-                  <Mail className="w-4 h-4 mr-2" /> Zapytaj o ofertę
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4 mt-6 animate-fade-up delay-400">
-                {["Ponad 15 000 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map(t => (
-                  <span key={t} className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />{t}
-                  </span>
-                ))}
-              </div>
+            <div className="flex flex-wrap items-center gap-4 animate-fade-up delay-400">
+              {["Ponad 15 000 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map((t) => (
+                <span key={t} className="flex items-center gap-1.5 text-xs uppercase tracking-[0.18em] font-bold" style={{ color: "#888" }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
         </div>
@@ -393,13 +430,29 @@ export default function Home() {
         {/* Prev/next */}
         <button
           onClick={() => goTo((slide - 1 + heroSlides.length) % heroSlides.length)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-[#f81828] border border-white/20 flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-11 h-11 rounded-full border border-white/15 bg-black/55 items-center justify-center text-white transition-all duration-200"
+          onMouseEnter={e => {
+            e.currentTarget.style.background = "#f81828";
+            e.currentTarget.style.boxShadow = "0 0 18px rgba(248,24,40,0.25)";
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = "rgba(0,0,0,0.55)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={() => goTo((slide + 1) % heroSlides.length)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-[#f81828] border border-white/20 flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-11 h-11 rounded-full border border-white/15 bg-black/55 items-center justify-center text-white transition-all duration-200"
+          onMouseEnter={e => {
+            e.currentTarget.style.background = "#f81828";
+            e.currentTarget.style.boxShadow = "0 0 18px rgba(248,24,40,0.25)";
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = "rgba(0,0,0,0.55)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -414,37 +467,42 @@ export default function Home() {
             />
           ))}
         </div>
-        <div className="absolute bottom-6 left-8 z-30 font-display text-xs text-gray-500 font-bold">
+        <div className="absolute bottom-6 left-6 z-30 text-xs font-black uppercase tracking-[0.25em]" style={{ color: "#888", fontFamily: "'Share Tech Mono',monospace" }}>
           <span className="text-white">{String(slide + 1).padStart(2, "0")}</span> / {String(heroSlides.length).padStart(2, "0")}
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          STATS BAR
-      ═══════════════════════════════════════════════════════ */}
-      <section
-        ref={r3.ref as React.RefObject<HTMLElement>}
-        className={`relative overflow-hidden py-10 transition-all duration-700 ${r3.visible ? "opacity-100" : "opacity-0"}`}
-        style={{ background: "#0d0d0d", borderTop: "2px solid rgba(248,24,40,0.3)", borderBottom: "2px solid rgba(248,24,40,0.1)" }}
+      {/* StatBar LED */}
+      <div
+        ref={r3.ref as React.RefObject<HTMLDivElement>}
+        className={`transition-all duration-700 ${r3.visible ? "opacity-100" : "opacity-0"}`}
+        style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
       >
-        {/* Grid bg */}
-        <div className="absolute inset-0 bg-grid-white opacity-40 pointer-events-none" />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(248,24,40,0.07) 0%, transparent 70%)" }} />
-        <div className="relative container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map(({ icon: Icon, num, suffix, label }, i) => (
-              <div key={i} className="text-center group">
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <Icon className="w-5 h-5 text-[#f81828]/60 group-hover:text-[#f81828] transition-colors" />
-                  <CountUp to={i === 0 ? productCount : num} suffix={suffix} />
+        <div className="container mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {[
+              { num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, " ")}+`, label: "Produktów w ofercie" },
+              { num: "15 lat", label: "Doświadczenia" },
+              { num: "500+", label: "Firm klientów" },
+              { num: "<24h", label: "Czas realizacji" },
+            ].map((s, i) => (
+              <div
+                key={i}
+                className="px-6 py-5 text-center group cursor-default transition-colors duration-200 hover:bg-[#f81828]/5"
+                style={{ borderRight: i < 3 ? "1px solid rgba(255,255,255,0.05)" : "none" }}
+              >
+                <div
+                  className="font-black text-2xl text-[#f81828] mb-1"
+                  style={{ fontFamily: "'Share Tech Mono',monospace", textShadow: "0 0 7px rgba(248,24,40,0.6), 0 0 15px rgba(248,24,40,0.3)" }}
+                >
+                  {s.num}
                 </div>
-                <p className="text-gray-500 text-sm font-medium tracking-wide">{label}</p>
-                <div className="mx-auto mt-2 h-px w-8 bg-[#f81828]/30 group-hover:w-16 group-hover:bg-[#f81828]/60 transition-all duration-300" />
+                <div className="text-xs uppercase tracking-widest font-bold" style={{ color: "#888" }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* ═══════════════════════════════════════════════════════
           CATEGORIES GRID
@@ -569,30 +627,48 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
           BRANDS BAR
       ═══════════════════════════════════════════════════════ */}
+      {/* ── Nasi producenci — Brand Logo Scroller ── */}
       <section
         ref={r7.ref as React.RefObject<HTMLElement>}
-        className={`py-8 transition-all duration-700 ${r7.visible ? "opacity-100" : "opacity-0"}`}
-        style={{ background: "#0d0d0d", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+        className={`py-10 overflow-hidden transition-all duration-700 ${r7.visible ? "opacity-100" : "opacity-0"}`}
+        style={{ background: "#050505", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
       >
-        <div className="container mx-auto px-4">
-          <p className="text-center text-xs font-black tracking-widest uppercase text-gray-600 mb-6">Autoryzowany dystrybutor marek</p>
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-4 items-center">
-            {brands.map(b => (
-              <div key={b.name} className="group flex flex-col items-center gap-2 cursor-default">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-white text-xs font-black shadow-sm transition-all duration-200 group-hover:scale-110 group-hover:shadow-md"
-                  style={{ backgroundColor: b.color }}
-                >
-                  {b.short}
-                </div>
-                <span
-                  className="font-display font-black text-xs tracking-tight text-center leading-tight transition-all duration-200"
-                  style={{ color: b.color, opacity: 0.7 }}
-                  onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-                  onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}
-                >
-                  {b.name}
-                </span>
+        <div className="container mx-auto px-4 mb-6">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#888" }}>
+            Nasi producenci
+          </p>
+        </div>
+        <div className="relative overflow-hidden">
+          <div
+            className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to right, #050505, transparent)" }}
+          />
+          <div
+            className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to left, #050505, transparent)" }}
+          />
+
+          <style>{`
+            @keyframes brand-scroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .brand-track { animation: brand-scroll 30s linear infinite; }
+            .brand-track:hover { animation-play-state: paused; }
+          `}</style>
+
+          <div className="brand-track flex items-center gap-16 whitespace-nowrap" style={{ width: "max-content" }}>
+            {[...brandLogos, ...brandLogos].map((brand, i) => (
+              <div key={`${brand.name}-${i}`} className="inline-flex items-center justify-center px-6 group flex-shrink-0">
+                <img
+                  src={brand.url}
+                  alt={brand.name}
+                  loading="lazy"
+                  className="h-10 w-auto object-contain transition-all duration-300"
+                  style={{ filter: "grayscale(100%) brightness(0.5)", maxWidth: "120px" }}
+                  onMouseEnter={e => { (e.target as HTMLImageElement).style.filter = "grayscale(0%) brightness(1)"; }}
+                  onMouseLeave={e => { (e.target as HTMLImageElement).style.filter = "grayscale(100%) brightness(0.5)"; }}
+                />
               </div>
             ))}
           </div>
@@ -814,6 +890,158 @@ export default function Home() {
                   </div>
                   <CheckCircle2 className="w-5 h-5 text-emerald-500 ml-auto flex-shrink-0" />
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Dom od podstaw ── */}
+      <section className="py-24 relative overflow-hidden" style={{ background: "#000" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.04) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }} />
+        <div className="relative z-10 container mx-auto px-4">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.25em] mb-3" style={{ color: "#f81828" }}>
+            — PROGRAM SPECJALNY —
+          </p>
+          <h2
+            className="text-center font-black uppercase text-white mb-4"
+            style={{ fontSize: "clamp(1.75rem,4vw,3.5rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}
+          >
+            Dom od podstaw
+          </h2>
+          <p className="text-center max-w-2xl mx-auto mb-16 leading-relaxed" style={{ color: "#888", fontSize: "1.05rem" }}>
+            Kompleksowe wsparcie dla tych, którzy budują dom po raz pierwszy. Prowadzimy Cię od projektu do odbioru — krok po kroku, z pełnym doradztwem technicznym i dostępem do sprawdzonej sieci wykonawców.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {[
+              { icon: "📐", title: "Bezpłatna analiza projektu", desc: "Analizujemy Twój projekt i dobieramy optymalne materiały." },
+              { icon: "📋", title: "Kosztorys etapami", desc: "Szczegółowy kosztorys materiałów do każdego etapu budowy." },
+              { icon: "👷", title: "Sieć wykonawców", desc: "Sprawdzeni tynkarze, montażyści i specjaliści budowlani." },
+              { icon: "🔧", title: "Wsparcie techniczne", desc: "Jesteśmy z Tobą przez cały czas realizacji budowy." },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="group rounded-xl p-6 transition-all duration-300"
+                style={{ background: "#0f0f0f", border: "1px solid #2d2d2d" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(248,24,40,0.4)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.1)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "#2d2d2d"; (e.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}
+              >
+                <div className="text-3xl mb-4">{item.icon}</div>
+                <h3 className="font-bold text-white text-sm uppercase tracking-wide mb-2">{item.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#888" }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <a href="/kontakt" className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-wider text-white rounded-lg"
+              style={{ background: "#f81828", fontSize: "0.875rem", letterSpacing: "0.1em", boxShadow: "0 16px 36px rgba(248,24,40,0.22)" }}>
+              Dowiedz się więcej →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Jak działamy ── */}
+      <section className="py-24" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
+        <div className="container mx-auto px-4">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.25em] mb-3" style={{ color: "#f81828" }}>
+            — JAK DZIAŁAMY —
+          </p>
+          <h2
+            className="text-center font-black uppercase text-white mb-4"
+            style={{ fontSize: "clamp(1.75rem,4vw,3.5rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}
+          >
+            Prosty proces współpracy
+          </h2>
+          <p className="text-center max-w-xl mx-auto mb-16 leading-relaxed" style={{ color: "#888" }}>
+            Od pierwszego kontaktu do realizacji — prowadzimy Cię krok po kroku
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              { num: "01", title: "Skontaktuj się", desc: "Zadzwoń, napisz lub wypełnij formularz. Opowiedz nam o swoim projekcie." },
+              { num: "02", title: "Dobierzemy rozwiązania", desc: "Nasi eksperci dobiorą optymalne materiały i przygotują szczegółową ofertę." },
+              { num: "03", title: "Realizujemy zamówienie", desc: "Dostarczamy materiały na budowę i wspieramy na każdym etapie realizacji." },
+            ].map((step, i) => (
+              <div key={i} className="relative text-center">
+                <div
+                  className="font-black text-6xl mb-4 leading-none select-none"
+                  style={{ fontFamily: "'Share Tech Mono',monospace", color: "rgba(248,24,40,0.12)", letterSpacing: "-0.04em" }}
+                >
+                  {step.num}
+                </div>
+                <div className="w-12 h-[2px] mx-auto mb-4" style={{ background: "#f81828" }} />
+                <h3 className="font-bold text-white uppercase tracking-wide mb-2 text-sm">{step.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#888" }}>{step.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <a
+              href="/kontakt"
+              className="inline-flex items-center gap-2 px-6 py-3 font-bold text-sm uppercase tracking-wider rounded-lg transition-all duration-300 text-white"
+              style={{ border: "1px solid rgba(248,24,40,0.4)", color: "#f81828" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(248,24,40,0.1)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; }}
+            >
+              Porozmawiajmy o Twoim projekcie →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Nasze usługi ── */}
+      <section className="py-24" style={{ background: "#000", borderTop: "1px solid #1a1a1a" }}>
+        <div className="container mx-auto px-4">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.25em] mb-3" style={{ color: "#f81828" }}>
+            — NASZE USŁUGI —
+          </p>
+          <h2
+            className="text-center font-black uppercase text-white mb-4"
+            style={{ fontSize: "clamp(1.75rem,4vw,3.5rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}
+          >
+            Kompleksowe wsparcie
+          </h2>
+          <p className="text-center max-w-2xl mx-auto mb-16 leading-relaxed" style={{ color: "#888" }}>
+            Na każdym etapie Twojego projektu budowlanego — od doradztwa technicznego po realizację dostaw.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: "🏗️", title: "Dom od podstaw", desc: "Kompleksowe wsparcie w budowie domu od projektu po wykończenie.", tag: "PROGRAM SPECJALNY" },
+              { icon: "💬", title: "Doradztwo techniczne", desc: "Konsultacje telefoniczne i mailowe. Dobór systemu ociepleń, analiza projektu.", tag: "BEZPŁATNE" },
+              { icon: "🚚", title: "Usługi transportowe", desc: "Dostawa materiałów na terenie Lublina i województwa lubelskiego.", tag: "DOSTAWA 24H" },
+              { icon: "👥", title: "Sieć specjalistów", desc: "Sprawdzeni tynkarze, ekipy montażowe, dekarze i instalatorzy.", tag: "ZWERYFIKOWANI" },
+            ].map((service, i) => (
+              <div
+                key={i}
+                className="group rounded-xl p-6 flex flex-col transition-all duration-300"
+                style={{ background: "#0f0f0f", border: "1px solid #2d2d2d" }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = "rgba(248,24,40,0.4)"; el.style.transform = "translateY(-4px)"; el.style.boxShadow = "0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(248,24,40,0.1)"; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = "#2d2d2d"; el.style.transform = "translateY(0)"; el.style.boxShadow = "none"; }}
+              >
+                <div className="text-3xl mb-3">{service.icon}</div>
+                <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded mb-3 self-start"
+                  style={{ color: "#f81828", background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.2)" }}>
+                  {service.tag}
+                </span>
+                <h3 className="font-bold text-white text-sm uppercase tracking-wide mb-2">{service.title}</h3>
+                <p className="text-sm leading-relaxed flex-1" style={{ color: "#888" }}>{service.desc}</p>
+                <a
+                  href="/kontakt"
+                  className="mt-4 text-xs font-bold uppercase tracking-wider transition-colors duration-200"
+                  style={{ color: "#888" }}
+                  onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#f81828"; }}
+                  onMouseLeave={e => { (e.target as HTMLAnchorElement).style.color = "#888"; }}
+                >
+                  Dowiedz się więcej →
+                </a>
               </div>
             ))}
           </div>

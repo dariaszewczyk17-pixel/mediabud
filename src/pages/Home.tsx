@@ -59,7 +59,7 @@ const heroSlides = [
     image: "/images/hero-materialy_2.png",
     label: "Materiały budowlane",
     title: "Kompleksowe materiały dla\nkażdej budowy",
-    subtitle: "Ponad 15 000 produktów od wiodących marek. Tynki, ocieplenia, chemia budowlana, farby — wszystko w jednym miejscu.",
+    subtitle: "Ponad 15 900 produktów od wiodących marek. Tynki, ocieplenia, chemia budowlana, farby — wszystko w jednym miejscu.",
     cta: "Przeglądaj ofertę",
     ctaLink: "/produkty",
   },
@@ -245,7 +245,7 @@ export default function Home() {
   const [activeTab, setActiveTab]             = useState("polecane");
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSent, setNewsletterSent]   = useState(false);
-  const [productCount, setProductCount]       = useState<number>(15921);
+  const [productCount, setProductCount]       = useState<number>(15921); // fallback: stan na 2026-05-29
 
   /* ── Dynamiczny licznik produktów z Sanity ── */
   useEffect(() => {
@@ -417,7 +417,7 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 animate-fade-up delay-400">
-              {["Ponad 15 000 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map((t) => (
+              {["Ponad 15 900 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map((t) => (
                 <span key={t} className="flex items-center gap-1.5 text-xs uppercase tracking-[0.18em] font-bold" style={{ color: "#888" }}>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />
                   {t}

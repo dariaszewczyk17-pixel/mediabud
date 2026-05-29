@@ -483,7 +483,47 @@ export default function ProductDetail() {
           <div className="p-6">
             {activeTab === "opis" && (
               <div className="max-w-3xl">
-                <p className="text-gray-400 leading-relaxed mb-4 text-sm">{product.description}</p>
+                {/* Rich text — dzieli po \n\n na paragrafy, wykrywa listy i pogrubienia */}
+                <div className="space-y-3 mb-4">
+                  {(product.description || product.shortDescription || "")
+                    .split(/\n\n+/)
+                    .filter(Boolean)
+                    .map((para, i) => {
+                      // Lista: linia zaczyna się od "- " lub "• "
+                      const isList = /^[\-•]\s/.test(para.trim());
+                      if (isList) {
+                        const items = para.split('\n').filter(l => /^[\-•]\s/.test(l.trim()));
+                        return (
+                          <ul key={i} className="space-y-1 pl-4">
+                            {items.map((item, j) => (
+                              <li key={j} className="text-gray-400 text-sm leading-relaxed flex gap-2">
+                                <span style={{ color: "#f81828" }} className="mt-0.5 shrink-0">▸</span>
+                                <span dangerouslySetInnerHTML={{ __html:
+                                  item.replace(/^[\-•]\s/, '').replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>')
+                                }} />
+                              </li>
+                            ))}
+                          </ul>
+                        );
+                      }
+                      // Nagłówek: linia zaczyna się od "#"
+                      if (para.startsWith('#')) {
+                        return (
+                          <h3 key={i} className="text-white font-bold text-sm mt-4">
+                            {para.replace(/^#+\s*/, '')}
+                          </h3>
+                        );
+                      }
+                      // Zwykły paragraf z obsługą **pogrubień**
+                      return (
+                        <p key={i} className="text-gray-400 leading-relaxed text-sm"
+                          dangerouslySetInnerHTML={{ __html:
+                            para.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
+                          }}
+                        />
+                      );
+                    })}
+                </div>
                 <div className="flex flex-wrap gap-1.5 mt-4">
                   {product.tags.map(tag => (
                     <span

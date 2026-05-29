@@ -7,6 +7,7 @@ import { getFeaturedProducts } from "@/data/products";
 import { getRecentBlogPosts } from "@/data/blog";
 import { useAllCategories, useFeaturedProducts as useSanityFeatured } from "@/hooks/useSanityData";
 import { sanityCategoryToLegacy, sanityProductToLegacy } from "@/lib/adapters";
+import { sanityFetch } from "@/lib/sanity";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
@@ -58,7 +59,7 @@ const heroSlides = [
     image: "/images/hero-materialy_2.png",
     label: "Materiały budowlane",
     title: "Kompleksowe materiały dla\nkażdej budowy",
-    subtitle: "Ponad 1000 produktów od wiodących marek. Tynki, ocieplenia, chemia budowlana, farby — wszystko w jednym miejscu.",
+    subtitle: "Ponad 15 000 produktów od wiodących marek. Tynki, ocieplenia, chemia budowlana, farby — wszystko w jednym miejscu.",
     cta: "Przeglądaj ofertę",
     ctaLink: "/produkty",
   },
@@ -230,10 +231,18 @@ export default function Home() {
   );
 
   const recentPosts = getRecentBlogPosts(3);
-  const [quoteOpen, setQuoteOpen]         = useState(false);
-  const [activeTab, setActiveTab]         = useState("polecane");
+  const [quoteOpen, setQuoteOpen]             = useState(false);
+  const [activeTab, setActiveTab]             = useState("polecane");
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSent, setNewsletterSent]   = useState(false);
+  const [productCount, setProductCount]       = useState<number>(15921);
+
+  /* ── Dynamiczny licznik produktów z Sanity ── */
+  useEffect(() => {
+    sanityFetch<number>('count(*[_type=="product"])')
+      .then(n => { if (n && n > 0) setProductCount(n); })
+      .catch(() => { /* fallback na 15921 */ });
+  }, []);
 
   /* ── Hero slider ── */
   const [slide, setSlide]   = useState(0);
@@ -371,7 +380,7 @@ export default function Home() {
               </div>
 
               <div className="flex flex-wrap items-center gap-4 mt-6 animate-fade-up delay-400">
-                {["Ponad 1000 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map(t => (
+                {["Ponad 15 000 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map(t => (
                   <span key={t} className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />{t}
                   </span>
@@ -427,7 +436,7 @@ export default function Home() {
               <div key={i} className="text-center group">
                 <div className="flex items-center justify-center gap-2 mb-1">
                   <Icon className="w-5 h-5 text-[#f81828]/60 group-hover:text-[#f81828] transition-colors" />
-                  <CountUp to={num} suffix={suffix} />
+                  <CountUp to={i === 0 ? productCount : num} suffix={suffix} />
                 </div>
                 <p className="text-gray-500 text-sm font-medium tracking-wide">{label}</p>
                 <div className="mx-auto mt-2 h-px w-8 bg-[#f81828]/30 group-hover:w-16 group-hover:bg-[#f81828]/60 transition-all duration-300" />

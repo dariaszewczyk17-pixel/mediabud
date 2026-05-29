@@ -18,33 +18,33 @@ import { searchProducts } from "@/lib/productSearch";
 
 /* ── Category icon map — wszystkie 10 kategorii ─────────────────── */
 const CAT_ICONS: Record<string, React.ReactNode> = {
-  "chemia-budowlana":      <FlaskConical  className="w-5 h-5" />,
-  "dachy":                 <Home          className="w-5 h-5" />,
-  "farby-i-rozpuszczalniki": <Paintbrush    className="w-5 h-5" />,
-  "izolacje":              <Shield        className="w-5 h-5" />,
-  "narzedzia-i-mocowania":   <Wrench        className="w-5 h-5" />,
-  "plytki":                <LayoutGrid    className="w-5 h-5" />,
-  "stropy-i-sciany":         <Layers        className="w-5 h-5" />,
-  "sucha-zabudowa":        <Package       className="w-5 h-5" />,
-  "sufity-podwieszane":    <Grid2X2       className="w-5 h-5" />,
-  "posadzki":              <Minus         className="w-5 h-5" />,
+  "chemia-budowlana":      <FlaskConical className="h-5 w-5" />,
+  "dachy":                 <Home className="h-5 w-5" />,
+  "farby-i-rozpuszczalniki": <Paintbrush className="h-5 w-5" />,
+  "izolacje":              <Shield className="h-5 w-5" />,
+  "narzedzia-i-mocowania": <Wrench className="h-5 w-5" />,
+  "plytki":                <LayoutGrid className="h-5 w-5" />,
+  "stropy-i-sciany":       <Layers className="h-5 w-5" />,
+  "sucha-zabudowa":        <Package className="h-5 w-5" />,
+  "sufity-podwieszane":    <Grid2X2 className="h-5 w-5" />,
+  "posadzki":              <Minus className="h-5 w-5" />,
 };
 
 const CAT_IMAGES: Record<string, string> = {
-  "chemia-budowlana":    "/images/cat-chemia_2.png",
-  "dachy":               "/images/cat-dachy_2.png",
+  "chemia-budowlana": "/images/cat-chemia_2.png",
+  "dachy": "/images/cat-dachy_2.png",
   "farby-i-rozpuszczalniki": "/images/cat-farby_2.png",
-  "izolacje":            "/images/cat-ocieplenia_2.png",
+  "izolacje": "/images/cat-ocieplenia_2.png",
   "narzedzia-i-mocowania": "/images/cat-narzedzia_2.png",
-  "plytki":              "/images/cat-plytki_2.png",
-  "stropy-i-sciany":       "/images/cat-sciany_2.png",
-  "sucha-zabudowa":      "/images/cat-sucha-zabudowa_2.png",
+  "plytki": "/images/cat-plytki_2.png",
+  "stropy-i-sciany": "/images/cat-sciany_2.png",
+  "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
 };
 
 /* ── GA4 helper ── */
 declare global { interface Window { gtag?: (...a: unknown[]) => void } }
 const trackNav = (label: string, level: string, slug?: string) =>
-  window.gtag?.('event', 'navigation_click', { nav_label: label, nav_level: level, nav_slug: slug });
+  window.gtag?.("event", "navigation_click", { nav_label: label, nav_level: level, nav_slug: slug });
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -55,11 +55,11 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [recentlyViewed, setRecentlyViewed] = useState<{name: string; slug: string; image?: string}[]>([]);
+  const [recentlyViewed, setRecentlyViewed] = useState<{ name: string; slug: string; image?: string }[]>([]);
   const { items, openDrawer } = useWycena();
   const totalCount = items.reduce((s, i) => s + i.quantity, 0);
-  const navigate  = useNavigate();
-  const location  = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const searchRef = useRef<HTMLDivElement>(null);
   const menuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -67,12 +67,12 @@ export default function Header() {
   const touchStartY = useRef<number>(0);
   const touchCurrentY = useRef<number>(0);
   const { data: sanityProducts } = useAllProducts();
-  const { data: sanityTopCats }  = useAllCategories();
+  const { data: sanityTopCats } = useAllCategories();
 
   /* Kategorie: Sanity (z dziećmi) lub static jako fallback */
   const categories = useMemo(
     () => sanityTopCats && (sanityTopCats as any[]).length > 0
-      ? (sanityTopCats as any[]).map(c => sanityCategoryToLegacy(c as SanityCategory))
+      ? (sanityTopCats as any[]).map((c) => sanityCategoryToLegacy(c as SanityCategory))
       : staticCategories,
     [sanityTopCats],
   );
@@ -87,7 +87,7 @@ export default function Header() {
 
   const topBrands = useMemo(
     () => Array.from(new Set(
-      mergedProducts.map(p => p.brand).filter(isValidBrand)
+      mergedProducts.map((p) => p.brand).filter(isValidBrand),
     )).slice(0, 5),
     [mergedProducts],
   );
@@ -121,7 +121,7 @@ export default function Header() {
   }, [scrolled]);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 48);
+    const fn = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
@@ -187,65 +187,82 @@ export default function Header() {
   };
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50" style={{ boxShadow: scrolled ? "0 8px 32px rgba(0,0,0,0.85)" : "none", transition: "box-shadow .3s" }}>
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 bg-transparent text-white"
+      style={{ boxShadow: scrolled ? "0 10px 36px rgba(0,0,0,0.85)" : "none", transition: "box-shadow .3s" }}
+    >
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[#f81828] focus:text-white focus:font-bold focus:rounded">
+        Przejdź do treści
+      </a>
 
       {/* ════════════════════════════════════════════════
           ROW 1 — Top info bar (collapses on scroll)
       ════════════════════════════════════════════════ */}
       <div
-        className="overflow-hidden transition-all duration-300"
-        style={{
-          background: "#060606",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
-          maxHeight: scrolled ? "0" : "40px",
-        }}
+        className="overflow-hidden border-b border-white/5 bg-black transition-all duration-300"
+        style={{ maxHeight: scrolled ? "0" : "40px" }}
       >
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-10 text-[11px]">
+          <div className="flex h-10 items-center justify-between text-[11px]">
             {/* Left — contact triplet */}
-            <div className="hidden lg:flex items-center gap-5 text-gray-500">
-              <a href="tel:+48509567213"
-                className="flex items-center gap-1.5 hover:text-[#f81828] transition-colors group">
-                <Phone className="w-3 h-3 text-[#f81828]" />
+            <div className="hidden items-center gap-5 text-[#888888] lg:flex">
+              <a
+                href="tel:+48509567213"
+                className="group flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-[#888888] transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+              >
+                <Phone className="h-3 w-3 text-[#f81828]" />
                 <span className="group-hover:text-white">+48 509 567 213</span>
               </a>
-              <span className="w-px h-3 bg-white/10" />
-              <a href="mailto:sprzedaz@mediabud.pl"
-                className="flex items-center gap-1.5 hover:text-[#f81828] transition-colors group">
-                <Mail className="w-3 h-3 text-[#f81828]" />
+              <span className="h-3 w-px bg-white/10" />
+              <a
+                href="mailto:sprzedaz@mediabud.pl"
+                className="group flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-[#888888] transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+              >
+                <Mail className="h-3 w-3 text-[#f81828]" />
                 <span className="group-hover:text-white">sprzedaz@mediabud.pl</span>
               </a>
-              <span className="w-px h-3 bg-white/10" />
-              <span className="flex items-center gap-1.5">
-                <MapPin className="w-3 h-3 text-[#f81828]" />ul. Chemiczna 8d, 20-329 Lublin
+              <span className="h-3 w-px bg-white/10" />
+              <span className="flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-[#888888]">
+                <MapPin className="h-3 w-3 text-[#f81828]" />ul. Chemiczna 8d, 20-329 Lublin
               </span>
             </div>
             {/* Ticker (mobile + tablet) */}
-            <div className="lg:hidden ticker-wrap flex-1 overflow-hidden">
+            <div className="ticker-wrap flex-1 overflow-hidden lg:hidden">
               <div className="ticker-content flex items-center gap-8 whitespace-nowrap">
-                {["📞 +48 509 567 213","✉ sprzedaz@mediabud.pl","📍 Chemiczna 8d, Lublin","🕐 Pon–Pt 7–17, Sob 8–14","🚚 Dostawa na teren Lublina i okolic"].map((t,i) => (
-                  <span key={i} className="text-gray-500 flex items-center">{t}<span className="mx-4 text-gray-800">·</span></span>
+                {["📞 +48 509 567 213", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", "🕐 Pon–Pt 7–17, Sob 8–14", "🚚 Dostawa na teren Lublina i okolic"].map((t, i) => (
+                  <span key={i} className="flex items-center font-bold uppercase tracking-[0.12em] text-[#888888]">{t}<span className="mx-4 text-[#2d2d2d]">·</span></span>
                 ))}
               </div>
             </div>
             {/* Right — hours + social */}
-            <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
-              <div className="flex items-center gap-1.5 text-gray-500">
-                <span className="relative flex w-2 h-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-                  <span className="relative inline-flex rounded-full w-2 h-2 bg-emerald-500" />
+            <div className="hidden flex-shrink-0 items-center gap-4 lg:flex">
+              <div className="flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-[#888888]">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                <span>Pon–Pt <strong className="text-gray-400">7:00–17:00</strong> · Sob <strong className="text-gray-400">8:00–14:00</strong></span>
+                <span>Pon–Pt <strong className="text-white">7:00–17:00</strong> · Sob <strong className="text-white">8:00–14:00</strong></span>
               </div>
-              <span className="w-px h-3 bg-white/10" />
-              <div className="flex items-center gap-2.5 text-gray-600">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-                  className="hover:text-[#f81828] transition-colors p-0.5 rounded">
-                  <Facebook className="w-3.5 h-3.5" />
+              <span className="h-3 w-px bg-white/10" />
+              <div className="flex items-center gap-2.5 text-[#888888]">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="rounded p-0.5 transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                >
+                  <Facebook className="h-3.5 w-3.5" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                  className="hover:text-[#f81828] transition-colors p-0.5 rounded">
-                  <Instagram className="w-3.5 h-3.5" />
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="rounded p-0.5 transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                >
+                  <Instagram className="h-3.5 w-3.5" />
                 </a>
               </div>
             </div>
@@ -257,42 +274,48 @@ export default function Header() {
           ROW 2 — Main bar: Logo + Search + CTAs
       ════════════════════════════════════════════════ */}
       <div
-        className="transition-all duration-300"
-        style={{
-          background: scrolled ? "rgba(255,255,255,0.97)" : "#ffffff",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: "1px solid rgba(0,0,0,0.08)",
-        }}
+        className={`relative border-b border-white/5 transition-all duration-300 ${scrolled ? "bg-black/80 py-3 backdrop-blur-xl" : "bg-black/60 py-4"}`}
       >
-        <div className={`container mx-auto px-4 flex items-center gap-4 transition-all duration-300 ${scrolled ? "py-2" : "py-3"}`}>
-
+        <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
+        <div className="container mx-auto flex items-center gap-4 px-4">
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0 group">
-            <img
-              src="/images/logo-mediabud-main.png"
-              alt="Media Bud – Skład Budowlany"
-              className={`object-contain transition-all duration-300 group-hover:brightness-90 ${scrolled ? "h-12" : "h-14"}`}
-              style={{ maxWidth: "200px", minWidth: "120px" }}
-            />
+          <Link to="/" className="group flex-shrink-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
+            <div className="relative overflow-visible px-1 py-1">
+              <span
+                className="pointer-events-none absolute inset-0 translate-x-[1px] -translate-y-[1px] font-black uppercase tracking-tighter text-xl text-[#f81828]/70 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                aria-hidden="true"
+                style={{ fontFamily: "'Rajdhani', 'Barlow Condensed', Inter, sans-serif" }}
+              >
+                MEDIA<span className="text-white/70">BUD</span>
+              </span>
+              <span
+                className="pointer-events-none absolute inset-0 -translate-x-[1px] translate-y-[1px] font-black uppercase tracking-tighter text-xl text-cyan-300/50 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                aria-hidden="true"
+                style={{ fontFamily: "'Rajdhani', 'Barlow Condensed', Inter, sans-serif" }}
+              >
+                MEDIA<span className="text-[#f81828]/70">BUD</span>
+              </span>
+              <span
+                className="relative block font-black uppercase tracking-tighter text-xl text-white"
+                style={{ fontFamily: "'Rajdhani', 'Barlow Condensed', Inter, sans-serif" }}
+              >
+                MEDIA<span style={{ color: "#f81828" }}>BUD</span>
+              </span>
+            </div>
           </Link>
 
           {/* Search bar — centered, full width */}
-          <div className="flex-1 relative" ref={searchRef}>
+          <div className="relative flex-1" ref={searchRef}>
             <div className="flex">
               <div className="relative flex-1">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#888888]" />
                 <Input
                   value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
                   placeholder="Szukaj produktów, marek, kategorii..."
-                  className="pl-10 rounded-r-none border-r-0 text-white placeholder:text-gray-500 focus-visible:ring-0 text-sm h-11 transition-all"
-                  style={{
-                    background: "#f5f5f5",
-                    border: "1px solid rgba(0,0,0,0.12)",
-                    borderRight: "none",
-                  }}
-                  onKeyDown={e => {
+                  className="h-11 rounded-r-none border border-[#2d2d2d] border-r-0 bg-[#0d0d0d] pl-10 text-sm font-bold uppercase tracking-[0.08em] text-white placeholder:text-[#888] transition-all focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.2)] focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                  onKeyDown={(e) => {
                     if (e.key === "Enter" && searchQuery) {
                       submitSearch(searchQuery);
                     }
@@ -300,63 +323,60 @@ export default function Header() {
                 />
               </div>
               <button
-                className="h-11 px-6 flex items-center justify-center gap-2 font-bold text-sm text-white flex-shrink-0 transition-all"
-                style={{ background: "#f81828", borderRadius: "0 8px 8px 0" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.4)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+                className="flex h-11 flex-shrink-0 items-center justify-center gap-2 rounded-r-lg bg-[#f81828] px-6 text-sm font-bold uppercase tracking-[0.1em] text-white transition-all hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                 onClick={() => submitSearch(searchQuery)}
               >
-                <Search className="w-4 h-4" />
+                <Search className="h-4 w-4" />
                 <span className="hidden sm:inline">Szukaj</span>
               </button>
             </div>
 
             {/* Autocomplete */}
             {(searchFocused || searchResults.length > 0) && (
-              <div
-                className="absolute top-full left-0 right-0 z-50 mt-2 rounded-2xl overflow-hidden shadow-2xl"
-                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.1)", boxShadow: "0 18px 50px rgba(0,0,0,0.18)" }}
-              >
+              <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-[#2d2d2d] bg-[#0d0d0d]/98 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl">
                 {searchResults.length > 0 ? (
                   <>
-                    <div className="px-4 py-2.5 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-500" style={{ background: "rgba(0,0,0,0.025)", borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
-                      <span>Najlepsze dopasowania</span>
-                      <span>{searchResults.length} / 6</span>
+                    <div className="grid grid-cols-3 gap-3 border-b border-[#2d2d2d] px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-[#f81828]">
+                      <span>Produkty</span>
+                      <span>Kategorie</span>
+                      <span>Marki</span>
                     </div>
-                    {searchResults.map(p => (
-                      <Link
-                        key={p.id}
-                        to={`/produkt/${p.slug}`}
-                        className="flex items-center gap-3 px-4 py-3 border-b border-black/5 hover:bg-[#f81828]/5 transition-colors group/sr last:border-0"
-                        onClick={() => { setSearchResults([]); setSearchQuery(""); setSearchFocused(false); }}
-                      >
-                        <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-[#1a1a1a] border border-white/10">
-                          <img src={p.images?.[0] || "/placeholder.svg"} alt={p.name} className="w-full h-full object-cover" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1 flex-wrap">
-                            <div className="text-sm font-semibold text-gray-800 group-hover/sr:text-[#f81828] transition-colors truncate max-w-[320px]">{p.name}</div>
-                            {p.isFeatured && (
-                              <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-white" style={{ background: "#f81828" }}>
-                                <Sparkles className="w-3 h-3" /> Polecany
-                              </span>
-                            )}
-                            {p.isNew && (
-                              <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-white" style={{ background: "#10b981" }}>
-                                <Star className="w-3 h-3" /> Nowość
-                              </span>
-                            )}
+                    <div className="divide-y divide-[#2d2d2d]">
+                      {searchResults.map((p) => (
+                        <Link
+                          key={p.id}
+                          to={`/produkt/${p.slug}`}
+                          className="group/sr flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#f81828]/5 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-[-2px]"
+                          onClick={() => { setSearchResults([]); setSearchQuery(""); setSearchFocused(false); }}
+                        >
+                          <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-[#1a1a1a]">
+                            <img src={p.images?.[0] || "/placeholder.svg"} alt={p.name} className="h-full w-full object-cover" />
                           </div>
-                          <div className="text-xs text-gray-500 mb-1">{p.brand} · {p.unit} · {p.sku}</div>
-                          <div className="text-[11px] text-gray-500 line-clamp-1">{p.shortDescription}</div>
-                        </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-gray-400 opacity-0 group-hover/sr:opacity-100 transition-opacity" />
-                      </Link>
-                    ))}
-                    <div className="px-4 py-3 flex flex-wrap items-center justify-between gap-3" style={{ background: "rgba(0,0,0,0.02)" }}>
-                      <div className="text-[11px] text-gray-500 font-medium">Naciśnij Enter, aby zobaczyć wszystkie wyniki</div>
+                          <div className="min-w-0 flex-1">
+                            <div className="mb-1 flex flex-wrap items-center gap-2">
+                              <div className="max-w-[320px] truncate text-sm font-bold uppercase tracking-[0.08em] text-white transition-colors group-hover/sr:text-[#f81828]">{p.name}</div>
+                              {p.isFeatured && (
+                                <span className="inline-flex items-center gap-1 rounded-full bg-[#f81828] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white">
+                                  <Sparkles className="h-3 w-3" /> Polecany
+                                </span>
+                              )}
+                              {p.isNew && (
+                                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white">
+                                  <Star className="h-3 w-3" /> Nowość
+                                </span>
+                              )}
+                            </div>
+                            <div className="mb-1 text-xs font-bold uppercase tracking-[0.08em] text-[#888888]">{p.brand} · {p.unit} · {p.sku}</div>
+                            <div className="line-clamp-1 text-[11px] text-[#888888]">{p.shortDescription}</div>
+                          </div>
+                          <ArrowRight className="h-3.5 w-3.5 text-[#888888] opacity-0 transition-opacity group-hover/sr:opacity-100" />
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#2d2d2d] bg-black/30 px-4 py-3">
+                      <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#888888]">Naciśnij Enter, aby zobaczyć wszystkie wyniki</div>
                       <button
-                        className="text-[11px] font-bold text-[#f81828] hover:underline"
+                        className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#f81828] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                         onClick={() => submitSearch(searchQuery)}
                       >
                         Zobacz pełną listę
@@ -364,38 +384,55 @@ export default function Header() {
                     </div>
                   </>
                 ) : (
-                  <div className="p-4">
-                    <div className="text-[11px] uppercase tracking-[0.16em] text-gray-500 font-semibold mb-3">Popularne skróty wyszukiwania</div>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {quickSuggestions.map((suggestion) => (
-                        <button
-                          key={suggestion}
-                          className="rounded-full px-3 py-1.5 text-xs font-semibold text-gray-700 hover:text-white transition-colors"
-                          style={{ background: "rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.06)" }}
-                          onClick={() => {
-                            setSearchQuery(suggestion);
-                            submitSearch(suggestion);
-                          }}
-                        >
-                          {suggestion}
-                        </button>
-                      ))}
+                  <div className="divide-y divide-[#2d2d2d]">
+                    <div className="p-4">
+                      <div className="mb-3 text-xs font-bold uppercase tracking-widest text-[#f81828]">Produkty</div>
+                      <div className="flex flex-wrap gap-2">
+                        {quickSuggestions.map((suggestion) => (
+                          <button
+                            key={suggestion}
+                            className="rounded-full border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-[#888888] transition-colors hover:border-[#f81828] hover:bg-[#f81828]/10 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                            onClick={() => {
+                              setSearchQuery(suggestion);
+                              submitSearch(suggestion);
+                            }}
+                          >
+                            {suggestion}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    <div className="text-[11px] uppercase tracking-[0.16em] text-gray-500 font-semibold mb-2">Najczęstsze marki</div>
-                    <div className="flex flex-wrap gap-2">
-                      {topBrands.map((brand) => (
-                        <button
-                          key={brand}
-                          className="rounded-full px-3 py-1.5 text-xs font-semibold text-[#f81828] hover:text-white transition-colors"
-                          style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.14)" }}
-                          onClick={() => {
-                            setSearchQuery(brand);
-                            submitSearch(brand);
-                          }}
-                        >
-                          {brand}
-                        </button>
-                      ))}
+                    <div className="p-4">
+                      <div className="mb-3 text-xs font-bold uppercase tracking-widest text-[#f81828]">Kategorie</div>
+                      <div className="flex flex-wrap gap-2">
+                        {categories.slice(0, 6).map((cat) => (
+                          <Link
+                            key={cat.id}
+                            to={`/kategoria/${cat.slug}`}
+                            className="rounded-full border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-[#888888] transition-colors hover:border-[#f81828] hover:bg-[#f81828]/10 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                            onClick={() => { setSearchResults([]); setSearchQuery(""); setSearchFocused(false); }}
+                          >
+                            {cat.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <div className="mb-3 text-xs font-bold uppercase tracking-widest text-[#f81828]">Marki</div>
+                      <div className="flex flex-wrap gap-2">
+                        {topBrands.map((brand) => (
+                          <button
+                            key={brand}
+                            className="rounded-full border border-[#f81828]/20 bg-[#f81828]/8 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-[#f81828] transition-colors hover:bg-[#f81828] hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                            onClick={() => {
+                              setSearchQuery(brand);
+                              submitSearch(brand);
+                            }}
+                          >
+                            {brand}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -404,35 +441,33 @@ export default function Header() {
           </div>
 
           {/* ── CTA buttons ── */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex flex-shrink-0 items-center gap-2">
             {/* Phone — ghost red button */}
-            <a href="tel:+48509567213"
-              className="hidden lg:flex items-center gap-2 h-11 px-5 rounded-lg font-bold text-sm transition-all duration-200 flex-shrink-0"
-              style={{ background: "rgba(248,24,40,0.07)", border: "1px solid rgba(248,24,40,0.25)", color: "#1a1a1a" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.color = "#ffffff"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.3)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(248,24,40,0.07)"; (e.currentTarget as HTMLElement).style.color = "#1a1a1a"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-              <div className="w-6 h-6 rounded-full bg-[#f81828] flex items-center justify-center flex-shrink-0">
-                <Phone className="w-3 h-3 text-white" />
+            <a
+              href="tel:+48509567213"
+              className="hidden h-11 flex-shrink-0 items-center gap-2 rounded-lg border border-[#2d2d2d] px-5 text-sm font-bold uppercase tracking-[0.1em] text-[#888888] transition-all duration-200 hover:border-[#f81828]/60 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:flex"
+            >
+              <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#1a1a1a]">
+                <Phone className="h-3 w-3 text-[#f81828]" />
               </div>
               <div className="text-left leading-none">
-                <div className="text-[9px] text-gray-500 font-normal">Zadzwoń teraz</div>
-                <div className="text-xs font-black">509 567 213</div>
+                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#888888]">Zadzwoń teraz</div>
+                <div className="text-xs font-black text-white">509 567 213</div>
               </div>
             </a>
 
             {/* Wycena counter */}
-            <button onClick={openDrawer}
-              className="relative flex items-center gap-2 h-11 px-4 rounded-lg font-bold text-sm transition-all duration-200 flex-shrink-0"
-              style={{ background: "#f81828", color: "#fff" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.4)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-              <Calculator className="w-4 h-4" />
-              <div className="text-left leading-none hidden sm:block">
-                <div className="text-[9px] font-normal opacity-80">koszyk</div>
+            <button
+              onClick={openDrawer}
+              className="relative flex h-11 flex-shrink-0 items-center gap-2 rounded-lg bg-[#f81828] px-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-all duration-200 hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+            >
+              <Calculator className="h-4 w-4" />
+              <div className="hidden text-left leading-none sm:block">
+                <div className="text-[9px] font-bold uppercase tracking-[0.12em] opacity-80">Koszyk</div>
                 <div className="text-xs font-black">Moja Wycena</div>
               </div>
               {totalCount > 0 && (
-                <span className="absolute -top-2 -right-2 min-w-[20px] h-5 bg-white text-[#f81828] rounded-full text-[10px] font-black flex items-center justify-center px-1 shadow-lg animate-bounce">
+                <span className="absolute -right-2 -top-2 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white px-1 text-[10px] font-black text-[#f81828] shadow-lg">
                   {totalCount}
                 </span>
               )}
@@ -440,13 +475,13 @@ export default function Header() {
 
             {/* Hamburger */}
             <button
-              className="lg:hidden p-2.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-colors"
+              className="rounded-lg border border-[#2d2d2d] bg-[#111111] p-2.5 text-[#888888] transition-colors hover:border-[#f81828]/60 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
               aria-label={mobileOpen ? "Zamknij menu" : "Otwórz menu"}
             >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
@@ -456,117 +491,125 @@ export default function Header() {
           ROW 3 — Category icon bar  (desktop only)
           Inspired by the reference — dark industrial version
       ════════════════════════════════════════════════ */}
-      <div className="hidden lg:block" style={{ background: "#0d0d0d", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="hidden border-b border-white/5 bg-[#0d0d0d] lg:block">
         {/* subtle grid bg */}
         <div className="relative">
-          <div className="absolute inset-0 pointer-events-none"
-            style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "32px 32px" }}
+          />
 
           <nav className="relative container mx-auto px-4" role="navigation" aria-label="Kategorie produktów">
             <div className="flex items-center">
               {/* Category icon items */}
-              {categories.map(cat => (
-                <div key={cat.id} className="relative group/icon flex-1"
+              {categories.map((cat) => (
+                <div
+                  key={cat.id}
+                  className="group/icon relative flex-1"
                   onMouseEnter={() => { menuEnter(cat.id); setMegaSearch(""); }}
-                  onMouseLeave={menuLeave}>
-                  <Link to={`/kategoria/${cat.slug}`}
-                    className="flex flex-col items-center gap-1.5 py-3 px-2 transition-all duration-200 relative overflow-hidden"
-                    style={{ color: activeMenu === cat.id ? "#f81828" : "#9ca3af" }}
+                  onMouseLeave={menuLeave}
+                >
+                  <Link
+                    to={`/kategoria/${cat.slug}`}
+                    className={`relative flex flex-col items-center gap-1.5 overflow-hidden px-2 py-3 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
                     aria-expanded={cat.children ? activeMenu === cat.id : undefined}
                     aria-haspopup={cat.children ? "true" : undefined}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#f81828"; }}
-                    onMouseLeave={e => { if (activeMenu !== cat.id) (e.currentTarget as HTMLElement).style.color = "#9ca3af"; }}
-                    onClick={() => trackNav(cat.name, 'desktop_L1', cat.slug)}>
-                    {/* bg flash on hover */}
-                    <div className="absolute inset-0 opacity-0 group-hover/icon:opacity-100 transition-opacity"
-                      style={{ background: "rgba(248,24,40,0.07)" }} />
-                    {/* top indicator */}
-                    <div className={`absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] transition-transform duration-200 origin-left ${activeMenu === cat.id ? "scale-x-100" : "scale-x-0 group-hover/icon:scale-x-100"}`} />
+                    onClick={() => trackNav(cat.name, "desktop_L1", cat.slug)}
+                  >
+                    <div className="absolute inset-0 opacity-0 transition-opacity group-hover/icon:opacity-100" style={{ background: "rgba(248,24,40,0.07)" }} />
+                    <div className={`absolute top-0 left-0 right-0 h-[2px] origin-left bg-[#f81828] transition-transform duration-200 ${activeMenu === cat.id ? "scale-x-100" : "scale-x-0 group-hover/icon:scale-x-100"}`} />
                     <div className="relative z-10">
-                      {CAT_ICONS[cat.slug] ?? <Package className="w-6 h-6" />}
+                      {CAT_ICONS[cat.slug] ?? <Package className="h-6 w-6" />}
                     </div>
-                    <span className="relative z-10 text-[10px] font-bold leading-tight text-center break-words hyphens-auto" style={{ maxWidth: "80px", wordBreak: "break-word" }}>
+                    <span className="relative z-10 max-w-[80px] break-words text-center text-[10px] font-bold uppercase leading-tight tracking-[0.08em] hyphens-auto" style={{ wordBreak: "break-word" }}>
                       {cat.name}
                     </span>
                     {cat.children && (
-                      <ChevronDown className={`relative z-10 w-2.5 h-2.5 transition-transform duration-200 -mt-0.5 ${activeMenu === cat.id ? "rotate-180" : ""}`} />
+                      <ChevronDown className={`relative z-10 -mt-0.5 h-2.5 w-2.5 transition-transform duration-200 ${activeMenu === cat.id ? "rotate-180" : ""}`} />
                     )}
                   </Link>
 
                   {/* ── Mega dropdown 2-poziomowy ── */}
                   {cat.children && activeMenu === cat.id && (
-                    <div className="fixed left-0 right-0 z-50"
+                    <div
+                      className="fixed left-0 right-0 z-50 border-t border-[#f81828]/30 bg-[#0d0d0d]/98 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl"
                       style={{
                         top: "calc(var(--header-h, 140px))",
-                        background: "#0c0c0c",
-                        borderTop: "2px solid #f81828",
                         borderBottom: "1px solid rgba(255,255,255,0.06)",
-                        boxShadow: "0 24px 80px rgba(0,0,0,0.9)",
                       }}
                       onMouseEnter={() => menuEnter(cat.id)}
-                      onMouseLeave={() => { menuLeave(); setActiveSubMenu(null); }}>
-                      <div className="absolute inset-0 pointer-events-none"
-                        style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.03) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
+                      onMouseLeave={() => { menuLeave(); setActiveSubMenu(null); }}
+                    >
+                      <div
+                        className="pointer-events-none absolute inset-0"
+                        style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.03) 1px,transparent 1px)", backgroundSize: "40px 40px" }}
+                      />
                       <div className="relative container mx-auto px-4 py-5">
                         <div className="flex gap-6">
-
                           {/* Col 1: Obraz + link kategorii */}
                           <div className="w-44 flex-shrink-0">
-                            <div className="relative rounded-xl overflow-hidden aspect-[4/3] mb-3">
+                            <div className="relative mb-3 aspect-[4/3] overflow-hidden rounded-xl border border-white/10">
                               {CAT_IMAGES[cat.slug]
-                                ? <img src={CAT_IMAGES[cat.slug]} alt={cat.name} className="w-full h-full object-cover" style={{ filter: "brightness(0.55)" }} />
-                                : <div className="w-full h-full flex items-center justify-center" style={{ background: "rgba(248,24,40,0.1)" }}>{CAT_ICONS[cat.slug] ?? <Package className="w-10 h-10 text-[#f81828]" />}</div>}
+                                ? <img src={CAT_IMAGES[cat.slug]} alt={cat.name} className="h-full w-full object-cover" style={{ filter: "brightness(0.55)" }} />
+                                : <div className="flex h-full w-full items-center justify-center bg-[#f81828]/10">{CAT_ICONS[cat.slug] ?? <Package className="h-10 w-10 text-[#f81828]" />}</div>}
                               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                              <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#f81828]" />
+                              <div className="absolute left-0 right-0 top-0 h-0.5 bg-[#f81828]" />
                               <div className="absolute bottom-0 left-0 right-0 p-3">
-                                <div className="font-display font-black text-white text-sm leading-tight">{cat.name}</div>
-                                <div className="text-[10px] text-gray-400 mt-0.5">{cat.children.length} kategorii</div>
+                                <div className="text-sm font-black uppercase tracking-[0.08em] text-white">{cat.name}</div>
+                                <div className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888888]">{cat.children.length} kategorii</div>
                               </div>
                             </div>
-                            <Link to={`/kategoria/${cat.slug}`} onClick={() => setActiveMenu(null)}
-                              className="flex items-center gap-1.5 text-xs text-[#f81828] font-bold hover:underline mb-1">
-                              <ShoppingBag className="w-3 h-3" />Wszystkie produkty
+                            <Link
+                              to={`/kategoria/${cat.slug}`}
+                              onClick={() => setActiveMenu(null)}
+                              className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.12em] text-[#f81828] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                            >
+                              <ShoppingBag className="h-3 w-3" />Wszystkie produkty
                             </Link>
                           </div>
 
                           {/* Col 2: Lista podkategorii (L1) — z wyszukiwarką */}
                           <div className="w-52 flex-shrink-0 border-r border-white/5 pr-4">
-                            <div className="text-[9px] text-gray-600 uppercase tracking-widest font-bold mb-2 flex items-center gap-1.5">
-                              <span className="w-2 h-px bg-[#f81828]" />Podkategorie
+                            <div className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#f81828]">
+                              <span className="h-px w-2 bg-[#f81828]" />Podkategorie
                             </div>
                             {/* Mini search in mega-menu */}
                             <div className="relative mb-2">
-                              <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-600 pointer-events-none" />
+                              <Search className="pointer-events-none absolute left-2 top-1/2 h-3 w-3 -translate-y-1/2 text-[#888888]" />
                               <input
                                 type="text"
                                 placeholder="Szukaj kategorii..."
                                 value={megaSearch}
-                                onChange={e => setMegaSearch(e.target.value)}
-                                className="w-full pl-6 pr-2 py-1.5 text-[11px] rounded-lg outline-none text-gray-300 placeholder-gray-600"
-                                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
+                                onChange={(e) => setMegaSearch(e.target.value)}
+                                className="w-full rounded-lg border border-[#2d2d2d] bg-[#111111] py-1.5 pl-6 pr-2 text-[11px] font-bold uppercase tracking-[0.08em] text-gray-300 outline-none placeholder:text-[#888] focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.2)] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                               />
                             </div>
                             <div className="space-y-0.5 overflow-y-auto" style={{ maxHeight: "260px" }}>
                               {cat.children
-                                .filter(sub => !megaSearch || sub.name.toLowerCase().includes(megaSearch.toLowerCase()))
-                                .map(sub => (
-                                <div key={sub.id}
-                                  onMouseEnter={() => setActiveSubMenu(sub.id)}
-                                  className={`group/sub flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-all duration-150 ${
-                                    activeSubMenu === sub.id
-                                      ? "bg-[#f81828]/15 text-white"
-                                      : "text-gray-400 hover:bg-[#f81828]/10 hover:text-white"
-                                  }`}>
-                                  <Link to={`/kategoria/${sub.slug}`} onClick={() => { setActiveMenu(null); trackNav(sub.name, 'desktop_L2', sub.slug); }}
-                                    className="flex items-center gap-2 flex-1 min-w-0 text-[12px] font-medium">
-                                    <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors ${activeSubMenu === sub.id ? "bg-[#f81828]" : "bg-[#f81828]/40 group-hover/sub:bg-[#f81828]"}`} />
-                                    <span className="truncate">{sub.name}</span>
-                                  </Link>
-                                  {sub.children && sub.children.length > 0 && (
-                                    <ChevronRight className={`w-3 h-3 flex-shrink-0 transition-colors ${activeSubMenu === sub.id ? "text-[#f81828]" : "text-gray-700"}`} />
-                                  )}
-                                </div>
-                              ))}
+                                .filter((sub) => !megaSearch || sub.name.toLowerCase().includes(megaSearch.toLowerCase()))
+                                .map((sub) => (
+                                  <div
+                                    key={sub.id}
+                                    onMouseEnter={() => setActiveSubMenu(sub.id)}
+                                    className={`group/sub flex cursor-pointer items-center justify-between px-2.5 py-1.5 transition-all duration-150 ${
+                                      activeSubMenu === sub.id
+                                        ? "border-l-2 border-[#f81828] bg-[#f81828]/5 text-white"
+                                        : "border-l-2 border-transparent text-[#888888] hover:border-[#f81828] hover:bg-[#f81828]/10 hover:text-white"
+                                    }`}
+                                  >
+                                    <Link
+                                      to={`/kategoria/${sub.slug}`}
+                                      onClick={() => { setActiveMenu(null); trackNav(sub.name, "desktop_L2", sub.slug); }}
+                                      className="flex min-w-0 flex-1 items-center gap-2 text-[12px] font-bold uppercase tracking-[0.08em] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                                    >
+                                      <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full transition-colors ${activeSubMenu === sub.id ? "bg-[#f81828]" : "bg-[#f81828]/40 group-hover/sub:bg-[#f81828]"}`} />
+                                      <span className="truncate">{sub.name}</span>
+                                    </Link>
+                                    {sub.children && sub.children.length > 0 && (
+                                      <ChevronRight className={`h-3 w-3 flex-shrink-0 transition-colors ${activeSubMenu === sub.id ? "text-[#f81828]" : "text-[#2d2d2d]"}`} />
+                                    )}
+                                  </div>
+                                ))}
                             </div>
                           </div>
 
@@ -574,27 +617,34 @@ export default function Header() {
                           <div className="flex-1">
                             {activeSubMenu ? (
                               (() => {
-                                const activeSub = cat.children.find(s => s.id === activeSubMenu);
+                                const activeSub = cat.children.find((s) => s.id === activeSubMenu);
                                 return activeSub ? (
                                   <div>
-                                    <div className="text-[9px] text-gray-600 uppercase tracking-widest font-bold mb-2 flex items-center gap-1.5">
-                                      <span className="w-2 h-px bg-[#f81828]" />{activeSub.name}
+                                    <div className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#f81828]">
+                                      <span className="h-px w-2 bg-[#f81828]" />{activeSub.name}
                                     </div>
                                     {activeSub.children && activeSub.children.length > 0 ? (
-                                      <div className="grid grid-cols-2 xl:grid-cols-3 gap-0.5">
-                                        {activeSub.children.map(sub2 => (
-                                          <Link key={sub2.id} to={`/kategoria/${sub2.slug}`} onClick={() => setActiveMenu(null)}
-                                            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[12px] text-gray-400 hover:text-white hover:bg-[#f81828]/10 transition-all font-medium">
-                                            <span className="w-1 h-1 rounded-full bg-[#f81828]/30 flex-shrink-0" />
+                                      <div className="grid grid-cols-2 gap-0.5 xl:grid-cols-3">
+                                        {activeSub.children.map((sub2) => (
+                                          <Link
+                                            key={sub2.id}
+                                            to={`/kategoria/${sub2.slug}`}
+                                            onClick={() => setActiveMenu(null)}
+                                            className="flex items-center gap-1.5 border-l-2 border-transparent px-2.5 py-1.5 text-[12px] font-bold uppercase tracking-[0.08em] text-[#888888] transition-all hover:border-[#f81828] hover:bg-[#f81828]/10 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                                          >
+                                            <span className="h-1 w-1 flex-shrink-0 rounded-full bg-[#f81828]/30" />
                                             <span className="truncate">{sub2.name}</span>
                                           </Link>
                                         ))}
                                       </div>
                                     ) : (
-                                      <div className="flex flex-col items-center justify-center h-24 text-center">
-                                        <Link to={`/kategoria/${activeSub.slug}`} onClick={() => setActiveMenu(null)}
-                                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#f81828]/10 text-[#f81828] text-sm font-bold hover:bg-[#f81828] hover:text-white transition-all">
-                                          <ShoppingBag className="w-4 h-4" /> Przeglądaj produkty
+                                      <div className="flex h-24 flex-col items-center justify-center text-center">
+                                        <Link
+                                          to={`/kategoria/${activeSub.slug}`}
+                                          onClick={() => setActiveMenu(null)}
+                                          className="flex items-center gap-2 rounded-lg bg-[#f81828]/10 px-4 py-2 text-sm font-bold uppercase tracking-[0.08em] text-[#f81828] transition-all hover:bg-[#f81828] hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                                        >
+                                          <ShoppingBag className="h-4 w-4" /> Przeglądaj produkty
                                         </Link>
                                       </div>
                                     )}
@@ -602,9 +652,9 @@ export default function Header() {
                                 ) : null;
                               })()
                             ) : (
-                              <div className="flex items-center justify-center h-full text-gray-700 text-xs text-center p-4">
+                              <div className="flex h-full items-center justify-center p-4 text-center text-xs font-bold uppercase tracking-[0.08em] text-[#888888]">
                                 <div>
-                                  <div className="text-2xl mb-1">←</div>
+                                  <div className="mb-1 text-2xl text-[#f81828]">←</div>
                                   Najedź na podkategorię<br />aby zobaczyć więcej
                                 </div>
                               </div>
@@ -612,28 +662,28 @@ export default function Header() {
                           </div>
 
                           {/* Col 4: CTA */}
-                          <div className="w-44 flex-shrink-0 flex flex-col gap-3">
-                            <div className="rounded-xl p-4 flex-1"
-                              style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.14),rgba(248,24,40,0.07))", border: "1px solid rgba(248,24,40,0.22)" }}>
-                              <div className="text-xs text-[#f88090] font-bold uppercase tracking-wider mb-2">Szybka wycena</div>
-                              <p className="text-xs text-gray-500 leading-relaxed mb-3">Potrzebujesz materiałów? Wycenimy projekt.</p>
-                              <Link to="/kontakt" onClick={() => setActiveMenu(null)}
-                                className="flex items-center justify-center gap-1.5 w-full bg-[#f81828] hover:bg-[#c8000f] text-white text-xs font-bold py-2 rounded-lg transition-all">
-                                Zapytaj o ofertę <ArrowRight className="w-3 h-3" />
+                          <div className="flex w-44 flex-shrink-0 flex-col gap-3">
+                            <div className="flex-1 rounded-xl border border-[#f81828]/22 bg-gradient-to-br from-[#f81828]/14 to-[#f81828]/7 p-4">
+                              <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#f81828]">Szybka wycena</div>
+                              <p className="mb-3 text-xs font-bold uppercase tracking-[0.08em] text-[#888888]">Potrzebujesz materiałów? Wycenimy projekt.</p>
+                              <Link
+                                to="/kontakt"
+                                onClick={() => setActiveMenu(null)}
+                                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#f81828] py-2 text-xs font-bold uppercase tracking-[0.08em] text-white transition-all hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                              >
+                                Zapytaj o ofertę <ArrowRight className="h-3 w-3" />
                               </Link>
                             </div>
-                            <div className="rounded-xl p-3"
-                              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                              <div className="flex items-center gap-2 mb-1.5">
-                                <Phone className="w-3.5 h-3.5 text-[#f81828]" />
-                                <span className="text-xs text-gray-400 font-semibold">Zadzwoń</span>
+                            <div className="rounded-xl border border-white/6 bg-white/3 p-3">
+                              <div className="mb-1.5 flex items-center gap-2">
+                                <Phone className="h-3.5 w-3.5 text-[#f81828]" />
+                                <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#888888]">Zadzwoń</span>
                               </div>
-                              <a href="tel:+48509567213" className="text-sm font-black text-white hover:text-[#f81828] transition-colors">
+                              <a href="tel:+48509567213" className="text-sm font-black uppercase tracking-[0.08em] text-white transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
                                 +48 509 567 213
                               </a>
                             </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -642,37 +692,38 @@ export default function Header() {
               ))}
 
               {/* Separator */}
-              <div className="w-px h-10 flex-shrink-0 mx-2" style={{ background: "rgba(255,255,255,0.08)" }} />
+              <div className="mx-2 h-10 w-px flex-shrink-0 bg-white/8" />
 
               {/* "Wszystkie" red CTA — like the reference */}
-              <Link to="/kategoria"
-                className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-lg font-bold text-sm text-white transition-all duration-200 ml-1"
-                style={{ background: "#f81828" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 16px rgba(248,24,40,0.5)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-                <LayoutGrid className="w-4 h-4" />
+              <Link
+                to="/kategoria"
+                className="ml-1 flex flex-shrink-0 items-center gap-2 rounded-lg bg-[#f81828] px-5 py-2.5 text-sm font-bold uppercase tracking-[0.08em] text-white transition-all duration-200 hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+              >
+                <LayoutGrid className="h-4 w-4" />
                 Wszystkie
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
 
               {/* Secondary nav links */}
-              <div className="flex items-center ml-3 gap-1 flex-shrink-0">
+              <div className="ml-3 flex flex-shrink-0 items-center gap-1">
                 {[
                   { to: "/blog", label: "Blog" },
                   { to: "/o-firmie", label: "O firmie" },
                   { to: "/uslugi", label: "Usługi" },
-                ].map(link => (
-                  <Link key={link.to} to={link.to}
-                    className="px-3 py-2 text-[11px] font-semibold text-gray-500 hover:text-white transition-colors whitespace-nowrap">
+                ].map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="whitespace-nowrap px-3 py-2 text-[11px] font-bold uppercase tracking-[0.1em] text-[#888888] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                  >
                     {link.label}
                   </Link>
                 ))}
-                <Link to="/kontakt"
-                  className="flex items-center gap-1 ml-1 px-3 py-1.5 rounded-md text-[11px] font-black text-white transition-all"
-                  style={{ background: "rgba(248,24,40,0.15)", border: "1px solid rgba(248,24,40,0.3)" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(248,24,40,0.15)"; }}>
-                  <Mail className="w-3 h-3" />Kontakt
+                <Link
+                  to="/kontakt"
+                  className="ml-1 flex items-center gap-1 rounded-md border border-[#f81828]/30 bg-[#f81828]/15 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.08em] text-white transition-all hover:bg-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                >
+                  <Mail className="h-3 w-3" />Kontakt
                 </Link>
               </div>
             </div>
@@ -681,124 +732,123 @@ export default function Header() {
       </div>
 
       {/* ════════════════════════════════════════════════
-          Mobile nav — BOTTOM SHEET (slide from bottom)
-          Trend 2026: thumb-friendly, native-feel
+          Mobile nav — fullscreen slide-in
       ════════════════════════════════════════════════ */}
 
       {/* Backdrop overlay */}
       <div
-        className={`lg:hidden fixed inset-0 z-[55] transition-opacity duration-300 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-        style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)" }}
+        className={`fixed inset-0 z-[55] bg-black/80 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
         onClick={() => setMobileOpen(false)}
         aria-hidden="true"
       />
 
-      {/* Bottom Sheet Panel */}
+      {/* Fullscreen Panel */}
       <nav
         id="mobile-nav"
         role="dialog"
         aria-modal="true"
         aria-label="Menu mobilne"
-        className={`lg:hidden fixed left-0 right-0 bottom-0 z-[60] transition-transform duration-300 ease-out ${mobileOpen ? "translate-y-0" : "translate-y-full"}`}
+        className={`fixed inset-y-0 right-0 z-[60] w-full transition-transform duration-300 ease-out lg:hidden ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}
         style={{
-          background: "#0d0d0d",
-          borderTop: "2px solid #f81828",
-          borderRadius: "20px 20px 0 0",
-          maxHeight: "72vh",
+          background: "#080808",
           display: "flex",
           flexDirection: "column",
           willChange: "transform",
+          maxWidth: "100vw",
         }}
-        onTouchStart={e => { touchStartY.current = e.touches[0].clientY; touchCurrentY.current = e.touches[0].clientY; }}
-        onTouchMove={e => { touchCurrentY.current = e.touches[0].clientY; }}
+        onTouchStart={(e) => { touchStartY.current = e.touches[0].clientY; touchCurrentY.current = e.touches[0].clientY; }}
+        onTouchMove={(e) => { touchCurrentY.current = e.touches[0].clientY; }}
         onTouchEnd={() => { if (touchCurrentY.current - touchStartY.current > 80) setMobileOpen(false); }}
       >
-        {/* Drag handle — wskazówka wizualna do swipe */}
-        <div className="flex justify-center pt-3 pb-1 flex-shrink-0 cursor-grab active:cursor-grabbing">
-          <div className="w-10 h-1 rounded-full" style={{ background: "rgba(255,255,255,0.25)" }} />
-        </div>
+        <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" />
 
         {/* Header strip */}
-        <div className="flex items-center justify-between px-5 py-2 flex-shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#f81828] animate-pulse" />
-            <span className="text-sm font-black text-white tracking-wide">Media Bud</span>
-            <span className="text-xs text-gray-600 font-medium">Skład budowlany</span>
+        <div className="flex flex-shrink-0 items-center justify-between border-b border-white/7 px-5 py-4">
+          <div className="flex items-center gap-3">
+            <div className="h-2 w-2 rounded-full bg-[#f81828] animate-pulse" />
+            <div>
+              <span
+                className="block font-black uppercase tracking-tighter text-xl text-white"
+                style={{ fontFamily: "'Rajdhani', 'Barlow Condensed', Inter, sans-serif" }}
+              >
+                MEDIA<span style={{ color: "#f81828" }}>BUD</span>
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#888888]">Skład budowlany</span>
+            </div>
           </div>
           <button
             ref={closeBtnRef}
-            className="p-2 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-colors"
+            className="rounded-lg border border-[#2d2d2d] bg-[#111111] p-2 text-[#888888] transition-colors hover:border-[#f81828]/60 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
             onClick={() => setMobileOpen(false)}
             aria-label="Zamknij menu"
           >
-            <X className="w-4 h-4" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto overscroll-contain">
-
           {/* Contact strip */}
-          <div className="flex items-center justify-around py-3 px-4"
-            style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: "#090909" }}>
-            <a href="tel:+48509567213"
-              className="flex items-center gap-2 text-xs font-bold text-[#f81828] active:opacity-70"
-              onClick={() => trackNav('phone', 'mobile_contact')}>
-              <Phone className="w-4 h-4" />509 567 213
+          <div className="flex items-center justify-around border-b border-white/5 bg-[#090909] px-4 py-3">
+            <a
+              href="tel:+48509567213"
+              className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#f81828] active:opacity-70 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+              onClick={() => trackNav("phone", "mobile_contact")}
+            >
+              <Phone className="h-4 w-4" />509 567 213
             </a>
-            <a href="mailto:sprzedaz@mediabud.pl"
-              className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors active:opacity-70">
-              <Mail className="w-4 h-4" />Email
+            <a
+              href="mailto:sprzedaz@mediabud.pl"
+              className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#888888] transition-colors hover:text-white active:opacity-70 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+            >
+              <Mail className="h-4 w-4" />Email
             </a>
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-600">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />Pon–Pt 7–17
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888888]">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />Pon–Pt 7–17
             </span>
           </div>
 
           {/* Category label */}
-          <div className="px-4 pt-4 pb-2">
-            <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Kategorie produktów</p>
+          <div className="px-4 pb-2 pt-4">
+            <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">Kategorie produktów</p>
           </div>
 
           {/* Category icon grid (mobile) — 4 columns, thumb-sized targets */}
           <div className="grid grid-cols-4 gap-1 px-3 pb-2">
-            {categories.map(cat => (
+            {categories.map((cat) => (
               <Link
                 key={cat.id}
                 to={`/kategoria/${cat.slug}`}
-                className="flex flex-col items-center gap-1.5 py-3 px-1 rounded-xl transition-all active:scale-95"
-                style={{ color: "#9ca3af", minHeight: "72px" }}
-                onClick={() => { setMobileOpen(false); trackNav(cat.name, 'mobile_L1', cat.slug); }}
+                className="flex min-h-[72px] flex-col items-center gap-1.5 rounded-xl border border-transparent px-1 py-3 text-[#888888] transition-all active:scale-95 hover:border-[#f81828]/40 hover:bg-[#f81828]/10 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                onClick={() => { setMobileOpen(false); trackNav(cat.name, "mobile_L1", cat.slug); }}
               >
-                {CAT_ICONS[cat.slug] ?? <Package className="w-5 h-5" />}
-                <span className="text-[8px] font-bold text-center leading-tight line-clamp-2">{cat.name}</span>
+                {CAT_ICONS[cat.slug] ?? <Package className="h-5 w-5" />}
+                <span className="line-clamp-2 text-center text-[8px] font-bold uppercase leading-tight tracking-[0.08em]">{cat.name}</span>
               </Link>
             ))}
           </div>
 
           {/* Ostatnio oglądane (localStorage) */}
           {recentlyViewed.length > 0 && (
-            <div className="px-4 pt-3 pb-2">
-              <div className="h-px mb-3" style={{ background: "rgba(255,255,255,0.06)" }} />
-              <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-2">Ostatnio oglądane</p>
+            <div className="px-4 pb-2 pt-3">
+              <div className="mb-3 h-px bg-white/6" />
+              <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-[#f81828]">Ostatnio oglądane</p>
               <div className="flex gap-2 overflow-x-auto pb-1">
                 {recentlyViewed.map((item) => (
                   <Link
                     key={item.slug}
                     to={`/produkt/${item.slug}`}
-                    className="flex-shrink-0 flex flex-col items-center gap-1 p-2 rounded-xl transition-all active:scale-95"
-                    style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", minWidth: "72px", maxWidth: "80px" }}
-                    onClick={() => { setMobileOpen(false); trackNav(item.name, 'mobile_recent', item.slug); }}
+                    className="flex flex-shrink-0 flex-col items-center gap-1 rounded-xl border border-white/5 bg-white/4 p-2 transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                    onClick={() => setMobileOpen(false)}
                   >
                     {item.image ? (
-                      <img src={item.image} alt={item.name} className="w-10 h-10 object-cover rounded-lg" />
+                      <img src={item.image} alt={item.name} className="h-10 w-10 rounded-lg object-cover" />
                     ) : (
-                      <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(248,24,40,0.12)" }}>
-                        <Package className="w-5 h-5 text-[#f81828]" />
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#f81828]/12">
+                        <Package className="h-5 w-5 text-[#f81828]" />
                       </div>
                     )}
-                    <span className="text-[8px] text-gray-400 font-medium text-center line-clamp-2 leading-tight">{item.name}</span>
+                    <span className="line-clamp-2 text-center text-[8px] font-medium leading-tight text-[#888888]">{item.name}</span>
                   </Link>
                 ))}
               </div>
@@ -806,43 +856,41 @@ export default function Header() {
           )}
 
           {/* Quick links */}
-          <div className="px-4 py-2 space-y-1">
-            <div className="h-px mb-3" style={{ background: "rgba(255,255,255,0.06)" }} />
+          <div className="space-y-1 px-4 py-2">
+            <div className="mb-3 h-px bg-white/6" />
             {[
               { to: "/blog", label: "Blog techniczny" },
               { to: "/o-firmie", label: "O firmie" },
               { to: "/uslugi", label: "Nasze usługi" },
               { to: "/realizacje", label: "Realizacje" },
-            ].map(link => (
+            ].map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className="flex items-center justify-between px-3 py-3 rounded-xl text-sm font-semibold text-gray-400 hover:text-white active:bg-white/10 transition-colors"
-                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)" }}
-                onClick={() => { setMobileOpen(false); trackNav(link.label, 'mobile_secondary', link.to); }}
+                className="flex items-center justify-between rounded-xl border border-white/4 bg-white/2 px-3 py-3 text-sm font-bold uppercase tracking-[0.08em] text-[#888888] transition-colors hover:border-[#f81828]/40 hover:bg-[#f81828]/10 hover:text-white active:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                onClick={() => { setMobileOpen(false); trackNav(link.label, "mobile_secondary", link.to); }}
               >
-                {link.label}<ArrowRight className="w-4 h-4 text-gray-600" />
+                {link.label}<ArrowRight className="h-4 w-4 text-[#f81828]" />
               </Link>
             ))}
           </div>
 
           {/* CTA buttons */}
-          <div className="px-4 pt-2 pb-6 space-y-2">
-            <div className="h-px mb-2" style={{ background: "rgba(255,255,255,0.06)" }} />
+          <div className="space-y-2 px-4 pb-6 pt-2">
+            <div className="mb-2 h-px bg-white/6" />
             <Link
               to="/kontakt"
-              className="flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#f81828] text-white text-sm font-black hover:bg-[#c8000f] transition-colors active:scale-95"
-              onClick={() => { setMobileOpen(false); trackNav('Zapytaj o ofertę', 'mobile_cta'); }}
+              className="flex items-center justify-center gap-2 rounded-xl bg-[#f81828] py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#c8000f] active:scale-95 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+              onClick={() => { setMobileOpen(false); trackNav("Zapytaj o ofertę", "mobile_cta"); }}
             >
-              <Mail className="w-4 h-4" />Zapytaj o ofertę
+              <Mail className="h-4 w-4" />Zapytaj o ofertę
             </Link>
             <a
               href="tel:+48509567213"
-              className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-gray-300 transition-colors active:scale-95"
-              style={{ border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)" }}
+              className="flex items-center justify-center gap-2 rounded-xl border border-[#2d2d2d] bg-[#111111] py-3 text-sm font-semibold uppercase tracking-[0.08em] text-gray-300 transition-colors hover:border-[#f81828]/60 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
               onClick={() => setMobileOpen(false)}
             >
-              <Phone className="w-4 h-4" />+48 509 567 213
+              <Phone className="h-4 w-4" />+48 509 567 213
             </a>
           </div>
         </div>

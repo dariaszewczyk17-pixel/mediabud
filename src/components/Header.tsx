@@ -478,13 +478,27 @@ export default function Header() {
                             </Link>
                           </div>
 
-                          {/* Col 2: Lista podkategorii (L1) */}
+                          {/* Col 2: Lista podkategorii (L1) — z wyszukiwarką */}
                           <div className="w-52 flex-shrink-0 border-r border-white/5 pr-4">
                             <div className="text-[9px] text-gray-600 uppercase tracking-widest font-bold mb-2 flex items-center gap-1.5">
                               <span className="w-2 h-px bg-[#f81828]" />Podkategorie
                             </div>
-                            <div className="space-y-0.5 overflow-y-auto" style={{ maxHeight: "280px" }}>
-                              {cat.children.map(sub => (
+                            {/* Mini search in mega-menu */}
+                            <div className="relative mb-2">
+                              <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-600 pointer-events-none" />
+                              <input
+                                type="text"
+                                placeholder="Szukaj kategorii..."
+                                value={megaSearch}
+                                onChange={e => setMegaSearch(e.target.value)}
+                                className="w-full pl-6 pr-2 py-1.5 text-[11px] rounded-lg outline-none text-gray-300 placeholder-gray-600"
+                                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
+                              />
+                            </div>
+                            <div className="space-y-0.5 overflow-y-auto" style={{ maxHeight: "260px" }}>
+                              {cat.children
+                                .filter(sub => !megaSearch || sub.name.toLowerCase().includes(megaSearch.toLowerCase()))
+                                .map(sub => (
                                 <div key={sub.id}
                                   onMouseEnter={() => setActiveSubMenu(sub.id)}
                                   className={`group/sub flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-all duration-150 ${
@@ -492,7 +506,7 @@ export default function Header() {
                                       ? "bg-[#f81828]/15 text-white"
                                       : "text-gray-400 hover:bg-[#f81828]/10 hover:text-white"
                                   }`}>
-                                  <Link to={`/kategoria/${sub.slug}`} onClick={() => setActiveMenu(null)}
+                                  <Link to={`/kategoria/${sub.slug}`} onClick={() => { setActiveMenu(null); trackNav(sub.name, 'desktop_L2', sub.slug); }}
                                     className="flex items-center gap-2 flex-1 min-w-0 text-[12px] font-medium">
                                     <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors ${activeSubMenu === sub.id ? "bg-[#f81828]" : "bg-[#f81828]/40 group-hover/sub:bg-[#f81828]"}`} />
                                     <span className="truncate">{sub.name}</span>

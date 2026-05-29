@@ -13,6 +13,7 @@ import {
   ArrowUpDown,
 } from "lucide-react";
 import { useMemo } from "react";
+import { useSEO } from "@/hooks/useSEO";
 import { products as staticProducts } from "@/data/products";
 import { useAllProducts } from "@/hooks/useSanityData";
 import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
@@ -46,6 +47,14 @@ export default function SearchResultsPage() {
   const newOnly = searchParams.get("new") === "1";
   const sortBy = (searchParams.get("sort") as SortOption) || DEFAULT_SORT;
   const { data: sanityProducts } = useAllProducts();
+
+  useSEO({
+    title: query ? `Wyniki dla: "${query}" | Media Bud` : "Wyszukiwarka produktów | Media Bud",
+    description: query && results.length > 0
+      ? `Znaleziono ${results.length} produktów dla zapytania "${query}". Sklep budowlany Media Bud Lublin.`
+      : "Wyszukaj materiały budowlane w katalogu Media Bud.",
+    noIndex: true,
+  });
 
   const mergedProducts = useMemo(() => {
     const sanityLegacyProducts = ((sanityProducts as SanityProduct[] | undefined) ?? []).map(sanityProductToLegacy);

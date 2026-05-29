@@ -128,3 +128,4 @@
 [2026-05-29 16:38] DONE: sidebar top-24→calc(var(--header-h,96px)+8px) | useSEO dodane do ProductDetail + CategoryPage (title/description/canonical/og:type=product) | npm run build ✅ | pipeline v4 działa w tle (V4: ~1303 produktów, OLD: ~5188)
 [2026-05-29 16:38] Pipeline v4 w toku; sidebar fix+useSEO+build done
 [2026-05-29 16:42] START: wygląd sklepu — czytam Home.tsx + Commerce.tsx
+[2026-05-29 16:46] Commit+push: dark theme Home + sidebar + useSEO. Pipeline OLD: offset 7000, ~6008 done.

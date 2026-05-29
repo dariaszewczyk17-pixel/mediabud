@@ -35,7 +35,6 @@ const TRUST_BADGES = [
 ];
 
 export default function Footer() {
-  const year = new Date().getFullYear();
   const topCats = categories.slice(0, 8);
   const [email, setEmail] = useState("");
   const [sent, setSent]   = useState(false);
@@ -45,258 +44,168 @@ export default function Footer() {
     if (email.includes("@")) setSent(true);
   };
 
+  const socialLinks = [
+    { icon: <Facebook className="w-4 h-4" />, href: "https://facebook.com/mediabud", label: "Facebook" },
+    { icon: <Instagram className="w-4 h-4" />, href: "https://instagram.com/mediabud", label: "Instagram" },
+    { icon: <Youtube className="w-4 h-4" />, href: "https://youtube.com", label: "YouTube" },
+  ];
+
   return (
-    <footer className="text-gray-300" style={{ background: "#080808" }}>
-
-      {/* ── Newsletter CTA bar ── */}
-      <div className="relative overflow-hidden" style={{ background: "#f81828" }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 10% 50%, #fff 0%, transparent 50%), radial-gradient(circle at 90% 50%, #fff 0%, transparent 50%)" }} />
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <h3 className="font-display font-black text-white text-xl mb-1">Bądź na bieżąco z naszą ofertą</h3>
-              <p className="text-red-100 text-sm">Promocje, nowe produkty i porady techniczne — prosto na Twoją skrzynkę.</p>
-            </div>
-            {sent ? (
-              <div className="flex items-center gap-2 text-white font-bold text-sm bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl py-3 px-5 flex-shrink-0">
-                <CheckCircle2 className="w-5 h-5" />
-                Dziękujemy za zapis!
-              </div>
-            ) : (
-              <form onSubmit={handleNewsletter} className="flex gap-2 w-full md:w-auto md:min-w-[360px] flex-shrink-0">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="Twój adres e-mail..."
-                  required
-                  className="flex-1 h-10 px-4 rounded-l-xl bg-white/15 backdrop-blur-sm border border-white/20 text-white placeholder:text-red-200 text-sm focus:outline-none focus:bg-white/25 transition-all"
-                />
-                <button
-                  type="submit"
-                  className="h-10 px-5 bg-black/30 hover:bg-black/50 text-white font-bold rounded-r-xl flex items-center gap-2 transition-colors text-sm flex-shrink-0 border border-white/10"
-                >
-                  Zapisz <Send className="w-3.5 h-3.5" />
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Trust badges bar ── */}
-      <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="container mx-auto px-4 py-5">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {TRUST_BADGES.map((b, i) => (
-              <div key={i} className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
-                  style={{ background: "rgba(248,24,40,0.10)", border: "1px solid rgba(248,24,40,0.18)", color: "#f81828" }}
-                >
-                  {b.icon}
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-white leading-tight">{b.label}</div>
-                  <div className="text-xs text-gray-600">{b.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Main footer content ── */}
-      <div className="relative container mx-auto px-4 py-12">
-        {/* Grid pattern bg */}
-        <div className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "linear-gradient(rgba(248,24,40,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.025) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
-          {/* Col 1: Brand */}
-          <div className="space-y-5">
-            {/* Logo */}
-            <Link to="/" className="inline-flex items-center group">
-              <img
-                src="/images/logo-mediabud-main.png"
-                alt="Media Bud – Skład Budowlany"
-                className="h-10 object-contain group-hover:brightness-110 transition-all"
-                style={{ maxWidth: "150px" }}
-              />
-            </Link>
-
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Profesjonalny skład budowlany w Lublinie. Oferujemy szeroki asortyment materiałów budowlanych,
-              chemii budowlanej, izolacji, dachówek i systemów elewacyjnych dla firm i klientów indywidualnych.
-            </p>
-
-            {/* Social */}
-            <div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest mb-2.5">Śledź nas</div>
-              <div className="flex items-center gap-2">
-                {[
-                  { icon: <Facebook className="w-4 h-4" />, href: "https://facebook.com/mediabud", label: "Facebook" },
-                  { icon: <Instagram className="w-4 h-4" />, href: "https://instagram.com/mediabud", label: "Instagram" },
-                  { icon: <Youtube className="w-4 h-4" />, href: "https://youtube.com", label: "YouTube" },
-                ].map(s => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="w-9 h-9 rounded-xl bg-gray-800 hover:bg-primary flex items-center justify-center transition-all duration-200 hover:scale-105"
-                  >
-                    {s.icon}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Col 2: Categories */}
+    <footer style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }} className="pt-16 pb-8 text-gray-300">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
-            <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2">
-              <span className="w-3 h-0.5 bg-primary" />
-              Kategorie
-            </h3>
-            <ul className="space-y-1.5">
-              {topCats.map(cat => (
+            <Link to="/" className="inline-block mb-4">
+              <div className="font-black text-2xl text-white uppercase tracking-tighter mb-4"
+                style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
+                MEDIA<span style={{ color: "#f81828" }}>BUD</span>
+              </div>
+            </Link>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: "#888" }}>
+              Profesjonalna hurtownia materiałów budowlanych w Lublinie. Kompleksowe wsparcie od projektu po realizację.
+            </p>
+            <div className="flex items-center gap-2">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200"
+                  style={{ border: "1px solid #2d2d2d", color: "#888", background: "#111" }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "#f81828";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#f81828";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "#2d2d2d";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#888";
+                  }}
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
+              Produkty
+            </h4>
+            <ul className="space-y-3">
+              {topCats.map((cat) => (
                 <li key={cat.id}>
                   <Link
                     to={`/kategoria/${cat.slug}`}
-                    className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors group"
+                    className="text-sm transition-colors duration-200 inline-flex items-center gap-2"
+                    style={{ color: "#888" }}
+                    onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#fff"; }}
+                    onMouseLeave={e => { (e.target as HTMLAnchorElement).style.color = "#888"; }}
                   >
-                    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-1 transition-all" />
+                    <ChevronRight className="w-3.5 h-3.5" />
                     {cat.name}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  to="/produkty"
-                  className="flex items-center gap-1 text-sm text-primary hover:text-red-400 transition-colors font-semibold mt-1"
-                >
-                  Wszystkie kategorie <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Col 3: Quick links + Services */}
           <div>
-            <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2">
-              <span className="w-3 h-0.5 bg-primary" />
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
               Informacje
-            </h3>
-            <ul className="space-y-1.5 mb-6">
-              {QUICK_LINKS.map(l => (
+            </h4>
+            <ul className="space-y-3 mb-6">
+              {QUICK_LINKS.slice(0, 6).map((l) => (
                 <li key={l.label}>
                   <Link
                     to={l.to}
-                    className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors group"
+                    className="text-sm transition-colors duration-200 inline-flex items-center gap-2"
+                    style={{ color: "#888" }}
+                    onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#fff"; }}
+                    onMouseLeave={e => { (e.target as HTMLAnchorElement).style.color = "#888"; }}
                   >
-                    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-1 transition-all" />
+                    <ChevronRight className="w-3.5 h-3.5" />
                     {l.label}
                   </Link>
                 </li>
               ))}
             </ul>
             <div>
-              <h4 className="text-xs text-gray-500 uppercase tracking-widest mb-2">Nasze usługi</h4>
-              <ul className="space-y-1">
-                {SERVICES.map(s => (
-                  <li key={s} className="text-xs text-gray-500 flex items-start gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-primary/60 flex-shrink-0 mt-1.5" />
-                    {s}
+              <h4 className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
+                Usługi
+              </h4>
+              <ul className="space-y-2">
+                {SERVICES.slice(0, 4).map((service) => (
+                  <li key={service} className="text-sm" style={{ color: "#888" }}>
+                    {service}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          {/* Col 4: Contact */}
           <div>
-            <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2">
-              <span className="w-3 h-0.5 bg-primary" />
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
               Kontakt
-            </h3>
-            <ul className="space-y-4">
-              <li>
-                <a href="tel:+48509567213" className="flex items-start gap-3 group">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors mt-0.5">
-                    <Phone className="w-3.5 h-3.5 text-primary group-hover:text-white transition-colors" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Telefon</div>
-                    <div className="text-white font-semibold text-sm group-hover:text-primary transition-colors">+48 509 567 213</div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="mailto:sprzedaz@mediabud.pl" className="flex items-start gap-3 group">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors mt-0.5">
-                    <Mail className="w-3.5 h-3.5 text-primary group-hover:text-white transition-colors" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-gray-500 mb-0.5">E-mail</div>
-                    <div className="text-white font-semibold text-sm group-hover:text-primary transition-colors">sprzedaz@mediabud.pl</div>
-                  </div>
-                </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <MapPin className="w-3.5 h-3.5 text-primary" />
-                </div>
-                <div>
-                  <div className="text-xs text-gray-500 mb-0.5">Adres</div>
-                  <div className="text-white font-semibold text-sm">Lublin</div>
-                  <div className="text-xs text-gray-500">woj. lubelskie</div>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Clock className="w-3.5 h-3.5 text-primary" />
-                </div>
-                <div>
-                  <div className="text-xs text-gray-500 mb-0.5">Godziny otwarcia</div>
-                  <div className="text-white font-semibold text-sm">Pon–Pt: 7:00–17:00</div>
-                  <div className="text-xs text-gray-400">Sob: 8:00–14:00</div>
-                </div>
-              </li>
-            </ul>
+            </h4>
+            <div className="space-y-3 mb-6 text-sm" style={{ color: "#888" }}>
+              <a
+                href="tel:+48509567213"
+                className="block transition-colors duration-200"
+                style={{ color: "#888" }}
+                onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#fff"; }}
+                onMouseLeave={e => { (e.target as HTMLAnchorElement).style.color = "#888"; }}
+              >
+                +48 509 567 213
+              </a>
+              <a
+                href="mailto:sprzedaz@mediabud.pl"
+                className="block transition-colors duration-200"
+                style={{ color: "#888" }}
+                onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#fff"; }}
+                onMouseLeave={e => { (e.target as HTMLAnchorElement).style.color = "#888"; }}
+              >
+                sprzedaz@mediabud.pl
+              </a>
+              <p>Lublin, ul. Chemiczna 8</p>
+            </div>
 
-            {/* CTA */}
-            <a
-              href="/kontakt"
-              className="mt-5 flex items-center justify-center gap-2 w-full bg-primary hover:bg-red-700 text-white text-sm font-bold py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
-            >
-              Zapytaj o ofertę <ArrowUpRight className="w-4 h-4" />
-            </a>
+            {sent ? (
+              <div className="rounded-lg px-4 py-3 text-sm font-semibold flex items-center gap-2"
+                style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.25)", color: "#fff" }}>
+                <CheckCircle2 className="w-4 h-4" /> Dziękujemy za zapis!
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletter} className="space-y-3">
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="Twój email"
+                    required
+                    className="flex-1 px-4 py-2 text-sm rounded-lg text-white placeholder-[#888] outline-none transition-all duration-200"
+                    style={{ background: "#1a1a1a", border: "1px solid #2d2d2d" }}
+                    onFocus={e => { (e.target as HTMLInputElement).style.borderColor = "#f81828"; }}
+                    onBlur={e => { (e.target as HTMLInputElement).style.borderColor = "#2d2d2d"; }}
+                  />
+                  <button
+                    type="submit"
+                    className="px-4 py-2 text-sm font-bold uppercase rounded-lg text-white"
+                    style={{ background: "#f81828", whiteSpace: "nowrap" }}
+                  >
+                    Zapisz się
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
-      </div>
 
-      {/* ── Bottom bar ── */}
-      <div className="border-t border-gray-800/60">
-        <div className="container mx-auto px-4 py-5">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
-            <div className="flex items-center gap-1.5">
-              <span>© {year} Media Bud – Skład Budowlany Lublin.</span>
-              <span>Wszelkie prawa zastrzeżone.</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link to="/polityka-prywatnosci" className="hover:text-gray-400 transition-colors">Polityka prywatności</Link>
-              <Link to="/regulamin" className="hover:text-gray-400 transition-colors">Regulamin</Link>
-              <Link to="/sitemap" className="hover:text-gray-400 transition-colors">Mapa strony</Link>
-            </div>
-            <div className="font-mono text-gray-700 text-xs">
-              mediabud.pl · Lublin
-            </div>
-          </div>
+        <div style={{ borderTop: "1px solid #1a1a1a" }} className="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs" style={{ color: "#888" }}>© 2026 Media Bud. Wszelkie prawa zastrzeżone.</p>
+          <p className="text-xs" style={{ color: "#444" }}>Lublin, ul. Chemiczna 8 | +48 509 567 213 | sprzedaz@mediabud.pl</p>
         </div>
       </div>
     </footer>

@@ -114,6 +114,18 @@ const features = [
   { icon: "🏗️", title: "Obsługa deweloperów", desc: "Indywidualne warunki handlowe, dedykowany opiekun, faktury zbiorcze i rabaty ilościowe dla firm." },
 ];
 
+const serviceCards = [
+  { segment: "B2C", tag: "PROGRAM", title: "Dom od podstaw", desc: "Parasolowy program MediaBud: od wyceny i harmonogramu po materiały, fachowców i realizację.", href: "#dom-od-podstaw" },
+  { segment: "B2C", tag: "BUDOWA", title: "Budowa domów Lublin", desc: "Kompleksowa budowa domu z lokalnym zapleczem materiałowym i wykonawczym.", href: "/uslugi/budowa-domow-lublin" },
+  { segment: "B2C", tag: "TERMO", title: "Termomodernizacja i ocieplenia", desc: "Ocieplenia, systemy ETICS i przygotowanie inwestycji pod lokalne programy wsparcia.", href: "/uslugi/termomodernizacja-ocieplenia" },
+  { segment: "B2C", tag: "POD KLUCZ", title: "Wykończenia wnętrz pod klucz", desc: "Koordynacja materiałów i ekip wykończeniowych dla domów, mieszkań i lokali.", href: "/uslugi/wykonczenia-wnetrz-pod-klucz" },
+  { segment: "B2C", tag: "70 M²", title: "Budowa domów do 70 m²", desc: "Małe domy z naciskiem na prostą logistykę, energooszczędność i przewidywalny proces.", href: "/uslugi/budowa-domow-do-70m2" },
+  { segment: "Oba", tag: "DACHY", title: "Usługi dekarskie Lublin", desc: "Pokrycia dachowe, wymiany i prace dekarskie dla klientów prywatnych i firm.", href: "/uslugi/uslugi-dekarskie-lublin" },
+  { segment: "Oba", tag: "ELEWACJE", title: "Elewacje i tynki Lublin", desc: "Systemowe elewacje i tynki zewnętrzne dla domów oraz obiektów użytkowych.", href: "/uslugi/elewacje-tynki-lublin" },
+  { segment: "B2B", tag: "OBIEKTY", title: "Remonty B2B Lublin", desc: "Remonty dla galerii, szkół i obiektów użyteczności publicznej z logistyką MediaBud.", href: "/uslugi/remonty-b2b-lublin" },
+  { segment: "B2C", tag: "PODDASZA", title: "Adaptacja poddaszy Lublin", desc: "Suche zabudowy, izolacje i wykończenie skosów z wykorzystaniem sprawdzonych systemów.", href: "/uslugi/adaptacja-poddaszy-lublin" },
+];
+
 const brands = [
   { name: "Weber",         color: "#0072CE", short: "We" },
   { name: "Ceresit",       color: "#E30613", short: "Ce" },
@@ -1061,51 +1073,72 @@ export default function Home() {
       {/* ── Nasze usługi ── */}
       <section className="py-24" style={{ background: "#000", borderTop: "1px solid #1a1a1a" }}>
         <div className="container mx-auto px-4">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.25em] mb-3" style={{ color: "#f81828" }}>
-            — NASZE USŁUGI —
+          <p className="text-center text-xs font-black uppercase tracking-[0.28em] mb-3" style={{ color: "#f81828" }}>
+            — NASZE USŁUGI WYKONAWCZE —
           </p>
           <h2
-            className="text-center font-black uppercase text-white mb-4"
-            style={{ fontSize: "clamp(1.75rem,4vw,3.5rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}
+            className="text-center font-black uppercase text-white mb-4 break-words"
+            style={{ fontSize: "clamp(1.9rem,4vw,4.5rem)", letterSpacing: "-0.03em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", overflowWrap: "anywhere" }}
           >
-            Kompleksowe wsparcie
+            Budujemy, wykańczamy i modernizujemy
           </h2>
-          <p className="text-center max-w-2xl mx-auto mb-16 leading-relaxed" style={{ color: "#888" }}>
-            Na każdym etapie Twojego projektu budowlanego — od doradztwa technicznego po realizację dostaw.
+          <p className="text-center max-w-3xl mx-auto mb-14 leading-relaxed text-sm md:text-base" style={{ color: "#888" }}>
+            MediaBud łączy skład budowlany, doradztwo techniczne i usługi wykonawcze dla klientów indywidualnych oraz biznesowych w Lublinie i województwie lubelskim.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: "🏗️", title: "Dom od podstaw", desc: "Kompleksowe wsparcie w budowie domu od projektu po wykończenie.", tag: "PROGRAM SPECJALNY", href: "#dom-od-podstaw" },
-              { icon: "💬", title: "Doradztwo techniczne", desc: "Konsultacje telefoniczne i mailowe. Dobór systemu ociepleń, analiza projektu.", tag: "BEZPŁATNE", href: "/kontakt" },
-              { icon: "🚚", title: "Usługi transportowe", desc: "Dostawa materiałów na terenie Lublina i województwa lubelskiego.", tag: "DOSTAWA 24H", href: "/kontakt" },
-              { icon: "👥", title: "Sieć specjalistów", desc: "Sprawdzeni tynkarze, ekipy montażowe, dekarze i instalatorzy.", tag: "ZWERYFIKOWANI", href: "/kontakt" },
-            ].map((service, i) => (
-              <div
-                key={i}
-                className="group rounded-xl p-6 flex flex-col transition-all duration-300"
-                style={{ background: "#0f0f0f", border: "1px solid #2d2d2d" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = "rgba(248,24,40,0.4)"; el.style.transform = "translateY(-4px)"; el.style.boxShadow = "0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(248,24,40,0.1)"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = "#2d2d2d"; el.style.transform = "translateY(0)"; el.style.boxShadow = "none"; }}
-              >
-                <div className="text-3xl mb-3">{service.icon}</div>
-                <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded mb-3 self-start"
-                  style={{ color: "#f81828", background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.2)" }}>
-                  {service.tag}
-                </span>
-                <h3 className="font-bold text-white text-sm uppercase tracking-wide mb-2">{service.title}</h3>
-                <p className="text-sm leading-relaxed flex-1" style={{ color: "#888" }}>{service.desc}</p>
-                <a
-                  href={service.href}
-                  className="mt-4 text-xs font-bold uppercase tracking-wider transition-colors duration-200"
-                  style={{ color: "#888" }}
-                  onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#f81828"; }}
-                  onMouseLeave={e => { (e.target as HTMLAnchorElement).style.color = "#888"; }}
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-6 mb-8">
+            <div className="rounded-2xl p-6 md:p-7" style={{ background: "#0f0f0f", border: "1px solid #2d2d2d", boxShadow: "0 16px 40px rgba(0,0,0,0.28)" }}>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] mb-2" style={{ color: "#f81828" }}>B2C</p>
+              <h3 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-black uppercase text-white leading-[0.95] break-words mb-3" style={{ overflowWrap: "anywhere" }}>
+                Dom od podstaw i realizacje prywatne
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#888" }}>
+                Budowa domu, domy do 70 m², termomodernizacja, wykończenia pod klucz i adaptacje poddaszy — wszystko oparte o lokalną logistykę MediaBud oraz sprawdzone marki Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor, Bolix, Termo Organika, Baumit, Rigips i Ursa.
+              </p>
+            </div>
+            <div className="rounded-2xl p-6 md:p-7" style={{ background: "#0f0f0f", border: "1px solid rgba(255,107,53,0.28)", boxShadow: "0 16px 40px rgba(0,0,0,0.28)" }}>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] mb-2" style={{ color: "#ff6b35" }}>B2B</p>
+              <h3 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-black uppercase text-white leading-[0.95] break-words mb-3" style={{ overflowWrap: "anywhere" }}>
+                Galerie, szkoły i obiekty użytkowe
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#888" }}>
+                Realizujemy także remonty i modernizacje dla firm oraz instytucji, a wspólne usługi dekarskie i elewacyjne obsługują zarówno inwestycje prywatne, jak i obiektowe.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {serviceCards.map((service, i) => {
+              const isB2B = service.segment === "B2B";
+              return (
+                <Link
+                  key={`${service.title}-${i}`}
+                  to={service.href}
+                  className="group rounded-2xl p-6 flex flex-col transition-all duration-300"
+                  style={{ background: "#0f0f0f", border: `1px solid ${isB2B ? "rgba(255,107,53,0.24)" : "#2d2d2d"}`, boxShadow: "0 16px 40px rgba(0,0,0,0.24)" }}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.transform = "translateY(-4px)"; el.style.boxShadow = isB2B ? "0 18px 42px rgba(0,0,0,0.38), 0 0 20px rgba(255,107,53,0.12)" : "0 18px 42px rgba(0,0,0,0.38), 0 0 20px rgba(248,24,40,0.12)"; el.style.borderColor = isB2B ? "rgba(255,107,53,0.46)" : "rgba(248,24,40,0.42)"; }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.transform = "translateY(0)"; el.style.boxShadow = "0 16px 40px rgba(0,0,0,0.24)"; el.style.borderColor = isB2B ? "rgba(255,107,53,0.24)" : "#2d2d2d"; }}
                 >
-                  Dowiedz się więcej →
-                </a>
-              </div>
-            ))}
+                  <div className="flex items-center justify-between gap-4 mb-5">
+                    <span className="text-[10px] font-black uppercase tracking-[0.28em] px-3 py-1.5 rounded-full"
+                      style={{ color: isB2B ? "#ff6b35" : "#f81828", background: isB2B ? "rgba(255,107,53,0.10)" : "rgba(248,24,40,0.10)", border: `1px solid ${isB2B ? "rgba(255,107,53,0.24)" : "rgba(248,24,40,0.24)"}` }}>
+                      {service.segment}
+                    </span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.22em]" style={{ color: "#888" }}>{service.tag}</span>
+                  </div>
+                  <h3 className="font-display font-black uppercase text-white mb-3 leading-[1] break-words" style={{ fontSize: "clamp(1.25rem,2.4vw,2rem)", overflowWrap: "anywhere" }}>
+                    {service.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed flex-1" style={{ color: "#888" }}>{service.desc}</p>
+                  <div className="mt-5 pt-5 border-t border-[#1f1f1f] flex items-center justify-between gap-3">
+                    <span className="text-[11px] uppercase tracking-[0.2em]" style={{ color: "#888" }}>{service.href === "#dom-od-podstaw" ? "sekcja programu" : "podstrona usługi"}</span>
+                    <span className="text-xs font-black uppercase tracking-[0.22em] inline-flex items-center gap-2" style={{ color: isB2B ? "#ff6b35" : "#f81828" }}>
+                      Dowiedz się więcej <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

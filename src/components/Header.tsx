@@ -20,11 +20,11 @@ import { searchProducts } from "@/lib/productSearch";
 const CAT_ICONS: Record<string, React.ReactNode> = {
   "chemia-budowlana":      <FlaskConical  className="w-5 h-5" />,
   "dachy":                 <Home          className="w-5 h-5" />,
-  "farby-rozpuszczalniki": <Paintbrush    className="w-5 h-5" />,
+  "farby-i-rozpuszczalniki": <Paintbrush    className="w-5 h-5" />,
   "izolacje":              <Shield        className="w-5 h-5" />,
-  "narzedzia-mocowania":   <Wrench        className="w-5 h-5" />,
+  "narzedzia-i-mocowania":   <Wrench        className="w-5 h-5" />,
   "plytki":                <LayoutGrid    className="w-5 h-5" />,
-  "stropy-sciany":         <Layers        className="w-5 h-5" />,
+  "stropy-i-sciany":         <Layers        className="w-5 h-5" />,
   "sucha-zabudowa":        <Package       className="w-5 h-5" />,
   "sufity-podwieszane":    <Grid2X2       className="w-5 h-5" />,
   "posadzki":              <Minus         className="w-5 h-5" />,
@@ -33,11 +33,11 @@ const CAT_ICONS: Record<string, React.ReactNode> = {
 const CAT_IMAGES: Record<string, string> = {
   "chemia-budowlana":    "/images/cat-chemia_2.png",
   "dachy":               "/images/cat-dachy_2.png",
-  "farby-rozpuszczalniki": "/images/cat-farby_2.png",
+  "farby-i-rozpuszczalniki": "/images/cat-farby_2.png",
   "izolacje":            "/images/cat-ocieplenia_2.png",
-  "narzedzia-mocowania": "/images/cat-narzedzia_2.png",
+  "narzedzia-i-mocowania": "/images/cat-narzedzia_2.png",
   "plytki":              "/images/cat-plytki_2.png",
-  "stropy-sciany":       "/images/cat-sciany_2.png",
+  "stropy-i-sciany":       "/images/cat-sciany_2.png",
   "sucha-zabudowa":      "/images/cat-sucha-zabudowa_2.png",
 };
 

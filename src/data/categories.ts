@@ -169,7 +169,7 @@ export const categories: Category[] = [
   },
   {
     id: "farby",
-    slug: "farby-rozpuszczalniki",
+    slug: "farby-i-rozpuszczalniki",
     name: "Farby i rozpuszczalniki",
     icon: "paintbrush",
     description: "Szeroki wybór farb wewnętrznych, elewacyjnych, do drewna i metalu oraz rozpuszczalników.",
@@ -274,7 +274,7 @@ export const categories: Category[] = [
   },
   {
     id: "narzedzia",
-    slug: "narzedzia-mocowania",
+    slug: "narzedzia-i-mocowania",
     name: "Narzędzia i mocowania",
     icon: "wrench",
     description: "Narzędzia ręczne, elektryczne, pomiarowe i elementy mocujące dla profesjonalistów.",
@@ -416,8 +416,8 @@ export const categories: Category[] = [
     ]
   },
   {
-    id: "stropy-sciany",
-    slug: "stropy-sciany",
+    id: "stropy-i-sciany",
+    slug: "stropy-i-sciany",
     name: "Stropy i ściany",
     icon: "columns",
     description: "Materiały konstrukcyjne: bloczki, pustaki, belki stropowe, cegły, cement i stal zbrojeniowa.",

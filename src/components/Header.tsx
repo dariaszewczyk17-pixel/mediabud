@@ -55,12 +55,17 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [recentlyViewed, setRecentlyViewed] = useState<{name: string; slug: string; image?: string}[]>([]);
   const { items, openDrawer } = useWycena();
   const totalCount = items.reduce((s, i) => s + i.quantity, 0);
   const navigate  = useNavigate();
   const location  = useLocation();
   const searchRef = useRef<HTMLDivElement>(null);
   const menuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const touchStartY = useRef<number>(0);
+  const touchCurrentY = useRef<number>(0);
   const { data: sanityProducts } = useAllProducts();
   const { data: sanityTopCats }  = useAllCategories();
 
@@ -99,6 +104,21 @@ export default function Header() {
     setSearchResults([]);
     setSearchFocused(false);
   };
+
+  /* ── Mierz wysokość headera → ustaw --header-h + scroll-padding-top ── */
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (!headerRef.current) return;
+      const h = headerRef.current.offsetHeight;
+      document.documentElement.style.setProperty("--header-h", `${h}px`);
+      document.documentElement.style.setProperty("--scroll-padding", `${h + 8}px`);
+      document.documentElement.style.scrollPaddingTop = `${h + 8}px`;
+    };
+    updateHeaderHeight();
+    const ro = new ResizeObserver(updateHeaderHeight);
+    if (headerRef.current) ro.observe(headerRef.current);
+    return () => ro.disconnect();
+  }, [scrolled]);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 48);
@@ -140,6 +160,18 @@ export default function Header() {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMobileOpen(false); };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = mobileOpen ? "hidden" : "";
+
+    // Focus trap — przenieś focus na przycisk X przy otwarciu
+    if (mobileOpen) {
+      const t = setTimeout(() => closeBtnRef.current?.focus(), 80);
+      // Wczytaj ostatnio oglądane z localStorage
+      try {
+        const stored = localStorage.getItem("mediabud_recently_viewed");
+        if (stored) setRecentlyViewed(JSON.parse(stored).slice(0, 4));
+      } catch { /* ignore */ }
+      return () => { clearTimeout(t); document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+    }
+
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
@@ -155,7 +187,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50" style={{ filter: scrolled ? "drop-shadow(0 8px 32px rgba(0,0,0,0.9))" : "none", transition: "filter .3s" }}>
+    <header ref={headerRef} className="sticky top-0 z-50" style={{ filter: scrolled ? "drop-shadow(0 8px 32px rgba(0,0,0,0.9))" : "none", transition: "filter .3s" }}>
 
       {/* ════════════════════════════════════════════════
           ROW 1 — Top info bar (collapses on scroll)
@@ -664,21 +696,26 @@ export default function Header() {
       {/* Bottom Sheet Panel */}
       <nav
         id="mobile-nav"
-        role="navigation"
+        role="dialog"
+        aria-modal="true"
         aria-label="Menu mobilne"
         className={`lg:hidden fixed left-0 right-0 bottom-0 z-[60] transition-transform duration-300 ease-out ${mobileOpen ? "translate-y-0" : "translate-y-full"}`}
         style={{
           background: "#0d0d0d",
           borderTop: "2px solid #f81828",
           borderRadius: "20px 20px 0 0",
-          maxHeight: "88vh",
+          maxHeight: "72vh",
           display: "flex",
           flexDirection: "column",
+          willChange: "transform",
         }}
+        onTouchStart={e => { touchStartY.current = e.touches[0].clientY; touchCurrentY.current = e.touches[0].clientY; }}
+        onTouchMove={e => { touchCurrentY.current = e.touches[0].clientY; }}
+        onTouchEnd={() => { if (touchCurrentY.current - touchStartY.current > 80) setMobileOpen(false); }}
       >
-        {/* Drag handle */}
-        <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
-          <div className="w-10 h-1 rounded-full" style={{ background: "rgba(255,255,255,0.18)" }} />
+        {/* Drag handle — wskazówka wizualna do swipe */}
+        <div className="flex justify-center pt-3 pb-1 flex-shrink-0 cursor-grab active:cursor-grabbing">
+          <div className="w-10 h-1 rounded-full" style={{ background: "rgba(255,255,255,0.25)" }} />
         </div>
 
         {/* Header strip */}
@@ -690,6 +727,7 @@ export default function Header() {
             <span className="text-xs text-gray-600 font-medium">Skład budowlany</span>
           </div>
           <button
+            ref={closeBtnRef}
             className="p-2 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-colors"
             onClick={() => setMobileOpen(false)}
             aria-label="Zamknij menu"
@@ -738,6 +776,34 @@ export default function Header() {
               </Link>
             ))}
           </div>
+
+          {/* Ostatnio oglądane (localStorage) */}
+          {recentlyViewed.length > 0 && (
+            <div className="px-4 pt-3 pb-2">
+              <div className="h-px mb-3" style={{ background: "rgba(255,255,255,0.06)" }} />
+              <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-2">Ostatnio oglądane</p>
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {recentlyViewed.map((item) => (
+                  <Link
+                    key={item.slug}
+                    to={`/produkt/${item.slug}`}
+                    className="flex-shrink-0 flex flex-col items-center gap-1 p-2 rounded-xl transition-all active:scale-95"
+                    style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", minWidth: "72px", maxWidth: "80px" }}
+                    onClick={() => { setMobileOpen(false); trackNav(item.name, 'mobile_recent', item.slug); }}
+                  >
+                    {item.image ? (
+                      <img src={item.image} alt={item.name} className="w-10 h-10 object-cover rounded-lg" />
+                    ) : (
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(248,24,40,0.12)" }}>
+                        <Package className="w-5 h-5 text-[#f81828]" />
+                      </div>
+                    )}
+                    <span className="text-[8px] text-gray-400 font-medium text-center line-clamp-2 leading-tight">{item.name}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Quick links */}
           <div className="px-4 py-2 space-y-1">

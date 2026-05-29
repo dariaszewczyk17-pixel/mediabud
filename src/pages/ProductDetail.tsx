@@ -14,7 +14,7 @@ import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useWycena } from "@/hooks/useWycena";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { toast } from "sonner";
 
 /* ---------- tiny reveal hook ----------
@@ -57,6 +57,19 @@ export default function ProductDetail() {
     () => mergeProductSources(legacySanityProduct, staticProduct),
     [legacySanityProduct, staticProduct],
   );
+
+  /* ── Zapisz do "Ostatnio oglądane" w localStorage ── */
+  useEffect(() => {
+    if (!product) return;
+    try {
+      const KEY = "mediabud_recently_viewed";
+      const stored = localStorage.getItem(KEY);
+      const prev: {name: string; slug: string; image?: string}[] = stored ? JSON.parse(stored) : [];
+      const entry = { name: product.name, slug: product.slug, image: product.images?.[0] };
+      const updated = [entry, ...prev.filter(p => p.slug !== product.slug)].slice(0, 8);
+      localStorage.setItem(KEY, JSON.stringify(updated));
+    } catch { /* ignore */ }
+  }, [product?.slug]);
 
   const categorySlug = (sanityProduct as any)?.categorySlug ?? product?.categorySlug ?? '';
   const { data: sanityRelated } = useRelatedProducts(categorySlug, slug ?? '');

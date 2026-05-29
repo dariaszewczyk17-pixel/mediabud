@@ -138,13 +138,13 @@ const brands = [
 ];
 
 const brandLogos = [
-  { name: "Weber", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/images_4cda83606a6d42658ace1a422cdb2bdd.png" },
-  { name: "Knauf", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/images%20%281%29_a580c754733a435c8d80ed98f55a2c48.png" },
-  { name: "Atlas", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/images%20%282%29_745c7971373b4fe0944f92114b3561b0.png" },
-  { name: "Baumit", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/logo_maleB_rgb_5224c955269f4d609eec1a776c56b0b1.jpg" },
-  { name: "Rockwool", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/RGB%20ROCKWOOL%C2%AE%20logo%20-%20Primary%20Colour%20RGB_196a37e190f64344a8f547b638c05f16.jpg" },
-  { name: "Rigips", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/rigips-saint-gobain-logo-png_seeklogo-259520_74ca93fb5ba4404cb962e4582baa88e2.png" },
-  { name: "Ursa", url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/Ursa-Logo_4062e70ef71e422eb154bdfd0fcdff14.png" },
+  { name: "Weber",    url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/weber_nobg_53dc66390da1474f95fcc39a6ec2d7e8.png" },
+  { name: "Knauf",   url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/knauf_nobg_36a2e4fd1f654d2c841b2ea51a483802.png" },
+  { name: "Atlas",   url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/atlas_nobg_a203d487cf294a0d8162b69a1b6e26d5.png" },
+  { name: "Baumit",  url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/baumit_nobg_98504199003847f3a1f84102f3f03717.png" },
+  { name: "Rockwool",url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/rockwool_nobg_e99470360f144a6e89f2b2fef38a861b.png" },
+  { name: "Rigips",  url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/rigips_nobg_15aba15155d44c75aca51dc5eb8399dd.png" },
+  { name: "Ursa",    url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/ursa_nobg_505b266dca9e4614ab191bc7c1848b88.png" },
 ];
 
 /* ─── Testimonials ────────────────────────────────────────────── */
@@ -515,21 +515,21 @@ export default function Home() {
       <section
         ref={r7.ref as React.RefObject<HTMLElement>}
         className={`py-10 overflow-hidden transition-all duration-700 ${r7.visible ? "opacity-100" : "opacity-0"}`}
-        style={{ background: "#050505", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
+        style={{ background: "#fff", borderTop: "1px solid #e5e5e5", borderBottom: "1px solid #e5e5e5" }}
       >
         <div className="container mx-auto px-4 mb-6">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#888" }}>
+          <p className="text-center text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#555" }}>
             Nasi producenci
           </p>
         </div>
         <div className="relative overflow-hidden">
           <div
             className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, #050505, transparent)" }}
+            style={{ background: "linear-gradient(to right, #fff, transparent)" }}
           />
           <div
             className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, #050505, transparent)" }}
+            style={{ background: "linear-gradient(to left, #fff, transparent)" }}
           />
 
           <style>{`
@@ -549,9 +549,9 @@ export default function Home() {
                   alt={brand.name}
                   loading="lazy"
                   className="h-10 w-auto object-contain transition-all duration-300"
-                  style={{ filter: "grayscale(100%) brightness(0.5)", maxWidth: "120px" }}
-                  onMouseEnter={e => { (e.target as HTMLImageElement).style.filter = "grayscale(0%) brightness(1)"; }}
-                  onMouseLeave={e => { (e.target as HTMLImageElement).style.filter = "grayscale(100%) brightness(0.5)"; }}
+                  style={{ filter: "grayscale(0%) brightness(1) opacity(0.75)", maxWidth: "120px" }}
+                  onMouseEnter={e => { (e.target as HTMLImageElement).style.filter = "grayscale(0%) brightness(1) opacity(1)"; }}
+                  onMouseLeave={e => { (e.target as HTMLImageElement).style.filter = "grayscale(0%) brightness(1) opacity(0.75)"; }}
                 />
               </div>
             ))}
@@ -833,7 +833,7 @@ export default function Home() {
                 {f.icon}
               </div>
               <h3 className="font-display font-black text-white mb-2 text-base">{f.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
+              <p className="text-sm text-gray-300 leading-relaxed">{f.desc}</p>
             </div>
           ))}
         </div>
@@ -852,7 +852,7 @@ export default function Home() {
               <span className="w-4 h-0.5 bg-[#f81828]" />Doświadczenie
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-black text-white">Nasze realizacje</h2>
-            <p className="text-gray-500 mt-1 text-sm">Wybrane projekty, przy których dostarczyliśmy materiały</p>
+            <p className="text-gray-400 mt-1 text-sm">Wybrane projekty, przy których dostarczyliśmy materiały</p>
           </div>
           <Link to="/realizacje" className="hidden md:flex items-center gap-1 text-sm font-bold text-[#f81828] hover:underline">
             Wszystkie realizacje <ArrowRight className="w-4 h-4" />

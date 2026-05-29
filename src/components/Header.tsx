@@ -283,8 +283,8 @@ export default function Header() {
             <img
               src="https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/5j1eO4lOb5MqPjlHF7RIP1%20%E2%80%93%20ze%20zmianami_b734361ec694486192383a2f765df266.png"
               alt="Media Bud – Skład Budowlany"
-              className="h-10 w-auto object-contain transition-opacity duration-200 hover:opacity-80"
-              style={{ maxWidth: "160px" }}
+              className="h-16 w-auto object-contain transition-opacity duration-200 hover:opacity-80"
+              style={{ maxWidth: "220px" }}
             />
           </Link>
 
@@ -502,10 +502,8 @@ export default function Header() {
                   >
                     <div className="absolute inset-0 opacity-0 transition-opacity group-hover/icon:opacity-100" style={{ background: "rgba(248,24,40,0.07)" }} />
                     <div className={`absolute top-0 left-0 right-0 h-[2px] origin-left bg-[#f81828] transition-transform duration-200 ${activeMenu === cat.id ? "scale-x-100" : "scale-x-0 group-hover/icon:scale-x-100"}`} />
-                    <div className="relative z-10">
-                      {CAT_ICONS[cat.slug] ?? <Package className="h-6 w-6" />}
-                    </div>
-                    <span className="relative z-10 max-w-[80px] break-words text-center text-[10px] font-bold uppercase leading-tight tracking-[0.08em] hyphens-auto" style={{ wordBreak: "break-word" }}>
+
+                    <span className="relative z-10 max-w-[120px] break-words text-center text-[11px] font-bold uppercase leading-tight tracking-[0.06em] hyphens-auto" style={{ wordBreak: "break-word" }}>
                       {cat.name}
                     </span>
                     {cat.children && (

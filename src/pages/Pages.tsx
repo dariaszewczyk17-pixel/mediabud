@@ -249,19 +249,6 @@ export function AboutPage() {
     { value: "500+", label: "Zadowolonych klientów" },
     { value: "50+", label: "Partnerów-producentów" },
   ];
-  const values = [
-    { icon: <Award className="w-6 h-6 text-[#f81828]" />, title: "Jakość", desc: "Oferujemy wyłącznie produkty od renomowanych producentów z certyfikatami i atestami." },
-    { icon: <Users className="w-6 h-6 text-[#f81828]" />, title: "Fachowość", desc: "Nasz zespół to doświadczeni specjaliści z wieloletnią praktyką w budownictwie." },
-    { icon: <Star className="w-6 h-6 text-[#f81828]" />, title: "Zaufanie", desc: "Długoletnie relacje z klientami i partnerami budowane na rzetelności i uczciwości." },
-    { icon: <Truck className="w-6 h-6 text-[#f81828]" />, title: "Kompleksowość", desc: "Od zakupu materiałów po doradztwo techniczne i transport – wszystko w jednym miejscu." },
-  ];
-  const timeline = [
-    { year: "2008", title: "Założenie firmy", desc: "Media Bud otwiera pierwszy skład budowlany w Lublinie." },
-    { year: "2012", title: "Rozszerzenie oferty", desc: "Wprowadzamy pełną gamę systemów ociepleń ETICS i chemii budowlanej." },
-    { year: "2016", title: "Partnerstwa premium", desc: "Zostajemy autoryzowanym dystrybutorem Weber, Rockwool i Swisspor." },
-    { year: "2020", title: "Obsługa B2B", desc: "Uruchamiamy dedykowane programy dla deweloperów i firm budowlanych." },
-    { year: "2024", title: "Nowy sklep online", desc: "Uruchamiamy nową platformę e-commerce z pełnym katalogiem produktów." },
-  ];
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
@@ -312,44 +299,38 @@ export function AboutPage() {
           </h2>
           <p className="text-gray-400 leading-relaxed">Media Bud to więcej niż hurtownia budowlana. Jesteśmy partnerem w realizacji projektów budowlanych — od małych remontów domowych po duże inwestycje deweloperskie. Naszą misją jest dostarczanie wysokiej jakości materiałów budowlanych połączone z profesjonalnym doradztwem technicznym, które pomaga naszym klientom budować lepiej, szybciej i efektywniej kosztowo.</p>
         </div>
+      </div>
 
-        {/* Timeline */}
-        <div>
-          <h2 className="font-display text-2xl font-black text-white mb-8 flex items-center gap-2">
-            <span className="w-[3px] h-6 bg-[#f81828] rounded-full" /> Historia firmy
-          </h2>
-          <div className="relative pl-8">
-            <div className="absolute left-3 top-0 bottom-0 w-px" style={{ background: "rgba(248,24,40,0.25)" }} />
-            {timeline.map((item, i) => (
-              <div key={i} className="relative mb-8 last:mb-0">
-                <div className="absolute -left-8 w-6 h-6 rounded-full flex items-center justify-center" style={{ background: "#f81828", boxShadow: "0 0 12px rgba(248,24,40,0.4)" }}>
-                  <div className="w-2 h-2 rounded-full bg-white" />
-                </div>
-                <div className="rounded-xl p-5 ml-2" style={card}>
-                  <div className="font-mono text-xs font-bold text-[#f81828] mb-1">{item.year}</div>
-                  <div className="font-display font-black text-white text-base mb-1">{item.title}</div>
-                  <div className="text-xs text-gray-500">{item.desc}</div>
-                </div>
+      {/* ── Nasze wartości ── */}
+      <section className="py-16" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2" style={{ color: "#f81828" }}>— CO NAS WYRÓŻNIA —</p>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-3">Kilka słów o tym, jak pracujemy</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {[
+              { icon: "🤝", title: "Jeden partner", desc: "Materiały, doradztwo i koordynacja wykonawców — wszystko w jednym miejscu. Budujesz z jednym punktem kontaktu, nie z dziesiątką podwykonawców." },
+              { icon: "📐", title: "Konkretna wycena", desc: "Nie operujemy ogólnikami. Przygotowujemy wycenę opartą na Twoim projekcie, wybranej technologii i harmonogramie — bez ukrytych kosztów." },
+              { icon: "🏗️", title: "Sprawdzone ekipy", desc: "Współpracujemy z tynkarzami, murarzami, dekarzami i specjalistami wykończenia, których znamy z realizacji. Polecamy sprawdzonych, nie losowych." },
+              { icon: "🔧", title: "Doradztwo techniczne", desc: "Mamy materiały wiodących marek: Weber, Ceresit, Atlas, Knauf, Rockwool i innych. Doradzamy, który system sprawdzi się w Twoich warunkach." },
+              { icon: "🏢", title: "Duże i małe projekty", desc: "Obsługujemy zarówno domy jednorodzinne, jak i galerie handlowe, szkoły i budynki użyteczności publicznej. Dostosowujemy logistykę do skali inwestycji." },
+              { icon: "📍", title: "Lublin i region", desc: "Działamy w Lublinie i województwie lubelskim. Znamy lokalny rynek, ceny materiałów i realia budowy w naszym regionie." },
+            ].map((item, i) => (
+              <div key={i} className="rounded-xl p-6 transition-all duration-300"
+                style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.35)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#1a1a1a"; }}>
+                <div className="text-3xl mb-4">{item.icon}</div>
+                <h3 className="font-bold text-white text-sm uppercase tracking-wide mb-2">{item.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#888" }}>{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Wartości */}
-        <div>
-          <h2 className="font-display text-2xl font-black text-white mb-6 text-center">Nasze wartości</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {values.map((v, i) => (
-              <div key={i} className={`rounded-xl p-6 text-center ${cardHover}`} style={card}>
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.18)" }}>
-                  {v.icon}
-                </div>
-                <h3 className="font-display font-bold text-white mb-2">{v.title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="container mx-auto px-4 py-12 space-y-12">
 
         {/* Partnerzy */}
         <div className="rounded-xl p-8" style={card}>

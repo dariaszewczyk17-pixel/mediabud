@@ -508,7 +508,7 @@ export default function CategoryPage() {
                     <Link
                       key={sub.id}
                       to={`/kategoria/${sub.slug}`}
-                      className={`group rounded-xl p-3.5 transition-all duration-300 ${subReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                      className={`group rounded-xl p-3 transition-all duration-300 ${subReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                       style={{
                         background: "#0f0f0f",
                         border: "1px solid rgba(255,255,255,0.06)",
@@ -526,9 +526,6 @@ export default function CategoryPage() {
                       <div className="font-semibold text-sm text-gray-300 group-hover:text-white transition-colors leading-snug mb-1">
                         {sub.name}
                       </div>
-                      {sub.children && (
-                        <div className="text-xs text-gray-600">{sub.children.length} kat.</div>
-                      )}
                       <div className="mt-2 flex items-center gap-1 text-xs text-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity font-medium">
                         Przejdź <ArrowRight className="w-3 h-3" />
                       </div>

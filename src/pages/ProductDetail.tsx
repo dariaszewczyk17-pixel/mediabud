@@ -162,22 +162,60 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
-      {/* JSON-LD Product + FAQ */}
+      {/* JSON-LD Product — schema.org/Product z additionalProperty, BreadcrumbList, FAQPage */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org", "@type": "Product",
-        "name": product.name, "description": product.description,
-        "brand": { "@type": "Brand", "name": product.brand },
-        "sku": product.sku, "image": images,
-        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock", "priceCurrency": "PLN",
-          "seller": { "@type": "Organization", "name": "Media Bud" } }
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": `https://mediabud.pl/produkt/${slug}`,
+        "url": `https://mediabud.pl/produkt/${slug}`,
+        "name": product.name,
+        "description": product.shortDescription || product.description || undefined,
+        "brand": product.brand ? { "@type": "Brand", "name": product.brand } : undefined,
+        "sku": product.sku || undefined,
+        "image": images.filter(i => i && !i.includes("placeholder")),
+        "category": cat?.name || undefined,
+        ...(product.technicalSpec?.length > 0 && {
+          "additionalProperty": product.technicalSpec.map(s => ({
+            "@type": "PropertyValue",
+            "name": s.label,
+            "value": s.value,
+          })),
+        }),
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "PLN",
+          "url": `https://mediabud.pl/produkt/${slug}`,
+          "seller": { "@type": "Organization", "name": "Media Bud", "url": "https://mediabud.pl" },
+        },
       })}} />
+
+      {/* JSON-LD BreadcrumbList */}
+      {breadcrumbs.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
+            ...breadcrumbs.map((bc, i) => ({
+              "@type": "ListItem",
+              "position": i + 2,
+              "name": bc.name,
+              "item": `https://mediabud.pl/kategoria/${bc.slug}`,
+            })),
+            { "@type": "ListItem", "position": breadcrumbs.length + 2, "name": product.name },
+          ],
+        })}} />
+      )}
+
+      {/* JSON-LD FAQPage */}
       {product.faq && product.faq.length > 0 && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org", "@type": "FAQPage",
           "mainEntity": product.faq.map(f => ({
             "@type": "Question", "name": f.q,
-            "acceptedAnswer": { "@type": "Answer", "text": f.a }
-          }))
+            "acceptedAnswer": { "@type": "Answer", "text": f.a },
+          })),
         })}} />
       )}
 

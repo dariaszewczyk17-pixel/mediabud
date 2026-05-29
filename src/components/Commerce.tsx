@@ -79,7 +79,9 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           <img
             src={mainImage}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
             style={{ filter: "brightness(0.88)" }}
             onError={e => { (e.target as HTMLImageElement).src = PRODUCT_PLACEHOLDER; }}
           />

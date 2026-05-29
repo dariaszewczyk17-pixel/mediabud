@@ -295,6 +295,34 @@ export default function CategoryPage() {
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
 
+      {/* JSON-LD BreadcrumbList */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
+          { "@type": "ListItem", "position": 2, "name": "Kategorie", "item": "https://mediabud.pl/kategoria" },
+          { "@type": "ListItem", "position": 3, "name": cat.name, "item": `https://mediabud.pl/kategoria/${slug}` },
+        ],
+      })}} />
+
+      {/* JSON-LD ItemList — lista produktów w kategorii (pierwsze 10) */}
+      {paginated.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": cat.name,
+          "url": `https://mediabud.pl/kategoria/${slug}`,
+          "numberOfItems": filtered.length,
+          "itemListElement": paginated.slice(0, 10).map((p, i) => ({
+            "@type": "ListItem",
+            "position": i + 1,
+            "url": `https://mediabud.pl/produkt/${p.slug}`,
+            "name": p.name,
+          })),
+        })}} />
+      )}
+
       {/* ── Breadcrumb ── */}
       <div style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="container mx-auto px-4 py-3">

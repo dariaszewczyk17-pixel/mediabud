@@ -484,18 +484,19 @@ export default function Header() {
           />
 
           <nav className="relative container mx-auto px-4" role="navigation" aria-label="Kategorie produktów">
-            <div className="flex items-center">
+            <div className="cat-nav flex items-stretch overflow-x-auto" style={{ scrollbarWidth: "none" }}>
               {/* Category icon items */}
+              <style>{`.cat-nav::-webkit-scrollbar{display:none}`}</style>
               {categories.map((cat) => (
                 <div
                   key={cat.id}
-                  className="group/icon relative flex-1"
+                  className="group/icon relative flex-none"
                   onMouseEnter={() => { menuEnter(cat.id); setMegaSearch(""); }}
                   onMouseLeave={menuLeave}
                 >
                   <Link
                     to={`/kategoria/${cat.slug}`}
-                    className={`relative flex flex-col items-center gap-1.5 overflow-hidden px-2 py-3 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
+                    className={`relative flex items-center gap-1.5 overflow-hidden px-3 py-3 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
                     aria-expanded={cat.children ? activeMenu === cat.id : undefined}
                     aria-haspopup={cat.children ? "true" : undefined}
                     onClick={() => trackNav(cat.name, "desktop_L1", cat.slug)}
@@ -503,7 +504,7 @@ export default function Header() {
                     <div className="absolute inset-0 opacity-0 transition-opacity group-hover/icon:opacity-100" style={{ background: "rgba(248,24,40,0.07)" }} />
                     <div className={`absolute top-0 left-0 right-0 h-[2px] origin-left bg-[#f81828] transition-transform duration-200 ${activeMenu === cat.id ? "scale-x-100" : "scale-x-0 group-hover/icon:scale-x-100"}`} />
 
-                    <span className="relative z-10 max-w-[120px] break-words text-center text-[11px] font-bold uppercase leading-tight tracking-[0.06em] hyphens-auto" style={{ wordBreak: "break-word" }}>
+                    <span className="relative z-10 whitespace-nowrap text-[10px] font-bold uppercase leading-tight tracking-[0.06em]">
                       {cat.name}
                     </span>
                     {cat.children && (

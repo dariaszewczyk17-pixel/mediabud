@@ -114,13 +114,6 @@ const features = [
   { icon: "🏗️", title: "Obsługa deweloperów", desc: "Indywidualne warunki handlowe, dedykowany opiekun, faktury zbiorcze i rabaty ilościowe dla firm." },
 ];
 
-const steps = [
-  { n: "01", title: "Skontaktuj się z nami", desc: "Zadzwoń lub napisz — omówimy Twój projekt i potrzeby materiałowe bez zobowiązań." },
-  { n: "02", title: "Bezpłatna wycena", desc: "Nasi eksperci dobiorą optymalne materiały i przygotują szczegółową wycenę dla Twojego projektu." },
-  { n: "03", title: "Złóż zamówienie", desc: "Zamawiaj online, telefonicznie lub osobiście w składzie — tak jak wolisz." },
-  { n: "04", title: "Odbiór lub dostawa", desc: "Odbierz ze składu lub zamów dostawę bezpośrednio na budowę — szybko i sprawnie." },
-];
-
 const brands = [
   { name: "Weber",         color: "#0072CE", short: "We" },
   { name: "Ceresit",       color: "#E30613", short: "Ce" },
@@ -278,7 +271,6 @@ export default function Home() {
   const r2 = useReveal(); // featured
   const r3 = useReveal(); // stats
   const r4 = useReveal(); // features
-  const r5 = useReveal(); // steps
   const r6 = useReveal(); // blog
   const r7 = useReveal(); // brands
   const r8 = useReveal(); // testimonials
@@ -305,7 +297,7 @@ export default function Home() {
         "description": "Profesjonalna hurtownia materiałów budowlanych w Lublinie",
         "telephone": "+48509567213",
         "email": "sprzedaz@mediabud.pl",
-        "address": { "@type": "PostalAddress", "addressLocality": "Lublin", "postalCode": "20-001", "addressCountry": "PL" },
+        "address": { "@type": "PostalAddress", "streetAddress": "ul. Chemiczna 8", "addressLocality": "Lublin", "postalCode": "20-329", "addressCountry": "PL" },
         "url": "https://mediabud.pl",
         "openingHours": ["Mo-Fr 07:00-17:00", "Sa 08:00-14:00"],
         "priceRange": "$$",
@@ -366,8 +358,8 @@ export default function Home() {
             {/* Główny tytuł */}
             <h1
               key={`title-${slide}`}
-              className="font-black uppercase leading-[1.05] tracking-tight mb-4 text-white animate-fade-up delay-100"
-              style={{ fontSize: "clamp(2.5rem, 6vw, 6rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}
+              className="font-black uppercase leading-[1.05] tracking-tight mb-4 text-white animate-fade-up delay-100 break-words max-w-full"
+              style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", overflowWrap: "anywhere", hyphens: "auto" }}
             >
               {current.title.split("\n").map((line, i) => (
                 <span key={i} className="block">
@@ -533,12 +525,13 @@ export default function Home() {
                 <span className="text-[10px] font-black tracking-[0.25em] uppercase text-[#f81828]">Asortyment</span>
               </div>
               <h2
-                className="font-black text-white uppercase"
+                className="font-black text-white uppercase break-words max-w-full"
                 style={{
                   fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif",
-                  fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                  fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
                   letterSpacing: "-0.01em",
-                  lineHeight: 1,
+                  lineHeight: 1.05,
+                  overflowWrap: "anywhere",
                 }}
               >
                 Nasze<br />
@@ -565,7 +558,7 @@ export default function Home() {
                 <Link
                   key={cat.id}
                   to={`/kategoria/${cat.slug}`}
-                  className={`cat-card group relative overflow-hidden rounded-xl ${isWide ? "col-span-2 aspect-[4/3] lg:aspect-[16/7]" : "col-span-1 aspect-[4/3] lg:aspect-[3/4]"}`}
+                  className={`cat-card group relative overflow-hidden rounded-xl ${isWide ? "col-span-2 aspect-[16/7] lg:aspect-[16/6]" : "col-span-1 aspect-square lg:aspect-[4/5]"}`}
                   style={{
                     background: "#0f0f0f",
                     border: "1px solid #1a1a1a",
@@ -835,57 +828,6 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          HOW IT WORKS – dark section
-      ═══════════════════════════════════════════════════════ */}
-      <section
-        ref={r5.ref as React.RefObject<HTMLElement>}
-        className={`bg-[#0a0a0a] text-white py-16 relative overflow-hidden transition-all duration-700 ${r5.visible ? "opacity-100" : "opacity-0"}`}
-      >
-        <div className="absolute inset-0 bg-grid-white" />
-        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#f81828] to-transparent" />
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#f81828]" />
-
-        <div className="relative container mx-auto px-4 pl-8 md:pl-10">
-          <div className="text-center mb-12">
-            <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-2 flex items-center justify-center gap-2">
-              <span className="w-4 h-0.5 bg-[#f81828]" />Jak działamy?<span className="w-4 h-0.5 bg-[#f81828]" />
-            </p>
-            <h2 className="font-display text-3xl md:text-4xl font-black mb-3">Program „Dom od podstaw"</h2>
-            <p className="text-gray-400 max-w-xl mx-auto text-sm">
-              Kompleksowa obsługa Twojego projektu budowlanego — od fundamentów po wykończenie
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-            <div className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-[#f81828]/80 via-[#f81828]/30 to-[#f81828]/80 pointer-events-none" />
-            {steps.map((s, i) => (
-              <div
-                key={i}
-                className={`relative text-center transition-all duration-600 ${r5.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <div className="relative inline-flex items-center justify-center mb-5">
-                  <div className="w-16 h-16 rounded-full bg-[#f81828]/10 border-2 border-[#f81828]/40 flex items-center justify-center hover:bg-[#f81828] hover:border-[#f81828] transition-all duration-300 cursor-default">
-                    <span className="font-display font-black text-xl text-[#f81828]">{s.n}</span>
-                  </div>
-                </div>
-                <h3 className="font-display font-black text-white mb-2 text-base">{s.title}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link to="/uslugi/dom-od-podstaw">
-              <Button size="lg" className="bg-[#f81828] hover:bg-[#c8000f] px-10 font-black text-base h-12 btn-glow">
-                Dowiedz się więcej <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
           REALIZACJE
       ═══════════════════════════════════════════════════════ */}
       <section
@@ -1017,7 +959,7 @@ export default function Home() {
       </section>
 
       {/* ── Dom od podstaw ── */}
-      <section className="py-24 relative overflow-hidden" style={{ background: "#000" }}>
+      <section id="dom-od-podstaw" className="py-24 relative overflow-hidden" style={{ background: "#000" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.04) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
@@ -1134,10 +1076,10 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: "🏗️", title: "Dom od podstaw", desc: "Kompleksowe wsparcie w budowie domu od projektu po wykończenie.", tag: "PROGRAM SPECJALNY" },
-              { icon: "💬", title: "Doradztwo techniczne", desc: "Konsultacje telefoniczne i mailowe. Dobór systemu ociepleń, analiza projektu.", tag: "BEZPŁATNE" },
-              { icon: "🚚", title: "Usługi transportowe", desc: "Dostawa materiałów na terenie Lublina i województwa lubelskiego.", tag: "DOSTAWA 24H" },
-              { icon: "👥", title: "Sieć specjalistów", desc: "Sprawdzeni tynkarze, ekipy montażowe, dekarze i instalatorzy.", tag: "ZWERYFIKOWANI" },
+              { icon: "🏗️", title: "Dom od podstaw", desc: "Kompleksowe wsparcie w budowie domu od projektu po wykończenie.", tag: "PROGRAM SPECJALNY", href: "#dom-od-podstaw" },
+              { icon: "💬", title: "Doradztwo techniczne", desc: "Konsultacje telefoniczne i mailowe. Dobór systemu ociepleń, analiza projektu.", tag: "BEZPŁATNE", href: "/kontakt" },
+              { icon: "🚚", title: "Usługi transportowe", desc: "Dostawa materiałów na terenie Lublina i województwa lubelskiego.", tag: "DOSTAWA 24H", href: "/kontakt" },
+              { icon: "👥", title: "Sieć specjalistów", desc: "Sprawdzeni tynkarze, ekipy montażowe, dekarze i instalatorzy.", tag: "ZWERYFIKOWANI", href: "/kontakt" },
             ].map((service, i) => (
               <div
                 key={i}
@@ -1154,7 +1096,7 @@ export default function Home() {
                 <h3 className="font-bold text-white text-sm uppercase tracking-wide mb-2">{service.title}</h3>
                 <p className="text-sm leading-relaxed flex-1" style={{ color: "#888" }}>{service.desc}</p>
                 <a
-                  href="/kontakt"
+                  href={service.href}
                   className="mt-4 text-xs font-bold uppercase tracking-wider transition-colors duration-200"
                   style={{ color: "#888" }}
                   onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#f81828"; }}

@@ -48,7 +48,7 @@ export const ALL_CATEGORIES_QUERY =
   `*[_type == "category" && !defined(parent)] | order(order asc, name asc) ${CATEGORY_FIELDS}`
 
 export const ALL_PRODUCTS_QUERY =
-  `*[_type == "product"] | order(name asc) ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product"] | order(name asc) [0...500] ${PRODUCT_CARD_FIELDS}`
 
 export const FEATURED_PRODUCTS_QUERY =
   `*[_type == "product" && featured == true][0...12] ${PRODUCT_CARD_FIELDS}`
@@ -57,12 +57,7 @@ export const PRODUCTS_BY_CATEGORY_QUERY =
   `*[_type == "product" && category->slug.current == $slug] | order(name asc) ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && (
-    category->slug.current in $slugs ||
-    category->parent->slug.current in $slugs ||
-    category->parent->parent->slug.current in $slugs ||
-    category->parent->parent->parent->slug.current in $slugs
-  )] | order(name asc) ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && category->slug.current in $slugs] | order(name asc) [0...600] ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCT_BY_SLUG_QUERY =
   `*[_type == "product" && slug.current == $slug][0] ${PRODUCT_FULL_FIELDS}`

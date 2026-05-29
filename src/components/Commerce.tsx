@@ -39,16 +39,24 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width  - 0.5;
     const y = (e.clientY - rect.top)  / rect.height - 0.5;
-    el.style.transform  = `perspective(800px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-4px)`;
-    el.style.boxShadow  = "0 16px 48px rgba(248,24,40,0.18), 0 4px 16px rgba(0,0,0,0.5)";
-    el.style.borderColor = "rgba(248,24,40,0.35)";
+    el.style.transform = `perspective(800px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-4px)`;
+    el.style.boxShadow = "0 0 20px rgba(248,24,40,0.3), 0 12px 40px rgba(0,0,0,0.5)";
+    el.style.borderColor = "rgba(248,24,40,0.5)";
   };
   const handleMouseLeave = () => {
     const el = cardRef.current;
     if (!el) return;
-    el.style.transform  = "perspective(800px) rotateX(0) rotateY(0) translateY(0)";
-    el.style.boxShadow  = "0 2px 12px rgba(0,0,0,0.4)";
-    el.style.borderColor = "rgba(255,255,255,0.07)";
+    el.style.transform = "translateY(0)";
+    el.style.boxShadow = "none";
+    el.style.borderColor = "#2d2d2d";
+  };
+
+  const handleMouseEnter = () => {
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transform = "translateY(-4px)";
+    el.style.boxShadow = "0 0 20px rgba(248,24,40,0.3), 0 12px 40px rgba(0,0,0,0.5)";
+    el.style.borderColor = "rgba(248,24,40,0.5)";
   };
 
   const handleAdd = () => {
@@ -62,37 +70,52 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
     <>
       <div
         ref={cardRef}
+        onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className="group cursor-pointer rounded-xl overflow-hidden"
         style={{
           background: "#0f0f0f",
-          border: "1px solid rgba(255,255,255,0.07)",
-          boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
-          transition: "transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease",
+          border: "1px solid #2d2d2d",
+          borderRadius: "0.75rem",
+          overflow: "hidden",
+          transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
           willChange: "transform",
         }}
       >
         {/* ── Image area ── */}
         <Link to={`/produkt/${product.slug}`} className="block relative overflow-hidden aspect-square"
           style={{ background: "#141414" }}>
-          <img
-            src={mainImage}
-            alt={product.name}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-            style={{ filter: "brightness(0.88)" }}
-            onError={e => { (e.target as HTMLImageElement).src = PRODUCT_PLACEHOLDER; }}
-          />
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
+
+          <div className="relative w-full h-full" style={{ background: "#141414" }}>
+            {/* Shimmer skeleton */}
+            <div className="absolute inset-0 overflow-hidden">
+              <style>{`
+                @keyframes shimmer {
+                  0% { transform: translateX(-100%); }
+                  100% { transform: translateX(100%); }
+                }
+                .img-shimmer { animation: shimmer 1.8s infinite; }
+              `}</style>
+              <div className="img-shimmer absolute inset-0"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)" }} />
+            </div>
+            <img
+              src={mainImage}
+              alt={product.name}
+              loading="lazy"
+              decoding="async"
+              className="relative z-[1] w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+              style={{ filter: "brightness(0.88)" }}
+              onError={e => { (e.target as HTMLImageElement).src = PRODUCT_PLACEHOLDER; }}
+            />
+          </div>
 
           {/* Vignette overlay */}
           <div className="absolute inset-0 pointer-events-none"
             style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.12) 58%, transparent 100%)" }} />
-
-          {/* Top accent line on hover */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
 
           {/* Badges */}
           <div className="absolute top-2.5 left-2.5 flex flex-col gap-1">
@@ -108,6 +131,15 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
                 POLECANY
               </span>
             )}
+          </div>
+
+          {/* Status badge — availability */}
+          <div className="absolute bottom-10 right-2">
+            <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider flex items-center gap-1"
+              style={{ background: "rgba(16,185,129,0.2)", border: "1px solid rgba(16,185,129,0.4)" }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Dostępny
+            </span>
           </div>
 
           <div className="absolute left-2.5 right-2.5 bottom-2.5 rounded-xl p-2.5"
@@ -128,11 +160,12 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
             )}
           </div>
 
-          {/* Quick view pill */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200">
-            <span className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-white"
-              style={{ background: "rgba(248,24,40,0.82)", backdropFilter: "blur(8px)", border: "1px solid rgba(248,24,40,0.4)", boxShadow: "0 0 16px rgba(248,24,40,0.4)" }}>
-              <ExternalLink className="w-3 h-3" /> Szczegóły
+          {/* Quick view — pojawia się na hover */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0"
+            style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}>
+            <span className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-white rounded-lg"
+              style={{ background: "#f81828", letterSpacing: "0.15em" }}>
+              Szybki podgląd
             </span>
           </div>
         </Link>

@@ -779,6 +779,96 @@ const services: ServiceDetail[] = [
     ],
     frazySEO: ["adaptacja poddaszy Lublin", "zabudowa poddasza Lublin", "wykończenie poddasza lubelskie", "skosy GK Lublin"],
     cta: "Zapytaj o adaptację poddasza"
+  },
+  {
+    slug: "duze-projekty-b2b",
+    title: "Duże projekty B2B",
+    segment: "B2B",
+    icon: <Building2 className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2B · inwestycje komercyjne i instytucjonalne",
+    krotkiOpis: "Kompleksowa obsługa inwestycji komercyjnych i instytucjonalnych — galerie handlowe, szkoły, obiekty użyteczności publicznej. Materiały w dużych wolumenach, logistyka na czas, jeden punkt kontaktu.",
+    dlugiOpis: `Obsługujemy inwestycje o każdej skali — od pojedynczych lokali usługowych, przez budynki wielorodzinne, aż po galerie handlowe, obiekty szkolne i hale produkcyjne. W przypadku dużych projektów kluczowym wyzwaniem jest logistyka: właściwa ilość materiałów we właściwym miejscu i czasie, bez przestojów na budowie. Nasz skład budowlany w Lublinie działa jako zaplecze magazynowe dla generalnych wykonawców i deweloperów — możemy zaplanować harmonogram dostaw etapami, dopasowany do postępu robót. Współpracujemy z systemami wiodących producentów: Weber, Ceresit, Atlas, Knauf, Rockwool, Rigips, Baumit i innymi — co pozwala zrealizować całą inwestycję w oparciu o jednego dostawcę materiałów. Warunki współpracy B2B, w tym ceny hurtowe i odroczony termin płatności, ustalamy indywidualnie po analizie projektu i harmonogramu.`,
+    parametry: [
+      "Dostawy etapowe dopasowane do harmonogramu budowy.",
+      "Materiały od Weber, Knauf, Atlas, Rockwool, Rigips i innych.",
+      "Obsługa generalnych wykonawców i deweloperów.",
+      "Wycena indywidualna — ceny hurtowe dla dużych wolumenów.",
+      "Koordynacja logistyki z jednego miejsca.",
+      "Doświadczenie w obsłudze galerii handlowych, szkół i obiektów publicznych."
+    ],
+    zastosowanie: [
+      "Obsługa budynków wielorodzinnych, biurowych, szkół, obiektów sportowych, galerii handlowych i hal produkcyjnych.",
+      "Dostawy materiałów na teren Lublina i całego województwa lubelskiego.",
+      "Projekty wymagające etapowania zamówień zgodnie z postępem robót.",
+      "Współpraca z generalnymi wykonawcami, deweloperami i inwestorami instytucjonalnymi.",
+      "Realizacje, w których potrzebny jest jeden dostawca dla wielu systemów materiałowych."
+    ],
+    zalety: [
+      "Jedno centrum logistyczne i zakupowe dla dużej inwestycji.",
+      "Spójna obsługa materiałów od renomowanych producentów.",
+      "Elastyczne warunki handlowe ustalane indywidualnie dla skali projektu.",
+      "Treść dopasowana do zapytań B2B związanych z obsługą inwestycji w Lublinie i regionie.",
+      "Możliwość koordynacji dostaw bezpośrednio pod harmonogram budowy."
+    ],
+    korzysci: [
+      "Mniej przestojów wynikających z braków materiałowych na budowie.",
+      "Łatwiejsza kontrola zamówień i logistyki przy wielu etapach realizacji.",
+      "Jedna ścieżka komunikacji zamiast wielu rozproszonych dostawców.",
+      "Lepsze dopasowanie cen i warunków płatności do skali inwestycji."
+    ],
+    ostrzezenia: [
+      "Każdy projekt B2B wymaga indywidualnej analizy dokumentacji i harmonogramu przed przygotowaniem oferty.",
+      "Warunki płatności, w tym przedpłata etapami lub odroczony termin, ustalamy indywidualnie w umowie.",
+      "Dostępność materiałów i terminy dostaw zależą od skali zamówienia oraz harmonogramu producentów.",
+      "Zakres logistyki i koszt transportu trzeba potwierdzić na etapie wyceny inwestycji."
+    ],
+    frazySEO: ["B2B materiały budowlane Lublin", "duże projekty budowlane Lublin", "obsługa inwestycji komercyjnych Lublin", "dostawy materiałów dla deweloperów lubelskie"],
+    cta: "Wyślij zapytanie o projekt B2B"
+  },
+  {
+    slug: "siec-fachowcow",
+    title: "Sieć fachowców",
+    segment: "Oba",
+    icon: <Users className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2C / B2B · wykonawcy i koordynacja",
+    krotkiOpis: "Tynkarze, murarze, dekarze, glazurnicy i specjaliści wykończenia — sprawdzone ekipy z realizacji. Koordynujemy wykonawców, żebyś miał jeden kontakt zamiast kilkunastu.",
+    dlugiOpis: `Znalezienie sprawdzonego wykonawcy to często największy problem przy budowie lub remoncie. MediaBud od lat współpracuje z ekipami budowlanymi w Lublinie i okolicach — tynkarzami, murarzami, dekarzami, glazurnikami, malarzami i specjalistami od suchej zabudowy. Znamy ich z realizacji: wiemy, jak pracują, jaką jakość dostarczają i czy dotrzymują terminów. Kiedy potrzebujesz wykonawcy do konkretnego etapu — tynkowania, murowania, ocieplenia, wykończenia łazienki czy montażu podłóg — możemy wskazać sprawdzoną ekipę i pomóc zaplanować kolejność prac. Nie pobieramy prowizji od wykonawców — po prostu rekomendujemy tych, z którymi zrealizowaliśmy wspólne projekty i którym ufamy. Materiały do wykonania zapewniamy z naszego składu, co skraca czas realizacji i upraszcza logistykę. Całość koordynujemy z jednego miejsca — zamiast szukać każdego specjalisty osobno, dzwonisz do nas.`,
+    parametry: [
+      "Sprawdzone ekipy tynkarzy, murarzy i dekarzy.",
+      "Specjaliści wykończenia: glazurnicy, malarze, podłogi.",
+      "Koordynacja kolejności robót i harmonogramu.",
+      "Materiały do wykonania z naszego składu — wszystko w jednym miejscu.",
+      "Brak prowizji — rekomendujemy ekipy z realizacji.",
+      "Jeden kontakt dla inwestora zamiast kilkunastu wykonawców."
+    ],
+    zastosowanie: [
+      "Dobór wykonawców do tynkowania, murowania, ocieplenia i prac dekarskich.",
+      "Koordynacja etapów: tynki, wylewki, sucha zabudowa, glazura i malarstwo.",
+      "Obsługa inwestorów z Lublina i okolic do około 50 km.",
+      "Wsparcie przy budowie, remoncie i wykończeniu wnętrz.",
+      "Łączenie materiałów z naszego składu z pracą ekip znających dane systemy."
+    ],
+    zalety: [
+      "Rekomendacje oparte na realnych wspólnych realizacjach, a nie przypadkowych kontaktach.",
+      "Brak prowizji od wykonawców i przejrzysty model współpracy.",
+      "Lepsza koordynacja kolejności robót i dostępności ekip.",
+      "Jeden punkt kontaktu dla inwestora przy wielu specjalizacjach.",
+      "Oferta dobrze odpowiada na lokalne zapytania o sprawdzonych fachowców w Lublinie."
+    ],
+    korzysci: [
+      "Mniej czasu na samodzielne szukanie i weryfikowanie wykonawców.",
+      "Większa szansa na terminową realizację kolejnych etapów prac.",
+      "Sprawniejsza logistyka dzięki połączeniu ekip i materiałów w jednym miejscu.",
+      "Mniejsze ryzyko błędów wykonawczych przy pracy na znanych systemach materiałowych."
+    ],
+    ostrzezenia: [
+      "Dostępność konkretnych ekip zależy od terminu i zakresu robót.",
+      "Rekomendacja wykonawcy nie zastępuje indywidualnych ustaleń zakresu, terminu i odpowiedzialności między stronami.",
+      "Przy większych projektach poza Lublinem i okolicami zasięg ekip wymaga osobnego potwierdzenia.",
+      "Zakup materiałów w MediaBud nie jest obowiązkowy, ale może uprościć realizację i ograniczyć błędy."
+    ],
+    frazySEO: ["fachowcy budowlani Lublin", "sprawdzone ekipy budowlane Lublin", "tynkarze murarze dekarze Lublin", "koordynacja wykonawców Lublin"],
+    cta: "Skontaktuj się w sprawie wykonawców"
   }
 ];
 

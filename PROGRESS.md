@@ -176,3 +176,8 @@
 [2026-05-29 23:23] DONE commit 382e79a: białe tło brand scrollera + filtry logo full-color, 7 logo PNG bez tła (PIL flood-fill) + nowe URL-e, logo Header h-10→h-16 max 220px, usunięte ikony kategorii z desktop Row 3, text kategorii max-w-[120px] text-[11px], feature cards text-gray-500→gray-300, Realizacje text-gray-500→gray-400, CategoryPage karty p-3 bez count liczb, Pages.tsx Historia firmy usunięta → sekcja 6 wartości (emoji+tytuł+opis). Build OK, sitemap 16159 URL.
 [2026-05-29 23:24] Wszystkie zadania z tej tury ukończone. Commit 382e79a na main. Cloudflare Pages deployment w toku.
 [2026-05-29 23:32] Zidentyfikowano krytyczny bug: kategorie nav flex-1 ściska 11 kategorii do ~109px. Fix: flex-none + overflow-x-auto + whitespace-nowrap + poziomy layout. Commit 382e79a wdrożony na Cloudflare Pages.
+[2026-05-29 23:35] Commit a3c4191: fix kategorie nav (flex-none, overflow-x-auto, whitespace-nowrap, poziomy layout). Białe tło brand scrollera + kolorowe logo LIVE (382e79a). Pozostało: video hero, weryfikacja logo size, usługi section.
+[2026-05-29 23:36] Commit a3c4191 nav fix pushed. Oczekiwanie na Cloudflare deploy. Startuje video generation pipeline + weryfikacja live site.
+[2026-05-29 23:44] DONE analiza-konkurencji-uslugi.html — pełna rewizja: stan wdrożeń, mapa 9+2 usług, macierz vs eDOM/3W, przewagi, 6 luk priorytetowych, roadmapa. Video confirm_break oczekuje na zatwierdzenie przez Darię.
+[2026-05-29 23:46] START: generowanie hero video + 2 brakujące podstrony (Duże projekty B2B, Sieć fachowców) + rewizja analiza HTML. Daria zatwierdziła wideo i podstrony.
+[2026-05-29 23:54] Commit: hero video bg (seedance-2.0-fast, 6s, industrial warehouse), 2 nowe podstrony usług (duze-projekty-b2b, siec-fachowcow). Build OK.

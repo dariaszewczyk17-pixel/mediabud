@@ -321,6 +321,16 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       {/* ── Hero Section ── */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
+        {/* Background video — lazy-loaded, muted autoplay loop */}
+        <video
+          autoPlay muted loop playsInline
+          preload="none"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          style={{ zIndex: 0, opacity: 0.35 }}
+          aria-hidden="true"
+        >
+          <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260529/text2video-d8d2bs780j2drgd1i7q0.mp4" type="video/mp4" />
+        </video>
         {/* Slides */}
         {heroSlides.map((s, i) => (
           <div

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, Check, Users, Award, Truck, Star, ChevronRight, BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil, Trash2, Zap, Shield, ArrowRight } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
+import { Phone, Mail, MapPin, Clock, Check, Users, Award, Truck, Star, ChevronRight, BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil, Trash2, Zap, Shield, ArrowRight, Home, PaintBucket, Ruler, Hammer, Building2, HousePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,7 +31,7 @@ export function ContactPage() {
   const contactItems = [
     { icon: <Phone className="w-5 h-5 text-[#f81828]" />, label: "Telefon", value: "+48 509 567 213", href: "tel:+48509567213" },
     { icon: <Mail className="w-5 h-5 text-[#f81828]" />, label: "Email", value: "sprzedaz@mediabud.pl", href: "mailto:sprzedaz@mediabud.pl" },
-    { icon: <MapPin className="w-5 h-5 text-[#f81828]" />, label: "Adres", value: "ul. Budowlana 1, 20-001 Lublin", href: undefined },
+    { icon: <MapPin className="w-5 h-5 text-[#f81828]" />, label: "Adres", value: "ul. Chemiczna 8, 20-329 Lublin", href: undefined },
     { icon: <Clock className="w-5 h-5 text-[#f81828]" />, label: "Godziny otwarcia", value: "Pon–Pt: 7:00–17:00\nSob: 8:00–14:00", href: undefined },
   ];
 
@@ -293,465 +293,754 @@ export function AboutPage() {
 
 // ─── SERVICES PAGE ─────────────────────────────────────────────────
 
+type ServiceSegment = "B2C" | "B2B" | "Oba";
+
 type ServiceDetail = {
-  id: string;
-  icon: React.ReactNode;
+  slug: string;
   title: string;
+  segment: ServiceSegment;
+  icon: React.ReactNode;
   badge: string;
-  shortDesc: string;
-  longDesc: string;
-  features: string[];
-  faq: { q: string; a: string }[];
+  krotkiOpis: string;
+  dlugiOpis: string;
+  parametry: string[];
+  zastosowanie: string[];
+  zalety: string[];
+  korzysci: string[];
+  ostrzezenia: string[];
+  frazySEO: string[];
+  cta: string;
 };
 
 type FaqItem = { q: string; a: string };
 
-function ServiceCard({ svc, isOpen, onToggle }: { svc: ServiceDetail; isOpen: boolean; onToggle: () => void }) {
+const services: ServiceDetail[] = [
+  {
+    slug: "dom-od-podstaw",
+    title: "Dom od podstaw",
+    segment: "B2C",
+    icon: <Shield className="w-6 h-6 text-[#f81828]" />,
+    badge: "Program parasolowy B2C",
+    krotkiOpis: "Program MediaBud dla inwestorów z Lublina i województwa lubelskiego, który łączy wycenę, dobór materiałów, koordynację ekip i realizację domu od pierwszego kontaktu po etap wykończeniowy.",
+    dlugiOpis: "Dom od podstaw to parasolowa usługa MediaBud dla klientów indywidualnych, którzy chcą przejść przez budowę domu z jednym partnerem odpowiedzialnym za logistykę materiałów, doradztwo techniczne i skoordynowanie wykonawców. Program powstał w odpowiedzi na lokalną potrzebę połączenia składu budowlanego z realnym wykonawstwem — podobnie jak robią to regionalni konkurenci z ofertą budowy domów, elewacji i dociepleń w województwie lubelskim. W praktyce zaczynamy od analizy projektu i budżetu, następnie układamy harmonogram etapów, dobieramy systemy marek Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor, Bolix, Termo Organika, Baumit, Rigips i Ursa, a potem pomagamy inwestorowi przejść przez budowę, ocieplenie, dach, elewację, wykończenie i odbiory. To rozwiązanie dla osób, które chcą ograniczyć ryzyko błędów wykonawczych i uniknąć rozproszenia odpowiedzialności między wieloma podmiotami.",
+    parametry: [
+      "Zakres: od wyceny i doboru materiałów po realizację wybranych etapów lub całości inwestycji.",
+      "Obsługa lokalna: Lublin i województwo lubelskie.",
+      "Model współpracy: konsultacja, kosztorys, harmonogram dostaw, rekomendacja lub koordynacja ekip.",
+      "Materiały systemowe: Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor, Bolix, Termo Organika, Baumit, Rigips, Ursa.",
+      "Kontakt operacyjny: ul. Chemiczna 8, 20-329 Lublin, +48 509 567 213, sprzedaz@mediabud.pl.",
+      "Koszt realizacji programu: [do potwierdzenia] — zależny od zakresu i etapu inwestycji."
+    ],
+    zastosowanie: [
+      "Budowa domu jednorodzinnego od stanu zero do wykończenia.",
+      "Prowadzenie inwestycji etapami z kontrolą budżetu i dostaw.",
+      "Dobór materiałów oraz wykonawców dla inwestora bez własnego zaplecza technicznego.",
+      "Koordynacja prac ociepleniowych, dekarskich, elewacyjnych i wykończeniowych.",
+      "Współpraca z klientem, który chce jeden punkt kontaktu zamiast wielu podwykonawców."
+    ],
+    zalety: [
+      "Jedna ścieżka obsługi od wyceny po realizację.",
+      "Połączenie składu budowlanego z praktycznym doradztwem wykonawczym.",
+      "Lepsza kontrola harmonogramu dostaw i etapowania robót.",
+      "Dostęp do sprawdzonej sieci fachowców z regionu.",
+      "Treść zoptymalizowana pod lokalne zapytania typu budowa domu Lublin i dom od podstaw lubelskie."
+    ],
+    korzysci: [
+      "Mniej czasu poświęconego na samodzielne szukanie ekip i materiałów.",
+      "Mniejsze ryzyko nietrafionych zamówień oraz przestojów na budowie.",
+      "Spójność systemów materiałowych od stanu surowego po wykończenie.",
+      "Łatwiejsza komunikacja między inwestorem, składem i wykonawcą."
+    ],
+    ostrzezenia: [
+      "Zakres programu i odpowiedzialność za poszczególne etapy trzeba każdorazowo potwierdzić w wycenie.",
+      "Nie każda technologia lub termin jest dostępny od ręki — zależy to od obłożenia ekip i producentów.",
+      "Dane budżetowe i terminy wstępne należy traktować jako orientacyjne do czasu analizy projektu.",
+      "Formalności projektowe, administracyjne i odbiorowe wymagają odrębnego potwierdzenia zakresu po stronie inwestora lub partnerów."
+    ],
+    frazySEO: ["dom od podstaw Lublin", "budowa domu od wyceny po realizację", "skład budowlany z wykonawstwem Lublin", "budowa domu lubelskie"],
+    cta: "Umów konsultację programu Dom od podstaw"
+  },
+  {
+    slug: "budowa-domow-lublin",
+    title: "Budowa domów Lublin",
+    segment: "B2C",
+    icon: <Home className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2C · stan surowy do pod klucz",
+    krotkiOpis: "Kompleksowa budowa domów jednorodzinnych w Lublinie i województwie lubelskim z naciskiem na logistykę materiałów, dobór technologii i sprawdzone ekipy wykonawcze.",
+    dlugiOpis: "Usługa budowy domów Lublin została zaprojektowana dla inwestorów indywidualnych, którzy oczekują połączenia wyceny, doboru technologii i realnego wykonawstwa. Research pokazuje, że lokalni konkurenci budują swoją przewagę na modelu ‚od fundamentów po dach’ oraz na silnym podkreślaniu zasięgu wojewódzkiego — dlatego oferta MediaBud odpowiada dokładnie na tę intencję wyszukiwania. Wspieramy realizacje od stanu zero i fundamentów, przez ściany, stropy i dach, aż po wybrane etapy wykończenia, bazując na materiałach dostępnych w składzie przy ul. Chemicznej 8. Dla klientów planujących budowę w województwie lubelskim ważne są również orientacyjne widełki kosztowe: według researchu koszt budowy domu w stanie deweloperskim to zwykle 4500–6000 zł netto za m², a koszt domu pod klucz w standardzie premium w 2026 roku w regionie lubelskim bywa podawany jako 6800–9000 zł/m². MediaBud nie deklaruje stałych cenników bez projektu — zamiast tego przygotowuje wycenę opartą na zakresie robót, technologii i harmonogramie dostaw.",
+    parametry: [
+      "Segment: B2C, domy jednorodzinne i inwestycje prywatne.",
+      "Zasięg: Lublin i województwo lubelskie.",
+      "Etapy: fundamenty, stan surowy, dach, elewacja, wybrane etapy pod klucz.",
+      "Koszt stanu deweloperskiego wg researchu: 4500–6000 zł netto/m².",
+      "Koszt domu pod klucz premium wg researchu regionalnego: 6800–9000 zł/m².",
+      "Technologie i systemy dobierane indywidualnie do projektu oraz budżetu inwestora."
+    ],
+    zastosowanie: [
+      "Budowa domu jednorodzinnego od podstaw.",
+      "Realizacja domu z dostawą materiałów z jednego składu budowlanego.",
+      "Etapowanie inwestycji na stan surowy, deweloperski lub rozszerzony zakres wykonawczy.",
+      "Obsługa inwestorów z Lublina, Świdnika, Puław i innych miejscowości województwa lubelskiego.",
+      "Optymalizacja projektu pod koszty wykonawcze i logistykę placu budowy."
+    ],
+    zalety: [
+      "Jedna oferta łącząca materiały, doradztwo i wykonawstwo.",
+      "Silne dopasowanie do lokalnych zapytań: budowa domów Lublin, budowa domu lubelskie.",
+      "Możliwość etapowania prac zgodnie z budżetem inwestora.",
+      "Dobór sprawdzonych marek i systemów budowlanych.",
+      "Przejrzysta komunikacja kosztowa bez sztucznego obiecywania stawek bez projektu."
+    ],
+    korzysci: [
+      "Łatwiejsze porównanie technologii i kosztów na starcie inwestycji.",
+      "Lepsza kontrola nad terminami oraz dostawami materiałów.",
+      "Mniejsze ryzyko zakupów niespójnych systemowo.",
+      "Wsparcie inwestora na etapie decyzji technicznych i organizacyjnych."
+    ],
+    ostrzezenia: [
+      "Finalna wycena zależy od projektu, gruntu, bryły budynku i standardu wykończenia.",
+      "Podane w researchu widełki kosztowe są orientacyjne i nie stanowią oferty handlowej.",
+      "Terminy realizacji trzeba potwierdzić po określeniu zakresu i dostępności ekip.",
+      "Roboty dodatkowe oraz zmiany projektowe w trakcie budowy wpływają na koszt i harmonogram."
+    ],
+    frazySEO: ["budowa domów Lublin", "budowa domu Lublin", "budowa domu lubelskie", "dom pod klucz Lublin"],
+    cta: "Poproś o wycenę budowy domu w Lublinie"
+  },
+  {
+    slug: "termomodernizacja-ocieplenia",
+    title: "Termomodernizacja i ocieplenia",
+    segment: "B2C",
+    icon: <Zap className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2C · oszczędność energii",
+    krotkiOpis: "Kompleksowa termomodernizacja domu w Lublinie: ocieplenie ścian, dobór systemu ETICS, wsparcie w doborze materiałów i przygotowaniu inwestycji pod programy dotacyjne.",
+    dlugiOpis: "Termomodernizacja i ocieplenia to jedna z najmocniejszych lokalnie usług wyszukiwanych przez inwestorów indywidualnych, zwłaszcza w kontekście rosnących cen energii oraz programu Czyste Powietrze. W researchu pojawia się konkretny punkt odniesienia: dofinansowanie na termomodernizację może sięgać do 136 200 zł, a w województwie lubelskim prefinansowanie w nowej odsłonie programu jest możliwe przez operatora i tylko na wyższych poziomach wsparcia, z zaliczką do 35% przy spełnieniu warunków formalnych. MediaBud nie obiecuje dotacji, ale pomaga ułożyć inwestycję tak, aby klient miał jasność co do materiałów, zakresu robót i dokumentów potrzebnych do współpracy z wykonawcą. Oferujemy dobór systemów ETICS i elewacyjnych marek Weber, Ceresit, Atlas, Rockwool, Swisspor, Termo Organika, Baumit i Bolix, a także wsparcie w ocenie, czy w danym domu lepszym rozwiązaniem będzie styropian grafitowy, biały EPS czy wełna mineralna. Usługa jest lokalnie pozycjonowana pod frazy związane z ociepleniem domu w Lublinie, termomodernizacją domu w lubelskim i wykonawcą Czyste Powietrze Lublin.",
+    parametry: [
+      "Zakres: ocena potrzeb budynku, dobór systemu ocieplenia, materiały, wykonawstwo i logistyka.",
+      "Dofinansowanie wg researchu: do 136 200 zł w programie Czyste Powietrze.",
+      "Prefinansowanie wg WFOŚiGW Lublin: do 35% przy spełnieniu warunków programu.",
+      "Materiały: styropian, wełna mineralna, kleje, siatki, grunty, tynki, farby elewacyjne.",
+      "Marki: Weber, Ceresit, Atlas, Rockwool, Swisspor, Bolix, Termo Organika, Baumit.",
+      "Powiązanie z OZE i dodatkowymi programami: Mój Prąd — zakres i aktualność [do potwierdzenia] przed wdrożeniem do oferty."
+    ],
+    zastosowanie: [
+      "Ocieplenie starszego domu jednorodzinnego.",
+      "Termomodernizacja budynku przed sezonem grzewczym.",
+      "Modernizacja elewacji połączona z poprawą efektywności energetycznej.",
+      "Przygotowanie inwestycji do wniosku lub rozliczenia programu Czyste Powietrze.",
+      "Połączenie ocieplenia z wymianą wybranych warstw wykończeniowych elewacji."
+    ],
+    zalety: [
+      "Lokalne dopasowanie do potrzeb inwestorów z Lublina i lubelskiego.",
+      "Łączenie wiedzy materiałowej ze wsparciem wykonawczym.",
+      "Realna komunikacja korzyści energetycznych i formalnych bez nadużyć sprzedażowych.",
+      "Możliwość pracy na kompletnych systemach renomowanych marek.",
+      "Treść odpowiada na pytania SEO/AEO: ile można dostać, jak zacząć, jakie materiały wybrać."
+    ],
+    korzysci: [
+      "Niższe straty ciepła i większy komfort użytkowania budynku.",
+      "Lepsze uporządkowanie kosztów inwestycji i dokumentacji wykonawczej.",
+      "Spójność materiałów i wykonania w jednym procesie.",
+      "Większa przewidywalność harmonogramu robót ociepleniowych."
+    ],
+    ostrzezenia: [
+      "Warunki programu Czyste Powietrze mogą się zmieniać, dlatego każdy przypadek trzeba potwierdzić przed podpisaniem umowy.",
+      "MediaBud nie gwarantuje przyznania dotacji — decyzja zależy od programu i sytuacji beneficjenta.",
+      "Zakres programu Mój Prąd należy potwierdzić na dzień zapytania; nie wolno komunikować nieistniejących edycji lub gwarantowanych dopłat.",
+      "Dobór grubości izolacji i systemu powinien wynikać z parametrów budynku, a nie wyłącznie z ceny materiału."
+    ],
+    frazySEO: ["termomodernizacja Lublin", "ocieplenie domu Lublin", "Czyste Powietrze Lublin", "ocieplenia lubelskie"],
+    cta: "Zapytaj o wycenę termomodernizacji domu"
+  },
+  {
+    slug: "wykonczenia-wnetrz-pod-klucz",
+    title: "Wykończenia wnętrz pod klucz",
+    segment: "B2C",
+    icon: <PaintBucket className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2C · gotowe do zamieszkania",
+    krotkiOpis: "Kompleksowe wykończenia wnętrz pod klucz dla domów i mieszkań w Lublinie — od materiałów i suchej zabudowy po finalne warstwy dekoracyjne.",
+    dlugiOpis: "Usługa wykończenia wnętrz pod klucz odpowiada na lokalne zapotrzebowanie na realizacje ‚całej przestrzeni’, a nie pojedynczych pomieszczeń — dokładnie taki model podkreślają analizowane strony konkurencji z Lublina. MediaBud rozwija tę ofertę w oparciu o przewagę składu budowlanego: łatwy dostęp do materiałów, wsparcie w doborze systemów Knauf, Rigips, Atlas, Weber i Baumit oraz koordynację ekip od suchej zabudowy, gładzi, malowania, podłóg i zabudów poddaszy. Usługa jest kierowana do inwestorów, którzy chcą odebrać wnętrze gotowe do użytkowania lub gotowe do wyposażenia, bez samodzielnego zarządzania wieloma wykonawcami. W treści podkreślamy spójność projektu, ograniczenie ryzyka nieprzewidzianych kosztów i sensowne etapowanie materiałów — zgodnie z tym, czego szukają użytkownicy wpisujący w Google frazy typu wykończenia wnętrz pod klucz Lublin czy mieszkanie pod klucz Lublin.",
+    parametry: [
+      "Zakres: od konsultacji materiałowej po koordynację prac wykończeniowych.",
+      "Obsługiwane przestrzenie: domy, mieszkania, biura i lokale usługowe.",
+      "Materiały: suche zabudowy, gładzie, farby, kleje, systemy podłogowe, izolacje akustyczne.",
+      "Marki: Knauf, Rigips, Atlas, Weber, Baumit, Ursa.",
+      "Model rozliczenia: wg zakresu robót i standardu wykończenia [do potwierdzenia].",
+      "Obszar działania: Lublin i najbliższe okolice oraz województwo lubelskie po ustaleniu logistyki."
+    ],
+    zastosowanie: [
+      "Wykończenie nowego domu jednorodzinnego.",
+      "Przygotowanie mieszkania deweloperskiego do zamieszkania.",
+      "Realizacja biura lub lokalu usługowego w standardzie gotowym do użytkowania.",
+      "Koordynacja wielu etapów wykończeniowych przez jednego partnera.",
+      "Prace wymagające spójności materiałów i harmonogramu dostaw."
+    ],
+    zalety: [
+      "Jedno miejsce zakupu materiałów i organizacji wykonawstwa.",
+      "Lepsza kontrola nad spójnością estetyczną oraz techniczną wnętrza.",
+      "Wsparcie przy wyborze rozwiązań do suchej zabudowy, poddaszy i malowania.",
+      "Treść odpowiada na lokalne frazy transakcyjne i informacyjne związane z pod klucz.",
+      "Możliwość pracy w modelu etapowym lub kompleksowym."
+    ],
+    korzysci: [
+      "Oszczędność czasu inwestora przy organizacji wykończenia.",
+      "Mniejsza liczba błędów wynikających z rozdzielenia materiałów i wykonawstwa.",
+      "Jasny punkt kontaktu w sprawach technicznych i logistycznych.",
+      "Lepsze dopasowanie standardu wykończenia do budżetu i oczekiwań."
+    ],
+    ostrzezenia: [
+      "Bez projektu lub szczegółowego zakresu nie da się rzetelnie oszacować pełnego budżetu.",
+      "Wykończenie pod klucz może obejmować różne poziomy standardu — trzeba je zapisać w ofercie.",
+      "Prace specjalistyczne i meble na wymiar mogą wymagać osobnego harmonogramu.",
+      "Nie każda realizacja obejmuje pojedyncze pomieszczenia; zakres należy potwierdzić na starcie."
+    ],
+    frazySEO: ["wykończenia wnętrz pod klucz Lublin", "mieszkanie pod klucz Lublin", "wykończenia wnętrz Lublin", "remont pod klucz lubelskie"],
+    cta: "Zapytaj o wykończenie wnętrz pod klucz"
+  },
+  {
+    slug: "budowa-domow-do-70m2",
+    title: "Budowa domów do 70 m²",
+    segment: "B2C",
+    icon: <Ruler className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2C · kompaktowe realizacje",
+    krotkiOpis: "Usługa dla inwestorów planujących budowę małego domu do 70 m² w okolicach Lublina — z naciskiem na prostą logistykę, efektywną technologię i etapowanie kosztów.",
+    dlugiOpis: "Budowa domów do 70 m² to nisza, która regularnie pojawia się w lokalnych zapytaniach i ofertach wykonawców działających w okolicach Lublina. Research pokazuje, że użytkownicy szukają przede wszystkim modelu kompleksowego: od projektu po wykończenie pod klucz, ale jednocześnie oczekują prostej bryły, dobrej izolacyjności i przewidywalnego budżetu. MediaBud pozycjonuje tę usługę jako praktyczne rozwiązanie dla osób budujących pierwszy dom, dom rekreacyjny lub kompaktowy dom całoroczny. W centrum oferty jest dobór materiałów i wykonawców pod małą, energooszczędną bryłę, a także możliwość połączenia budowy z termomodernizacyjnym myśleniem o kosztach eksploatacji. Nie deklarujemy jednej technologii jako jedynej właściwej — każda realizacja wymaga dopasowania do projektu, warunków działki i celu użytkowego.",
+    parametry: [
+      "Powierzchnia referencyjna usługi: do 70 m².",
+      "Typ realizacji: dom całoroczny lub rekreacyjny [do potwierdzenia w projekcie].",
+      "Kluczowe cechy: prosta bryła, dobra izolacyjność, efektywna logistyka materiałowa.",
+      "Zakres: wycena, dobór materiałów, wykonawstwo etapowe lub kompleksowe.",
+      "Technologia wykonania: dobierana indywidualnie do projektu.",
+      "Budżet realizacji: [do potwierdzenia] po analizie dokumentacji i standardu."
+    ],
+    zastosowanie: [
+      "Budowa pierwszego niewielkiego domu dla rodziny lub pary.",
+      "Realizacja domu rekreacyjnego lub weekendowego.",
+      "Inwestycja na małej działce z ograniczoną powierzchnią zabudowy.",
+      "Projekt wymagający zwartej bryły i ograniczenia kosztów eksploatacyjnych.",
+      "Budowa domu, który można rozliczać etapami."
+    ],
+    zalety: [
+      "Usługa dopasowana do realnych lokalnych zapytań o domy do 70 m².",
+      "Łatwiejsza kontrola budżetu niż przy dużej inwestycji.",
+      "Możliwość połączenia budowy z energooszczędnymi rozwiązaniami materiałowymi.",
+      "Wsparcie składu budowlanego i wykonawców w jednym procesie.",
+      "Dobrze nadaje się do komunikacji SEO/AEO dla użytkowników szukających małych domów w regionie."
+    ],
+    korzysci: [
+      "Sprawniejsza organizacja budowy przy kompaktowym metrażu.",
+      "Mniejsze koszty utrzymania budynku przy dobrym doborze izolacji.",
+      "Czytelniejsze decyzje projektowe i materiałowe.",
+      "Mniej ryzyka zakupów ponad realne potrzeby inwestycji."
+    ],
+    ostrzezenia: [
+      "Warunki formalne dla budowy małych domów wymagają każdorazowego sprawdzenia w aktualnych przepisach i dokumentacji.",
+      "Mały metraż nie oznacza automatycznie niskiego kosztu za m² — wiele zależy od standardu i technologii.",
+      "Zakres pod klucz musi być opisany szczegółowo, by uniknąć rozbieżności oczekiwań.",
+      "Dostępność konkretnych rozwiązań prefabrykowanych lub modułowych wymaga oddzielnego potwierdzenia."
+    ],
+    frazySEO: ["budowa domów do 70m2 Lublin", "dom do 70 m2 Lublin", "mały dom całoroczny lubelskie", "dom 70m2 pod klucz"],
+    cta: "Poproś o konsultację dla domu do 70 m²"
+  },
+  {
+    slug: "uslugi-dekarskie-lublin",
+    title: "Usługi dekarskie Lublin",
+    segment: "Oba",
+    icon: <Hammer className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2C / B2B · dachy i pokrycia",
+    krotkiOpis: "Usługi dekarskie dla inwestorów indywidualnych i firm: dachy skośne, wybrane prace naprawcze, wymiany pokrycia oraz koordynacja materiałów dachowych.",
+    dlugiOpis: "Usługi dekarskie są naturalnym rozszerzeniem modelu MediaBud, bo w praktyce klienci bardzo często oczekują nie tylko zakupu materiałów, ale też wskazania wykonawców i prowadzenia robót na etapie dachu. W konkurencyjnych ofertach regionu lubelskiego dekarstwo pojawia się obok budowy domów, elewacji i dociepleń — dlatego podstrona została zaplanowana jako oferta zarówno dla B2C, jak i dla mniejszych inwestycji B2B. MediaBud wspiera dobór rozwiązań dachowych, akcesoriów i izolacji, a następnie koordynuje prace z ekipami dekarskimi. Zakres może obejmować nowe pokrycia, modernizacje lub wymianę wybranych elementów dachu, przy czym szczegółowe technologie i ceny są ustalane po oględzinach i analizie projektu.",
+    parametry: [
+      "Segment: B2C i B2B.",
+      "Zakres: nowe dachy, wymiany pokryć, wybrane naprawy i prace towarzyszące.",
+      "Powiązane materiały: pokrycia, folie, membrany, izolacje, akcesoria dachowe.",
+      "Dobór rozwiązań materiałowych i logistyki dostaw na budowę.",
+      "Obsługa lokalna: Lublin i województwo lubelskie.",
+      "Koszt usługi: [do potwierdzenia] po oględzinach lub analizie projektu."
+    ],
+    zastosowanie: [
+      "Dach w nowo budowanym domu jednorodzinnym.",
+      "Wymiana pokrycia lub modernizacja dachu istniejącego budynku.",
+      "Prace dekarskie przy obiektach usługowych i małych inwestycjach firmowych.",
+      "Koordynacja dostaw materiałów dekarskich i ekip montażowych.",
+      "Roboty uzupełniające przy budowie, termomodernizacji lub remoncie."
+    ],
+    zalety: [
+      "Spójna obsługa materiałów i wykonawstwa.",
+      "Oferta ważna zarówno dla klientów prywatnych, jak i firm.",
+      "Dopasowanie do lokalnych zapytań typu usługi dekarskie Lublin.",
+      "Możliwość łączenia prac dachowych z elewacją lub budową domu.",
+      "Wsparcie logistyczne składu budowlanego przy dostawach na inwestycję."
+    ],
+    korzysci: [
+      "Krótsza ścieżka od zapytania do realizacji prac dekarskich.",
+      "Lepsza kontrola jakości materiałów użytych na dachu.",
+      "Mniejsze ryzyko niedopasowania akcesoriów i warstw systemowych.",
+      "Wygodniejsza organizacja prac przy większych inwestycjach etapowych."
+    ],
+    ostrzezenia: [
+      "Stan więźby, konstrukcji i podłoża trzeba potwierdzić przed wyceną.",
+      "Prace dekarskie są silnie zależne od pogody i sezonu.",
+      "Nie każda usługa obejmuje pełny zakres remontu dachu — wymaga to zapisu w ofercie.",
+      "Materiały i terminy mogą się różnić zależnie od typu pokrycia oraz dostępności."
+    ],
+    frazySEO: ["usługi dekarskie Lublin", "dekarz Lublin", "pokrycia dachowe Lublin", "remont dachu lubelskie"],
+    cta: "Wyceń dach lub prace dekarskie"
+  },
+  {
+    slug: "elewacje-tynki-lublin",
+    title: "Elewacje i tynki Lublin",
+    segment: "Oba",
+    icon: <Award className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2C / B2B · elewacje systemowe",
+    krotkiOpis: "Wykonanie elewacji i tynków zewnętrznych w Lublinie dla domów, lokali i obiektów usługowych z wykorzystaniem systemów renomowanych marek.",
+    dlugiOpis: "Elewacje i tynki Lublin to oferta łącząca estetykę, trwałość i efektywność systemową. W researchu pojawia się wyraźnie, że klienci szukają zarówno materiałów, jak i wykonawców oraz wsparcia w doborze kolorów i rodzaju tynku. MediaBud rozwija tę usługę w modelu B2C/B2B, bo elewacje i prace tynkarskie są potrzebne zarówno przy domach jednorodzinnych, jak i obiektach usługowych czy modernizowanych budynkach. Pracujemy na systemach Weber, Ceresit, Atlas, Bolix i Baumit, dobierając tynki silikonowe, silikatowe, mineralne lub inne rozwiązania zależnie od podłoża, charakteru obiektu oraz oczekiwań inwestora. Oferta obejmuje przygotowanie podłoża, warstwy systemowe oraz wykończenie elewacji, a jej komunikacja SEO została oparta o lokalne frazy związane z elewacjami w Lublinie i województwie lubelskim.",
+    parametry: [
+      "Segment: B2C i B2B.",
+      "Zakres: przygotowanie podłoża, warstwy systemowe, tynki i wykończenie elewacji.",
+      "Marki: Weber, Ceresit, Atlas, Bolix, Baumit.",
+      "Typy tynków: silikonowe, silikatowe, mineralne i inne dobierane do projektu.",
+      "Kolorystyka i rozwiązania estetyczne dobierane indywidualnie.",
+      "Koszt realizacji: [do potwierdzenia] po pomiarach i określeniu zakresu."
+    ],
+    zastosowanie: [
+      "Nowa elewacja domu jednorodzinnego.",
+      "Odświeżenie lub modernizacja istniejącej elewacji.",
+      "Wykończenie budynku usługowego lub małego obiektu komercyjnego.",
+      "Połączenie elewacji z ociepleniem lub termomodernizacją.",
+      "Tynkowanie zewnętrzne w inwestycjach etapowych."
+    ],
+    zalety: [
+      "Praca na kompletnych systemach elewacyjnych.",
+      "Wsparcie przy doborze koloru, struktury i typu tynku.",
+      "Oferta dla klientów prywatnych i biznesowych.",
+      "Silne dopasowanie do lokalnych zapytań elewacje Lublin i tynki Lublin.",
+      "Możliwość połączenia z ociepleniem, dachem lub budową domu."
+    ],
+    korzysci: [
+      "Trwalsza i bardziej estetyczna powłoka zewnętrzna budynku.",
+      "Mniejsze ryzyko przypadkowego łączenia niespójnych materiałów.",
+      "Łatwiejsze planowanie całości inwestycji dzięki jednemu partnerowi.",
+      "Lepsze dopasowanie elewacji do warunków lokalnych i stylu obiektu."
+    ],
+    ostrzezenia: [
+      "Rodzaj tynku i technologia muszą być dopasowane do podłoża oraz warunków wilgotnościowych.",
+      "Prace elewacyjne wymagają odpowiednich warunków pogodowych.",
+      "Ostateczna kolorystyka powinna być potwierdzona próbą lub wzornikiem.",
+      "Brak przygotowania podłoża może obniżyć trwałość całego systemu."
+    ],
+    frazySEO: ["elewacje Lublin", "tynki elewacyjne Lublin", "tynki Lublin", "elewacje lubelskie"],
+    cta: "Zapytaj o elewację lub tynki w Lublinie"
+  },
+  {
+    slug: "remonty-b2b-lublin",
+    title: "Remonty B2B Lublin",
+    segment: "B2B",
+    icon: <Building2 className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2B · galerie, szkoły, obiekty publiczne",
+    krotkiOpis: "Oferta remontów i modernizacji dla firm oraz instytucji: galerie handlowe, szkoły, obiekty użyteczności publicznej i inne realizacje wymagające logistyki materiałowej oraz koordynacji wykonawczej.",
+    dlugiOpis: "Remonty B2B Lublin to usługa rozwinięta specjalnie pod potrzeby klientów biznesowych i instytucjonalnych. Właścicielka MediaBud chce mocniej komunikować współpracę z obiektami takimi jak galerie, szkoły czy budynki użyteczności publicznej, dlatego podstrona została przygotowana z myślą o inwestorach oczekujących stabilnej logistyki, terminowości i dopasowania materiałów do standardów obiektowych. MediaBud łączy tu rolę partnera materiałowego z rolą organizatora wykonawstwa i zaplecza fachowców. Usługa sprawdza się przy odświeżaniu wnętrz, przebudowach, pracach wykończeniowych i modernizacjach realizowanych etapami — również wtedy, gdy inwestor potrzebuje ograniczać przestoje obiektu. W warstwie SEO/AEO treść została zbudowana pod lokalne zapytania biznesowe, ale bez sztucznego zawężania oferty tylko do jednego rodzaju obiektu.",
+    parametry: [
+      "Segment: B2B.",
+      "Obsługiwane obiekty: galerie, szkoły, biura, lokale usługowe, obiekty użyteczności publicznej.",
+      "Zakres: remonty, modernizacje, wykończenia, dostawy materiałów, koordynacja ekip.",
+      "Model współpracy: wycena po zakresie, harmonogram etapów, uzgodnienia logistyczne.",
+      "Materiały dobierane do wymogów obiektu i specyfiki użytkowania.",
+      "Koszty i terminy: [do potwierdzenia] po analizie inwestycji."
+    ],
+    zastosowanie: [
+      "Modernizacja lokali handlowych i usługowych.",
+      "Prace remontowe w szkołach i placówkach edukacyjnych.",
+      "Odświeżenie lub przebudowa obiektów biurowych.",
+      "Roboty w obiektach użyteczności publicznej wymagających etapowania.",
+      "Projekty, w których ważne są dostawy i prace poza standardowym rytmem funkcjonowania obiektu."
+    ],
+    zalety: [
+      "Oferta zaprojektowana pod realne potrzeby klientów B2B w Lublinie.",
+      "Połączenie logistyki materiałowej i wykonawstwa.",
+      "Lepsza przewidywalność organizacyjna przy większych obiektach.",
+      "Możliwość etapowania prac oraz dopasowania ich do działania obiektu.",
+      "Treść lokalnie wspiera widoczność fraz związanych z remontami dla firm w Lublinie."
+    ],
+    korzysci: [
+      "Mniej obciążenia po stronie inwestora lub administratora obiektu.",
+      "Spójniejsza organizacja prac i dostaw.",
+      "Łatwiejsze planowanie budżetu i harmonogramu inwestycji.",
+      "Dostęp do jednego punktu kontaktu dla materiałów i wykonawstwa."
+    ],
+    ostrzezenia: [
+      "Zakres prac w obiektach publicznych lub komercyjnych może wymagać dodatkowych uzgodnień formalnych.",
+      "Nie wszystkie roboty można prowadzić bez wpływu na bieżące funkcjonowanie obiektu.",
+      "Harmonogram musi uwzględniać dostępność przestrzeni, odbiory i warunki użytkownika końcowego.",
+      "Wymagania materiałowe i bezpieczeństwa należy każdorazowo potwierdzić dla konkretnego obiektu."
+    ],
+    frazySEO: ["remonty B2B Lublin", "remonty dla firm Lublin", "modernizacja obiektów Lublin", "wykonawca remontów obiektów użyteczności publicznej"],
+    cta: "Porozmawiaj o remoncie obiektu B2B"
+  },
+  {
+    slug: "adaptacja-poddaszy-lublin",
+    title: "Adaptacja poddaszy Lublin",
+    segment: "B2C",
+    icon: <HousePlus className="w-6 h-6 text-[#f81828]" />,
+    badge: "B2C · dodatkowa przestrzeń",
+    krotkiOpis: "Adaptacja poddaszy i skosów w Lublinie z wykorzystaniem suchej zabudowy, izolacji i rozwiązań wykończeniowych dopasowanych do domu inwestora.",
+    dlugiOpis: "Adaptacja poddaszy Lublin to usługa skierowana do właścicieli domów, którzy chcą wykorzystać nieużytkową przestrzeń pod dachem na cele mieszkalne, gabinetowe lub rekreacyjne. Lokalna konkurencja podkreśla rolę projektowania poddaszy i wnętrz jako naturalnego uzupełnienia budowy domu — MediaBud rozwija tę ścieżkę, łącząc dostęp do materiałów z organizacją wykonawstwa. W praktyce usługa obejmuje dobór systemów suchej zabudowy Knauf i Rigips, izolacji Rockwool lub Ursa, akcesoriów do skosów i wykończeń oraz koordynację prac niezbędnych do uzyskania wygodnej i trwałej przestrzeni. Treść odpowiada na pytania użytkowników, którzy szukają adaptacji poddasza w Lublinie, wykończenia skosów i uporządkowanego procesu od konsultacji po realizację.",
+    parametry: [
+      "Zakres: ocena poddasza, dobór materiałów, zabudowy, izolacje i wykończenie.",
+      "Materiały: płyty GK, profile, wełna mineralna, folie, akcesoria montażowe.",
+      "Marki: Knauf, Rigips, Rockwool, Ursa.",
+      "Obsługa: Lublin i województwo lubelskie po potwierdzeniu zakresu.",
+      "Możliwość połączenia z pracami dekarskimi lub wykończeniowymi.",
+      "Koszt usługi: [do potwierdzenia] po oględzinach i ustaleniu standardu."
+    ],
+    zastosowanie: [
+      "Zmiana nieużytkowego poddasza w przestrzeń mieszkalną.",
+      "Wydzielenie gabinetu, sypialni lub pokoju dziecięcego na poddaszu.",
+      "Wykończenie skosów po budowie domu lub remoncie dachu.",
+      "Poprawa izolacyjności i komfortu termicznego na poddaszu.",
+      "Połączenie adaptacji z pełnym wykończeniem wnętrz."
+    ],
+    zalety: [
+      "Lepsze wykorzystanie istniejącej kubatury domu.",
+      "Połączenie materiałów i wykonawstwa w jednym miejscu.",
+      "Dopasowanie do lokalnych zapytań o adaptację poddaszy w Lublinie.",
+      "Współpraca z markami rozpoznawalnymi w suchej zabudowie i izolacji.",
+      "Możliwość łączenia usługi z innymi etapami wykończenia domu."
+    ],
+    korzysci: [
+      "Więcej użytecznej przestrzeni bez rozbudowy bryły budynku.",
+      "Lepszy komfort cieplny i akustyczny na poddaszu.",
+      "Prostsza organizacja prac dzięki jednej ścieżce materiałowo-wykonawczej.",
+      "Mniejsze ryzyko błędów przy doborze zabudowy i izolacji."
+    ],
+    ostrzezenia: [
+      "Stan konstrukcji dachu i możliwość adaptacji trzeba potwierdzić przed rozpoczęciem prac.",
+      "Nie każda przestrzeń poddasza nadaje się do pełnej funkcji mieszkalnej bez dodatkowych działań.",
+      "Prace wymagają precyzyjnej koordynacji izolacji, paroizolacji i zabudowy.",
+      "Koszt zależy od wysokości, geometrii skosów i standardu wykończenia."
+    ],
+    frazySEO: ["adaptacja poddaszy Lublin", "zabudowa poddasza Lublin", "wykończenie poddasza lubelskie", "skosy GK Lublin"],
+    cta: "Zapytaj o adaptację poddasza"
+  }
+];
+
+const generalFaq: FaqItem[] = [
+  { q: "Czy MediaBud łączy sprzedaż materiałów z usługami wykonawczymi?", a: "Tak. To główny wyróżnik tej sekcji — MediaBud łączy rolę składu budowlanego, doradcy technicznego i organizatora wykonawstwa dla inwestycji B2C oraz B2B w Lublinie i województwie lubelskim." },
+  { q: "Czy w ofercie są usługi dla klientów indywidualnych i firm?", a: "Tak. Oferta została podzielona na segmenty B2C, B2B i usługi wspólne. Klienci indywidualni mogą skorzystać m.in. z programu Dom od podstaw, budowy domu, termomodernizacji i wykończeń pod klucz, a firmy z remontów B2B i usług wspólnych, takich jak dachy czy elewacje." },
+  { q: "Czy MediaBud pomaga przy termomodernizacji z programem Czyste Powietrze?", a: "MediaBud wspiera przygotowanie inwestycji materiałowo i wykonawczo, ale nie deklaruje automatycznego uzyskania dotacji. W researchu wskazano dofinansowanie do 136 200 zł oraz możliwość prefinansowania do 35% w określonych przypadkach, jednak każdy wniosek i zakres prac trzeba potwierdzić indywidualnie." },
+  { q: "Czy można zamówić samą usługę albo same materiały?", a: "Zakres współpracy jest elastyczny. W zależności od usługi MediaBud może przygotować wycenę materiałów, wskazać sprawdzonych fachowców albo przeprowadzić klienta przez szerszy proces realizacji." },
+  { q: "Jak zgłosić zapytanie o usługę w Lublinie?", a: "Najprościej zadzwonić pod +48 509 567 213, napisać na sprzedaz@mediabud.pl albo odwiedzić MediaBud przy ul. Chemicznej 8, 20-329 Lublin. W zapytaniu warto podać lokalizację, typ obiektu, zakres robót i oczekiwany termin." }
+];
+
+function ServiceSection({ title, items, accent = "#f81828" }: { title: string; items: string[]; accent?: string }) {
   return (
-    <div className={`rounded-xl overflow-hidden transition-all duration-300 ${cardHover}`} style={card}>
-      {/* Card header – always visible */}
-      <button
-        onClick={onToggle}
-        className="w-full text-left p-6 flex items-start gap-4 focus:outline-none group"
-        aria-expanded={isOpen}
-      >
-        <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-105"
-          style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)" }}>
+    <div className="rounded-2xl p-5 md:p-6" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a", boxShadow: "0 16px 40px rgba(0,0,0,0.28)" }}>
+      <div className="flex items-center gap-3 mb-4">
+        <span className="w-2.5 h-2.5 rounded-full" style={{ background: accent, boxShadow: `0 0 16px ${accent}66` }} />
+        <h3 className="text-[0.95rem] md:text-[1rem] font-black uppercase tracking-[0.22em] text-white break-words" style={{ overflowWrap: "anywhere" }}>{title}</h3>
+      </div>
+      <ul className="grid gap-3">
+        {items.map((item, index) => (
+          <li key={`${title}-${index}`} className="flex items-start gap-3 text-sm leading-relaxed text-[#d7d7d7]">
+            <Check className="w-4 h-4 text-[#f81828] flex-shrink-0 mt-0.5" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ServiceTile({ svc }: { svc: ServiceDetail }) {
+  return (
+    <Link
+      to={`/uslugi/${svc.slug}`}
+      className="group rounded-2xl p-5 md:p-6 flex flex-col min-h-[260px] transition-all duration-300"
+      style={{ background: "#0f0f0f", border: "1px solid #2d2d2d", boxShadow: "0 12px 32px rgba(0,0,0,0.25)" }}
+    >
+      <div className="flex items-start justify-between gap-4 mb-5">
+        <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.24)" }}>
           {svc.icon}
         </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <span className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">{svc.badge}</span>
-          </div>
-          <h2 className="font-display font-black text-white text-base leading-tight mb-1">{svc.title}</h2>
-          <p className="text-xs text-gray-500 leading-relaxed">{svc.shortDesc}</p>
+        <div className="text-[10px] font-black uppercase tracking-[0.22em] px-3 py-1.5 rounded-full text-white border" style={{ borderColor: svc.segment === "B2B" ? "rgba(255,107,53,0.35)" : "rgba(248,24,40,0.35)", color: svc.segment === "B2B" ? "#ff6b35" : "#f81828", background: svc.segment === "B2B" ? "rgba(255,107,53,0.08)" : "rgba(248,24,40,0.08)" }}>
+          {svc.segment}
         </div>
-        <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-300 ${isOpen ? "bg-[#f81828] rotate-90" : "bg-white/5"}`}>
-          <ChevronRight className="w-4 h-4 text-white" />
-        </div>
-      </button>
+      </div>
+      <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#888] mb-2 break-words" style={{ overflowWrap: "anywhere" }}>{svc.badge}</p>
+      <h2 className="font-display text-[1.25rem] md:text-[1.45rem] font-black uppercase leading-[1.05] tracking-[0.01em] text-white mb-3 break-words" style={{ overflowWrap: "anywhere" }}>
+        {svc.title}
+      </h2>
+      <p className="text-sm leading-relaxed text-[#b7b7b7] flex-1">{svc.krotkiOpis}</p>
+      <div className="mt-5 pt-5 border-t border-[#1f1f1f] flex items-center justify-between gap-4">
+        <span className="text-[11px] uppercase tracking-[0.22em] text-[#888]">/uslugi/{svc.slug}</span>
+        <span className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#f81828]">Zobacz usługę <ArrowRight className="w-4 h-4" /></span>
+      </div>
+    </Link>
+  );
+}
 
-      {/* Expanded content */}
-      {isOpen && (
-        <div className="px-6 pb-6 space-y-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-          <p className="text-sm text-gray-400 leading-relaxed pt-5">{svc.longDesc}</p>
-
-          {/* Features */}
-          <div>
-            <div className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-3">Co obejmuje usługa</div>
-            <ul className="grid sm:grid-cols-2 gap-2">
-              {svc.features.map((f, fi) => (
-                <li key={fi} className="flex items-start gap-2 text-xs text-gray-300">
-                  <Check className="w-3.5 h-3.5 text-[#f81828] flex-shrink-0 mt-0.5" />{f}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* FAQ per service */}
-          <div>
-            <div className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-3">Najczęstsze pytania</div>
-            <div className="space-y-2">
-              {svc.faq.map((item, fi) => (
-                <div key={fi} className="rounded-lg p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                  <div className="font-semibold text-white text-xs mb-1.5 flex items-start gap-2">
-                    <span className="text-[#f81828] font-black flex-shrink-0">Q:</span>{item.q}
-                  </div>
-                  <div className="text-xs text-gray-500 leading-relaxed pl-4">{item.a}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Link to="/kontakt">
-            <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_16px_rgba(248,24,40,0.35)] mt-2">
-              <Phone className="w-3.5 h-3.5" /> Zapytaj o wycenę
-            </button>
+function ServiceDetailPage({ service }: { service: ServiceDetail }) {
+  return (
+    <div className="min-h-screen" style={{ background: "#050505" }}>
+      <div className="relative overflow-hidden border-b border-[#1a1a1a]" style={{ background: "linear-gradient(180deg,#0a0a0a 0%,#050505 100%)" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "42px 42px" }} />
+        <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.45)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.22) 55%,transparent)" }} />
+        <div className="relative container mx-auto px-4 pl-9 py-12 md:py-16">
+          <Link to="/uslugi" className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.26em] text-[#888] hover:text-white transition-colors mb-5">
+            <ChevronRight className="w-4 h-4 rotate-180" /> Wszystkie usługi
           </Link>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function FaqAccordion({ items }: { items: FaqItem[] }) {
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
-  return (
-    <div className="space-y-2">
-      {items.map((item, i) => (
-        <div key={i} className={`rounded-xl overflow-hidden transition-all duration-300 ${cardHover}`} style={card}>
-          <button
-            onClick={() => setOpenIdx(openIdx === i ? null : i)}
-            className="w-full text-left px-5 py-4 flex items-center gap-3 focus:outline-none"
-            aria-expanded={openIdx === i}
-          >
-            <span className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-black text-white"
-              style={{ background: openIdx === i ? "#f81828" : "rgba(248,24,40,0.15)" }}>
-              {i + 1}
-            </span>
-            <span className="flex-1 font-semibold text-white text-sm">{item.q}</span>
-            <ChevronRight className={`w-4 h-4 text-[#f81828] transition-transform duration-200 ${openIdx === i ? "rotate-90" : ""}`} />
-          </button>
-          {openIdx === i && (
-            <div className="px-5 pb-4 pl-14 text-sm text-gray-400 leading-relaxed" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-              <div className="pt-3">{item.a}</div>
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function ServicesPage() {
-  const [openService, setOpenService] = useState<string | null>(null);
-
-  const services: ServiceDetail[] = [
-    {
-      id: "dom-od-podstaw",
-      icon: <Shield className="w-6 h-6 text-[#f81828]" />,
-      badge: "Kompleksowa realizacja",
-      title: 'Dom od podstaw — etapy budowy i materiały',
-      shortDesc: "Wsparcie na każdym etapie budowy domu — od fundamentów, przez stan surowy, aż po wykończenie wnętrz. Dobieramy materiały odpowiednie do każdego kroku.",
-      longDesc: "Budowa domu krok po kroku to złożony proces, który wymaga precyzyjnego planowania i doboru właściwych materiałów na każdy etap. W Media Bud oferujemy kompleksowe wsparcie: zaczynając od fundamentów i izolacji poziomej, poprzez bloczki i cegły na stan surowy, systemy ociepleń ETICS, tynki wewnętrzne i zewnętrzne, aż po wylewki, płyty GK i materiały wykończeniowe. Nasi doradcy pomagają zoptymalizować koszty zakupu materiałów bez uszczerbku na jakości — dla budynków jednorodzinnych, bliźniaków i szeregówek. Obsługujemy zarówno inwestorów indywidualnych, jak i deweloperów budujących osiedla w Lublinie i okolicach.",
-      features: [
-        "Kompleksowy dobór materiałów do każdego etapu",
-        "Fundamenty: styropian XPS, masy KMB, dysperbit",
-        "Stan surowy: bloczki, pustaki, cegła ceramiczna",
-        "Ocieplenie: styropian EPS 100/031, wełna fasadowa",
-        "Tynki wewnętrzne: gips maszynowy, tynk cementowo-wapienny",
-        "Wylewki: anhydryt, jastrych cementowy, beton",
-        "Wykończenie: tynki silikonowe, farby, płyty GK",
-        "Koordynacja dostaw zgodna z harmonogramem budowy",
-      ],
-      faq: [
-        { q: "Jakie materiały są potrzebne do budowy domu krok po kroku?", a: "Na budowę domu potrzebne są materiały podzielone na etapy: fundamenty (beton, styropian XPS, masa KMB), stan surowy otwarty (bloczki, pustaki, stropy), stan surowy zamknięty (okna, dach), ocieplenie ETICS (styropian EPS 100 lub 031, tynk silikonowy), instalacje, wylewki (anhydryt lub cement) i wykończenie (płyty GK, farby, tynki)." },
-        { q: "Ile kosztują materiały budowlane na dom 150 m²?", a: "Szacunkowy koszt materiałów na dom 150 m² to od 180 000 do 350 000 zł w zależności od standardu. Największe pozycje to: fundamenty i stan surowy (ok. 40%), ocieplenie i elewacja (15–20%), wylewki i posadzki (10%), dach (15–20%). Skontaktuj się z nami — wycenimy materiały na podstawie projektu." },
-        { q: "Czy Media Bud oferuje doradztwo techniczne przy wyborze materiałów?", a: "Tak, nasze bezpłatne doradztwo techniczne obejmuje dobór materiałów do projektu, optymalizację kosztów, przeliczenie ilości i dobór systemu ociepleń. Zapraszamy do oddziału przy ul. Chemicznej 8d w Lublinie lub na konsultację telefoniczną." },
-      ],
-    },
-    {
-      id: "ocieplenie-etics",
-      icon: <Zap className="w-6 h-6 text-[#f81828]" />,
-      badge: "Energooszczędność",
-      title: "Ocieplenie ETICS — styropian, wełna, tynki",
-      shortDesc: "Kompleksowe systemy ociepleń ETICS: dobór grubości styropianu lub wełny, parametry lambda, instrukcja montażu i wybór tynku końcowego.",
-      longDesc: "System ociepleń ETICS (External Thermal Insulation Composite System) to najskuteczniejsza metoda termoizolacji budynków w Polsce. W Media Bud oferujemy pełen zakres materiałów do ociepleń: styropian EPS 100 o lambdzie 0,031–0,040 W/mK w grubościach 15–20 cm, wełnę fasadową Rockwool/Isover λ 0,035–0,040, kleje i masy szpachlowe Weber/Atlas/Ceresit, siatki z włókna szklanego, profile startowe i narożnikowe oraz tynki końcowe: silikonowe, silikatowe, akrylowe i mineralne. Dobieramy system do klasy energetycznej budynku — dla domów pasywnych rekomendujemy styropian graphite EPS 031 o grubości 20–25 cm.",
-      features: [
-        "Styropian EPS 100 λ=0,038 W/mK — grubości 15, 18, 20 cm",
-        "Styropian grafitowy EPS 031 — najlepsze parametry izolacyjne",
-        "Wełna fasadowa lamelowa i płytowa λ=0,035–0,040",
-        "Kleje i masy zbrojące: Weber, Atlas, Ceresit, Caparol",
-        "Siatki z włókna szklanego 145–160 g/m²",
-        "Profile startowe, narożne, okapnikowe ze stali nierdzewnej",
-        "Tynki końcowe: silikonowy, silikatowy, akrylowy, mineralny",
-        "Farby elewacyjne — cała paleta kolorów RAL i NCS",
-      ],
-      faq: [
-        { q: "Jaki styropian na elewację — 15 cm czy 20 cm?", a: "Zgodnie z wymogami Warunków Technicznych 2021 minimalny współczynnik U ściany to 0,20 W/m²K. Dla standardowego muru 25 cm (bloczek PP2) wystarczy 15 cm styropianu EPS 100 λ=0,038. Dla domów energooszczędnych (klasa A) zalecamy 20 cm EPS 031 λ=0,031. Grubość 20 cm jest dziś standardem przy nowych inwestycjach, bo zwrot z inwestycji nastąpi w 6–8 lat przez niższe rachunki za ogrzewanie." },
-        { q: "Czym różni się styropian EPS od grafitowego (EPS 031)?", a: "Styropian grafitowy (szary, np. Swisspor Lambda, Styropmin Platinum) ma współczynnik λ=0,030–0,033 W/mK — nawet 20% lepszy niż biały EPS (λ=0,038–0,040). Oznacza to, że 15 cm EPS 031 izoluje tak samo jak 18–19 cm białego EPS. Cena styropianu grafitowego jest o ok. 15–25% wyższa, ale przy tej samej grubości ściany uzyska lepszą izolację." },
-        { q: "Jak przebiega montaż systemu ociepleń ETICS krok po kroku?", a: "Montaż ETICS obejmuje: 1) Gruntowanie podłoża, 2) Klejenie płyt styropianu (metoda obwodowo-punktowa lub grzebieniowa), 3) Łączniki mechaniczne (6–8 szt./m²), 4) Nakładanie masy zbrojącej + wtapianie siatki, 5) Gruntowanie głębokopenetrujące, 6) Nanoszenie tynku końcowego (faktura baranek lub kornik), 7) Malowanie farbą elewacyjną. Każdy etap wymaga odpowiednich przerw technologicznych (24–72h)." },
-      ],
-    },
-    {
-      id: "elewacje-tynkowanie",
-      icon: <Award className="w-6 h-6 text-[#f81828]" />,
-      badge: "Wykończenie zewnętrzne",
-      title: "Elewacje i tynkowanie — tynki silikonowe vs silikatowe",
-      shortDesc: "Dobór tynku elewacyjnego: silikonowy czy silikatowy? Porównanie parametrów, kolorystyka RAL/NCS i rekomendacje dla konkretnych podłoży.",
-      longDesc: "Wybór tynku elewacyjnego to kluczowa decyzja wpływająca na trwałość i estetykę budynku. W Media Bud oferujemy wszystkie rodzaje tynków zewnętrznych: silikonowe (najodporniejsze na brudzenie, elastyczne, paroprzepuszczalne), silikatowe (mineralne, odporne biologicznie, idealne na budynki przy drogach), akrylowe (tanie, szeroka kolorystyka, gorsza paroprzepuszczalność) i mineralne (kamyczek, mozaikowe, trwałe). W ofercie posiadamy systemy Weber, Ceresit, Atlas, Caparol i Bolix — z pełną paletą kolorów NCS i RAL. Wykonujemy tynkowanie maszynowe agregatem tynkarskim oraz ręczne — ściany, sufity, podcienia i elementy architektoniczne.",
-      features: [
-        "Tynki silikonowe: elastyczne, samoczyszczące, paroprzepuszczalne",
-        "Tynki silikatowe: odporne biologicznie, mrozoodporne",
-        "Tynki akrylowe: tanie, szeroka kolorystyka, łatwe w aplikacji",
-        "Tynki mozaikowe i kamyczkowe: do cokołów i akcentów",
-        "Tynkowanie maszynowe agregatem — szybko i ekonomicznie",
-        "Pełna paleta kolorów NCS i RAL — dobór online",
-        "Systemy: Weber, Ceresit, Atlas, Caparol, Bolix",
-        "Grunty sczepne i podkłady kwarcowe pod tynki",
-      ],
-      faq: [
-        { q: "Tynk silikonowy czy silikatowy — który wybrać?", a: "Tynk silikonowy jest lepszy dla domów w miejscach narażonych na zabrudzenia (kurz, spaliny) — dzięki właściwościom hydrofobowym brud zmywa deszcz. Tynk silikatowy (krzemianowy) jest bardziej paroprzepuszczalny i odporny biologicznie — polecany na budynki stare, remontowane lub w wilgotnych lokalizacjach. Oba mają zbliżoną cenę (ok. 30–45 zł/m²). Tynk silikonowo-silikatowy łączy zalety obu — to dziś najczęściej wybierany kompromis." },
-        { q: "Ile kosztuje tynkowanie elewacji w Lublinie 2026?", a: "Koszt tynku elewacyjnego silikonowego to ok. 25–45 zł/m² materiału + robocizna ok. 25–40 zł/m². Całościowo elewacja (ociepleenie + tynk) to 120–200 zł/m² przy domu 150 m² (ok. 400 m² elewacji). W Media Bud oferujemy materiały w cenach hurtowych — zapraszamy po bezpłatną wycenę." },
-        { q: "Jaka faktura tynku jest najtrwalsza — baranek czy kornik?", a: "Faktura kornik (deska, rowkowana) gromadzi nieco mniej brudu niż baranek — linie rowków odprowadzają wodę kierunkowo. Baranek (ziarnistość 1,5–3 mm) jest klasyczny i łatwiejszy do naprawy punktowej. Trwałość obu faktur przy tynku silikonowym jest porównywalna i wynosi 15–25 lat. Wybór to kwestia estetyki i projektu architektonicznego." },
-      ],
-    },
-    {
-      id: "wylewki-jastrychy",
-      icon: <Truck className="w-6 h-6 text-[#f81828]" />,
-      badge: "Podłogi i posadzki",
-      title: "Wylewki i jastrychy — anhydryt vs cement pod ogrzewanie",
-      shortDesc: "Porównanie wylewek anhydrytowych i cementowych pod ogrzewanie podłogowe. Grubości, przerwy technologiczne, dobór materiału do systemu grzewczego.",
-      longDesc: "Wybór między wylewką anhydrytową a cementową ma kluczowe znaczenie dla systemu ogrzewania podłogowego. Jastrych anhydrytowy (samonieczący, płynny) idealnie otula rury grzewcze, zapewniając przewodność cieplną λ=2,0 W/mK przy grubości zaledwie 35–45 mm nad rurą. Wylewka cementowa jest tańsza, bardziej odporna na wilgoć i sprawdza się w łazienkach, garażach i pomieszczeniach bez ogrzewania podłogowego. W Media Bud oferujemy gotowe mieszanki anhydrytowe Anhyment, Knauf/Weber, cementy portlandzkie i posypki uszczelniające, a także dodatki przyspieszające wiązanie i preparaty do pielęgnacji. Doradzamy w doborze grubości i składu mieszanki do konkretnego projektu.",
-      features: [
-        "Anhydryt płynny: samonieczący, grubość min. 35 mm nad rurą",
-        "Jastrych cementowy: odporny na wilgoć, garaże i łazienki",
-        "Masy wyrównujące: szybkoschnące, grubości 3–50 mm",
-        "Zbrojenie z siatki lub włókna polipropylenowego",
-        "Preparaty do pielęgnacji i dylatacji wylewek",
-        "Posypki utwardzające do posadzek przemysłowych",
-        "Dobór grubości do systemu ogrzewania podłogowego",
-        "Przeliczenie ilości i dobór składu mieszanki cementowej",
-      ],
-      faq: [
-        { q: "Wylewka anhydrytowa czy cementowa pod ogrzewanie podłogowe?", a: "Pod ogrzewanie podłogowe zaleca się anhydryt: przewodność cieplna λ=2,0 W/mK (vs 1,2–1,6 W/mK dla cementu), idealne wypełnienie wokół rur, minimalny skurcz, grubość zaledwie 35–40 mm nad rurą. Wada: anhydryt jest wrażliwy na wilgoć — nie nadaje się do łazienek bez dodatkowego uszczelnienia. Wylewka cementowa jest wszechstronniejsza i tańsza, ale wymaga grubości 45–65 mm nad rurą i dłuższego czasu schnięcia (1 mm/dobę)." },
-        { q: "Ile schnięca wylewka anhydrytowa przed układaniem podłogi?", a: "Wylewka anhydrytowa schnie ok. 1 mm na dzień w warunkach standardowych (20°C, wilgotność 65%). Wylewka 50 mm jest gotowa po ok. 4–5 tygodniach. Przed układaniem paneli wilgotność resztkowa musi wynosić ≤0,5% CM. Można przyspieszyć suszenie wentylacją mechaniczną i uruchomieniem ogrzewania podłogowego (po 7 dniach, stopniowo od 25°C do 45°C)." },
-        { q: "Jaka minimalna grubość wylewki anhydrytowej nad rurą grzewczą?", a: "Norma PN-EN 1264 zaleca min. 30 mm przykrycia rury anhydrytem (ok. 35 mm nad systemem 17×2 mm). W praktyce stosuje się 40–50 mm nad rurą dla lepszej akumulacji ciepła. Zbyt mała grubość grozi pęknięciem i widocznym efektem cętkowania temperatury na podłodze." },
-      ],
-    },
-    {
-      id: "sucha-zabudowa",
-      icon: <Package className="w-6 h-6 text-[#f81828]" />,
-      badge: "Ściany i sufity",
-      title: "Sucha zabudowa — płyty GK, profile, ściany działowe",
-      shortDesc: "Montaż płyt GK na stelażu metalowym: sufity podwieszane, ściany działowe, obudowy instalacji i poddasza. Dobór profili CW/UW i płyt do zastosowania.",
-      longDesc: "Sucha zabudowa z płyt gipsowo-kartonowych to szybka i czysta metoda aranżacji wnętrz. W Media Bud oferujemy pełen asortyment Knauf, Rigips i Siniat: płyty GKB (standardowe), GKBI (impregowane, łazienki), GKF (ognioodporne) i GKFI (impregowane ognioodporne), profile metalowe CW/UW (ściany), CD/UD (sufity), kształtowniki narożne, złącza i wkręty TN/TB. Doradzamy w doborze rodzaju płyty i profilu do konkretnego zastosowania: ścianki działowe, obudowy instalacji (piony kanalizacyjne), sufity podwieszane, skosach dachowych i zabudowy poddaszy. Oferujemy także izolacje akustyczne (wełna, Isover Aku) montowane między profilami.",
-      features: [
-        "Płyty GKB 12,5 mm — standardowe do ścian i sufitów",
-        "Płyty GKBI — impregnowane do łazienek i kuchni",
-        "Płyty GKF — ognioodporne do klatek schodowych",
-        "Profile CW/UW do ścianek działowych 75/100 mm",
-        "Profile CD/UD do sufitów podwieszanych",
-        "Łączniki, kołki rozporowe, wkręty TN 25/35/45 mm",
-        "Wełna akustyczna Isover Aku do wypełnienia ścianek",
-        "Szpachlówki, taśmy perforowane i narożniki do GK",
-      ],
-      faq: [
-        { q: "Jak zamontować płyty GK na stelażu sufitowym krok po kroku?", a: "Montaż sufitu GK: 1) Wyznaczenie poziomu i montaż profili UD pod sufitem i na ścianach, 2) Montaż wieszaków bezpośrednich lub noniuszy co 90–100 cm, 3) Osadzenie profili CD 60×27 co 50 cm, 4) Przykręcenie płyt GK wkrętami TN 25 mm co 15–17 cm, 5) Spoinowanie taśmą i szpachlówką (3 warstwy), 6) Szlifowanie i malowanie. Między płytami zachowaj szczelinę 2–3 mm." },
-        { q: "Jaka grubość ścianki działowej GK zapewnia dobrą izolację akustyczną?", a: "Ścianka C75/GKB 12,5 + wełna akustyczna 75 mm + GKB 12,5 (łącznie ok. 100 mm) osiąga izolacyjność Rw=43–48 dB — wystarczającą dla pokoi mieszkalnych. Dla lepszej izolacji (Rw≥50 dB) stosuje się podwójne poszycie GKF 15 mm i wełnę min. 60 mm: razem ok. 125 mm grubości. W Media Bud dobierzemy optymalny system do Twojego projektu." },
-        { q: "Ile płyt GK i profili potrzebuję na ściankę 10 m²?", a: "Na 10 m² ścianki działowej potrzebujesz: ok. 5 płyt GKB 120×260 cm (strona), profile UW 2×10,5 mb (górny + dolny), profile CW ok. 20 mb (co 60 cm), wieszaki narożne i wkręty. Razem ok. 20–25% materiału zapasowego. Skorzystaj z naszego kalkulatora w sklepie lub zadzwoń — przeliczymy ilości do Twojego projektu." },
-      ],
-    },
-    {
-      id: "transport-logistyka",
-      icon: <Truck className="w-6 h-6 text-[#f81828]" />,
-      badge: "Dostawa Lublin i region",
-      title: "Transport i logistyka — dostawa materiałów budowlanych Lublin",
-      shortDesc: "Szybka dostawa materiałów budowlanych na plac budowy w Lublinie i województwie lubelskim. Samochody HDS, palety, rozładunek przy budynku.",
-      longDesc: "Media Bud oferuje kompleksową logistykę dostaw materiałów budowlanych na terenie Lublina i całego województwa lubelskiego. Dysponujemy flotą samochodów z dźwigiem HDS (HIAB), co pozwala na precyzyjne rozłożenie materiałów bezpośrednio na placu budowy — nawet na wyższe kondygnacje lub do trudnodostępnych miejsc. Dostarczamy palety ze styropianem, worki z cementem i gipsem, paczki z płytami GK, systemy ociepleń i drobnicę. Harmonogramujemy dostawy zgodnie z etapami budowy, co eliminuje konieczność magazynowania dużych ilości materiałów na placu. Możliwa jest dostawa ekspresowa (tego samego dnia dla zamówień do godz. 10:00) w promieniu 30 km od Lublina.",
-      features: [
-        "Dostawa HDS — rozładunek na plac budowy, wyższe kondygnacje",
-        "Zasięg: Lublin + 80 km (całe woj. lubelskie)",
-        "Dostawy etapowe zgodnie z harmonogramem budowy",
-        "Ekspresowa dostawa tego samego dnia (dla zam. do 10:00)",
-        "Transport palet, worków, płyt i drobnych materiałów",
-        "Dostawa do trudnodostępnych lokalizacji i wąskich działek",
-        "Powiadomienia SMS/email o statusie dostawy",
-        "Możliwość odbioru własnego ze składu ul. Chemiczna 8d",
-      ],
-      faq: [
-        { q: "Na jaki teren Media Bud realizuje dostawy materiałów budowlanych?", a: "Dostarczamy na terenie Lublina i całego województwa lubelskiego — m.in. do Świdnika, Chełma, Zamościa, Biłgoraja, Puław, Kraśnika i Hrubieszowa. Koszt dostawy zależy od odległości i wagi zamówienia. Dla zamówień powyżej określonej wartości dostawa gratis — szczegóły przy składaniu zamówienia lub pod numerem +48 509 567 213." },
-        { q: "Czy możliwa jest dostawa materiałów budowlanych tego samego dnia?", a: "Tak — dla zamówień złożonych do godziny 10:00 realizujemy dostawę ekspresową tego samego dnia w promieniu 30 km od Lublina (w miarę dostępności floty). Dla dalszych lokalizacji czas dostawy to 1–2 dni robocze. Skontaktuj się z nami, aby potwierdzić termin." },
-        { q: "Czy przy dostawie możliwy jest rozładunek HDS na wyższe piętra?", a: "Tak — nasz samochód z dźwigiem HDS pozwala na precyzyjne umieszczenie materiałów na balkonach, stropach lub w pobliżu budynku. Wymagana jest dostępność terenu dla pojazdu ciężarowego (min. 3,5 m szerokości przejazdu). Przy zamówieniu prosimy poinformować o specyfice placu budowy." },
-      ],
-    },
-  ];
-
-  const generalFaq: FaqItem[] = [
-    { q: "Czym jest hurtownia Media Bud i jaki jest jej zakres działalności?", a: "Media Bud to profesjonalna hurtownia i skład materiałów budowlanych w Lublinie przy ul. Chemicznej 8d. Oferujemy pełen asortyment materiałów do budowy i remontu: systemy ociepleń ETICS, tynki, wylewki, płyty GK, farby elewacyjne, cement, gips, styropian, wełna mineralna, kleje i chemia budowlana. Obsługujemy klientów indywidualnych, firmy wykonawcze i deweloperów." },
-    { q: "Czy Media Bud oferuje bezpłatne doradztwo techniczne?", a: "Tak — doradztwo techniczne jest bezpłatne. Nasi specjaliści pomogą dobrać system ociepleń, rodzaj tynku, skład wylewki i optymalne materiały do Twojego projektu. Konsultacja możliwa telefonicznie (+48 509 567 213), mailowo (sprzedaz@mediabud.pl) lub osobiście w hurtowni w Lublinie." },
-    { q: "Jakie systemy ociepleń ETICS są dostępne w Media Bud?", a: "Oferujemy systemy ociepleń czołowych producentów: Weber (Webertherm), Ceresit (CT), Atlas (Stopter), Caparol (Capatect) i Bolix. Dostępne są systemy ze styropianem EPS 100, EPS 031 (grafitowy) oraz wełną mineralną fasadową. Do każdego systemu oferujemy kompletny zestaw materiałów: klej, łączniki, siatkę, grunt i tynk końcowy." },
-    { q: "Czy Media Bud realizuje zamówienia dla firm budowlanych i deweloperów?", a: "Tak — posiadamy dedykowaną ofertę B2B dla firm wykonawczych i deweloperów: indywidualne cenniki wolumenowe, faktury z odroczonym terminem płatności, priorytetowe terminy dostaw i dedykowany opiekun handlowy. Skontaktuj się z nami, aby omówić warunki współpracy dla Twojej firmy." },
-    { q: "Jakie są godziny otwarcia hurtowni przy ul. Chemicznej 8d w Lublinie?", a: "Hurtownia jest otwarta od poniedziałku do piątku w godzinach 7:00–17:00 oraz w soboty od 8:00 do 14:00. W niedzielę i święta nieczynne. Zamówienia z dostawą można składać telefonicznie lub przez formularz kontaktowy na stronie — odpowiadamy w ciągu 2 godzin w dni robocze." },
-    { q: "Czy materiały budowlane w Media Bud posiadają certyfikaty i atesty?", a: "Tak — wszystkie produkty w naszej ofercie posiadają wymagane certyfikaty, aprobaty techniczne i deklaracje zgodności (CE, ITB). Oferujemy wyłącznie materiały renomowanych producentów: Rockwool, Swisspor, Weber, Knauf, Ceresit, Atlas, Caparol, Isover — co gwarantuje jakość i bezpieczeństwo stosowania." },
-    { q: "Jak zamówić materiały budowlane z dostawą do Lublina?", a: "Zamówienie z dostawą możesz złożyć: telefonicznie (+48 509 567 213), mailowo (sprzedaz@mediabud.pl) lub przez formularz kontaktowy na naszej stronie. Podaj listę materiałów, adres budowy i preferowany termin — wycenimy zamówienie i uzgodnimy logistykę. Dostawy realizujemy na terenie Lublina i całego województwa lubelskiego." },
-    { q: "Czy Media Bud poleca sprawdzonych wykonawców i ekipy budowlane?", a: "Tak — współpracujemy z siecią sprawdzonych ekip wykonawczych: tynkarzy maszynowych, specjalistów ETICS, układaczy wylewek i ekip remontowych. Na życzenie klienta możemy polecić zweryfikowanego wykonawcę z doświadczeniem w montażu materiałów z naszej oferty." },
-  ];
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Media Bud — Hurtownia Materiałów Budowlanych",
-    "description": "Kompleksowe usługi budowlane Lublin: systemy ociepleń ETICS, tynki elewacyjne, wylewki, płyty GK, transport materiałów budowlanych.",
-    "url": "https://mediabud.pl",
-    "telephone": "+48509567213",
-    "email": "sprzedaz@mediabud.pl",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "ul. Chemiczna 8d",
-      "addressLocality": "Lublin",
-      "postalCode": "20-145",
-      "addressCountry": "PL"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "51.2463",
-      "longitude": "22.5745"
-    },
-    "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "17:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "14:00" }
-    ],
-    "sameAs": ["https://www.google.com/maps/search/Media+Bud+Lublin"],
-    "priceRange": "$$",
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Usługi budowlane Lublin",
-      "itemListElement": services.map(s => ({ "@type": "Offer", "name": s.title }))
-    }
-  };
-
-  return (
-    <div className="min-h-screen" style={{ background: "#080808" }}>
-
-      {/* JSON-LD LocalBusiness */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      {/* ── Hero ── */}
-      <div className="relative overflow-hidden" style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
-        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.4)" }} />
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.2) 60%,transparent)" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top,#080808,transparent)" }} />
-        <div className="relative container mx-auto px-4 pl-10 py-14">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="max-w-5xl grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
             <div>
-              <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-3">Hurtownia budowlana Lublin</p>
-              <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">
-                Kompleksowe<br />
-                <span style={{ color: "#f81828" }}>usługi budowlane</span><br />
-                Lublin
+              <div className="flex flex-wrap items-center gap-3 mb-4">
+                <span className="text-[10px] font-black uppercase tracking-[0.28em] px-3 py-1.5 rounded-full border text-[#f81828] border-[#f81828]/30 bg-[#f81828]/10">{service.segment}</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.28em] text-[#888]">MediaBud · Lublin / lubelskie</span>
+              </div>
+              <h1 className="font-display font-black uppercase text-white leading-[0.92] break-words mb-5" style={{ fontSize: "clamp(2.25rem,6vw,4.5rem)", overflowWrap: "anywhere" }}>
+                {service.title}
               </h1>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-lg">
-                Hurtownia materiałów budowlanych Media Bud w Lublinie oferuje kompleksowe wsparcie przy każdym projekcie budowlanym — od systemu ociepleń ETICS, przez wylewki i suchą zabudowę, po transport materiałów na plac budowy. Obsługujemy klientów indywidualnych, wykonawców i deweloperów na terenie Lublina i województwa lubelskiego.
+              <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-3xl">
+                {service.krotkiOpis}
               </p>
-              <div className="flex gap-3 flex-wrap">
-                <a href="tel:+48509567213">
-                  <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#f81828] text-white text-sm font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_20px_rgba(248,24,40,0.5)]">
-                    <Phone className="w-4 h-4" /> +48 509 567 213
-                  </button>
+            </div>
+            <div className="rounded-2xl p-6" style={{ background: "#0f0f0f", border: "1px solid #1f1f1f", boxShadow: "0 20px 44px rgba(0,0,0,0.35)" }}>
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)" }}>
+                  {service.icon}
+                </div>
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#888]">Frazy lokalne</p>
+                  <p className="text-sm text-white font-semibold">Lublin · woj. lubelskie</p>
+                </div>
+              </div>
+              <div className="space-y-3 mb-6">
+                {service.frazySEO.map((phrase) => (
+                  <div key={phrase} className="px-3 py-2 rounded-xl text-sm text-[#d7d7d7] border border-[#222] bg-[#0a0a0a] break-words" style={{ overflowWrap: "anywhere" }}>
+                    {phrase}
+                  </div>
+                ))}
+              </div>
+              <div className="space-y-3">
+                <a href="tel:+48509567213" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white transition-colors" style={{ background: "#f81828", boxShadow: "0 14px 32px rgba(248,24,40,0.22)" }}>
+                  <Phone className="w-4 h-4" /> Zadzwoń
                 </a>
-                <Link to="/kontakt">
-                  <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold text-gray-300 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.15)" }}>
-                    Wyślij zapytanie <ArrowRight className="w-4 h-4" />
-                  </button>
+                <Link to="/kontakt" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white border border-[#2d2d2d] bg-[#050505]">
+                  <Mail className="w-4 h-4 text-[#ff6b35]" /> {service.cta}
                 </Link>
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { value: "15+", label: "Lat doświadczenia" },
-                { value: "50+", label: "Marek w ofercie" },
-                { value: "6", label: "Obszarów usług" },
-                { value: "24h", label: "Czas reakcji" },
-              ].map((s, i) => (
-                <div key={i} className="rounded-xl p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                  <div className="font-display font-black text-3xl text-[#f81828] mb-1">{s.value}</div>
-                  <div className="text-xs text-gray-500">{s.label}</div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 space-y-14">
-
-        {/* ── Intro text (SEO) ── */}
-        <div className="rounded-xl p-7" style={card}>
-          <h2 className="font-display text-xl font-black text-white mb-3 flex items-center gap-2">
-            <span className="w-[3px] h-5 bg-[#f81828] rounded-full" /> Dlaczego warto wybrać Media Bud?
-          </h2>
-          <p className="text-gray-400 text-sm leading-relaxed">
-            Media Bud to hurtownia i skład materiałów budowlanych w Lublinie przy ul. Chemicznej 8d, specjalizująca się w kompleksowej obsłudze projektów budowlanych i remontowych. Oferujemy nie tylko sprzedaż materiałów — zapewniamy bezpłatne doradztwo techniczne przy doborze systemu ociepleń ETICS, wyborze tynku elewacyjnego (silikonowy vs silikatowy), rodzaju wylewki pod ogrzewanie podłogowe i montażu suchej zabudowy GK. Nasi klienci to zarówno osoby budujące domy jednorodzinne, jak i firmy wykonawcze oraz deweloperzy realizujący inwestycje wielorodzinne na terenie Lublina i całego województwa lubelskiego. Gwarantujemy materiały od renomowanych producentów z certyfikatami (Rockwool, Swisspor, Weber, Knauf, Ceresit, Atlas) oraz transport z rozładunkiem HDS bezpośrednio na plac budowy.
-          </p>
+      <div className="container mx-auto px-4 py-10 md:py-14 space-y-8">
+        <div className="rounded-2xl p-6 md:p-8" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a", boxShadow: "0 18px 40px rgba(0,0,0,0.28)" }}>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 14px rgba(248,24,40,0.55)" }} />
+            <h2 className="text-[0.95rem] font-black uppercase tracking-[0.24em] text-white">Długi opis</h2>
+          </div>
+          <p className="text-sm md:text-base leading-relaxed text-[#d7d7d7]">{service.dlugiOpis}</p>
         </div>
 
-        {/* ── 6 Service Cards ── */}
-        <div>
-          <div className="flex items-center gap-3 mb-8">
-            <span className="w-[3px] h-7 bg-[#f81828] rounded-full" />
+        <div className="grid lg:grid-cols-2 gap-6">
+          <ServiceSection title="Parametry techniczne" items={service.parametry} />
+          <ServiceSection title="Zastosowanie" items={service.zastosowanie} accent="#ff6b35" />
+          <ServiceSection title="Zalety" items={service.zalety} />
+          <ServiceSection title="Korzyści" items={service.korzysci} accent="#ff6b35" />
+          <div className="lg:col-span-2">
+            <ServiceSection title="Ostrzeżenia" items={service.ostrzezenia} accent="#f81828" />
+          </div>
+        </div>
+
+        <div className="rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.10),rgba(255,107,53,0.07))", border: "1px solid rgba(248,24,40,0.18)", boxShadow: "0 18px 44px rgba(0,0,0,0.32)" }}>
+          <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-center">
             <div>
-              <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">Zakres usług</p>
-              <h2 className="font-display text-2xl font-black text-white">Co oferuje Media Bud?</h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">Kontakt wykonawczy</p>
+              <h2 className="font-display text-[clamp(1.8rem,4vw,3.2rem)] font-black uppercase leading-[0.94] text-white break-words mb-3" style={{ overflowWrap: "anywhere" }}>
+                MediaBud — ul. Chemiczna 8, 20-329 Lublin
+              </h2>
+              <p className="text-sm md:text-base leading-relaxed text-[#e6e6e6]">Zadzwoń, wyślij zakres prac lub odwiedź skład. Przygotujemy wycenę, dobierzemy system materiałowy i zaproponujemy ścieżkę realizacji dopasowaną do segmentu {service.segment}.</p>
+            </div>
+            <div className="flex flex-col gap-3 min-w-[240px]">
+              <a href="tel:+48509567213" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white" style={{ background: "#f81828", boxShadow: "0 12px 30px rgba(248,24,40,0.25)" }}>
+                <Phone className="w-4 h-4" /> +48 509 567 213
+              </a>
+              <a href="mailto:sprzedaz@mediabud.pl" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white border border-[#2d2d2d] bg-[#0a0a0a]">
+                <Mail className="w-4 h-4 text-[#ff6b35]" /> sprzedaz@mediabud.pl
+              </a>
             </div>
           </div>
-          <p className="text-gray-500 text-sm mb-6 max-w-2xl">Kliknij kartę usługi, aby zobaczyć szczegółowy opis, listę funkcji i najczęstsze pytania. Każda usługa obejmuje bezpłatne doradztwo techniczne.</p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {services.map(svc => (
-              <ServiceCard
-                key={svc.id}
-                svc={svc}
-                isOpen={openService === svc.id}
-                onToggle={() => setOpenService(openService === svc.id ? null : svc.id)}
-              />
-            ))}
-          </div>
         </div>
+      </div>
+    </div>
+  );
+}
 
-        {/* ── General FAQ ── */}
-        <div>
-          <div className="flex items-center gap-3 mb-8">
-            <span className="w-[3px] h-7 bg-[#f81828] rounded-full" />
+export function ServicesPage() {
+  const { slug } = useParams<{ slug?: string }>();
+
+  const service = slug ? services.find((item) => item.slug === slug) : null;
+  const b2cServices = services.filter((item) => item.segment === "B2C" && item.slug !== "dom-od-podstaw");
+  const mixedServices = services.filter((item) => item.segment === "Oba");
+  const b2bServices = services.filter((item) => item.segment === "B2B");
+  const umbrellaService = services.find((item) => item.slug === "dom-od-podstaw");
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "MediaBud — usługi wykonawcze i materiały budowlane",
+    description: "Usługi wykonawcze MediaBud w Lublinie: budowa domów, termomodernizacja, wykończenia pod klucz, dachy, elewacje, remonty B2B i adaptacja poddaszy.",
+    url: "https://mediabud.pl",
+    telephone: "+48509567213",
+    email: "sprzedaz@mediabud.pl",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "ul. Chemiczna 8",
+      addressLocality: "Lublin",
+      postalCode: "20-329",
+      addressCountry: "PL"
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Usługi wykonawcze MediaBud",
+      itemListElement: services.map((item) => ({ "@type": "Offer", name: item.title, category: item.segment }))
+    }
+  };
+
+  if (slug && !service) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#050505" }}>
+        <div className="max-w-xl w-full rounded-2xl p-8 text-center" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}>
+          <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-3">404 · usługa</p>
+          <h1 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-black uppercase text-white leading-[0.95] break-words mb-4" style={{ overflowWrap: "anywhere" }}>Nie znaleźliśmy tej podstrony</h1>
+          <p className="text-sm leading-relaxed text-[#b7b7b7] mb-6">Sprawdź listę usług wykonawczych MediaBud lub skontaktuj się z nami, jeśli chcesz wycenić niestandardowy zakres prac w Lublinie i województwie lubelskim.</p>
+          <Link to="/uslugi" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white" style={{ background: "#f81828" }}>
+            <ArrowRight className="w-4 h-4" /> Zobacz wszystkie usługi
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (service) {
+    return (
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <ServiceDetailPage service={service} />
+      </>
+    );
+  }
+
+  return (
+    <div className="min-h-screen" style={{ background: "#050505" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <div className="relative overflow-hidden border-b border-[#1a1a1a]" style={{ background: "linear-gradient(180deg,#0a0a0a 0%,#050505 100%)" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "42px 42px" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.22) 55%,transparent)" }} />
+        <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.45)" }} />
+        <div className="relative container mx-auto px-4 pl-9 py-12 md:py-16">
+          <div className="max-w-5xl grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
             <div>
-              <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">People Also Ask</p>
-              <h2 className="font-display text-2xl font-black text-white">Najczęstsze pytania — usługi budowlane Lublin</h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-4">Industrial Pulse · usługi wykonawcze</p>
+              <h1 className="font-display font-black uppercase text-white leading-[0.9] break-words mb-5" style={{ fontSize: "clamp(2.4rem,6vw,4.5rem)", overflowWrap: "anywhere" }}>
+                Usługi wykonawcze MediaBud
+              </h1>
+              <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-3xl">MediaBud rozwija ofertę dla klientów indywidualnych i biznesowych: budowa domu, termomodernizacja, wykończenia pod klucz, dachy, elewacje, adaptacje poddaszy oraz remonty B2B dla galerii, szkół i obiektów użyteczności publicznej w Lublinie i województwie lubelskim.</p>
             </div>
-          </div>
-          <p className="text-gray-500 text-sm mb-6 max-w-2xl">Odpowiadamy na najczęściej zadawane pytania dotyczące naszej oferty, dostaw i doradztwa technicznego.</p>
-          <FaqAccordion items={generalFaq} />
-        </div>
-
-        {/* ── Process strip ── */}
-        <div className="rounded-xl overflow-hidden" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.08),rgba(248,24,40,0.03))", border: "1px solid rgba(248,24,40,0.15)" }}>
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828]" style={{ position: "relative" }} />
-          <div className="p-7">
-            <h2 className="font-display text-xl font-black text-white mb-6 text-center">Jak wygląda współpraca z Media Bud?</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {[
-                { step: "01", title: "Kontakt i wstępna wycena", desc: "Zadzwoń lub napisz — przedstaw projekt lub listę potrzeb. Bezpłatna konsultacja techniczna." },
-                { step: "02", title: "Dobór materiałów", desc: "Nasi doradcy dobierają optymalne materiały do budżetu, projektu i etapu budowy." },
-                { step: "03", title: "Realizacja zamówienia", desc: "Kompletujemy zamówienie ze stanu magazynowego lub zamawiamy u producenta w ciągu 24–48h." },
-                { step: "04", title: "Dostawa HDS", desc: "Dowozimy materiały na plac budowy w Lublinie i regionie — z rozładunkiem dźwigiem." },
-              ].map((item, i) => (
-                <div key={i} className="text-center">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 font-black text-[#f81828] text-lg" style={{ background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.25)" }}>
-                    {item.step}
+            <div className="rounded-2xl p-6" style={{ background: "#0f0f0f", border: "1px solid #1f1f1f", boxShadow: "0 20px 44px rgba(0,0,0,0.35)" }}>
+              <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#888] mb-3">W skrócie</p>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { value: "8", label: "podstron usług" },
+                  { value: "B2C", label: "dom od podstaw" },
+                  { value: "B2B", label: "remonty obiektowe" },
+                  { value: "Lublin", label: "obszar lokalny" },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-xl p-4 border border-[#1f1f1f] bg-[#0a0a0a]">
+                    <div className="text-[1.6rem] font-black text-white font-display">{item.value}</div>
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-[#888] mt-1">{item.label}</div>
                   </div>
-                  <h3 className="font-bold text-white text-sm mb-1">{item.title}</h3>
-                  <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-10 md:py-14 space-y-10">
+        {umbrellaService ? (
+          <div className="rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.12),rgba(255,107,53,0.05))", border: "1px solid rgba(248,24,40,0.18)", boxShadow: "0 18px 44px rgba(0,0,0,0.32)" }}>
+            <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-3">Parasol B2C</p>
+                <h2 className="font-display text-[clamp(1.9rem,4vw,3.4rem)] font-black uppercase leading-[0.94] text-white break-words mb-4" style={{ overflowWrap: "anywhere" }}>{umbrellaService.title}</h2>
+                <p className="text-sm md:text-base leading-relaxed text-[#e6e6e6] mb-5">{umbrellaService.krotkiOpis}</p>
+                <div className="flex flex-wrap gap-2">
+                  {umbrellaService.frazySEO.map((phrase) => (
+                    <span key={phrase} className="px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.18em] text-white border border-[#2d2d2d] bg-[#0a0a0a]">{phrase}</span>
+                  ))}
                 </div>
-              ))}
+              </div>
+              <div className="flex flex-col gap-3">
+                <Link to="/" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white border border-[#2d2d2d] bg-[#0a0a0a]">
+                  <ArrowRight className="w-4 h-4 text-[#ff6b35]" /> Sekcja #dom-od-podstaw na stronie głównej
+                </Link>
+                <Link to={`/uslugi/${umbrellaService.slug}`} className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white" style={{ background: "#f81828" }}>
+                  <Phone className="w-4 h-4" /> Zobacz podstronę programu
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
 
-        {/* ── Final CTA ── */}
-        <div className="rounded-2xl p-8 md:p-12 text-center relative overflow-hidden" style={{ background: "#0f0f0f", border: "1px solid rgba(248,24,40,0.2)" }}>
-          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 50% 0%,rgba(248,24,40,0.12),transparent 60%)" }} />
-          <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,transparent,#f81828 50%,transparent)" }} />
-          <div className="relative">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.25)" }}>
-              <Phone className="w-7 h-7 text-[#f81828]" />
+        <section className="space-y-5">
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">B2C</p>
+              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Usługi dla inwestorów indywidualnych</h2>
             </div>
-            <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-3">
-              Gotowy na realizację projektu?
-            </h2>
-            <p className="text-gray-400 text-sm max-w-lg mx-auto mb-7 leading-relaxed">
-              Skontaktuj się z nami — bezpłatnie doradzimy, jakie materiały i w jakiej ilości potrzebujesz. Obsługujemy Lublin i całe województwo lubelskie. Odpowiadamy w ciągu 2 godzin roboczych.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-              <a href="tel:+48509567213">
-                <button className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#f81828] text-white font-bold text-base hover:bg-[#c8000f] transition-all hover:shadow-[0_0_24px_rgba(248,24,40,0.5)] hover:-translate-y-0.5">
-                  <Phone className="w-5 h-5" /> +48 509 567 213
-                </button>
-              </a>
-              <a href="mailto:sprzedaz@mediabud.pl">
-                <button className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-base text-gray-300 hover:text-white transition-all hover:-translate-y-0.5" style={{ border: "1px solid rgba(255,255,255,0.15)" }}>
-                  <Mail className="w-5 h-5" /> sprzedaz@mediabud.pl
-                </button>
-              </a>
+            <p className="text-sm text-[#888] max-w-2xl">Budowa domu, termomodernizacja, wykończenie, małe domy i adaptacje poddaszy — wszystko w modelu lokalnym Lublin / woj. lubelskie.</p>
+          </div>
+          <div className="grid xl:grid-cols-2 gap-5">
+            {b2cServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
+          </div>
+        </section>
+
+        <section className="space-y-5">
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#ff6b35] mb-2">B2C / B2B</p>
+              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Usługi wspólne dla domów i obiektów</h2>
             </div>
-            <div className="flex items-center justify-center gap-1.5 mt-5 text-xs text-gray-600">
-              <MapPin className="w-3.5 h-3.5 text-[#f81828]" />
-              ul. Chemiczna 8d, 20-145 Lublin &nbsp;·&nbsp; Pon–Pt 7:00–17:00 &nbsp;·&nbsp; Sob 8:00–14:00
+            <p className="text-sm text-[#888] max-w-2xl">Dachy i elewacje, które naturalnie łączą inwestycje prywatne oraz mniejsze realizacje firmowe.</p>
+          </div>
+          <div className="grid xl:grid-cols-2 gap-5">
+            {mixedServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
+          </div>
+        </section>
+
+        <section className="space-y-5">
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#ff6b35] mb-2">B2B</p>
+              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Usługi dla firm i instytucji</h2>
+            </div>
+            <p className="text-sm text-[#888] max-w-2xl">Remonty i modernizacje dla galerii, szkół, lokali usługowych i obiektów użyteczności publicznej.</p>
+          </div>
+          <div className="grid xl:grid-cols-2 gap-5">
+            {b2bServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
+          </div>
+        </section>
+
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-[3px] h-8 bg-[#f81828] rounded-full" />
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828]">FAQ</p>
+              <h2 className="font-display text-[clamp(1.7rem,3vw,2.8rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Najczęstsze pytania o usługi wykonawcze</h2>
             </div>
           </div>
-        </div>
-
+          <FaqAccordion items={generalFaq} />
+        </section>
       </div>
     </div>
   );

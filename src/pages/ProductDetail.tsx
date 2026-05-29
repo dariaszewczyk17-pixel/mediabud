@@ -463,20 +463,51 @@ export default function ProductDetail() {
             {activeTab === "specyfikacja" && (
               <div className="max-w-2xl">
                 {product.technicalSpec.length > 0 ? (
-                  <div className="rounded-xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
-                    {product.technicalSpec.map((spec, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center justify-between px-4 py-3 text-sm"
-                        style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent", borderBottom: i < product.technicalSpec.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}
-                      >
-                        <span className="text-gray-500 font-medium">{spec.label}</span>
-                        <span className="font-bold text-white text-right">{spec.value}</span>
-                      </div>
-                    ))}
+                  <div className="space-y-0.5">
+                    {/* Nagłówek tabeli */}
+                    <div className="flex items-center justify-between px-4 py-2 text-xs font-medium tracking-widest uppercase mb-2"
+                      style={{ color: "rgba(255,255,255,0.2)" }}>
+                      <span>Parametr</span>
+                      <span>Wartość</span>
+                    </div>
+                    <div className="rounded-xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+                      {product.technicalSpec.map((spec, i) => {
+                        // Wykryj wartości numeryczne do font-mono
+                        const isNumeric = /^[\d.,\-–+]+\s*[a-zA-Zł°%/²³]*$/.test(spec.value?.trim() ?? '');
+                        // Wykryj jednostkę i podświetl ją
+                        const numMatch = spec.value?.match(/^([\d.,\-–+\s]+)\s*([a-zA-Zł°%/²³]+)$/);
+                        return (
+                          <div
+                            key={i}
+                            className="flex items-center justify-between px-4 py-3 text-sm group"
+                            style={{
+                              background: i % 2 === 0 ? "rgba(255,255,255,0.025)" : "transparent",
+                              borderBottom: i < product.technicalSpec.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none"
+                            }}
+                          >
+                            <span className="text-gray-400 font-medium pr-4 leading-snug">{spec.label}</span>
+                            {isNumeric && numMatch ? (
+                              <span className="font-mono font-bold text-white text-right whitespace-nowrap">
+                                {numMatch[1].trim()}
+                                <span className="text-xs font-sans ml-0.5" style={{ color: "#f81828" }}>{numMatch[2]}</span>
+                              </span>
+                            ) : (
+                              <span className={`font-bold text-white text-right ${isNumeric ? "font-mono" : ""}`}>{spec.value}</span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {/* Podpis */}
+                    <p className="text-xs text-gray-700 px-1 pt-2">
+                      Dane techniczne podane przez producenta. Pytaj o aktualny cennik i dostępność.
+                    </p>
                   </div>
                 ) : (
-                  <p className="text-gray-600 text-sm">Specyfikacja techniczna w przygotowaniu. Zapytaj naszych doradców.</p>
+                  <div className="rounded-xl px-6 py-8 text-center" style={{ border: "1px dashed rgba(255,255,255,0.07)" }}>
+                    <p className="text-gray-600 text-sm">Specyfikacja techniczna w przygotowaniu.</p>
+                    <p className="text-gray-700 text-xs mt-1">Zapytaj naszych doradców — tel. lub e-mail.</p>
+                  </div>
                 )}
               </div>
             )}

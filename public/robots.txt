@@ -2,5 +2,15 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin/
+Disallow: /wycena/
+Disallow: /search?*
+
+# Nie indeksuj wyników wyszukiwania
+User-agent: Googlebot
+Disallow: /search
+
+User-agent: Bingbot
+Disallow: /search
 
 Sitemap: https://mediabud.pl/sitemap.xml
+

@@ -286,7 +286,7 @@ export default function Header() {
                   onChange={e => setSearchQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
                   placeholder="Szukaj produktów, marek, kategorii..."
-                  className="pl-10 rounded-r-none border-r-0 text-gray-900 placeholder:text-gray-400 focus-visible:ring-0 text-sm h-11 transition-all"
+                  className="pl-10 rounded-r-none border-r-0 text-white placeholder:text-gray-500 focus-visible:ring-0 text-sm h-11 transition-all"
                   style={{
                     background: "#f5f5f5",
                     border: "1px solid rgba(0,0,0,0.12)",
@@ -330,7 +330,7 @@ export default function Header() {
                         className="flex items-center gap-3 px-4 py-3 border-b border-black/5 hover:bg-[#f81828]/5 transition-colors group/sr last:border-0"
                         onClick={() => { setSearchResults([]); setSearchQuery(""); setSearchFocused(false); }}
                       >
-                        <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 border border-black/5">
+                        <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-[#1a1a1a] border border-white/10">
                           <img src={p.images?.[0] || "/placeholder.svg"} alt={p.name} className="w-full h-full object-cover" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -440,7 +440,7 @@ export default function Header() {
 
             {/* Hamburger */}
             <button
-              className="lg:hidden p-2.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              className="lg:hidden p-2.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"

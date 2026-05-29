@@ -129,3 +129,5 @@
 [2026-05-29 16:38] Pipeline v4 w toku; sidebar fix+useSEO+build done
 [2026-05-29 16:42] START: wygląd sklepu — czytam Home.tsx + Commerce.tsx
 [2026-05-29 16:46] Commit+push: dark theme Home + sidebar + useSEO. Pipeline OLD: offset 7000, ~6008 done.
+[2026-05-29 16:48] useSEO SearchResultsPage + commit/push. Pipeline V4 offset ~2000+, OLD offset 7000 LLM trwa.
+[2026-05-29 16:48] Status: pipeline działa (OLD offset 7000+, V4 offset 2000+); zrobione: dark theme Home, sidebar, useSEO x3, commit+push

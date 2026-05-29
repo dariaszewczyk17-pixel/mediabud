@@ -95,3 +95,12 @@
 [2026-05-29 16:44:06]   Postęp: updated=6008, skip=765, err=227
 [2026-05-29 16:44:07] Offset 7000: pobrano 500 produktów
 [2026-05-29 16:44:07]   Po filtracji: 433 dobrych, 67 pominiętych
+[2026-05-29 16:47:55]   LLM sparsowanych: 463 / 466
+[2026-05-29 16:48:10]   PATCH: 463 zapisanych | Postęp: updated=2224, skip=276, err=0
+[2026-05-29 16:48:11] Offset 2500: pobrano 500 produktów
+[2026-05-29 16:48:11]   Po filtracji: 457 dobrych, 43 pominiętych
+[2026-05-29 16:48:50]   LLM sparsowanych: 423 / 433
+[2026-05-29 16:48:53]   PATCH: 423 dokumentów zapisanych
+[2026-05-29 16:48:53]   Postęp: updated=6431, skip=832, err=237
+[2026-05-29 16:48:54] Offset 7500: pobrano 500 produktów
+[2026-05-29 16:48:54]   Po filtracji: 430 dobrych, 70 pominiętych

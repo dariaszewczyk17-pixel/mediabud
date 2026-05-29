@@ -31,7 +31,15 @@ const CATEGORY_FIELDS = `{
   _id, "slug": slug.current, name, icon, description, order,
   "parentSlug": parent->slug.current,
   "parentName": parent->name,
-  "children": *[_type=="category" && parent._ref == ^._id]{ _id, "slug": slug.current, name, order }
+  "children": *[_type=="category" && parent._ref == ^._id] | order(order asc, name asc) {
+    _id, "slug": slug.current, name, order,
+    "children": *[_type=="category" && parent._ref == ^._id] | order(order asc, name asc) {
+      _id, "slug": slug.current, name, order,
+      "children": *[_type=="category" && parent._ref == ^._id] | order(order asc, name asc) {
+        _id, "slug": slug.current, name, order
+      }
+    }
+  }
 }`
 
 // ── Stałe queries (eksportowane dla useSanityData.ts) ───────────────────────
@@ -49,7 +57,12 @@ export const PRODUCTS_BY_CATEGORY_QUERY =
   `*[_type == "product" && category->slug.current == $slug] | order(name asc) ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && category->slug.current in $slugs] | order(name asc) ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && (
+    category->slug.current in $slugs ||
+    category->parent->slug.current in $slugs ||
+    category->parent->parent->slug.current in $slugs ||
+    category->parent->parent->parent->slug.current in $slugs
+  )] | order(name asc) ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCT_BY_SLUG_QUERY =
   `*[_type == "product" && slug.current == $slug][0] ${PRODUCT_FULL_FIELDS}`

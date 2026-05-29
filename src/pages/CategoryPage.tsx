@@ -75,6 +75,8 @@ export default function CategoryPage() {
   );
 
   const selectedBrand = searchParams.get("brand") || "";
+  const selectedUnit  = searchParams.get("unit")  || "";
+  const selectedTag   = searchParams.get("tag")   || "";
   const sortBy = searchParams.get("sort") || "default";
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
@@ -104,11 +106,15 @@ export default function CategoryPage() {
   /** Filtruje śmieciowe wartości brand (jednostki, znaki specjalne, puste) */
   const isValidBrand = (b: string) => {
     if (!b || b.length < 2) return false;
-    // Musi zaczynać się od litery (nie cyfra, nie znak specjalny)
     if (!/^[A-Za-zÀ-ÿĄąĆćĘęŁłŃńÓóŚśŹźŻż]/.test(b)) return false;
-    // Odrzuć jednostki: 1L, 5L, 25Kg, 0,75L, 10Szt itp.
     if (/^\d/.test(b)) return false;
     return true;
+  };
+
+  /** Filtruje jednostki — akceptuje pojemności/gramaturę, odrzuca śmieci */
+  const isValidUnit = (u: string) => {
+    if (!u || u.length < 1) return false;
+    return /^\d/.test(u) && u.length <= 10;
   };
 
   const availableBrands = useMemo(
@@ -116,9 +122,23 @@ export default function CategoryPage() {
     [catProducts]
   );
 
+  const availableUnits = useMemo(
+    () => [...new Set(catProducts.map(p => p.unit).filter(isValidUnit))].sort(
+      (a, b) => parseFloat(a) - parseFloat(b)
+    ),
+    [catProducts]
+  );
+
+  const availableTags = useMemo(
+    () => [...new Set(catProducts.flatMap(p => p.tags ?? []).filter(t => t && t.length > 1))].sort(),
+    [catProducts]
+  );
+
   const filtered = useMemo(() => {
     let result = [...catProducts];
     if (selectedBrand) result = result.filter(p => p.brand === selectedBrand);
+    if (selectedUnit)  result = result.filter(p => p.unit  === selectedUnit);
+    if (selectedTag)   result = result.filter(p => (p.tags ?? []).includes(selectedTag));
     switch (sortBy) {
       case "name-asc":  result.sort((a, b) => a.name.localeCompare(b.name, "pl")); break;
       case "name-desc": result.sort((a, b) => b.name.localeCompare(a.name, "pl")); break;
@@ -126,7 +146,7 @@ export default function CategoryPage() {
       case "new":       result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)); break;
     }
     return result;
-  }, [catProducts, selectedBrand, sortBy]);
+  }, [catProducts, selectedBrand, selectedUnit, selectedTag, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
@@ -140,7 +160,7 @@ export default function CategoryPage() {
   };
 
   const clearFilters = () => setSearchParams(new URLSearchParams());
-  const hasActiveFilters = !!(selectedBrand || sortBy !== "default");
+  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || sortBy !== "default");
 
   const heroReveal = useReveal();
   const subReveal  = useReveal();
@@ -169,27 +189,54 @@ export default function CategoryPage() {
             <Tag className="w-3 h-3 text-[#f81828]" /> Marka
           </h3>
           <div className="space-y-0.5">
-            <button
-              onClick={() => updateParam("brand", "")}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                !selectedBrand
-                  ? "bg-[#f81828] text-white"
-                  : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"
-              }`}
-            >
+            <button onClick={() => updateParam("brand", "")}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${!selectedBrand ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
               Wszystkie marki
             </button>
             {availableBrands.map(brand => (
-              <button
-                key={brand}
-                onClick={() => updateParam("brand", brand === selectedBrand ? "" : brand)}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                  selectedBrand === brand
-                    ? "bg-[#f81828] text-white"
-                    : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"
-                }`}
-              >
+              <button key={brand} onClick={() => updateParam("brand", brand === selectedBrand ? "" : brand)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${selectedBrand === brand ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
                 {brand}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {availableUnits.length > 1 && (
+        <div>
+          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
+            <Zap className="w-3 h-3 text-[#f81828]" /> Pojemność / gramatura
+          </h3>
+          <div className="flex flex-wrap gap-1.5">
+            <button onClick={() => updateParam("unit", "")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${!selectedUnit ? "bg-[#f81828] text-white" : "text-gray-500 border border-white/10 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}>
+              Wszystkie
+            </button>
+            {availableUnits.map(u => (
+              <button key={u} onClick={() => updateParam("unit", u === selectedUnit ? "" : u)}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${selectedUnit === u ? "bg-[#f81828] text-white" : "text-gray-500 border border-white/10 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}>
+                {u}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {availableTags.length > 0 && (
+        <div>
+          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
+            <Tag className="w-3 h-3 text-[#f81828]" /> Typ produktu
+          </h3>
+          <div className="space-y-0.5">
+            <button onClick={() => updateParam("tag", "")}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${!selectedTag ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
+              Wszystkie typy
+            </button>
+            {availableTags.map(tag => (
+              <button key={tag} onClick={() => updateParam("tag", tag === selectedTag ? "" : tag)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all capitalize ${selectedTag === tag ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
+                {tag.replace(/-/g, " ")}
               </button>
             ))}
           </div>
@@ -208,15 +255,8 @@ export default function CategoryPage() {
             ["brand",     "Marka A–Z"],
             ["new",       "Nowości najpierw"],
           ].map(([val, label]) => (
-            <button
-              key={val}
-              onClick={() => updateParam("sort", val)}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                sortBy === val
-                  ? "bg-[#f81828] text-white"
-                  : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"
-              }`}
-            >
+            <button key={val} onClick={() => updateParam("sort", val)}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${sortBy === val ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
               {label}
             </button>
           ))}
@@ -224,11 +264,9 @@ export default function CategoryPage() {
       </div>
 
       {hasActiveFilters && (
-        <button
-          onClick={clearFilters}
+        <button onClick={clearFilters}
           className="w-full flex items-center justify-center gap-2 text-xs text-[#f81828] font-semibold py-2 rounded-lg transition-all hover:bg-[#f81828]/10"
-          style={{ border: "1px solid rgba(248,24,40,0.25)" }}
-        >
+          style={{ border: "1px solid rgba(248,24,40,0.25)" }}>
           <X className="w-3 h-3" /> Wyczyść filtry
         </button>
       )}

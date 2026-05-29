@@ -41,8 +41,14 @@ const CAT_IMAGES: Record<string, string> = {
   "sucha-zabudowa":      "/images/cat-sucha-zabudowa_2.png",
 };
 
+/* ── GA4 helper ── */
+declare global { interface Window { gtag?: (...a: unknown[]) => void } }
+const trackNav = (label: string, level: string, slug?: string) =>
+  window.gtag?.('event', 'navigation_click', { nav_label: label, nav_level: level, nav_slug: slug });
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [megaSearch, setMegaSearch] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -382,8 +388,13 @@ export default function Header() {
             </button>
 
             {/* Hamburger */}
-            <button className="lg:hidden p-2.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-              onClick={() => setMobileOpen(!mobileOpen)}>
+            <button
+              className="lg:hidden p-2.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
+              aria-label={mobileOpen ? "Zamknij menu" : "Otwórz menu"}
+            >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
@@ -400,18 +411,21 @@ export default function Header() {
           <div className="absolute inset-0 pointer-events-none"
             style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
 
-          <div className="relative container mx-auto px-4">
+          <nav className="relative container mx-auto px-4" role="navigation" aria-label="Kategorie produktów">
             <div className="flex items-center">
               {/* Category icon items */}
               {categories.map(cat => (
                 <div key={cat.id} className="relative group/icon flex-1"
-                  onMouseEnter={() => menuEnter(cat.id)}
+                  onMouseEnter={() => { menuEnter(cat.id); setMegaSearch(""); }}
                   onMouseLeave={menuLeave}>
                   <Link to={`/kategoria/${cat.slug}`}
                     className="flex flex-col items-center gap-1.5 py-3 px-2 transition-all duration-200 relative overflow-hidden"
                     style={{ color: activeMenu === cat.id ? "#f81828" : "#9ca3af" }}
+                    aria-expanded={cat.children ? activeMenu === cat.id : undefined}
+                    aria-haspopup={cat.children ? "true" : undefined}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#f81828"; }}
-                    onMouseLeave={e => { if (activeMenu !== cat.id) (e.currentTarget as HTMLElement).style.color = "#9ca3af"; }}>
+                    onMouseLeave={e => { if (activeMenu !== cat.id) (e.currentTarget as HTMLElement).style.color = "#9ca3af"; }}
+                    onClick={() => trackNav(cat.name, 'desktop_L1', cat.slug)}>
                     {/* bg flash on hover */}
                     <div className="absolute inset-0 opacity-0 group-hover/icon:opacity-100 transition-opacity"
                       style={{ background: "rgba(248,24,40,0.07)" }} />
@@ -597,24 +611,73 @@ export default function Header() {
                 </Link>
               </div>
             </div>
-          </div>
+          </nav>
         </div>
       </div>
 
       {/* ════════════════════════════════════════════════
-          Mobile nav drawer
+          Mobile nav — BOTTOM SHEET (slide from bottom)
+          Trend 2026: thumb-friendly, native-feel
       ════════════════════════════════════════════════ */}
-      <div className={`lg:hidden overflow-hidden transition-all duration-300 ${mobileOpen ? "max-h-[85vh]" : "max-h-0"}`}>
-        <div className="overflow-y-auto max-h-[85vh]"
-          style={{ background: "#0d0d0d", borderTop: "2px solid #f81828" }}>
+
+      {/* Backdrop overlay */}
+      <div
+        className={`lg:hidden fixed inset-0 z-[55] transition-opacity duration-300 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)" }}
+        onClick={() => setMobileOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Bottom Sheet Panel */}
+      <nav
+        id="mobile-nav"
+        role="navigation"
+        aria-label="Menu mobilne"
+        className={`lg:hidden fixed left-0 right-0 bottom-0 z-[60] transition-transform duration-300 ease-out ${mobileOpen ? "translate-y-0" : "translate-y-full"}`}
+        style={{
+          background: "#0d0d0d",
+          borderTop: "2px solid #f81828",
+          borderRadius: "20px 20px 0 0",
+          maxHeight: "88vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {/* Drag handle */}
+        <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
+          <div className="w-10 h-1 rounded-full" style={{ background: "rgba(255,255,255,0.18)" }} />
+        </div>
+
+        {/* Header strip */}
+        <div className="flex items-center justify-between px-5 py-2 flex-shrink-0"
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#f81828] animate-pulse" />
+            <span className="text-sm font-black text-white tracking-wide">Media Bud</span>
+            <span className="text-xs text-gray-600 font-medium">Skład budowlany</span>
+          </div>
+          <button
+            className="p-2 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-colors"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Zamknij menu"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Scrollable body */}
+        <div className="flex-1 overflow-y-auto overscroll-contain">
 
           {/* Contact strip */}
           <div className="flex items-center justify-around py-3 px-4"
-            style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", background: "#090909" }}>
-            <a href="tel:+48509567213" className="flex items-center gap-2 text-xs font-bold text-[#f81828]">
-              <Phone className="w-4 h-4" />+48 509 567 213
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: "#090909" }}>
+            <a href="tel:+48509567213"
+              className="flex items-center gap-2 text-xs font-bold text-[#f81828] active:opacity-70"
+              onClick={() => trackNav('phone', 'mobile_contact')}>
+              <Phone className="w-4 h-4" />509 567 213
             </a>
-            <a href="mailto:sprzedaz@mediabud.pl" className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors">
+            <a href="mailto:sprzedaz@mediabud.pl"
+              className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors active:opacity-70">
               <Mail className="w-4 h-4" />Email
             </a>
             <span className="flex items-center gap-1.5 text-[10px] text-gray-600">
@@ -622,47 +685,69 @@ export default function Header() {
             </span>
           </div>
 
-          {/* Category icon grid (mobile) */}
-          <div className="grid grid-cols-4 gap-px p-3" style={{ background: "#0a0a0a" }}>
+          {/* Category label */}
+          <div className="px-4 pt-4 pb-2">
+            <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Kategorie produktów</p>
+          </div>
+
+          {/* Category icon grid (mobile) — 4 columns, thumb-sized targets */}
+          <div className="grid grid-cols-4 gap-1 px-3 pb-2">
             {categories.map(cat => (
-              <Link key={cat.id} to={`/kategoria/${cat.slug}`}
-                className="flex flex-col items-center gap-1 py-3 px-1 rounded-xl transition-all active:bg-[#f81828]/20"
-                style={{ color: "#9ca3af" }}
-                onClick={() => setMobileOpen(false)}>
+              <Link
+                key={cat.id}
+                to={`/kategoria/${cat.slug}`}
+                className="flex flex-col items-center gap-1.5 py-3 px-1 rounded-xl transition-all active:scale-95"
+                style={{ color: "#9ca3af", minHeight: "72px" }}
+                onClick={() => { setMobileOpen(false); trackNav(cat.name, 'mobile_L1', cat.slug); }}
+              >
                 {CAT_ICONS[cat.slug] ?? <Package className="w-5 h-5" />}
-                <span className="text-[9px] font-bold text-center leading-tight line-clamp-2">{cat.name}</span>
+                <span className="text-[8px] font-bold text-center leading-tight line-clamp-2">{cat.name}</span>
               </Link>
             ))}
           </div>
 
-          <div className="p-4 space-y-1.5">
+          {/* Quick links */}
+          <div className="px-4 py-2 space-y-1">
             <div className="h-px mb-3" style={{ background: "rgba(255,255,255,0.06)" }} />
             {[
               { to: "/blog", label: "Blog techniczny" },
               { to: "/o-firmie", label: "O firmie" },
               { to: "/uslugi", label: "Nasze usługi" },
+              { to: "/realizacje", label: "Realizacje" },
             ].map(link => (
-              <Link key={link.to} to={link.to}
-                className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
-                onClick={() => setMobileOpen(false)}>
+              <Link
+                key={link.to}
+                to={link.to}
+                className="flex items-center justify-between px-3 py-3 rounded-xl text-sm font-semibold text-gray-400 hover:text-white active:bg-white/10 transition-colors"
+                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)" }}
+                onClick={() => { setMobileOpen(false); trackNav(link.label, 'mobile_secondary', link.to); }}
+              >
                 {link.label}<ArrowRight className="w-4 h-4 text-gray-600" />
               </Link>
             ))}
-            <div className="h-px my-3" style={{ background: "rgba(255,255,255,0.06)" }} />
-            <Link to="/kontakt"
-              className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#f81828] text-white text-sm font-black hover:bg-[#c8000f] transition-colors"
-              onClick={() => setMobileOpen(false)}>
+          </div>
+
+          {/* CTA buttons */}
+          <div className="px-4 pt-2 pb-6 space-y-2">
+            <div className="h-px mb-2" style={{ background: "rgba(255,255,255,0.06)" }} />
+            <Link
+              to="/kontakt"
+              className="flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#f81828] text-white text-sm font-black hover:bg-[#c8000f] transition-colors active:scale-95"
+              onClick={() => { setMobileOpen(false); trackNav('Zapytaj o ofertę', 'mobile_cta'); }}
+            >
               <Mail className="w-4 h-4" />Zapytaj o ofertę
             </Link>
-            <a href="tel:+48509567213"
-              className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-gray-300 transition-colors"
-              style={{ border: "1px solid rgba(255,255,255,0.1)" }}
-              onClick={() => setMobileOpen(false)}>
+            <a
+              href="tel:+48509567213"
+              className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-gray-300 transition-colors active:scale-95"
+              style={{ border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)" }}
+              onClick={() => setMobileOpen(false)}
+            >
               <Phone className="w-4 h-4" />+48 509 567 213
             </a>
           </div>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }

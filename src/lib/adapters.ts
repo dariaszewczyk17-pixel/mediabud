@@ -71,7 +71,7 @@ export function sanityProductToLegacy(p: SanityProduct): Product {
     slug: p.slug,
     name: p.name,
     categorySlug: p.categorySlug ?? '',
-    brand: p.brand ?? 'Media Bud',
+    brand: p.brand ?? '',
     sku: p.sku ?? p._id.slice(-8).toUpperCase(),
     unit: p.unit ?? 'szt',
     description: typeof p.description === 'string' ? p.description : (p.shortDescription ?? ''),

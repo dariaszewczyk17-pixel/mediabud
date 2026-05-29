@@ -187,7 +187,7 @@ export default function Header() {
   };
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50" style={{ filter: scrolled ? "drop-shadow(0 8px 32px rgba(0,0,0,0.9))" : "none", transition: "filter .3s" }}>
+    <header ref={headerRef} className="sticky top-0 z-50" style={{ boxShadow: scrolled ? "0 8px 32px rgba(0,0,0,0.85)" : "none", transition: "box-shadow .3s" }}>
 
       {/* ════════════════════════════════════════════════
           ROW 1 — Top info bar (collapses on scroll)

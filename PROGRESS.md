@@ -132,3 +132,42 @@
 [2026-05-29 16:48] useSEO SearchResultsPage + commit/push. Pipeline V4 offset ~2000+, OLD offset 7000 LLM trwa.
 [2026-05-29 16:48] Status: pipeline działa (OLD offset 7000+, V4 offset 2000+); zrobione: dark theme Home, sidebar, useSEO x3, commit+push
 [2026-05-29 16:49] Commit 877f0f4: Header dark fixes. Pipeline OLD: 7500/15921, V4: ~2500/15921
+[2026-05-29 16:50] Commit fb011cf: all dark theme done. 3 commits this session. Pipeline OLD ~7500/15921 in progress.
+[2026-05-29 16:53] Analiza porównawcza dark motywów e-commerce: Industrial Pulse vs popularne trendy
+[2026-05-29 16:54] Analiza porównawcza dark motywów e-commerce — tworzę dokument
+[2026-05-29 17:10] Start: sitemap.xml, robots.txt, ProductDetail specs, CategoryPage filtry
+[2026-05-29 17:12] Sitemap generator (scripts/generate-sitemap.mjs + postbuild), robots.txt zaktualizowany — robots gotowy
+[2026-05-29 17:13] ProductDetail technicalSpec ulepszone (font-mono, unit highlight, empty state). CategoryPage filtry OK (już były). Sitemap generator + robots.txt gotowe. Startuję build.
+[2026-05-29 17:14] Commit 78675ca: sitemap dynamiczny 16248 URL, robots.txt, ProductDetail technicalSpec font-mono, build OK, push main
+[2026-05-29 17:33] Start: rozszerzony generator sitemap — quality score, changefreq dynamiczny, sitemap index, raport JSON, Google ping
+[2026-05-29 17:34] Implementacja rozszerzonego generatora sitemap: quality score, changefreq dynamiczny, sitemap index, raport JSON, Google ping
+[2026-05-29 17:36] Commit bbdc053: sitemap v2 — quality score, changefreq dynamiczny, 4 pliki (index), raport JSON. Build OK, push main.
+[2026-05-29 17:45] Start: sprawdzenie scheduled tasks, JSON-LD schema.org, Core Web Vitals
+[2026-05-29 17:47] Commit: JSON-LD schema.org (Product/BreadcrumbList/ItemList/FAQPage/additionalProperty), lazy loading img. Build OK.
+[2026-05-29 17:48] Commit 0a645d0: JSON-LD Product+BreadcrumbList+FAQPage+additionalProperty+ItemList, lazy loading img. Pipeline v4 offset~8500, coverage 62.5% (9948/15921). Scheduled tasks oczekują na ~19:10/19:32/21:03.
+[2026-05-29 17:50] Start: ProductDetail rich text description + Home dynamiczny licznik Sanity
+[2026-05-29 17:53] Commit: rich text opis, Home productCount z Sanity (hook+fallback 15921), Ponad 15000. Build OK.
+[2026-05-29 17:53] Commit 9a1e2a3: rich text description (para/lista/bold), Home dynamiczny licznik Sanity (hook+fallback 15921), 'Ponad 15000 produktów'. Build OK, push main.
+[2026-05-29 18:04] Start kompleksowego redesignu MediaBud — P1 Hero/Navbar, P2 karty/trust/sekcje, P3 footer/WCAG. Uploadowanie logo marek, czytanie struktury.
+[2026-05-29 18:07] Header redesign: sticky dark, mega-menu #f81828, search focus, skip-to-content
+[2026-05-29 18:08] Header redesign gotowy (bg-990fd75b): sticky dark navbar, glitch logo MEDIABUD, mega-menu #f81828, fullscreen mobile, focus-visible, skip-to-content. Czekam na Home (bg-46490e6c) i Commerce/Footer (bg-4d9efb42).
+[2026-05-29 18:09] Home redesign: hero Industrial Pulse, StatBar LED, brand scroller (7 logos), Dom od podstaw, Jak działamy, Nasze usługi
+[2026-05-29 18:09] Commerce ProductCard: Industrial Glow hover, skeleton shimmer, status badge, quick-view. Footer: dark #050505, 4 kolumny, newsletter
+[2026-05-29 18:10] 4 commity redesign: Header sticky+glitch, Home hero+scroller+sekcje, ProductCard glow+skeleton, Footer dark. Build OK. Push main.
+[2026-05-29 18:23] Analiza Industrial Glow + plan: CSS Sparks (Commerce.tsx) + redesign sekcji kategorii (Home.tsx)
+[2026-05-29 18:25] CSS Sparks ProductCard (spark-tl/tr/bl @keyframes) + redesign kategorii bento grid (scan line, L-brackets, #050505 bg). Build OK 1926mod. Push main.
+[2026-05-29 18:25] CSS Sparks + redesign kategorii ukończone. Oba commity w main (a5359a1, f9f1a24). Build 1926 mod OK.
+[2026-05-29 19:02] START: weryfikacja post-pipeline v4 — statystyki Sanity + SEO names + aktualizacja Home.tsx
+[2026-05-29 19:04] Statystyki Sanity pobrane: total=15921, with_name=15921(100%), with_short=13380(84%), with_desc=13250(83.2%), sku_only=2614(16.4%), pełna_jakość=13229(83.1%). Próbka 50: bad_banned=0, bad_long=0, bad_sku=5, bad_short=0. Przechodzę do aktualizacji Home.tsx.
+[2026-05-29 19:05] POST-PIPELINE VERIFY: total=15921, with_name=15921(100%), with_short=13380(84.0%), with_desc=13250(83.2%), sku_only=2614(16.4%), pelna_jakosc_SEO=13229(83.1%), bez_opisow=2541(16.0%) | JAKOSC PROB50: bad_banned=0, bad_long=0, bad_sku=5(10%), bad_short=0 | Home.tsx: badge+hero=15900, fallback=15921 | build=OK(1926mod) | commit=76779cf | push=OK
+[2026-05-29 21:44] Zadanie 4: profil usług potwierdzony (wykonawcze + sieć fachowców + program Dom od podstaw, B2C dom i B2B obiekty). Plan todowrite 7 węzłów. Start: research usług.
+[2026-05-29 21:48] Research usług ukończony. 8 rekomendowanych usług (budowa domów, termomodernizacja/Czyste Powietrze, wykończenia pod klucz, domy do 70m2, dekarskie, elewacje/tynki, remonty B2B, adaptacja poddaszy). Konkurencja: eDOM (ma Program Dom od podstaw!), 3W Lublin, Alfa Styl, Budopunkt. Struktura: 2 kafle B2C/B2B. Plik: research/b62c199e/TOOL_RESULTS.md
+[2026-05-29 21:48] Start analizy kodu: lokalizacja nieskalowalnych tekstów + duplikatu 'Dom od podstaw' w Home.tsx i CategoryPage.tsx
+[2026-05-29 21:53] Commit 7bc54f7: naprawa skalowalnosci hero (clamp 2-4.5rem + break-words/overflow-wrap), zmniejszenie kafelkow kategorii (aspect square/4:5, wide 16:6), usuniecie duplikatu sekcji HOW IT WORKS 'Program Dom od podstaw' (usunieto steps+r5), kafelek 'Dom od podstaw' -> #dom-od-podstaw anchor, poprawa adresu JSON-LD (ul. Chemiczna 8, 20-329). Build OK. Push main. NASTEPNA TURA: przebudowa sekcji NASZE USLUGI na 8 uslug + podstrony /uslugi/* wg skilla Optymalizator.
+[2026-05-29 21:53] Etap 1 ukonczony i wypchniety (7bc54f7): naprawy UI (skalowalnosc hero/tytulow, mniejsze kafelki kategorii), konsolidacja duplikatu 'Dom od podstaw', poprawa adresu JSON-LD. Pozostaje Etap 2 (nastepna tura): przebudowa NASZE USLUGI na 8 uslug + podstrony /uslugi/* wg skilla Optymalizator.
+[2026-05-29 22:07] Etap 2 ukonczony (726b625 + b43ea98, wypchniete): 9 podstron /uslugi/* (6 sekcji wg Optymalizator), przebudowa NASZE USLUGI na home (B2C/B2B), JSON-LD OfferCatalog, FAQ, 404 fallback. Build+sitemap OK.
+[2026-05-29 22:18] Analiza porownawcza: wyciagnieto strukture podstron MediaBud z Pages.tsx (H1>krotki>dlugi>parametry>zastosowanie>zalety>korzysci>ostrzezenia>FAQ>CTA>JSON-LD, 9 uslug, B2C/B2B). Crawl eDOM (narracja proza, brak struktury/FAQ/parametrow, ma certyfikaty+staz od 2011) i 3W Lublin (market/hurtownia B2B dla fachowcow, nie wykonawca, asortyment pogrupowany). Generuje dokument analityczny luki/przewagi.
+[2026-05-29 22:43] START: duzy refactor — mniejszy hero, scroller marek, zalaczniki w formularzach, przepisanie tresci bez keyword spam, sekcja Zespol, nowe logo, godziny/adres
+[2026-05-29 22:45] Odczytano Home.tsx (1310 linii), Header.tsx (900 linii), Footer.tsx (213 linii), Pages.tsx (struktura formularzy i usług). Logo nowe: MB MEDIA BUD SKŁAD BUDOWLANY, monogram MB czerwony, dynamiczny styl. Adres w Header juz ma 8d. Godziny wymagają zmiany Sob->brak, 17:00->16:00. Rozpoczynam wgrywanie logo + edycje.
+[2026-05-29 22:47] Rozpoczynam edycje plikow: Header.tsx (logo+godziny), Footer.tsx (logo+adres), Home.tsx (hero, scroller, kafelki, CTA), delegacja Pages.tsx do subagenta
+[2026-05-29 22:53] Ukończono wszystkie edycje: Header logo+godziny, Footer logo+adres, Home.tsx (hero 60vh, nowe hasło, brand scroller przed kat, kafelki mniejsze, CTA SKONTAKTUJ SIĘ, JSON-LD), Pages.tsx (kontakt+załączniki+team+usługi bez keyword spam). Uruchamiam build.

@@ -230,7 +230,7 @@ export default function Header() {
             {/* Ticker (mobile + tablet) */}
             <div className="ticker-wrap flex-1 overflow-hidden lg:hidden">
               <div className="ticker-content flex items-center gap-8 whitespace-nowrap">
-                {["📞 +48 509 567 213", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", "🕐 Pon–Pt 7–17, Sob 8–14", "🚚 Dostawa na teren Lublina i okolic"].map((t, i) => (
+                {["📞 +48 509 567 213", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", "🕐 Pon–Pt 7:00–16:00", "🚚 Dostawa na teren Lublina i okolic"].map((t, i) => (
                   <span key={i} className="flex items-center font-bold uppercase tracking-[0.12em] text-[#888888]">{t}<span className="mx-4 text-[#2d2d2d]">·</span></span>
                 ))}
               </div>
@@ -242,7 +242,7 @@ export default function Header() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                <span>Pon–Pt <strong className="text-white">7:00–17:00</strong> · Sob <strong className="text-white">8:00–14:00</strong></span>
+                <span>Pon–Pt <strong className="text-white">7:00–16:00</strong></span>
               </div>
               <span className="h-3 w-px bg-white/10" />
               <div className="flex items-center gap-2.5 text-[#888888]">
@@ -279,29 +279,13 @@ export default function Header() {
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
         <div className="container mx-auto flex items-center gap-4 px-4">
           {/* Logo */}
-          <Link to="/" className="group flex-shrink-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
-            <div className="relative overflow-visible px-1 py-1">
-              <span
-                className="pointer-events-none absolute inset-0 translate-x-[1px] -translate-y-[1px] font-black uppercase tracking-tighter text-xl text-[#f81828]/70 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                aria-hidden="true"
-                style={{ fontFamily: "'Rajdhani', 'Barlow Condensed', Inter, sans-serif" }}
-              >
-                MEDIA<span className="text-white/70">BUD</span>
-              </span>
-              <span
-                className="pointer-events-none absolute inset-0 -translate-x-[1px] translate-y-[1px] font-black uppercase tracking-tighter text-xl text-cyan-300/50 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                aria-hidden="true"
-                style={{ fontFamily: "'Rajdhani', 'Barlow Condensed', Inter, sans-serif" }}
-              >
-                MEDIA<span className="text-[#f81828]/70">BUD</span>
-              </span>
-              <span
-                className="relative block font-black uppercase tracking-tighter text-xl text-white"
-                style={{ fontFamily: "'Rajdhani', 'Barlow Condensed', Inter, sans-serif" }}
-              >
-                MEDIA<span style={{ color: "#f81828" }}>BUD</span>
-              </span>
-            </div>
+          <Link to="/" className="flex-shrink-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
+            <img
+              src="https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/5j1eO4lOb5MqPjlHF7RIP1%20%E2%80%93%20ze%20zmianami_b734361ec694486192383a2f765df266.png"
+              alt="Media Bud – Skład Budowlany"
+              className="h-10 w-auto object-contain transition-opacity duration-200 hover:opacity-80"
+              style={{ maxWidth: "160px" }}
+            />
           </Link>
 
           {/* Search bar — centered, full width */}

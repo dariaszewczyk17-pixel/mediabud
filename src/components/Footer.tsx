@@ -56,10 +56,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <Link to="/" className="inline-block mb-4">
-              <div className="font-black text-2xl text-white uppercase tracking-tighter mb-4"
-                style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
-                MEDIA<span style={{ color: "#f81828" }}>BUD</span>
-              </div>
+              <img
+                src="https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/5j1eO4lOb5MqPjlHF7RIP1%20%E2%80%93%20ze%20zmianami_b734361ec694486192383a2f765df266.png"
+                alt="Media Bud – Skład Budowlany"
+                className="h-12 w-auto object-contain"
+                style={{ maxWidth: "180px" }}
+              />
             </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: "#888" }}>
               Profesjonalna hurtownia materiałów budowlanych w Lublinie. Kompleksowe wsparcie od projektu po realizację.
@@ -168,7 +170,7 @@ export default function Footer() {
               >
                 sprzedaz@mediabud.pl
               </a>
-              <p>Lublin, ul. Chemiczna 8</p>
+              <p>Lublin, ul. Chemiczna 8d</p>
             </div>
 
             {sent ? (
@@ -205,7 +207,7 @@ export default function Footer() {
 
         <div style={{ borderTop: "1px solid #1a1a1a" }} className="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs" style={{ color: "#888" }}>© 2026 Media Bud. Wszelkie prawa zastrzeżone.</p>
-          <p className="text-xs" style={{ color: "#444" }}>Lublin, ul. Chemiczna 8 | +48 509 567 213 | sprzedaz@mediabud.pl</p>
+          <p className="text-xs" style={{ color: "#444" }}>Lublin, ul. Chemiczna 8d | +48 509 567 213 | sprzedaz@mediabud.pl</p>
         </div>
       </div>
     </footer>

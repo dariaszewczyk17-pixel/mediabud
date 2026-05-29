@@ -20,7 +20,7 @@ const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,2
 export function ContactPage() {
   const [sent, setSent]   = useState(false);
   const [agreed, setAgreed] = useState(false);
-  const [form, setForm]   = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [form, setForm]   = useState({ name: "", email: "", phone: "", subject: "", message: "", attachments: [] as File[] });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,8 +31,8 @@ export function ContactPage() {
   const contactItems = [
     { icon: <Phone className="w-5 h-5 text-[#f81828]" />, label: "Telefon", value: "+48 509 567 213", href: "tel:+48509567213" },
     { icon: <Mail className="w-5 h-5 text-[#f81828]" />, label: "Email", value: "sprzedaz@mediabud.pl", href: "mailto:sprzedaz@mediabud.pl" },
-    { icon: <MapPin className="w-5 h-5 text-[#f81828]" />, label: "Adres", value: "ul. Chemiczna 8, 20-329 Lublin", href: undefined },
-    { icon: <Clock className="w-5 h-5 text-[#f81828]" />, label: "Godziny otwarcia", value: "Pon–Pt: 7:00–17:00\nSob: 8:00–14:00", href: undefined },
+    { icon: <MapPin className="w-5 h-5 text-[#f81828]" />, label: "Adres", value: "ul. Chemiczna 8d, 20-329 Lublin", href: undefined },
+    { icon: <Clock className="w-5 h-5 text-[#f81828]" />, label: "Godziny otwarcia", value: "Pon–Pt: 7:00–16:00", href: undefined },
   ];
 
   return (
@@ -138,6 +138,40 @@ export function ContactPage() {
                     className="text-white placeholder:text-gray-600 focus-visible:ring-0 focus-visible:border-[#f81828] resize-none text-sm"
                     style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }} />
                 </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-[0.15em] mb-2" style={{ color: "#888" }}>
+                    Załączniki <span className="text-[#666] font-normal normal-case tracking-normal">(opcjonalnie)</span>
+                  </label>
+                  <label
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all duration-200"
+                    style={{ background: "#111", border: "1px dashed #2d2d2d" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.5)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#2d2d2d"; }}
+                  >
+                    <span className="text-[#f81828]">📎</span>
+                    <span className="text-sm" style={{ color: "#888" }}>
+                      {form.attachments.length > 0
+                        ? `${form.attachments.length} plik(ów) wybranych`
+                        : "Dodaj pliki (JPG, PNG, WEBP, PDF, DOC, DOCX, XLS, XLSX)"}
+                    </span>
+                    <input
+                      type="file"
+                      multiple
+                      accept=".jpg,.jpeg,.png,.webp,.pdf,.doc,.docx,.xls,.xlsx"
+                      className="hidden"
+                      onChange={e => setForm(f => ({ ...f, attachments: Array.from(e.target.files || []) }))}
+                    />
+                  </label>
+                  {form.attachments.length > 0 && (
+                    <ul className="mt-2 space-y-1">
+                      {form.attachments.map((file, i) => (
+                        <li key={i} className="text-xs flex items-center gap-2" style={{ color: "#888" }}>
+                          <span className="text-[#f81828]">✓</span> {file.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
                 <div className="flex items-start gap-2.5">
                   <Checkbox id="gdpr" required checked={agreed} onCheckedChange={v => setAgreed(!!v)} className="mt-0.5" />
                   <Label htmlFor="gdpr" className="text-xs text-gray-500 leading-relaxed cursor-pointer">
@@ -158,6 +192,51 @@ export function ContactPage() {
           )}
         </div>
       </div>
+
+      {/* ── ZESPÓŁ — Nasi doradcy ── */}
+      <section className="py-16" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2" style={{ color: "#f81828" }}>— NASZ ZESPÓŁ —</p>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-3">Nasi doradcy</h2>
+            <p className="text-sm max-w-xl mx-auto leading-relaxed" style={{ color: "#888" }}>
+              Jesteśmy do dyspozycji — skontaktuj się bezpośrednio z naszym specjalistą.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { initials: "MB", name: "Imię Nazwisko", role: "Doradca techniczny", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { initials: "MB", name: "Imię Nazwisko", role: "Specjalista ds. materiałów", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { initials: "MB", name: "Imię Nazwisko", role: "Obsługa klienta B2B", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { initials: "MB", name: "Imię Nazwisko", role: "Doradca wykonawczy", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { initials: "MB", name: "Imię Nazwisko", role: "Logistyka i dostawy", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { initials: "MB", name: "Imię Nazwisko", role: "Koordynator projektów", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+            ].map((person, i) => (
+              <div
+                key={i}
+                className="rounded-xl p-5 flex items-start gap-4 transition-all duration-300"
+                style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.35)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.08)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#1a1a1a"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+              >
+                <div className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-black text-white" style={{ background: "linear-gradient(135deg, #f81828, #c8000f)" }}>
+                  {person.initials}
+                </div>
+                <div className="min-w-0">
+                  <div className="font-bold text-white text-sm mb-0.5">{person.name}</div>
+                  <div className="text-xs mb-3" style={{ color: "#f81828" }}>{person.role}</div>
+                  <a href={`tel:${person.phone.replace(/\s/g, "")}`} className="flex items-center gap-1.5 text-xs mb-1 transition-colors hover:text-white" style={{ color: "#888" }}>
+                    📞 {person.phone}
+                  </a>
+                  <a href={`mailto:${person.email}`} className="flex items-center gap-1.5 text-xs transition-colors hover:text-white" style={{ color: "#888" }}>
+                    ✉ {person.email}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
@@ -322,7 +401,7 @@ const services: ServiceDetail[] = [
     icon: <Shield className="w-6 h-6 text-[#f81828]" />,
     badge: "Program parasolowy B2C",
     krotkiOpis: "Program MediaBud dla inwestorów z Lublina i województwa lubelskiego, który łączy wycenę, dobór materiałów, koordynację ekip i realizację domu od pierwszego kontaktu po etap wykończeniowy.",
-    dlugiOpis: "Dom od podstaw to parasolowa usługa MediaBud dla klientów indywidualnych, którzy chcą przejść przez budowę domu z jednym partnerem odpowiedzialnym za logistykę materiałów, doradztwo techniczne i skoordynowanie wykonawców. Program powstał w odpowiedzi na lokalną potrzebę połączenia składu budowlanego z realnym wykonawstwem — podobnie jak robią to regionalni konkurenci z ofertą budowy domów, elewacji i dociepleń w województwie lubelskim. W praktyce zaczynamy od analizy projektu i budżetu, następnie układamy harmonogram etapów, dobieramy systemy marek Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor, Bolix, Termo Organika, Baumit, Rigips i Ursa, a potem pomagamy inwestorowi przejść przez budowę, ocieplenie, dach, elewację, wykończenie i odbiory. To rozwiązanie dla osób, które chcą ograniczyć ryzyko błędów wykonawczych i uniknąć rozproszenia odpowiedzialności między wieloma podmiotami.",
+    dlugiOpis: `Budowa domu to złożony proces, który wymaga dziesiątek decyzji — od wyboru materiałów, przez koordynację ekip, aż po logistykę dostaw. Program 'Dom od podstaw" powstał po to, żeby inwestor miał jeden punkt kontaktu zamiast kilkunastu. Zaczynamy od analizy projektu i rozmowy o budżecie, ustalamy harmonogram etapów i dobieramy materiały z naszego składu — Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor, Bolix, Baumit, Rigips i inne. Następnie koordynujemy prace ekip i dbamy o to, żeby każdy etap — od fundamentów, przez ściany i dach, po wykończenie — przebiegał bez przestojów. Jesteśmy z Tobą od pierwszego spotkania do odbioru kluczy.`,
     parametry: [
       "Zakres: od wyceny i doboru materiałów po realizację wybranych etapów lub całości inwestycji.",
       "Obsługa lokalna: Lublin i województwo lubelskie.",
@@ -367,7 +446,7 @@ const services: ServiceDetail[] = [
     icon: <Home className="w-6 h-6 text-[#f81828]" />,
     badge: "B2C · stan surowy do pod klucz",
     krotkiOpis: "Kompleksowa budowa domów jednorodzinnych w Lublinie i województwie lubelskim z naciskiem na logistykę materiałów, dobór technologii i sprawdzone ekipy wykonawcze.",
-    dlugiOpis: "Usługa budowy domów Lublin została zaprojektowana dla inwestorów indywidualnych, którzy oczekują połączenia wyceny, doboru technologii i realnego wykonawstwa. Research pokazuje, że lokalni konkurenci budują swoją przewagę na modelu ‚od fundamentów po dach’ oraz na silnym podkreślaniu zasięgu wojewódzkiego — dlatego oferta MediaBud odpowiada dokładnie na tę intencję wyszukiwania. Wspieramy realizacje od stanu zero i fundamentów, przez ściany, stropy i dach, aż po wybrane etapy wykończenia, bazując na materiałach dostępnych w składzie przy ul. Chemicznej 8. Dla klientów planujących budowę w województwie lubelskim ważne są również orientacyjne widełki kosztowe: według researchu koszt budowy domu w stanie deweloperskim to zwykle 4500–6000 zł netto za m², a koszt domu pod klucz w standardzie premium w 2026 roku w regionie lubelskim bywa podawany jako 6800–9000 zł/m². MediaBud nie deklaruje stałych cenników bez projektu — zamiast tego przygotowuje wycenę opartą na zakresie robót, technologii i harmonogramie dostaw.",
+    dlugiOpis: `Oferujemy kompleksową budowę domów jednorodzinnych w Lublinie i okolicach, łącząc materiały z własnego składu z ekipami wykonawczymi, które znamy i którym ufamy. Każda realizacja zaczyna się od analizy projektu i przygotowania szczegółowej wyceny. Następnie prowadzimy budowę etapami — fundamenty, ściany, strop, dach — pilnując harmonogramu i jakości. Orientacyjne koszty budowy w naszym regionie to ok. 4 500–6 000 zł netto za m² w stanie deweloperskim; finalną wycenę zawsze opieramy na konkretnym projekcie, technologii i zakresie robót. Nie deklarujemy gotowych pakietów — zamiast tego przygotowujemy ofertę skrojoną na miarę Twojej inwestycji.`,
     parametry: [
       "Segment: B2C, domy jednorodzinne i inwestycje prywatne.",
       "Zasięg: Lublin i województwo lubelskie.",
@@ -412,7 +491,7 @@ const services: ServiceDetail[] = [
     icon: <Zap className="w-6 h-6 text-[#f81828]" />,
     badge: "B2C · oszczędność energii",
     krotkiOpis: "Kompleksowa termomodernizacja domu w Lublinie: ocieplenie ścian, dobór systemu ETICS, wsparcie w doborze materiałów i przygotowaniu inwestycji pod programy dotacyjne.",
-    dlugiOpis: "Termomodernizacja i ocieplenia to jedna z najmocniejszych lokalnie usług wyszukiwanych przez inwestorów indywidualnych, zwłaszcza w kontekście rosnących cen energii oraz programu Czyste Powietrze. W researchu pojawia się konkretny punkt odniesienia: dofinansowanie na termomodernizację może sięgać do 136 200 zł, a w województwie lubelskim prefinansowanie w nowej odsłonie programu jest możliwe przez operatora i tylko na wyższych poziomach wsparcia, z zaliczką do 35% przy spełnieniu warunków formalnych. MediaBud nie obiecuje dotacji, ale pomaga ułożyć inwestycję tak, aby klient miał jasność co do materiałów, zakresu robót i dokumentów potrzebnych do współpracy z wykonawcą. Oferujemy dobór systemów ETICS i elewacyjnych marek Weber, Ceresit, Atlas, Rockwool, Swisspor, Termo Organika, Baumit i Bolix, a także wsparcie w ocenie, czy w danym domu lepszym rozwiązaniem będzie styropian grafitowy, biały EPS czy wełna mineralna. Usługa jest lokalnie pozycjonowana pod frazy związane z ociepleniem domu w Lublinie, termomodernizacją domu w lubelskim i wykonawcą Czyste Powietrze Lublin.",
+    dlugiOpis: `Ocieplenie domu to inwestycja, która zwraca się przez lata niższych rachunków za ogrzewanie. Pomagamy dobrać odpowiedni system — ETICS ze styropianem grafitowym, białym EPS lub wełną mineralną — w zależności od budynku, jego podłoża i oczekiwanej efektywności energetycznej. Współpracujemy z systemami marek Weber, Ceresit, Atlas, Rockwool, Swisspor, Termo Organika i Baumit. Jeśli planujesz skorzystać z programu Czyste Powietrze (dofinansowanie może sięgać do 136 200 zł), pomagamy ułożyć inwestycję pod wymagania programu — dobieramy materiały, omawiamy zakres robót i wspieramy w przygotowaniu dokumentacji. Szczegóły dofinansowania zależą od indywidualnej sytuacji i aktualnych przepisów, dlatego zawsze omawiamy je konkretnie dla danego projektu.`,
     parametry: [
       "Zakres: ocena potrzeb budynku, dobór systemu ocieplenia, materiały, wykonawstwo i logistyka.",
       "Dofinansowanie wg researchu: do 136 200 zł w programie Czyste Powietrze.",
@@ -457,7 +536,7 @@ const services: ServiceDetail[] = [
     icon: <PaintBucket className="w-6 h-6 text-[#f81828]" />,
     badge: "B2C · gotowe do zamieszkania",
     krotkiOpis: "Kompleksowe wykończenia wnętrz pod klucz dla domów i mieszkań w Lublinie — od materiałów i suchej zabudowy po finalne warstwy dekoracyjne.",
-    dlugiOpis: "Usługa wykończenia wnętrz pod klucz odpowiada na lokalne zapotrzebowanie na realizacje ‚całej przestrzeni’, a nie pojedynczych pomieszczeń — dokładnie taki model podkreślają analizowane strony konkurencji z Lublina. MediaBud rozwija tę ofertę w oparciu o przewagę składu budowlanego: łatwy dostęp do materiałów, wsparcie w doborze systemów Knauf, Rigips, Atlas, Weber i Baumit oraz koordynację ekip od suchej zabudowy, gładzi, malowania, podłóg i zabudów poddaszy. Usługa jest kierowana do inwestorów, którzy chcą odebrać wnętrze gotowe do użytkowania lub gotowe do wyposażenia, bez samodzielnego zarządzania wieloma wykonawcami. W treści podkreślamy spójność projektu, ograniczenie ryzyka nieprzewidzianych kosztów i sensowne etapowanie materiałów — zgodnie z tym, czego szukają użytkownicy wpisujący w Google frazy typu wykończenia wnętrz pod klucz Lublin czy mieszkanie pod klucz Lublin.",
+    dlugiOpis: `Usługa wykończenia wnętrz pod klucz odpowiada na lokalne zapotrzebowanie na realizacje ‚całej przestrzeni', a nie pojedynczych pomieszczeń — dokładnie taki model podkreślają analizowane strony konkurencji z Lublina. MediaBud rozwija tę ofertę w oparciu o przewagę składu budowlanego: łatwy dostęp do materiałów, wsparcie w doborze systemów Knauf, Rigips, Atlas, Weber i Baumit oraz koordynację ekip od suchej zabudowy, gładzi, malowania, podłóg i zabudów poddaszy. Usługa jest kierowana do inwestorów, którzy chcą odebrać wnętrze gotowe do użytkowania lub gotowe do wyposażenia, bez samodzielnego zarządzania wieloma wykonawcami. W treści podkreślamy spójność projektu, ograniczenie ryzyka nieprzewidzianych kosztów i sensowne etapowanie materiałów — zgodnie z tym, czego szukają użytkownicy wpisujący w Google frazy typu wykończenia wnętrz pod klucz Lublin czy mieszkanie pod klucz Lublin.`,
     parametry: [
       "Zakres: od konsultacji materiałowej po koordynację prac wykończeniowych.",
       "Obsługiwane przestrzenie: domy, mieszkania, biura i lokale usługowe.",
@@ -502,7 +581,7 @@ const services: ServiceDetail[] = [
     icon: <Ruler className="w-6 h-6 text-[#f81828]" />,
     badge: "B2C · kompaktowe realizacje",
     krotkiOpis: "Usługa dla inwestorów planujących budowę małego domu do 70 m² w okolicach Lublina — z naciskiem na prostą logistykę, efektywną technologię i etapowanie kosztów.",
-    dlugiOpis: "Budowa domów do 70 m² to nisza, która regularnie pojawia się w lokalnych zapytaniach i ofertach wykonawców działających w okolicach Lublina. Research pokazuje, że użytkownicy szukają przede wszystkim modelu kompleksowego: od projektu po wykończenie pod klucz, ale jednocześnie oczekują prostej bryły, dobrej izolacyjności i przewidywalnego budżetu. MediaBud pozycjonuje tę usługę jako praktyczne rozwiązanie dla osób budujących pierwszy dom, dom rekreacyjny lub kompaktowy dom całoroczny. W centrum oferty jest dobór materiałów i wykonawców pod małą, energooszczędną bryłę, a także możliwość połączenia budowy z termomodernizacyjnym myśleniem o kosztach eksploatacji. Nie deklarujemy jednej technologii jako jedynej właściwej — każda realizacja wymaga dopasowania do projektu, warunków działki i celu użytkowego.",
+    dlugiOpis: `Małe domy do 70 m² cieszą się rosnącym zainteresowaniem — są tańsze w budowie, prostsze w utrzymaniu i często nie wymagają pozwolenia na budowę (zależy od aktualnych przepisów i przeznaczenia). Pomagamy inwestorom przejść przez cały proces: od doboru technologii i materiałów, przez etapowanie kosztów, aż po koordynację wykonawców. Skupiamy się na prostych bryłach, dobrej izolacyjności i materiałach sprawdzonych w naszym klimacie. Nie narzucamy jednego rozwiązania — każdą realizację dopasowujemy do działki, projektu i celu użytkowania.`,
     parametry: [
       "Powierzchnia referencyjna usługi: do 70 m².",
       "Typ realizacji: dom całoroczny lub rekreacyjny [do potwierdzenia w projekcie].",
@@ -547,7 +626,7 @@ const services: ServiceDetail[] = [
     icon: <Hammer className="w-6 h-6 text-[#f81828]" />,
     badge: "B2C / B2B · dachy i pokrycia",
     krotkiOpis: "Usługi dekarskie dla inwestorów indywidualnych i firm: dachy skośne, wybrane prace naprawcze, wymiany pokrycia oraz koordynacja materiałów dachowych.",
-    dlugiOpis: "Usługi dekarskie są naturalnym rozszerzeniem modelu MediaBud, bo w praktyce klienci bardzo często oczekują nie tylko zakupu materiałów, ale też wskazania wykonawców i prowadzenia robót na etapie dachu. W konkurencyjnych ofertach regionu lubelskiego dekarstwo pojawia się obok budowy domów, elewacji i dociepleń — dlatego podstrona została zaplanowana jako oferta zarówno dla B2C, jak i dla mniejszych inwestycji B2B. MediaBud wspiera dobór rozwiązań dachowych, akcesoriów i izolacji, a następnie koordynuje prace z ekipami dekarskimi. Zakres może obejmować nowe pokrycia, modernizacje lub wymianę wybranych elementów dachu, przy czym szczegółowe technologie i ceny są ustalane po oględzinach i analizie projektu.",
+    dlugiOpis: `Dach to jeden z kluczowych etapów budowy — i jeden z tych, gdzie błędy wykonawcze są najbardziej kosztowne. Współpracujemy ze sprawdzonymi ekipami dekarskimi i pomagamy dobrać materiały pokryciowe, izolacje i akcesoria do konkretnego projektu. Obsługujemy zarówno nowe dachy skośne, jak i wymiany pokrycia czy prace naprawcze. Zakres każdej realizacji ustalamy po oględzinach i analizie dokumentacji — bez schematycznych ofert cenowych.`,
     parametry: [
       "Segment: B2C i B2B.",
       "Zakres: nowe dachy, wymiany pokryć, wybrane naprawy i prace towarzyszące.",
@@ -592,7 +671,7 @@ const services: ServiceDetail[] = [
     icon: <Award className="w-6 h-6 text-[#f81828]" />,
     badge: "B2C / B2B · elewacje systemowe",
     krotkiOpis: "Wykonanie elewacji i tynków zewnętrznych w Lublinie dla domów, lokali i obiektów usługowych z wykorzystaniem systemów renomowanych marek.",
-    dlugiOpis: "Elewacje i tynki Lublin to oferta łącząca estetykę, trwałość i efektywność systemową. W researchu pojawia się wyraźnie, że klienci szukają zarówno materiałów, jak i wykonawców oraz wsparcia w doborze kolorów i rodzaju tynku. MediaBud rozwija tę usługę w modelu B2C/B2B, bo elewacje i prace tynkarskie są potrzebne zarówno przy domach jednorodzinnych, jak i obiektach usługowych czy modernizowanych budynkach. Pracujemy na systemach Weber, Ceresit, Atlas, Bolix i Baumit, dobierając tynki silikonowe, silikatowe, mineralne lub inne rozwiązania zależnie od podłoża, charakteru obiektu oraz oczekiwań inwestora. Oferta obejmuje przygotowanie podłoża, warstwy systemowe oraz wykończenie elewacji, a jej komunikacja SEO została oparta o lokalne frazy związane z elewacjami w Lublinie i województwie lubelskim.",
+    dlugiOpis: `Elewacja to wizytówka budynku i jednocześnie ochrona ścian przed wilgocią i temperaturą. Pracujemy na systemach Weber, Ceresit, Atlas, Bolix i Baumit — tynki silikonowe, silikatowe, mineralne i akrylowe — dobierając rodzaj wykończenia do podłoża, stylu architektonicznego i warunków eksploatacyjnych. Usługę realizujemy zarówno dla domów jednorodzinnych, jak i obiektów usługowych czy modernizowanych budynków. Zakres typowo obejmuje: przygotowanie podłoża, wykonanie warstw systemowych i finalne wykończenie elewacji. Dokładny zakres i dobór kolorów ustalamy razem z inwestorem przed startem prac.`,
     parametry: [
       "Segment: B2C i B2B.",
       "Zakres: przygotowanie podłoża, warstwy systemowe, tynki i wykończenie elewacji.",
@@ -637,7 +716,7 @@ const services: ServiceDetail[] = [
     icon: <Building2 className="w-6 h-6 text-[#f81828]" />,
     badge: "B2B · galerie, szkoły, obiekty publiczne",
     krotkiOpis: "Oferta remontów i modernizacji dla firm oraz instytucji: galerie handlowe, szkoły, obiekty użyteczności publicznej i inne realizacje wymagające logistyki materiałowej oraz koordynacji wykonawczej.",
-    dlugiOpis: "Remonty B2B Lublin to usługa rozwinięta specjalnie pod potrzeby klientów biznesowych i instytucjonalnych. Właścicielka MediaBud chce mocniej komunikować współpracę z obiektami takimi jak galerie, szkoły czy budynki użyteczności publicznej, dlatego podstrona została przygotowana z myślą o inwestorach oczekujących stabilnej logistyki, terminowości i dopasowania materiałów do standardów obiektowych. MediaBud łączy tu rolę partnera materiałowego z rolą organizatora wykonawstwa i zaplecza fachowców. Usługa sprawdza się przy odświeżaniu wnętrz, przebudowach, pracach wykończeniowych i modernizacjach realizowanych etapami — również wtedy, gdy inwestor potrzebuje ograniczać przestoje obiektu. W warstwie SEO/AEO treść została zbudowana pod lokalne zapytania biznesowe, ale bez sztucznego zawężania oferty tylko do jednego rodzaju obiektu.",
+    dlugiOpis: `Obsługujemy remonty i modernizacje dla firm, instytucji i zarządców obiektów. Galerie handlowe, szkoły, budynki użyteczności publicznej, biurowce — realizacje obiektowe wymagają innego podejścia niż prace przy domu prywatnym: ścisłego harmonogramu, logistyki materiałowej bez przestojów i koordynacji ekip pracujących etapami. MediaBud łączy rolę partnera materiałowego z organizacją wykonawstwa — jeden kontakt, przejrzysta wycena, terminowość. Zakres może obejmować odświeżenie wnętrz, przebudowy, prace wykończeniowe i modernizacje — realizowane również w czynnych obiektach.`,
     parametry: [
       "Segment: B2B.",
       "Obsługiwane obiekty: galerie, szkoły, biura, lokale usługowe, obiekty użyteczności publicznej.",
@@ -682,7 +761,7 @@ const services: ServiceDetail[] = [
     icon: <HousePlus className="w-6 h-6 text-[#f81828]" />,
     badge: "B2C · dodatkowa przestrzeń",
     krotkiOpis: "Adaptacja poddaszy i skosów w Lublinie z wykorzystaniem suchej zabudowy, izolacji i rozwiązań wykończeniowych dopasowanych do domu inwestora.",
-    dlugiOpis: "Adaptacja poddaszy Lublin to usługa skierowana do właścicieli domów, którzy chcą wykorzystać nieużytkową przestrzeń pod dachem na cele mieszkalne, gabinetowe lub rekreacyjne. Lokalna konkurencja podkreśla rolę projektowania poddaszy i wnętrz jako naturalnego uzupełnienia budowy domu — MediaBud rozwija tę ścieżkę, łącząc dostęp do materiałów z organizacją wykonawstwa. W praktyce usługa obejmuje dobór systemów suchej zabudowy Knauf i Rigips, izolacji Rockwool lub Ursa, akcesoriów do skosów i wykończeń oraz koordynację prac niezbędnych do uzyskania wygodnej i trwałej przestrzeni. Treść odpowiada na pytania użytkowników, którzy szukają adaptacji poddasza w Lublinie, wykończenia skosów i uporządkowanego procesu od konsultacji po realizację.",
+    dlugiOpis: `Poddasze to przestrzeń, która często czeka na swój czas. Adaptacja na cele mieszkalne, gabinet czy pokój rekreacyjny wymaga dobrego projektu, właściwej izolacji akustycznej i termicznej oraz przemyślanej suchej zabudowy skosów. Pracujemy na systemach Knauf i Rigips, izolacjach Rockwool i Ursa, dobierając rozwiązania do kształtu dachu i planowanego przeznaczenia pomieszczenia. Prowadzimy prace od konsultacji przez projekt po realizację — łącząc dostawę materiałów z koordynacją ekip.`,
     parametry: [
       "Zakres: ocena poddasza, dobór materiałów, zabudowy, izolacje i wykończenie.",
       "Materiały: płyty GK, profile, wełna mineralna, folie, akcesoria montażowe.",
@@ -855,7 +934,7 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">Kontakt wykonawczy</p>
               <h2 className="font-display text-[clamp(1.8rem,4vw,3.2rem)] font-black uppercase leading-[0.94] text-white break-words mb-3" style={{ overflowWrap: "anywhere" }}>
-                MediaBud — ul. Chemiczna 8, 20-329 Lublin
+                MediaBud — ul. Chemiczna 8d, 20-329 Lublin
               </h2>
               <p className="text-sm md:text-base leading-relaxed text-[#e6e6e6]">Zadzwoń, wyślij zakres prac lub odwiedź skład. Przygotujemy wycenę, dobierzemy system materiałowy i zaproponujemy ścieżkę realizacji dopasowaną do segmentu {service.segment}.</p>
             </div>
@@ -893,7 +972,7 @@ export function ServicesPage() {
     email: "sprzedaz@mediabud.pl",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "ul. Chemiczna 8",
+      streetAddress: "ul. Chemiczna 8d",
       addressLocality: "Lublin",
       postalCode: "20-329",
       addressCountry: "PL"

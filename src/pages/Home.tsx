@@ -58,8 +58,8 @@ const heroSlides = [
   {
     image: "/images/hero-materialy_2.png",
     label: "Materiały budowlane",
-    title: "Kompleksowe materiały dla\nkażdej budowy",
-    subtitle: "Ponad 15 900 produktów od wiodących marek. Tynki, ocieplenia, chemia budowlana, farby — wszystko w jednym miejscu.",
+    title: "Kompleksowe wsparcie\ndla Twojego projektu",
+    subtitle: "Od projektu przez materiały, aż po realizację — z nami zbudujesz solidne fundamenty.",
     cta: "Przeglądaj ofertę",
     ctaLink: "/produkty",
   },
@@ -75,7 +75,7 @@ const heroSlides = [
     image: "/images/hero-chemia_2.png",
     label: "Chemia budowlana",
     title: "Profesjonalna chemia\nbudowlana Ceresit, Atlas, Weber",
-    subtitle: "Dostawa materiałów na teren Lublina i województwa lubelskiego. Obsługa deweloperów, firm budowlanych i klientów indywidualnych.",
+    subtitle: "Profesjonalna hurtownia budowlana w Lublinie. Tynki, systemy ociepleń, styropiany i setki produktów — z doradztwem technicznym krok po kroku.",
     cta: "Skontaktuj się",
     ctaLink: "/kontakt",
   },
@@ -309,9 +309,9 @@ export default function Home() {
         "description": "Profesjonalna hurtownia materiałów budowlanych w Lublinie",
         "telephone": "+48509567213",
         "email": "sprzedaz@mediabud.pl",
-        "address": { "@type": "PostalAddress", "streetAddress": "ul. Chemiczna 8", "addressLocality": "Lublin", "postalCode": "20-329", "addressCountry": "PL" },
+        "address": { "@type": "PostalAddress", "streetAddress": "ul. Chemiczna 8d", "addressLocality": "Lublin", "postalCode": "20-329", "addressCountry": "PL" },
         "url": "https://mediabud.pl",
-        "openingHours": ["Mo-Fr 07:00-17:00", "Sa 08:00-14:00"],
+        "openingHours": ["Mo-Fr 07:00-16:00"],
         "priceRange": "$$",
         "areaServed": "Lublin, województwo lubelskie"
       })}} />
@@ -320,7 +320,7 @@ export default function Home() {
           HERO SLIDER
       ═══════════════════════════════════════════════════════ */}
       {/* ── Hero Section ── */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
         {/* Slides */}
         {heroSlides.map((s, i) => (
           <div
@@ -355,7 +355,7 @@ export default function Home() {
         <div className="absolute top-0 left-0 right-0 h-[2px] z-20" style={{ background: "linear-gradient(90deg, #f81828, #ff6b35 50%, #f81828)" }} />
         <div className="absolute left-0 top-0 bottom-0 w-[2px] z-20 bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.45)" }} />
 
-        <div className="relative z-10 container mx-auto px-4 py-24">
+        <div className="relative z-10 container mx-auto px-4 py-14">
           <div className="max-w-3xl">
             {/* Eyebrow badge */}
             <div
@@ -509,6 +509,57 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
+          BRANDS BAR
+      ═══════════════════════════════════════════════════════ */}
+      {/* ── Nasi producenci — Brand Logo Scroller ── */}
+      <section
+        ref={r7.ref as React.RefObject<HTMLElement>}
+        className={`py-10 overflow-hidden transition-all duration-700 ${r7.visible ? "opacity-100" : "opacity-0"}`}
+        style={{ background: "#050505", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
+      >
+        <div className="container mx-auto px-4 mb-6">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#888" }}>
+            Nasi producenci
+          </p>
+        </div>
+        <div className="relative overflow-hidden">
+          <div
+            className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to right, #050505, transparent)" }}
+          />
+          <div
+            className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to left, #050505, transparent)" }}
+          />
+
+          <style>{`
+            @keyframes brand-scroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .brand-track { animation: brand-scroll 30s linear infinite; }
+            .brand-track:hover { animation-play-state: paused; }
+          `}</style>
+
+          <div className="brand-track flex items-center gap-16 whitespace-nowrap" style={{ width: "max-content" }}>
+            {[...brandLogos, ...brandLogos].map((brand, i) => (
+              <div key={`${brand.name}-${i}`} className="inline-flex items-center justify-center px-6 group flex-shrink-0">
+                <img
+                  src={brand.url}
+                  alt={brand.name}
+                  loading="lazy"
+                  className="h-10 w-auto object-contain transition-all duration-300"
+                  style={{ filter: "grayscale(100%) brightness(0.5)", maxWidth: "120px" }}
+                  onMouseEnter={e => { (e.target as HTMLImageElement).style.filter = "grayscale(0%) brightness(1)"; }}
+                  onMouseLeave={e => { (e.target as HTMLImageElement).style.filter = "grayscale(100%) brightness(0.5)"; }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
           CATEGORIES GRID — Industrial Pulse
       ═══════════════════════════════════════════════════════ */}
       <section
@@ -570,7 +621,7 @@ export default function Home() {
                 <Link
                   key={cat.id}
                   to={`/kategoria/${cat.slug}`}
-                  className={`cat-card group relative overflow-hidden rounded-xl ${isWide ? "col-span-2 aspect-[16/7] lg:aspect-[16/6]" : "col-span-1 aspect-square lg:aspect-[4/5]"}`}
+                  className={`cat-card group relative overflow-hidden rounded-xl ${isWide ? "col-span-2 aspect-[21/6] lg:aspect-[21/5]" : "col-span-1 aspect-[4/3] lg:aspect-[4/3]"}`}
                   style={{
                     background: "#0f0f0f",
                     border: "1px solid #1a1a1a",
@@ -745,57 +796,6 @@ export default function Home() {
                 Zapytaj o produkt
               </Button>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          BRANDS BAR
-      ═══════════════════════════════════════════════════════ */}
-      {/* ── Nasi producenci — Brand Logo Scroller ── */}
-      <section
-        ref={r7.ref as React.RefObject<HTMLElement>}
-        className={`py-10 overflow-hidden transition-all duration-700 ${r7.visible ? "opacity-100" : "opacity-0"}`}
-        style={{ background: "#050505", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
-      >
-        <div className="container mx-auto px-4 mb-6">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#888" }}>
-            Nasi producenci
-          </p>
-        </div>
-        <div className="relative overflow-hidden">
-          <div
-            className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, #050505, transparent)" }}
-          />
-          <div
-            className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, #050505, transparent)" }}
-          />
-
-          <style>{`
-            @keyframes brand-scroll {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(-50%); }
-            }
-            .brand-track { animation: brand-scroll 30s linear infinite; }
-            .brand-track:hover { animation-play-state: paused; }
-          `}</style>
-
-          <div className="brand-track flex items-center gap-16 whitespace-nowrap" style={{ width: "max-content" }}>
-            {[...brandLogos, ...brandLogos].map((brand, i) => (
-              <div key={`${brand.name}-${i}`} className="inline-flex items-center justify-center px-6 group flex-shrink-0">
-                <img
-                  src={brand.url}
-                  alt={brand.name}
-                  loading="lazy"
-                  className="h-10 w-auto object-contain transition-all duration-300"
-                  style={{ filter: "grayscale(100%) brightness(0.5)", maxWidth: "120px" }}
-                  onMouseEnter={e => { (e.target as HTMLImageElement).style.filter = "grayscale(0%) brightness(1)"; }}
-                  onMouseLeave={e => { (e.target as HTMLImageElement).style.filter = "grayscale(100%) brightness(0.5)"; }}
-                />
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -1278,13 +1278,13 @@ export default function Home() {
 
         <div className="relative container mx-auto px-4 py-20 text-center">
           <p className="text-xs font-black tracking-widest uppercase text-red-200 mb-3 flex items-center justify-center gap-2">
-            <span className="w-4 h-0.5 bg-red-200" />Gotowy na współpracę?<span className="w-4 h-0.5 bg-red-200" />
+            <span className="w-4 h-0.5 bg-red-200" />— SKONTAKTUJ SIĘ —<span className="w-4 h-0.5 bg-red-200" />
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-black text-white mb-4 leading-tight">
-            Zróbmy to razem
+            Gotowy na współpracę?
           </h2>
           <p className="text-red-100 mb-9 max-w-xl mx-auto text-base leading-relaxed">
-            Skontaktuj się z nami już dziś. Przygotujemy bezpłatną wycenę materiałów dla Twojego projektu w ciągu 24 godzin.
+            Skontaktuj się z nami — bezpłatna wycena i profesjonalne doradztwo techniczne.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="tel:+48509567213">

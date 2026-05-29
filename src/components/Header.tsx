@@ -124,8 +124,27 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (window.innerWidth >= 768) setMobileOpen(false);
+    // Zamknij mobile menu po nawigacji lub gdy okno >= lg (1024px)
+    setMobileOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    // Zamknij gdy resize do desktop
+    const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false); };
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    // ESC zamyka menu; lock scroll body gdy menu otwarte
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMobileOpen(false); };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   const menuEnter = (id: string) => {
     if (menuTimeout.current) clearTimeout(menuTimeout.current);

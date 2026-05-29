@@ -99,3 +99,4 @@
 [2026-05-28 23:43] Naprawiono filtry brand: CategoryPage isValidBrand filter, Commerce.tsx brand badge guard, Sanity: 450 junk brand docs usunięte, 1882 produktów brand=null. Build OK, commit 2d6f950, push main.
 [2026-05-28 23:51] Start kompleksowego audytu i naprawy strony: header mega-menu, URL spójność, filtry, produkty w kategoriach, usługi.
 [2026-05-28 23:54] Audyt kompletny: zidentyfikowano 5 bugów: (1) page param nie resetuje się przy zmianie kategorii, (2) CategoryPage useReveal stary bug, (3) topBrands pokazuje śmieci, (4) brakujące trasy /kategoria /sitemap, (5) Header ładuje 15k produktów. Start napraw.
+[2026-05-29 00:00] Kontynuacja: mega-menu 2-poziomowe, ikony wszystkich 10 kategorii, Sanity categories w Header, fix stopki godziny.

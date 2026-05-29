@@ -5,26 +5,29 @@ import {
   ShoppingBag, MapPin, Clock, ArrowRight, Zap, FlaskConical,
   Home, Paintbrush, Shield, Wrench, LayoutGrid, Layers,
   Package, Facebook, Instagram, CheckCircle2, Star, Sparkles,
+  Grid2X2, Minus, ChevronRight,
 } from "lucide-react";
-import { categories } from "@/data/categories";
+import { categories as staticCategories } from "@/data/categories";
 import { useWycena } from "@/hooks/useWycena";
 import { Input } from "@/components/ui/input";
 import { products, type Product } from "@/data/products";
-import { useAllProducts } from "@/hooks/useSanityData";
-import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
+import { useAllProducts, useAllCategories } from "@/hooks/useSanityData";
+import { sanityProductToLegacy, sanityCategoryToLegacy, type SanityProduct, type SanityCategory } from "@/lib/adapters";
 import { mergeProductCollections } from "@/lib/productMerge";
 import { searchProducts } from "@/lib/productSearch";
 
-/* ── Category icon map ───────────────────────────────────────────── */
+/* ── Category icon map — wszystkie 10 kategorii ─────────────────── */
 const CAT_ICONS: Record<string, React.ReactNode> = {
-  "chemia-budowlana":    <FlaskConical  className="w-6 h-6" />,
-  "dachy":               <Home          className="w-6 h-6" />,
-  "farby-rozpuszczalniki": <Paintbrush  className="w-6 h-6" />,
-  "izolacje":            <Shield        className="w-6 h-6" />,
-  "narzedzia-mocowania": <Wrench        className="w-6 h-6" />,
-  "plytki":              <LayoutGrid    className="w-6 h-6" />,
-  "stropy-sciany":       <Layers        className="w-6 h-6" />,
-  "sucha-zabudowa":      <Package       className="w-6 h-6" />,
+  "chemia-budowlana":      <FlaskConical  className="w-5 h-5" />,
+  "dachy":                 <Home          className="w-5 h-5" />,
+  "farby-rozpuszczalniki": <Paintbrush    className="w-5 h-5" />,
+  "izolacje":              <Shield        className="w-5 h-5" />,
+  "narzedzia-mocowania":   <Wrench        className="w-5 h-5" />,
+  "plytki":                <LayoutGrid    className="w-5 h-5" />,
+  "stropy-sciany":         <Layers        className="w-5 h-5" />,
+  "sucha-zabudowa":        <Package       className="w-5 h-5" />,
+  "sufity-podwieszane":    <Grid2X2       className="w-5 h-5" />,
+  "posadzki":              <Minus         className="w-5 h-5" />,
 };
 
 const CAT_IMAGES: Record<string, string> = {
@@ -44,6 +47,7 @@ export default function Header() {
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [searchFocused, setSearchFocused] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const { items, openDrawer } = useWycena();
   const totalCount = items.reduce((s, i) => s + i.quantity, 0);
@@ -52,6 +56,15 @@ export default function Header() {
   const searchRef = useRef<HTMLDivElement>(null);
   const menuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { data: sanityProducts } = useAllProducts();
+  const { data: sanityTopCats }  = useAllCategories();
+
+  /* Kategorie: Sanity (z dziećmi) lub static jako fallback */
+  const categories = useMemo(
+    () => sanityTopCats && (sanityTopCats as any[]).length > 0
+      ? (sanityTopCats as any[]).map(c => sanityCategoryToLegacy(c as SanityCategory))
+      : staticCategories,
+    [sanityTopCats],
+  );
 
   const mergedProducts = useMemo(() => {
     const sanityLegacyProducts = ((sanityProducts as SanityProduct[] | undefined) ?? []).map(sanityProductToLegacy);
@@ -415,9 +428,9 @@ export default function Header() {
                     )}
                   </Link>
 
-                  {/* ── Mega dropdown ── */}
+                  {/* ── Mega dropdown 2-poziomowy ── */}
                   {cat.children && activeMenu === cat.id && (
-                    <div className="fixed left-0 right-0 z-50 animate-fade-in"
+                    <div className="fixed left-0 right-0 z-50"
                       style={{
                         top: "calc(var(--header-h, 140px))",
                         background: "#0c0c0c",
@@ -426,55 +439,107 @@ export default function Header() {
                         boxShadow: "0 24px 80px rgba(0,0,0,0.9)",
                       }}
                       onMouseEnter={() => menuEnter(cat.id)}
-                      onMouseLeave={menuLeave}>
-                      {/* Grid overlay */}
+                      onMouseLeave={() => { menuLeave(); setActiveSubMenu(null); }}>
                       <div className="absolute inset-0 pointer-events-none"
                         style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.03) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
-                      <div className="relative container mx-auto px-4 py-6">
-                        <div className="flex gap-8">
-                          {/* Category image + title */}
-                          <div className="w-56 flex-shrink-0">
+                      <div className="relative container mx-auto px-4 py-5">
+                        <div className="flex gap-6">
+
+                          {/* Col 1: Obraz + link kategorii */}
+                          <div className="w-44 flex-shrink-0">
                             <div className="relative rounded-xl overflow-hidden aspect-[4/3] mb-3">
                               {CAT_IMAGES[cat.slug]
-                                ? <img src={CAT_IMAGES[cat.slug]} alt={cat.name} className="w-full h-full object-cover" style={{ filter: "brightness(0.58)" }} />
-                                : <div className="w-full h-full bg-[#1a1a1a]" />}
+                                ? <img src={CAT_IMAGES[cat.slug]} alt={cat.name} className="w-full h-full object-cover" style={{ filter: "brightness(0.55)" }} />
+                                : <div className="w-full h-full flex items-center justify-center" style={{ background: "rgba(248,24,40,0.1)" }}>{CAT_ICONS[cat.slug] ?? <Package className="w-10 h-10 text-[#f81828]" />}</div>}
                               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                               <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#f81828]" />
                               <div className="absolute bottom-0 left-0 right-0 p-3">
                                 <div className="font-display font-black text-white text-sm leading-tight">{cat.name}</div>
-                                <div className="text-[10px] text-gray-400 mt-0.5">{cat.children.length} podkategorii</div>
+                                <div className="text-[10px] text-gray-400 mt-0.5">{cat.children.length} kategorii</div>
                               </div>
                             </div>
-                            <Link to={`/kategoria/${cat.slug}`}
-                              className="flex items-center gap-1.5 text-xs text-[#f81828] font-bold hover:underline">
+                            <Link to={`/kategoria/${cat.slug}`} onClick={() => setActiveMenu(null)}
+                              className="flex items-center gap-1.5 text-xs text-[#f81828] font-bold hover:underline mb-1">
                               <ShoppingBag className="w-3 h-3" />Wszystkie produkty
                             </Link>
                           </div>
 
-                          {/* Subcategory grid */}
-                          <div className="flex-1">
-                            <div className="text-[10px] text-gray-600 uppercase tracking-widest font-bold mb-3 flex items-center gap-2">
-                              <span className="w-3 h-px bg-[#f81828]" />Podkategorie
+                          {/* Col 2: Lista podkategorii (L1) */}
+                          <div className="w-52 flex-shrink-0 border-r border-white/5 pr-4">
+                            <div className="text-[9px] text-gray-600 uppercase tracking-widest font-bold mb-2 flex items-center gap-1.5">
+                              <span className="w-2 h-px bg-[#f81828]" />Podkategorie
                             </div>
-                            <div className="grid grid-cols-3 xl:grid-cols-4 gap-0.5">
-                              {cat.children.slice(0, 16).map(sub => (
-                                <Link key={sub.id} to={`/kategoria/${sub.slug}`}
-                                  className="group/sub flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-gray-400 hover:text-white hover:bg-[#f81828]/10 transition-all duration-150 font-medium">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-[#f81828]/50 group-hover/sub:bg-[#f81828] transition-colors flex-shrink-0" />
-                                  <span className="truncate">{sub.name}</span>
-                                </Link>
+                            <div className="space-y-0.5 overflow-y-auto" style={{ maxHeight: "280px" }}>
+                              {cat.children.map(sub => (
+                                <div key={sub.id}
+                                  onMouseEnter={() => setActiveSubMenu(sub.id)}
+                                  className={`group/sub flex items-center justify-between px-2.5 py-1.5 rounded-lg cursor-pointer transition-all duration-150 ${
+                                    activeSubMenu === sub.id
+                                      ? "bg-[#f81828]/15 text-white"
+                                      : "text-gray-400 hover:bg-[#f81828]/10 hover:text-white"
+                                  }`}>
+                                  <Link to={`/kategoria/${sub.slug}`} onClick={() => setActiveMenu(null)}
+                                    className="flex items-center gap-2 flex-1 min-w-0 text-[12px] font-medium">
+                                    <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors ${activeSubMenu === sub.id ? "bg-[#f81828]" : "bg-[#f81828]/40 group-hover/sub:bg-[#f81828]"}`} />
+                                    <span className="truncate">{sub.name}</span>
+                                  </Link>
+                                  {sub.children && sub.children.length > 0 && (
+                                    <ChevronRight className={`w-3 h-3 flex-shrink-0 transition-colors ${activeSubMenu === sub.id ? "text-[#f81828]" : "text-gray-700"}`} />
+                                  )}
+                                </div>
                               ))}
                             </div>
                           </div>
 
-                          {/* CTA panel */}
-                          <div className="w-48 flex-shrink-0 flex flex-col gap-3">
+                          {/* Col 3: Pod-podkategorie (L2) — pokazuje się gdy hovujesz na L1 */}
+                          <div className="flex-1">
+                            {activeSubMenu ? (
+                              (() => {
+                                const activeSub = cat.children.find(s => s.id === activeSubMenu);
+                                return activeSub ? (
+                                  <div>
+                                    <div className="text-[9px] text-gray-600 uppercase tracking-widest font-bold mb-2 flex items-center gap-1.5">
+                                      <span className="w-2 h-px bg-[#f81828]" />{activeSub.name}
+                                    </div>
+                                    {activeSub.children && activeSub.children.length > 0 ? (
+                                      <div className="grid grid-cols-2 xl:grid-cols-3 gap-0.5">
+                                        {activeSub.children.map(sub2 => (
+                                          <Link key={sub2.id} to={`/kategoria/${sub2.slug}`} onClick={() => setActiveMenu(null)}
+                                            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[12px] text-gray-400 hover:text-white hover:bg-[#f81828]/10 transition-all font-medium">
+                                            <span className="w-1 h-1 rounded-full bg-[#f81828]/30 flex-shrink-0" />
+                                            <span className="truncate">{sub2.name}</span>
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    ) : (
+                                      <div className="flex flex-col items-center justify-center h-24 text-center">
+                                        <Link to={`/kategoria/${activeSub.slug}`} onClick={() => setActiveMenu(null)}
+                                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#f81828]/10 text-[#f81828] text-sm font-bold hover:bg-[#f81828] hover:text-white transition-all">
+                                          <ShoppingBag className="w-4 h-4" /> Przeglądaj produkty
+                                        </Link>
+                                      </div>
+                                    )}
+                                  </div>
+                                ) : null;
+                              })()
+                            ) : (
+                              <div className="flex items-center justify-center h-full text-gray-700 text-xs text-center p-4">
+                                <div>
+                                  <div className="text-2xl mb-1">←</div>
+                                  Najedź na podkategorię<br />aby zobaczyć więcej
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Col 4: CTA */}
+                          <div className="w-44 flex-shrink-0 flex flex-col gap-3">
                             <div className="rounded-xl p-4 flex-1"
                               style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.14),rgba(248,24,40,0.07))", border: "1px solid rgba(248,24,40,0.22)" }}>
                               <div className="text-xs text-[#f88090] font-bold uppercase tracking-wider mb-2">Szybka wycena</div>
-                              <p className="text-xs text-gray-500 leading-relaxed mb-3">Potrzebujesz materiałów? Przygotujemy ofertę dla Twojego projektu.</p>
-                              <Link to="/kontakt"
-                                className="flex items-center justify-center gap-1.5 w-full bg-[#f81828] hover:bg-[#c8000f] text-white text-xs font-bold py-2 rounded-lg transition-all hover:shadow-[0_0_12px_rgba(248,24,40,0.4)]">
+                              <p className="text-xs text-gray-500 leading-relaxed mb-3">Potrzebujesz materiałów? Wycenimy projekt.</p>
+                              <Link to="/kontakt" onClick={() => setActiveMenu(null)}
+                                className="flex items-center justify-center gap-1.5 w-full bg-[#f81828] hover:bg-[#c8000f] text-white text-xs font-bold py-2 rounded-lg transition-all">
                                 Zapytaj o ofertę <ArrowRight className="w-3 h-3" />
                               </Link>
                             </div>
@@ -482,13 +547,14 @@ export default function Header() {
                               style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
                               <div className="flex items-center gap-2 mb-1.5">
                                 <Phone className="w-3.5 h-3.5 text-[#f81828]" />
-                                <span className="text-xs text-gray-400 font-semibold">Zadzwoń teraz</span>
+                                <span className="text-xs text-gray-400 font-semibold">Zadzwoń</span>
                               </div>
                               <a href="tel:+48509567213" className="text-sm font-black text-white hover:text-[#f81828] transition-colors">
                                 +48 509 567 213
                               </a>
                             </div>
                           </div>
+
                         </div>
                       </div>
                     </div>

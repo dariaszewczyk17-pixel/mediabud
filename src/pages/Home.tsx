@@ -449,7 +449,7 @@ export default function Home() {
             <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-[#f81828]" />Asortyment
             </p>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-gray-900">Nasze kategorie produktów</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-black text-white">Nasze kategorie produktów</h2>
           </div>
           <Link to="/produkty" className="hidden md:flex items-center gap-1 text-sm font-bold text-[#f81828] hover:underline">
             Wszystkie <ArrowRight className="w-4 h-4" />
@@ -498,7 +498,8 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r2.ref as React.RefObject<HTMLElement>}
-        className={`py-14 bg-gray-50/80 transition-all duration-700 ${r2.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className={`py-14 transition-all duration-700 ${r2.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)" }}
       >
         <div className="container mx-auto px-4">
           {/* Header + tabs */}
@@ -507,19 +508,20 @@ export default function Home() {
               <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
                 <span className="w-4 h-0.5 bg-[#f81828]" />Oferta
               </p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-gray-900">Katalog produktów</h2>
+              <h2 className="font-display text-3xl md:text-4xl font-black text-white">Katalog produktów</h2>
               <p className="text-gray-500 mt-1 text-sm">Bestsellery i nowości w naszej ofercie</p>
             </div>
             {/* Tabs */}
-            <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-xl p-1 self-start md:self-auto shadow-sm">
+            <div className="flex items-center gap-1 rounded-xl p-1 self-start md:self-auto"
+              style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.08)" }}>
               {PRODUCT_TABS.map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-all duration-200 ${
                     activeTab === tab.id
-                      ? "bg-[#f81828] text-white shadow"
-                      : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                      ? "bg-[#f81828] text-white"
+                      : "text-gray-500 hover:text-white"
                   }`}
                 >
                   {tab.label}
@@ -560,10 +562,11 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r7.ref as React.RefObject<HTMLElement>}
-        className={`border-y border-gray-100 bg-white py-8 transition-all duration-700 ${r7.visible ? "opacity-100" : "opacity-0"}`}
+        className={`py-8 transition-all duration-700 ${r7.visible ? "opacity-100" : "opacity-0"}`}
+        style={{ background: "#0d0d0d", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
       >
         <div className="container mx-auto px-4">
-          <p className="text-center text-xs font-black tracking-widest uppercase text-gray-300 mb-6">Autoryzowany dystrybutor marek</p>
+          <p className="text-center text-xs font-black tracking-widest uppercase text-gray-600 mb-6">Autoryzowany dystrybutor marek</p>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-4 items-center">
             {brands.map(b => (
               <div key={b.name} className="group flex flex-col items-center gap-2 cursor-default">
@@ -598,7 +601,7 @@ export default function Home() {
           <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center justify-center gap-2">
             <span className="w-4 h-0.5 bg-[#f81828]" />Dlaczego my?<span className="w-4 h-0.5 bg-[#f81828]" />
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-black text-gray-900 mb-3">Dlaczego Media Bud?</h2>
+          <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-3">Dlaczego Media Bud?</h2>
           <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed text-sm">
             Łączymy profesjonalną wiedzę techniczną z indywidualnym podejściem — zarówno dla deweloperów, jak i klientów budujących własny dom.
           </p>
@@ -607,13 +610,19 @@ export default function Home() {
           {features.map((f, i) => (
             <div
               key={i}
-              className={`group bg-white rounded-xl border border-gray-100 p-6 hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] hover:-translate-y-1 transition-all duration-300 ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${i * 70}ms` }}
+              className={`group rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{
+                background: "#0f0f0f",
+                border: "1px solid rgba(255,255,255,0.07)",
+                transitionDelay: `${i * 70}ms`,
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.35)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.10)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
             >
-              <div className="w-12 h-12 bg-[#0a0a0a] group-hover:bg-[#f81828] rounded-xl flex items-center justify-center text-2xl mb-4 transition-all duration-300">
+              <div className="w-12 h-12 bg-[#1a1a1a] group-hover:bg-[#f81828] rounded-xl flex items-center justify-center text-2xl mb-4 transition-all duration-300">
                 {f.icon}
               </div>
-              <h3 className="font-display font-black text-gray-900 mb-2 text-base">{f.title}</h3>
+              <h3 className="font-display font-black text-white mb-2 text-base">{f.title}</h3>
               <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
             </div>
           ))}
@@ -745,14 +754,15 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r8.ref as React.RefObject<HTMLElement>}
-        className={`bg-gray-50 py-14 transition-all duration-700 ${r8.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className={`py-14 transition-all duration-700 ${r8.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        style={{ background: "#080808", borderTop: "1px solid rgba(255,255,255,0.05)" }}
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center justify-center gap-2">
               <span className="w-4 h-0.5 bg-[#f81828]" />Opinie klientów<span className="w-4 h-0.5 bg-[#f81828]" />
             </p>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-gray-900 mb-2">Co mówią nasi klienci?</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-2">Co mówią nasi klienci?</h2>
             <p className="text-gray-500 text-sm max-w-lg mx-auto">Zaufali nam dewelopierzy, architekci i tysiące prywatnych inwestorów z regionu lubelskiego.</p>
           </div>
 
@@ -760,23 +770,29 @@ export default function Home() {
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className={`bg-white rounded-2xl border border-gray-100 p-6 hover:border-[#f81828]/20 hover:shadow-[0_8px_32px_rgba(248,24,40,0.08)] transition-all duration-300 hover:-translate-y-1 ${r8.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 100}ms` }}
+                className={`rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 ${r8.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{
+                  background: "#0f0f0f",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  transitionDelay: `${i * 100}ms`,
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.25)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.08)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
               >
                 {/* Stars */}
                 <div className="flex items-center gap-0.5 mb-4">
                   {Array.from({ length: t.rating }).map((_, si) => (
                     <Star key={si} className="w-4 h-4 fill-[#f81828] text-[#f81828]" />
                   ))}
-                  <span className="ml-2 text-xs text-gray-400 font-medium">{t.tag}</span>
+                  <span className="ml-2 text-xs text-gray-500 font-medium">{t.tag}</span>
                 </div>
 
                 {/* Quote */}
-                <div className="text-[#f81828]/20 font-black text-5xl leading-none mb-2 font-display select-none">"</div>
-                <p className="text-gray-700 text-sm leading-relaxed mb-5 -mt-4">{t.text}</p>
+                <div className="text-[#f81828]/25 font-black text-5xl leading-none mb-2 font-display select-none">"</div>
+                <p className="text-gray-400 text-sm leading-relaxed mb-5 -mt-4">{t.text}</p>
 
                 {/* Author */}
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-3 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                   <div className="w-10 h-10 rounded-full bg-[#f81828] flex items-center justify-center text-white text-xs font-black flex-shrink-0 overflow-hidden">
                     {t.avatarImg
                       ? <img src={t.avatarImg} alt={t.name} className="w-full h-full object-cover" />
@@ -784,10 +800,10 @@ export default function Home() {
                     }
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-gray-900">{t.name}</div>
-                    <div className="text-xs text-gray-400">{t.role} · {t.company}</div>
+                    <div className="text-sm font-bold text-white">{t.name}</div>
+                    <div className="text-xs text-gray-500">{t.role} · {t.company}</div>
                   </div>
-                  <CheckCircle2 className="w-5 h-5 text-green-500 ml-auto flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-500 ml-auto flex-shrink-0" />
                 </div>
               </div>
             ))}
@@ -862,7 +878,7 @@ export default function Home() {
             <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-[#f81828]" />Wiedza
             </p>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-gray-900">Blog techniczny</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-black text-white">Blog techniczny</h2>
             <p className="text-gray-500 mt-1 text-sm">Ekspercka wiedza dla budowniczych i inwestorów</p>
           </div>
           <Link to="/blog" className="hidden md:flex items-center gap-1 text-sm font-bold text-[#f81828] hover:underline">
@@ -874,8 +890,14 @@ export default function Home() {
             <Link
               key={post.id}
               to={`/blog/${post.slug}`}
-              className={`group bg-white rounded-xl border border-gray-100 overflow-hidden hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] hover:-translate-y-1 transition-all duration-300 ${r6.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
+              className={`group rounded-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 ${r6.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{
+                background: "#0f0f0f",
+                border: "1px solid rgba(255,255,255,0.07)",
+                transitionDelay: `${i * 100}ms`,
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.3)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.10)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
             >
               <div className="aspect-video overflow-hidden relative">
                 <img
@@ -893,7 +915,7 @@ export default function Home() {
                     {new Date(post.date).toLocaleDateString("pl-PL")}
                   </span>
                 </div>
-                <h3 className="font-display font-black text-gray-900 leading-snug mb-2 group-hover:text-[#f81828] transition-colors line-clamp-2">
+                <h3 className="font-display font-black text-white leading-snug mb-2 group-hover:text-[#f81828] transition-colors line-clamp-2">
                   {post.title}
                 </h3>
                 <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">{post.excerpt}</p>

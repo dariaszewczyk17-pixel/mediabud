@@ -1,0 +1,18 @@
+[2026-05-29 15:11:56] Pobrano z Sanity 500 produktów bez shortDescription.
+[2026-05-29 15:11:58] Postęp: 50/500; scraped=1; ai_pending=49
+[2026-05-29 15:11:59] Postęp: 100/500; scraped=1; ai_pending=99
+[2026-05-29 15:12:00] Postęp: 150/500; scraped=1; ai_pending=149
+[2026-05-29 15:12:01] Postęp: 200/500; scraped=1; ai_pending=199
+[2026-05-29 15:12:03] Postęp: 250/500; scraped=1; ai_pending=249
+[2026-05-29 15:12:04] Postęp: 300/500; scraped=1; ai_pending=299
+[2026-05-29 15:12:06] Postęp: 350/500; scraped=2; ai_pending=348
+[2026-05-29 15:12:07] Postęp: 400/500; scraped=2; ai_pending=398
+[2026-05-29 15:12:08] Postęp: 450/500; scraped=2; ai_pending=448
+[2026-05-29 15:12:10] Postęp: 500/500; scraped=3; ai_pending=497
+[2026-05-29 15:12:10] Etap scraping zakończony: scraped=3, ai_pending=497
+[2026-05-29 15:15:19] Etap AI zakończony: ai_generated=497
+[2026-05-29 15:15:21] PATCH batch 1: 100 rekordów
+[2026-05-29 15:15:22] PATCH batch 2: 100 rekordów
+[2026-05-29 15:15:24] PATCH batch 3: 100 rekordów
+[2026-05-29 15:15:25] PATCH batch 4: 100 rekordów
+[2026-05-29 15:15:27] PATCH batch 5: 100 rekordów

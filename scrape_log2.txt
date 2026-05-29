@@ -1,0 +1,97 @@
+[2026-05-29 15:25:05] === START pipeline v2 ===
+[2026-05-29 15:25:06] Offset 0: pobrano 500 produktów
+[2026-05-29 15:25:06]   Po filtracji: 435 dobrych, 65 pominiętych
+[2026-05-29 15:29:24]   LLM sparsowanych: 412 / 435
+[2026-05-29 15:29:27]   PATCH: 412 dokumentów zapisanych
+[2026-05-29 15:29:27]   Postęp: updated=412, skip=65, err=23
+[2026-05-29 15:29:28] Offset 500: pobrano 500 produktów
+[2026-05-29 15:29:28]   Po filtracji: 437 dobrych, 63 pominiętych
+[2026-05-29 15:38:57]   LLM sparsowanych: 425 / 437
+[2026-05-29 15:39:00]   PATCH: 425 dokumentów zapisanych
+[2026-05-29 15:39:00]   Postęp: updated=837, skip=128, err=35
+[2026-05-29 15:39:01] Offset 1000: pobrano 500 produktów
+[2026-05-29 15:39:01]   Po filtracji: 459 dobrych, 41 pominiętych
+[2026-05-29 15:43:21] === START pipeline v3 ===
+[2026-05-29 15:43:21] Offset 0: 435 OK, 65 skip
+[2026-05-29 15:43:34]   LLM sparsowanych: 433 / 459
+[2026-05-29 15:43:37]   PATCH: 433 dokumentów zapisanych
+[2026-05-29 15:43:37]   Postęp: updated=1270, skip=169, err=61
+[2026-05-29 15:43:38] Offset 1500: pobrano 500 produktów
+[2026-05-29 15:43:38]   Po filtracji: 460 dobrych, 40 pominiętych
+[2026-05-29 15:45:33] STOP (context limit) — wznowienie od offset 1500
+[2026-05-29 15:48:04]   LLM sparsowanych: 459 / 460
+[2026-05-29 15:48:08]   PATCH: 459 dokumentów zapisanych
+[2026-05-29 15:48:08]   Postęp: updated=1729, skip=209, err=62
+[2026-05-29 15:48:09] Offset 2000: pobrano 500 produktów
+[2026-05-29 15:48:09]   Po filtracji: 466 dobrych, 34 pominiętych
+[2026-05-29 15:52:37]   LLM sparsowanych: 423 / 466
+[2026-05-29 15:52:40]   PATCH: 423 dokumentów zapisanych
+[2026-05-29 15:52:40]   Postęp: updated=2152, skip=243, err=105
+[2026-05-29 15:52:41] Offset 2500: pobrano 500 produktów
+[2026-05-29 15:52:41]   Po filtracji: 457 dobrych, 43 pominiętych
+[2026-05-29 15:55:14] === PIPELINE V4 ZAŁADOWANY — gotowy do uruchomienia ===
+[2026-05-29 15:55:14] START_OFFSET=0, BATCH_SIZE=500
+[2026-05-29 15:57:32]   LLM sparsowanych: 423 / 457
+[2026-05-29 15:57:36]   PATCH: 423 dokumentów zapisanych
+[2026-05-29 15:57:36]   Postęp: updated=2575, skip=286, err=139
+[2026-05-29 15:57:37] Offset 3000: pobrano 500 produktów
+[2026-05-29 15:57:37]   Po filtracji: 446 dobrych, 54 pominiętych
+[2026-05-29 16:04:43]   LLM sparsowanych: 437 / 446
+[2026-05-29 16:04:46]   PATCH: 437 dokumentów zapisanych
+[2026-05-29 16:04:46]   Postęp: updated=3012, skip=340, err=148
+[2026-05-29 16:04:47] Offset 3500: pobrano 500 produktów
+[2026-05-29 16:04:47]   Po filtracji: 463 dobrych, 37 pominiętych
+[2026-05-29 16:08:59]   LLM sparsowanych: 442 / 463
+[2026-05-29 16:09:03]   PATCH: 442 dokumentów zapisanych
+[2026-05-29 16:09:03]   Postęp: updated=3454, skip=377, err=169
+[2026-05-29 16:09:04] Offset 4000: pobrano 500 produktów
+[2026-05-29 16:09:04]   Po filtracji: 461 dobrych, 39 pominiętych
+[2026-05-29 16:19:58]   LLM sparsowanych: 439 / 461
+[2026-05-29 16:20:01]   PATCH: 439 dokumentów zapisanych
+[2026-05-29 16:20:01]   Postęp: updated=3893, skip=416, err=191
+[2026-05-29 16:20:02] Offset 4500: pobrano 500 produktów
+[2026-05-29 16:20:02]   Po filtracji: 460 dobrych, 40 pominiętych
+[2026-05-29 16:24:34] === PIPELINE V4 START ===
+[2026-05-29 16:24:34] Offset 0: pobrano 500 produktów
+[2026-05-29 16:24:34]   Po filtracji: 435 dobrych, 65 pominiętych
+[2026-05-29 16:24:38]   LLM sparsowanych: 456 / 460
+[2026-05-29 16:24:41]   PATCH: 456 dokumentów zapisanych
+[2026-05-29 16:24:41]   Postęp: updated=4349, skip=456, err=195
+[2026-05-29 16:24:42] Offset 5000: pobrano 500 produktów
+[2026-05-29 16:24:42]   Po filtracji: 426 dobrych, 74 pominiętych
+[2026-05-29 16:28:42]   LLM sparsowanych: 425 / 435
+[2026-05-29 16:28:55]   PATCH: 425 zapisanych | Postęp: updated=425, skip=75, err=0
+[2026-05-29 16:28:56] Offset 500: pobrano 500 produktów
+[2026-05-29 16:28:56]   Po filtracji: 436 dobrych, 64 pominiętych
+[2026-05-29 16:29:09]   LLM sparsowanych: 416 / 426
+[2026-05-29 16:29:12]   PATCH: 416 dokumentów zapisanych
+[2026-05-29 16:29:12]   Postęp: updated=4765, skip=530, err=205
+[2026-05-29 16:29:12] Offset 5500: pobrano 500 produktów
+[2026-05-29 16:29:12]   Po filtracji: 433 dobrych, 67 pominiętych
+[2026-05-29 16:32:58]   LLM sparsowanych: 428 / 436
+[2026-05-29 16:33:11]   PATCH: 428 zapisanych | Postęp: updated=853, skip=147, err=0
+[2026-05-29 16:33:12] Offset 1000: pobrano 500 produktów
+[2026-05-29 16:33:12]   Po filtracji: 458 dobrych, 42 pominiętych
+[2026-05-29 16:34:15]   LLM sparsowanych: 423 / 433
+[2026-05-29 16:34:18]   PATCH: 423 dokumentów zapisanych
+[2026-05-29 16:34:18]   Postęp: updated=5188, skip=597, err=215
+[2026-05-29 16:34:19] Offset 6000: pobrano 500 produktów
+[2026-05-29 16:34:19]   Po filtracji: 417 dobrych, 83 pominiętych
+[2026-05-29 16:37:42]   LLM sparsowanych: 450 / 458
+[2026-05-29 16:37:56]   PATCH: 450 zapisanych | Postęp: updated=1303, skip=197, err=0
+[2026-05-29 16:37:56] Offset 1500: pobrano 500 produktów
+[2026-05-29 16:37:56]   Po filtracji: 460 dobrych, 40 pominiętych
+[2026-05-29 16:39:12]   LLM sparsowanych: 408 / 417
+[2026-05-29 16:39:15]   PATCH: 408 dokumentów zapisanych
+[2026-05-29 16:39:15]   Postęp: updated=5596, skip=680, err=224
+[2026-05-29 16:39:16] Offset 6500: pobrano 500 produktów
+[2026-05-29 16:39:16]   Po filtracji: 415 dobrych, 85 pominiętych
+[2026-05-29 16:42:57]   LLM sparsowanych: 458 / 460
+[2026-05-29 16:43:11]   PATCH: 458 zapisanych | Postęp: updated=1761, skip=239, err=0
+[2026-05-29 16:43:12] Offset 2000: pobrano 500 produktów
+[2026-05-29 16:43:12]   Po filtracji: 466 dobrych, 34 pominiętych
+[2026-05-29 16:44:03]   LLM sparsowanych: 412 / 415
+[2026-05-29 16:44:06]   PATCH: 412 dokumentów zapisanych
+[2026-05-29 16:44:06]   Postęp: updated=6008, skip=765, err=227
+[2026-05-29 16:44:07] Offset 7000: pobrano 500 produktów
+[2026-05-29 16:44:07]   Po filtracji: 433 dobrych, 67 pominiętych

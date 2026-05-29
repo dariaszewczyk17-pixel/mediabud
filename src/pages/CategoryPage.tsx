@@ -6,6 +6,7 @@ import {
 import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
 import { useCategoryBySlug, useAllCategories, useProductsByCategorySlugs } from "@/hooks/useSanityData";
+import { useSEO } from "@/hooks/useSEO";
 import {
   sanityCategoryToLegacy, sanityProductToLegacy,
   buildBreadcrumbs as buildSanityBreadcrumbs, collectAllSlugs,
@@ -165,6 +166,17 @@ export default function CategoryPage() {
   const heroReveal = useReveal();
   const subReveal  = useReveal();
   const gridReveal = useReveal();
+
+  /* ── SEO meta tagi ── */
+  useSEO({
+    title: cat
+      ? `${cat.name} – Media Bud | Materiały Budowlane Lublin`
+      : "Kategoria | Media Bud",
+    description: cat
+      ? ((cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin, dostawa 24h.`).slice(0, 160)
+      : undefined,
+    canonical: slug ? `/kategoria/${slug}` : undefined,
+  });
 
   if (!cat) {
     return (
@@ -365,7 +377,7 @@ export default function CategoryPage() {
 
           {/* ── Sidebar ── */}
           <aside
-            className="lg:w-60 flex-shrink-0 space-y-4 lg:sticky lg:top-24 lg:self-start"
+            className="lg:w-60 flex-shrink-0 space-y-4 lg:sticky lg:top-[calc(var(--header-h,96px)+8px)] lg:self-start"
             style={{ maxHeight: "calc(100vh - 7rem)", overflowY: "auto", scrollbarWidth: "none" }}
           >
 

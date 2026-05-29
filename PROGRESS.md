@@ -100,3 +100,31 @@
 [2026-05-28 23:51] Start kompleksowego audytu i naprawy strony: header mega-menu, URL spójność, filtry, produkty w kategoriach, usługi.
 [2026-05-28 23:54] Audyt kompletny: zidentyfikowano 5 bugów: (1) page param nie resetuje się przy zmianie kategorii, (2) CategoryPage useReveal stary bug, (3) topBrands pokazuje śmieci, (4) brakujące trasy /kategoria /sitemap, (5) Header ładuje 15k produktów. Start napraw.
 [2026-05-29 00:00] Kontynuacja: mega-menu 2-poziomowe, ikony wszystkich 10 kategorii, Sanity categories w Header, fix stopki godziny.
+[2026-05-29 00:03] Commit 5417736: mega-menu 2-poziomowy, ikony 10 kategorii, Sanity categories w Header, Footer Sob 8-14. Build OK.
+[2026-05-29 00:14] Nowa sesja: plan 7 zadań — fixes CategoryPage, bechcicki.pl audit, scraping produktów, UI (bottom sheet/aria/GA4/search), import Sanity
+[2026-05-29 00:17] Fix queries.ts (3-poziomowe CATEGORY_FIELDS + parent-chain query), adapters.ts (brand default ''), PRODUCTS_BY_CATEGORY_SLUGS_QUERY — bugi znikania produktów i śmieci w filtrach
+[2026-05-29 00:21] Commit 91ee9d8 — bottom sheet, ARIA, GA4, unit/tag filters, 3-level GROQ queries, parent-chain product search, brand fix
+[2026-05-29 00:22] Commit 91ee9d8 wypchnięty — bottom sheet mobile, ARIA/GA4, filtry unit+tag, fixes queries.ts/adapters.ts. Start: scraping produktów z bechcicki.pl do Sanity
+[2026-05-29 00:27] Commit f9f7ce1 — mega-menu search + GA4 L2. W tle: generowanie opisów 800 produktów (bg-d8079f9d). Commits tej sesji: 91ee9d8, f9f7ce1
+[2026-05-29 00:27] Status: 2 commity wypchniete (91ee9d8, f9f7ce1), 1107 prod zaktualizowanych w Sanity, opis generowanie w tle bg-d8079f9d
+[2026-05-29 00:42] Commit 9b90480 — fix: uproszczono PRODUCTS query (parent-chain → prosta in  + limit 600), ALL_PRODUCTS limit 500. Powód: parent-chain powodowało timeout/błąd w Sanity JS client
+[2026-05-29 00:53] Start: implementacja wszystkich poprawek bottom sheet + naprawa nagłówka
+[2026-05-29 00:56] Implementacja fix nagłówka (headerRef + --header-h) i bottom sheet (will-change, 72vh, swipe, aria-modal, focus trap)
+[2026-05-29 00:59] DONE: headerRef+--header-h+scroll-padding; bottom sheet 72vh+will-change+aria-modal+role=dialog+swipe-to-dismiss+focus trap+ostatnio ogladane; ProductDetail localStorage tracking; build OK; commit e6c4b38 pushed
+[2026-05-29 12:44] START: scraping bechcicki.pl category tree L1-L4 via Chrome Browser
+[2026-05-29 13:10] DONE: 393 kategorii L1/L2/L3 z bechcicki.pl zaim portowanych do Sanity; fix slugów Header.tsx + categories.ts; commit e14036f
+[2026-05-29 13:18] START: przepinanie produktów do kategorii L2/L3 — EAN matching z bechcicki
+[2026-05-29 13:25] DONE: 10947 produktów przepiętych do L2/L3 (0 FAIL); sample 5000→4763 w L2/L3
+[2026-05-29 13:58] DONE: Pełna synchronizacja kategorii z bechcicki.pl — 321 kat (L1=11 L2=72 L3=238), 0 brakujących, 0 nadmiarowych; przeniesiono 163 produkty ze starych kat do właściwych; usunięto ~130 zduplikowanych/pustych kat
+[2026-05-29 14:08] START: Scraping opisów produktów z bechcicki.pl — analiza struktury
+[2026-05-29 15:01] START: Scraping opisów produktów przez browser — test evaluate() na bechcicki.pl
+[2026-05-29 15:11] START: scraping opisów produktów z Sanity CMS MediaBud dla transzy 500 rekordów (max 500).
+[2026-05-29 15:15] DONE: scraping opisów i parametrów produktów — przetworzono 500, scraped=3, ai_generated=497, zapisano products_scraped.jsonl, wykonano PATCH do Sanity w 5 batchach.
+[2026-05-29 15:15] DONE batch 1: 500 produktów (3 scraped + 497 AI-generated) zaktualizowanych w Sanity; pozostało ~15421 bez opisu
+[2026-05-29 15:23] START: Poprawiony pipeline AI opisów — brand->name fix, description+specs, skip bad names, reprocess 500 + cała baza
+[2026-05-29 15:45] ZATRZYMANO: pipeline v3 przy offset ~1500 (~1270 produktów zaktualizowanych z shortDescription+description+technicalSpec). Kolejna transza startuje od offset 1500.
+[2026-05-29 15:53] Planowanie pipeline v4: SEO nazwy + poprawione opisy dla wszystkich 15921 produktów
+[2026-05-29 16:31] Debug pipeline v4 (list index error) + start frontend fixes: sidebar, ProductPage, meta tagi
+[2026-05-29 16:38] DONE: sidebar top-24→calc(var(--header-h,96px)+8px) | useSEO dodane do ProductDetail + CategoryPage (title/description/canonical/og:type=product) | npm run build ✅ | pipeline v4 działa w tle (V4: ~1303 produktów, OLD: ~5188)
+[2026-05-29 16:38] Pipeline v4 w toku; sidebar fix+useSEO+build done
+[2026-05-29 16:42] START: wygląd sklepu — czytam Home.tsx + Commerce.tsx

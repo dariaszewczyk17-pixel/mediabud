@@ -9,6 +9,7 @@ import { getProductBySlug, products as staticProducts, type Product } from "@/da
 import { getCategoryBySlug, getBreadcrumbs } from "@/data/categories";
 import { useProductBySlug, useRelatedProducts } from "@/hooks/useSanityData";
 import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
+import { useSEO } from "@/hooks/useSEO";
 import { mergeProductCollections, mergeProductSources } from "@/lib/productMerge";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useWycena } from "@/hooks/useWycena";
@@ -109,6 +110,19 @@ export default function ProductDetail() {
   const heroReveal = useReveal();
   const tabsReveal = useReveal();
   const relReveal  = useReveal();
+
+  /* ── SEO meta tagi ── */
+  useSEO({
+    title: product
+      ? `${product.name}${product.brand ? ` – ${product.brand}` : ""} | Media Bud`
+      : "Produkt | Media Bud",
+    description: product
+      ? (product.shortDescription || product.description || "").slice(0, 160)
+      : undefined,
+    canonical: slug ? `/produkt/${slug}` : undefined,
+    ogType: "product",
+    ogImage: product?.images?.[0] ?? undefined,
+  });
 
   if (!product && !productLoading) {
     return (

@@ -505,58 +505,178 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          CATEGORIES GRID
+          CATEGORIES GRID — Industrial Pulse
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r1.ref as React.RefObject<HTMLElement>}
-        className={`container mx-auto px-4 py-14 transition-all duration-700 ${r1.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className={`py-16 transition-all duration-700 ${r1.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        style={{ background: "#050505", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
       >
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#f81828]" />Asortyment
-            </p>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-white">Nasze kategorie produktów</h2>
-          </div>
-          <Link to="/produkty" className="hidden md:flex items-center gap-1 text-sm font-bold text-[#f81828] hover:underline">
-            Wszystkie <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+        <style>{`
+          @keyframes cat-scan { 0%{top:0%;opacity:.75} 75%{opacity:.35} 100%{top:100%;opacity:0} }
+          .cat-card:hover .cat-scan-line { animation: cat-scan 0.9s ease-in forwards; }
+          .cat-card img { filter: brightness(0.22) saturate(0.5); transition: filter 0.5s; }
+          .cat-card:hover img { filter: brightness(0.38) saturate(0.85); }
+        `}</style>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {categories.map((cat, i) => (
-            <Link
-              key={cat.id}
-              to={`/kategoria/${cat.slug}`}
-              className="group relative bg-[#0a0a0a] rounded-xl overflow-hidden aspect-[4/3] shadow-lg hover:shadow-[0_8px_32px_rgba(248,24,40,0.25)] transition-all duration-300 hover:-translate-y-1"
-              style={{ transitionDelay: `${i * 40}ms` }}
-            >
-              {catImages[cat.slug] && (
-                <img
-                  src={catImages[cat.slug]}
-                  alt={cat.name}
-                  className="absolute inset-0 w-full h-full object-cover opacity-35 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#f81828] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+        <div className="container mx-auto px-4">
 
-              <div className="absolute inset-0 flex flex-col items-center justify-end p-4 text-center">
-                <div className="text-3xl mb-2 transition-transform group-hover:scale-110 duration-300 inline-block">
-                  {catIcons[cat.slug] || "📦"}
-                </div>
-                <div className="font-display font-black text-sm text-white leading-snug">
-                  {cat.name}
-                </div>
-                {cat.children && (
-                  <div className="text-[10px] text-gray-400 mt-0.5">{cat.children.length} podkategorii</div>
-                )}
-                <div className="mt-1.5 text-[10px] text-[#f88090] font-bold opacity-0 group-hover:opacity-100 transition-all duration-200 flex items-center gap-1">
-                  Przeglądaj <ChevronRight className="w-3 h-3" />
-                </div>
+          {/* ── Header ── */}
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <div className="flex items-center gap-2.5 mb-3">
+                <span
+                  className="text-[10px] font-black tracking-[0.3em] uppercase text-[#f81828]"
+                  style={{ fontFamily: "'Share Tech Mono',monospace" }}
+                >01 /</span>
+                <span className="h-px w-8 bg-[#f81828]" />
+                <span className="text-[10px] font-black tracking-[0.25em] uppercase text-[#f81828]">Asortyment</span>
               </div>
+              <h2
+                className="font-black text-white uppercase"
+                style={{
+                  fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif",
+                  fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                  letterSpacing: "-0.01em",
+                  lineHeight: 1,
+                }}
+              >
+                Nasze<br />
+                <span style={{ color: "#f81828" }}>kategorie</span>
+              </h2>
+              <p className="text-sm mt-2" style={{ color: "#4a4a4a" }}>
+                Kompleksowy asortyment materiałów dla każdej budowy
+              </p>
+            </div>
+            <Link
+              to="/produkty"
+              className="hidden md:flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-colors hover:text-white"
+              style={{ color: "#f81828", letterSpacing: "0.15em" }}
+            >
+              Pełny katalog <ArrowRight className="w-3.5 h-3.5" />
             </Link>
-          ))}
+          </div>
+
+          {/* ── Bento Grid ── */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {categories.map((cat, i) => {
+              const isWide = i < 2;
+              return (
+                <Link
+                  key={cat.id}
+                  to={`/kategoria/${cat.slug}`}
+                  className={`cat-card group relative overflow-hidden rounded-xl ${isWide ? "col-span-2 aspect-[4/3] lg:aspect-[16/7]" : "col-span-1 aspect-[4/3] lg:aspect-[3/4]"}`}
+                  style={{
+                    background: "#0f0f0f",
+                    border: "1px solid #1a1a1a",
+                    transition: "border-color 0.28s, box-shadow 0.28s",
+                    transitionDelay: `${i * 35}ms`,
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.55)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(248,24,40,0.13), inset 0 0 0 1px rgba(248,24,40,0.12)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "#1a1a1a";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  }}
+                >
+                  {/* Scan line */}
+                  <div
+                    className="cat-scan-line absolute left-0 right-0 h-px z-20 pointer-events-none"
+                    style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.85), transparent)", top: 0 }}
+                  />
+
+                  {/* Image */}
+                  {catImages[cat.slug] ? (
+                    <img
+                      src={catImages[cat.slug]}
+                      alt={cat.name}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,#111,#0a0a0a)" }} />
+                  )}
+
+                  {/* Gradient overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.08) 100%)" }}
+                  />
+
+                  {/* Top accent */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 pointer-events-none"
+                    style={{ background: "#f81828", boxShadow: "0 0 8px rgba(248,24,40,0.7)" }}
+                  />
+
+                  {/* Corner L-brackets */}
+                  <div className="absolute top-2.5 left-2.5 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M0 10 L0 0 L10 0" stroke="#f81828" strokeWidth="1.5"/>
+                    </svg>
+                  </div>
+                  <div className="absolute bottom-2.5 right-2.5 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M10 0 L10 10 L0 10" stroke="#f81828" strokeWidth="1.5"/>
+                    </svg>
+                  </div>
+
+                  {/* Content */}
+                  <div className="absolute inset-0 flex flex-col justify-between p-4">
+                    {/* Top row: index + subcats badge */}
+                    <div className="flex items-start justify-between">
+                      <span
+                        className="text-[9px] font-black text-white/25 group-hover:text-white/55 transition-colors"
+                        style={{ fontFamily: "'Share Tech Mono',monospace" }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {cat.children && cat.children.length > 0 && (
+                        <span
+                          className="text-[9px] font-bold px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.28)", color: "#f88090" }}
+                        >
+                          {cat.children.length} kat.
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Bottom: name + CTA */}
+                    <div>
+                      <h3
+                        className="font-black text-white uppercase leading-tight mb-2"
+                        style={{
+                          fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif",
+                          fontSize: isWide ? "clamp(1rem, 2.2vw, 1.4rem)" : "clamp(0.8rem, 1.5vw, 1rem)",
+                          letterSpacing: "0.02em",
+                        }}
+                      >
+                        {cat.name}
+                      </h3>
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#f81828]">Przeglądaj</span>
+                        <ChevronRight className="w-3 h-3 text-[#f81828]" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Mobile CTA */}
+          <div className="mt-6 flex md:hidden justify-center">
+            <Link
+              to="/produkty"
+              className="inline-flex items-center gap-2 px-6 py-3 text-xs font-black uppercase tracking-widest text-white rounded-lg"
+              style={{ background: "#f81828", letterSpacing: "0.12em" }}
+            >
+              Pełny katalog <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
         </div>
       </section>
 

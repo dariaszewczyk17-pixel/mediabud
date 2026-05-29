@@ -89,6 +89,14 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
 
+          {/* CSS Sparks — Industrial Glow particles */}
+          <div className="card-spark-tl absolute top-0.5 left-0.5 w-2 h-2 rounded-full pointer-events-none z-30"
+            style={{ background: "#f81828", boxShadow: "0 0 5px rgba(248,24,40,0.9)", opacity: 0 }} />
+          <div className="card-spark-tr absolute top-0.5 right-0.5 w-2 h-2 rounded-full pointer-events-none z-30"
+            style={{ background: "#f81828", boxShadow: "0 0 5px rgba(248,24,40,0.9)", opacity: 0 }} />
+          <div className="card-spark-bl absolute bottom-0.5 left-0.5 w-1.5 h-1.5 rounded-full pointer-events-none z-30"
+            style={{ background: "#ff6b35", boxShadow: "0 0 4px rgba(255,107,53,0.8)", opacity: 0 }} />
+
           <div className="relative w-full h-full" style={{ background: "#141414" }}>
             {/* Shimmer skeleton */}
             <div className="absolute inset-0 overflow-hidden">
@@ -98,6 +106,21 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
                   100% { transform: translateX(100%); }
                 }
                 .img-shimmer { animation: shimmer 1.8s infinite; }
+                @keyframes spark-tl {
+                  0%   { transform: translate(0,0) scale(1.3); opacity: 0.95; }
+                  100% { transform: translate(-8px,-11px) scale(0); opacity: 0; }
+                }
+                @keyframes spark-tr {
+                  0%   { transform: translate(0,0) scale(1.3); opacity: 0.95; }
+                  100% { transform: translate(8px,-11px) scale(0); opacity: 0; }
+                }
+                @keyframes spark-bl {
+                  0%   { transform: translate(0,0) scale(1); opacity: 0.7; }
+                  100% { transform: translate(-6px,8px) scale(0); opacity: 0; }
+                }
+                .group:hover .card-spark-tl { animation: spark-tl 0.45s ease-out; }
+                .group:hover .card-spark-tr { animation: spark-tr 0.45s ease-out 0.08s; }
+                .group:hover .card-spark-bl { animation: spark-bl 0.4s ease-out 0.16s; }
               `}</style>
               <div className="img-shimmer absolute inset-0"
                 style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)" }} />

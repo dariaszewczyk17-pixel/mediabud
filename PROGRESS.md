@@ -131,3 +131,4 @@
 [2026-05-29 16:46] Commit+push: dark theme Home + sidebar + useSEO. Pipeline OLD: offset 7000, ~6008 done.
 [2026-05-29 16:48] useSEO SearchResultsPage + commit/push. Pipeline V4 offset ~2000+, OLD offset 7000 LLM trwa.
 [2026-05-29 16:48] Status: pipeline działa (OLD offset 7000+, V4 offset 2000+); zrobione: dark theme Home, sidebar, useSEO x3, commit+push
+[2026-05-29 16:49] Commit 877f0f4: Header dark fixes. Pipeline OLD: 7500/15921, V4: ~2500/15921

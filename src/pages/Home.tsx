@@ -692,7 +692,7 @@ export default function Home() {
             <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-[#f81828]" />Doświadczenie
             </p>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-gray-900">Nasze realizacje</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-black text-white">Nasze realizacje</h2>
             <p className="text-gray-500 mt-1 text-sm">Wybrane projekty, przy których dostarczyliśmy materiały</p>
           </div>
           <Link to="/realizacje" className="hidden md:flex items-center gap-1 text-sm font-bold text-[#f81828] hover:underline">

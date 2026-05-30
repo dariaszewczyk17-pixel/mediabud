@@ -138,13 +138,13 @@ const brands = [
 ];
 
 const brandLogos = [
-  { name: "Weber",    url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/weber_nobg_53dc66390da1474f95fcc39a6ec2d7e8.png" },
-  { name: "Knauf",   url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/knauf_nobg_36a2e4fd1f654d2c841b2ea51a483802.png" },
-  { name: "Atlas",   url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/atlas_nobg_a203d487cf294a0d8162b69a1b6e26d5.png" },
-  { name: "Baumit",  url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/baumit_nobg_98504199003847f3a1f84102f3f03717.png" },
-  { name: "Rockwool",url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/rockwool_nobg_e99470360f144a6e89f2b2fef38a861b.png" },
-  { name: "Rigips",  url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/rigips_nobg_15aba15155d44c75aca51dc5eb8399dd.png" },
-  { name: "Ursa",    url: "https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/ursa_nobg_505b266dca9e4614ab191bc7c1848b88.png" },
+  { name: "Weber",    url: "/logos/weber.png" },
+  { name: "Knauf",   url: "/logos/knauf.png" },
+  { name: "Atlas",   url: "/logos/atlas.png" },
+  { name: "Baumit",  url: "/logos/baumit.png" },
+  { name: "Rockwool",url: "/logos/rockwool.png" },
+  { name: "Rigips",  url: "/logos/rigips.png" },
+  { name: "Ursa",    url: "/logos/ursa.png" },
 ];
 
 /* ─── Testimonials ────────────────────────────────────────────── */

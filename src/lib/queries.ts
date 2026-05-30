@@ -8,7 +8,8 @@ const PRODUCT_CARD_FIELDS = `{
   "categorySlug": category->slug.current,
   "categoryName": category->name,
   "brand": brand->name,
-  "images": images[].asset->url
+  "images": images[].asset->url,
+  technicalSpec[]{ label, value }
 }`
 
 const PRODUCT_FULL_FIELDS = `{

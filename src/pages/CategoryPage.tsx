@@ -79,6 +79,11 @@ export default function CategoryPage() {
   const selectedUnit  = searchParams.get("unit")  || "";
   const selectedTag   = searchParams.get("tag")   || "";
   const sortBy = searchParams.get("sort") || "default";
+  // techSpec filters: "Label::Value" zakodowane w URL jako spec=Label%3A%3AValue
+  const selectedSpecs: string[] = useMemo(
+    () => searchParams.getAll("spec"),
+    [searchParams]
+  );
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
   /* Reset filtrów i strony gdy zmienia się kategoria */
@@ -135,11 +140,52 @@ export default function CategoryPage() {
     [catProducts]
   );
 
+  // techSpec: top 4 najczęstsze label-y (min. 10% produktów z danym labelem)
+  const availableSpecFilters = useMemo(() => {
+    const total = catProducts.length;
+    if (total < 5) return [];
+    const labelCount: Record<string, Map<string, number>> = {};
+    for (const p of catProducts) {
+      for (const s of (p as any).technicalSpec ?? []) {
+        if (!s?.label || !s?.value) continue;
+        if (!labelCount[s.label]) labelCount[s.label] = new Map();
+        labelCount[s.label].set(s.value, (labelCount[s.label].get(s.value) ?? 0) + 1);
+      }
+    }
+    return Object.entries(labelCount)
+      .filter(([, vals]) => {
+        const cnt = [...vals.values()].reduce((a, b) => a + b, 0);
+        return cnt / total >= 0.1 && vals.size >= 2 && vals.size <= 20;
+      })
+      .sort((a, b) => {
+        const cntA = [...a[1].values()].reduce((x, y) => x + y, 0);
+        const cntB = [...b[1].values()].reduce((x, y) => x + y, 0);
+        return cntB - cntA;
+      })
+      .slice(0, 4)
+      .map(([label, valMap]) => ({
+        label,
+        values: [...valMap.entries()]
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 12)
+          .map(([v]) => v),
+      }));
+  }, [catProducts]);
+
   const filtered = useMemo(() => {
     let result = [...catProducts];
     if (selectedBrand) result = result.filter(p => p.brand === selectedBrand);
     if (selectedUnit)  result = result.filter(p => p.unit  === selectedUnit);
     if (selectedTag)   result = result.filter(p => (p.tags ?? []).includes(selectedTag));
+    if (selectedSpecs.length > 0) {
+      result = result.filter(p => {
+        const specs = (p as any).technicalSpec ?? [];
+        return selectedSpecs.every(sel => {
+          const [label, value] = sel.split("::");
+          return specs.some((s: any) => s.label === label && s.value === value);
+        });
+      });
+    }
     switch (sortBy) {
       case "name-asc":  result.sort((a, b) => a.name.localeCompare(b.name, "pl")); break;
       case "name-desc": result.sort((a, b) => b.name.localeCompare(a.name, "pl")); break;
@@ -161,7 +207,20 @@ export default function CategoryPage() {
   };
 
   const clearFilters = () => setSearchParams(new URLSearchParams());
-  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || sortBy !== "default");
+  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || selectedSpecs.length > 0 || sortBy !== "default");
+
+  const toggleSpec = (specKey: string) => {
+    const p = new URLSearchParams(searchParams);
+    const all = p.getAll("spec");
+    if (all.includes(specKey)) {
+      p.delete("spec");
+      all.filter(s => s !== specKey).forEach(s => p.append("spec", s));
+    } else {
+      p.append("spec", specKey);
+    }
+    p.delete("page");
+    setSearchParams(p);
+  };
 
   const heroReveal = useReveal();
   const subReveal  = useReveal();
@@ -254,6 +313,27 @@ export default function CategoryPage() {
           </div>
         </div>
       )}
+
+      {/* ── Filtry techSpec — dynamiczne per-kategoria ── */}
+      {availableSpecFilters.map(({ label, values }) => (
+        <div key={label}>
+          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
+            <Zap className="w-3 h-3 text-[#f81828]" /> {label}
+          </h3>
+          <div className="flex flex-wrap gap-1.5">
+            {values.map(val => {
+              const key = `${label}::${val}`;
+              const active = selectedSpecs.includes(key);
+              return (
+                <button key={key} onClick={() => toggleSpec(key)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${active ? "bg-[#f81828] text-white" : "text-gray-500 border border-white/10 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}>
+                  {val}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ))}
 
       <div>
         <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">

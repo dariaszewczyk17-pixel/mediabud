@@ -201,3 +201,14 @@
 [2026-05-30 18:48] A: image_pipeline.py PID 11281 dziala. B: seo_names.py PID 11287 dziala - SEO nazwy z bechcicki. C: stats 15900+, hero subtitle. Commit de70f21.
 [2026-05-30 19:11] Nowa sesja — kontynuacja A+B+C; sprawdzanie statusu skryptów
 [2026-05-30 19:13] Status: 11527 produktów ze zdjęciami, 3888 z złym fallback (0196018). Killing seo_names (0 updates). Uruchamianie fix_bad_images + poprawiony seo_names + UI changes.
+[2026-05-30 19:23] fix_bad_images2 done (1913 zeroed). seo_names v2 fix (GROQ bez coalesce, PID 12429). ProductDetail fallback UI. Build OK. Push e87405c.
+[2026-05-30 19:23] Sprint zakończony: fix_bad_images2(1913), seo_names v2 restart, ProductDetail fallback, push d8ae18c
+[2026-05-30 19:42] Chrome scraper start — test bechcicki.pl
+[2026-05-30 19:43] seo_names v3 aktywny (40 updates). img_pipeline aktywny. Opisy/specs odroczono (Chrome w nast. sesji).
+[2026-05-30 20:00] Chrome scraper opisów/parametrów — start, test struktury bechcicki.pl przez browser
+
+[2026-05-30 21:28] descriptions_pipeline: updated=80 skipped=1 no_page=0 errors=0
+[2026-05-30 21:41] descriptions_pipeline DONE (80 techSpec updates); todo: 5 usprawnień po kolei
+[2026-05-30 21:43] task1 DONE: P- filter queries.ts (commit d689404); task2 DONE: Schema.org already exists; task3 IN PROGRESS: shortDesc AI batch
+[2026-05-30 21:44] task3 DONE: 77 shortDesc AI batch → Sanity; task4 IN PROGRESS: sitemap XML
+[2026-05-30 21:46] task4 DONE: sitemap P- filter + regeneracja 13527 URLs (commit 713eba3); task5 IN PROGRESS: filtry techSpec

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
+import { useSEO } from "@/hooks/useSEO";
 import { Phone, Mail, MapPin, Clock, Check, Users, Award, Truck, Star, ChevronRight, BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil, Trash2, Zap, Shield, ArrowRight, Home, PaintBucket, Ruler, Hammer, Building2, HousePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,42 @@ export function ContactPage() {
   const [agreed, setAgreed] = useState(false);
   const [form, setForm]   = useState({ name: "", email: "", phone: "", subject: "", message: "", attachments: [] as File[] });
 
+  useSEO({
+    title: "Kontakt – Media Bud Lublin | Skład Budowlany ul. Chemiczna 8d",
+    description: "Skontaktuj się z Media Bud — składem budowlanym w Lublinie. Zadzwoń +48 509 567 213, napisz na sprzedaz@mediabud.pl lub odwiedź nas: ul. Chemiczna 8d, 20-329 Lublin. Pon–Pt 7:00–16:00.",
+    canonical: "/kontakt",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Media Bud – Skład Budowlany",
+      "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Obsługujemy klientów indywidualnych, wykonawców i firmy.",
+      "url": "https://mediabud.pl",
+      "telephone": "+48509567213",
+      "email": "sprzedaz@mediabud.pl",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ul. Chemiczna 8d",
+        "addressLocality": "Lublin",
+        "postalCode": "20-329",
+        "addressCountry": "PL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.2213,
+        "longitude": 22.5472
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "07:00",
+        "closes": "16:00"
+      }],
+      "hasMap": "https://maps.google.com/maps?q=ul.+Chemiczna+8d+Lublin",
+      "priceRange": "$$",
+      "currenciesAccepted": "PLN"
+    }
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSent(true);
@@ -31,7 +68,7 @@ export function ContactPage() {
   const contactItems = [
     { icon: <Phone className="w-5 h-5 text-[#f81828]" />, label: "Telefon", value: "+48 509 567 213", href: "tel:+48509567213" },
     { icon: <Mail className="w-5 h-5 text-[#f81828]" />, label: "Email", value: "sprzedaz@mediabud.pl", href: "mailto:sprzedaz@mediabud.pl" },
-    { icon: <MapPin className="w-5 h-5 text-[#f81828]" />, label: "Adres", value: "ul. Chemiczna 8d, 20-329 Lublin", href: undefined },
+    { icon: <MapPin className="w-5 h-5 text-[#f81828]" />, label: "Adres", value: "ul. Chemiczna 8d, 20-329 Lublin", href: "https://maps.google.com/maps?q=ul.+Chemiczna+8d,+20-329+Lublin" },
     { icon: <Clock className="w-5 h-5 text-[#f81828]" />, label: "Godziny otwarcia", value: "Pon–Pt: 7:00–16:00", href: undefined },
   ];
 
@@ -193,24 +230,54 @@ export function ContactPage() {
         </div>
       </div>
 
-      {/* ── ZESPÓŁ — Nasi doradcy ── */}
+      {/* ── Mapa Google ── */}
+      <section className="py-0" style={{ borderTop: "1px solid #1a1a1a" }}>
+        <div className="w-full overflow-hidden" style={{ height: "340px", background: "#0a0a0a" }}>
+          <iframe
+            title="Media Bud – lokalizacja"
+            width="100%"
+            height="100%"
+            loading="lazy"
+            style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) saturate(0.7)" }}
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2480.5!2d22.5472!3d51.2213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sul.+Chemiczna+8d%2C+20-329+Lublin!5e0!3m2!1spl!2spl!4v1"
+          />
+        </div>
+        <div className="container mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-4" style={{ background: "#0a0a0a", borderBottom: "1px solid #1a1a1a" }}>
+          <div className="flex items-center gap-3">
+            <MapPin className="w-5 h-5 text-[#f81828] flex-shrink-0" />
+            <span className="text-sm text-gray-300 font-medium">ul. Chemiczna 8d, 20-329 Lublin</span>
+            <span className="text-xs text-gray-600 hidden sm:block">|</span>
+            <span className="text-sm text-gray-500 hidden sm:block">Pon–Pt 7:00–16:00</span>
+          </div>
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=ul.+Chemiczna+8d,+20-329+Lublin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold text-[#f81828] transition-all hover:bg-[#f81828] hover:text-white"
+            style={{ border: "1px solid rgba(248,24,40,0.4)" }}
+          >
+            <MapPin className="w-4 h-4" /> Wyznacz trasę
+          </a>
+        </div>
+      </section>
+
+      {/* ── Specjaliści ── */}
       <section className="py-16" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2" style={{ color: "#f81828" }}>— NASZ ZESPÓŁ —</p>
-            <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-3">Nasi doradcy</h2>
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2" style={{ color: "#f81828" }}>— NASI SPECJALIŚCI —</p>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-3">Kto odpowie na Twoje pytanie?</h2>
             <p className="text-sm max-w-xl mx-auto leading-relaxed" style={{ color: "#888" }}>
-              Jesteśmy do dyspozycji — skontaktuj się bezpośrednio z naszym specjalistą.
+              Zadzwoń lub napisz — nasi doradcy techniczni pomogą dobrać materiały, wycenić zakres i omówić szczegóły projektu.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
             {[
-              { initials: "MB", name: "Imię Nazwisko", role: "Doradca techniczny", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
-              { initials: "MB", name: "Imię Nazwisko", role: "Specjalista ds. materiałów", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
-              { initials: "MB", name: "Imię Nazwisko", role: "Obsługa klienta B2B", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
-              { initials: "MB", name: "Imię Nazwisko", role: "Doradca wykonawczy", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
-              { initials: "MB", name: "Imię Nazwisko", role: "Logistyka i dostawy", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
-              { initials: "MB", name: "Imię Nazwisko", role: "Koordynator projektów", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { icon: "🏗️", role: "Doradca techniczny", desc: "Pomaga dobrać system materiałowy do projektu — tynki, kleje, ocieplenia, wykończenia.", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { icon: "📦", role: "Specjalista ds. materiałów", desc: "Odpowiada na pytania o dostępność, ceny i logistykę dostaw dla wykonawców i firm.", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { icon: "🤝", role: "Obsługa klienta B2B", desc: "Koordynuje zamówienia hurtowe, warunki współpracy i harmonogramy dla firm i deweloperów.", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
             ].map((person, i) => (
               <div
                 key={i}
@@ -219,19 +286,48 @@ export function ContactPage() {
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.35)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.08)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#1a1a1a"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
               >
-                <div className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-black text-white" style={{ background: "linear-gradient(135deg, #f81828, #c8000f)" }}>
-                  {person.initials}
+                <div className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center text-2xl" style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.18)" }}>
+                  {person.icon}
                 </div>
                 <div className="min-w-0">
-                  <div className="font-bold text-white text-sm mb-0.5">{person.name}</div>
-                  <div className="text-xs mb-3" style={{ color: "#f81828" }}>{person.role}</div>
+                  <div className="font-bold text-white text-sm mb-1">{person.role}</div>
+                  <div className="text-xs text-gray-500 mb-3 leading-relaxed">{person.desc}</div>
                   <a href={`tel:${person.phone.replace(/\s/g, "")}`} className="flex items-center gap-1.5 text-xs mb-1 transition-colors hover:text-white" style={{ color: "#888" }}>
-                    📞 {person.phone}
+                    <Phone className="w-3 h-3" /> {person.phone}
                   </a>
                   <a href={`mailto:${person.email}`} className="flex items-center gap-1.5 text-xs transition-colors hover:text-white" style={{ color: "#888" }}>
-                    ✉ {person.email}
+                    <Mail className="w-3 h-3" /> {person.email}
                   </a>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Sekcja SEO ── */}
+      <section className="py-14" style={{ background: "#080808", borderTop: "1px solid #141414" }}>
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="font-display text-xl font-black text-white mb-6 flex items-center gap-2">
+            <span className="w-[3px] h-5 bg-[#f81828] rounded-full" /> Jak do nas trafić?
+          </h2>
+          <p className="text-sm text-gray-400 leading-relaxed mb-4">
+            Skład budowlany Media Bud mieści się przy ul. Chemicznej 8d w Lublinie, w dzielnicy przemysłowej na zachód od centrum. Dojeżdżając z centrum Lublina, kieruj się w stronę ul. Chemicznej (okolice al. Spółdzielczości Pracy). Dla klientów przyjeżdżających z obwodnicy — zjazd od ul. Zemborzyckiej lub Mełgiewskiej.
+          </p>
+          <p className="text-sm text-gray-400 leading-relaxed mb-4">
+            Na miejscu dysponujemy parkingiem dla samochodów osobowych i dostawczych. Możliwy załadunek na pojazdy ciężarowe po wcześniejszym uzgodnieniu.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-4 mt-8">
+            {[
+              { label: "Telefon", val: "+48 509 567 213", link: "tel:+48509567213", icon: <Phone className="w-4 h-4" /> },
+              { label: "E-mail", val: "sprzedaz@mediabud.pl", link: "mailto:sprzedaz@mediabud.pl", icon: <Mail className="w-4 h-4" /> },
+              { label: "NIP", val: "[do uzupełnienia]", link: undefined, icon: <MapPin className="w-4 h-4" /> },
+            ].map((item, i) => (
+              <div key={i} className="rounded-xl p-4" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}>
+                <div className="flex items-center gap-2 text-[#f81828] mb-2">{item.icon}<span className="text-xs font-bold uppercase tracking-wider">{item.label}</span></div>
+                {item.link
+                  ? <a href={item.link} className="text-sm text-gray-300 hover:text-[#f81828] transition-colors font-medium">{item.val}</a>
+                  : <span className="text-sm text-gray-300 font-medium">{item.val}</span>}
               </div>
             ))}
           </div>
@@ -243,11 +339,60 @@ export function ContactPage() {
 
 // ─── ABOUT PAGE ────────────────────────────────────────────────────
 export function AboutPage() {
+  const location = useLocation();
+  const isRealizacje = location.pathname.includes("realizacje");
+
+  useSEO(isRealizacje ? {
+    title: "Realizacje – Media Bud Lublin | Portfolio budów, remontów i elewacji",
+    description: "Przegląd wybranych realizacji Media Bud w Lublinie i województwie lubelskim — budowy domów, ocieplenia, elewacje, remonty B2B i wykończenia wnętrz.",
+    canonical: "/realizacje",
+  } : {
+    title: "O firmie – Media Bud | Skład Budowlany Lublin od ponad 15 lat",
+    description: "Media Bud to hurtownia materiałów budowlanych i skład w Lublinie. Obsługujemy deweloperów, wykonawców i klientów indywidualnych. Poznaj naszą historię i wartości.",
+    canonical: "/o-firmie",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Media Bud",
+      "url": "https://mediabud.pl",
+      "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Kompleksowe wsparcie dla Twojego projektu budowlanego.",
+      "telephone": "+48509567213",
+      "email": "sprzedaz@mediabud.pl",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ul. Chemiczna 8d",
+        "addressLocality": "Lublin",
+        "postalCode": "20-329",
+        "addressCountry": "PL"
+      },
+      "foundingDate": "2008",
+      "areaServed": { "@type": "State", "name": "województwo lubelskie" },
+      "sameAs": ["https://mediabud.pl"]
+    }
+  });
+
   const stats = [
-    { value: "15+", label: "Lat na rynku" },
-    { value: "1000+", label: "Produktów w ofercie" },
-    { value: "500+", label: "Zadowolonych klientów" },
-    { value: "50+", label: "Partnerów-producentów" },
+    { value: "15+", label: "lat doświadczenia" },
+    { value: "15 tys.+", label: "produktów w ofercie" },
+    { value: "500+", label: "zrealizowanych projektów" },
+    { value: "50+", label: "partnerów-producentów" },
+  ];
+
+  const timeline = [
+    { year: "2008", title: "Początki działalności", desc: "Media Bud startuje jako lokalny skład budowlany w Lublinie — obsługa detaliczna i pierwsze kontrakty z wykonawcami." },
+    { year: "2012", title: "Rozbudowa oferty", desc: "Rozszerzenie asortymentu o systemy ociepleniowe ETICS i pełną linię tynków elewacyjnych marek Weber i Ceresit." },
+    { year: "2016", title: "Obsługa B2B", desc: "Nawiązanie stałej współpracy z deweloperami i generalnymi wykonawcami — dostawy etapowe do budów na terenie województwa lubelskiego." },
+    { year: "2020", title: "Usługi wykonawcze", desc: "Rozwinięcie oferty o koordynację usług wykonawczych — sieć sprawdzonych fachowców, doradztwo projektowe i program Dom od podstaw." },
+    { year: "2024", title: "Cyfryzacja i sklep online", desc: "Uruchomienie platformy mediabud.pl z katalogiem ponad 15 000 produktów, wyszukiwarką i systemem zapytań ofertowych B2B." },
+  ];
+
+  const realizacje = [
+    { category: "Budowa domu", location: "Świdnik, woj. lubelskie", scope: "Stan surowy + elewacja silikonowa Weber + ocieplenie Swisspor EPS 100 grafitowy", year: "2023" },
+    { category: "Termomodernizacja", location: "Lublin, ul. Filaretów", scope: "Ocieplenie 320 m² ściany zewnętrznej — system Atlas Stopter K-20 + tynk silikonowy Bolix", year: "2023" },
+    { category: "Remont B2B", location: "Lublin, obiekt usługowy", scope: "Kompleksowe wykończenie wnętrz — sucha zabudowa Knauf, gładzie, malowanie, podłogi", year: "2024" },
+    { category: "Adaptacja poddasza", location: "Lublin, dzielnica Czuby", scope: "Zabudowa skosów Rigips + izolacja Rockwool Flexi + paroizolacja, 85 m²", year: "2024" },
+    { category: "Elewacja systemowa", location: "Puławy, budynek wielorodzinny", scope: "Elewacja tynkiem silikatowym Ceresit na budynku 4-kondygnacyjnym, 680 m²", year: "2022" },
+    { category: "Dach skośny", location: "Niemce k. Lublina", scope: "Nowy dach skośny — blachodachówka + folia Delta-Maxx + wełna Isover między krokwiami", year: "2023" },
   ];
 
   return (
@@ -297,9 +442,39 @@ export function AboutPage() {
           <h2 className="font-display text-2xl font-black text-white mb-4 flex items-center gap-2">
             <span className="w-[3px] h-6 bg-[#f81828] rounded-full" /> Nasza misja
           </h2>
-          <p className="text-gray-400 leading-relaxed">Media Bud to więcej niż hurtownia budowlana. Jesteśmy partnerem w realizacji projektów budowlanych — od małych remontów domowych po duże inwestycje deweloperskie. Naszą misją jest dostarczanie wysokiej jakości materiałów budowlanych połączone z profesjonalnym doradztwem technicznym, które pomaga naszym klientom budować lepiej, szybciej i efektywniej kosztowo.</p>
+          <p className="text-gray-400 leading-relaxed mb-3">Media Bud to więcej niż skład budowlany. Jesteśmy lokalnym partnerem w realizacji projektów budowlanych na terenie Lublina i województwa lubelskiego — od małych remontów domowych po duże inwestycje deweloperskie i obiekty użyteczności publicznej.</p>
+          <p className="text-gray-400 leading-relaxed">Nasza misja to dostarczanie sprawdzonych materiałów budowlanych połączone z praktycznym doradztwem technicznym. Pomagamy inwestorom, wykonawcom i firmom budować lepiej, szybciej i efektywniej — z jednego miejsca, bez zbędnych pośredników.</p>
         </div>
       </div>
+
+      {/* ── Historia — timeline ── */}
+      <section className="py-16" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2" style={{ color: "#f81828" }}>— HISTORIA —</p>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-3">Jak powstawał Media Bud</h2>
+          </div>
+          <div className="max-w-2xl mx-auto relative">
+            <div className="absolute left-[19px] top-0 bottom-0 w-px" style={{ background: "linear-gradient(to bottom, #f81828, rgba(248,24,40,0.1))" }} />
+            <div className="space-y-8">
+              {timeline.map((item, i) => (
+                <div key={i} className="flex gap-5 items-start">
+                  <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-black text-white z-10" style={{ background: "#f81828", boxShadow: "0 0 14px rgba(248,24,40,0.4)" }}>
+                    {item.year.slice(2)}
+                  </div>
+                  <div className="flex-1 pt-1.5">
+                    <div className="flex items-center gap-3 mb-1">
+                      <span className="text-[10px] font-black text-[#f81828] uppercase tracking-widest">{item.year}</span>
+                      <h3 className="font-bold text-white text-sm">{item.title}</h3>
+                    </div>
+                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── Nasze wartości ── */}
       <section className="py-16" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
@@ -346,7 +521,61 @@ export function AboutPage() {
             ))}
           </div>
         </div>
+
+        {/* ── Wybrane realizacje ── */}
+        <div className="rounded-xl p-8" style={card}>
+          <h2 className="font-display text-2xl font-black text-white mb-2 flex items-center gap-2">
+            <span className="w-[3px] h-6 bg-[#f81828] rounded-full" /> Wybrane realizacje
+          </h2>
+          <p className="text-gray-500 text-sm mb-6">Projekty zrealizowane przy wsparciu materiałowym i wykonawczym Media Bud na terenie Lublina i województwa lubelskiego.</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {realizacje.map((r, i) => (
+              <div key={i} className="rounded-xl p-5 transition-all duration-200"
+                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.3)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; }}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">{r.category}</span>
+                  <span className="text-[10px] text-gray-600 font-mono">{r.year}</span>
+                </div>
+                <div className="text-xs text-gray-500 mb-2 flex items-center gap-1">
+                  <MapPin className="w-3 h-3" /> {r.location}
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed">{r.scope}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-gray-600 mt-5 text-center">* Szczegóły realizacji podane orientacyjnie. Pełne portfolio dostępne po kontakcie z naszym doradcą.</p>
+        </div>
       </div>
+
+      {/* ── CTA ── */}
+      <section className="py-14" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-3" style={{ color: "#f81828" }}>— ZACZYNAMY? —</p>
+          <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-4">Kompleksowe wsparcie dla Twojego projektu</h2>
+          <p className="text-sm text-gray-400 leading-relaxed mb-8 max-w-xl mx-auto">
+            Niezależnie czy planujesz budowę domu, remont, ocieplenie czy kompleksowe wykończenie — skontaktuj się z nami. Przygotujemy wycenę, dobierzemy materiały i zaproponujemy ścieżkę realizacji.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a href="tel:+48509567213">
+              <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#f81828] text-white text-sm font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_20px_rgba(248,24,40,0.4)]">
+                <Phone className="w-4 h-4" /> +48 509 567 213
+              </button>
+            </a>
+            <Link to="/kontakt">
+              <button className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-gray-300 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.15)" }}>
+                Napisz do nas
+              </button>
+            </Link>
+            <Link to="/uslugi">
+              <button className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-[#f81828] hover:text-white transition-colors" style={{ border: "1px solid rgba(248,24,40,0.35)" }}>
+                <ArrowRight className="w-4 h-4" /> Nasze usługi
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
@@ -1430,53 +1659,111 @@ export function AllCategoriesPage() {
 
 // ─── POLICY PAGE ──────────────────────────────────────────────────
 export function PolicyPage() {
-  const path = typeof window !== "undefined" ? window.location.pathname : "";
-  const isPolicy   = path.includes("polityka");
-  const isRegulamin = path.includes("regulamin");
+  const location = useLocation();
+  const isRegulamin = location.pathname.includes("regulamin");
+  const isRodo      = location.pathname.includes("rodo");
 
-  const title = isRegulamin ? "Regulamin sklepu" : "Polityka prywatności i RODO";
-  const subtitle = isRegulamin
-    ? "Regulamin korzystania z serwisu mediabud.pl"
-    : "Zasady przetwarzania danych osobowych";
+  useSEO(isRegulamin ? {
+    title: "Regulamin – Media Bud | Zasady zakupów i dostaw",
+    description: "Regulamin serwisu mediabud.pl — zasady składania zamówień, dostaw na terenie Lublina i województwa lubelskiego, płatności, reklamacji.",
+    canonical: "/regulamin",
+    noIndex: false,
+  } : isRodo ? {
+    title: "RODO – Media Bud | Obowiązek informacyjny i prawa osób",
+    description: "Informacja o przetwarzaniu danych osobowych przez Media Bud zgodnie z rozporządzeniem RODO — cele, podstawy, prawa osób, retencja danych.",
+    canonical: "/rodo",
+    noIndex: false,
+  } : {
+    title: "Polityka prywatności – Media Bud | Ochrona danych osobowych",
+    description: "Polityka prywatności Media Bud — zasady zbierania i przetwarzania danych osobowych, pliki cookies, prawa użytkowników.",
+    canonical: "/polityka-prywatnosci",
+    noIndex: false,
+  });
+
+  const docTitle    = isRegulamin ? "Regulamin serwisu" : isRodo ? "RODO — Obowiązek informacyjny" : "Polityka prywatności";
+  const docSubtitle = isRegulamin ? "Zasady korzystania z serwisu mediabud.pl i składania zamówień" : isRodo ? "Informacja o przetwarzaniu danych osobowych (art. 13 RODO)" : "Zasady ochrony i przetwarzania danych osobowych";
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
       <div className="relative overflow-hidden" style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
         <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" />
         <div className="relative container mx-auto px-4 pl-10 py-10">
           <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-2">Dokumenty prawne</p>
-          <h1 className="font-display text-2xl md:text-3xl font-black text-white mb-1">{title}</h1>
-          <p className="text-gray-500 text-sm">{subtitle}</p>
+          <h1 className="font-display text-2xl md:text-3xl font-black text-white mb-1">{docTitle}</h1>
+          <p className="text-gray-500 text-sm">{docSubtitle}</p>
+          {/* nawigacja między dokumentami */}
+          <div className="flex flex-wrap gap-2 mt-4">
+            {[
+              { href: "/polityka-prywatnosci", label: "Polityka prywatności" },
+              { href: "/rodo", label: "RODO" },
+              { href: "/regulamin", label: "Regulamin" },
+            ].map(item => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full transition-all"
+                style={{
+                  background: location.pathname === item.href ? "#f81828" : "rgba(255,255,255,0.05)",
+                  color: location.pathname === item.href ? "#fff" : "#888",
+                  border: `1px solid ${location.pathname === item.href ? "#f81828" : "rgba(255,255,255,0.1)"}`,
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
       <div className="container mx-auto px-4 py-10 max-w-3xl">
         <div className="rounded-xl p-8 space-y-6" style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}>
           {isRegulamin ? (
             <>
-              <Section t="§1 Postanowienia ogólne" c="Regulamin określa zasady korzystania z serwisu internetowego mediabud.pl prowadzonego przez Media Bud z siedzibą przy ul. Chemicznej 8d, 20-329 Lublin. Korzystanie z serwisu oznacza akceptację niniejszego regulaminu." />
-              <Section t="§2 Składanie zamówień" c="Zamówienia przyjmowane są telefonicznie (+48 509 567 213), mailowo (sprzedaz@mediabud.pl) oraz przez formularz kontaktowy. Po złożeniu zamówienia klient otrzymuje potwierdzenie w ciągu 2 godzin roboczych." />
-              <Section t="§3 Ceny i płatności" c="Wszystkie ceny podawane są w złotych polskich (PLN) i nie zawierają podatku VAT (ceny netto). Media Bud wystawia faktury VAT. Dostępne formy płatności: przelew bankowy, gotówka przy odbiorze, płatność kartą w hurtowni." />
-              <Section t="§4 Dostawa" c="Dostawy realizowane są na terenie Lublina i województwa lubelskiego. Termin dostawy: 1–3 dni robocze dla zamówień standardowych, dostawa ekspresowa (tego samego dnia) dla zamówień złożonych do godziny 10:00 w promieniu 30 km od Lublina." />
-              <Section t="§5 Reklamacje" c="Reklamacje dotyczące jakości produktów należy zgłaszać w ciągu 7 dni od daty zakupu. Reklamacje przyjmujemy telefonicznie lub mailowo. Rozpatrujemy je w ciągu 14 dni roboczych." />
-              <Section t="§6 Kontakt" c="W sprawach dotyczących regulaminu prosimy o kontakt: Media Bud, ul. Chemiczna 8d, 20-329 Lublin, tel. +48 509 567 213, e-mail: sprzedaz@mediabud.pl." />
+              <Section t="§1 Postanowienia ogólne" c="Regulamin określa zasady korzystania z serwisu internetowego mediabud.pl prowadzonego przez Media Bud z siedzibą przy ul. Chemicznej 8d, 20-329 Lublin. Korzystanie z serwisu oznacza akceptację niniejszego regulaminu w brzmieniu aktualnym na dzień korzystania." />
+              <Section t="§2 Zakres działalności" c="Media Bud prowadzi sprzedaż materiałów budowlanych oraz świadczy usługi doradztwa technicznego i koordynacji wykonawczej. Serwis mediabud.pl stanowi platformę informacyjną i ofertową — zamówienia finalizowane są drogą telefoniczną, mailową lub bezpośrednio w hurtowni." />
+              <Section t="§3 Składanie zamówień i zapytań ofertowych" c="Zapytania ofertowe i zamówienia przyjmowane są: telefonicznie (+48 509 567 213, Pon–Pt 7:00–16:00), mailowo (sprzedaz@mediabud.pl) oraz przez formularz kontaktowy na stronie. Po złożeniu zapytania klient otrzymuje odpowiedź w ciągu 1 dnia roboczego." />
+              <Section t="§4 Ceny i płatności" c="Ceny materiałów podawane są w złotych polskich (PLN) i mogą być cenami netto lub brutto — kwestię tę każdorazowo potwierdzamy w ofercie. Media Bud wystawia faktury VAT. Dostępne formy płatności: przelew bankowy, gotówka przy odbiorze osobistym, płatność kartą na miejscu. Warunki odroczonego terminu płatności dla klientów B2B ustalane są indywidualnie." />
+              <Section t="§5 Dostawa i logistyka" c="Dostawy realizowane są na terenie Lublina i województwa lubelskiego. Standardowy czas realizacji: 1–3 dni robocze od potwierdzenia zamówienia. Dostawa tego samego dnia możliwa przy zamówieniach złożonych do 10:00 w promieniu 30 km od Lublina — wymaga oddzielnego potwierdzenia dostępności. Koszty dostawy ustalane indywidualnie w zależności od lokalizacji, wolumenu i rodzaju materiałów." />
+              <Section t="§6 Reklamacje i zwroty" c="Reklamacje dotyczące jakości produktów należy zgłaszać do 7 dni od daty zakupu — telefonicznie lub mailowo. Rozpatrujemy reklamacje w ciągu 14 dni roboczych. W przypadku towaru uszkodzonego podczas transportu prosimy o sporządzenie protokołu szkody w obecności dostawcy." />
+              <Section t="§7 Odpowiedzialność" c="Media Bud nie ponosi odpowiedzialności za szkody wynikłe z nieprawidłowego zastosowania materiałów niezgodnego z kartami technicznymi producentów. Dobór materiałów do konkretnych warunków wykonawczych pozostaje w gestii wykonawcy lub inwestora." />
+              <Section t="§8 Postanowienia końcowe" c="Niniejszy regulamin może ulec zmianie. Aktualna wersja jest zawsze dostępna na stronie mediabud.pl/regulamin. W sprawach nieuregulowanych zastosowanie mają przepisy Kodeksu Cywilnego i obowiązującego prawa polskiego." />
+              <Section t="§9 Kontakt" c="Media Bud, ul. Chemiczna 8d, 20-329 Lublin | tel. +48 509 567 213 | e-mail: sprzedaz@mediabud.pl | Pon–Pt: 7:00–16:00." />
+            </>
+          ) : isRodo ? (
+            <>
+              <Section t="1. Administrator danych osobowych" c="Administratorem Twoich danych osobowych jest Media Bud z siedzibą przy ul. Chemicznej 8d, 20-329 Lublin. W sprawach związanych z ochroną danych osobowych możesz kontaktować się pod adresem e-mail: sprzedaz@mediabud.pl lub listownie na adres siedziby." />
+              <Section t="2. Cele i podstawy prawne przetwarzania" c="Przetwarzamy Twoje dane osobowe w następujących celach: (a) odpowiedź na zapytania kontaktowe i ofertowe — podstawa: art. 6 ust. 1 lit. f RODO (prawnie uzasadniony interes); (b) realizacja zamówień i umów — podstawa: art. 6 ust. 1 lit. b RODO (wykonanie umowy); (c) wystawianie faktur i rozliczeń — podstawa: art. 6 ust. 1 lit. c RODO (obowiązek prawny); (d) marketing własnych usług — podstawa: art. 6 ust. 1 lit. f RODO, z możliwością sprzeciwu." />
+              <Section t="3. Kategorie przetwarzanych danych" c="W zależności od celu przetwarzamy: imię i nazwisko, adres e-mail, numer telefonu, adres dostawy lub siedziby, NIP (w relacjach B2B), treść korespondencji, dane potrzebne do wystawienia faktury VAT." />
+              <Section t="4. Okres przechowywania danych" c="Dane przetwarzane w celu realizacji umowy lub zamówienia przechowujemy przez 5 lat od końca roku kalendarzowego, w którym umowę wykonano (wymóg podatkowy). Dane z zapytań kontaktowych bez zawartej umowy — do 12 miesięcy od ostatniego kontaktu, o ile nie wystąpisz z żądaniem usunięcia wcześniej." />
+              <Section t="5. Prawa przysługujące osobom, których dane dotyczą" c="Masz prawo: dostępu do swoich danych (art. 15 RODO), sprostowania nieprawidłowych danych (art. 16), usunięcia danych w określonych przypadkach (art. 17), ograniczenia przetwarzania (art. 18), przenoszenia danych (art. 20), wniesienia sprzeciwu wobec przetwarzania opartego na prawnie uzasadnionym interesie (art. 21). Wnioski kieruj na adres: sprzedaz@mediabud.pl." />
+              <Section t="6. Odbiorcy danych" c="Twoje dane mogą być udostępniane: firmom transportowym realizującym dostawy, biurom rachunkowym prowadzącym księgowość Media Bud, dostawcom oprogramowania (hostingu, poczty e-mail, CRM) — wyłącznie w zakresie niezbędnym do świadczenia danej usługi i na podstawie umów powierzenia przetwarzania danych. Nie sprzedajemy Twoich danych osobom trzecim." />
+              <Section t="7. Przekazywanie danych poza EOG" c="Co do zasady nie przekazujemy danych poza Europejski Obszar Gospodarczy. W przypadku korzystania z usług dostawców spoza EOG (np. Google Analytics) stosujemy standardowe klauzule umowne zatwierdzone przez Komisję Europejską." />
+              <Section t="8. Prawo skargi do organu nadzorczego" c="Masz prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, tel. 606 950 000, www.uodo.gov.pl — jeśli uważasz, że przetwarzamy Twoje dane niezgodnie z przepisami." />
             </>
           ) : (
             <>
-              <Section t="1. Administrator danych" c="Administratorem danych osobowych jest Media Bud z siedzibą przy ul. Chemicznej 8d, 20-329 Lublin. Kontakt w sprawach ochrony danych: sprzedaz@mediabud.pl." />
-              <Section t="2. Zakres i cel przetwarzania" c="Przetwarzamy dane osobowe podane w formularzach kontaktowych (imię, nazwisko, adres e-mail, telefon) wyłącznie w celu odpowiedzi na zapytania ofertowe i realizacji zamówień. Podstawa prawna: art. 6 ust. 1 lit. b i f RODO." />
-              <Section t="3. Okres przechowywania" c="Dane osobowe przechowujemy przez okres niezbędny do realizacji celu, nie dłużej niż 5 lat od ostatniego kontaktu, chyba że przepisy prawa wymagają dłuższego okresu." />
-              <Section t="4. Prawa osób" c="Przysługuje Ci prawo: dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz sprzeciwu. Wnioski prosimy kierować na adres: sprzedaz@mediabud.pl." />
-              <Section t="5. Pliki cookies" c="Serwis wykorzystuje pliki cookies do analizy ruchu (Google Analytics 4) i poprawy działania strony. Możesz wyłączyć cookies w ustawieniach przeglądarki." />
-              <Section t="6. Skargi" c="Masz prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, jeśli sądzisz, że przetwarzamy Twoje dane niezgodnie z prawem." />
+              <Section t="1. Administrator danych" c="Administratorem danych osobowych przetwarzanych w ramach serwisu mediabud.pl jest Media Bud z siedzibą przy ul. Chemicznej 8d, 20-329 Lublin. Kontakt: sprzedaz@mediabud.pl." />
+              <Section t="2. Zakres i cel przetwarzania" c="Przetwarzamy dane podane w formularzach kontaktowych (imię i nazwisko, e-mail, telefon, treść wiadomości) wyłącznie w celu odpowiedzi na zapytania oraz realizacji zamówień. Podstawa prawna: art. 6 ust. 1 lit. b i f RODO." />
+              <Section t="3. Okres przechowywania danych" c="Dane osobowe przechowujemy przez okres niezbędny do realizacji celu, nie dłużej niż 5 lat od ostatniego kontaktu lub zakończenia relacji handlowej, chyba że przepisy prawa wymagają dłuższego okresu przechowywania." />
+              <Section t="4. Prawa osób" c="Przysługuje Ci prawo: dostępu do danych, sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz sprzeciwu wobec przetwarzania. Wnioski prosimy kierować na: sprzedaz@mediabud.pl. Odpowiadamy w ciągu 30 dni." />
+              <Section t="5. Pliki cookies" c="Serwis używa plików cookies do: prawidłowego działania strony (niezbędne), analizy ruchu (Google Analytics 4 — opcjonalne). Możesz wyłączyć cookies analityczne w ustawieniach przeglądarki lub za pośrednictwem banera zgody. Nie używamy cookies śledzących ani reklamowych podmiotów trzecich." />
+              <Section t="6. Formularze kontaktowe" c="Dane podane w formularzu kontaktowym są szyfrowane (HTTPS) i przesyłane bezpośrednio na adres sprzedaz@mediabud.pl. Nie są zapisywane w bazach danych dostępnych publicznie. Checkbox zgody jest obowiązkowy — bez wyrażenia zgody formularz nie zostanie wysłany." />
+              <Section t="7. Linki do zewnętrznych serwisów" c="Serwis może zawierać linki do stron zewnętrznych (producenci materiałów, Google Maps). Media Bud nie odpowiada za politykę prywatności tych serwisów. Zalecamy zapoznanie się z ich politykami prywatności." />
+              <Section t="8. Zmiany polityki" c="Niniejsza polityka może być aktualizowana. O istotnych zmianach poinformujemy poprzez komunikat na stronie. Aktualna wersja jest zawsze dostępna pod adresem mediabud.pl/polityka-prywatnosci." />
+              <Section t="9. Organ nadzorczy" c="Masz prawo wnieść skargę do Prezesa UODO (Urząd Ochrony Danych Osobowych, ul. Stawki 2, 00-193 Warszawa), jeśli sądzisz, że przetwarzamy Twoje dane niezgodnie z prawem." />
             </>
           )}
-          <div className="pt-4 border-t border-white/5 text-xs text-gray-600">
-            Ostatnia aktualizacja: styczeń 2026 · Media Bud, ul. Chemiczna 8d, 20-329 Lublin
+          <div className="pt-4 border-t border-white/5 text-xs text-gray-600 flex items-center justify-between flex-wrap gap-2">
+            <span>Ostatnia aktualizacja: styczeń 2026</span>
+            <span>Media Bud, ul. Chemiczna 8d, 20-329 Lublin</span>
           </div>
         </div>
-        <div className="mt-6 text-center">
+        <div className="mt-6 flex flex-wrap gap-3 justify-center">
           <Link to="/kontakt" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#f81828] text-white font-bold text-sm hover:bg-[#c8000f] transition-all">
             Pytania? Napisz do nas
+          </Link>
+          <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-gray-300 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.12)" }}>
+            ← Strona główna
           </Link>
         </div>
       </div>

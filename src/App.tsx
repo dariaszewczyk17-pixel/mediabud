@@ -7,6 +7,7 @@ import SearchResultsPage from "@/pages/SearchResultsPage";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import { ContactPage, AboutPage, ServicesPage, AdminPanel, AllCategoriesPage, PolicyPage } from "@/pages/Pages";
+import KalkulatorPage from "@/pages/Kalkulator";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/rodo" element={<PolicyPage />} />
           <Route path="/regulamin" element={<PolicyPage />} />
           <Route path="/sitemap" element={<AllCategoriesPage />} />
+          <Route path="/kalkulator" element={<KalkulatorPage />} />
           <Route path="*" element={<Home />} />
         </Route>
       </Routes>

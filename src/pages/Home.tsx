@@ -805,14 +805,16 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r4.ref as React.RefObject<HTMLElement>}
-        className={`container mx-auto px-4 py-14 transition-all duration-700 ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className={`py-14 transition-all duration-700 ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}
       >
+        <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center justify-center gap-2">
             <span className="w-4 h-0.5 bg-[#f81828]" />Dlaczego my?<span className="w-4 h-0.5 bg-[#f81828]" />
           </p>
           <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-3">Dlaczego Media Bud?</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed text-sm">
+          <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed text-sm">
             Łączymy profesjonalną wiedzę techniczną z indywidualnym podejściem — zarówno dla deweloperów, jak i klientów budujących własny dom.
           </p>
         </div>
@@ -845,6 +847,7 @@ export default function Home() {
       <section
         ref={r9.ref as React.RefObject<HTMLElement>}
         className={`container mx-auto px-4 py-14 transition-all duration-700 ${r9.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        style={{ background: "#0a0a0a", borderTop: "1px solid #1a1a1a" }}
       >
         <div className="flex items-end justify-between mb-8">
           <div>

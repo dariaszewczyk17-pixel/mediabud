@@ -515,7 +515,7 @@ export default function Home() {
       <section
         ref={r7.ref as React.RefObject<HTMLElement>}
         className="py-10 overflow-hidden"
-        style={{ background: "#fff", borderTop: "1px solid #e5e5e5", borderBottom: "1px solid #e5e5e5" }}
+        style={{ background: "#f7f8fa", borderTop: "1px solid #e5e5e5", borderBottom: "1px solid #e5e5e5" }}
       >
         <div className="container mx-auto px-4 mb-6">
           <p className="text-center text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#555" }}>
@@ -525,11 +525,11 @@ export default function Home() {
         <div className="relative overflow-hidden">
           <div
             className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, #fff, transparent)" }}
+            style={{ background: "linear-gradient(to right, #f7f8fa, transparent)" }}
           />
           <div
             className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, #fff, transparent)" }}
+            style={{ background: "linear-gradient(to left, #f7f8fa, transparent)" }}
           />
 
           <style>{`
@@ -543,16 +543,28 @@ export default function Home() {
 
           <div className="brand-track flex items-center gap-16 whitespace-nowrap" style={{ width: "max-content" }}>
             {[...brandLogos, ...brandLogos].map((brand, i) => (
-              <div key={`${brand.name}-${i}`} className="inline-flex items-center justify-center px-6 group flex-shrink-0">
-                <img
-                  src={brand.url}
-                  alt={brand.name}
-                  loading="lazy"
-                  className="h-10 w-auto object-contain transition-all duration-300"
-                  style={{ filter: "opacity(0.85)", maxWidth: "130px", mixBlendMode: "multiply" as React.CSSProperties["mixBlendMode"] }}
-                  onMouseEnter={e => { (e.target as HTMLImageElement).style.filter = "opacity(1)"; }}
-                  onMouseLeave={e => { (e.target as HTMLImageElement).style.filter = "opacity(0.85)"; }}
-                />
+              <div key={`${brand.name}-${i}`} className="inline-flex items-center justify-center px-4 group flex-shrink-0">
+                <div
+                  className="flex items-center justify-center transition-all duration-300 group-hover:shadow-md"
+                  style={{
+                    background: "#fff",
+                    border: "1px solid #e8e8e8",
+                    borderRadius: "10px",
+                    padding: "12px 20px",
+                    minWidth: "120px",
+                    minHeight: "60px",
+                  }}
+                >
+                  <img
+                    src={brand.url}
+                    alt={brand.name}
+                    loading="lazy"
+                    className="h-8 w-auto object-contain transition-all duration-300"
+                    style={{ maxWidth: "110px", opacity: 0.8 }}
+                    onMouseEnter={e => { (e.target as HTMLImageElement).style.opacity = "1"; }}
+                    onMouseLeave={e => { (e.target as HTMLImageElement).style.opacity = "0.8"; }}
+                  />
+                </div>
               </div>
             ))}
           </div>

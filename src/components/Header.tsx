@@ -475,7 +475,7 @@ export default function Header() {
           ROW 3 — Category icon bar  (desktop only)
           Inspired by the reference — dark industrial version
       ════════════════════════════════════════════════ */}
-      <div className="hidden border-b border-gray-200/70 bg-white lg:block">
+      <div className="hidden border-b border-white/5 bg-[#0d0d0d] lg:block">
         {/* subtle grid bg */}
         <div className="relative">
           <div
@@ -484,19 +484,17 @@ export default function Header() {
           />
 
           <nav className="relative container mx-auto px-4" role="navigation" aria-label="Kategorie produktów">
-            <div className="cat-nav flex items-stretch overflow-x-auto" style={{ scrollbarWidth: "none" }}>
-              {/* Category icon items */}
-              <style>{`.cat-nav::-webkit-scrollbar{display:none}`}</style>
+            <div className="flex items-stretch">
               {categories.map((cat) => (
                 <div
                   key={cat.id}
-                  className="group/icon relative flex-none"
+                  className="group/icon relative flex-1"
                   onMouseEnter={() => { menuEnter(cat.id); setMegaSearch(""); }}
                   onMouseLeave={menuLeave}
                 >
                   <Link
                     to={`/kategoria/${cat.slug}`}
-                    className={`relative flex items-center gap-1.5 overflow-hidden px-3 py-3 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-gray-600 hover:text-[#f81828]"}`}
+                    className={`relative flex min-h-[44px] w-full items-center justify-center overflow-hidden px-1 py-2 text-center transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
                     aria-expanded={cat.children ? activeMenu === cat.id : undefined}
                     aria-haspopup={cat.children ? "true" : undefined}
                     onClick={() => trackNav(cat.name, "desktop_L1", cat.slug)}
@@ -504,7 +502,7 @@ export default function Header() {
                     <div className="absolute inset-0 opacity-0 transition-opacity group-hover/icon:opacity-100" style={{ background: "rgba(248,24,40,0.07)" }} />
                     <div className={`absolute top-0 left-0 right-0 h-[2px] origin-left bg-[#f81828] transition-transform duration-200 ${activeMenu === cat.id ? "scale-x-100" : "scale-x-0 group-hover/icon:scale-x-100"}`} />
 
-                    <span className="relative z-10 whitespace-nowrap text-[10px] font-bold uppercase leading-tight tracking-[0.06em]">
+                    <span className="relative z-10 line-clamp-2 text-[9px] font-bold uppercase leading-tight tracking-[0.05em] text-center">
                       {cat.name}
                     </span>
                     {cat.children && (

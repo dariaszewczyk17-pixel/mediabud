@@ -324,9 +324,9 @@ export default function Home() {
         {/* Background video — lazy-loaded, muted autoplay loop */}
         <video
           autoPlay muted loop playsInline
-          preload="none"
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          style={{ zIndex: 0, opacity: 0.35 }}
+          style={{ zIndex: 2, opacity: 0.55 }}
           aria-hidden="true"
         >
           <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260529/text2video-d8d2bs780j2drgd1i7q0.mp4" type="video/mp4" />

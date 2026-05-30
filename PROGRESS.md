@@ -181,3 +181,4 @@
 [2026-05-29 23:44] DONE analiza-konkurencji-uslugi.html — pełna rewizja: stan wdrożeń, mapa 9+2 usług, macierz vs eDOM/3W, przewagi, 6 luk priorytetowych, roadmapa. Video confirm_break oczekuje na zatwierdzenie przez Darię.
 [2026-05-29 23:46] START: generowanie hero video + 2 brakujące podstrony (Duże projekty B2B, Sieć fachowców) + rewizja analiza HTML. Daria zatwierdziła wideo i podstrony.
 [2026-05-29 23:54] Commit: hero video bg (seedance-2.0-fast, 6s, industrial warehouse), 2 nowe podstrony usług (duze-projekty-b2b, siec-fachowcow). Build OK.
+[2026-05-29 23:57] 3 luki zaplanowane jako zadania: opinie klientów, portfolio realizacji, inline-formularz wyceny. Oczekują na materiały od Darii (P1) lub gotowe do implementacji (P2).

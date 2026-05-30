@@ -99,7 +99,7 @@ const catImages: Record<string, string> = {
 };
 
 const stats = [
-  { icon: TrendingUp, num: 1000, suffix: "+", label: "produktów w ofercie" },
+  { icon: TrendingUp, num: 15900, suffix: "+", label: "produktów w ofercie" },
   { icon: Users,     num: 500,  suffix: "+", label: "zadowolonych klientów" },
   { icon: Award,     num: 15,   suffix: "+", label: "lat doświadczenia" },
   { icon: Clock,     num: 24,   suffix: "h", label: "czas odpowiedzi" },

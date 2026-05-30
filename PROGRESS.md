@@ -185,3 +185,15 @@
 [2026-05-30 00:03] fix: video hero zIndex 2 + opacity 0.55 + preload metadata
 [2026-05-30 00:11] fix: video przeniesione do sekcji usług, Row 3 biały
 [2026-05-30 00:17] fix: WHY MEDIABUD bg #050505 + text kontrast
+[2026-05-30 00:18] fix: WHY MEDIABUD bg + div close + sekcje bez tła
+[2026-05-30 00:27] fix c2d065d: Row 3 nav bg-[#0d0d0d] (przywrócone ciemne tło), flex-1 bez overflow-x-auto/scrollbara, tekst text-[9px] line-clamp-2 text-center text-[#888888], fix Home.tsx WHY MEDIABUD brakujący </div>
+[2026-05-30 00:50] UX audit Chrome: /uslugi blank (FaqAccordion not defined), brand scroller loga mają artefakty PIL, hero za ciemny, produkty bez zdjęć — plan napraw
+[2026-05-30 00:52] commit 90cb1e3: FaqAccordion dodany do Pages.tsx (/uslugi naprawione), mix-blend-mode:multiply na logach brand scrollera, hero brightness 0.22→0.45
+[2026-05-30 00:58] commit brand scroller ramki logo
+[2026-05-30 01:12] UX audit: plan napraw — sekcje nachodzą, FRAZY LOKALNE widoczne, loga, zdjęcia bechcicki.pl
+[2026-05-30 01:18] fix sekcje+FRAZY LOKALNE committed (10a2d7b); loga ramki (233df35); teraz: fix logo Rigips/URSA SVG + bechcicki.pl images
+[2026-05-30 01:20] commit loga Rigips fix; URSA brak działającego PNG — zostaje w białej ramce
+[2026-05-30 01:30] znaleziono Sanity token w historii; plan: bechcicki.pl scraper → Sanity image upload
+[2026-05-30 01:44] Pipeline zdj. bechcicki.pl: odkryto format URL P-/{id_path}/1/BIG.webp, HTML zawiera product IDs bez logowania. Test 20 prod: 19/20 sukces. Asset upload do Sanity OK. Startuje pelny batch 15921 produktow.
+[2026-05-30 18:37] Naprawiono pipeline zdjeć: format URL bechcicki P-/{id}/1/BIG.webp. 10699/15921 produktów ma zdjęcia. Błąd list-index w Jupyter — przepisuję na standalone Python script. Start zadań A+B+C.
+[2026-05-30 18:37] Start zadań A+B+C: pipeline zdjęć jako standalone script, analiza realbud.com, poprawki UI

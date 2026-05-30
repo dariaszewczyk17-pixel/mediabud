@@ -475,7 +475,7 @@ export default function Header() {
           ROW 3 — Category icon bar  (desktop only)
           Inspired by the reference — dark industrial version
       ════════════════════════════════════════════════ */}
-      <div className="hidden border-b border-white/5 bg-[#0d0d0d] lg:block">
+      <div className="hidden border-b border-gray-200/70 bg-white lg:block">
         {/* subtle grid bg */}
         <div className="relative">
           <div
@@ -496,7 +496,7 @@ export default function Header() {
                 >
                   <Link
                     to={`/kategoria/${cat.slug}`}
-                    className={`relative flex items-center gap-1.5 overflow-hidden px-3 py-3 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
+                    className={`relative flex items-center gap-1.5 overflow-hidden px-3 py-3 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-gray-600 hover:text-[#f81828]"}`}
                     aria-expanded={cat.children ? activeMenu === cat.id : undefined}
                     aria-haspopup={cat.children ? "true" : undefined}
                     onClick={() => trackNav(cat.name, "desktop_L1", cat.slug)}

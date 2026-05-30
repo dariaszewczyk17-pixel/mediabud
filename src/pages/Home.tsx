@@ -321,16 +321,6 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       {/* ── Hero Section ── */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
-        {/* Background video — lazy-loaded, muted autoplay loop */}
-        <video
-          autoPlay muted loop playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          style={{ zIndex: 2, opacity: 0.55 }}
-          aria-hidden="true"
-        >
-          <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260529/text2video-d8d2bs780j2drgd1i7q0.mp4" type="video/mp4" />
-        </video>
         {/* Slides */}
         {heroSlides.map((s, i) => (
           <div
@@ -1081,7 +1071,14 @@ export default function Home() {
       </section>
 
       {/* ── Nasze usługi ── */}
-      <section className="py-24" style={{ background: "#000", borderTop: "1px solid #1a1a1a" }}>
+      <section className="py-24 relative overflow-hidden" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
+        {/* Video tło sekcji usług */}
+        <video autoPlay muted loop playsInline preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          style={{ opacity: 0.12, zIndex: 0 }} aria-hidden="true">
+          <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260529/text2video-d8d2bs780j2drgd1i7q0.mp4" type="video/mp4" />
+        </video>
+        <div className="relative" style={{ zIndex: 1 }}>
         <div className="container mx-auto px-4">
           <p className="text-center text-xs font-black uppercase tracking-[0.28em] mb-3" style={{ color: "#f81828" }}>
             — NASZE USŁUGI WYKONAWCZE —
@@ -1151,6 +1148,7 @@ export default function Home() {
             })}
           </div>
         </div>
+              </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════

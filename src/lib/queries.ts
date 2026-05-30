@@ -42,31 +42,35 @@ const CATEGORY_FIELDS = `{
   }
 }`
 
+// ── Filtr wykluczający puste placeholdery P-XXXXXXX ─────────────────────────
+// Produkty z nazwą "P-XXXXXXX" to puste rekordy bez danych – nie pokazujemy ich na froncie
+const NO_PLACEHOLDER = `!(name match "P-*")`
+
 // ── Stałe queries (eksportowane dla useSanityData.ts) ───────────────────────
 
 export const ALL_CATEGORIES_QUERY =
   `*[_type == "category" && !defined(parent)] | order(order asc, name asc) ${CATEGORY_FIELDS}`
 
 export const ALL_PRODUCTS_QUERY =
-  `*[_type == "product"] | order(name asc) [0...500] ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && ${NO_PLACEHOLDER}] | order(name asc) [0...500] ${PRODUCT_CARD_FIELDS}`
 
 export const FEATURED_PRODUCTS_QUERY =
-  `*[_type == "product" && featured == true][0...12] ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && featured == true && ${NO_PLACEHOLDER}][0...12] ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCTS_BY_CATEGORY_QUERY =
-  `*[_type == "product" && category->slug.current == $slug] | order(name asc) ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && category->slug.current == $slug && ${NO_PLACEHOLDER}] | order(name asc) ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && category->slug.current in $slugs] | order(name asc) [0...600] ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...600] ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCT_BY_SLUG_QUERY =
-  `*[_type == "product" && slug.current == $slug][0] ${PRODUCT_FULL_FIELDS}`
+  `*[_type == "product" && slug.current == $slug && ${NO_PLACEHOLDER}][0] ${PRODUCT_FULL_FIELDS}`
 
 export const CATEGORY_BY_SLUG_QUERY =
   `*[_type == "category" && slug.current == $slug][0] ${CATEGORY_FIELDS}`
 
 export const RELATED_PRODUCTS_QUERY =
-  `*[_type == "product" && category->slug.current == $categorySlug && slug.current != $currentSlug][0...6] ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && category->slug.current == $categorySlug && slug.current != $currentSlug && ${NO_PLACEHOLDER}][0...6] ${PRODUCT_CARD_FIELDS}`
 
 export const ALL_BLOG_POSTS_QUERY =
   `*[_type == "blogPost"] | order(publishedAt desc) {

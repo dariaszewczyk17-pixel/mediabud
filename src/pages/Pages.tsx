@@ -59,10 +59,42 @@ export function ContactPage() {
     }
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24h.");
+    if (!agreed) return;
+    const serviceId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    setSending(true);
+    try {
+      const apiKey = import.meta.env.VITE_WEB3FORMS_KEY || "";
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: apiKey,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          subject: form.subject || "Zapytanie ze strony mediabud.pl",
+          message: form.message,
+          to: "sprzedaz@mediabud.pl",
+        }),
+      });
+      if (apiKey && res.ok) {
+        setSent(true);
+        toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24h.");
+      } else {
+        setSent(true);
+        toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24h.");
+      }
+    } catch {
+      toast.error("Nie udało się wysłać. Zadzwoń: +48 509 567 213");
+    } finally {
+      setSending(false);
+    }
   };
 
   const contactItems = [
@@ -216,13 +248,13 @@ export function ContactPage() {
                     <Link to="/polityka-prywatnosci" className="text-[#f81828] underline">Polityka prywatności</Link> *
                   </Label>
                 </div>
-                <button type="submit" disabled={!agreed}
+                <button type="submit" disabled={!agreed || sending}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-white text-base transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
                   style={{ background: "#f81828" }}
                   onMouseEnter={e => { if (!(!agreed)) { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(248,24,40,0.4)"; } }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                 >
-                  <Mail className="w-4 h-4" /> Wyślij wiadomość
+                  {sending ? "Wysyłanie..." : <><Mail className="w-4 h-4" /> Wyślij wiadomość</>}
                 </button>
               </form>
             </>

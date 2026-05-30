@@ -872,6 +872,38 @@ const services: ServiceDetail[] = [
   }
 ];
 
+
+function FaqAccordion({ items }: { items: FaqItem[] }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className="space-y-3">
+      {items.map((item, i) => (
+        <div
+          key={i}
+          className="rounded-xl overflow-hidden"
+          style={{ background: "#0f0f0f", border: open === i ? "1px solid rgba(248,24,40,0.4)" : "1px solid #1a1a1a" }}
+        >
+          <button
+            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+            onClick={() => setOpen(open === i ? null : i)}
+          >
+            <span className="text-sm font-bold text-white leading-snug">{item.q}</span>
+            <ChevronRight
+              className="w-4 h-4 text-[#f81828] flex-shrink-0 transition-transform duration-200"
+              style={{ transform: open === i ? "rotate(90deg)" : "rotate(0deg)" }}
+            />
+          </button>
+          {open === i && (
+            <div className="px-5 pb-5 text-sm text-[#aaa] leading-relaxed border-t border-white/5 pt-3">
+              {item.a}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const generalFaq: FaqItem[] = [
   { q: "Czy MediaBud łączy sprzedaż materiałów z usługami wykonawczymi?", a: "Tak. To główny wyróżnik tej sekcji — MediaBud łączy rolę składu budowlanego, doradcy technicznego i organizatora wykonawstwa dla inwestycji B2C oraz B2B w Lublinie i województwie lubelskim." },
   { q: "Czy w ofercie są usługi dla klientów indywidualnych i firm?", a: "Tak. Oferta została podzielona na segmenty B2C, B2B i usługi wspólne. Klienci indywidualni mogą skorzystać m.in. z programu Dom od podstaw, budowy domu, termomodernizacji i wykończeń pod klucz, a firmy z remontów B2B i usług wspólnych, takich jak dachy czy elewacje." },

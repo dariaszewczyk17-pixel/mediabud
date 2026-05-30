@@ -332,7 +332,7 @@ export default function Home() {
               src={s.image}
               alt={s.label}
               className="w-full h-full object-cover"
-              style={{ filter: "brightness(0.22) saturate(0.72)" }}
+              style={{ filter: "brightness(0.45) saturate(0.85)" }}
             />
           </div>
         ))}
@@ -549,9 +549,9 @@ export default function Home() {
                   alt={brand.name}
                   loading="lazy"
                   className="h-10 w-auto object-contain transition-all duration-300"
-                  style={{ filter: "grayscale(0%) brightness(1) opacity(0.75)", maxWidth: "120px" }}
-                  onMouseEnter={e => { (e.target as HTMLImageElement).style.filter = "grayscale(0%) brightness(1) opacity(1)"; }}
-                  onMouseLeave={e => { (e.target as HTMLImageElement).style.filter = "grayscale(0%) brightness(1) opacity(0.75)"; }}
+                  style={{ filter: "opacity(0.85)", maxWidth: "130px", mixBlendMode: "multiply" as React.CSSProperties["mixBlendMode"] }}
+                  onMouseEnter={e => { (e.target as HTMLImageElement).style.filter = "opacity(1)"; }}
+                  onMouseLeave={e => { (e.target as HTMLImageElement).style.filter = "opacity(0.85)"; }}
                 />
               </div>
             ))}

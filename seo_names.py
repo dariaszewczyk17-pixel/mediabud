@@ -138,7 +138,7 @@ while True:
     try:
         # Pobierz z brand przez coalesce (obsługa ref i string)
         batch = sanity_get(
-            '*[_type=="product" && name != null && name != "" && !(name match "^P-*")]{_id, name, "brand": coalesce(brand->name, brand)}',
+            '*[_type=="product" && name != null && name != ""]{_id, name, brand}',
             offset=offset, size=PAGE)
     except Exception as e:
         log(f"Błąd pobierania offset={offset}: {e}"); time.sleep(5); continue
@@ -155,8 +155,8 @@ while True:
             stats["done_ids"].append(doc_id); done_set.add(doc_id)
             continue
 
-        brand = str(prod.get("brand") or "").strip()
-        if isinstance(brand, dict): brand = ""
+        brand_raw = prod.get("brand") or ""
+        brand = str(brand_raw).strip() if not isinstance(brand_raw, dict) else ""
 
         # Zbuduj krótkie query
         q = build_query(name, brand)

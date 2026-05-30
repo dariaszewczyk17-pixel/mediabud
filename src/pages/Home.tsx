@@ -514,7 +514,7 @@ export default function Home() {
       {/* ── Nasi producenci — Brand Logo Scroller ── */}
       <section
         ref={r7.ref as React.RefObject<HTMLElement>}
-        className={`py-10 overflow-hidden transition-all duration-700 ${r7.visible ? "opacity-100" : "opacity-0"}`}
+        className="py-10 overflow-hidden"
         style={{ background: "#fff", borderTop: "1px solid #e5e5e5", borderBottom: "1px solid #e5e5e5" }}
       >
         <div className="container mx-auto px-4 mb-6">

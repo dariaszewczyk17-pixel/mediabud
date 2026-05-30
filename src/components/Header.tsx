@@ -274,7 +274,7 @@ export default function Header() {
           ROW 2 — Main bar: Logo + Search + CTAs
       ════════════════════════════════════════════════ */}
       <div
-        className={`relative border-b border-white/5 transition-all duration-300 ${scrolled ? "bg-black/80 py-3 backdrop-blur-xl" : "bg-black/60 py-4"}`}
+        className={`relative border-b border-[#e5e5e5] transition-all duration-300 ${scrolled ? "bg-white/98 py-3 shadow-md backdrop-blur-xl" : "bg-white py-4"}`}
       >
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
         <div className="container mx-auto flex items-center gap-4 px-4">
@@ -292,13 +292,13 @@ export default function Header() {
           <div className="relative flex-1" ref={searchRef}>
             <div className="flex">
               <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#888888]" />
+                <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666]" />
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
                   placeholder="Szukaj produktów, marek, kategorii..."
-                  className="h-11 rounded-r-none border border-[#2d2d2d] border-r-0 bg-[#0d0d0d] pl-10 text-sm font-bold uppercase tracking-[0.08em] text-white placeholder:text-[#888] transition-all focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.2)] focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                  className="h-11 rounded-r-none border border-[#ddd] border-r-0 bg-[#f5f5f5] pl-10 text-sm font-bold uppercase tracking-[0.08em] text-[#111] placeholder:text-[#999] transition-all focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.2)] focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && searchQuery) {
                       submitSearch(searchQuery);
@@ -429,14 +429,14 @@ export default function Header() {
             {/* Phone — ghost red button */}
             <a
               href="tel:+48509567213"
-              className="hidden h-11 flex-shrink-0 items-center gap-2 rounded-lg border border-[#2d2d2d] px-5 text-sm font-bold uppercase tracking-[0.1em] text-[#888888] transition-all duration-200 hover:border-[#f81828]/60 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:flex"
+              className="hidden h-11 flex-shrink-0 items-center gap-2 rounded-lg border border-[#ddd] px-5 text-sm font-bold uppercase tracking-[0.1em] text-[#666] transition-all duration-200 hover:border-[#f81828]/60 hover:text-[#111] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:flex"
             >
-              <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#1a1a1a]">
+              <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#f0f0f0]">
                 <Phone className="h-3 w-3 text-[#f81828]" />
               </div>
               <div className="text-left leading-none">
-                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#888888]">Zadzwoń teraz</div>
-                <div className="text-xs font-black text-white">509 567 213</div>
+                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#666]">Zadzwoń teraz</div>
+                <div className="text-xs font-black text-[#111]">509 567 213</div>
               </div>
             </a>
 
@@ -459,7 +459,7 @@ export default function Header() {
 
             {/* Hamburger */}
             <button
-              className="rounded-lg border border-[#2d2d2d] bg-[#111111] p-2.5 text-[#888888] transition-colors hover:border-[#f81828]/60 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:hidden"
+              className="rounded-lg border border-[#ddd] bg-[#f5f5f5] p-2.5 text-[#555] transition-colors hover:border-[#f81828]/60 hover:text-[#111] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"

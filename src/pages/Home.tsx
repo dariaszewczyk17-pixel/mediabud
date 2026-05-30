@@ -75,7 +75,7 @@ const heroSlides = [
     image: "/images/hero-chemia_2.png",
     label: "Chemia budowlana",
     title: "Profesjonalna chemia\nbudowlana Ceresit, Atlas, Weber",
-    subtitle: "Profesjonalna hurtownia budowlana w Lublinie. Tynki, systemy ociepleń, styropiany i setki produktów — z doradztwem technicznym krok po kroku.",
+    subtitle: "Profesjonalna hurtownia budowlana w Lublinie. Tynki, systemy ociepleń, styropiany i ponad 15 000 produktów — z doradztwem technicznym krok po kroku.",
     cta: "Skontaktuj się",
     ctaLink: "/kontakt",
   },

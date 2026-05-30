@@ -4,12 +4,34 @@ import { getBlogPostBySlug, blogPosts } from "@/data/blog";
 import { Button } from "@/components/ui/button";
 import { QuoteModal } from "@/components/Commerce";
 import { useState } from "react";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getBlogPostBySlug(slug) : null;
   const [quoteOpen, setQuoteOpen] = useState(false);
   const related = blogPosts.filter(p => p.id !== post?.id && p.category === post?.category).slice(0, 3);
+
+  useSEO(post ? {
+    title: `${post.title} – Blog Media Bud`,
+    description: post.excerpt,
+    canonical: `/blog/${post.slug}`,
+    ogType: "article",
+    ogImage: post.image,
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": post.title,
+      "description": post.excerpt,
+      "image": post.image,
+      "datePublished": post.date,
+      "author": { "@type": "Organization", "name": "Media Bud" },
+      "publisher": { "@type": "Organization", "name": "Media Bud", "logo": { "@type": "ImageObject", "url": "https://mediabud.pl/logo.png" } }
+    }
+  } : {
+    title: "Artykuł – Blog Media Bud",
+    description: "Blog techniczny Media Bud — poradniki budowlane, izolacje, tynki, materiały.",
+  });
 
   if (!post) return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: "#080808" }}>
@@ -24,14 +46,6 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org", "@type": "Article",
-        "headline": post.title, "description": post.excerpt,
-        "image": post.image, "datePublished": post.date,
-        "author": { "@type": "Organization", "name": post.author },
-        "publisher": { "@type": "Organization", "name": "Media Bud", "logo": { "@type": "ImageObject", "url": "https://mediabud.pl/logo.png" } }
-      })}} />
-
       <div className="container mx-auto px-4 py-8 max-w-4xl">
 
         {/* Back */}

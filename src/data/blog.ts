@@ -275,7 +275,229 @@ Przy budynku 10-mieszkaniowym o powierzchni 800 m²:
 
 Zapraszamy deweloperów do kontaktu. Przygotujemy indywidualną ofertę dla Twojego projektu w ciągu 24 godzin.`
   },
+  {
+    id: "b007",
+    slug: "welna-mineralna-czy-styropian-ocieplenie",
+    title: "Wełna mineralna czy styropian — co wybrać do ocieplenia ścian?",
+    excerpt: "Styropian i wełna mineralna to dwa najpopularniejsze materiały do ociepleń. Różnią się właściwościami, ceną i zastosowaniem. Podpowiadamy, który wybrać.",
+    category: "Izolacje",
+    author: "Zespół Media Bud",
+    date: "2026-05-10",
+    readTime: 9,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["wełna mineralna", "styropian", "ocieplenie", "etics", "izolacja termiczna"],
+    content: `## Wełna mineralna i styropian — podstawowe różnice
+
+Wybór między wełną mineralną a styropianem to jedna z pierwszych decyzji przy planowaniu ocieplenia. Oba materiały działają w systemach ETICS, ale mają odmienne właściwości, które powinny wpłynąć na Twoją decyzję.
+
+## Parametry techniczne — porównanie
+
+| Cecha | Styropian EPS | Wełna mineralna |
+|-------|--------------|-----------------|
+| Współczynnik λ | 0,031–0,040 W/(m·K) | 0,033–0,040 W/(m·K) |
+| Klasa reakcji na ogień | E (trudno zapalna) | A1/A2 (niepalna) |
+| Chłonność wody | bardzo niska | umiarkowana |
+| Izolacja akustyczna | niska | dobra |
+| Cena orientacyjna | niższa | o 20–40% wyższa |
+
+## Kiedy wybrać styropian?
+
+Styropian EPS (biały lub grafitowy) sprawdza się, gdy:
+
+- Ważna jest cena — styropian jest tańszy w zakupie i montażu
+- Ocieplasz ściany poniżej gruntu lub cokoły (niska nasiąkliwość)
+- Zależy Ci na szybkości prac — lżejszy, łatwiejszy w cięciu
+- Budynek nie ma wymagań klasy A1/A2
+
+Grafitowy EPS 100 to najlepszy stosunek ceny do izolacyjności dla większości domów jednorodzinnych.
+
+## Kiedy wybrać wełnę mineralną?
+
+Wełna mineralna (skalna lub szklana) to lepsza opcja, gdy:
+
+- Budynek wymaga klasy reakcji na ogień A1 lub A2 (budynki wielorodzinne, obiekty publiczne)
+- Zależy Ci na izolacji akustycznej (wełna tłumi dźwięki 2–3× lepiej niż styropian)
+- Ocieplasz budynek drewniany lub o konstrukcji szkieletowej
+
+## Grubość izolacji 2026
+
+Dla ścian zewnętrznych U ≤ 0,20 W/(m²·K). Przy λ = 0,036 oznacza to min. 18 cm izolacji.
+
+## Media Bud poleca
+
+W naszym składzie w Lublinie dostępne są styropiany Swisspor, Styropmin, Termo Organika oraz wełny Rockwool, Isover i Ursa. Doradcy pomogą dobrać odpowiedni materiał — zapraszamy do kontaktu.`
+  },
+  {
+    id: "b008",
+    slug: "czyste-powietrze-2026-dofinansowanie-ocieplenie",
+    title: "Czyste Powietrze 2026 — co dofinansują i jak skorzystać?",
+    excerpt: "Program Czyste Powietrze to jedno z największych źródeł dofinansowania do termomodernizacji. Sprawdź aktualne progi i jak skorzystać z dotacji w Lublinie.",
+    category: "Aktualności",
+    author: "Zespół Media Bud",
+    date: "2026-05-20",
+    readTime: 8,
+    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+    tags: ["Czyste Powietrze", "dofinansowanie", "termomodernizacja", "ocieplenie", "Lublin"],
+    content: `## Czyste Powietrze — czym jest program?
+
+Program Czyste Powietrze to rządowe dofinansowanie dla właścicieli domów jednorodzinnych na wymianę kotłów i termomodernizację. Dotacja może sięgać do ponad 135 000 zł — zależnie od dochodu i zakresu prac.
+
+**Uwaga:** Warunki programu są aktualizowane. Zawsze sprawdzaj aktualne zasady na czystepowietrze.gov.pl przed złożeniem wniosku.
+
+## Jakie prace mogą być dofinansowane?
+
+- Ocieplenie ścian, dachu, podłogi na gruncie
+- Wymiana okien, drzwi zewnętrznych
+- Wymiana źródła ciepła (pompa ciepła, kocioł kondensacyjny)
+- Wentylacja mechaniczna z odzyskiem ciepła
+- Mikroinstalacja fotowoltaiczna (wybrane ścieżki)
+
+## Orientacyjne progi dofinansowania
+
+| Ścieżka | Roczny dochód | Poziom dotacji |
+|---------|--------------|---------------|
+| Podstawowy | do 135 tys. zł | do 66 900 zł |
+| Podwyższony | do 1 894 zł/os/m-c | do 99 000 zł |
+| Najwyższy | do 1 090 zł/os/m-c | do 135 000 zł |
+
+*Kwoty orientacyjne — sprawdź aktualne progi na czystepowietrze.gov.pl*
+
+## Jak złożyć wniosek?
+
+1. Załóż konto w portalu gov.pl lub odwiedź WFOŚiGW w Lublinie
+2. Wybierz zakres prac i wykonawcę
+3. Złóż wniosek online lub w oddziale funduszu
+4. Zrealizuj inwestycję z zachowaniem pełnej dokumentacji
+
+## Media Bud a Czyste Powietrze
+
+Pomagamy inwestorom z Lublina przygotować inwestycję pod wymagania programu — dobieramy materiały spełniające parametry techniczne i wspieramy w przygotowaniu zestawienia kosztów. MediaBud nie gwarantuje przyznania dotacji — decyzja zależy od programu i sytuacji beneficjenta.`
+  },
+  {
+    id: "b009",
+    slug: "farby-elewacyjne-rodzaje-jak-wybrac",
+    title: "Farby elewacyjne — rodzaje, właściwości i jak wybrać odpowiednią",
+    excerpt: "Silikonowa, silikatowa, akrylowa? Wybór farby elewacyjnej ma duże znaczenie dla trwałości budynku. Omawiamy różnice i wskazujemy, kiedy stosować każdy rodzaj.",
+    category: "Chemia budowlana",
+    author: "Zespół Media Bud",
+    date: "2026-04-28",
+    readTime: 7,
+    image: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80",
+    tags: ["farby elewacyjne", "farba silikonowa", "farba silikatowa", "elewacja", "malowanie"],
+    content: `## Dlaczego farba elewacyjna ma znaczenie?
+
+Farba elewacyjna to ostatnia warstwa ochronna ściany zewnętrznej. Dobra farba na odpowiednim tynku przetrwa 10–15 lat. Zła — peeling po 3 latach i remont elewacji.
+
+## Rodzaje farb elewacyjnych
+
+### Farba akrylowa
+Najtańsza opcja, dobra elastyczność, szeroka paleta kolorów. Słabsza paroprzepuszczalność — nie polecana do elewacji ze styropianu.
+
+### Farba silikonowa
+Najlepsza odporność na zabrudzenia i wodoodporność przy dobrej paroprzepuszczalności. Droższa, ale trwalsza. Idealna do tynków silikonowych systemów ETICS.
+
+### Farba silikatowa
+Wysoka paroprzepuszczalność, odporność na grzyby — idealna do starych budynków z cegły lub tynku mineralnego. Ograniczona paleta kolorów.
+
+### Farba mineralna
+Tradycyjna, paroprzepuszczalna, antybakteryjna. Do budynków zabytkowych i renowacji. Wymaga regularnego odnawiania.
+
+## Jak dobrać farbę do systemu?
+
+| System ETICS | Zalecana farba |
+|-------------|----------------|
+| Styropian + tynk silikonowy | Silikonowa (Weber, Ceresit, Bolix) |
+| Wełna + tynk mineralny | Silikatowa lub silikonowa |
+| Stara elewacja bez ocieplenia | Silikatowa lub akrylowa po gruntowaniu |
+| Budynek zabytkowy | Mineralna lub wapienno-silikatowa |
+
+## Media Bud — farby elewacyjne
+
+Oferujemy farby Weber, Ceresit, Atlas, Caparol i Bolix. Doradcy pomogą dobrać kolor i rodzaj do projektu — zapraszamy do składu przy ul. Chemicznej 8d w Lublinie.`
+  },
+  {
+    id: "b010",
+    slug: "sucha-zabudowa-knauf-rigips-poradnik",
+    title: "Sucha zabudowa Knauf i Rigips — praktyczny poradnik dla inwestorów",
+    excerpt: "Płyty gipsowo-kartonowe to podstawa wykończenia wnętrz. Jakie GK wybrać do różnych pomieszczeń, jak zaplanować zabudowę i czego unikać — kompletny poradnik.",
+    category: "Poradniki",
+    author: "Zespół Media Bud",
+    date: "2026-04-05",
+    readTime: 10,
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80",
+    tags: ["sucha zabudowa", "płyty GK", "Knauf", "Rigips", "gipsowo-kartonowe", "wykończenie"],
+    content: `## Czym jest sucha zabudowa?
+
+Sucha zabudowa to wykończenie wnętrz płytami GK na stalowej konstrukcji — bez mokrych tynków i długiego schnięcia. Stosuje się ją do sufitów, ścianek działowych, obudów instalacji i zabudowy skosów poddasza.
+
+## Rodzaje płyt GK i zastosowanie
+
+| Typ płyty | Kolor kartonu | Gdzie stosować |
+|-----------|--------------|----------------|
+| Standardowa (GKB) | szary/kremowy | salony, sypialnie, suche pomieszczenia |
+| Impregnowana (GKBI) | zielony | łazienki, kuchnie, pralnie |
+| Ognioodporna (GKF) | różowy | klatki schodowe, strefy pożarowe |
+| Kombinowana (GKFI) | zielono-różowy | wilgotne strefy pożarowe |
+
+## Profile — podstawowe typy
+
+- **CD 60** — profile nośne sufitu (co 50 cm)
+- **UD 28** — profile obwodowe sufitu i podłogi
+- **CW 50/75/100** — słupki ścianek działowych
+- **UW 50/75/100** — profile obwodowe ścianek
+
+## Izolacja akustyczna w suchej zabudowie
+
+Sama płyta GK nie izoluje dobrze. Żeby osiągnąć Rw ≥ 45 dB wymagany między mieszkaniami, należy zastosować wełnę mineralną w przestrzeni (Rockwool Acoustic lub Ursa TP 3) i podwójne opłytowanie.
+
+## Najczęstsze błędy
+
+- Zbyt duże rozstawy profili — ugięcie płyt
+- Brak dylatacji przy ścianach — pęknięcia złączy
+- Pominięcie zbrojenia siatką w narożnikach
+
+W Media Bud oferujemy systemy Knauf, Rigips, wełnę Rockwool i Ursa. Skład przy ul. Chemicznej 8d, Lublin.`
+  },
+  {
+    id: "b011",
+    slug: "sklad-budowlany-lublin-jak-kupowac-materialy",
+    title: "Skład budowlany w Lublinie — jak mądrze kupować materiały budowlane?",
+    excerpt: "Gdzie kupować materiały budowlane w Lublinie? Jak porównywać oferty, na co zwracać uwagę i dlaczego lokalny skład budowlany to często lepsza opcja niż market.",
+    category: "Poradniki",
+    author: "Zespół Media Bud",
+    date: "2026-05-05",
+    readTime: 6,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["skład budowlany Lublin", "materiały budowlane Lublin", "hurtownia budowlana"],
+    content: `## Skład budowlany a market — kluczowe różnice
+
+Przy zakupie materiałów budowlanych większość inwestorów wybiera między marketem a lokalnym składem. Dla większości projektów w Lublinie skład budowlany to lepsza opcja.
+
+### Co oferuje lokalny skład budowlany?
+
+- **Doradztwo techniczne** — specjaliści znający systemy materiałowe
+- **Dostawy na budowę** — na terenie Lublina i województwa lubelskiego
+- **Systemy, nie produkty** — klej, siatka, grunt, tynk i farba od jednego producenta
+- **Ceny hurtowe** dla wykonawców i firm B2B
+- **Zamówienia na zamówienie** — produkty niedostępne stałe
+
+## Na co zwracać uwagę przy zakupie?
+
+### Spójność systemu
+Nie mieszaj produktów różnych producentów w obrębie jednego systemu (np. klej Ceresit + tynk Atlas). Producenci nie gwarantują kompatybilności.
+
+### Ilości i bufor
+Zamawiaj z buforem: +5–10% dla tynków i farb, +10–15% dla płytek. Zbyt małe partie oznaczają wyższy koszt jednostkowy i ryzyko różnic partii.
+
+### Dostawy etapowe
+Przy większych zamówieniach uzgodnij dostawy zgodnie z harmonogramem robót — nie gromadź zbędnie materiałów na budowie.
+
+## Media Bud — skład budowlany Lublin
+
+Przy ul. Chemicznej 8d (Lublin, Pon–Pt 7:00–16:00) oferujemy ponad 15 000 produktów: Weber, Ceresit, Atlas, Knauf, Rigips, Rockwool, Swisspor, Bolix, Baumit i wiele innych. Doradztwo techniczne gratis — zadzwoń +48 509 567 213.`
+  },
 ];
+
 
 export const getBlogPostBySlug = (slug: string) => blogPosts.find(p => p.slug === slug) || null;
 export const getBlogPostsByCategory = (cat: string) => blogPosts.filter(p => p.category === cat);

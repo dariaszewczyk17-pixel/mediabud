@@ -191,7 +191,7 @@ async function main() {
   try {
     // Mechanizm 1: GROQ zwraca flagi jakości — bez dodatkowych requestów
     rawProducts = await fetchAllPaginated(
-      `*[_type=="product" && defined(slug.current)]{
+      `*[_type=="product" && defined(slug.current) && !(name match "P-*")]{
         slug,
         _updatedAt,
         "hasDescription": defined(shortDescription) && length(shortDescription) > 50,

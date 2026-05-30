@@ -183,3 +183,4 @@
 [2026-05-29 23:54] Commit: hero video bg (seedance-2.0-fast, 6s, industrial warehouse), 2 nowe podstrony usług (duze-projekty-b2b, siec-fachowcow). Build OK.
 [2026-05-29 23:57] 3 luki zaplanowane jako zadania: opinie klientów, portfolio realizacji, inline-formularz wyceny. Oczekują na materiały od Darii (P1) lub gotowe do implementacji (P2).
 [2026-05-30 00:03] fix: video hero zIndex 2 + opacity 0.55 + preload metadata
+[2026-05-30 00:11] fix: video przeniesione do sekcji usług, Row 3 biały

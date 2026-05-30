@@ -988,18 +988,13 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)" }}>
                   {service.icon}
                 </div>
-                <div>
+                {/* Frazy SEO — ukryte z UI, tylko metadata */}
+                <div style={{ display:"none" }}>
                   <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#888]">Frazy lokalne</p>
                   <p className="text-sm text-white font-semibold">Lublin · woj. lubelskie</p>
                 </div>
               </div>
-              <div className="space-y-3 mb-6">
-                {service.frazySEO.map((phrase) => (
-                  <div key={phrase} className="px-3 py-2 rounded-xl text-sm text-[#d7d7d7] border border-[#222] bg-[#0a0a0a] break-words" style={{ overflowWrap: "anywhere" }}>
-                    {phrase}
-                  </div>
-                ))}
-              </div>
+              {/* frazySEO hidden */}
               <div className="space-y-3">
                 <a href="tel:+48509567213" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white transition-colors" style={{ background: "#f81828", boxShadow: "0 14px 32px rgba(248,24,40,0.22)" }}>
                   <Phone className="w-4 h-4" /> Zadzwoń
@@ -1157,7 +1152,7 @@ export function ServicesPage() {
                 <h2 className="font-display text-[clamp(1.9rem,4vw,3.4rem)] font-black uppercase leading-[0.94] text-white break-words mb-4" style={{ overflowWrap: "anywhere" }}>{umbrellaService.title}</h2>
                 <p className="text-sm md:text-base leading-relaxed text-[#e6e6e6] mb-5">{umbrellaService.krotkiOpis}</p>
                 <div className="flex flex-wrap gap-2">
-                  {umbrellaService.frazySEO.map((phrase) => (
+                  {/* frazySEO hidden */ umbrellaService.frazySEO.slice(0,0).map((phrase) => (
                     <span key={phrase} className="px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.18em] text-white border border-[#2d2d2d] bg-[#0a0a0a]">{phrase}</span>
                   ))}
                 </div>

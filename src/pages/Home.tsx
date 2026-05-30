@@ -859,9 +859,10 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r9.ref as React.RefObject<HTMLElement>}
-        className={`container mx-auto px-4 py-14 transition-all duration-700 ${r9.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-        style={{ background: "#0a0a0a", borderTop: "1px solid #1a1a1a" }}
+        className={`py-16 transition-all duration-700 ${r9.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        style={{ background: "#050505", borderTop: "2px solid #1a1a1a", borderBottom: "2px solid #1a1a1a" }}
       >
+        <div className="container mx-auto px-4">
         <div className="flex items-end justify-between mb-8">
           <div>
             <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
@@ -922,6 +923,7 @@ export default function Home() {
             );
           })}
         </div>
+      </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
@@ -929,8 +931,8 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r8.ref as React.RefObject<HTMLElement>}
-        className={`py-14 transition-all duration-700 ${r8.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-        style={{ background: "#080808", borderTop: "1px solid rgba(255,255,255,0.05)" }}
+        className={`py-20 transition-all duration-700 ${r8.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        style={{ background: "#080808", borderTop: "2px solid rgba(248,24,40,0.15)" }}
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">

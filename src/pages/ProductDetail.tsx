@@ -359,7 +359,13 @@ export default function ProductDetail() {
               <span className="text-xs text-gray-600 ml-1">Produkt profesjonalny</span>
             </div>
 
-            <p className="text-gray-400 leading-relaxed mb-6 text-sm">{product.shortDescription}</p>
+            {product.shortDescription ? (
+              <p className="text-gray-400 leading-relaxed mb-6 text-sm">{product.shortDescription}</p>
+            ) : (
+              <p className="text-gray-600 leading-relaxed mb-6 text-sm italic">
+                Profesjonalny produkt budowlany. Skontaktuj się z nami po szczegóły techniczne i wycenę.
+              </p>
+            )}
 
             {/* Quick Specs strip */}
             {product.technicalSpec.length > 0 && (
@@ -484,6 +490,15 @@ export default function ProductDetail() {
             {activeTab === "opis" && (
               <div className="max-w-3xl">
                 {/* Rich text — dzieli po \n\n na paragrafy, wykrywa listy i pogrubienia */}
+                {!(product.description || product.shortDescription) && (
+                  <div className="flex flex-col items-center justify-center py-12 text-center gap-3">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                      <span className="text-2xl">📋</span>
+                    </div>
+                    <p className="text-gray-500 text-sm">Opis produktu jest w przygotowaniu.</p>
+                    <p className="text-gray-600 text-xs">Zadzwoń lub napisz — doradzimy i odpowiemy na wszystkie pytania.</p>
+                  </div>
+                )}
                 <div className="space-y-3 mb-4">
                   {(product.description || product.shortDescription || "")
                     .split(/\n\n+/)

@@ -197,3 +197,7 @@
 [2026-05-30 01:44] Pipeline zdj. bechcicki.pl: odkryto format URL P-/{id_path}/1/BIG.webp, HTML zawiera product IDs bez logowania. Test 20 prod: 19/20 sukces. Asset upload do Sanity OK. Startuje pelny batch 15921 produktow.
 [2026-05-30 18:37] Naprawiono pipeline zdjeć: format URL bechcicki P-/{id}/1/BIG.webp. 10699/15921 produktów ma zdjęcia. Błąd list-index w Jupyter — przepisuję na standalone Python script. Start zadań A+B+C.
 [2026-05-30 18:37] Start zadań A+B+C: pipeline zdjęć jako standalone script, analiza realbud.com, poprawki UI
+[2026-05-30 18:47] A: image_pipeline.py (PID 11281) dziala - dodaje zdjecia z bechcicki. B: seo_names.py (PID 11287) dziala - SEO nazwy z bechcicki.pl. C: stats 15900+, hero subtitle poprawiony. Commit de70f21 push OK.
+[2026-05-30 18:48] A: image_pipeline.py PID 11281 dziala. B: seo_names.py PID 11287 dziala - SEO nazwy z bechcicki. C: stats 15900+, hero subtitle. Commit de70f21.
+[2026-05-30 19:11] Nowa sesja — kontynuacja A+B+C; sprawdzanie statusu skryptów
+[2026-05-30 19:13] Status: 11527 produktów ze zdjęciami, 3888 z złym fallback (0196018). Killing seo_names (0 updates). Uruchamianie fix_bad_images + poprawiony seo_names + UI changes.

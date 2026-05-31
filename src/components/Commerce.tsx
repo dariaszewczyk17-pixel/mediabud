@@ -85,7 +85,7 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
       >
         {/* ── Image area ── */}
         <Link to={`/produkt/${product.slug}`} className="block relative overflow-hidden aspect-square"
-          style={{ background: "#141414" }}>
+          style={{ background: "#f5f5f5" }}>
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
 
@@ -97,7 +97,7 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           <div className="card-spark-bl absolute bottom-0.5 left-0.5 w-1.5 h-1.5 rounded-full pointer-events-none z-30"
             style={{ background: "#ff6b35", boxShadow: "0 0 4px rgba(255,107,53,0.8)", opacity: 0 }} />
 
-          <div className="relative w-full h-full" style={{ background: "#141414" }}>
+          <div className="relative w-full h-full" style={{ background: "#f5f5f5" }}>
             {/* Shimmer skeleton */}
             <div className="absolute inset-0 overflow-hidden">
               <style>{`
@@ -130,17 +130,12 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
               alt={product.name}
               loading="lazy"
               decoding="async"
-              className="relative z-[1] w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-              style={{ filter: "brightness(0.88)" }}
+              className="relative z-[1] w-full h-full object-contain p-4 transition-all duration-500 group-hover:scale-105"
               onError={e => { (e.target as HTMLImageElement).src = PRODUCT_PLACEHOLDER; }}
             />
           </div>
 
-          {/* Vignette overlay */}
-          <div className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.12) 58%, transparent 100%)" }} />
-
-          {/* Badges */}
+          {/* Badges — NEW / FEATURED */}
           <div className="absolute top-2.5 left-2.5 flex flex-col gap-1">
             {product.isNew && (
               <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider"
@@ -157,30 +152,12 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           </div>
 
           {/* Status badge — availability */}
-          <div className="absolute bottom-10 right-2">
+          <div className="absolute top-2.5 right-2.5">
             <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider flex items-center gap-1"
-              style={{ background: "rgba(16,185,129,0.2)", border: "1px solid rgba(16,185,129,0.4)" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              style={{ background: "rgba(16,185,129,0.85)", border: "1px solid rgba(16,185,129,0.6)" }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               Dostępny
             </span>
-          </div>
-
-          <div className="absolute left-2.5 right-2.5 bottom-2.5 rounded-xl p-2.5"
-            style={{ background: "rgba(8,8,8,0.72)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(8px)" }}>
-            <div className="flex items-center justify-between gap-2 text-[10px] text-gray-300">
-              <span className="inline-flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-emerald-400" /> Oferta B2B</span>
-              <span className="text-gray-400 font-medium">{product.unit}</span>
-            </div>
-            {topSpecs.length > 0 && (
-              <div className="mt-2 grid grid-cols-2 gap-1.5">
-                {topSpecs.map((spec) => (
-                  <div key={spec.label} className="rounded-lg px-2 py-1.5" style={{ background: "rgba(255,255,255,0.04)" }}>
-                    <div className="text-[9px] uppercase tracking-wide text-gray-500">{spec.label}</div>
-                    <div className="text-[10px] font-semibold text-gray-100 line-clamp-1">{spec.value}</div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Quick view — pojawia się na hover */}
@@ -226,17 +203,17 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
             ))}
           </div>
 
-          {product.advantages && product.advantages.length > 0 && (
-            <div className="mb-4 rounded-xl p-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-gray-500 mb-2">Najważniejsze atuty</div>
-              <ul className="space-y-1.5">
-                {product.advantages.slice(0, 2).map((advantage) => (
-                  <li key={advantage} className="flex items-start gap-2 text-[11px] text-gray-300 leading-relaxed">
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#f81828] flex-shrink-0" />
-                    <span className="line-clamp-2">{advantage}</span>
-                  </li>
+          {topSpecs.length > 0 && (
+            <div className="mb-3 rounded-xl p-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div className="text-[9px] font-black uppercase tracking-[0.15em] text-gray-500 mb-2.5">Parametry techniczne</div>
+              <div className="grid grid-cols-2 gap-x-3 gap-y-2">
+                {topSpecs.map((spec) => (
+                  <div key={spec.label}>
+                    <div className="text-[9px] text-gray-500 leading-tight mb-0.5">{spec.label}</div>
+                    <div className="text-[11px] font-bold text-gray-200 leading-tight line-clamp-1">{spec.value}</div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
 

@@ -29,7 +29,7 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const mainImage = getProductImage(product);
-  const topSpecs = product.technicalSpec.slice(0, 2);
+  const topSpecs = product.technicalSpec.slice(0, 4);
   const topTags = product.tags.slice(0, 3);
 
   /* 3-D tilt */
@@ -84,8 +84,8 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
         }}
       >
         {/* ── Image area ── */}
-        <Link to={`/produkt/${product.slug}`} className="block relative overflow-hidden aspect-square"
-          style={{ background: "#f5f5f5" }}>
+        <Link to={`/produkt/${product.slug}`} className="block relative overflow-hidden"
+          style={{ background: "#141414", height: "200px" }}>
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
 
@@ -97,7 +97,7 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           <div className="card-spark-bl absolute bottom-0.5 left-0.5 w-1.5 h-1.5 rounded-full pointer-events-none z-30"
             style={{ background: "#ff6b35", boxShadow: "0 0 4px rgba(255,107,53,0.8)", opacity: 0 }} />
 
-          <div className="relative w-full h-full" style={{ background: "#f5f5f5" }}>
+          <div className="relative w-full h-full" style={{ background: "#141414" }}>
             {/* Shimmer skeleton */}
             <div className="absolute inset-0 overflow-hidden">
               <style>{`

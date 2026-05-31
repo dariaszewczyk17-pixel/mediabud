@@ -37,12 +37,14 @@ function useReveal() {
 const catImages: Record<string, string> = {
   "chemia-budowlana": "/images/cat-chemia_2.png",
   "dachy": "/images/cat-dachy_2.png",
-  "farby-rozpuszczalniki": "/images/cat-farby_2.png",
+  "farby-i-rozpuszczalniki": "/images/cat-farby_2.png",
   "izolacje": "/images/cat-ocieplenia_2.png",
-  "narzedzia-mocowania": "/images/cat-narzedzia_2.png",
+  "narzedzia-i-mocowania": "/images/cat-narzedzia_2.png",
   "plytki": "/images/cat-plytki_2.png",
-  "stropy-sciany": "/images/cat-sciany_2.png",
+  "stropy-i-sciany": "/images/cat-sciany_2.png",
   "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
+  "sufity-podwieszane": "/images/cat-sufity_2.png",
+  "oswietlenie": "/images/cat-oswietlenie_2.png",
 };
 
 export default function CategoryPage() {

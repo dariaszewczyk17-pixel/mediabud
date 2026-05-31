@@ -39,6 +39,8 @@ const CAT_IMAGES: Record<string, string> = {
   "plytki": "/images/cat-plytki_2.png",
   "stropy-i-sciany": "/images/cat-sciany_2.png",
   "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
+  "sufity-podwieszane": "/images/cat-sufity_2.png",
+  "oswietlenie": "/images/cat-oswietlenie_2.png",
 };
 
 /* ── GA4 helper ── */

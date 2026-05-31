@@ -62,7 +62,7 @@ export const PRODUCTS_BY_CATEGORY_QUERY =
   `*[_type == "product" && category->slug.current == $slug && ${NO_PLACEHOLDER}] | order(name asc) ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...600] ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...2000] ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCT_BY_SLUG_QUERY =
   `*[_type == "product" && slug.current == $slug && ${NO_PLACEHOLDER}][0] ${PRODUCT_FULL_FIELDS}`

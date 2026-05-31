@@ -44,7 +44,6 @@ const catImages: Record<string, string> = {
   "stropy-i-sciany": "/images/cat-sciany_2.png",
   "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
   "sufity-podwieszane": "/images/cat-sufity_2.png",
-  "oswietlenie": "/images/cat-oswietlenie_2.png",
 };
 
 export default function CategoryPage() {

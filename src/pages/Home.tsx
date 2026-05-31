@@ -86,7 +86,6 @@ const catIcons: Record<string, string> = {
   "chemia-budowlana": "🧪", "dachy": "🏠", "farby-i-rozpuszczalniki": "🎨",
   "izolacje": "🛡️", "narzedzia-i-mocowania": "🔧", "pozostale": "📦",
   "plytki": "⬜", "stropy-i-sciany": "🧱", "sucha-zabudowa": "🔲", "sufity-podwieszane": "⬛",
-  "oswietlenie": "💡", "posadzki": "🟫",
 };
 const catImages: Record<string, string> = {
   "chemia-budowlana": "/images/cat-chemia_2.png",
@@ -98,7 +97,6 @@ const catImages: Record<string, string> = {
   "stropy-i-sciany": "/images/cat-sciany_2.png",
   "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
   "sufity-podwieszane": "/images/cat-sufity_2.png",
-  "oswietlenie": "/images/cat-oswietlenie_2.png",
 };
 
 const stats = [

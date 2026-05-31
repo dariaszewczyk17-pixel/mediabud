@@ -35,7 +35,7 @@ def search_bechcicki(q: str) -> list:
             idx = html.find(f"-id-p-{pid}")
             if idx < 0: continue
             before = html[max(0, idx-120):idx]
-            sm = re.search(r'([a-z0-9][a-z0-9\-]{4,60})$', before)
+            sm = re.search(r'([a-z0-9][a-z0-9\-]{4,200})$', before)
             if not sm: continue
             name = sm.group(1).replace('-', ' ').title()
             results.append({"id": pid, "name": name})

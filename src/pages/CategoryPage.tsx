@@ -565,10 +565,10 @@ export default function CategoryPage() {
               <p className="text-xs font-bold text-[#f88090] uppercase tracking-wider mb-1.5">Doradztwo</p>
               <p className="text-xs text-gray-500 leading-relaxed mb-3">Pomożemy dobrać właściwe materiały dla Twojego projektu.</p>
               <a
-                href="tel:+48509567213"
+                href="tel:+48533553344"
                 className="flex items-center gap-2 w-full bg-[#f81828] hover:bg-[#c8000f] text-white text-xs font-bold py-2.5 px-3 rounded-lg transition-all hover:shadow-[0_0_12px_rgba(248,24,40,0.4)]"
               >
-                <Phone className="w-3.5 h-3.5" /> +48 509 567 213
+                <Phone className="w-3.5 h-3.5" /> +48 533 553 344
               </a>
             </div>
           </aside>
@@ -798,8 +798,8 @@ export default function CategoryPage() {
                   {hasActiveFilters
                     ? <Button onClick={clearFilters} className="bg-[#f81828] hover:bg-[#c8000f]">Wyczyść filtry</Button>
                     : <>
-                        <a href="tel:+48509567213">
-                          <Button className="bg-[#f81828] hover:bg-[#c8000f]"><Phone className="w-4 h-4 mr-2" /> +48 509 567 213</Button>
+                        <a href="tel:+48533553344">
+                          <Button className="bg-[#f81828] hover:bg-[#c8000f]"><Phone className="w-4 h-4 mr-2" /> +48 533 553 344</Button>
                         </a>
                         <Link to="/kontakt">
                           <Button variant="outline" className="border-[#f81828]/40 text-[#f81828] hover:bg-[#f81828] hover:text-white"><Mail className="w-4 h-4 mr-2" /> Wyślij zapytanie</Button>
@@ -829,9 +829,9 @@ export default function CategoryPage() {
                     <p className="text-sm font-semibold text-white">Potrzebujesz fachowej porady?</p>
                     <p className="text-xs text-gray-500 mt-0.5">Nasi eksperci pomogą dobrać właściwe produkty.</p>
                   </div>
-                  <a href="tel:+48509567213">
+                  <a href="tel:+48533553344">
                     <Button size="sm" className="bg-[#f81828] hover:bg-[#c8000f] text-xs font-bold whitespace-nowrap shadow-sm hover:shadow-[0_0_12px_rgba(248,24,40,0.4)] transition-all">
-                      <Phone className="w-3.5 h-3.5 mr-1.5" /> +48 509 567 213
+                      <Phone className="w-3.5 h-3.5 mr-1.5" /> +48 533 553 344
                     </Button>
                   </a>
                 </div>

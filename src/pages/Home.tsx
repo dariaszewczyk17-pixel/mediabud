@@ -184,36 +184,48 @@ const testimonials = [
 /* ─── Realizacje ──────────────────────────────────────────────── */
 const realizacje = [
   {
-    title: "Ocieplenie budynku wielorodzinnego",
-    category: "System ETICS",
-    location: "Lublin, ul. Zana",
+    title: "Budowa domów jednorodzinnych — osiedle Majdan",
+    projectName: "Osiedle Majdan — etap I",
+    client: "Deweloper prywatny, Lublin",
+    scope: "Dostawa kompletnych systemów ETICS, tynki elewacyjne, kleje, siatki, grunty — 12 budynków",
+    value: "~320 000 zł",
+    year: "2024",
+    tags: ["ETICS", "Tynki elewacyjne", "12 budynków"],
     image: "/images/real-ocieplenie_2.png",
-    tags: ["Rockwool", "Weber", "Tynk silikonowy"],
     icon: Building2,
   },
   {
-    title: "Kompleksowe materiały dla dewelopera",
-    category: "Budownictwo mieszkaniowe",
-    location: "Lublin, Sławin",
+    title: "Kompleksowe wykończenie hali magazynowej",
+    projectName: "Hala logistyczna Świdnik",
+    client: "Firma przemysłowa, rejon lubelski",
+    scope: "Posadzki przemysłowe, hydroizolacje, tynki maszynowe, płyty GK — pow. 2 400 m²",
+    value: "~210 000 zł",
+    year: "2024",
+    tags: ["Posadzki", "Hydroizolacja", "2 400 m²"],
+    image: "/images/real-hala_2.png",
+    icon: HardHat,
+  },
+  {
+    title: "Ocieplenie budynku wielorodzinnego",
+    projectName: "Budynek przy ul. Turystycznej, Lublin",
+    client: "Wspólnota mieszkaniowa",
+    scope: "System ETICS Baumit: styropian EPS 15cm, tynk silikonowy, rusztowania — pow. 1 800 m²",
+    value: "~185 000 zł",
+    year: "2023",
+    tags: ["ETICS Baumit", "Styropian 15cm", "1 800 m²"],
     image: "/images/real-deweloper_2.png",
-    tags: ["Knauf", "Ceresit", "Chemia budowlana"],
     icon: HomeIcon,
   },
   {
-    title: "Izolacja fundamentów — dom jednorodzinny",
-    category: "Izolacje termiczne",
-    location: "Świdnik k. Lublina",
+    title: "Dostawa materiałów — osiedle mieszkaniowe",
+    projectName: "Osiedle Poligonowa — 3 etapy",
+    client: "Generalny wykonawca, Lublin",
+    scope: "Bloczki Ytong, Silka, Wienerberger; zaprawy murowe; belki Teriva — łącznie 28 domów",
+    value: "~450 000 zł",
+    year: "2023–2024",
+    tags: ["Ytong", "Silka", "28 domów"],
     image: "/images/real-hydroizolacja_2.png",
-    tags: ["Swisspor EPS", "Masy uszczelniające"],
     icon: Layers,
-  },
-  {
-    title: "Kompleksowe wykończenie hal magazynowych",
-    category: "Budownictwo przemysłowe",
-    location: "Lublin, Strefa Przemysłowa",
-    image: "/images/real-hala_2.png",
-    tags: ["Sucha zabudowa", "Knauf", "Atlas"],
-    icon: HardHat,
   },
 ];
 
@@ -307,7 +319,7 @@ export default function Home() {
         "@type": "LocalBusiness",
         "name": "Media Bud – Skład Budowlany",
         "description": "Profesjonalna hurtownia materiałów budowlanych w Lublinie",
-        "telephone": "+48509567213",
+        "telephone": "+48533553344",
         "email": "sprzedaz@mediabud.pl",
         "address": { "@type": "PostalAddress", "streetAddress": "ul. Chemiczna 8d", "addressLocality": "Lublin", "postalCode": "20-329", "addressCountry": "PL" },
         "url": "https://mediabud.pl",
@@ -333,6 +345,17 @@ export default function Home() {
               alt={s.label}
               className="w-full h-full object-cover"
               style={{ filter: "brightness(0.45) saturate(0.85)" }}
+            />
+            {/* Laser line — czerwona linia jak na kategoriach */}
+            <div
+              className="absolute left-0 right-0 pointer-events-none z-10"
+              style={{
+                top: "50%",
+                height: "2px",
+                background: "linear-gradient(90deg, transparent 0%, #f81828 20%, #ff6b6b 50%, #f81828 80%, transparent 100%)",
+                boxShadow: "0 0 12px 3px rgba(248,24,40,0.7), 0 0 24px 6px rgba(248,24,40,0.35)",
+                opacity: 0.85,
+              }}
             />
           </div>
         ))}
@@ -880,46 +903,68 @@ export default function Home() {
           {realizacje.map((r, i) => {
             const Icon = r.icon;
             return (
-              <div
+              <article
                 key={i}
-                className={`group relative rounded-xl overflow-hidden aspect-[4/3] shadow-lg hover:shadow-[0_8px_32px_rgba(248,24,40,0.2)] transition-all duration-300 hover:-translate-y-1 cursor-pointer ${r9.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 80}ms` }}
+                className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${r9.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{
+                  transitionDelay: `${i * 80}ms`,
+                  background: "linear-gradient(180deg, rgba(15,15,15,0.98), rgba(6,6,6,0.98))",
+                  borderColor: "rgba(255,255,255,0.08)",
+                  boxShadow: "0 18px 42px rgba(0,0,0,0.28)",
+                }}
               >
-                <img
-                  src={r.image}
-                  alt={r.title}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  style={{ filter: "brightness(0.55)" }}
-                />
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#f81828]/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                {/* Always visible overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-                {/* Top badge */}
-                <div className="absolute top-3 left-3">
-                  <span className="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full border border-white/10">
-                    <Icon className="w-3 h-3 text-[#f81828]" />
-                    {r.category}
-                  </span>
+                <div className="relative h-48 overflow-hidden border-b border-white/10">
+                  <img
+                    src={r.image}
+                    alt={r.projectName}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    style={{ filter: "brightness(0.45) saturate(0.82)" }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                  <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: "linear-gradient(90deg, transparent, #f81828, #ff6b6b, #f81828, transparent)", boxShadow: "0 0 14px rgba(248,24,40,0.45)" }} />
+                  <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-[#f81828]/30 bg-black/60 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-[#f4b3b8] backdrop-blur-sm">
+                    <Icon className="h-3.5 w-3.5 text-[#f81828]" /> Realizacja
+                  </div>
+                  <div className="absolute right-4 top-4 rounded-full border border-[#f81828]/35 bg-[#120607]/90 px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-[#f81828]">
+                    {r.year}
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="mb-2 text-[10px] font-black uppercase tracking-[0.24em] text-[#f81828]">Projekt</div>
+                    <h3 className="font-display text-2xl font-black leading-tight text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.35)]">{r.projectName}</h3>
+                  </div>
                 </div>
 
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="font-display font-black text-white text-sm leading-snug mb-1.5">{r.title}</h3>
-                  <p className="text-gray-300 text-[11px] mb-2 flex items-center gap-1">
-                    <span className="w-1 h-1 rounded-full bg-[#f81828]" />
-                    {r.location}
-                  </p>
-                  <div className="flex flex-wrap gap-1">
-                    {r.tags.map(tag => (
-                      <span key={tag} className="text-[9px] font-bold bg-white/10 backdrop-blur-sm text-white px-1.5 py-0.5 rounded-full border border-white/10">
+                <div className="space-y-5 p-5">
+                  <div>
+                    <div className="mb-2 text-sm font-semibold text-[#f4f4f4]">{r.title}</div>
+                    <div className="text-xs font-medium uppercase tracking-[0.14em] text-gray-500">{r.client}</div>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
+                    <div className="mb-2 flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-[#f81828]">
+                      <span className="text-base">🔧</span>
+                      Zakres prac
+                    </div>
+                    <p className="text-sm leading-relaxed text-gray-300">{r.scope}</p>
+                  </div>
+
+                  <div className="rounded-2xl border border-[#f81828]/25 bg-[#f81828]/[0.07] p-4">
+                    <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f4b3b8]">Wartość zamówień</div>
+                    <div className="mt-1 font-display text-3xl font-black text-[#f81828]" style={{ textShadow: "0 0 14px rgba(248,24,40,0.22)" }}>{r.value}</div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {r.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-gray-300"
+                      >
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
@@ -1313,9 +1358,9 @@ export default function Home() {
             Skontaktuj się z nami — bezpłatna wycena i profesjonalne doradztwo techniczne.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="tel:+48509567213">
+            <a href="tel:+48533553344">
               <Button size="lg" className="bg-white text-[#f81828] hover:bg-gray-100 font-black px-10 w-full sm:w-auto text-base h-12 shadow-2xl hover:shadow-white/20 transition-all">
-                <Phone className="w-4 h-4 mr-2" /> +48 509 567 213
+                <Phone className="w-4 h-4 mr-2" /> +48 533 553 344
               </Button>
             </a>
             <Button

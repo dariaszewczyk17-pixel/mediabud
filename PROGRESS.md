@@ -212,3 +212,22 @@
 [2026-05-30 21:43] task1 DONE: P- filter queries.ts (commit d689404); task2 DONE: Schema.org already exists; task3 IN PROGRESS: shortDesc AI batch
 [2026-05-30 21:44] task3 DONE: 77 shortDesc AI batch → Sanity; task4 IN PROGRESS: sitemap XML
 [2026-05-30 21:46] task4 DONE: sitemap P- filter + regeneracja 13527 URLs (commit 713eba3); task5 IN PROGRESS: filtry techSpec
+[2026-05-30 21:49] task5 DONE: techSpec filters CategoryPage + queries.ts (commit fdeb971 → pushed)
+[2026-05-30 21:49] Wszystkie 5 tasków DONE: P-filter queries, schema.org (existed), AI shortDesc 77 prod, sitemap 13527 URLs, techSpec filters CategoryPage → commit fdeb971 pushed
+[2026-05-30 21:58] Czytam Pages.tsx (1496 linii) - planowanie rozbudowy podstron: Kontakt, O firmie, Realizacje, PolicyPage
+[2026-05-30 21:59] Rozpoczynam rozbudowę podstron: ContactPage (mapa, SEO, usunięcie placeholder), AboutPage (timeline, realizacje, schema.org), PolicyPage (useLocation, RODO osobno)
+[2026-05-30 22:05] UKOŃCZONO rozbudowę podstron: ContactPage (mapa Google dark-mode, useSEO, schema.org LocalBusiness, specjaliści bez placeholder, sekcja SEO), AboutPage (timeline 2008-2024, realizacje 6 kart, schema.org Organization, CTA section, statystyki), PolicyPage (useLocation zamiast window.location, RODO osobno 8 sekcji, Regulamin 9 sekcji, PP 9 sekcji, nawigacja kart). Commit 6e61b14 → push GitHub main. Build ✅ zero błędów TypeScript.
+[2026-05-30 22:11] Rozpoczynam: Blog useSEO + filtr kategorii + 5 nowych artykułów SEO (Lublin)
+[2026-05-30 22:17] Blog ukończony (f4272ba) — useSEO, filtr kategorii, 11 postów. Przechodzę do kalkulatora zużycia materiałów.
+[2026-05-30 22:21] Blog (f4272ba) + Kalkulator (a923ac8) gotowe. Cross-sell już istniał. Przechodzę: formularz EmailJS → FAQ per kategoria.
+[2026-05-30 22:30] Formularz Web3Forms (VITE_WEB3FORMS_KEY). Budowanie OK. Zaległe: FAQ per kategoria, P- placeholdery.
+[2026-05-30 22:31] Sesja zakończona. Commity: Blog useSEO+filtr+5art (f4272ba), Kalkulator /kalkulator 5 typów (a923ac8), Formularz Web3Forms (4a6e68a). Pozostało: FAQ per kategoria, P- placeholdery.
+[2026-05-31 10:29] Diagnoza: bug regex {4,60} w seo_names.py powoduje obcinanie nazw >61 znaków (~216 produktów). Błędne images[] z powodu złych nazw przy image_pipeline. Plan: fix_names.py + fix_images.py
+[2026-05-31 10:37] fix_names.py: 87 nazw naprawionych (regex {4,60}→{4,200}), 0 błędów, seoNameFixed=true ustawione. Uruchamiam fix_images.py dla tych 87 produktów.
+[2026-05-31 10:46] fix_images.py: 80 zdjęć naprawionych, 6 no_img (brak na bechcicki.pl), 1 fail. Łącznie naprawiono 87 nazw + 80 zdjęć.
+[2026-05-31 10:51] featured images: 8/8 zdjęć dodanych do produktów bez obrazów na stronie głównej (Weber, Swisspor, Knauf, Rockwool)
+[2026-05-31 11:01] Commerce.tsx: białe tło zdjęć (#f5f5f5), object-contain+p-4, badges POLECANY/NOWOŚĆ zachowane, usunięty panel 'Oferta B2B', przeniesione parametry techniczne do content (2-col grid). Commit aa9db5b.
+[2026-05-31 11:08] Diagnoza: 3 problemy — overflow karty, złe zdjęcia rozcieńczalnik na wielu produktach, za małe parametry (2→4). Plan: fix CSS + fix images Python + expand specs.
+[2026-05-31 11:41] fix_bad3: 2015 złych zdjęć (rozcieńczalnik) — 265 naprawione z nowym zdjęciem, 1750 wyczyszczone batch (placeholder). CSS: ciemne tło, h-200px, 4 params — commit 6065e77. TODO: re-upload 1750 produktów bez zdjęć używając image_pipeline.py z overlap-check.
+[2026-05-31 11:53] START: duże zadanie — zespół Kontakt (6 osób), telefon 533553344 wszędzie, Realizacje redesign, Historia z headera, 'wszystkie->' fix, laser hero, obrazy kategorii, wideo.
+[2026-05-31 11:54] Delegacja kodu do subagenta: telefon 533553344, zespół, realizacje, historia header, wszystkie->, laser hero. Obrazy kategorii w toku.

@@ -25,7 +25,7 @@ export function ContactPage() {
 
   useSEO({
     title: "Kontakt – Media Bud Lublin | Skład Budowlany ul. Chemiczna 8d",
-    description: "Skontaktuj się z Media Bud — składem budowlanym w Lublinie. Zadzwoń +48 509 567 213, napisz na sprzedaz@mediabud.pl lub odwiedź nas: ul. Chemiczna 8d, 20-329 Lublin. Pon–Pt 7:00–16:00.",
+    description: "Skontaktuj się z Media Bud — składem budowlanym w Lublinie. Zadzwoń +48 533 553 344, napisz na sprzedaz@mediabud.pl lub odwiedź nas: ul. Chemiczna 8d, 20-329 Lublin. Pon–Pt 7:00–16:00.",
     canonical: "/kontakt",
     schema: {
       "@context": "https://schema.org",
@@ -33,7 +33,7 @@ export function ContactPage() {
       "name": "Media Bud – Skład Budowlany",
       "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Obsługujemy klientów indywidualnych, wykonawców i firmy.",
       "url": "https://mediabud.pl",
-      "telephone": "+48509567213",
+      "telephone": "+48533553344",
       "email": "sprzedaz@mediabud.pl",
       "address": {
         "@type": "PostalAddress",
@@ -91,14 +91,14 @@ export function ContactPage() {
         toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24h.");
       }
     } catch {
-      toast.error("Nie udało się wysłać. Zadzwoń: +48 509 567 213");
+      toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
     } finally {
       setSending(false);
     }
   };
 
   const contactItems = [
-    { icon: <Phone className="w-5 h-5 text-[#f81828]" />, label: "Telefon", value: "+48 509 567 213", href: "tel:+48509567213" },
+    { icon: <Phone className="w-5 h-5 text-[#f81828]" />, label: "Telefon", value: "+48 533 553 344", href: "tel:+48533553344" },
     { icon: <Mail className="w-5 h-5 text-[#f81828]" />, label: "Email", value: "sprzedaz@mediabud.pl", href: "mailto:sprzedaz@mediabud.pl" },
     { icon: <MapPin className="w-5 h-5 text-[#f81828]" />, label: "Adres", value: "ul. Chemiczna 8d, 20-329 Lublin", href: "https://maps.google.com/maps?q=ul.+Chemiczna+8d,+20-329+Lublin" },
     { icon: <Clock className="w-5 h-5 text-[#f81828]" />, label: "Godziny otwarcia", value: "Pon–Pt: 7:00–16:00", href: undefined },
@@ -150,7 +150,7 @@ export function ContactPage() {
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828]" />
             <h3 className="font-bold text-white mb-1 text-sm">Potrzebujesz szybkiej odpowiedzi?</h3>
             <p className="text-xs text-gray-400 mb-3">Zadzwoń — nasi eksperci odpowiedzą na wszystkie pytania techniczne!</p>
-            <a href="tel:+48509567213">
+            <a href="tel:+48533553344">
               <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold text-[#f81828] transition-all hover:bg-[#f81828] hover:text-white" style={{ border: "1px solid rgba(248,24,40,0.4)" }}>
                 <Phone className="w-4 h-4" /> Zadzwoń teraz
               </button>
@@ -305,31 +305,42 @@ export function ContactPage() {
               Zadzwoń lub napisz — nasi doradcy techniczni pomogą dobrać materiały, wycenić zakres i omówić szczegóły projektu.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
             {[
-              { icon: "🏗️", role: "Doradca techniczny", desc: "Pomaga dobrać system materiałowy do projektu — tynki, kleje, ocieplenia, wykończenia.", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
-              { icon: "📦", role: "Specjalista ds. materiałów", desc: "Odpowiada na pytania o dostępność, ceny i logistykę dostaw dla wykonawców i firm.", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
-              { icon: "🤝", role: "Obsługa klienta B2B", desc: "Koordynuje zamówienia hurtowe, warunki współpracy i harmonogramy dla firm i deweloperów.", phone: "+48 509 567 213", email: "sprzedaz@mediabud.pl" },
+              { icon: "👤", name: "Igor Szewczyk", role: "Doradca klienta", phone: "+48 533 553 344", email: "sprzedaz@mediabud.pl" },
+              { icon: "👤", name: "Daniel Chocyk", role: "Doradca klienta", phone: "+48 533 553 344", email: "sprzedaz@mediabud.pl" },
+              { icon: "👤", name: "Daniel Mączka", role: "Doradca klienta", phone: "+48 533 139 174", email: "sprzedaz@mediabud.pl" },
+              { icon: "👤", name: "Katarzyna Modyniak", role: "Dział finansowy", phone: "+48 733 066 010", email: "finanse@mediabud.pl" },
+              { icon: "👤", name: "Magdalena Siwek", role: "Dział obsługi klienta", phone: "+48 733 088 018", email: "sprzedaz@mediabud.pl" },
+              { icon: "👤", name: "Paulina Gwardyńska", role: "Asystentka zarządu", phone: "+48 733 088 010", email: "biuro@mediabud.pl" },
             ].map((person, i) => (
               <div
                 key={i}
-                className="rounded-xl p-5 flex items-start gap-4 transition-all duration-300"
-                style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.35)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.08)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#1a1a1a"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+                className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300"
+                style={{ background: "linear-gradient(180deg, rgba(15,15,15,0.98), rgba(8,8,8,0.98))", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 18px 40px rgba(0,0,0,0.22)" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.45)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 18px 42px rgba(248,24,40,0.12)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 18px 40px rgba(0,0,0,0.22)"; }}
               >
-                <div className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center text-2xl" style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.18)" }}>
-                  {person.icon}
-                </div>
-                <div className="min-w-0">
-                  <div className="font-bold text-white text-sm mb-1">{person.role}</div>
-                  <div className="text-xs text-gray-500 mb-3 leading-relaxed">{person.desc}</div>
-                  <a href={`tel:${person.phone.replace(/\s/g, "")}`} className="flex items-center gap-1.5 text-xs mb-1 transition-colors hover:text-white" style={{ color: "#888" }}>
-                    <Phone className="w-3 h-3" /> {person.phone}
-                  </a>
-                  <a href={`mailto:${person.email}`} className="flex items-center gap-1.5 text-xs transition-colors hover:text-white" style={{ color: "#888" }}>
-                    <Mail className="w-3 h-3" /> {person.email}
-                  </a>
+                <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: "linear-gradient(90deg, transparent 0%, #f81828 30%, #ff6b6b 50%, #f81828 70%, transparent 100%)" }} />
+                <div className="absolute right-4 top-4 text-[11px] font-black uppercase tracking-[0.22em] text-[#f81828]/80">Kontakt</div>
+                <div className="relative z-10 flex items-start gap-4">
+                  <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl text-2xl" style={{ background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.24)", boxShadow: "inset 0 0 18px rgba(248,24,40,0.08)" }}>
+                    {person.icon}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-1 text-lg font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>{person.name}</div>
+                    <div className="mb-4 inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em]" style={{ background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.22)", color: "#f2b3b8" }}>{person.role}</div>
+                    <div className="space-y-2.5 text-sm">
+                      <a href={`tel:${person.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-gray-300 transition-colors hover:text-white">
+                        <Phone className="w-4 h-4 text-[#f81828]" />
+                        <span className="font-semibold">{person.phone}</span>
+                      </a>
+                      <a href={`mailto:${person.email}`} className="flex items-center gap-2 text-gray-300 transition-colors hover:text-white break-all">
+                        <Mail className="w-4 h-4 text-[#f81828]" />
+                        <span>{person.email}</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -351,7 +362,7 @@ export function ContactPage() {
           </p>
           <div className="grid sm:grid-cols-3 gap-4 mt-8">
             {[
-              { label: "Telefon", val: "+48 509 567 213", link: "tel:+48509567213", icon: <Phone className="w-4 h-4" /> },
+              { label: "Telefon", val: "+48 533 553 344", link: "tel:+48533553344", icon: <Phone className="w-4 h-4" /> },
               { label: "E-mail", val: "sprzedaz@mediabud.pl", link: "mailto:sprzedaz@mediabud.pl", icon: <Mail className="w-4 h-4" /> },
               { label: "NIP", val: "[do uzupełnienia]", link: undefined, icon: <MapPin className="w-4 h-4" /> },
             ].map((item, i) => (
@@ -388,7 +399,7 @@ export function AboutPage() {
       "name": "Media Bud",
       "url": "https://mediabud.pl",
       "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Kompleksowe wsparcie dla Twojego projektu budowlanego.",
-      "telephone": "+48509567213",
+      "telephone": "+48533553344",
       "email": "sprzedaz@mediabud.pl",
       "address": {
         "@type": "PostalAddress",
@@ -443,7 +454,7 @@ export function AboutPage() {
               <h1 className="font-display text-3xl md:text-4xl font-black text-white mb-4 leading-tight">O firmie Media Bud</h1>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">Profesjonalna hurtownia materiałów budowlanych w Lublinie. Obsługujemy deweloperów, wykonawców i klientów indywidualnych, oferując kompleksowe wsparcie techniczne i najwyższą jakość produktów.</p>
               <div className="flex gap-3 flex-wrap">
-                <a href="tel:+48509567213">
+                <a href="tel:+48533553344">
                   <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#f81828] text-white text-sm font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_16px_rgba(248,24,40,0.4)]">
                     <Phone className="w-4 h-4" /> Zadzwoń
                   </button>
@@ -590,9 +601,9 @@ export function AboutPage() {
             Niezależnie czy planujesz budowę domu, remont, ocieplenie czy kompleksowe wykończenie — skontaktuj się z nami. Przygotujemy wycenę, dobierzemy materiały i zaproponujemy ścieżkę realizacji.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href="tel:+48509567213">
+            <a href="tel:+48533553344">
               <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#f81828] text-white text-sm font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_20px_rgba(248,24,40,0.4)]">
-                <Phone className="w-4 h-4" /> +48 509 567 213
+                <Phone className="w-4 h-4" /> +48 533 553 344
               </button>
             </a>
             <Link to="/kontakt">
@@ -649,7 +660,7 @@ const services: ServiceDetail[] = [
       "Obsługa lokalna: Lublin i województwo lubelskie.",
       "Model współpracy: konsultacja, kosztorys, harmonogram dostaw, rekomendacja lub koordynacja ekip.",
       "Materiały systemowe: Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor, Bolix, Termo Organika, Baumit, Rigips, Ursa.",
-      "Kontakt operacyjny: ul. Chemiczna 8, 20-329 Lublin, +48 509 567 213, sprzedaz@mediabud.pl.",
+      "Kontakt operacyjny: ul. Chemiczna 8, 20-329 Lublin, +48 533 553 344, sprzedaz@mediabud.pl.",
       "Koszt realizacji programu: [do potwierdzenia] — zależny od zakresu i etapu inwestycji."
     ],
     zastosowanie: [
@@ -1170,7 +1181,7 @@ const generalFaq: FaqItem[] = [
   { q: "Czy w ofercie są usługi dla klientów indywidualnych i firm?", a: "Tak. Oferta została podzielona na segmenty B2C, B2B i usługi wspólne. Klienci indywidualni mogą skorzystać m.in. z programu Dom od podstaw, budowy domu, termomodernizacji i wykończeń pod klucz, a firmy z remontów B2B i usług wspólnych, takich jak dachy czy elewacje." },
   { q: "Czy MediaBud pomaga przy termomodernizacji z programem Czyste Powietrze?", a: "MediaBud wspiera przygotowanie inwestycji materiałowo i wykonawczo, ale nie deklaruje automatycznego uzyskania dotacji. W researchu wskazano dofinansowanie do 136 200 zł oraz możliwość prefinansowania do 35% w określonych przypadkach, jednak każdy wniosek i zakres prac trzeba potwierdzić indywidualnie." },
   { q: "Czy można zamówić samą usługę albo same materiały?", a: "Zakres współpracy jest elastyczny. W zależności od usługi MediaBud może przygotować wycenę materiałów, wskazać sprawdzonych fachowców albo przeprowadzić klienta przez szerszy proces realizacji." },
-  { q: "Jak zgłosić zapytanie o usługę w Lublinie?", a: "Najprościej zadzwonić pod +48 509 567 213, napisać na sprzedaz@mediabud.pl albo odwiedzić MediaBud przy ul. Chemicznej 8, 20-329 Lublin. W zapytaniu warto podać lokalizację, typ obiektu, zakres robót i oczekiwany termin." }
+  { q: "Jak zgłosić zapytanie o usługę w Lublinie?", a: "Najprościej zadzwonić pod +48 533 553 344, napisać na sprzedaz@mediabud.pl albo odwiedzić MediaBud przy ul. Chemicznej 8, 20-329 Lublin. W zapytaniu warto podać lokalizację, typ obiektu, zakres robót i oczekiwany termin." }
 ];
 
 function ServiceSection({ title, items, accent = "#f81828" }: { title: string; items: string[]; accent?: string }) {
@@ -1257,7 +1268,7 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
               </div>
               {/* frazySEO hidden */}
               <div className="space-y-3">
-                <a href="tel:+48509567213" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white transition-colors" style={{ background: "#f81828", boxShadow: "0 14px 32px rgba(248,24,40,0.22)" }}>
+                <a href="tel:+48533553344" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white transition-colors" style={{ background: "#f81828", boxShadow: "0 14px 32px rgba(248,24,40,0.22)" }}>
                   <Phone className="w-4 h-4" /> Zadzwoń
                 </a>
                 <Link to="/kontakt" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white border border-[#2d2d2d] bg-[#050505]">
@@ -1298,8 +1309,8 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
               <p className="text-sm md:text-base leading-relaxed text-[#e6e6e6]">Zadzwoń, wyślij zakres prac lub odwiedź skład. Przygotujemy wycenę, dobierzemy system materiałowy i zaproponujemy ścieżkę realizacji dopasowaną do segmentu {service.segment}.</p>
             </div>
             <div className="flex flex-col gap-3 min-w-[240px]">
-              <a href="tel:+48509567213" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white" style={{ background: "#f81828", boxShadow: "0 12px 30px rgba(248,24,40,0.25)" }}>
-                <Phone className="w-4 h-4" /> +48 509 567 213
+              <a href="tel:+48533553344" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white" style={{ background: "#f81828", boxShadow: "0 12px 30px rgba(248,24,40,0.25)" }}>
+                <Phone className="w-4 h-4" /> +48 533 553 344
               </a>
               <a href="mailto:sprzedaz@mediabud.pl" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white border border-[#2d2d2d] bg-[#0a0a0a]">
                 <Mail className="w-4 h-4 text-[#ff6b35]" /> sprzedaz@mediabud.pl
@@ -1327,7 +1338,7 @@ export function ServicesPage() {
     name: "MediaBud — usługi wykonawcze i materiały budowlane",
     description: "Usługi wykonawcze MediaBud w Lublinie: budowa domów, termomodernizacja, wykończenia pod klucz, dachy, elewacje, remonty B2B i adaptacja poddaszy.",
     url: "https://mediabud.pl",
-    telephone: "+48509567213",
+    telephone: "+48533553344",
     email: "sprzedaz@mediabud.pl",
     address: {
       "@type": "PostalAddress",
@@ -1753,13 +1764,13 @@ export function PolicyPage() {
             <>
               <Section t="§1 Postanowienia ogólne" c="Regulamin określa zasady korzystania z serwisu internetowego mediabud.pl prowadzonego przez Media Bud z siedzibą przy ul. Chemicznej 8d, 20-329 Lublin. Korzystanie z serwisu oznacza akceptację niniejszego regulaminu w brzmieniu aktualnym na dzień korzystania." />
               <Section t="§2 Zakres działalności" c="Media Bud prowadzi sprzedaż materiałów budowlanych oraz świadczy usługi doradztwa technicznego i koordynacji wykonawczej. Serwis mediabud.pl stanowi platformę informacyjną i ofertową — zamówienia finalizowane są drogą telefoniczną, mailową lub bezpośrednio w hurtowni." />
-              <Section t="§3 Składanie zamówień i zapytań ofertowych" c="Zapytania ofertowe i zamówienia przyjmowane są: telefonicznie (+48 509 567 213, Pon–Pt 7:00–16:00), mailowo (sprzedaz@mediabud.pl) oraz przez formularz kontaktowy na stronie. Po złożeniu zapytania klient otrzymuje odpowiedź w ciągu 1 dnia roboczego." />
+              <Section t="§3 Składanie zamówień i zapytań ofertowych" c="Zapytania ofertowe i zamówienia przyjmowane są: telefonicznie (+48 533 553 344, Pon–Pt 7:00–16:00), mailowo (sprzedaz@mediabud.pl) oraz przez formularz kontaktowy na stronie. Po złożeniu zapytania klient otrzymuje odpowiedź w ciągu 1 dnia roboczego." />
               <Section t="§4 Ceny i płatności" c="Ceny materiałów podawane są w złotych polskich (PLN) i mogą być cenami netto lub brutto — kwestię tę każdorazowo potwierdzamy w ofercie. Media Bud wystawia faktury VAT. Dostępne formy płatności: przelew bankowy, gotówka przy odbiorze osobistym, płatność kartą na miejscu. Warunki odroczonego terminu płatności dla klientów B2B ustalane są indywidualnie." />
               <Section t="§5 Dostawa i logistyka" c="Dostawy realizowane są na terenie Lublina i województwa lubelskiego. Standardowy czas realizacji: 1–3 dni robocze od potwierdzenia zamówienia. Dostawa tego samego dnia możliwa przy zamówieniach złożonych do 10:00 w promieniu 30 km od Lublina — wymaga oddzielnego potwierdzenia dostępności. Koszty dostawy ustalane indywidualnie w zależności od lokalizacji, wolumenu i rodzaju materiałów." />
               <Section t="§6 Reklamacje i zwroty" c="Reklamacje dotyczące jakości produktów należy zgłaszać do 7 dni od daty zakupu — telefonicznie lub mailowo. Rozpatrujemy reklamacje w ciągu 14 dni roboczych. W przypadku towaru uszkodzonego podczas transportu prosimy o sporządzenie protokołu szkody w obecności dostawcy." />
               <Section t="§7 Odpowiedzialność" c="Media Bud nie ponosi odpowiedzialności za szkody wynikłe z nieprawidłowego zastosowania materiałów niezgodnego z kartami technicznymi producentów. Dobór materiałów do konkretnych warunków wykonawczych pozostaje w gestii wykonawcy lub inwestora." />
               <Section t="§8 Postanowienia końcowe" c="Niniejszy regulamin może ulec zmianie. Aktualna wersja jest zawsze dostępna na stronie mediabud.pl/regulamin. W sprawach nieuregulowanych zastosowanie mają przepisy Kodeksu Cywilnego i obowiązującego prawa polskiego." />
-              <Section t="§9 Kontakt" c="Media Bud, ul. Chemiczna 8d, 20-329 Lublin | tel. +48 509 567 213 | e-mail: sprzedaz@mediabud.pl | Pon–Pt: 7:00–16:00." />
+              <Section t="§9 Kontakt" c="Media Bud, ul. Chemiczna 8d, 20-329 Lublin | tel. +48 533 553 344 | e-mail: sprzedaz@mediabud.pl | Pon–Pt: 7:00–16:00." />
             </>
           ) : isRodo ? (
             <>

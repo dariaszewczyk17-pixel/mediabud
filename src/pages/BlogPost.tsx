@@ -136,9 +136,9 @@ export default function BlogPost() {
             <h3 className="font-display text-2xl font-black text-white mb-2">Masz pytania? Skontaktuj się z ekspertem!</h3>
             <p className="text-gray-400 mb-6 text-sm">Bezpłatne doradztwo techniczne dla każdego klienta Media Bud.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
-              <a href="tel:+48509567213">
+              <a href="tel:+48533553344">
                 <Button size="lg" className="bg-[#f81828] hover:bg-[#c8000f] font-bold hover:shadow-[0_0_20px_rgba(248,24,40,0.4)] transition-all">
-                  <Phone className="w-4 h-4 mr-2" />+48 509 567 213
+                  <Phone className="w-4 h-4 mr-2" />+48 533 553 344
                 </Button>
               </a>
               <Button size="lg" variant="outline" className="border-[#f81828]/40 text-[#f81828] hover:bg-[#f81828] hover:text-white font-bold transition-all" onClick={() => setQuoteOpen(true)}>

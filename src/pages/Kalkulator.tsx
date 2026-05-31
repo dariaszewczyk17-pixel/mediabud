@@ -372,7 +372,7 @@ export default function KalkulatorPage() {
               <p className="text-sm text-gray-400 leading-relaxed">Skontaktuj się z naszym doradcą — podaj obliczone ilości, a przygotujemy ofertę z dostawą na budowę w Lublinie i województwie lubelskim.</p>
             </div>
             <div className="flex flex-col gap-3 min-w-[200px]">
-              <a href="tel:+48509567213" className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wide text-white" style={{ background: "#f81828" }}>
+              <a href="tel:+48533553344" className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wide text-white" style={{ background: "#f81828" }}>
                 <Phone className="w-4 h-4" /> Zadzwoń
               </a>
               <Link to="/kontakt" className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wide text-white border border-white/10">

@@ -445,10 +445,10 @@ export default function ProductDetail() {
 
               {/* Phone */}
               <a
-                href="tel:+48509567213"
+                href="tel:+48533553344"
                 className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-500 hover:text-[#f81828] transition-colors pt-1"
               >
-                <Phone className="w-4 h-4" /> +48 509 567 213
+                <Phone className="w-4 h-4" /> +48 533 553 344
               </a>
             </div>
           </div>
@@ -615,7 +615,7 @@ export default function ProductDetail() {
                   <div className="flex-1 rounded-xl p-4" style={{ background: "rgba(248,24,40,0.07)", border: "1px solid rgba(248,24,40,0.16)" }}>
                     <div className="flex items-center gap-2 mb-1"><Phone className="w-4 h-4 text-[#f81828]" /><span className="font-semibold text-sm text-white">Doradztwo techniczne</span></div>
                     <p className="text-xs text-gray-500 mb-2">Pomożemy dobrać produkt do Twojego projektu.</p>
-                    <a href="tel:+48509567213" className="text-sm font-bold text-[#f81828] hover:underline">+48 509 567 213</a>
+                    <a href="tel:+48533553344" className="text-sm font-bold text-[#f81828] hover:underline">+48 533 553 344</a>
                   </div>
                   <button className="sm:self-end flex items-center gap-1.5 text-sm font-medium px-4 py-2.5 rounded-xl text-gray-400 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
                     <FileText className="w-3.5 h-3.5" /> Karta techniczna (PDF)

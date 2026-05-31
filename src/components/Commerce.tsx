@@ -307,7 +307,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
               )}
               <p className="text-xs text-gray-500">Jak chcesz się z nami skontaktować?</p>
 
-              <a href="tel:+48509567213"
+              <a href="tel:+48533553344"
                 className="group flex items-center gap-4 p-4 rounded-xl transition-all duration-200"
                 style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(16,185,129,0.4)"; (e.currentTarget as HTMLElement).style.background = "rgba(16,185,129,0.07)"; }}
@@ -320,7 +320,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                 </div>
                 <div>
                   <div className="font-bold text-white text-sm">Zadzwoń teraz</div>
-                  <div className="text-sm font-medium text-emerald-400">+48 509 567 213</div>
+                  <div className="text-sm font-medium text-emerald-400">+48 533 553 344</div>
                   <div className="text-[10px] text-gray-600 mt-0.5">Pon–Pt 7:00–17:00 · Sob 8:00–14:00</div>
                 </div>
               </a>
@@ -421,9 +421,9 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
               <p className="text-xs text-gray-500 mb-5 leading-relaxed">
                 Odpowiemy w ciągu 24 godzin roboczych.<br />Możesz też zadzwonić bezpośrednio.
               </p>
-              <a href="tel:+48509567213"
+              <a href="tel:+48533553344"
                 className="inline-flex items-center gap-1.5 font-bold text-sm text-[#f81828] hover:underline mb-4 block">
-                <Phone className="w-4 h-4" /> +48 509 567 213
+                <Phone className="w-4 h-4" /> +48 533 553 344
               </a>
               <button onClick={handleClose}
                 className="w-full py-2.5 rounded-xl bg-[#f81828] text-white text-sm font-bold hover:bg-[#c8000f] transition-colors">
@@ -605,9 +605,9 @@ export function WycenaDrawer() {
                   </div>
                   <h3 className="font-display font-black text-white mb-2">Zapytanie wysłane!</h3>
                   <p className="text-xs text-gray-500 mb-4">Odpowiemy w ciągu 24h roboczych.</p>
-                  <a href="tel:+48509567213"
+                  <a href="tel:+48533553344"
                     className="block font-bold text-sm text-[#f81828] hover:underline">
-                    <Phone className="w-4 h-4 inline mr-1" />+48 509 567 213
+                    <Phone className="w-4 h-4 inline mr-1" />+48 533 553 344
                   </a>
                 </div>
               )}
@@ -627,7 +627,7 @@ export function WycenaDrawer() {
               <Mail className="w-4 h-4" /> Wyślij zapytanie ({items.length} prod.)
             </button>
             <div className="flex gap-2">
-              <a href="tel:+48509567213"
+              <a href="tel:+48533553344"
                 className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:border-gray-500 transition-colors"
                 style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
                 <Phone className="w-3.5 h-3.5" /> Zadzwoń

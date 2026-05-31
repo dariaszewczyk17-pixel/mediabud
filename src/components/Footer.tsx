@@ -153,13 +153,13 @@ export default function Footer() {
             </h4>
             <div className="space-y-3 mb-6 text-sm" style={{ color: "#888" }}>
               <a
-                href="tel:+48509567213"
+                href="tel:+48533553344"
                 className="block transition-colors duration-200"
                 style={{ color: "#888" }}
                 onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#fff"; }}
                 onMouseLeave={e => { (e.target as HTMLAnchorElement).style.color = "#888"; }}
               >
-                +48 509 567 213
+                +48 533 553 344
               </a>
               <a
                 href="mailto:sprzedaz@mediabud.pl"
@@ -207,7 +207,7 @@ export default function Footer() {
 
         <div style={{ borderTop: "1px solid #1a1a1a" }} className="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs" style={{ color: "#888" }}>© 2026 Media Bud. Wszelkie prawa zastrzeżone.</p>
-          <p className="text-xs" style={{ color: "#444" }}>Lublin, ul. Chemiczna 8d | +48 509 567 213 | sprzedaz@mediabud.pl</p>
+          <p className="text-xs" style={{ color: "#444" }}>Lublin, ul. Chemiczna 8d | +48 533 553 344 | sprzedaz@mediabud.pl</p>
         </div>
       </div>
     </footer>

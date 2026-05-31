@@ -1083,6 +1083,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Grafiki — skład i budowa ── */}
+      <section className="py-0 overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="relative h-64 md:h-80 overflow-hidden group">
+            <img src="/images/section-warehouse_2_2.png" alt="Skład budowlany Media Bud — asortyment materiałów" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%)" }} />
+            <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ background: "#f81828", boxShadow: "2px 0 10px rgba(248,24,40,0.5)" }} />
+            <div className="absolute inset-0 flex flex-col justify-end p-8">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-1" style={{ color: "#f81828" }}>— ASORTYMENT —</p>
+              <h3 className="font-display text-xl md:text-2xl font-black text-white leading-tight">15 000+ produktów<br/>w jednym miejscu</h3>
+            </div>
+          </div>
+          <div className="relative h-64 md:h-80 overflow-hidden group">
+            <img src="/images/section-construction_2_2.png" alt="Realizacje budowlane Media Bud — Lublin i region" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-[3px]" style={{ background: "#f81828", boxShadow: "-2px 0 10px rgba(248,24,40,0.5)" }} />
+            <div className="absolute inset-0 flex flex-col justify-end p-8 items-end text-right">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-1" style={{ color: "#f81828" }}>— REALIZACJE —</p>
+              <h3 className="font-display text-xl md:text-2xl font-black text-white leading-tight">Lublin i województwo<br/>lubelskie</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Jak działamy ── */}
       <section className="py-24" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
         <div className="container mx-auto px-4">

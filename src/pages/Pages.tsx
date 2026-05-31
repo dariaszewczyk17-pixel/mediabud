@@ -421,13 +421,7 @@ export function AboutPage() {
     { value: "50+", label: "partnerów-producentów" },
   ];
 
-  const timeline = [
-    { year: "2008", title: "Początki działalności", desc: "Media Bud startuje jako lokalny skład budowlany w Lublinie — obsługa detaliczna i pierwsze kontrakty z wykonawcami." },
-    { year: "2012", title: "Rozbudowa oferty", desc: "Rozszerzenie asortymentu o systemy ociepleniowe ETICS i pełną linię tynków elewacyjnych marek Weber i Ceresit." },
-    { year: "2016", title: "Obsługa B2B", desc: "Nawiązanie stałej współpracy z deweloperami i generalnymi wykonawcami — dostawy etapowe do budów na terenie województwa lubelskiego." },
-    { year: "2020", title: "Usługi wykonawcze", desc: "Rozwinięcie oferty o koordynację usług wykonawczych — sieć sprawdzonych fachowców, doradztwo projektowe i program Dom od podstaw." },
-    { year: "2024", title: "Cyfryzacja i sklep online", desc: "Uruchomienie platformy mediabud.pl z katalogiem ponad 15 000 produktów, wyszukiwarką i systemem zapytań ofertowych B2B." },
-  ];
+
 
   const realizacje = [
     { category: "Budowa domu", location: "Świdnik, woj. lubelskie", scope: "Stan surowy + elewacja silikonowa Weber + ocieplenie Swisspor EPS 100 grafitowy", year: "2023" },
@@ -489,35 +483,6 @@ export function AboutPage() {
           <p className="text-gray-400 leading-relaxed">Nasza misja to dostarczanie sprawdzonych materiałów budowlanych połączone z praktycznym doradztwem technicznym. Pomagamy inwestorom, wykonawcom i firmom budować lepiej, szybciej i efektywniej — z jednego miejsca, bez zbędnych pośredników.</p>
         </div>
       </div>
-
-      {/* ── Historia — timeline ── */}
-      <section className="py-16" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2" style={{ color: "#f81828" }}>— HISTORIA —</p>
-            <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-3">Jak powstawał Media Bud</h2>
-          </div>
-          <div className="max-w-2xl mx-auto relative">
-            <div className="absolute left-[19px] top-0 bottom-0 w-px" style={{ background: "linear-gradient(to bottom, #f81828, rgba(248,24,40,0.1))" }} />
-            <div className="space-y-8">
-              {timeline.map((item, i) => (
-                <div key={i} className="flex gap-5 items-start">
-                  <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-black text-white z-10" style={{ background: "#f81828", boxShadow: "0 0 14px rgba(248,24,40,0.4)" }}>
-                    {item.year.slice(2)}
-                  </div>
-                  <div className="flex-1 pt-1.5">
-                    <div className="flex items-center gap-3 mb-1">
-                      <span className="text-[10px] font-black text-[#f81828] uppercase tracking-widest">{item.year}</span>
-                      <h3 className="font-bold text-white text-sm">{item.title}</h3>
-                    </div>
-                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── Nasze wartości ── */}
       <section className="py-16" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>

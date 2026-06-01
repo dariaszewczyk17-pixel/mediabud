@@ -1,5 +1,16 @@
 // ── Fragmenty GROQ ───────────────────────────────────────────────────────────
 
+const CATEGORY_CHAIN = `{
+  _id, "slug": slug.current, name,
+  "parent": parent->{
+    _id, "slug": slug.current, name,
+    "parent": parent->{
+      _id, "slug": slug.current, name,
+      "parent": parent->{ _id, "slug": slug.current, name }
+    }
+  }
+}`
+
 const PRODUCT_CARD_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
@@ -7,6 +18,7 @@ const PRODUCT_CARD_FIELDS = `{
   shortDescription, tags,
   "categorySlug": category->slug.current,
   "categoryName": category->name,
+  "categoryChain": category->${CATEGORY_CHAIN},
   "brand": brand->name,
   "images": images[].asset->url,
   technicalSpec[]{ label, value }
@@ -23,6 +35,7 @@ const PRODUCT_FULL_FIELDS = `{
   faq[]{ q, a },
   "categorySlug": category->slug.current,
   "categoryName": category->name,
+  "categoryChain": category->${CATEGORY_CHAIN},
   "brand": brand->name,
   "images": images[].asset->url,
   "related": related[]->${PRODUCT_CARD_FIELDS}

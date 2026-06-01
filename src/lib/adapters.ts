@@ -45,6 +45,7 @@ export interface SanityProduct {
   categorySlug?: string
   categoryName?: string
   categoryParentSlug?: string
+  categoryChain?: SanityCategory
   technicalSpec?: { label: string; value: string }[]
   images?: (string | null)[]
 }

@@ -8,7 +8,7 @@ import {
 import { getProductBySlug, products as staticProducts, type Product } from "@/data/products";
 import { getCategoryBySlug, getBreadcrumbs } from "@/data/categories";
 import { useProductBySlug, useRelatedProducts } from "@/hooks/useSanityData";
-import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
+import { sanityProductToLegacy, buildBreadcrumbs, type SanityProduct } from "@/lib/adapters";
 import { useSEO } from "@/hooks/useSEO";
 import { mergeProductCollections, mergeProductSources } from "@/lib/productMerge";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
@@ -141,8 +141,9 @@ export default function ProductDetail() {
 
   if (!product) return null;
 
-  const cat        = getCategoryBySlug(product.categorySlug);
-  const breadcrumbs = getBreadcrumbs(product.categorySlug);
+  const sanityChain = (sanityProduct as any)?.categoryChain;
+  const cat         = getCategoryBySlug(product.categorySlug);
+  const breadcrumbs = sanityChain ? buildBreadcrumbs(sanityChain) : getBreadcrumbs(product.categorySlug);
   const images     = product.images?.length ? product.images : ["/placeholder.svg"];
 
   const handleAdd = () => {

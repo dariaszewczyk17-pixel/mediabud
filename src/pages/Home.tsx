@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Award, Clock, ChevronLeft, Star, CheckCircle2, Send, Building2, HardHat, Home as HomeIcon, Layers } from "lucide-react";
+import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Award, Clock, ChevronLeft, Star, CheckCircle2, Send, Building2, HardHat, Home as HomeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { categories as staticCategories } from "@/data/categories";
@@ -185,48 +185,37 @@ const testimonials = [
 /* ─── Realizacje ──────────────────────────────────────────────── */
 const realizacje = [
   {
-    title: "Budowa domów jednorodzinnych — osiedle Majdan",
-    projectName: "Osiedle Majdan — etap I",
-    client: "Deweloper prywatny, Lublin",
-    scope: "Dostawa kompletnych systemów ETICS, tynki elewacyjne, kleje, siatki, grunty — 12 budynków",
-    value: "~320 000 zł",
+    title: "Budynek mieszkalno-usługowy w sercu Czub",
+    projectName: "Onyksowa Design — Lublin, ul. Onyksowa",
+    client: "Inwestor prywatny, Lublin",
+    scope: "Kompleksowa dostawa materiałów: systemy ETICS, tynki elewacyjne, chemia budowlana, materiały wykończeniowe — 7-kondygnacyjny budynek mieszkalno-usługowy",
+    value: "",
     year: "2024",
-    tags: ["ETICS", "Tynki elewacyjne", "12 budynków"],
-    image: "/images/real-ocieplenie_2.png",
+    tags: ["ETICS", "Tynki elewacyjne", "Lublin Czuby"],
+    image: "/images/real-onyksowa.jpg",
     icon: Building2,
   },
   {
-    title: "Kompleksowe wykończenie hali magazynowej",
-    projectName: "Hala logistyczna Świdnik",
-    client: "Firma przemysłowa, rejon lubelski",
-    scope: "Posadzki przemysłowe, hydroizolacje, tynki maszynowe, płyty GK — pow. 2 400 m²",
-    value: "~210 000 zł",
-    year: "2024",
-    tags: ["Posadzki", "Hydroizolacja", "2 400 m²"],
-    image: "/images/real-hala_2.png",
+    title: "Nowoczesne osiedle mieszkaniowe przy parku",
+    projectName: "Polesie Park — Łęczna, ul. Wierzbowa",
+    client: "TBV Deweloper, Lublin",
+    scope: "Dostawa materiałów konstrukcyjnych i wykończeniowych: bloczki, zaprawy, systemy elewacyjne, materiały izolacyjne — 5 budynków wielorodzinnych",
+    value: "",
+    year: "2025",
+    tags: ["Konstrukcja", "Izolacje", "5 budynków"],
+    image: "/images/real-polesie-park.jpg",
     icon: HardHat,
   },
   {
-    title: "Ocieplenie budynku wielorodzinnego",
-    projectName: "Budynek przy ul. Turystycznej, Lublin",
-    client: "Wspólnota mieszkaniowa",
-    scope: "System ETICS Baumit: styropian EPS 15cm, tynk silikonowy, rusztowania — pow. 1 800 m²",
-    value: "~185 000 zł",
-    year: "2023",
-    tags: ["ETICS Baumit", "Styropian 15cm", "1 800 m²"],
-    image: "/images/real-deweloper_2.png",
+    title: "Kameralne osiedle w Lublinie",
+    projectName: "Lubelska Osada — Lublin",
+    client: "Lubelska Osada Sp. z o.o.",
+    scope: "Kompleksowa dostawa materiałów budowlanych: chemia budowlana, materiały elewacyjne, izolacje, tynki — deweloperski standard wykończenia",
+    value: "",
+    year: "2025",
+    tags: ["Chemia budowlana", "Elewacje", "Lublin"],
+    image: "/images/real-lubelska-osada.jpg",
     icon: HomeIcon,
-  },
-  {
-    title: "Dostawa materiałów — osiedle mieszkaniowe",
-    projectName: "Osiedle Poligonowa — 3 etapy",
-    client: "Generalny wykonawca, Lublin",
-    scope: "Bloczki Ytong, Silka, Wienerberger; zaprawy murowe; belki Teriva — łącznie 28 domów",
-    value: "~450 000 zł",
-    year: "2023–2024",
-    tags: ["Ytong", "Silka", "28 domów"],
-    image: "/images/real-hydroizolacja_2.png",
-    icon: Layers,
   },
 ];
 
@@ -949,10 +938,12 @@ export default function Home() {
                     <p className="text-sm leading-relaxed text-gray-300">{r.scope}</p>
                   </div>
 
+                  {r.value && (
                   <div className="rounded-2xl border border-[#f81828]/25 bg-[#f81828]/[0.07] p-4">
                     <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f4b3b8]">Wartość zamówień</div>
                     <div className="mt-1 font-display text-3xl font-black text-[#f81828]" style={{ textShadow: "0 0 14px rgba(248,24,40,0.22)" }}>{r.value}</div>
                   </div>
+                  )}
 
                   <div className="flex flex-wrap gap-2">
                     {r.tags.map((tag) => (

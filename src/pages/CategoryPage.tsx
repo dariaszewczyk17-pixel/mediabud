@@ -13,6 +13,8 @@ import {
   type SanityCategory,
 } from "@/lib/adapters";
 import { mergeProductCollections } from "@/lib/productMerge";
+import { prefetchSanity } from "@/lib/sanity";
+import { PRODUCTS_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
 import { ProductCard } from "@/components/Commerce";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -96,21 +98,49 @@ export default function CategoryPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
-  // allSubSlugs pochodzi TYLKO z Sanity — eliminuje podwójny fetch
-  // (bez tego: static cat → fetch1, potem Sanity cat → fetch2 z nowymi slugami)
-  const allSubSlugs = useMemo(() => {
-    if (!sanityCategory) return [];
+  /* Prefetch produktów gdy user najeżdża na link kategorii */
+  const prefetchForSlug = useCallback((targetSlug: string) => {
+    const staticCat = getCategoryBySlug(targetSlug);
+    if (!staticCat) return;
+    const collect = (c: typeof staticCat): string[] => [
+      c.slug, ...(c.children?.flatMap(ch => collect(ch)) || []),
+    ];
+    const slugs = collect(staticCat).sort();
+    if (slugs.length) prefetchSanity(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs, limit: 2000 });
+  }, []);
+
+  // Slugi ze statycznych danych — dostępne NATYCHMIAST, bez czekania na Sanity
+  const staticSubSlugs = useMemo(() => {
+    const staticCat = slug ? getCategoryBySlug(slug) : null;
+    if (!staticCat) return [] as string[];
+    const collect = (c: typeof staticCat): string[] => [
+      c.slug, ...(c.children?.flatMap(child => collect(child)) || []),
+    ];
+    return collect(staticCat).sort();
+  }, [slug]);
+
+  // Slugi z Sanity — dokładniejsze, dostępne po ~200-400ms
+  const sanitySubSlugs = useMemo(() => {
+    if (!sanityCategory) return null; // null = jeszcze się ładuje
     const legacyCat = sanityCategoryToLegacy(sanityCategory as SanityCategory);
     const collect = (c: typeof legacyCat): string[] => [
       c.slug, ...(c.children?.flatMap(child => collect(child)) || []),
     ];
-    return collect(legacyCat);
+    return collect(legacyCat).sort();
   }, [sanityCategory]);
+
+  // Używaj static slugs NATYCHMIAST (fetch startuje równolegle z Sanity category).
+  // Gdy Sanity category załaduje → przełącz na Sanity slugs.
+  // Cache w sanityFetch sprawia, że jeśli slugi są identyczne → zero dodatkowych requestów.
+  const allSubSlugs = useMemo(
+    () => sanitySubSlugs ?? staticSubSlugs,
+    [sanitySubSlugs, staticSubSlugs],
+  );
 
   const { data: sanityProducts, loading: productsLoading, error: productsError } = useProductsByCategorySlugs(allSubSlugs);
 
-  // true gdy czekamy na kategorię LUB na produkty
-  const isLoadingProducts = !sanityCategory || productsLoading;
+  // Ładowanie = dopóki produkty nie dotarły (nie czekamy już na kategorię)
+  const isLoadingProducts = productsLoading && !sanityProducts;
 
   const catProducts = useMemo(() => {
     const staticCategoryProducts = staticProducts.filter(p => allSubSlugs.includes(p.categorySlug));
@@ -516,6 +546,7 @@ export default function CategoryPage() {
                   <div key={topCat.id}>
                     <Link
                       to={`/kategoria/${topCat.slug}`}
+                      onMouseEnter={() => prefetchForSlug(topCat.slug)}
                       className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all my-0.5 ${
                         topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)
                           ? "bg-[#f81828] text-white"
@@ -530,6 +561,7 @@ export default function CategoryPage() {
                           <Link
                             key={sub.id}
                             to={`/kategoria/${sub.slug}`}
+                            onMouseEnter={() => prefetchForSlug(sub.slug)}
                             className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs transition-all ${
                               sub.id === cat.id
                                 ? "text-[#f81828] font-bold bg-[#f81828]/10"

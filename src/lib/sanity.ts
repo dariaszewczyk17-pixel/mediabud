@@ -31,3 +31,13 @@ export async function sanityFetch<T = any>(query: string, params?: Record<string
     throw error
   }
 }
+
+/**
+ * Rozgrzewa cache bez blokowania — wywołaj na hover linka kategorii.
+ * Jeśli dane już są w cache → no-op. Błędy ignorowane (fire & forget).
+ */
+export function prefetchSanity(query: string, params?: Record<string, any>): void {
+  const key = query + JSON.stringify(params ?? {})
+  if (queryCache.has(key)) return          // już w cache — nic nie rób
+  sanityFetch(query, params).catch(() => {}) // fire & forget
+}

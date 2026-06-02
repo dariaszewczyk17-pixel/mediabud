@@ -9,6 +9,7 @@ import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import { ContactPage, AboutPage, ServicesPage, AdminPanel, AllCategoriesPage, PolicyPage } from "@/pages/Pages";
 import KalkulatorPage from "@/pages/Kalkulator";
+import BrandsPage from "@/pages/BrandsPage";
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/regulamin" element={<PolicyPage />} />
           <Route path="/sitemap" element={<AllCategoriesPage />} />
           <Route path="/kalkulator" element={<KalkulatorPage />} />
+          <Route path="/marki" element={<BrandsPage />} />
           <Route path="*" element={<Home />} />
         </Route>
       </Routes>

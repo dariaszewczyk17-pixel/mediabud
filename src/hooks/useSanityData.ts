@@ -12,6 +12,7 @@ import {
   ALL_BLOG_POSTS_QUERY,
   BLOG_POST_BY_SLUG_QUERY,
   SITE_SETTINGS_QUERY,
+  ALL_BRANDS_QUERY,
 } from '@/lib/queries'
 
 // ─── Bazowy hook ──────────────────────────────────────────────────────────────
@@ -109,3 +110,7 @@ export const useBlogPostBySlug = (slug: string) =>
 /** Ustawienia witryny */
 export const useSiteSettings = () =>
   useSanityQuery(SITE_SETTINGS_QUERY)
+
+/** Wszystkie marki */
+export const useAllBrands = () =>
+  useSanityQuery(ALL_BRANDS_QUERY)

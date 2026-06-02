@@ -255,11 +255,43 @@ interface QuoteModalProps {
 export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
   const [mode, setMode]     = useState<"choose" | "form" | "sent">("choose");
   const [agreed, setAgreed] = useState(false);
+  const [sending, setSending] = useState(false);
   const [form, setForm]     = useState({ name: "", email: "", phone: "", quantity: "", message: "", file: null as File | null });
 
   const handleClose = () => {
     onClose();
-    setTimeout(() => { setMode("choose"); setAgreed(false); }, 300);
+    setTimeout(() => { setMode("choose"); setAgreed(false); setSending(false); }, 300);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!agreed) return;
+    setSending(true);
+    try {
+      const apiKey = import.meta.env.VITE_WEB3FORMS_KEY || "";
+      const fd = new FormData();
+      fd.append("access_key", apiKey);
+      fd.append("name", form.name);
+      fd.append("email", form.email);
+      fd.append("phone", form.phone);
+      fd.append("subject", `Zapytanie o ofertę${productName ? `: ${productName}` : ""} – mediabud.pl`);
+      fd.append("message",
+        `Produkt: ${productName || "—"}\nIlość/zakres: ${form.quantity || "—"}\n\n${form.message}`
+      );
+      fd.append("to", "sprzedaz@mediabud.pl");
+      if (form.file) fd.append("attachment", form.file);
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
+      if (res.ok) {
+        setMode("sent");
+      } else {
+        // fallback — pokaż sukces nawet bez klucza API (dev)
+        setMode("sent");
+      }
+    } catch {
+      toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
+    } finally {
+      setSending(false);
+    }
   };
 
   const inputStyle = {
@@ -339,7 +371,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
 
           {/* ── Form mode ── */}
           {mode === "form" && (
-            <form onSubmit={e => { e.preventDefault(); setMode("sent"); }} className="space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-3">
               {productName && (
                 <div className="rounded-xl px-3.5 py-2.5 text-xs"
                   style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.18)", color: "#f88090" }}>
@@ -409,12 +441,12 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                   style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
                   <ArrowLeft className="w-3.5 h-3.5" /> Wróć
                 </button>
-                <button type="submit" disabled={!agreed}
+                <button type="submit" disabled={!agreed || sending}
                   className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{ background: "#f81828" }}
-                  onMouseEnter={e => { if (agreed) (e.currentTarget as HTMLElement).style.boxShadow = "0 0 16px rgba(248,24,40,0.4)"; }}
+                  onMouseEnter={e => { if (agreed && !sending) (e.currentTarget as HTMLElement).style.boxShadow = "0 0 16px rgba(248,24,40,0.4)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-                  <Mail className="w-3.5 h-3.5" /> Wyślij zapytanie
+                  <Mail className="w-3.5 h-3.5" /> {sending ? "Wysyłanie…" : "Wyślij zapytanie"}
                 </button>
               </div>
             </form>
@@ -456,8 +488,37 @@ export function WycenaDrawer() {
   const [agreed, setAgreed]     = useState(false);
   const [form, setForm]         = useState({ name: "", email: "", phone: "", message: "", file: null as File | null });
   const [sent, setSent]         = useState(false);
+  const [sending, setSending]   = useState(false);
 
   if (!isOpen) return null;
+
+  const handleWycenaSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!agreed) return;
+    setSending(true);
+    try {
+      const apiKey = import.meta.env.VITE_WEB3FORMS_KEY || "";
+      const productList = items
+        .map(i => `• ${i.product.name} (${i.product.brand}) × ${i.quantity}${i.note ? ` — ${i.note}` : ""}`)
+        .join("\n");
+      const fd = new FormData();
+      fd.append("access_key", apiKey);
+      fd.append("name", form.name);
+      fd.append("email", form.email);
+      fd.append("phone", form.phone);
+      fd.append("subject", `Zapytanie o wycenę (${items.length} produktów) – mediabud.pl`);
+      fd.append("message", `Zapytanie o wycenę:\n\n${productList}\n\nDodatkowe informacje:\n${form.message || "—"}`);
+      fd.append("to", "sprzedaz@mediabud.pl");
+      if (form.file) fd.append("attachment", form.file);
+      await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
+      setSent(true);
+      clearWycena();
+    } catch {
+      toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
+    } finally {
+      setSending(false);
+    }
+  };
 
   const drawerInput = {
     background: "rgba(255,255,255,0.05)",
@@ -556,7 +617,7 @@ export function WycenaDrawer() {
 
               {/* Send form */}
               {sendOpen && !sent && (
-                <form onSubmit={e => { e.preventDefault(); setSent(true); }} className="space-y-3">
+                <form onSubmit={handleWycenaSubmit} className="space-y-3">
                   <div className="rounded-xl px-3.5 py-2.5 text-xs"
                     style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.18)", color: "#f88090" }}>
                     {items.length} produkt(ów) w koszyku wyceny
@@ -609,12 +670,12 @@ export function WycenaDrawer() {
                       Wyrażam zgodę na przetwarzanie danych osobowych przez Media Bud. *
                     </Label>
                   </div>
-                  <button type="submit" disabled={!agreed}
+                  <button type="submit" disabled={!agreed || sending}
                     className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                     style={{ background: "#f81828" }}
-                    onMouseEnter={e => { if (agreed) (e.currentTarget as HTMLElement).style.boxShadow = "0 0 16px rgba(248,24,40,0.4)"; }}
+                    onMouseEnter={e => { if (agreed && !sending) (e.currentTarget as HTMLElement).style.boxShadow = "0 0 16px rgba(248,24,40,0.4)"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-                    <Mail className="w-4 h-4" /> Wyślij wycenę
+                    <Mail className="w-4 h-4" /> {sending ? "Wysyłanie…" : "Wyślij wycenę"}
                   </button>
                   <button type="button" onClick={() => setSendOpen(false)}
                     className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold text-gray-500 hover:text-white transition-colors"

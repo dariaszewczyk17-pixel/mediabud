@@ -14,8 +14,11 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 /* ─── Reveal hook ─────────────────────────────────────────────── */
 function useReveal(threshold = 0.05) {
   const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+  const prefersReduced = typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [visible, setVisible] = useState(prefersReduced);
   useEffect(() => {
+    if (prefersReduced) return; // animacje wyłączone systemowo
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
@@ -24,7 +27,7 @@ function useReveal(threshold = 0.05) {
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [threshold]);
+  }, [threshold, prefersReduced]);
   return { ref, visible };
 }
 

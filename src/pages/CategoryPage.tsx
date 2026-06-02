@@ -22,15 +22,17 @@ const PRODUCTS_PER_PAGE = 12;
 
 /* Callback-ref reveal — działa nawet gdy element pojawia się po załadowaniu danych */
 function useReveal() {
-  const [vis, setVis] = useState(false);
+  const prefersReduced = typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [vis, setVis] = useState(prefersReduced);
   const ref = useCallback((node: HTMLDivElement | null) => {
-    if (!node) return;
+    if (!node || vis) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
       { threshold: 0.06, rootMargin: "0px 0px -20px 0px" }
     );
     obs.observe(node);
-  }, []);
+  }, [vis]);
   return { ref, vis };
 }
 
@@ -105,7 +107,7 @@ export default function CategoryPage() {
     return collect(legacyCat);
   }, [sanityCategory]);
 
-  const { data: sanityProducts, loading: productsLoading } = useProductsByCategorySlugs(allSubSlugs);
+  const { data: sanityProducts, loading: productsLoading, error: productsError } = useProductsByCategorySlugs(allSubSlugs);
 
   // true gdy czekamy na kategorię LUB na produkty
   const isLoadingProducts = !sanityCategory || productsLoading;
@@ -800,6 +802,19 @@ export default function CategoryPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+            ) : productsError ? (
+              /* Error state */
+              <div className="rounded-2xl p-12 text-center" style={{ background: "#0f0f0f", border: "1px solid rgba(248,24,40,0.15)" }}>
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl"
+                  style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.2)" }}>⚠️</div>
+                <h3 className="font-bold text-white mb-2">Nie udało się załadować produktów</h3>
+                <p className="text-gray-500 text-sm mb-5">Sprawdź połączenie z internetem i spróbuj ponownie.</p>
+                <button onClick={() => window.location.reload()}
+                  className="px-5 py-2 rounded-lg text-sm font-bold text-white transition-all hover:shadow-[0_0_16px_rgba(248,24,40,0.4)]"
+                  style={{ background: "#f81828" }}>
+                  Spróbuj ponownie
+                </button>
               </div>
             ) : paginated.length > 0 ? (
               <>

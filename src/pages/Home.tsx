@@ -526,55 +526,60 @@ export default function Home() {
       {/* ── Nasi producenci — Brand Logo Scroller ── */}
       <section
         ref={r7.ref as React.RefObject<HTMLElement>}
-        className="py-10 overflow-hidden"
-        style={{ background: "#f7f8fa", borderTop: "1px solid #e5e5e5", borderBottom: "1px solid #e5e5e5" }}
+        className="py-10 overflow-hidden relative"
+        style={{ background: "#0a0a0a", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
       >
-        <div className="container mx-auto px-4 mb-6">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#555" }}>
+        {/* górna linia akcentu */}
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,transparent,#f81828 30%,rgba(248,24,40,0.3) 70%,transparent)" }} />
+
+        <div className="container mx-auto px-4 mb-6 flex items-center gap-4">
+          <span className="w-[3px] h-5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
             Nasi producenci
           </p>
+          <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg,rgba(248,24,40,0.25),transparent)" }} />
         </div>
+
         <div className="relative overflow-hidden">
-          <div
-            className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, #f7f8fa, transparent)" }}
-          />
-          <div
-            className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, #f7f8fa, transparent)" }}
-          />
+          {/* fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to right, #0a0a0a, transparent)" }} />
+          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to left, #0a0a0a, transparent)" }} />
 
           <style>{`
             @keyframes brand-scroll {
               0% { transform: translateX(0); }
               100% { transform: translateX(-50%); }
             }
-            .brand-track { animation: brand-scroll 30s linear infinite; }
+            .brand-track { animation: brand-scroll 28s linear infinite; }
             .brand-track:hover { animation-play-state: paused; }
+            .brand-card { transition: border-color 0.3s, box-shadow 0.3s; }
+            .brand-card:hover { border-color: rgba(248,24,40,0.5) !important; box-shadow: 0 0 18px rgba(248,24,40,0.12); }
+            .brand-card img { filter: brightness(0) invert(1); opacity: 0.45; transition: opacity 0.3s, filter 0.3s; }
+            .brand-card:hover img { opacity: 0.9; filter: brightness(0) invert(1); }
           `}</style>
 
-          <div className="brand-track flex items-center gap-16 whitespace-nowrap" style={{ width: "max-content" }}>
+          <div className="brand-track flex items-center gap-8 whitespace-nowrap" style={{ width: "max-content" }}>
             {[...brandLogos, ...brandLogos].map((brand, i) => (
-              <div key={`${brand.name}-${i}`} className="inline-flex items-center justify-center px-4 group flex-shrink-0">
+              <div key={`${brand.name}-${i}`} className="inline-flex items-center justify-center flex-shrink-0">
                 <div
-                  className="flex items-center justify-center transition-all duration-300 group-hover:shadow-md"
+                  className="brand-card flex items-center justify-center"
                   style={{
-                    background: "#fff",
-                    border: "1px solid #e8e8e8",
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(255,255,255,0.08)",
                     borderRadius: "10px",
-                    padding: "12px 20px",
-                    minWidth: "120px",
-                    minHeight: "60px",
+                    padding: "14px 24px",
+                    minWidth: "130px",
+                    minHeight: "64px",
                   }}
                 >
                   <img
                     src={brand.url}
                     alt={brand.name}
                     loading="lazy"
-                    className="h-8 w-auto object-contain transition-all duration-300"
-                    style={{ maxWidth: "110px", opacity: 0.8 }}
-                    onMouseEnter={e => { (e.target as HTMLImageElement).style.opacity = "1"; }}
-                    onMouseLeave={e => { (e.target as HTMLImageElement).style.opacity = "0.8"; }}
+                    className="h-9 w-auto object-contain"
+                    style={{ maxWidth: "120px" }}
                   />
                 </div>
               </div>

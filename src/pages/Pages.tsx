@@ -364,7 +364,7 @@ export function ContactPage() {
             {[
               { label: "Telefon", val: "+48 533 553 344", link: "tel:+48533553344", icon: <Phone className="w-4 h-4" /> },
               { label: "E-mail", val: "sprzedaz@mediabud.pl", link: "mailto:sprzedaz@mediabud.pl", icon: <Mail className="w-4 h-4" /> },
-              { label: "NIP", val: "[do uzupełnienia]", link: undefined, icon: <MapPin className="w-4 h-4" /> },
+              { label: "NIP", val: "9462743421", link: undefined, icon: <MapPin className="w-4 h-4" /> },
             ].map((item, i) => (
               <div key={i} className="rounded-xl p-4" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}>
                 <div className="flex items-center gap-2 text-[#f81828] mb-2">{item.icon}<span className="text-xs font-bold uppercase tracking-wider">{item.label}</span></div>

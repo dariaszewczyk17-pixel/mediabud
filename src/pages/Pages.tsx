@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
-import { Phone, Mail, MapPin, Clock, Check, Users, Award, Truck, Star, ChevronRight, BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil, Trash2, Zap, Shield, ArrowRight, Home, PaintBucket, Ruler, Hammer, Building2, HousePlus } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Check, Users, Award, Truck, Star, ChevronRight, BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil, Trash2, Zap, Shield, ArrowRight, Home, PaintBucket, Ruler, Hammer, Building2, HousePlus, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -424,12 +424,33 @@ export function AboutPage() {
 
 
   const realizacje = [
-    { category: "Budowa domu", location: "Świdnik, woj. lubelskie", scope: "Stan surowy + elewacja silikonowa Weber + ocieplenie Swisspor EPS 100 grafitowy", year: "2023" },
-    { category: "Termomodernizacja", location: "Lublin, ul. Filaretów", scope: "Ocieplenie 320 m² ściany zewnętrznej — system Atlas Stopter K-20 + tynk silikonowy Bolix", year: "2023" },
-    { category: "Remont B2B", location: "Lublin, obiekt usługowy", scope: "Kompleksowe wykończenie wnętrz — sucha zabudowa Knauf, gładzie, malowanie, podłogi", year: "2024" },
-    { category: "Adaptacja poddasza", location: "Lublin, dzielnica Czuby", scope: "Zabudowa skosów Rigips + izolacja Rockwool Flexi + paroizolacja, 85 m²", year: "2024" },
-    { category: "Elewacja systemowa", location: "Puławy, budynek wielorodzinny", scope: "Elewacja tynkiem silikatowym Ceresit na budynku 4-kondygnacyjnym, 680 m²", year: "2022" },
-    { category: "Dach skośny", location: "Niemce k. Lublina", scope: "Nowy dach skośny — blachodachówka + folia Delta-Maxx + wełna Isover między krokwiami", year: "2023" },
+    {
+      category: "Budynek mieszkalno-usługowy",
+      location: "Lublin, ul. Onyksowa (Czuby)",
+      scope: "Kompleksowa dostawa materiałów budowlanych: systemy ETICS, tynki elewacyjne, chemia budowlana, materiały wykończeniowe — 7-kondygnacyjny budynek mieszkalno-usługowy.",
+      year: "2024",
+      image: "/images/real-onyksowa.jpg",
+      client: "Onyksowa Design",
+      url: "https://onyksowadesign.pl/",
+    },
+    {
+      category: "Osiedle wielorodzinne",
+      location: "Łęczna, ul. Wierzbowa",
+      scope: "Dostawa materiałów konstrukcyjnych i wykończeniowych: bloczki, zaprawy murowe, systemy elewacyjne, materiały izolacyjne — 5 budynków wielorodzinnych.",
+      year: "2025",
+      image: "/images/real-polesie-park.jpg",
+      client: "TBV Deweloper — Polesie Park",
+      url: "https://tbv.pl/polesie-park-nowe-mieszkania-leczna-2-2/",
+    },
+    {
+      category: "Kameralne osiedle mieszkaniowe",
+      location: "Lublin",
+      scope: "Kompleksowa dostawa materiałów budowlanych: chemia budowlana, materiały elewacyjne, izolacje, tynki — deweloperski standard wykończenia.",
+      year: "2025",
+      image: "/images/real-lubelska-osada.jpg",
+      client: "Lubelska Osada Sp. z o.o.",
+      url: "https://lubelskaosada.pl/",
+    },
   ];
 
   return (
@@ -533,27 +554,43 @@ export function AboutPage() {
         {/* ── Wybrane realizacje ── */}
         <div className="rounded-xl p-8" style={card}>
           <h2 className="font-display text-2xl font-black text-white mb-2 flex items-center gap-2">
-            <span className="w-[3px] h-6 bg-[#f81828] rounded-full" /> Wybrane realizacje
+            <span className="w-[3px] h-6 bg-[#f81828] rounded-full" /> Nasze realizacje
           </h2>
-          <p className="text-gray-500 text-sm mb-6">Projekty zrealizowane przy wsparciu materiałowym i wykonawczym Media Bud na terenie Lublina i województwa lubelskiego.</p>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <p className="text-gray-500 text-sm mb-6">Projekty zrealizowane przy wsparciu materiałowym i wykonawczym Media Bud — byliśmy głównym wykonawcą i dostawcą materiałów budowlanych.</p>
+          <div className="grid sm:grid-cols-3 gap-5">
             {realizacje.map((r, i) => (
-              <div key={i} className="rounded-xl p-5 transition-all duration-200"
+              <div key={i} className="rounded-xl overflow-hidden transition-all duration-200 flex flex-col"
                 style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.3)"; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.35)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; }}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">{r.category}</span>
-                  <span className="text-[10px] text-gray-600 font-mono">{r.year}</span>
+                {/* Zdjęcie */}
+                {r.image && (
+                  <div className="h-44 overflow-hidden">
+                    <img src={r.image} alt={r.client} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                  </div>
+                )}
+                <div className="p-5 flex flex-col flex-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">{r.category}</span>
+                    <span className="text-[10px] text-gray-600 font-mono">{r.year}</span>
+                  </div>
+                  {r.client && (
+                    <div className="text-sm font-bold text-white mb-1">{r.client}</div>
+                  )}
+                  <div className="text-xs text-gray-500 mb-2 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 shrink-0" /> {r.location}
+                  </div>
+                  <p className="text-sm text-gray-300 leading-relaxed flex-1">{r.scope}</p>
+                  {r.url && (
+                    <a href={r.url} target="_blank" rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#f81828] hover:underline">
+                      Strona inwestycji <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
                 </div>
-                <div className="text-xs text-gray-500 mb-2 flex items-center gap-1">
-                  <MapPin className="w-3 h-3" /> {r.location}
-                </div>
-                <p className="text-sm text-gray-300 leading-relaxed">{r.scope}</p>
               </div>
             ))}
           </div>
-          <p className="text-xs text-gray-600 mt-5 text-center">* Szczegóły realizacji podane orientacyjnie. Pełne portfolio dostępne po kontakcie z naszym doradcą.</p>
         </div>
       </div>
 

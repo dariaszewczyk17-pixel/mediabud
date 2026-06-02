@@ -160,14 +160,6 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
             </span>
           </div>
 
-          {/* Quick view — pojawia się na hover */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0"
-            style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}>
-            <span className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-white rounded-lg"
-              style={{ background: "#f81828", letterSpacing: "0.15em" }}>
-              Szybki podgląd
-            </span>
-          </div>
         </Link>
 
         {/* ── Content ── */}

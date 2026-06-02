@@ -8,6 +8,7 @@ import { getRecentBlogPosts } from "@/data/blog";
 import { useAllCategories, useFeaturedProducts as useSanityFeatured } from "@/hooks/useSanityData";
 import { sanityCategoryToLegacy, sanityProductToLegacy } from "@/lib/adapters";
 import { sanityFetch } from "@/lib/sanity";
+import { BESTSELLER_SLUGS } from "@/lib/bestsellers";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
@@ -228,25 +229,6 @@ const PRODUCT_TABS = [
   { id: "bestsellery",  label: "Bestsellery" },
 ];
 
-/**
- * Bestsellery materiałów budowlanych — sklep Media Bud Lublin 2025.
- * Kolejność = popularność wg badań rynku (ASM Research, Budowlana Marka Roku 2025,
- * dane sprzedażowe ETICS/izolacje/chemia budowlana PL).
- */
-const BESTSELLER_SLUGS = [
-  "klej-do-styropianu-atlas-stopter-k-20",      // #1 klej do ocieplenia fasad (ETICS)
-  "styropian-fasadowy-eps-100-swisspor",         // #1 izolacja termiczna budynków
-  "welna-fasadowa-rockwool-frontrock-max-e",     // wełna fasadowa — klasa A1, niepalność
-  "tynk-silikonowy-weber-pas-dr1",              // tynk silikonowy elewacyjny — bestseller
-  "tynk-gipsowy-knauf-goldband-25kg",           // #1 tynk gipsowy wnętrza PL
-  "klej-do-plytek-ceresit-cm11-25kg",           // #1 klej do płytek ceramicznych i gresu
-  "farba-elewacyjna-caparol-silikoncolor-10l",  // farba elewacyjna silikonowa — ochrona fasady
-  "siatka-elewacyjna-vertex-r131",              // siatka zbrojąca — element systemu ETICS
-  "bloczek-beton-komorkowy-ytong-240",          // beton komórkowy — najpopularniejszy materiał murarski
-  "cement-portlandzki-cem-i-425r-25kg",         // cement CEM I — podstawa każdej budowy
-  "zaprawa-murarska-baumit-manu2-25kg",         // zaprawa murarska — do bloczków i cegieł
-  "hydroizolacja-bitumiczna-ceresit-cr-65",     // hydroizolacja — fundamenty i łazienki
-];
 
 /* ================================================================
    COMPONENT

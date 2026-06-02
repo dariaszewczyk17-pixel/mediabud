@@ -23,17 +23,17 @@ import { toast } from "sonner";
  * był tworzony nawet gdy element pojawia się w DOM po załadowaniu danych.
  */
 function useReveal() {
-  const [vis, setVis] = useState(false);
-
+  const prefersReduced = typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [vis, setVis] = useState(prefersReduced);
   const ref = useCallback((node: HTMLDivElement | null) => {
-    if (!node) return;
+    if (!node || vis) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
       { threshold: 0.06, rootMargin: "0px 0px -20px 0px" }
     );
     obs.observe(node);
-  }, []);
-
+  }, [vis]);
   return { ref, vis };
 }
 
@@ -42,7 +42,7 @@ type Tab = "opis" | "specyfikacja" | "zastosowanie" | "zalety" | "faq";
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
 
-  const { data: sanityProduct, loading: productLoading } = useProductBySlug(slug ?? '');
+  const { data: sanityProduct, loading: productLoading, error: productError } = useProductBySlug(slug ?? '');
 
   const staticProduct = useMemo(
     () => (slug ? getProductBySlug(slug) : null),
@@ -124,7 +124,7 @@ export default function ProductDetail() {
     ogImage: product?.images?.[0] ?? undefined,
   });
 
-  if (!product && !productLoading) {
+  if (!product && !productLoading && !productError) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "#080808" }}>
         <div className="text-center px-4">
@@ -139,7 +139,43 @@ export default function ProductDetail() {
     );
   }
 
-  if (!product) return null;
+  if (productError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#080808" }}>
+        <div className="text-center px-4">
+          <div className="text-4xl mb-4">⚠️</div>
+          <h1 className="text-xl font-bold text-white mb-2">Nie udało się załadować produktu</h1>
+          <p className="text-gray-500 mb-6 text-sm">Sprawdź połączenie z internetem i spróbuj ponownie.</p>
+          <button onClick={() => window.location.reload()}
+            className="px-6 py-2.5 rounded-xl font-bold text-white text-sm"
+            style={{ background: "#f81828" }}>
+            Spróbuj ponownie
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  /* Skeleton — produkt tylko w Sanity (brak w static data) i jeszcze się ładuje */
+  if (!product && productLoading) {
+    return (
+      <div className="min-h-screen animate-pulse" style={{ background: "#080808" }}>
+        <div className="container mx-auto px-4 py-8">
+          <div className="h-4 w-64 rounded mb-8" style={{ background: "#1a1a1a" }} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="aspect-square rounded-2xl" style={{ background: "#0f0f0f" }} />
+            <div className="space-y-4 pt-2">
+              <div className="h-3 w-1/4 rounded" style={{ background: "#1a1a1a" }} />
+              <div className="h-8 w-3/4 rounded" style={{ background: "#1a1a1a" }} />
+              <div className="h-4 w-1/2 rounded" style={{ background: "#1a1a1a" }} />
+              <div className="h-20 w-full rounded-xl mt-4" style={{ background: "#0f0f0f" }} />
+              <div className="h-12 w-full rounded-xl mt-6" style={{ background: "#1a1a1a" }} />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const sanityChain = (sanityProduct as any)?.categoryChain;
   const cat         = getCategoryBySlug(product.categorySlug);

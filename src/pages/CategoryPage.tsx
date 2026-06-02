@@ -51,6 +51,7 @@ export default function CategoryPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [view, setView] = useState<"grid" | "list">("grid");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [mobileCatsOpen, setMobileCatsOpen] = useState(false);
 
   const { data: sanityCategory } = useCategoryBySlug(slug ?? '');
   const { data: sanityTopCats }  = useAllCategories();
@@ -484,9 +485,9 @@ export default function CategoryPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
 
-          {/* ── Sidebar ── */}
+          {/* ── Sidebar — widoczny tylko ≥ lg ── */}
           <aside
-            className="lg:w-60 flex-shrink-0 space-y-4 lg:sticky lg:top-[calc(var(--header-h,96px)+8px)] lg:self-start"
+            className="hidden lg:flex lg:flex-col lg:w-60 flex-shrink-0 gap-4 lg:sticky lg:top-[calc(var(--header-h,96px)+8px)] lg:self-start"
             style={{ maxHeight: "calc(100vh - 7rem)", overflowY: "auto", scrollbarWidth: "none" }}
           >
 
@@ -645,6 +646,17 @@ export default function CategoryPage() {
                   <SlidersHorizontal className="w-3.5 h-3.5" /> Filtry
                   {hasActiveFilters && <span className="w-2 h-2 bg-[#f81828] rounded-full" />}
                 </button>
+                {/* Mobile categories toggle */}
+                <button
+                  className="lg:hidden flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
+                  style={{
+                    border: mobileCatsOpen ? "1px solid rgba(248,24,40,0.5)" : "1px solid rgba(255,255,255,0.1)",
+                    color: mobileCatsOpen ? "#f81828" : "#9ca3af",
+                  }}
+                  onClick={() => setMobileCatsOpen(!mobileCatsOpen)}
+                >
+                  <Filter className="w-3.5 h-3.5" /> Kategorie
+                </button>
                 {/* Sort */}
                 <select
                   value={sortBy}
@@ -685,6 +697,55 @@ export default function CategoryPage() {
                 style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}
               >
                 <FilterPanel />
+              </div>
+            )}
+
+            {/* Mobile categories panel */}
+            {mobileCatsOpen && (
+              <div
+                className="lg:hidden rounded-xl overflow-hidden mb-4"
+                style={{ background: "#0f0f0f", border: "1px solid rgba(248,24,40,0.2)" }}
+              >
+                <div className="px-4 py-2.5 flex items-center gap-2" style={{ background: "rgba(248,24,40,0.08)", borderBottom: "1px solid rgba(248,24,40,0.15)" }}>
+                  <Filter className="w-3.5 h-3.5 text-[#f81828]" />
+                  <span className="text-[#f81828] font-bold text-xs tracking-wide uppercase">Kategorie</span>
+                </div>
+                <div className="p-2">
+                  {categories.map(topCat => (
+                    <div key={topCat.id}>
+                      <Link
+                        to={`/kategoria/${topCat.slug}`}
+                        onClick={() => setMobileCatsOpen(false)}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all my-0.5 ${
+                          topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)
+                            ? "bg-[#f81828] text-white"
+                            : "text-gray-400 hover:bg-[#f81828]/10 hover:text-white"
+                        }`}
+                      >
+                        {topCat.name}
+                      </Link>
+                      {(topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)) && topCat.children && (
+                        <div className="ml-4 pl-3 mb-1 space-y-0.5" style={{ borderLeft: "2px solid rgba(248,24,40,0.25)" }}>
+                          {topCat.children.slice(0, 14).map(sub => (
+                            <Link
+                              key={sub.id}
+                              to={`/kategoria/${sub.slug}`}
+                              onClick={() => setMobileCatsOpen(false)}
+                              className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs transition-all ${
+                                sub.id === cat.id
+                                  ? "text-[#f81828] font-bold bg-[#f81828]/10"
+                                  : "text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/8"
+                              }`}
+                            >
+                              {sub.id === cat.id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 

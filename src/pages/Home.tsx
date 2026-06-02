@@ -554,10 +554,10 @@ export default function Home() {
             }
             .brand-track { animation: brand-scroll 28s linear infinite; }
             .brand-track:hover { animation-play-state: paused; }
-            .brand-card { transition: border-color 0.3s, box-shadow 0.3s, background 0.3s; }
-            .brand-card:hover { border-color: rgba(248,24,40,0.45) !important; box-shadow: 0 0 18px rgba(248,24,40,0.12); background: rgba(255,255,255,0.07) !important; }
-            .brand-card img { filter: grayscale(1) brightness(1.8); opacity: 0.5; transition: opacity 0.3s, filter 0.3s; }
-            .brand-card:hover img { opacity: 1; filter: grayscale(0) brightness(1); }
+            .brand-card { transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+            .brand-card:hover { border-color: rgba(248,24,40,0.6) !important; box-shadow: 0 4px 20px rgba(248,24,40,0.18); transform: translateY(-2px); }
+            .brand-card img { opacity: 1; transition: opacity 0.3s; }
+            .brand-card:hover img { opacity: 0.85; }
           `}</style>
 
           <div className="brand-track flex items-center gap-8 whitespace-nowrap" style={{ width: "max-content" }}>
@@ -566,8 +566,8 @@ export default function Home() {
                 <div
                   className="brand-card flex items-center justify-center"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "#ffffff",
+                    border: "1px solid rgba(255,255,255,0.15)",
                     borderRadius: "10px",
                     padding: "14px 24px",
                     minWidth: "130px",

@@ -120,7 +120,6 @@ const serviceCards = [
   { segment: "B2C", tag: "BUDOWA", title: "Budowa domów Lublin", desc: "Kompleksowa budowa domu z lokalnym zapleczem materiałowym i wykonawczym.", href: "/uslugi/budowa-domow-lublin" },
   { segment: "B2C", tag: "TERMO", title: "Termomodernizacja i ocieplenia", desc: "Ocieplenia, systemy ETICS i przygotowanie inwestycji pod lokalne programy wsparcia.", href: "/uslugi/termomodernizacja-ocieplenia" },
   { segment: "B2C", tag: "POD KLUCZ", title: "Wykończenia wnętrz pod klucz", desc: "Koordynacja materiałów i ekip wykończeniowych dla domów, mieszkań i lokali.", href: "/uslugi/wykonczenia-wnetrz-pod-klucz" },
-  { segment: "B2C", tag: "70 M²", title: "Budowa domów do 70 m²", desc: "Małe domy z naciskiem na prostą logistykę, energooszczędność i przewidywalny proces.", href: "/uslugi/budowa-domow-do-70m2" },
   { segment: "Oba", tag: "DACHY", title: "Usługi dekarskie Lublin", desc: "Pokrycia dachowe, wymiany i prace dekarskie dla klientów prywatnych i firm.", href: "/uslugi/uslugi-dekarskie-lublin" },
   { segment: "Oba", tag: "ELEWACJE", title: "Elewacje i tynki Lublin", desc: "Systemowe elewacje i tynki zewnętrzne dla domów oraz obiektów użytkowych.", href: "/uslugi/elewacje-tynki-lublin" },
   { segment: "B2B", tag: "OBIEKTY", title: "Remonty B2B Lublin", desc: "Remonty dla galerii, szkół i obiektów użyteczności publicznej z logistyką MediaBud.", href: "/uslugi/remonty-b2b-lublin" },

@@ -830,51 +830,6 @@ const services: ServiceDetail[] = [
     cta: "Zapytaj o wykończenie wnętrz pod klucz"
   },
   {
-    slug: "budowa-domow-do-70m2",
-    title: "Budowa domów do 70 m²",
-    segment: "B2C",
-    icon: <Ruler className="w-6 h-6 text-[#f81828]" />,
-    badge: "B2C · kompaktowe realizacje",
-    krotkiOpis: "Usługa dla inwestorów planujących budowę małego domu do 70 m² w okolicach Lublina — z naciskiem na prostą logistykę, efektywną technologię i etapowanie kosztów.",
-    dlugiOpis: `Małe domy do 70 m² cieszą się rosnącym zainteresowaniem — są tańsze w budowie, prostsze w utrzymaniu i często nie wymagają pozwolenia na budowę (zależy od aktualnych przepisów i przeznaczenia). Pomagamy inwestorom przejść przez cały proces: od doboru technologii i materiałów, przez etapowanie kosztów, aż po koordynację wykonawców. Skupiamy się na prostych bryłach, dobrej izolacyjności i materiałach sprawdzonych w naszym klimacie. Nie narzucamy jednego rozwiązania — każdą realizację dopasowujemy do działki, projektu i celu użytkowania.`,
-    parametry: [
-      "Powierzchnia referencyjna usługi: do 70 m².",
-      "Typ realizacji: dom całoroczny lub rekreacyjny [do potwierdzenia w projekcie].",
-      "Kluczowe cechy: prosta bryła, dobra izolacyjność, efektywna logistyka materiałowa.",
-      "Zakres: wycena, dobór materiałów, wykonawstwo etapowe lub kompleksowe.",
-      "Technologia wykonania: dobierana indywidualnie do projektu.",
-      "Budżet realizacji: [do potwierdzenia] po analizie dokumentacji i standardu."
-    ],
-    zastosowanie: [
-      "Budowa pierwszego niewielkiego domu dla rodziny lub pary.",
-      "Realizacja domu rekreacyjnego lub weekendowego.",
-      "Inwestycja na małej działce z ograniczoną powierzchnią zabudowy.",
-      "Projekt wymagający zwartej bryły i ograniczenia kosztów eksploatacyjnych.",
-      "Budowa domu, który można rozliczać etapami."
-    ],
-    zalety: [
-      "Usługa dopasowana do realnych lokalnych zapytań o domy do 70 m².",
-      "Łatwiejsza kontrola budżetu niż przy dużej inwestycji.",
-      "Możliwość połączenia budowy z energooszczędnymi rozwiązaniami materiałowymi.",
-      "Wsparcie składu budowlanego i wykonawców w jednym procesie.",
-      "Dobrze nadaje się do komunikacji SEO/AEO dla użytkowników szukających małych domów w regionie."
-    ],
-    korzysci: [
-      "Sprawniejsza organizacja budowy przy kompaktowym metrażu.",
-      "Mniejsze koszty utrzymania budynku przy dobrym doborze izolacji.",
-      "Czytelniejsze decyzje projektowe i materiałowe.",
-      "Mniej ryzyka zakupów ponad realne potrzeby inwestycji."
-    ],
-    ostrzezenia: [
-      "Warunki formalne dla budowy małych domów wymagają każdorazowego sprawdzenia w aktualnych przepisach i dokumentacji.",
-      "Mały metraż nie oznacza automatycznie niskiego kosztu za m² — wiele zależy od standardu i technologii.",
-      "Zakres pod klucz musi być opisany szczegółowo, by uniknąć rozbieżności oczekiwań.",
-      "Dostępność konkretnych rozwiązań prefabrykowanych lub modułowych wymaga oddzielnego potwierdzenia."
-    ],
-    frazySEO: ["budowa domów do 70m2 Lublin", "dom do 70 m2 Lublin", "mały dom całoroczny lubelskie", "dom 70m2 pod klucz"],
-    cta: "Poproś o konsultację dla domu do 70 m²"
-  },
-  {
     slug: "uslugi-dekarskie-lublin",
     title: "Usługi dekarskie Lublin",
     segment: "Oba",

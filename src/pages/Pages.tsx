@@ -307,12 +307,12 @@ export function ContactPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
             {[
-              { icon: "👤", name: "Igor Szewczyk", role: "Doradca klienta", phone: "+48 533 553 344", email: "sprzedaz@mediabud.pl" },
-              { icon: "👤", name: "Daniel Chocyk", role: "Doradca klienta", phone: "+48 533 553 344", email: "sprzedaz@mediabud.pl" },
-              { icon: "👤", name: "Daniel Mączka", role: "Doradca klienta", phone: "+48 533 139 174", email: "sprzedaz@mediabud.pl" },
-              { icon: "👤", name: "Katarzyna Modyniak", role: "Dział finansowy", phone: "+48 733 066 010", email: "finanse@mediabud.pl" },
-              { icon: "👤", name: "Magdalena Siwek", role: "Dział obsługi klienta", phone: "+48 733 088 018", email: "sprzedaz@mediabud.pl" },
-              { icon: "👤", name: "Paulina Gwardyńska", role: "Asystentka zarządu", phone: "+48 733 088 010", email: "biuro@mediabud.pl" },
+              { icon: "👤", name: "Igor Szewczyk",      role: "Doradca klienta",        phone: "+48 509 567 213", email: "dortechigorszewczyk@wp.pl" },
+              { icon: "👤", name: "Daniel Chocyk",      role: "Doradca klienta",        phone: "+48 533 553 344", email: "danielchocyk07@gmail.com" },
+              { icon: "👤", name: "Damian Mączka",      role: "Doradca klienta",        phone: "+48 533 139 174", email: "d.maczka@mediabud.pl" },
+              { icon: "👤", name: "Katarzyna Madyniak", role: "Dział finansowy",         phone: "+48 733 066 010", email: "biuro@mediabud.pl" },
+              { icon: "👤", name: "Magdalena Siwek",    role: "Dział obsługi klienta",  phone: "+48 733 088 018", email: "m.siwek@mediabud.pl" },
+              { icon: "👤", name: "Paulina Gwardyńska", role: "Asystentka zarządu",     phone: "+48 733 088 010", email: "p.gwardynska@mediabud.pl" },
             ].map((person, i) => (
               <div
                 key={i}

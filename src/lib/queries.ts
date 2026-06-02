@@ -11,6 +11,8 @@ const CATEGORY_CHAIN = `{
   }
 }`
 
+// Odchudzone pola karty produktu — bez categoryChain i technicalSpec
+// To eliminuje dziesiątki tysięcy dodatkowych joinów przy dużych listach
 const PRODUCT_CARD_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
@@ -18,12 +20,11 @@ const PRODUCT_CARD_FIELDS = `{
   shortDescription, tags,
   "categorySlug": category->slug.current,
   "categoryName": category->name,
-  "categoryChain": category->${CATEGORY_CHAIN},
   "brand": brand->name,
-  "images": images[].asset->url,
-  technicalSpec[]{ label, value }
+  "images": images[0..0].asset->url
 }`
 
+// Pełne pola produktu (szczegóły) — z wszystkimi joinami
 const PRODUCT_FULL_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
@@ -56,11 +57,9 @@ const CATEGORY_FIELDS = `{
   }
 }`
 
-// ── Filtr wykluczający puste placeholdery P-XXXXXXX ─────────────────────────
-// Produkty z nazwą "P-XXXXXXX" to puste rekordy bez danych – nie pokazujemy ich na froncie
 const NO_PLACEHOLDER = `!(name match "P-*")`
 
-// ── Stałe queries (eksportowane dla useSanityData.ts) ───────────────────────
+// ── Queries ──────────────────────────────────────────────────────────────────
 
 export const ALL_CATEGORIES_QUERY =
   `*[_type == "category" && !defined(parent)] | order(order asc, name asc) ${CATEGORY_FIELDS}`
@@ -71,16 +70,14 @@ export const ALL_PRODUCTS_QUERY =
 export const FEATURED_PRODUCTS_QUERY =
   `*[_type == "product" && featured == true && ${NO_PLACEHOLDER}][0...12] ${PRODUCT_CARD_FIELDS}`
 
+// ⚡ Kluczowa optymalizacja: jeden join zamiast czterech poziomów parent->
+// collectAllSlugs() po stronie frontu dostarcza już WSZYSTKIE podkategorie,
+// więc wystarczy sprawdzić bezpośredni slug kategorii produktu.
+export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
+  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...$limit] ${PRODUCT_CARD_FIELDS}`
+
 export const PRODUCTS_BY_CATEGORY_QUERY =
   `*[_type == "product" && category->slug.current == $slug && ${NO_PLACEHOLDER}] | order(name asc) ${PRODUCT_CARD_FIELDS}`
-
-export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && (
-    category->slug.current in $slugs ||
-    category->parent->slug.current in $slugs ||
-    category->parent->parent->slug.current in $slugs ||
-    category->parent->parent->parent->slug.current in $slugs
-  ) && ${NO_PLACEHOLDER}] | order(name asc) [0...2000] ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCT_BY_SLUG_QUERY =
   `*[_type == "product" && slug.current == $slug && ${NO_PLACEHOLDER}][0] ${PRODUCT_FULL_FIELDS}`

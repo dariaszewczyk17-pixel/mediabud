@@ -71,7 +71,7 @@ export function useProductsByCategorySlugs(slugs: string[]) {
     if (!slugs.length) { setLoading(false); return }
     let cancelled = false
     setLoading(true)
-    sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs })
+    sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs, limit: 2000 })
       .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
       .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
     return () => { cancelled = true }

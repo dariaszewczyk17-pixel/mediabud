@@ -12,7 +12,7 @@ import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 /* ─── Reveal hook ─────────────────────────────────────────────── */
-function useReveal(threshold = 0.12) {
+function useReveal(threshold = 0.05) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -20,7 +20,7 @@ function useReveal(threshold = 0.12) {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
+      { threshold, rootMargin: "0px 0px 80px 0px" }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -806,8 +806,8 @@ export default function Home() {
             {featured.map((p, i) => (
               <div
                 key={p.id}
-                className={`transition-all duration-500 ${r2.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 80}ms` }}
+                className={`transition-[opacity,transform] duration-500 ${r2.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{ transitionDelay: `${i * 80}ms`, willChange: r2.visible ? "auto" : "transform, opacity" }}
               >
                 <ProductCard product={p} />
               </div>
@@ -851,16 +851,17 @@ export default function Home() {
           {features.map((f, i) => (
             <div
               key={i}
-              className={`group rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`group rounded-xl p-6 transition-[opacity,transform] duration-300 md:hover:-translate-y-1 ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{
                 background: "#0f0f0f",
                 border: "1px solid rgba(255,255,255,0.07)",
-                transitionDelay: `${i * 70}ms`,
+                transitionDelay: `${Math.min(i * 70, 280)}ms`,
+                willChange: r4.visible ? "auto" : "transform, opacity",
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.35)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.10)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
             >
-              <div className="w-12 h-12 bg-[#1a1a1a] group-hover:bg-[#f81828] rounded-xl flex items-center justify-center text-2xl mb-4 transition-all duration-300">
+              <div className="w-12 h-12 bg-[#1a1a1a] group-hover:bg-[#f81828] rounded-xl flex items-center justify-center text-2xl mb-4 transition-colors duration-200">
                 {f.icon}
               </div>
               <h3 className="font-display font-black text-white mb-2 text-base">{f.title}</h3>

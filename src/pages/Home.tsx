@@ -504,8 +504,8 @@ export default function Home() {
             ].map((s, i) => (
               <div
                 key={i}
-                className="px-6 py-5 text-center group cursor-default transition-colors duration-200 hover:bg-[#f81828]/5"
-                style={{ borderRight: i < 3 ? "1px solid rgba(255,255,255,0.05)" : "none" }}
+                className={`px-4 md:px-6 py-4 md:py-5 text-center group cursor-default transition-colors duration-200 hover:bg-[#f81828]/5 ${i % 2 === 0 ? "border-r border-white/5" : "border-r-0 md:border-r md:border-white/5"} ${i >= 2 ? "border-t border-white/5 md:border-t-0" : ""} ${i === 3 ? "md:border-r-0" : ""}`}
+                style={{}}
               >
                 <div
                   className="font-black text-2xl text-[#f81828] mb-1"
@@ -1030,7 +1030,7 @@ export default function Home() {
       </section>
 
       {/* ── Dom od podstaw ── */}
-      <section id="dom-od-podstaw" className="py-24 relative overflow-hidden" style={{ background: "#000" }}>
+      <section id="dom-od-podstaw" className="py-14 md:py-24 relative overflow-hidden" style={{ background: "#000" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.04) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
@@ -1045,7 +1045,7 @@ export default function Home() {
           >
             Dom od podstaw
           </h2>
-          <p className="text-center max-w-2xl mx-auto mb-16 leading-relaxed" style={{ color: "#888", fontSize: "1.05rem" }}>
+          <p className="text-center max-w-2xl mx-auto mb-8 md:mb-16 leading-relaxed" style={{ color: "#888", fontSize: "1.05rem" }}>
             Kompleksowe wsparcie dla tych, którzy budują dom po raz pierwszy. Prowadzimy Cię od projektu do odbioru — krok po kroku, z pełnym doradztwem technicznym i dostępem do sprawdzonej sieci wykonawców.
           </p>
 
@@ -1104,7 +1104,7 @@ export default function Home() {
       </section>
 
       {/* ── Jak działamy ── */}
-      <section className="py-24" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
+      <section className="py-14 md:py-24" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
         <div className="container mx-auto px-4">
           <p className="text-center text-xs font-bold uppercase tracking-[0.25em] mb-3" style={{ color: "#f81828" }}>
             — JAK DZIAŁAMY —
@@ -1115,7 +1115,7 @@ export default function Home() {
           >
             Prosty proces współpracy
           </h2>
-          <p className="text-center max-w-xl mx-auto mb-16 leading-relaxed" style={{ color: "#888" }}>
+          <p className="text-center max-w-xl mx-auto mb-8 md:mb-16 leading-relaxed" style={{ color: "#888" }}>
             Od pierwszego kontaktu do realizacji — prowadzimy Cię krok po kroku
           </p>
 
@@ -1154,10 +1154,10 @@ export default function Home() {
       </section>
 
       {/* ── Nasze usługi ── */}
-      <section className="py-24 relative overflow-hidden" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
+      <section className="py-14 md:py-24 relative overflow-hidden" style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}>
         {/* Video tło sekcji usług */}
-        <video autoPlay muted loop playsInline preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        <video autoPlay muted loop playsInline preload="none"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block"
           style={{ opacity: 0.12, zIndex: 0 }} aria-hidden="true">
           <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260529/text2video-d8d2bs780j2drgd1i7q0.mp4" type="video/mp4" />
         </video>

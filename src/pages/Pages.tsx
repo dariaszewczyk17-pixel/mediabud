@@ -159,7 +159,7 @@ export function ContactPage() {
         </div>
 
         {/* Form */}
-        <div className="lg:col-span-2 rounded-xl p-8" style={card}>
+        <div className="lg:col-span-2 rounded-xl p-4 sm:p-6 lg:p-8" style={card}>
           {sent ? (
             <div className="text-center py-10">
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.3)" }}>

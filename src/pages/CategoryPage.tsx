@@ -586,7 +586,7 @@ export default function CategoryPage() {
                   Podkategorie
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                  {cat.children.map((sub, i) => (
+                  {Array.from(new Map(cat.children.map(s => [s.slug, s])).values()).map((sub, i) => (
                     <Link
                       key={sub.id}
                       to={`/kategoria/${sub.slug}`}

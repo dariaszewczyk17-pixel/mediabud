@@ -26,6 +26,7 @@ function useSanityQuery<T>(query: string, params?: Record<string, any>) {
   useEffect(() => {
     if (!query) { setData(null); setLoading(false); return }
     let cancelled = false
+    setData(null)      // ← czyść stare dane natychmiast przy zmianie zapytania
     setLoading(true)
     sanityFetch<T>(query, params)
       .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
@@ -68,8 +69,9 @@ export function useProductsByCategorySlugs(slugs: string[]) {
   const slugsKey = slugs.join(',')
 
   useEffect(() => {
-    if (!slugs.length) { setLoading(false); return }
+    if (!slugs.length) { setData(null); setLoading(false); return }
     let cancelled = false
+    setData(null)      // ← czyść stare dane natychmiast przy zmianie kategorii
     setLoading(true)
     sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs, limit: 2000 })
       .then(res => { if (!cancelled) { setData(res); setLoading(false) } })

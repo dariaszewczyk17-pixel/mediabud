@@ -94,15 +94,21 @@ export default function CategoryPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
+  // allSubSlugs pochodzi TYLKO z Sanity — eliminuje podwójny fetch
+  // (bez tego: static cat → fetch1, potem Sanity cat → fetch2 z nowymi slugami)
   const allSubSlugs = useMemo(() => {
-    if (!cat) return [];
-    const collect = (c: typeof cat): string[] => [
+    if (!sanityCategory) return [];
+    const legacyCat = sanityCategoryToLegacy(sanityCategory as SanityCategory);
+    const collect = (c: typeof legacyCat): string[] => [
       c.slug, ...(c.children?.flatMap(child => collect(child)) || []),
     ];
-    return collect(cat);
-  }, [cat]);
+    return collect(legacyCat);
+  }, [sanityCategory]);
 
-  const { data: sanityProducts } = useProductsByCategorySlugs(allSubSlugs);
+  const { data: sanityProducts, loading: productsLoading } = useProductsByCategorySlugs(allSubSlugs);
+
+  // true gdy czekamy na kategorię LUB na produkty
+  const isLoadingProducts = !sanityCategory || productsLoading;
 
   const catProducts = useMemo(() => {
     const staticCategoryProducts = staticProducts.filter(p => allSubSlugs.includes(p.categorySlug));
@@ -628,7 +634,9 @@ export default function CategoryPage() {
                   className="text-[11px] font-bold px-2 py-0.5 rounded-full"
                   style={{ background: "rgba(248,24,40,0.12)", color: "#f88090", border: "1px solid rgba(248,24,40,0.2)" }}
                 >
-                  {filtered.length > 0 ? `${filtered.length} szt.` : "Zapytaj o ofertę"}
+                  {isLoadingProducts
+                    ? "Ładowanie…"
+                    : filtered.length > 0 ? `${filtered.length} szt.` : "Zapytaj o ofertę"}
                 </span>
                 {hasActiveFilters && (
                   <button onClick={clearFilters} className="flex items-center gap-1 text-xs text-[#f81828] font-medium hover:underline">
@@ -774,7 +782,26 @@ export default function CategoryPage() {
             )}
 
             {/* Product grid */}
-            {paginated.length > 0 ? (
+            {isLoadingProducts ? (
+              /* Skeleton — 12 kart zastępują pusty stan podczas ładowania */
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="rounded-xl overflow-hidden animate-pulse"
+                    style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
+                  >
+                    <div className="aspect-[4/3] w-full" style={{ background: "#1a1a1a" }} />
+                    <div className="p-4 space-y-2">
+                      <div className="h-2.5 w-1/3 rounded" style={{ background: "#1e1e1e" }} />
+                      <div className="h-4 w-4/5 rounded" style={{ background: "#1e1e1e" }} />
+                      <div className="h-3 w-2/3 rounded" style={{ background: "#1e1e1e" }} />
+                      <div className="h-9 w-full rounded-lg mt-3" style={{ background: "#1e1e1e" }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : paginated.length > 0 ? (
               <>
                 <div
                   ref={gridReveal.ref}

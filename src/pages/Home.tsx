@@ -491,7 +491,7 @@ export default function Home() {
       {/* StatBar LED */}
       <div
         ref={r3.ref as React.RefObject<HTMLDivElement>}
-        className={`transition-all duration-700 ${r3.visible ? "opacity-100" : "opacity-0"}`}
+        className=""
         style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
       >
         <div className="container mx-auto">
@@ -593,7 +593,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r1.ref as React.RefObject<HTMLElement>}
-        className={`py-16 transition-all duration-700 ${r1.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className="py-16"
         style={{ background: "#050505", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
       >
         <style>{`
@@ -770,7 +770,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r2.ref as React.RefObject<HTMLElement>}
-        className={`py-14 transition-all duration-700 ${r2.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className="py-14"
         style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)" }}
       >
         <div className="container mx-auto px-4">
@@ -834,7 +834,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r4.ref as React.RefObject<HTMLElement>}
-        className={`py-14 transition-all duration-700 ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className="py-14"
         style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}
       >
         <div className="container mx-auto px-4">
@@ -876,7 +876,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r9.ref as React.RefObject<HTMLElement>}
-        className={`py-16 transition-all duration-700 ${r9.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className="py-16"
         style={{ background: "#050505", borderTop: "2px solid #1a1a1a", borderBottom: "2px solid #1a1a1a" }}
       >
         <div className="container mx-auto px-4">
@@ -972,7 +972,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r8.ref as React.RefObject<HTMLElement>}
-        className={`py-20 transition-all duration-700 ${r8.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className="py-20"
         style={{ background: "#080808", borderTop: "2px solid rgba(248,24,40,0.15)" }}
       >
         <div className="container mx-auto px-4">
@@ -1239,7 +1239,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r10.ref as React.RefObject<HTMLElement>}
-        className={`bg-[#0a0a0a] py-12 relative overflow-hidden transition-all duration-700 ${r10.visible ? "opacity-100" : "opacity-0"}`}
+        className="bg-[#0a0a0a] py-12 relative overflow-hidden"
       >
         {/* Decorative bg */}
         <div className="absolute inset-0">
@@ -1294,7 +1294,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r6.ref as React.RefObject<HTMLElement>}
-        className={`container mx-auto px-4 py-14 transition-all duration-700 ${r6.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        className="container mx-auto px-4 py-14"
       >
         <div className="flex items-end justify-between mb-8">
           <div>

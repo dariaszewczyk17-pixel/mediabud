@@ -649,7 +649,7 @@ export default function CategoryPage() {
                 <select
                   value={sortBy}
                   onChange={e => updateParam("sort", e.target.value)}
-                  className="hidden sm:block text-xs font-medium px-3 py-1.5 rounded-lg transition-all text-gray-400 focus:outline-none focus:border-[#f81828] appearance-none cursor-pointer"
+                  className="text-xs font-medium px-3 py-1.5 rounded-lg transition-all text-gray-400 focus:outline-none focus:border-[#f81828] appearance-none cursor-pointer"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}
                 >
                   <option value="default">Sortuj: domyślne</option>

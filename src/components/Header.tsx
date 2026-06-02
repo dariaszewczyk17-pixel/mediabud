@@ -280,12 +280,12 @@ export default function Header() {
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
         <div className="container mx-auto flex items-center gap-4 px-4">
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2" style={{ width: "375px", overflow: "visible" }}>
+          <Link to="/" className="flex-shrink-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
             <img
               src="https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/5j1eO4lOb5MqPjlHF7RIP1%20%E2%80%93%20ze%20zmianami_b734361ec694486192383a2f765df266.png"
               alt="Media Bud – Skład Budowlany"
-              className="h-24 w-auto object-contain transition-opacity duration-200 hover:opacity-80"
-              style={{ maxWidth: "320px", transform: "scale(1.45)", transformOrigin: "left center" }}
+              className="h-12 sm:h-16 md:h-24 w-auto object-contain transition-opacity duration-200 hover:opacity-80"
+              style={{ maxWidth: "clamp(120px, 38vw, 320px)" }}
             />
           </Link>
 

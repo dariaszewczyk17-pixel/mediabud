@@ -172,7 +172,18 @@ export default function Footer() {
               </a>
               <p>Lublin, ul. Chemiczna 8d</p>
             </div>
-
+            {/* Mapka Google */}
+            <div className="rounded-xl overflow-hidden mb-5" style={{ border: "1px solid #2a2a2a" }}>
+              <iframe
+                title="Media Bud — lokalizacja"
+                src="https://maps.google.com/maps?q=ul.+Chemiczna+8d,+20-329+Lublin,+Polska&output=embed&z=16"
+                width="100%"
+                height="150"
+                style={{ display: "block", filter: "grayscale(1) brightness(0.7) contrast(1.1)", border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
             {sent ? (
               <div className="rounded-lg px-4 py-3 text-sm font-semibold flex items-center gap-2"
                 style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.25)", color: "#fff" }}>

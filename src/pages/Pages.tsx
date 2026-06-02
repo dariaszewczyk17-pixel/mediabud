@@ -70,18 +70,18 @@ export function ContactPage() {
     setSending(true);
     try {
       const apiKey = import.meta.env.VITE_WEB3FORMS_KEY || "";
+      const fd = new FormData();
+      fd.append("access_key", apiKey);
+      fd.append("name", form.name);
+      fd.append("email", form.email);
+      fd.append("phone", form.phone);
+      fd.append("subject", form.subject || "Zapytanie ze strony mediabud.pl");
+      fd.append("message", form.message);
+      fd.append("to", "sprzedaz@mediabud.pl");
+      form.attachments.forEach((file, i) => fd.append(`attachment_${i + 1}`, file));
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: apiKey,
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          subject: form.subject || "Zapytanie ze strony mediabud.pl",
-          message: form.message,
-          to: "sprzedaz@mediabud.pl",
-        }),
+        body: fd,
       });
       if (apiKey && res.ok) {
         setSent(true);

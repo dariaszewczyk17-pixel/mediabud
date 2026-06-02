@@ -255,7 +255,7 @@ interface QuoteModalProps {
 export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
   const [mode, setMode]     = useState<"choose" | "form" | "sent">("choose");
   const [agreed, setAgreed] = useState(false);
-  const [form, setForm]     = useState({ name: "", email: "", phone: "", quantity: "", message: "" });
+  const [form, setForm]     = useState({ name: "", email: "", phone: "", quantity: "", message: "", file: null as File | null });
 
   const handleClose = () => {
     onClose();
@@ -378,6 +378,24 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                   className="text-sm text-gray-200 placeholder:text-gray-600 resize-none focus-visible:ring-0 focus-visible:border-[#f81828]"
                   style={inputStyle} />
               </div>
+              <div>
+                <Label className="text-[10px] text-gray-500 mb-1 block">Załącznik <span className="text-gray-700 font-normal">(opcjonalnie)</span></Label>
+                <label className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-xs transition-all duration-200"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px dashed rgba(255,255,255,0.15)" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(248,24,40,0.5)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(255,255,255,0.15)"; }}>
+                  <span className="text-[#f81828]">📎</span>
+                  <span className="text-gray-500">{form.file ? form.file.name : "Dodaj plik (PDF, JPG, PNG, DOCX — max 5 MB)"}</span>
+                  <input type="file" className="hidden" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                    onChange={e => setForm(f => ({...f, file: e.target.files?.[0] ?? null}))} />
+                </label>
+                {form.file && (
+                  <button type="button" onClick={() => setForm(f => ({...f, file: null}))}
+                    className="text-[10px] text-gray-600 hover:text-red-400 mt-1 transition-colors">
+                    ✕ usuń załącznik
+                  </button>
+                )}
+              </div>
               <div className="flex items-start gap-2.5">
                 <Checkbox id="rodo" checked={agreed} onCheckedChange={v => setAgreed(!!v)} required className="mt-0.5" />
                 <Label htmlFor="rodo" className="text-[10px] text-gray-500 leading-relaxed cursor-pointer">
@@ -436,7 +454,7 @@ export function WycenaDrawer() {
   const { items, isOpen, closeDrawer, removeItem, updateQty, updateNote, clearWycena } = useWycena();
   const [sendOpen, setSendOpen] = useState(false);
   const [agreed, setAgreed]     = useState(false);
-  const [form, setForm]         = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm]         = useState({ name: "", email: "", phone: "", message: "", file: null as File | null });
   const [sent, setSent]         = useState(false);
 
   if (!isOpen) return null;
@@ -566,6 +584,24 @@ export function WycenaDrawer() {
                     <Textarea value={form.message} onChange={e => setForm(f => ({...f, message: e.target.value}))} rows={3}
                       className="text-sm text-gray-200 placeholder:text-gray-600 resize-none focus-visible:ring-0 focus-visible:border-[#f81828] mt-1"
                       style={drawerInput} />
+                  </div>
+                  <div>
+                    <Label className="text-[10px] text-gray-500 mb-1 block">Załącznik <span className="text-gray-700 font-normal">(opcjonalnie)</span></Label>
+                    <label className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-xs transition-all duration-200"
+                      style={{ background: "rgba(255,255,255,0.04)", border: "1px dashed rgba(255,255,255,0.15)" }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(248,24,40,0.5)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(255,255,255,0.15)"; }}>
+                      <span className="text-[#f81828]">📎</span>
+                      <span className="text-gray-500">{form.file ? form.file.name : "Dodaj plik (PDF, JPG, PNG, DOCX — max 5 MB)"}</span>
+                      <input type="file" className="hidden" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                        onChange={e => setForm(f => ({...f, file: e.target.files?.[0] ?? null}))} />
+                    </label>
+                    {form.file && (
+                      <button type="button" onClick={() => setForm(f => ({...f, file: null}))}
+                        className="text-[10px] text-gray-600 hover:text-red-400 mt-1 transition-colors">
+                        ✕ usuń załącznik
+                      </button>
+                    )}
                   </div>
                   <div className="flex items-start gap-2.5">
                     <Checkbox id="rodo2" checked={agreed} onCheckedChange={v => setAgreed(!!v)} className="mt-0.5" />

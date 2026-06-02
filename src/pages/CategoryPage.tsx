@@ -143,9 +143,9 @@ export default function CategoryPage() {
   const isLoadingProducts = productsLoading && !sanityProducts;
 
   const catProducts = useMemo(() => {
-    const staticCategoryProducts = staticProducts.filter(p => allSubSlugs.includes(p.categorySlug));
+    const slugSet = new Set(allSubSlugs);                                          // O(m) raz
+    const staticCategoryProducts = staticProducts.filter(p => slugSet.has(p.categorySlug)); // O(n)
     const sanityCategoryProducts = ((sanityProducts as any[] | undefined) ?? []).map(sanityProductToLegacy);
-
     return mergeProductCollections(sanityCategoryProducts, staticCategoryProducts);
   }, [sanityProducts, allSubSlugs]);
 

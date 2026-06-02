@@ -1353,17 +1353,17 @@ export function ServicesPage() {
               <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-3xl">MediaBud rozwija ofertę dla klientów indywidualnych i biznesowych: budowa domu, termomodernizacja, wykończenia pod klucz, dachy, elewacje, adaptacje poddaszy oraz remonty B2B dla galerii, szkół i obiektów użyteczności publicznej w Lublinie i województwie lubelskim.</p>
             </div>
             <div className="rounded-2xl p-6" style={{ background: "#0f0f0f", border: "1px solid #1f1f1f", boxShadow: "0 20px 44px rgba(0,0,0,0.35)" }}>
-              <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#888] mb-3">W skrócie</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#888] mb-3">Media Bud w liczbach</p>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { value: "8", label: "podstron usług" },
-                  { value: "B2C", label: "dom od podstaw" },
-                  { value: "B2B", label: "remonty obiektowe" },
-                  { value: "Lublin", label: "obszar lokalny" },
+                  { value: "15+",    label: "lat na rynku",          accent: "#f81828" },
+                  { value: "500+",   label: "projektów wykonanych",   accent: "#f81828" },
+                  { value: "50+",    label: "marek w ofercie",        accent: "#ff6b35" },
+                  { value: "16 000+",label: "produktów w magazynie",  accent: "#ff6b35" },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-xl p-4 border border-[#1f1f1f] bg-[#0a0a0a]">
-                    <div className="text-[1.6rem] font-black text-white font-display">{item.value}</div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-[#888] mt-1">{item.label}</div>
+                  <div key={item.label} className="rounded-xl p-4 border border-[#1f1f1f] bg-[#0a0a0a]" style={{ borderLeft: `2px solid ${item.accent}` }}>
+                    <div className="font-display font-black text-white mb-0.5" style={{ fontSize: "1.55rem", color: item.accent }}>{item.value}</div>
+                    <div className="text-[11px] uppercase tracking-[0.16em] text-[#888]">{item.label}</div>
                   </div>
                 ))}
               </div>

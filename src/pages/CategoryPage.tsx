@@ -5,16 +5,16 @@ import {
 } from "lucide-react";
 import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
-import { useCategoryBySlug, useAllCategories, useProductsByCategorySlugs } from "@/hooks/useSanityData";
+import { useCategoryBySlug, useAllCategories, useProductMetaByCategorySlugs, type ProductMeta } from "@/hooks/useSanityData";
 import { useSEO } from "@/hooks/useSEO";
 import {
-  sanityCategoryToLegacy, sanityProductToLegacy,
+  sanityCategoryToLegacy,
   buildBreadcrumbs as buildSanityBreadcrumbs, collectAllSlugs,
   type SanityCategory,
 } from "@/lib/adapters";
 import { mergeProductCollections } from "@/lib/productMerge";
 import { prefetchSanity } from "@/lib/sanity";
-import { PRODUCTS_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
+import { PRODUCT_META_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
 import { ProductCard } from "@/components/Commerce";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -98,7 +98,7 @@ export default function CategoryPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
-  /* Prefetch produktów gdy user najeżdża na link kategorii */
+  /* Prefetch metadanych produktów gdy user najeżdża na link kategorii */
   const prefetchForSlug = useCallback((targetSlug: string) => {
     const staticCat = getCategoryBySlug(targetSlug);
     if (!staticCat) return;
@@ -106,7 +106,7 @@ export default function CategoryPage() {
       c.slug, ...(c.children?.flatMap(ch => collect(ch)) || []),
     ];
     const slugs = collect(staticCat).sort();
-    if (slugs.length) prefetchSanity(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs, limit: 2000 });
+    if (slugs.length) prefetchSanity(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs });
   }, []);
 
   // Slugi ze statycznych danych — dostępne NATYCHMIAST, bez czekania na Sanity
@@ -137,17 +137,46 @@ export default function CategoryPage() {
     [sanitySubSlugs, staticSubSlugs],
   );
 
-  const { data: sanityProducts, loading: productsLoading, error: productsError } = useProductsByCategorySlugs(allSubSlugs);
+  const { data: sanityMeta, loading: productsLoading, error: productsError } = useProductMetaByCategorySlugs(allSubSlugs);
 
-  // Ładowanie = dopóki produkty nie dotarły (nie czekamy już na kategorię)
-  const isLoadingProducts = productsLoading && !sanityProducts;
+  // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
+  const isLoadingProducts = productsLoading && !sanityMeta;
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
     const staticCategoryProducts = staticProducts.filter(p => slugSet.has(p.categorySlug)); // O(n)
-    const sanityCategoryProducts = ((sanityProducts as any[] | undefined) ?? []).map(sanityProductToLegacy);
-    return mergeProductCollections(sanityCategoryProducts, staticCategoryProducts);
-  }, [sanityProducts, allSubSlugs]);
+
+    // ⚡ Two-query: Sanity dostarcza tylko meta (brand/unit/tags/featured/inStock),
+    // pełne dane (obrazy, opisy, sku) pobierane ze staticProducts przez lookup by slug.
+    const staticBySlug = new Map(staticCategoryProducts.map(p => [p.slug, p]));
+    const sanityMapped = ((sanityMeta as ProductMeta[] | null) ?? []).map((meta: ProductMeta) => {
+      const base = staticBySlug.get(meta.slug);
+      if (base) {
+        // Merge: Sanity meta nadpisuje pola filtrów (świeższe), static dostarcza obrazy/opisy
+        return {
+          ...base,
+          brand:    meta.brand    || base.brand,
+          unit:     meta.unit     || base.unit,
+          tags:     meta.tags?.length ? meta.tags : base.tags,
+          featured: meta.featured ?? base.featured,
+          inStock:  meta.inStock  ?? base.inStock,
+        };
+      }
+      // Fallback: produkt tylko w Sanity (jeszcze nie ma w static data)
+      return {
+        id: meta._id, _id: meta._id,
+        slug: meta.slug, name: meta.name,
+        brand: meta.brand || '', unit: meta.unit || '',
+        tags: meta.tags || [], featured: !!meta.featured, inStock: meta.inStock !== false,
+        categorySlug: meta.categorySlug, categoryName: '',
+        sku: '', shortDescription: '', description: '', application: '',
+        images: [], technicalSpec: [], faq: [], advantages: [], warnings: [],
+        isNew: false,
+      };
+    });
+
+    return mergeProductCollections(sanityMapped as any, staticCategoryProducts);
+  }, [sanityMeta, allSubSlugs]);
 
   /** Filtruje śmieciowe wartości brand (jednostki, znaki specjalne, puste) */
   const isValidBrand = (b: string) => {

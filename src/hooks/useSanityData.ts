@@ -5,6 +5,7 @@ import {
   ALL_PRODUCTS_QUERY,
   PRODUCTS_BY_CATEGORY_QUERY,
   PRODUCTS_BY_CATEGORY_SLUGS_QUERY,
+  PRODUCT_META_BY_CATEGORY_SLUGS_QUERY,
   PRODUCT_BY_SLUG_QUERY,
   CATEGORY_BY_SLUG_QUERY,
   FEATURED_PRODUCTS_QUERY,
@@ -114,3 +115,45 @@ export const useSiteSettings = () =>
 /** Wszystkie marki */
 export const useAllBrands = () =>
   useSanityQuery(ALL_BRANDS_QUERY)
+
+// ─── Typ metadanych produktu (Query A) ───────────────────────────────────────
+
+export interface ProductMeta {
+  _id: string
+  slug: string
+  name: string
+  categorySlug: string
+  brand: string
+  unit: string
+  tags: string[]
+  featured: boolean
+  inStock: boolean
+}
+
+/**
+ * ⚡ Query A — lekkie metadane produktów dla wielu kategorii.
+ * Payload ~100B/produkt (brak images.asset->url i shortDescription).
+ * Używany do filtrów, paginacji i liczenia produktów w CategoryPage.
+ * Pełne dane (obrazy, opisy) dostarcza staticProducts przez lookup by slug.
+ */
+export function useProductMetaByCategorySlugs(slugs: string[]) {
+  const [data, setData] = useState<ProductMeta[] | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  const slugsKey = slugs.join(',')
+
+  useEffect(() => {
+    if (!slugs.length) { setData(null); setLoading(false); return }
+    let cancelled = false
+    setData(null)      // ← czyść stare dane natychmiast przy zmianie kategorii
+    setLoading(true)
+    sanityFetch<ProductMeta[]>(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs })
+      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
+      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
+    return () => { cancelled = true }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slugsKey])
+
+  return { data, loading, error }
+}

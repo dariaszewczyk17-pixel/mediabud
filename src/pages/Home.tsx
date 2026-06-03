@@ -3,12 +3,11 @@ import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Awa
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { categories as staticCategories } from "@/data/categories";
-import { getFeaturedProducts, products as allStaticProducts } from "@/data/products";
+import { getFeaturedProducts } from "@/data/products";
 import { getRecentBlogPosts } from "@/data/blog";
 import { useAllCategories, useFeaturedProducts as useSanityFeatured } from "@/hooks/useSanityData";
 import { sanityCategoryToLegacy, sanityProductToLegacy } from "@/lib/adapters";
 import { sanityFetch } from "@/lib/sanity";
-import { BESTSELLER_SLUGS } from "@/lib/bestsellers";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
@@ -229,7 +228,6 @@ const PRODUCT_TABS = [
   { id: "bestsellery",  label: "Bestsellery" },
 ];
 
-
 /* ================================================================
    COMPONENT
 ================================================================ */
@@ -244,34 +242,16 @@ export default function Home() {
       : staticCategories,
     [sanityCats],
   );
-
-  // ← MUSI być przed featured useMemo (używa activeTab w deps i callback)
-  const [activeTab, setActiveTab] = useState("polecane");
-
-  const featured = useMemo(() => {
-    // ── Bestsellery — hardcoded lista z badań rynkowych PL 2025 ──
-    if (activeTab === "bestsellery") {
-      const slugSet = new Set(BESTSELLER_SLUGS);
-      const found = allStaticProducts.filter(p => slugSet.has(p.slug));
-      // Zachowaj kolejność z BESTSELLER_SLUGS (ranking popularności)
-      return BESTSELLER_SLUGS
-        .map(slug => found.find(p => p.slug === slug))
-        .filter(Boolean) as typeof found;
-    }
-    // ── Nowości — produkty z flagą isNew ──
-    if (activeTab === "nowosci") {
-      const newProds = allStaticProducts.filter(p => p.isNew);
-      if (newProds.length > 0) return newProds.slice(0, 12);
-    }
-    // ── Polecane — Sanity (primary) lub static fallback ──
-    if (sanityFeatured && (sanityFeatured as any[]).length > 0) {
-      return (sanityFeatured as any[]).map(sanityProductToLegacy);
-    }
-    return getFeaturedProducts();
-  }, [sanityFeatured, activeTab]);
+  const featured = useMemo(
+    () => sanityFeatured && (sanityFeatured as any[]).length > 0
+      ? (sanityFeatured as any[]).map(sanityProductToLegacy)
+      : getFeaturedProducts(),
+    [sanityFeatured],
+  );
 
   const recentPosts = getRecentBlogPosts(3);
   const [quoteOpen, setQuoteOpen]             = useState(false);
+  const [activeTab, setActiveTab]             = useState("polecane");
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSent, setNewsletterSent]   = useState(false);
   const [productCount, setProductCount]       = useState<number>(15921); // fallback: stan na 2026-05-29
@@ -788,35 +768,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* JSON-LD ItemList — lista produktów featured (SEO) */}
-      {featured && featured.length > 0 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          "name": activeTab === "bestsellery"
-            ? "Bestsellery materiałów budowlanych – Media Bud Lublin"
-            : activeTab === "nowosci"
-            ? "Nowości w ofercie materiałów budowlanych – Media Bud Lublin"
-            : "Polecane materiały budowlane – Media Bud Lublin",
-          "description": "Sklep z materiałami budowlanymi Media Bud, ul. Chemiczna 8d, Lublin",
-          "url": "https://mediabud.pl",
-          "numberOfItems": featured.length,
-          "itemListElement": featured.slice(0, 12).map((p: any, i: number) => ({
-            "@type": "ListItem",
-            "position": i + 1,
-            "url": `https://mediabud.pl/produkt/${p.slug}`,
-            "name": p.name,
-          })),
-        })}} />
-      )}
-
       {/* ═══════════════════════════════════════════════════════
           FEATURED PRODUCTS  (z tabami)
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r2.ref as React.RefObject<HTMLElement>}
         className="py-14"
-        aria-label="Bestsellery i polecane materiały budowlane Lublin"
         style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)" }}
       >
         <div className="container mx-auto px-4">
@@ -826,20 +783,8 @@ export default function Home() {
               <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
                 <span className="w-4 h-0.5 bg-[#f81828]" />Oferta
               </p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-white">
-                {activeTab === "bestsellery"
-                  ? "Bestsellery – Materiały Budowlane"
-                  : activeTab === "nowosci"
-                  ? "Nowości w Ofercie Budowlanej"
-                  : "Katalog Materiałów Budowlanych"}
-              </h2>
-              <p className="text-gray-500 mt-1 text-sm">
-                {activeTab === "bestsellery"
-                  ? "Najchętniej kupowane materiały budowlane w Lublinie – izolacje, tynki, kleje, farby"
-                  : activeTab === "nowosci"
-                  ? "Nowe produkty w składzie budowlanym Media Bud Lublin"
-                  : "Polecane materiały budowlane – skład Media Bud, ul. Chemiczna 8d Lublin"}
-              </p>
+              <h2 className="font-display text-3xl md:text-4xl font-black text-white">Katalog produktów</h2>
+              <p className="text-gray-500 mt-1 text-sm">Bestsellery i nowości w naszej ofercie</p>
             </div>
             {/* Tabs */}
             <div className="flex items-center gap-1 rounded-xl p-1 self-start md:self-auto"

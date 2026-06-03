@@ -243,7 +243,7 @@ export default function Home() {
       : staticCategories,
     [sanityCats],
   );
-  const [activeTab, setActiveTab] = useState("polecane");
+  const [activeTab, setActiveTab] = useState("bestsellery");
 
   const featured = useMemo(() => {
     if (activeTab === "bestsellery") {

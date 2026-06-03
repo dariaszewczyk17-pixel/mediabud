@@ -244,6 +244,10 @@ export default function Home() {
       : staticCategories,
     [sanityCats],
   );
+
+  // ← MUSI być przed featured useMemo (używa activeTab w deps i callback)
+  const [activeTab, setActiveTab] = useState("polecane");
+
   const featured = useMemo(() => {
     // ── Bestsellery — hardcoded lista z badań rynkowych PL 2025 ──
     if (activeTab === "bestsellery") {
@@ -268,7 +272,6 @@ export default function Home() {
 
   const recentPosts = getRecentBlogPosts(3);
   const [quoteOpen, setQuoteOpen]             = useState(false);
-  const [activeTab, setActiveTab]             = useState("polecane");
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSent, setNewsletterSent]   = useState(false);
   const [productCount, setProductCount]       = useState<number>(15921); // fallback: stan na 2026-05-29

@@ -3,11 +3,12 @@ import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Awa
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { categories as staticCategories } from "@/data/categories";
-import { getFeaturedProducts } from "@/data/products";
+import { getFeaturedProducts, products as allStaticProducts } from "@/data/products";
 import { getRecentBlogPosts } from "@/data/blog";
 import { useAllCategories, useFeaturedProducts as useSanityFeatured } from "@/hooks/useSanityData";
 import { sanityCategoryToLegacy, sanityProductToLegacy } from "@/lib/adapters";
 import { sanityFetch } from "@/lib/sanity";
+import { BESTSELLER_SLUGS } from "@/lib/bestsellers";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
@@ -242,16 +243,28 @@ export default function Home() {
       : staticCategories,
     [sanityCats],
   );
-  const featured = useMemo(
-    () => sanityFeatured && (sanityFeatured as any[]).length > 0
-      ? (sanityFeatured as any[]).map(sanityProductToLegacy)
-      : getFeaturedProducts(),
-    [sanityFeatured],
-  );
+  const [activeTab, setActiveTab] = useState("polecane");
+
+  const featured = useMemo(() => {
+    if (activeTab === "bestsellery") {
+      const slugSet = new Set(BESTSELLER_SLUGS);
+      const found = allStaticProducts.filter(p => slugSet.has(p.slug));
+      return (BESTSELLER_SLUGS as readonly string[])
+        .map(slug => found.find(p => p.slug === slug))
+        .filter(Boolean) as typeof found;
+    }
+    if (activeTab === "nowosci") {
+      const newProds = allStaticProducts.filter(p => p.isNew);
+      if (newProds.length > 0) return newProds.slice(0, 12);
+    }
+    if (sanityFeatured && (sanityFeatured as any[]).length > 0) {
+      return (sanityFeatured as any[]).map(sanityProductToLegacy);
+    }
+    return getFeaturedProducts();
+  }, [sanityFeatured, activeTab]);
 
   const recentPosts = getRecentBlogPosts(3);
-  const [quoteOpen, setQuoteOpen]             = useState(false);
-  const [activeTab, setActiveTab]             = useState("polecane");
+  const [quoteOpen, setQuoteOpen] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSent, setNewsletterSent]   = useState(false);
   const [productCount, setProductCount]       = useState<number>(15921); // fallback: stan na 2026-05-29
@@ -768,6 +781,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* JSON-LD – ItemList dla sekcji featured/bestsellery */}
+      {activeTab === "bestsellery" && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Bestsellery budowlane 2025 – Media Bud Lublin",
+            "description": "Najchętniej wybierane materiały budowlane w Lublinie: izolacje, kleje, tynki, farby, cement.",
+            "url": "https://mediabud.pl/#bestsellery",
+            "numberOfItems": BESTSELLER_SLUGS.length,
+            "itemListElement": BESTSELLER_SLUGS.map((slug, idx) => ({
+              "@type": "ListItem",
+              "position": idx + 1,
+              "url": `https://mediabud.pl/produkty/${slug}`,
+            })),
+          }) }}
+        />
+      )}
+
       {/* ═══════════════════════════════════════════════════════
           FEATURED PRODUCTS  (z tabami)
       ═══════════════════════════════════════════════════════ */}
@@ -783,8 +816,20 @@ export default function Home() {
               <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
                 <span className="w-4 h-0.5 bg-[#f81828]" />Oferta
               </p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-white">Katalog produktów</h2>
-              <p className="text-gray-500 mt-1 text-sm">Bestsellery i nowości w naszej ofercie</p>
+              <h2 className="font-display text-3xl md:text-4xl font-black text-white">
+                {activeTab === "bestsellery"
+                  ? "Bestsellery budowlane 2025"
+                  : activeTab === "nowosci"
+                  ? "Nowości w ofercie"
+                  : "Katalog produktów"}
+              </h2>
+              <p className="text-gray-500 mt-1 text-sm">
+                {activeTab === "bestsellery"
+                  ? "Najchętniej wybierane materiały budowlane w Lublinie"
+                  : activeTab === "nowosci"
+                  ? "Najnowsze produkty w naszej ofercie"
+                  : "Bestsellery i nowości w naszej ofercie"}
+              </p>
             </div>
             {/* Tabs */}
             <div className="flex items-center gap-1 rounded-xl p-1 self-start md:self-auto"

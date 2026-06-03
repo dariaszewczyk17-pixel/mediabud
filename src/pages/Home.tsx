@@ -792,11 +792,28 @@ export default function Home() {
             "description": "Najchętniej wybierane materiały budowlane w Lublinie: izolacje, kleje, tynki, farby, cement.",
             "url": "https://mediabud.pl/#bestsellery",
             "numberOfItems": BESTSELLER_SLUGS.length,
-            "itemListElement": BESTSELLER_SLUGS.map((slug, idx) => ({
-              "@type": "ListItem",
-              "position": idx + 1,
-              "url": `https://mediabud.pl/produkty/${slug}`,
-            })),
+            "itemListElement": BESTSELLER_SLUGS.map((slug, idx) => {
+              const p = allStaticProducts.find(x => x.slug === slug);
+              return {
+                "@type": "ListItem",
+                "position": idx + 1,
+                "url": `https://mediabud.pl/produkty/${slug}`,
+                ...(p ? {
+                  "name": p.name,
+                  "item": {
+                    "@type": "Product",
+                    "name": p.name,
+                    "url": `https://mediabud.pl/produkty/${slug}`,
+                    "brand": { "@type": "Brand", "name": p.brand },
+                    "offers": {
+                      "@type": "Offer",
+                      "availability": "https://schema.org/InStock",
+                      "priceCurrency": "PLN",
+                    },
+                  },
+                } : {}),
+              };
+            }),
           }) }}
         />
       )}

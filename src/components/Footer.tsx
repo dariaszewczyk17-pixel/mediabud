@@ -10,12 +10,11 @@ import { categories } from "@/data/categories";
 const QUICK_LINKS = [
   { label: "Strona główna",      to: "/" },
   { label: "Produkty",           to: "/produkty" },
+  { label: "Bestsellery",        to: "/bestsellery" },
   { label: "Blog techniczny",    to: "/blog" },
   { label: "O firmie",           to: "/o-firmie" },
   { label: "Usługi",             to: "/uslugi" },
   { label: "Kontakt",            to: "/kontakt" },
-  { label: "Zapytaj o ofertę",   to: "/kontakt" },
-  { label: "Wycena projektu",    to: "/kontakt" },
 ];
 
 const SERVICES = [

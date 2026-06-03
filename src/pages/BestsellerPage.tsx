@@ -85,8 +85,20 @@ export default function BestsellerPage() {
           "itemListElement": ORDERED_BESTSELLERS.map((p, i) => ({
             "@type": "ListItem",
             "position": i + 1,
-            "url": `https://mediabud.pl/produkt/${p.slug}`,
+            "url": `https://mediabud.pl/produkty/${p.slug}`,
             "name": p.name,
+            "item": {
+              "@type": "Product",
+              "name": p.name,
+              "url": `https://mediabud.pl/produkty/${p.slug}`,
+              "brand": { "@type": "Brand", "name": p.brand },
+              "offers": {
+                "@type": "Offer",
+                "availability": "https://schema.org/InStock",
+                "priceCurrency": "PLN",
+                "seller": { "@id": ORG_ID },
+              },
+            },
           })),
         },
       },

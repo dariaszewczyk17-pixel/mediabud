@@ -56,10 +56,10 @@ export default function Footer() {
           <div>
             <Link to="/" className="inline-block mb-4">
               <img
-                src="https://skyagent-artifacts.skywork.ai/router/agent/2026-05-29/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/5j1eO4lOb5MqPjlHF7RIP1%20%E2%80%93%20ze%20zmianami_b734361ec694486192383a2f765df266.png"
+                src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-03/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/7435729631584985088_95351505e7074b448f31c489e4513303.png"
                 alt="Media Bud – Skład Budowlany"
-                className="h-12 w-auto object-contain"
-                style={{ maxWidth: "180px" }}
+                className="h-14 w-auto object-contain"
+                style={{ maxWidth: "200px", filter: "brightness(2.5)" }}
               />
             </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: "#888" }}>

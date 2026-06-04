@@ -284,8 +284,8 @@ export default function Header() {
             <img
               src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-03/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/7435729631584985088_95351505e7074b448f31c489e4513303.png"
               alt="Media Bud – Skład Budowlany"
-              className="h-16 sm:h-20 md:h-28 w-auto object-contain transition-opacity duration-200 hover:opacity-80"
-              style={{ maxWidth: "clamp(150px, 42vw, 360px)" }}
+              className="h-14 sm:h-16 md:h-[90px] w-auto object-contain transition-opacity duration-200 hover:opacity-80"
+              style={{ maxWidth: "clamp(130px, 36vw, 300px)" }}
             />
           </Link>
 

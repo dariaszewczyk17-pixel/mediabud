@@ -200,46 +200,58 @@ export default function BrandsPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="group relative rounded-2xl overflow-hidden flex flex-col transition-all duration-300"
-              style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.08)" }}
+              style={{ background: "#111", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 4px 24px rgba(0,0,0,0.4)" }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.borderColor = "#f81828";
-                el.style.boxShadow = "0 0 0 1px #f81828, 0 12px 40px rgba(248,24,40,0.15)";
+                el.style.boxShadow = "0 0 0 1px #f81828, 0 16px 48px rgba(248,24,40,0.18)";
+                el.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "rgba(255,255,255,0.08)";
-                el.style.boxShadow = "none";
+                el.style.borderColor = "rgba(255,255,255,0.09)";
+                el.style.boxShadow = "0 4px 24px rgba(0,0,0,0.4)";
+                el.style.transform = "translateY(0)";
               }}
             >
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity" />
-              {/* Logo */}
-              <div className="flex items-center justify-center h-28 px-8 pt-6 pb-2" style={{ background: "rgba(255,255,255,0.02)" }}>
+              {/* Czerwona linia hover top */}
+              <div className="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.4))" }} />
+
+              {/* ── LOGO AREA — białe tło, oryginalne kolory ── */}
+              <div className="relative flex items-center justify-center px-8 py-7"
+                style={{ background: "#ffffff", minHeight: "120px" }}>
                 <img
                   src={brand.logo}
                   alt={`Logo ${brand.name} – materiały budowlane`}
                   loading="lazy"
-                  className="max-h-14 max-w-full object-contain transition-all duration-300 group-hover:scale-105"
-                  style={{ filter: "brightness(0) invert(1) opacity(0.75)" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.filter = "brightness(0) invert(1)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.filter = "brightness(0) invert(1) opacity(0.75)"; }}
+                  className="max-h-[60px] max-w-[160px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 />
+                {/* Kraj badge */}
+                <span className="absolute top-2.5 right-3 text-[9px] font-bold text-gray-400 uppercase tracking-wide"
+                  style={{ background: "rgba(0,0,0,0.06)", borderRadius: "4px", padding: "2px 5px" }}>
+                  {brand.country}
+                </span>
               </div>
-              {/* Info */}
-              <div className="px-5 pb-5 pt-3 flex flex-col flex-1">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-display font-black text-white text-lg leading-none">{brand.name}</span>
-                  <span className="text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide flex-shrink-0 ml-2"
-                    style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)", color: "#f2b3b8" }}>
+
+              {/* Separator z czerwonym akcentem */}
+              <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg,#f81828 30px,rgba(255,255,255,0.06) 30px)" }} />
+
+              {/* ── INFO AREA — ciemne tło ── */}
+              <div className="px-5 pb-5 pt-4 flex flex-col flex-1" style={{ background: "#111" }}>
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <span className="font-display font-black text-white text-[17px] leading-tight">{brand.name}</span>
+                  <span className="text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
+                    style={{ background: "rgba(248,24,40,0.13)", border: "1px solid rgba(248,24,40,0.25)", color: "#f09099" }}>
                     {brand.category}
                   </span>
                 </div>
-                <p className="text-[11px] text-gray-600 leading-relaxed mb-3 flex-1 group-hover:text-gray-500 transition-colors">
+                <p className="text-[11px] leading-relaxed flex-1 mb-3" style={{ color: "#666" }}>
                   {brand.desc}
                 </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-gray-700">{brand.country}</span>
-                  <span className="flex items-center gap-1 text-[11px] font-bold text-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                  <span className="text-[10px] font-medium" style={{ color: "#444" }}>mediabud.pl</span>
+                  <span className="flex items-center gap-1 text-[11px] font-bold text-[#f81828] opacity-0 group-hover:opacity-100 transition-all duration-200">
                     Strona marki <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>

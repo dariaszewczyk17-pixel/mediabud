@@ -142,13 +142,20 @@ const brands = [
 ];
 
 const brandLogos = [
-  { name: "Weber",    url: "/logos/weber.png" },
-  { name: "Knauf",   url: "/logos/knauf.png" },
-  { name: "Atlas",   url: "/logos/atlas.png" },
-  { name: "Baumit",  url: "/logos/baumit.png" },
-  { name: "Rockwool",url: "/logos/rockwool.png" },
-  { name: "Rigips",  url: "/logos/rigips.png" },
-  { name: "Ursa",    url: "/logos/ursa.png" },
+  { name: "Weber",    url: "https://static.www.bechcicki.pl/cms/1c6a19bca34f4da99131e0736ea4af9d-weber.png" },
+  { name: "Knauf",   url: "https://static.www.bechcicki.pl/cms/189dc43be7ae469eacd2a1eae4ef0c03-knauf-nowy.png" },
+  { name: "Atlas",   url: "https://static.www.bechcicki.pl/cms/ae397a1ebebc4e3083ff5765cff0ea4c-atlas.png" },
+  { name: "Baumit",  url: "https://static.www.bechcicki.pl/cms/e4952888b3504ee78cbb6685f844b4cf-baumit-new.png" },
+  { name: "Rockwool",url: "https://static.www.bechcicki.pl/cms/c742dfc82d1c42bb9fe0bc086f8ba822-rockwool.png" },
+  { name: "Rigips",  url: "https://static.www.bechcicki.pl/cms/101a8b40f4e6454483f7cc7f6cb25cd7-rigips.png" },
+  { name: "URSA",    url: "https://static.www.bechcicki.pl/cms/c6adf9efc58b4309bca4ca1642741842-ursa-etex.png" },
+  { name: "Velux",   url: "https://static.www.bechcicki.pl/cms/f6736747f0f74f23bcf4900e60598c9d-velux.png" },
+  { name: "Ceresit", url: "https://static.www.bechcicki.pl/cms/0dd0ae5703cd43b1afdcfca87416fd05-ceresit.png" },
+  { name: "Sika",    url: "https://static.www.bechcicki.pl/cms/e2212f996bef427797215b970fcc6af1-sika.png" },
+  { name: "Mapei",   url: "https://static.www.bechcicki.pl/cms/581c437c6b7a42b89a3151f944e3ed4e-mapei.png" },
+  { name: "Isover",  url: "https://static.www.bechcicki.pl/cms/a3c64554fcd842aeb7b189bd43b82852-isover.png" },
+  { name: "Fakro",   url: "https://static.www.bechcicki.pl/cms/34b06a260cdd46d295f0be4e762a2580-fakro.png" },
+  { name: "Soudal",  url: "https://static.www.bechcicki.pl/cms/ef053138ca514d15bd8300581a7ba3e6-soudal.png" },
 ];
 
 /* ─── Testimonials ────────────────────────────────────────────── */

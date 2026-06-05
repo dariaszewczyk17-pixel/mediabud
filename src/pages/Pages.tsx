@@ -542,11 +542,31 @@ export function AboutPage() {
             <span className="w-[3px] h-6 bg-[#f81828] rounded-full" /> Nasi partnerzy i dostawcy
           </h2>
           <p className="text-gray-500 text-sm mb-6">Współpracujemy z wiodącymi producentami materiałów budowlanych, gwarantując oryginalność i jakość każdego produktu.</p>
-          <div className="flex flex-wrap gap-2">
-            {["Weber","Ceresit","Atlas","Knauf","Rockwool","Swisspor","Styropmin","Caparol","Alpol","Termo Organika","Hilti","Tytan","Mapei","Isomat","Bolix"].map(brand => (
-              <span key={brand} className="px-3.5 py-1.5 text-sm font-medium text-gray-400 rounded-full transition-all cursor-default hover:text-white hover:bg-[#f81828]" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                {brand}
-              </span>
+          <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3">
+            {[
+              { name: "Weber",    url: "https://static.www.bechcicki.pl/cms/1c6a19bca34f4da99131e0736ea4af9d-weber.png" },
+              { name: "Ceresit",  url: "https://static.www.bechcicki.pl/cms/0dd0ae5703cd43b1afdcfca87416fd05-ceresit.png" },
+              { name: "Atlas",    url: "https://static.www.bechcicki.pl/cms/ae397a1ebebc4e3083ff5765cff0ea4c-atlas.png" },
+              { name: "Knauf",    url: "https://static.www.bechcicki.pl/cms/189dc43be7ae469eacd2a1eae4ef0c03-knauf-nowy.png" },
+              { name: "Rockwool", url: "https://static.www.bechcicki.pl/cms/c742dfc82d1c42bb9fe0bc086f8ba822-rockwool.png" },
+              { name: "Baumit",   url: "https://static.www.bechcicki.pl/cms/e4952888b3504ee78cbb6685f844b4cf-baumit-new.png" },
+              { name: "Rigips",   url: "https://static.www.bechcicki.pl/cms/101a8b40f4e6454483f7cc7f6cb25cd7-rigips.png" },
+              { name: "URSA",     url: "https://static.www.bechcicki.pl/cms/c6adf9efc58b4309bca4ca1642741842-ursa-etex.png" },
+              { name: "Mapei",    url: "https://static.www.bechcicki.pl/cms/581c437c6b7a42b89a3151f944e3ed4e-mapei.png" },
+              { name: "Sika",     url: "https://static.www.bechcicki.pl/cms/e2212f996bef427797215b970fcc6af1-sika.png" },
+              { name: "Velux",    url: "https://static.www.bechcicki.pl/cms/f6736747f0f74f23bcf4900e60598c9d-velux.png" },
+              { name: "Fakro",    url: "https://static.www.bechcicki.pl/cms/34b06a260cdd46d295f0be4e762a2580-fakro.png" },
+            ].map(brand => (
+              <div key={brand.name}
+                className="flex flex-col items-center rounded-lg overflow-hidden"
+                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div className="w-full flex items-center justify-center p-2" style={{ background: "#fff", minHeight: "48px" }}>
+                  <img src={brand.url} alt={`Logo ${brand.name}`} loading="lazy"
+                    className="max-h-[32px] max-w-[70px] w-auto object-contain" />
+                </div>
+                <div className="w-full h-[2px]" style={{ background: "linear-gradient(90deg,#f81828 12px,rgba(255,255,255,0.05) 12px)" }} />
+                <span className="text-[9px] font-semibold text-gray-500 py-1.5 px-1 text-center truncate w-full">{brand.name}</span>
+              </div>
             ))}
           </div>
         </div>
@@ -1782,19 +1802,37 @@ export function AllCategoriesPage() {
       </section>
 
       {/* ── BRANDS STRIP ── */}
-      <section className="py-12" style={{ background: "#050505", borderTop: "1px solid #141414", borderBottom: "1px solid #141414" }}>
+      <section className="py-10" style={{ background: "#050505", borderTop: "1px solid #141414", borderBottom: "1px solid #141414" }}>
         <div className="container mx-auto px-4">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-center mb-6 text-[#f81828]">— Nasze marki —</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {["Weber","Ceresit","Atlas","Knauf","Rockwool","Swisspor","Bolix","Baumit","Rigips","Ursa","Caparol","Mapei","Hilti","Tytan","Termo Organika","Sopro","Isomat","Alpol"].map(brand => (
-              <span key={brand}
-                className="px-3.5 py-1.5 rounded-full text-sm font-medium text-gray-500 transition-all cursor-default hover:text-white"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#f81828"; el.style.borderColor = "#f81828"; el.style.color = "#fff"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "rgba(255,255,255,0.04)"; el.style.borderColor = "rgba(255,255,255,0.08)"; el.style.color = ""; }}
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              { name: "Weber",    url: "https://static.www.bechcicki.pl/cms/1c6a19bca34f4da99131e0736ea4af9d-weber.png" },
+              { name: "Ceresit",  url: "https://static.www.bechcicki.pl/cms/0dd0ae5703cd43b1afdcfca87416fd05-ceresit.png" },
+              { name: "Atlas",    url: "https://static.www.bechcicki.pl/cms/ae397a1ebebc4e3083ff5765cff0ea4c-atlas.png" },
+              { name: "Knauf",    url: "https://static.www.bechcicki.pl/cms/189dc43be7ae469eacd2a1eae4ef0c03-knauf-nowy.png" },
+              { name: "Rockwool", url: "https://static.www.bechcicki.pl/cms/c742dfc82d1c42bb9fe0bc086f8ba822-rockwool.png" },
+              { name: "Baumit",   url: "https://static.www.bechcicki.pl/cms/e4952888b3504ee78cbb6685f844b4cf-baumit-new.png" },
+              { name: "Rigips",   url: "https://static.www.bechcicki.pl/cms/101a8b40f4e6454483f7cc7f6cb25cd7-rigips.png" },
+              { name: "URSA",     url: "https://static.www.bechcicki.pl/cms/c6adf9efc58b4309bca4ca1642741842-ursa-etex.png" },
+              { name: "Mapei",    url: "https://static.www.bechcicki.pl/cms/581c437c6b7a42b89a3151f944e3ed4e-mapei.png" },
+              { name: "Sika",     url: "https://static.www.bechcicki.pl/cms/e2212f996bef427797215b970fcc6af1-sika.png" },
+              { name: "Velux",    url: "https://static.www.bechcicki.pl/cms/f6736747f0f74f23bcf4900e60598c9d-velux.png" },
+              { name: "Fakro",    url: "https://static.www.bechcicki.pl/cms/34b06a260cdd46d295f0be4e762a2580-fakro.png" },
+            ].map(brand => (
+              <div key={brand.name}
+                className="flex flex-col items-center rounded-lg overflow-hidden transition-all duration-200"
+                style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.4)"; el.style.transform = "translateY(-1px)"; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.08)"; el.style.transform = "translateY(0)"; }}
               >
-                {brand}
-              </span>
+                <div className="flex items-center justify-center px-4 py-3" style={{ background: "#fff", minHeight: "56px", minWidth: "100px" }}>
+                  <img src={brand.url} alt={`Logo ${brand.name}`} loading="lazy"
+                    className="max-h-[36px] max-w-[80px] w-auto object-contain" />
+                </div>
+                <div className="w-full h-[2px]" style={{ background: "linear-gradient(90deg,#f81828 14px,rgba(255,255,255,0.05) 14px)" }} />
+                <span className="text-[9px] font-semibold text-gray-500 py-1.5 px-2 text-center">{brand.name}</span>
+              </div>
             ))}
           </div>
         </div>

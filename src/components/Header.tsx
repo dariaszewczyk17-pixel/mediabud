@@ -689,6 +689,7 @@ export default function Header() {
               {/* Secondary nav links */}
               <div className="ml-3 flex flex-shrink-0 items-center gap-1">
                 {[
+                  { to: "/marki", label: "Marki" },
                   { to: "/blog", label: "Blog" },
                   { to: "/o-firmie", label: "O firmie" },
                   { to: "/uslugi", label: "Usługi" },
@@ -841,6 +842,7 @@ export default function Header() {
           <div className="space-y-1 px-4 py-2">
             <div className="mb-3 h-px bg-white/6" />
             {[
+              { to: "/marki", label: "Marki" },
               { to: "/blog", label: "Blog techniczny" },
               { to: "/o-firmie", label: "O firmie" },
               { to: "/uslugi", label: "Nasze usługi" },

@@ -1,39 +1,9 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
-import { ExternalLink, ChevronRight, Phone, Search } from "lucide-react";
-
-type FeaturedBrand = {
-  id: string; name: string; slug: string;
-  logo: string; category: string; desc: string;
-  website: string; country: string;
-};
+import { ChevronRight, Phone, Search } from "lucide-react";
 
 type BrandItem = { name: string; logo: string };
-
-const FEATURED: FeaturedBrand[] = [
-  { id: "weber", name: "Weber", slug: "weber",
-    logo: "https://static.www.bechcicki.pl/cms/1c6a19bca34f4da99131e0736ea4af9d-weber.png",
-    category: "Chemia budowlana", desc: "Lider systemów ociepleń ETICS, tynków silikonowych, klejów do glazury i farb elewacyjnych grupy Saint-Gobain.", website: "https://www.weber.pl", country: "Francja" },
-  { id: "knauf", name: "Knauf", slug: "knauf",
-    logo: "https://static.www.bechcicki.pl/cms/189dc43be7ae469eacd2a1eae4ef0c03-knauf-nowy.png",
-    category: "Sucha zabudowa", desc: "Globalny lider systemów suchej zabudowy — płyty GK, gipsy maszynowe i ręczne, profile metalowe i systemy sufitowe.", website: "https://www.knauf.pl", country: "Niemcy" },
-  { id: "atlas", name: "Atlas", slug: "atlas",
-    logo: "https://static.www.bechcicki.pl/cms/ae397a1ebebc4e3083ff5765cff0ea4c-atlas.png",
-    category: "Chemia budowlana", desc: "Polska marka z szeroką ofertą chemii budowlanej — kleje do glazury i styropianu, tynki, grunty i systemy ETICS.", website: "https://www.grupyatlas.pl", country: "Polska" },
-  { id: "baumit", name: "Baumit", slug: "baumit",
-    logo: "https://static.www.bechcicki.pl/cms/e4952888b3504ee78cbb6685f844b4cf-baumit-new.png",
-    category: "Chemia budowlana", desc: "Austriacki producent tynków, klejów, farb elewacyjnych i kompletnych systemów ociepleń ETICS. Wysoka jakość i innowacyjność.", website: "https://www.baumit.pl", country: "Austria" },
-  { id: "rockwool", name: "Rockwool", slug: "rockwool",
-    logo: "https://static.www.bechcicki.pl/cms/c742dfc82d1c42bb9fe0bc086f8ba822-rockwool.png",
-    category: "Izolacje", desc: "Światowy lider wełny skalnej — izolacja termiczna, akustyczna i ognioochrona budynków.", website: "https://www.rockwool.pl", country: "Dania" },
-  { id: "ursa", name: "URSA", slug: "ursa",
-    logo: "https://static.www.bechcicki.pl/cms/c6adf9efc58b4309bca4ca1642741842-ursa-etex.png",
-    category: "Izolacje", desc: "Producent izolacji z wełny szklanej i polistyrenu XPS do poddaszy, ścian, podłóg i dachów płaskich.", website: "https://www.ursa.pl", country: "Niemcy" },
-  { id: "velux", name: "Velux", slug: "velux",
-    logo: "https://static.www.bechcicki.pl/cms/f6736747f0f74f23bcf4900e60598c9d-velux.png",
-    category: "Dachy", desc: "Lider okien dachowych i świetlików — naturalne doświetlenie poddaszy i dachów płaskich.", website: "https://www.velux.pl", country: "Dania" },
-];
 
 const ALL_BRANDS: BrandItem[] = [
   { name: "Acryl Putz", logo: "https://static.www.bechcicki.pl/cms/4d77326ec86a4ccc86a8e3e5f5d2b482-acryl-putz.png" },
@@ -333,12 +303,11 @@ export default function BrandsPage() {
           "@type": "ItemList",
           "name": "Marki materiałów budowlanych – Media Bud Lublin",
           "numberOfItems": ALL_BRANDS.length,
-          "itemListElement": FEATURED.map((b, idx) => ({
+          "itemListElement": ALL_BRANDS.slice(0, 10).map((b, idx) => ({
             "@type": "ListItem",
             "position": idx + 1,
             "name": b.name,
-            "url": b.website,
-            "item": { "@type": "Brand", "name": b.name, "url": b.website }
+            "item": { "@type": "Brand", "name": b.name }
           }))
         }
       ]
@@ -370,7 +339,6 @@ export default function BrandsPage() {
           </p>
           <div className="flex flex-wrap gap-8 mt-6 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
             {[
-              { val: `${FEATURED.length}`, label: "partnerów premium" },
               { val: `${ALL_BRANDS.length}+`, label: "marek w katalogu" },
               { val: "15 000+", label: "produktów" },
             ].map((s, i) => (
@@ -382,73 +350,6 @@ export default function BrandsPage() {
           </div>
         </div>
       </div>
-
-      {/* ── PARTNERZY PREMIUM ── */}
-      <section className="container mx-auto px-4 py-12">
-        <h2 className="flex items-center gap-2 text-sm font-black text-white mb-6 uppercase tracking-[0.2em]">
-          <span className="w-[3px] h-4 bg-[#f81828] rounded-full" />
-          Partnerzy Premium
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {FEATURED.map(brand => (
-            <a
-              key={brand.id}
-              href={brand.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative rounded-2xl overflow-hidden flex flex-col transition-all duration-300"
-              style={{ background: "#111", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 4px 24px rgba(0,0,0,0.4)" }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "#f81828";
-                el.style.boxShadow = "0 0 0 1px #f81828, 0 16px 48px rgba(248,24,40,0.18)";
-                el.style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "rgba(255,255,255,0.09)";
-                el.style.boxShadow = "0 4px 24px rgba(0,0,0,0.4)";
-                el.style.transform = "translateY(0)";
-              }}
-            >
-              <div className="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.4))" }} />
-              <div className="relative flex items-center justify-center px-8 py-7"
-                style={{ background: "#ffffff", minHeight: "120px" }}>
-                <img
-                  src={brand.logo}
-                  alt={`Logo ${brand.name} – materiały budowlane`}
-                  loading="lazy"
-                  className="max-h-[60px] max-w-[160px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                />
-                <span className="absolute top-2.5 right-3 text-[9px] font-bold text-gray-500 uppercase tracking-wide"
-                  style={{ background: "rgba(0,0,0,0.07)", borderRadius: "4px", padding: "2px 5px" }}>
-                  {brand.country}
-                </span>
-              </div>
-              <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg,#f81828 30px,rgba(255,255,255,0.06) 30px)" }} />
-              <div className="px-5 pb-5 pt-4 flex flex-col flex-1" style={{ background: "#111" }}>
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <span className="font-display font-black text-white text-[17px] leading-tight">{brand.name}</span>
-                  <span className="text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
-                    style={{ background: "rgba(248,24,40,0.13)", border: "1px solid rgba(248,24,40,0.25)", color: "#f09099" }}>
-                    {brand.category}
-                  </span>
-                </div>
-                <p className="text-[11px] leading-relaxed flex-1 mb-3" style={{ color: "#666" }}>
-                  {brand.desc}
-                </p>
-                <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-                  <span className="text-[10px] font-medium" style={{ color: "#444" }}>mediabud.pl</span>
-                  <span className="flex items-center gap-1 text-[11px] font-bold text-[#f81828] opacity-0 group-hover:opacity-100 transition-all duration-200">
-                    Strona marki <ExternalLink className="w-3 h-3" />
-                  </span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
 
       {/* ── WSZYSTKIE MARKI — siatka logo ── */}
       <section className="py-12" style={{ background: "#050505", borderTop: "1px solid #141414" }}>

@@ -12,6 +12,7 @@ import KalkulatorPage from "@/pages/Kalkulator";
 import BrandsPage from "@/pages/BrandsPage";
 import BrandDetailPage from "@/pages/BrandDetailPage";
 import BestsellerPage from "@/pages/BestsellerPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 export default function App() {
   return (
@@ -41,7 +42,7 @@ export default function App() {
           <Route path="/marki" element={<BrandsPage />} />
           <Route path="/marki/:slug" element={<BrandDetailPage />} />
           <Route path="/bestsellery" element={<BestsellerPage />} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

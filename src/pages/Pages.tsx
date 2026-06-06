@@ -395,10 +395,11 @@ export function AboutPage() {
     canonical: "/o-firmie",
     schema: {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Media Bud",
+      "@type": "LocalBusiness",
+      "@id": "https://mediabud.pl/#localbusiness",
+      "name": "Media Bud – Skład Budowlany",
       "url": "https://mediabud.pl",
-      "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Kompleksowe wsparcie dla Twojego projektu budowlanego.",
+      "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Ponad 15 000 produktów, 268 marek, dostawa, doradztwo, faktura VAT.",
       "telephone": "+48533553344",
       "email": "sprzedaz@mediabud.pl",
       "address": {
@@ -408,9 +409,27 @@ export function AboutPage() {
         "postalCode": "20-329",
         "addressCountry": "PL"
       },
+      "geo": { "@type": "GeoCoordinates", "latitude": 51.2213, "longitude": 22.5472 },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "16:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "07:00", "closes": "13:00" }
+      ],
+      "hasMap": "https://maps.google.com/maps?q=ul.+Chemiczna+8d+Lublin",
+      "priceRange": "$$",
+      "currenciesAccepted": "PLN",
+      "paymentAccepted": "Gotówka, przelew, karta, faktura VAT",
+      "areaServed": [
+        { "@type": "City", "name": "Lublin" },
+        { "@type": "State", "name": "województwo lubelskie" }
+      ],
       "foundingDate": "2008",
-      "areaServed": { "@type": "State", "name": "województwo lubelskie" },
-      "sameAs": ["https://mediabud.pl"]
+      "sameAs": ["https://mediabud.pl", "https://mediabud.pages.dev"],
+      "offers": {
+        "@type": "AggregateOffer",
+        "offerCount": "15000",
+        "priceCurrency": "PLN",
+        "description": "Materiały budowlane: systemy ociepleń, tynki, płyty GK, izolacje, farby, chemia budowlana"
+      }
     }
   });
 

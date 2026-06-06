@@ -898,6 +898,226 @@ Sprawdź dostępność — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
 
 Zamów z dostawą do Lublina — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
   },
+  {
+    id: "b020",
+    slug: "zaprawa-murarska-tradycyjna-vs-cienkowarstwowa",
+    title: "Zaprawa murarska tradycyjna vs cienkowarstwowa — kiedy co stosować?",
+    excerpt: "Zaprawa tradycyjna (1 cm) czy cienkowarstwowa (1–3 mm)? Porównujemy klasy zapraw, zużycie i koszt. Przewodnik 2026.",
+    category: "Chemia budowlana",
+    author: "Zespół Media Bud",
+    date: "2026-06-07",
+    readTime: 6,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["zaprawa murarska", "cienkowarstwowa", "bloczki", "beton komórkowy"],
+    content: `## Zaprawa tradycyjna vs cienkowarstwowa
+
+### Zaprawa tradycyjna (spoina 1–1,5 cm)
+
+Do cegły ceramicznej, pustaków i silikatów klasycznych.
+
+| Parametr | Wartość |
+|---|---|
+| Grubość spoiny | 10–15 mm |
+| Zużycie | 25–35 kg/m² |
+| Cena | 16–22 zł/25 kg |
+
+**Przykłady**: Atlas ZM, Ceresit CM 11, Solbet Universal
+
+### Zaprawa cienkowarstwowa (spoina 1–3 mm)
+
+Wymagana przy betonie komórkowym (ytong, xella) i blokach FORMAT.
+
+| Parametr | Wartość |
+|---|---|
+| Grubość spoiny | 1–3 mm |
+| Zużycie | 2–4 kg/m² |
+| Cena | 28–40 zł/25 kg |
+
+### Oszczędność
+
+Ściana 100 m² silikat FORMAT:
+- Tradycyjna: 120 worków × 18 zł = **2 160 zł**
+- Cienkowarstwowa: 12 worków × 34 zł = **408 zł**
+
+Oszczędność: 1 752 zł + 2× szybszy murarz.
+
+Dobór zaprawy do Twojego muru — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b021",
+    slug: "porownanie-systemow-docieple-etics-2026",
+    title: "Porównanie systemów ociepleń ETICS 2026 — Weber, Atlas, Ceresit, Baumit",
+    excerpt: "Który system ETICS wybrać? Porównujemy parametry, ceny i gwarancje Webera, Atlasa, Ceresita i Baumitu.",
+    category: "Ocieplenia",
+    author: "Zespół Media Bud",
+    date: "2026-06-07",
+    readTime: 8,
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    tags: ["ETICS", "system ociepleń", "Weber", "Atlas", "Ceresit", "Baumit"],
+    content: `## Porównanie systemów ETICS 2026
+
+| System | Klej | Tynk | Gwarancja | Cena mat. 100 m² |
+|---|---|---|---|---|
+| Weber.therm | CT85 | Weber.pas Sil | 10 lat | 14 000–18 000 zł |
+| Atlas Stopter | K-20 | Atlas Silco | 7 lat | 12 500–16 000 zł |
+| Ceresit CT 85 | CT 85 | CT 75 Sil | 10 lat | 14 500–18 500 zł |
+| Baumit StarTop | StarContact | SilikonTop | 10 lat | 15 000–19 500 zł |
+
+### Rekomendacja
+
+- **Cena**: Atlas Stopter + Silco
+- **Gwarancja + jakość**: Weber.therm lub Ceresit
+- **Minimalne brudzenie elewacji**: Baumit GranoporTop (efekt lotosowy)
+
+Dobierzemy system do Twojego budynku — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b022",
+    slug: "kleje-do-plytek-c1-c2-c2te-roznice",
+    title: "Kleje do płytek C1, C2, C2TE — czym się różnią i kiedy co stosować?",
+    excerpt: "Klasy klejów ceramicznych C1, C2, C2TE, S1, S2 — rozszyfruj oznaczenia i dobierz klej do łazienki lub tarasu.",
+    category: "Kleje i fugi",
+    author: "Zespół Media Bud",
+    date: "2026-06-07",
+    readTime: 5,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+    tags: ["klej do płytek", "C2TE", "ogrzewanie podłogowe", "taras"],
+    content: `## Klasy klejów do płytek — EN 12004
+
+| Klasa | Przyczepność | Zastosowanie |
+|---|---|---|
+| C1 | ≥ 0,5 N/mm² | Ściany wewnętrzne, suche |
+| C2 | ≥ 1,0 N/mm² | Podłogi, łazienki, balkony |
+
+### Modyfikatory
+
+| Symbol | Znaczenie |
+|---|---|
+| T | Thixotropic — nie opada ze ścian |
+| E | Extended open time ≥30 min |
+| S1 | Odkształcalny 2,5–5 mm |
+| S2 | Wysokoodkształcalny ≥5 mm |
+
+### Praktyczny dobór
+
+| Miejsce | Klej |
+|---|---|
+| Ściana łazienki | C1 T (Ceresit CM 11) |
+| Podłoga łazienki | C2 T (Atlas Plus) |
+| Ogrzewanie podłogowe | C2 TE S1 (Mapei Keraquick) |
+| Taras/balkon | C2 TE S1 min. |
+| Format >60×120 cm | C2 TE S2 (CM 17) |
+
+Dobierzemy klej i fugę — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b023",
+    slug: "papa-termozgrzewalna-rodzaje-zastosowania-2026",
+    title: "Papa termozgrzewalna — rodzaje, parametry i zastosowania 2026",
+    excerpt: "Papa SBS vs APP, podkładowa vs wierzchnia, grubość 4 vs 5,2 mm — przewodnik dla inwestorów i dekarzy.",
+    category: "Dachy",
+    author: "Zespół Media Bud",
+    date: "2026-06-07",
+    readTime: 7,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["papa termozgrzewalna", "SBS", "APP", "dach płaski"],
+    content: `## SBS vs APP
+
+| Cecha | SBS | APP |
+|---|---|---|
+| Elastyczność zimno | ★★★★ (do -25°C) | ★★ (do -15°C) |
+| Odporność UV | ★★★ | ★★★★ |
+| Odporność ciepło | ★★ | ★★★★ |
+| Zastosowanie | Klimat zmienny, dachy skośne | Dachy płaskie, dużo słońca |
+
+### Podkładowa vs wierzchnia
+
+- **Podkładowa**: 3,0–4,2 mm, drobna posypka, warstwa 1
+- **Wierzchnia**: 4,0–5,2 mm, gruby łupek, warstwa eksponowana
+
+### Ceny (rolka 10 m²)
+
+| Produkt | Grubość | Cena/rolka |
+|---|---|---|
+| Papa podkładowa SBS | 3,5 mm | 95–130 zł |
+| Papa wierzchnia SBS łupek | 4,5 mm | 140–180 zł |
+| Papa wierzchnia APP | 5,2 mm | 165–210 zł |
+
+Dobierzemy system do Twojego dachu — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b024",
+    slug: "styropian-podloga-na-gruncie-jakosc-grubosc",
+    title: "Styropian pod podłogę na gruncie — jaką grubość wybrać w 2026?",
+    excerpt: "EPS 100 czy EPS 200? Jaką grubość izolacji na podłogę na gruncie wybrać, żeby spełnić WT 2021?",
+    category: "Izolacje",
+    author: "Zespół Media Bud",
+    date: "2026-06-07",
+    readTime: 6,
+    image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&q=80",
+    tags: ["styropian podłogowy", "EPS 100", "EPS 200", "WT 2021"],
+    content: `## Wymagania WT 2021
+
+Minimalna izolacyjność podłogi na gruncie: **U ≤ 0,30 W/(m²K)**
+
+Dla EPS λ=0,040 → minimalna grubość = 13 cm. Zalecana projektowa: **15–20 cm**.
+
+### EPS 100 vs EPS 200
+
+| Cecha | EPS 100 | EPS 200 |
+|---|---|---|
+| CS(10) | 100 kPa | 200 kPa |
+| Przeznaczenie | Podłogi mieszkaniowe | Garaże, posadzki przemysłowe |
+| Cena (10 cm) | 22–28 zł/m² | 30–40 zł/m² |
+
+### Koszt dla domu 100 m²
+
+| Wariant | Grubość | Koszt |
+|---|---|---|
+| Minimalny (EPS 100) | 12 cm | 2 640–3 360 zł |
+| Standardowy (EPS 100) | 15 cm | 3 300–4 200 zł |
+| Energooszczędny (EPS 100) | 20 cm | 4 400–5 600 zł |
+| Pasywny (EPS 200) | 20 cm | 6 000–8 000 zł |
+
+Wyliczymy ilości materiałów — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b025",
+    slug: "hurtownia-materialow-budowlanych-lublin-2026",
+    title: "Hurtownia materiałów budowlanych Lublin — skład budowlany Media Bud",
+    excerpt: "Gdzie kupić materiały budowlane hurtowo w Lublinie? Dlaczego lokalny skład budowlany jest lepszy niż market?",
+    category: "Poradniki",
+    author: "Zespół Media Bud",
+    date: "2026-06-07",
+    readTime: 4,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["hurtownia Lublin", "materiały budowlane Lublin", "skład budowlany", "ceny hurtowe"],
+    content: `## Skład budowlany vs market
+
+| Typ | Zalety | Wady |
+|---|---|---|
+| Markety (Leroy, OBI) | Długie godziny, zwroty | Ceny detaliczne, brak doradztwa tech. |
+| Hurtownie B2B | Ceny netto, palety | Tylko firmy, minimum zamówienia |
+| **Skład Media Bud** | Ceny hurtowe dla każdego, doradztwo, dostawa | — |
+
+## Dlaczego Media Bud?
+
+1. **Ceny hurtowe** bez NIP-u — każdy klient płaci jak firma
+2. **Doradztwo techniczne** — znamy produkty z własnych realizacji
+3. **Dostawa** na teren budowy — palety, big-bagi, ciężarówki
+4. **Faktura VAT** — niezbędna do programu Czyste Powietrze
+
+## Godziny otwarcia
+
+| Dzień | Godziny |
+|---|---|
+| Pon–Pt | 7:00–16:00 |
+| Sobota | 7:00–13:00 |
+
+**Adres**: ul. Chemiczna 8d, 20-329 Lublin
+
+Zadzwoń — **+48 533 553 344** | sprzedaz@mediabud.pl`
+  },
 ];
 
 

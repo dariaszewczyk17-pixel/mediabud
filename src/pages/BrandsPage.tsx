@@ -3,12 +3,28 @@ import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
 import { ChevronRight, Phone, Search } from "lucide-react";
 import { BRANDS, slugifyBrand, type BrandItem } from "@/data/brands";
+import { useAllProducts } from "@/hooks/useSanityData";
+import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
+import { mergeProductCollections } from "@/lib/productMerge";
+import { products as staticProducts } from "@/data/products";
 
 const PAGE_SIZE = 48;
 
 export default function BrandsPage() {
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  const { data: sanityProducts } = useAllProducts();
+  const allProducts = useMemo(() => {
+    const legacy = ((sanityProducts as SanityProduct[] | undefined) ?? []).map(sanityProductToLegacy);
+    return mergeProductCollections(legacy, staticProducts);
+  }, [sanityProducts]);
+
+  const brandCounts = useMemo(() => {
+    const map: Record<string, number> = {};
+    allProducts.forEach(p => { if (p.brand) map[p.brand] = (map[p.brand] || 0) + 1; });
+    return map;
+  }, [allProducts]);
 
   const filtered = useMemo(() => {
     if (query.length < 2) return BRANDS;
@@ -150,6 +166,11 @@ export default function BrandsPage() {
                       <span className="text-[10px] font-semibold text-gray-400 group-hover:text-white transition-colors leading-tight block truncate">
                         {brand.name}
                       </span>
+                      {brandCounts[brand.name] > 0 && (
+                        <span className="text-[8px] font-bold text-[#f81828] leading-none block mt-0.5 opacity-70">
+                          {brandCounts[brand.name]} prod.
+                        </span>
+                      )}
                       <span className="text-[9px] text-[#f88090] leading-none block mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity font-semibold">
                         → produkty
                       </span>

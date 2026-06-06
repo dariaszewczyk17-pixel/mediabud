@@ -90,12 +90,19 @@ export default function BestsellerPage() {
             "item": {
               "@type": "Product",
               "name": p.name,
+              "description": p.shortDescription || undefined,
+              "sku": p.sku || undefined,
+              "image": p.images?.[0] ? `https://mediabud.pl${p.images[0]}` : undefined,
+              "category": p.categorySlug?.replace(/-/g, " ") || undefined,
               "url": `https://mediabud.pl/produkty/${p.slug}`,
               "brand": { "@type": "Brand", "name": p.brand },
               "offers": {
                 "@type": "Offer",
-                "availability": "https://schema.org/InStock",
+                "availability": p.inStock !== false
+                  ? "https://schema.org/InStock"
+                  : "https://schema.org/OutOfStock",
                 "priceCurrency": "PLN",
+                "url": `https://mediabud.pl/produkty/${p.slug}`,
                 "seller": { "@id": ORG_ID },
               },
             },

@@ -122,6 +122,8 @@ export interface ProductMeta {
   _id: string
   slug: string
   name: string
+  shortDescription?: string
+  images?: string[]
   categorySlug: string
   brand: string
   unit: string
@@ -131,10 +133,9 @@ export interface ProductMeta {
 }
 
 /**
- * ⚡ Query A — lekkie metadane produktów dla wielu kategorii.
- * Payload ~100B/produkt (brak images.asset->url i shortDescription).
- * Używany do filtrów, paginacji i liczenia produktów w CategoryPage.
- * Pełne dane (obrazy, opisy) dostarcza staticProducts przez lookup by slug.
+ * ⚡ Query A — metadane produktów + pierwsze zdjęcie + shortDescription.
+ * Używany do kart produktów w CategoryPage (limit 500).
+ * Pełna galeria i długi opis ładowane dopiero w ProductDetail.
  */
 export function useProductMetaByCategorySlugs(slugs: string[]) {
   const [data, setData] = useState<ProductMeta[] | null>(null)

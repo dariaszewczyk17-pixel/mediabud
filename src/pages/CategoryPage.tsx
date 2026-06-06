@@ -252,14 +252,20 @@ export default function CategoryPage() {
     const sanityMapped = ((sanityMeta as ProductMeta[] | null) ?? []).map((meta: ProductMeta) => {
       const base = staticBySlug.get(meta.slug);
       if (base) {
-        // Merge: Sanity meta nadpisuje pola filtrów (świeższe), static dostarcza obrazy/opisy
+        // Merge: Sanity meta nadpisuje pola filtrów (świeższe), static dostarcza obrazy/opisy.
+        // Jeśli static nie ma obrazów (inne slugi bechcicki vs Sanity), użyj obrazu z Sanity.
+        const mergedImages = base.images?.length
+          ? base.images
+          : (meta.images?.filter(Boolean) ?? []);
         return {
           ...base,
-          brand:    meta.brand    || base.brand,
-          unit:     meta.unit     || base.unit,
-          tags:     meta.tags?.length ? meta.tags : base.tags,
-          featured: meta.featured ?? base.featured,
-          inStock:  meta.inStock  ?? base.inStock,
+          brand:            meta.brand    || base.brand,
+          unit:             meta.unit     || base.unit,
+          tags:             meta.tags?.length ? meta.tags : base.tags,
+          featured:         meta.featured ?? base.featured,
+          inStock:          meta.inStock  ?? base.inStock,
+          images:           mergedImages,
+          shortDescription: base.shortDescription || meta.shortDescription || '',
         };
       }
       // Fallback: produkt tylko w Sanity (jeszcze nie ma w static data)
@@ -269,8 +275,11 @@ export default function CategoryPage() {
         brand: meta.brand || '', unit: meta.unit || '',
         tags: meta.tags || [], featured: !!meta.featured, inStock: meta.inStock !== false,
         categorySlug: meta.categorySlug, categoryName: '',
-        sku: '', shortDescription: '', description: '', application: '',
-        images: [], technicalSpec: [], faq: [], advantages: [], warnings: [],
+        sku: '',
+        shortDescription: meta.shortDescription || '',
+        description: '', application: '',
+        images: meta.images?.filter(Boolean) ?? [],
+        technicalSpec: [], faq: [], advantages: [], warnings: [],
         isNew: false,
       };
     });

@@ -76,21 +76,21 @@ export const FEATURED_PRODUCTS_QUERY =
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
   `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...$limit] ${PRODUCT_CARD_FIELDS}`
 
-// ⚡ Query A — metadane produktów (lekki payload: ~100B/produkt zamiast ~560B)
-// Używany do: budowania filtrów, paginacji, liczenia produktów.
-// Brak images.asset->url eliminuje najcięższy join (600 × follow = duży koszt).
-// Pełne dane (obrazy, opisy) pochodzi ze staticProducts na froncie — lookup by slug.
+// ⚡ Query A — metadane + pierwsze zdjęcie + shortDescription produktów
+// Pełne pola (opisy, galeria) ładowane dopiero w ProductDetail przez PRODUCT_BY_SLUG_QUERY.
 export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...2000] {
+  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...500] {
   _id,
   "slug": slug.current,
   name,
+  shortDescription,
   "categorySlug": category->slug.current,
   "brand": brand->name,
   unit,
   tags,
   featured,
-  inStock
+  inStock,
+  "images": images[0..0].asset->url
 }`
 
 export const PRODUCTS_BY_CATEGORY_QUERY =

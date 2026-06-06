@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
 import { ChevronRight, Phone, Search } from "lucide-react";
@@ -242,7 +242,7 @@ const ALL_BRANDS: BrandItem[] = [
   { name: "Star-gres", logo: "https://static.www.bechcicki.pl/cms/5bb889e31d3a456b8ae3e8f7ee2cb80a-stargres.png" },
   { name: "Styropak", logo: "https://static.www.bechcicki.pl/cms/27316115fa96476c98a1ea6cf861488a-styropak.png" },
   { name: "Styropmin", logo: "https://static.www.bechcicki.pl/cms/7aa99c0244454a23837b59a9ff46c04a-styropmin.png" },
-  { name: "https://www.bechcicki.pl/search?q=styropoz&page=1&rows=15&sortCriteria=SCORE_DESC", logo: "https://static.www.bechcicki.pl/cms/bfa550eab96442bcb7a1a3a9f8ee62bb-styropoz.png" },
+  { name: "Styropoz", logo: "https://static.www.bechcicki.pl/cms/bfa550eab96442bcb7a1a3a9f8ee62bb-styropoz.png" },
   { name: "Swisspor", logo: "https://static.www.bechcicki.pl/cms/59d39c32789a4dc0a6f64e885bcd4313-swisspor.png" },
   { name: "Synpeko", logo: "https://static.www.bechcicki.pl/cms/34d31d615e5941a98373ddfd33853adb-synpeko.png" },
   { name: "Synthos", logo: "https://static.www.bechcicki.pl/cms/244859a120cf4a66a1a809d2c87b95ea-synthos.png" },
@@ -276,14 +276,25 @@ const ALL_BRANDS: BrandItem[] = [
   { name: "Ytong", logo: "https://static.www.bechcicki.pl/cms/d682a19a793149b0a5e62f0d44b4ed5e-ytong.png" }
 ];
 
+const PAGE_SIZE = 48;
+
 export default function BrandsPage() {
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const filtered = useMemo(() => {
     if (query.length < 2) return ALL_BRANDS;
     const q = query.toLowerCase();
     return ALL_BRANDS.filter(b => b.name.toLowerCase().includes(q));
   }, [query]);
+
+  // Przy każdej zmianie filtra resetuj liczbę widocznych kart
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [query]);
+
+  const visibleBrands = filtered.slice(0, visibleCount);
+  const remaining = filtered.length - visibleCount;
 
   useSEO({
     title: "Marki budowlane – Weber, Knauf, Atlas, Baumit i 260+ producentów | Media Bud Lublin",
@@ -377,43 +388,63 @@ export default function BrandsPage() {
           {filtered.length === 0 ? (
             <p className="text-gray-600 text-sm py-8 text-center">Nie znaleziono marki „{query}"</p>
           ) : (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-3">
-              {filtered.map((brand, idx) => (
-                <Link
-                  key={idx}
-                  to={`/szukaj?q=${encodeURIComponent(brand.name)}`}
-                  className="group flex flex-col items-center rounded-xl overflow-hidden transition-all duration-200"
-                  style={{ background: "#111", border: "1px solid rgba(255,255,255,0.07)" }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "rgba(248,24,40,0.4)";
-                    el.style.boxShadow = "0 4px 16px rgba(248,24,40,0.12)";
-                    el.style.transform = "translateY(-1px)";
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "rgba(255,255,255,0.07)";
-                    el.style.boxShadow = "none";
-                    el.style.transform = "translateY(0)";
-                  }}
-                >
-                  <div className="w-full flex items-center justify-center p-3" style={{ background: "#fff", minHeight: "64px" }}>
-                    <img
-                      src={brand.logo}
-                      alt={`Logo ${brand.name}`}
-                      loading="lazy"
-                      className="max-h-[40px] max-w-[90px] w-auto object-contain"
-                    />
-                  </div>
-                  <div className="w-full h-[2px]" style={{ background: "linear-gradient(90deg,#f81828 16px,rgba(255,255,255,0.05) 16px)" }} />
-                  <div className="w-full px-2 py-2 text-center">
-                    <span className="text-[10px] font-semibold text-gray-400 group-hover:text-white transition-colors leading-tight block truncate">
-                      {brand.name}
+            <>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-3">
+                {visibleBrands.map((brand, idx) => (
+                  <Link
+                    key={brand.name}
+                    to={`/szukaj?q=${encodeURIComponent(brand.name)}`}
+                    className="group flex flex-col items-center rounded-xl overflow-hidden transition-all duration-200"
+                    style={{ background: "#111", border: "1px solid rgba(255,255,255,0.07)" }}
+                    onMouseEnter={e => {
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.borderColor = "rgba(248,24,40,0.4)";
+                      el.style.boxShadow = "0 4px 16px rgba(248,24,40,0.12)";
+                      el.style.transform = "translateY(-1px)";
+                    }}
+                    onMouseLeave={e => {
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.borderColor = "rgba(255,255,255,0.07)";
+                      el.style.boxShadow = "none";
+                      el.style.transform = "translateY(0)";
+                    }}
+                  >
+                    <div className="w-full flex items-center justify-center p-3" style={{ background: "#fff", minHeight: "64px" }}>
+                      <img
+                        src={brand.logo}
+                        alt={`Logo ${brand.name}`}
+                        loading={idx < PAGE_SIZE ? "eager" : "lazy"}
+                        className="max-h-[40px] max-w-[90px] w-auto object-contain"
+                      />
+                    </div>
+                    <div className="w-full h-[2px]" style={{ background: "linear-gradient(90deg,#f81828 16px,rgba(255,255,255,0.05) 16px)" }} />
+                    <div className="w-full px-2 py-2 text-center">
+                      <span className="text-[10px] font-semibold text-gray-400 group-hover:text-white transition-colors leading-tight block truncate">
+                        {brand.name}
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {remaining > 0 && (
+                <div className="mt-8 flex flex-col items-center gap-2">
+                  <p className="text-xs text-gray-600">
+                    Wyświetlono <span className="text-gray-400 font-semibold">{visibleBrands.length}</span> z <span className="text-gray-400 font-semibold">{filtered.length}</span> marek
+                  </p>
+                  <button
+                    onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:shadow-[0_0_20px_rgba(248,24,40,0.3)] hover:bg-[#c8000f] active:scale-95"
+                    style={{ background: "#f81828" }}
+                  >
+                    Pokaż więcej
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-black/20">
+                      +{Math.min(remaining, PAGE_SIZE)}
                     </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>

@@ -358,12 +358,14 @@ export default function ProductDetail() {
           <div>
             {/* Brand + category */}
             <div className="flex items-center gap-2 mb-3 flex-wrap">
-              <span
-                className="text-xs font-bold px-2.5 py-1 rounded-full"
+              <Link
+                to={`/szukaj?brand=${encodeURIComponent(product.brand)}`}
+                className="text-xs font-bold px-2.5 py-1 rounded-full transition-all hover:bg-[#f81828] hover:text-white"
                 style={{ background: "rgba(248,24,40,0.12)", color: "#f88090", border: "1px solid rgba(248,24,40,0.22)" }}
+                title={`Wszystkie produkty marki ${product.brand}`}
               >
                 {product.brand}
-              </span>
+              </Link>
               {cat && (
                 <Link
                   to={`/kategoria/${cat.slug}`}

@@ -1,5 +1,15 @@
 import { useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
+import {
+  NAP_ADDRESS,
+  NAP_GEO,
+  NAP_HOURS,
+  NAP_AREA_SERVED,
+  NAP_SAME_AS,
+  NAP_LOGO,
+  NAP_AMENITIES,
+  NAP_CONTACT_POINT,
+} from "@/lib/localBusiness";
 import { useSEO } from "@/hooks/useSEO";
 import { Phone, Mail, MapPin, Clock, Check, Users, Award, Truck, Star, ChevronRight, BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil, Trash2, Zap, Shield, ArrowRight, Home, PaintBucket, Ruler, Hammer, Building2, HousePlus, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -29,33 +39,40 @@ export function ContactPage() {
     canonical: "/kontakt",
     schema: {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Media Bud – Skład Budowlany",
-      "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Obsługujemy klientów indywidualnych, wykonawców i firmy.",
-      "url": "https://mediabud.pl",
-      "telephone": "+48533553344",
-      "email": "sprzedaz@mediabud.pl",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "ul. Chemiczna 8d",
-        "addressLocality": "Lublin",
-        "postalCode": "20-329",
-        "addressCountry": "PL"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 51.2213,
-        "longitude": 22.5472
-      },
-      "openingHoursSpecification": [{
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-        "opens": "07:00",
-        "closes": "16:00"
-      }],
-      "hasMap": "https://maps.google.com/maps?q=ul.+Chemiczna+8d+Lublin",
-      "priceRange": "$$",
-      "currenciesAccepted": "PLN"
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
+            { "@type": "ListItem", "position": 2, "name": "Kontakt",       "item": "https://mediabud.pl/kontakt" },
+          ],
+        },
+        {
+          "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+          "@id": "https://mediabud.pl/#localbusiness",
+          "name": "Media Bud – Skład Budowlany",
+          "legalName": "Media Bud",
+          "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Obsługujemy klientów indywidualnych, wykonawców i firmy.",
+          "url": "https://mediabud.pl",
+          "telephone": "+48533553344",
+          "email": "sprzedaz@mediabud.pl",
+          "taxID": "9462743421",
+          "vatID": "9462743421",
+          "foundingDate": "2008",
+          "logo": NAP_LOGO,
+          "address": NAP_ADDRESS,
+          "geo": NAP_GEO,
+          "openingHoursSpecification": NAP_HOURS,
+          "hasMap": "https://maps.google.com/maps?q=ul.+Chemiczna+8d,+20-329+Lublin",
+          "priceRange": "$$",
+          "currenciesAccepted": "PLN",
+          "paymentAccepted": "Gotówka, przelew bankowy, karta płatnicza, faktura VAT",
+          "areaServed": NAP_AREA_SERVED,
+          "amenityFeature": NAP_AMENITIES,
+          "contactPoint": NAP_CONTACT_POINT,
+          "sameAs": NAP_SAME_AS,
+        },
+      ],
     }
   });
 
@@ -395,41 +412,47 @@ export function AboutPage() {
     canonical: "/o-firmie",
     schema: {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://mediabud.pl/#localbusiness",
-      "name": "Media Bud – Skład Budowlany",
-      "url": "https://mediabud.pl",
-      "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Ponad 15 000 produktów, 268 marek, dostawa, doradztwo, faktura VAT.",
-      "telephone": "+48533553344",
-      "email": "sprzedaz@mediabud.pl",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "ul. Chemiczna 8d",
-        "addressLocality": "Lublin",
-        "postalCode": "20-329",
-        "addressCountry": "PL"
-      },
-      "geo": { "@type": "GeoCoordinates", "latitude": 51.2213, "longitude": 22.5472 },
-      "openingHoursSpecification": [
-        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "16:00" },
-        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "07:00", "closes": "13:00" }
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
+            { "@type": "ListItem", "position": 2, "name": "O firmie",       "item": "https://mediabud.pl/o-firmie" },
+          ],
+        },
+        {
+          "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+          "@id": "https://mediabud.pl/#localbusiness",
+          "name": "Media Bud – Skład Budowlany",
+          "legalName": "Media Bud",
+          "url": "https://mediabud.pl",
+          "description": "Skład budowlany i hurtownia materiałów budowlanych w Lublinie. Ponad 15 000 produktów, 268 marek, dostawa, doradztwo, faktura VAT.",
+          "telephone": "+48533553344",
+          "email": "sprzedaz@mediabud.pl",
+          "taxID": "9462743421",
+          "vatID": "9462743421",
+          "foundingDate": "2008",
+          "logo": NAP_LOGO,
+          "image": "https://mediabud.pl/images/hero-materialy_2.png",
+          "address": NAP_ADDRESS,
+          "geo": NAP_GEO,
+          "openingHoursSpecification": NAP_HOURS,
+          "hasMap": "https://maps.google.com/maps?q=ul.+Chemiczna+8d,+20-329+Lublin",
+          "priceRange": "$$",
+          "currenciesAccepted": "PLN",
+          "paymentAccepted": "Gotówka, przelew bankowy, karta płatnicza, faktura VAT",
+          "areaServed": NAP_AREA_SERVED,
+          "amenityFeature": NAP_AMENITIES,
+          "contactPoint": NAP_CONTACT_POINT,
+          "sameAs": NAP_SAME_AS,
+          "offers": {
+            "@type": "AggregateOffer",
+            "offerCount": 15000,
+            "priceCurrency": "PLN",
+            "description": "Materiały budowlane: systemy ociepleń, tynki, płyty GK, izolacje, farby, chemia budowlana",
+          },
+        },
       ],
-      "hasMap": "https://maps.google.com/maps?q=ul.+Chemiczna+8d+Lublin",
-      "priceRange": "$$",
-      "currenciesAccepted": "PLN",
-      "paymentAccepted": "Gotówka, przelew, karta, faktura VAT",
-      "areaServed": [
-        { "@type": "City", "name": "Lublin" },
-        { "@type": "State", "name": "województwo lubelskie" }
-      ],
-      "foundingDate": "2008",
-      "sameAs": ["https://mediabud.pl", "https://mediabud.pages.dev"],
-      "offers": {
-        "@type": "AggregateOffer",
-        "offerCount": "15000",
-        "priceCurrency": "PLN",
-        "description": "Materiały budowlane: systemy ociepleń, tynki, płyty GK, izolacje, farby, chemia budowlana"
-      }
     }
   });
 
@@ -1330,24 +1353,46 @@ export function ServicesPage() {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "MediaBud — usługi wykonawcze i materiały budowlane",
-    description: "Usługi wykonawcze MediaBud w Lublinie: budowa domów, termomodernizacja, wykończenia pod klucz, dachy, elewacje, remonty B2B i adaptacja poddaszy.",
-    url: "https://mediabud.pl",
-    telephone: "+48533553344",
-    email: "sprzedaz@mediabud.pl",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "ul. Chemiczna 8d",
-      addressLocality: "Lublin",
-      postalCode: "20-329",
-      addressCountry: "PL"
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Usługi wykonawcze MediaBud",
-      itemListElement: services.map((item) => ({ "@type": "Offer", name: item.title, category: item.segment }))
-    }
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
+          { "@type": "ListItem", "position": 2, "name": "Usługi",         "item": "https://mediabud.pl/uslugi" },
+        ],
+      },
+      {
+        "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+        "@id": "https://mediabud.pl/#localbusiness",
+        "name": "MediaBud — usługi wykonawcze i materiały budowlane",
+        "legalName": "Media Bud",
+        "description": "Usługi wykonawcze MediaBud w Lublinie: budowa domów, termomodernizacja, wykończenia pod klucz, dachy, elewacje, remonty B2B i adaptacja poddaszy.",
+        "url": "https://mediabud.pl",
+        "telephone": "+48533553344",
+        "email": "sprzedaz@mediabud.pl",
+        "taxID": "9462743421",
+        "vatID": "9462743421",
+        "address": NAP_ADDRESS,
+        "geo": NAP_GEO,
+        "openingHoursSpecification": NAP_HOURS,
+        "priceRange": "$$",
+        "currenciesAccepted": "PLN",
+        "paymentAccepted": "Gotówka, przelew bankowy, karta płatnicza, faktura VAT",
+        "areaServed": NAP_AREA_SERVED,
+        "contactPoint": NAP_CONTACT_POINT,
+        "sameAs": NAP_SAME_AS,
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Usługi wykonawcze MediaBud",
+          "itemListElement": services.map((item) => ({
+            "@type": "Offer",
+            "name": item.title,
+            "category": item.segment,
+            "areaServed": "Lublin i województwo lubelskie",
+          })),
+        },
+      },
+    ],
   };
 
   if (slug && !service) {

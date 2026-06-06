@@ -213,6 +213,17 @@ export default function SearchResultsPage() {
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
+      {brandMode && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://mediabud.pl/" },
+            { "@type": "ListItem", position: 2, name: "Wyszukiwarka", item: "https://mediabud.pl/szukaj" },
+            { "@type": "ListItem", position: 3, name: selectedBrand, item: `https://mediabud.pl/szukaj?brand=${encodeURIComponent(selectedBrand)}` },
+          ],
+        }) }} />
+      )}
       <div style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-1 text-xs text-gray-600 flex-wrap">

@@ -10,6 +10,7 @@ import BlogPost from "@/pages/BlogPost";
 import { ContactPage, AboutPage, ServicesPage, AdminPanel, AllCategoriesPage, PolicyPage } from "@/pages/Pages";
 import KalkulatorPage from "@/pages/Kalkulator";
 import BrandsPage from "@/pages/BrandsPage";
+import BrandDetailPage from "@/pages/BrandDetailPage";
 import BestsellerPage from "@/pages/BestsellerPage";
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/sitemap" element={<AllCategoriesPage />} />
           <Route path="/kalkulator" element={<KalkulatorPage />} />
           <Route path="/marki" element={<BrandsPage />} />
+          <Route path="/marki/:slug" element={<BrandDetailPage />} />
           <Route path="/bestsellery" element={<BestsellerPage />} />
           <Route path="*" element={<Home />} />
         </Route>

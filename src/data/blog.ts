@@ -691,6 +691,213 @@ Ceny są zbliżone — Knauf często bywa nieznacznie tańszy. Na dużym zleceni
 
 W Media Bud dostępne są płyty i profile Knauf oraz Rigips. Wyliczymy materiały i doradzimy system — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
   },
+  {
+    id: "b015",
+    slug: "jaki-klej-do-styropianu-wybrac-2026",
+    title: "Jaki klej do styropianu wybrać? Porównanie 2026",
+    excerpt: "Klej cementowy, poliuretanowy czy gotowy klej systemowy? Porównujemy rodzaje kleju do styropianu EPS i XPS, wydajność i koszt na m².",
+    category: "Ocieplenia",
+    author: "Zespół Media Bud",
+    date: "2026-06-06",
+    readTime: 6,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["klej do styropianu", "ocieplenie", "EPS", "XPS", "ETICS"],
+    content: `## Rodzaje kleju do styropianu
+
+Dobór kleju to kluczowa decyzja w systemie ETICS.
+
+### 1. Klej cementowy (worki 25 kg)
+
+Najczęściej stosowany. Miesza się z wodą na placu budowy. Zużycie 4–5 kg/m², czas otwarty 20–30 min.
+
+**Przykłady**: Weber.therm Klasik, Ceresit CT 83, Atlas Stopter K-20. Koszt: 6–9 zł/m²
+
+### 2. Klej poliuretanowy (piana)
+
+1 kartusz ≈ 6–8 m². Koszt: 4–7 zł/m². Stosowany do XPS i poddaszy.
+
+## Ile kleju na 350 m²?
+
+Przy 4,5 kg/m²: 350 × 4,5 = 1 575 kg ≈ 63 worki 25 kg → koszt ≈ 2 200 zł
+
+## Metody aplikacji
+
+| Metoda | Pokrycie |
+|---|---|
+| Obwodowo-placowa | ok. 40% |
+| Grzebieniowa | 100% |
+
+W Media Bud mamy kompletne systemy Weber, Ceresit, Atlas — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b016",
+    slug: "gladz-szpachlowa-vs-wyrownujaca-roznice",
+    title: "Gładź szpachlowa vs wyrównująca — różnice i zastosowanie",
+    excerpt: "Gładź szpachlowa czy wyrównująca — czym się różnią i kiedy którą stosować.",
+    category: "Sucha zabudowa",
+    author: "Zespół Media Bud",
+    date: "2026-06-06",
+    readTime: 5,
+    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=800&q=80",
+    tags: ["gładź szpachlowa", "gładź wyrównująca", "szpachlowanie", "wykończenie ścian"],
+    content: `## Gładź wyrównująca (grubowarstwowa)
+
+Do wyrównywania ubytków do 30 mm. Grubość warstwy 2–30 mm, schnięcie 24–48 h.
+
+**Przykłady**: Knauf Goldband Uni, Ceresit CT 29, Atlas Uni Plus. Cena: 25–40 zł/25 kg
+
+## Gładź szpachlowa (finiszowa)
+
+Finalne wyrównanie pod malowanie — 0,5–3 mm. Schnięcie 4–8 h.
+
+**Przykłady**: Knauf Finish, Semin CE 78, Atlas Gipsar Finisz. Cena: 30–55 zł/20 kg
+
+## Kolejność prac
+
+1. Beton/mur → grunt → wyrównująca → finiszowa → malowanie
+2. Płyta GK → taśmowanie → finiszowa → szlifowanie → malowanie
+
+## Najczęstsze błędy
+
+| Błąd | Skutek |
+|---|---|
+| Finiszowa na surowy beton | Brak przyczepności |
+| Za gruba warstwa finiszowej (>3 mm) | Pęknięcia przy schnięciu |
+
+Kalkulacja materiałów bezpłatnie — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b017",
+    slug: "ile-tynku-na-elewacje-kalkulator-2026",
+    title: "Ile tynku potrzeba na elewację? Kalkulator 2026",
+    excerpt: "Wzory i tabele zużycia tynku silikonowego, akrylowego i mineralnego — kalkulator krok po kroku.",
+    category: "Tynki i elewacje",
+    author: "Zespół Media Bud",
+    date: "2026-06-06",
+    readTime: 7,
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    tags: ["tynk elewacyjny", "kalkulator tynku", "ile tynku", "elewacja 2026"],
+    content: `## Jak obliczyć ilość tynku?
+
+**Wzór**: Pow. netto = (obwód × wys.) − Σ otworów
+
+**Przykład** — dom 10×12 m, 2 kond. × 2,8 m, 12 okien 1,2×1,4 m → Netto ≈ 224 m²
+
+## Zużycie wg ziarna
+
+| Typ tynku | Ziarno | Zużycie |
+|---|---|---|
+| Tynk silikonowy baranek | 1,5 mm | 2,5–3,0 kg/m² |
+| Tynk silikonowy baranek | 2,0 mm | 3,0–3,5 kg/m² |
+| Tynk akrylowy baranek | 1,5 mm | 2,0–2,5 kg/m² |
+
+**Wzór na opakowania**: (pow. × zużycie ÷ waga_opak.) × 1,05
+
+Dla 224 m², tynk sil. 1,5 mm, wiaderka 25 kg → **26 wiader**
+
+## Tabela gotowa
+
+| Powierzchnia | Tynk 1,5 mm | Tynk 2,0 mm |
+|---|---|---|
+| 150 m² | 17 wiader | 21 wiader |
+| 200 m² | 23 wiader | 28 wiader |
+| 350 m² | 40 wiader | 49 wiader |
+
+Wyliczymy dla Twojego budynku — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b018",
+    slug: "plyty-osb-vs-sklejka-co-wybrac",
+    title: "Płyty OSB vs sklejka — co wybrać do konstrukcji?",
+    excerpt: "OSB czy sklejka? Porównujemy właściwości, zastosowania i ceny OSB 3, OSB 4 i sklejki budowlanej.",
+    category: "Drewno i materiały drewnopochodne",
+    author: "Zespół Media Bud",
+    date: "2026-06-06",
+    readTime: 6,
+    image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&q=80",
+    tags: ["OSB", "sklejka", "płyty OSB", "deskowanie"],
+    content: `## Porównanie: OSB vs sklejka
+
+| Cecha | OSB 3 | OSB 4 | Sklejka |
+|---|---|---|---|
+| Wytrzymałość | ★★★ | ★★★★ | ★★★★ |
+| Odporność na wilgoć | ★★★ | ★★★★ | ★★★ |
+| Równość powierzchni | ★★ | ★★★ | ★★★★ |
+| Cena 18 mm/m² | 38–48 zł | 55–70 zł | 55–90 zł |
+
+## Zastosowania
+
+**OSB 3**: Poszycie dachów, ścianki szkieletowe, posadzki na legarach
+
+**OSB 4**: Poszycie dachów bez szalunku, garaże, ściany zewnętrzne
+
+**Sklejka**: Stolarka, podłogi wykończeniowe, szalunki krzywoliniowe, łazienki (WBP)
+
+## Ceny (Lublin 2026)
+
+| Produkt | 18 mm | Cena/szt |
+|---|---|---|
+| OSB 3 Kronospan | 2500×1250 | 78–95 zł |
+| Sklejka WBP | 2500×1250 | 140–185 zł |
+
+**Uwaga**: Zawsze zostaw 2–3 mm dylatacji między płytami OSB!
+
+Sprawdź dostępność — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b019",
+    slug: "cennik-izolacji-termicznej-2026",
+    title: "Cennik izolacji termicznej 2026 — styropian, wełna, XPS",
+    excerpt: "Aktualne ceny EPS, wełny mineralnej Rockwool, Isover i XPS — porównanie kosztów na m² i m³.",
+    category: "Izolacje",
+    author: "Zespół Media Bud",
+    date: "2026-06-06",
+    readTime: 8,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["ceny izolacji 2026", "styropian cena", "wełna mineralna cena", "XPS cena", "termomodernizacja"],
+    content: `## Cennik materiałów izolacyjnych — Lublin 2026
+
+### Styropian EPS elewacyjny
+
+| Produkt | λ | Grubość | Cena m² |
+|---|---|---|---|
+| EPS biały | 0,040 | 10 cm | 17–22 zł |
+| EPS biały | 0,040 | 15 cm | 25–33 zł |
+| EPS grafitowy | 0,031 | 10 cm | 28–36 zł |
+| EPS grafitowy | 0,031 | 15 cm | 38–50 zł |
+| EPS grafitowy | 0,031 | 20 cm | 52–68 zł |
+
+### XPS — fundamenty, dachy odwrócone
+
+| Produkt | λ | Grubość | Cena m² |
+|---|---|---|---|
+| XPS standard | 0,034 | 5 cm | 28–38 zł |
+| XPS standard | 0,034 | 10 cm | 52–70 zł |
+
+### Wełna kamienna Rockwool
+
+| Produkt | λ | Grubość | Cena m² |
+|---|---|---|---|
+| Frontrock MAX E | 0,036 | 10 cm | 48–65 zł |
+| Frontrock MAX E | 0,036 | 15 cm | 72–95 zł |
+
+### Koszt na 100 m² elewacji
+
+| Materiał | 15 cm | Koszt |
+|---|---|---|
+| Styropian biały | 15 cm | 2 500–3 300 zł |
+| Styropian grafitowy | 15 cm | 3 800–5 000 zł |
+| Wełna Rockwool | 15 cm | 7 200–9 500 zł |
+
+### Kiedy co wybrać?
+
+- Dom jednorodzinny → EPS grafitowy 15 cm
+- Budynek użyteczności publicznej → wełna kamienna (klasa A1)
+- Dach odwrócony / garaż → XPS
+- Podłoga na gruncie → EPS 100/200
+
+Zamów z dostawą do Lublina — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
 ];
 
 

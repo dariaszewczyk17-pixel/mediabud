@@ -10,6 +10,7 @@ export interface BlogPost {
   tags: string[];
   image: string;
   readTime: number;
+  faq?: { q: string; a: string }[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -1117,6 +1118,414 @@ Wyliczymy ilości materiałów — **+48 533 553 344** | ul. Chemiczna 8d, Lubli
 **Adres**: ul. Chemiczna 8d, 20-329 Lublin
 
 Zadzwoń — **+48 533 553 344** | sprzedaz@mediabud.pl`
+  },
+
+  {
+    id: 'b026',
+    slug: 'budowa-szkieletowa-drewniana-poradnik-2026',
+    title: 'Budownictwo szkieletowe drewniane — kompletny przewodnik 2026',
+    excerpt: 'Dom szkieletowy można postawić w 3 miesiące. Wyjaśniamy technologię, materiały i koszty budowy szkieletowej w Polsce w 2026 roku.',
+    category: 'Poradniki',
+    author: 'Zespół Media Bud',
+    date: '2026-05-10',
+    readTime: 11,
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+    tags: ['szkielet', 'dom drewniany', 'CLS', 'OSB', 'budowa szkieletowa', 'płyty'],
+    faq: [
+      { q: 'Ile kosztuje budowa domu szkieletowego 100 m² w 2026?', a: 'Koszt stanu surowego zamkniętego domu szkieletowego 100 m² to 150 000–220 000 zł (stan surowy zamknięty, bez wykończenia). Stan deweloperski to 280 000–380 000 zł. Technologia jest o 15–25% tańsza od murowanej przy porównywalnym standardzie energetycznym.' },
+      { q: 'Czy dom szkieletowy jest trwały i ciepły?', a: 'Prawidłowo wykonany dom szkieletowy służy ponad 100 lat (domy w USA i Skandynawii mają 70–120 lat). Przy grubości ściany 20 cm (CLS 145 mm + wełna między słupami + docieplenie zewnętrzne) uzyskuje się U ≤ 0,15 W/(m²K), czyli lepiej niż standardowa ściana murowana 20 cm.' },
+      { q: 'Jakie płyty OSB stosuje się w konstrukcji szkieletowej?', a: 'Do poszycia ścian i dachów stosuje się OSB/3 (wilgociochronna, klasa E1) o grubości 12–18 mm. Jako poszycie nośne ściany szkieletowej wystarcza OSB/3 12 mm. Do podłóg rekomendowane jest OSB/4 (podwyższona wytrzymałość) 18–22 mm z klejem na złączach.' },
+      { q: 'Co to jest CLS i jakie wymiary się stosuje?', a: 'CLS (Canadian Lumber Standard) to strunobetonowe drewno konstrukcyjne o zaokrąglonych krawędziach. Standardowe wymiary słupów: 38×89 mm (ściana 89 mm), 38×140 mm (ściana 140 mm), 38×184 mm (ściana 184 mm). W Polsce dostępne w klasach C16 i C24 (C24 polecana do ścian nośnych).' },
+      { q: 'Czy budowa szkieletowa wymaga pozwolenia na budowę?', a: 'Domy do 70 m² PZP mogą być budowane na zgłoszenie (bez pozwolenia) od 2022 roku. Domy powyżej 70 m² wymagają pozwolenia na budowę niezależnie od technologii. Technologia szkieletowa nie zmienia procedur administracyjnych — decyduje powierzchnia i przeznaczenie.' },
+    ],
+    content: `## Dlaczego budownictwo szkieletowe zyskuje popularność w Polsce?
+
+W Polsce co roku przybywa kilka tysięcy domów szkieletowych. Technologia znana od dekad w Skandynawii i Ameryce Północnej przekonuje coraz więcej polskich inwestorów przede wszystkim szybkością budowy i doskonałą izolacyjnością cieplną.
+
+## Technologia szkieletowa — jak to działa?
+
+Konstrukcja nośna budynku opiera się na słupach drewnianych (CLS) rozmieszczonych co 40 lub 60 cm. Przestrzeń między słupami wypełnia wełna mineralna lub celuloza. Całość pokryta jest poszyciem z płyt OSB, które usztywnia konstrukcję i stanowi warstwę nośną pod wykończenie.
+
+### Warstwy ściany zewnętrznej od środka:
+
+1. Płyta GK lub OSB wewnętrzna
+2. Folia paroizolacyjna
+3. Wełna mineralna między słupami CLS (89–184 mm)
+4. Poszycie OSB/3
+5. Folia wiatroizolacyjna (memrana)
+6. Szczelina wentylacyjna (opcjonalnie)
+7. Docieplenie zewnętrzne XPS/EPS lub fasada wentylowana
+
+## Materiały do budowy domu szkieletowego
+
+### Drewno konstrukcyjne CLS
+
+Drewno CLS musi być klasyfikowane wytrzymałościowo — minimalna klasa C16 dla elementów nienośnych, C24 dla słupów nośnych. Wilgotność drewna w momencie wbudowania: max 18–20%.
+
+### Płyty OSB
+
+| Typ | Zastosowanie | Grubość |
+|-----|-------------|---------|
+| OSB/3 | Poszycie ścian, dachy | 12–15 mm |
+| OSB/3 | Podłogi (jedno piętro) | 18 mm |
+| OSB/4 | Podłogi nośne | 22–25 mm |
+
+### Wełna mineralna i celuloza
+
+Wełna skalna (Rockwool Flexi, Knauf Insulation) lub szklana (Isover KnaufInsulation) o gęstości 35–50 kg/m³ do wypełnienia słupów. Celuloza wtryskiwana — możliwość wypełnienia istniejących ścian bez rozkucia.
+
+## Koszty i harmonogram budowy
+
+Budowa stanu surowego zamkniętego 100 m² trwa 8–14 tygodni (3–4 miesiące z przerwami technologicznymi). Dla porównania, murowany stan surowy to 12–18 miesięcy.
+
+## Dlaczego warto kupować materiały w Media Bud?
+
+W naszym składzie znajdziesz pełen asortyment do budowy szkieletowej: CLS, płyty OSB, wełna Rockwool i Knauf Insulation, membrany dachowe Nexler, folie paroizolacyjne, wkręty i łączniki. Nasi doradcy pomogą zaplanować zestawienie materiałów dla Twojego projektu.
+
+Zadzwoń: **+48 533 553 344** | ul. Chemiczna 8d, 20-329 Lublin`
+  },
+  {
+    id: 'b027',
+    slug: 'gres-porcelanowy-rodzaje-dobor-montaz-2026',
+    title: 'Gres porcelanowy — rodzaje, dobór i montaż. Przewodnik 2026',
+    excerpt: 'Gres porcelanowy to standard w nowoczesnym budownictwie. Porównujemy typy, parametry techniczne i polecane marki na 2026 rok.',
+    category: 'Wykończenia',
+    author: 'Zespół Media Bud',
+    date: '2026-05-15',
+    readTime: 9,
+    image: 'https://images.unsplash.com/photo-1523413307857-ef24c53571ae?w=800&q=80',
+    tags: ['gres', 'płytki', 'gres porcelanowy', 'podłogi', 'łazienka', 'montaż płytek'],
+    faq: [
+      { q: 'Czym różni się gres porcelanowy od zwykłej glazury?', a: 'Gres porcelanowy jest spiekany w temperaturze 1250°C, co daje nasiąkliwość < 0,5% (norma BIa). Glazura (kafelki ceramiczne) ma nasiąkliwość 3–6%, jest mniej odporna na ścieranie i temperaturę. Gres nadaje się na zewnątrz i pod ogrzewanie podłogowe, glazura — wyłącznie wewnątrz.' },
+      { q: 'Jaki gres wybrać na taras zewnętrzny?', a: 'Na taras zewnętrzny stosuje się gres mrozoodporny BIa (nasiąkliwość < 0,5%) z klasą antypoślizgowości minimum R10 (pochylnie R11). Polecane: Cerrad Granit, Cersanit Marengo, Paradyż — grubość min. 20 mm (2 cm) dla tarasów pieszych. Konieczne jest użycie kleju mrozoodpornego (C2TE) i elastycznej fugi.' },
+      { q: 'Jak kleić gres wielkoformatowy 120x60 i większy?', a: 'Gres wielkoformatowy wymaga kleju odkształcalnego C2S1 lub C2S2 (np. Ceresit CM 17, Weber.set speed). Metoda back-buttering: nakłada się klej zarówno na podłoże, jak i na tylną stronę płytki (min. 95% pokrycia). Podłoże musi być równe (odchyłka max 2mm/2m) i stabilne.' },
+      { q: 'Ile płytek wielkoformatowych potrzebuję na pokój 25 m²?', a: 'Na 25 m² podłogi zamawiaj 27–28 m² płytek (10–12% zapas na docinki). Przy formatach 120x60 i układaniu pod kątem 45° — zapas zwiększ do 15%. Zawsze zamawiaj całą partię z jednej serii (ten sam numer barwny na opakowaniu = jednolity odcień kolorystyczny).' },
+      { q: 'Czy gres można układać na ogrzewanie podłogowe?', a: 'Tak — gres porcelanowy ma doskonałą przewodność cieplną (λ > 1,0 W/m·K) i jest idealny pod ogrzewanie podłogowe. Warunek: klej do ogrzewania podłogowego (C2TE — odkształcalny, szybkowiążący). Temperatura podłogi nie może przekraczać 28°C przy grubości płytki < 10 mm.' },
+    ],
+    content: `## Co to jest gres porcelanowy?
+
+Gres porcelanowy to ceramika spiekana w bardzo wysokiej temperaturze (1200–1280°C) z mieszaniny kaolinu, skalenia i kwarcu. Rezultatem jest materiał o nasiąkliwości < 0,5% i wytrzymałości na ściskanie przekraczającej 1200 kN/m².
+
+## Rodzaje gresu porcelanowego
+
+### Gres polerowany (lapato)
+Powierzchnia szlifowana i polerowana — efekt lustrzany. Wadą jest niska klasa antypoślizgowości (R9). Stosuj tylko w suchych pomieszczeniach wewnętrznych (salon, korytarz).
+
+### Gres matowy i satynowy
+Najczęściej stosowany. Klasa antypoślizgowości R10–R11. Idealne do łazienek, kuchni, przedpokoi i tarasów.
+
+### Gres rektyfikowany vs nierektyfikowany
+
+| Parametr | Rektyfikowany | Nierektyfikowany |
+|----------|--------------|-----------------|
+| Tolerancja wymiaru | ±0,3 mm | ±1,5 mm |
+| Minimalna spoina | 1,5–2 mm | 3–5 mm |
+| Wygląd | bardziej elegancki | klasyczny |
+| Cena | wyższa | niższa |
+
+### Gres imitujący beton, kamień i drewno
+Nowoczesne technologie druku cyfrowego (HD Inkjet) umożliwiają wierne odwzorowanie tekstur. Popularne serie: Cerrad Softcement, Paradyż Authority, Cersanit Urbanwood.
+
+## Parametry techniczne — jak czytać oznaczenia?
+
+- **Klasa ścieralności PEI 0–5**: PEI 3 — pomieszczenia mieszkalne, PEI 4 — kuchnie/korytarze, PEI 5 — garaże i sklepy
+- **Klasa antypoślizgowości R9–R13**: R9 — sucho, R10 — mokro, R11 — taras/basen, R12/13 — przemysł
+- **Nasiąkliwość BIa (< 0,5%)**: warunek dla zastosowań zewnętrznych i mrozoodpornych
+
+## Polecane marki 2026
+
+Weber (kleje i fugi), Ceresit CM 17 (klej do wielkich formatów), Mapei Ultracolor Plus (fuga premium), Atlas Keramal (klej C2TE) — wszystkie dostępne w Media Bud.
+
+## Montaż krok po kroku
+
+1. Przygotowanie podłoża (wyrównanie, gruntowanie)
+2. Wyznaczenie osi układania i próbne ułożenie bez kleju
+3. Naniesienie kleju na podłoże i tylną stronę płytki
+4. Układanie z krzyżykami/szczelinami 2–3 mm
+5. Fugowanie po 24–48h (sprawdź kart produktu kleju)
+6. Impregnacja fugi i płytek (opcjonalnie)
+
+Potrzebujesz doradztwa w doborze materiałów? Zadzwoń: **+48 533 553 344** | Media Bud, ul. Chemiczna 8d Lublin`
+  },
+  {
+    id: 'b028',
+    slug: 'farby-elewacyjne-silikonowe-silikatowe-akrylowe-porownanie-2026',
+    title: 'Farby elewacyjne: silikonowe vs silikatowe vs akrylowe — porównanie 2026',
+    excerpt: 'Wybór farby elewacyjnej ma wpływ na trwałość i wygląd budynku przez 10–15 lat. Porównujemy trzy główne typy pod względem właściwości i ceny.',
+    category: 'Farby i tynki',
+    author: 'Zespół Media Bud',
+    date: '2026-05-20',
+    readTime: 10,
+    image: 'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?w=800&q=80',
+    tags: ['farba elewacyjna', 'silikonowa', 'silikatowa', 'akrylowa', 'elewacja', 'malowanie'],
+    faq: [
+      { q: 'Jaka farba elewacyjna jest najlepsza na styropian (system ETICS)?', a: 'Na styropian w systemie ETICS stosuje się wyłącznie farby silikonowe (np. Baumit SilikonTop, Weber.ton Sil, Ceresit CT 48) lub silikatowe. Farby akrylowe bez grafitu są dopuszczalne, ale mają wyższy współczynnik absorpcji ciepła (ciemne kolory). Nigdy nie stosuj farb z agresywnymi rozpuszczalnikami — niszczą styropian.' },
+      { q: 'Ile kosztuje malowanie elewacji farbą silikonową na 200 m²?', a: 'Wydajność farby silikonowej to 5–8 m²/l. Na 200 m² przy 2 warstwach potrzebujesz ok. 50–80 litrów = 3 000–6 000 zł (farba). Koszt robocizny to 15–25 zł/m², czyli 3 000–5 000 zł. Łącznie: 6 000–11 000 zł za kompletne malowanie elewacji 200 m².' },
+      { q: 'Czym różni się farba silikatowa od silikonowej?', a: 'Farba silikatowa (krzemianowa) ma spoiwo mineralne — szkło wodne potasowe. Jest idealnie paroprzepuszczalna (sd < 0,01 m) i zasadowa (pH 11–13), co hamuje wzrost glonów. Wadą jest ograniczona paleta kolorów i konieczność zastosowania specjalnych gruntów. Farba silikonowa jest bardziej elastyczna, dostępna w szerokim zakresie kolorów.' },
+      { q: 'Jak prawidłowo malować elewację — kiedy i w jakiej temperaturze?', a: 'Malowanie elewacji: temperatura powietrza i podłoża 5–35°C. Unikaj pracy w pełnym słońcu (szybkie suszenie = pęknięcia) i przed zapowiedzianym deszczem (min. 24h bez opadów po nałożeniu). Wilgotność podłoża maks. 4%. Pierwsza warstwa rozcieńczona 10% wodą, druga bez rozcieńczania.' },
+      { q: 'Czy przed malowaniem elewacji trzeba używać gruntu?', a: 'Tak — grunt jest obowiązkowy. Wyrównuje chłonność podłoża, poprawia przyczepność farby i zmniejsza jej zużycie o 20–30%. Do tynków mineralnych: grunt akrylowy (np. Ceresit CT 17, Weber.prim). Do tynków silikatowych: grunt silikatowy o tym samym kolorze co tynk. Czas suszenia gruntu: 2–4h przed nałożeniem farby.' },
+    ],
+    content: `## Dlaczego wybór farby elewacyjnej jest tak ważny?
+
+Farba elewacyjna to ostatnia linia ochrony budynku przed warunkami atmosferycznymi. Prawidłowo dobrana chroni tynk i izolację przez 10–15 lat. Błędny wybór może prowadzić do powstawania glonów, odpadania powłoki i konieczności kosztownego przemalowania już po 3–5 latach.
+
+## Trzy główne typy farb elewacyjnych
+
+### Farba silikonowa (polisiloksanowa)
+
+Spoiwo: żywica silikonowa. Najwyższa kategoria środków do malowania elewacji.
+
+**Zalety:**
+- Paroprzepuszczalność: sd = 0,01–0,10 m (doskonała)
+- Hydrofobowość — woda spływa, nie wnika
+- Elastyczność — nie pęka przy osiadaniu budynku
+- Odporność na UV i temperatury -40°C do +80°C
+- Łatwy do czyszczenia efekt samoczyszczenia (Lotus)
+- Szeroka paleta kolorów (NCS, RAL)
+
+**Wady:** cena wyższa o 30–50% od akrylowej
+
+**Przykłady:** Baumit SilikonTop, Weber.ton Sil, Ceresit CT 48, Mapei Elastocolor
+
+### Farba silikatowa (krzemianowa)
+
+Spoiwo: szkło wodne potasowe. Farba mineralna.
+
+| Parametr | Farba silikatowa | Farba silikonowa |
+|----------|-----------------|-----------------|
+| Paroprzepuszczalność | Najwyższa (sd<0.01m) | Bardzo wysoka (sd<0.1m) |
+| Paleta kolorów | Ograniczona (jasne) | Pełna (NCS/RAL) |
+| Odporność na algi | Bardzo wysoka (pH 12) | Wysoka |
+| Zastosowanie na ETICS | Wełna mineralna | Styropian i wełna |
+
+### Farba akrylowa
+
+Spoiwo: dyspersja akrylowa. Standardowy wybór dla budżetowych zastosowań.
+
+**Zastosowania:** remonty starych elewacji mineralnych, budynki niekrytyczne, wewnętrzne powierzchnie zewnętrzne osłonięte.
+**Unikaj:** na nowych systemach ETICS ze styropianem (ciemne kolory mogą nagrzewać styropian).
+
+## Tabela porównawcza
+
+| Właściwość | Akrylowa | Silikonowa | Silikatowa |
+|------------|---------|-----------|-----------|
+| Cena (l) | 15–25 zł | 35–60 zł | 30–55 zł |
+| Trwałość | 5–8 lat | 12–20 lat | 15–25 lat |
+| Paroprzepuszczalność | Średnia | Bardzo wysoka | Najwyższa |
+| Elastyczność | Dobra | Bardzo dobra | Słaba |
+| Paleta kolorów | Pełna | Pełna | Ograniczona |
+
+## Rekomendacja Media Bud
+
+Do systemów ETICS: **farba silikonowa** (Baumit, Weber, Ceresit).
+Na stare elewacje mineralne bez ETICS: silikatowa lub akrylowa.
+Na fundamenty i cokół: farba gruntująca + farba odporność na kapilarne podciąganie wilgoci.
+
+Potrzebujesz doboru farby do konkretnej elewacji? Zadzwoń: **+48 533 553 344** | Media Bud Lublin`
+  },
+  {
+    id: 'b029',
+    slug: 'kleje-do-plytek-c1-c2-c2te-kiedy-ktory-stosowac',
+    title: 'Kleje do płytek C1, C2, C2TE — kiedy i który stosować? Przewodnik',
+    excerpt: 'Norma EN 12004 dzieli kleje do płytek na klasy C1, C2, S1, S2, E, T. Tłumaczymy co oznaczają i jak dobrać klej do konkretnego zastosowania.',
+    category: 'Chemia budowlana',
+    author: 'Zespół Media Bud',
+    date: '2026-05-25',
+    readTime: 8,
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    tags: ['klej do płytek', 'C1', 'C2', 'C2TE', 'norma EN 12004', 'płytki', 'gres'],
+    faq: [
+      { q: 'Co oznacza klasa C1 i C2 przy kleju do płytek?', a: 'C1 i C2 to klasy wytrzymałości na rozciąganie wg normy EN 12004. C1 — wytrzymałość ≥ 0,5 N/mm² (klej podstawowy do ceramiki wewnątrz). C2 — wytrzymałość ≥ 1,0 N/mm² (klej ulepszony do gresu, formatów > 30x30, podłoży trudnych). Różnica: C2 ma dwukrotnie wyższą przyczepność.' },
+      { q: 'Kiedy obowiązkowo trzeba stosować klej C2TE?', a: 'Klej C2TE (odkształcalny S1, szybkowiążący T) jest obowiązkowy przy: ogrzewaniu podłogowym, tarasach zewnętrznych i balkonach, płytkach wielkoformatowych > 60x60 cm, okładzinach basenowych, gresu mrozoodpornego na zewnątrz. Klasy S1/S2 (odkształcalność) chronią przed pęknięciami przy ruchach termicznych podłoża.' },
+      { q: 'Ile kleju do płytek potrzebuję na 30 m² łazienki?', a: 'Przy metodzie standard (podłoże tylko): 4–6 kg/m² = 120–180 kg kleju. Przy metodzie back-buttering (podłoże + płytka): 6–9 kg/m² = 180–270 kg kleju. Na podłogi wymagające back-buttering (gres > 60x60) zamów przynajmniej 200 kg kleju C2 na 30 m².' },
+      { q: 'Czym różni się klej szybkowiążący (T) od standardowego?', a: 'Klej szybkowiążący (oznaczenie T, np. Ceresit CM 11 Fast, Weber.set speed) osiąga pełną wytrzymałość w 3–6h zamiast 24h. Umożliwia fugowanie i użytkowanie podłogi już po kilku godzinach. Stosuj przy ograniczonym czasie pracy i ogrzewaniu podłogowym (skrócony czas postoju ogrzewania).' },
+      { q: 'Czy klej cementowy C2TE nadaje się do ogrzewania podłogowego?', a: 'Tak — klej C2TE jest przeznaczony m.in. do ogrzewania podłogowego. Odkształcalność klasy S1 (> 2,5 mm) lub S2 (> 5 mm) absorbuje naprężenia termiczne powstające przy rozgrzewaniu/studzeniu podłogi. Przed układaniem płytek przy ogrzewaniu podłogowym wymagane jest przeprowadzenie cyklu grzewczego podłogi (zazwyczaj 7–14 dni).' },
+    ],
+    content: `## Norma EN 12004 — jak klasyfikowane są kleje do płytek?
+
+Europejska norma PN-EN 12004:2017 wprowadza jednolity system klasyfikacji klejów cementowych (C), dyspersyjnych (D) i żywicznych (R). W Polsce najczęściej stosowane są kleje cementowe: C1 i C2.
+
+## Klasyfikacja klejów cementowych C
+
+### Klasa wytrzymałości
+- **C1** — wytrzymałość na rozciąganie ≥ 0,5 N/mm² (po 28 dniach)
+- **C2** — wytrzymałość na rozciąganie ≥ 1,0 N/mm² — klej ulepszony
+
+### Dodatkowe oznaczenia
+- **F (Fast)** — szybkowiążący: pełna wytrzymałość w 6h
+- **T (Thixotropic)** — przeciwspływny: nie spływa na ścianie (uwaga: w EN 12004 T to slow-slip, ale praktycznie oznacza zarówno antyspływność jak i szybkość)
+- **E (Extended open time)** — wydłużony czas otwarcia (> 30 minut)
+- **S1** — odkształcalny: > 2,5 mm ugięcia
+- **S2** — wysoko odkształcalny: > 5,0 mm ugięcia
+
+## Tabela doboru kleju do zastosowania
+
+| Zastosowanie | Minimalny klej | Przykłady produktów |
+|-------------|---------------|-------------------|
+| Płytki ceramiczne wnętrze, podłoga | C1 | Ceresit CM 11, Atlas Keramax |
+| Gres wewnętrzny do 60x60 | C1E lub C2 | Ceresit CM 14, Weber.set comfort |
+| Ogrzewanie podłogowe | C2TE S1 | Ceresit CM 17, Mapei Ultraflex 2 |
+| Gres > 60x60 (wielkoformatowy) | C2S1 lub C2S2 | Ceresit CM 17, Weber.set speed |
+| Taras i balkon zewnętrzny | C2TE S1 mrozoodporny | Ceresit CM 16, Atlas Stopter K-2 |
+| Basen kryty | C2TE S1 + EP fuga | Mapei Kerabond T, Laticrete 317 |
+| Elewacja (płytki fasadowe) | C2E S1 | Ceresit CM 16, Weber.set facade |
+
+## Jak czytać oznaczenie na opakowaniu?
+
+Przykład: **Ceresit CM 17 — C2TE S1**
+- C2 = ulepszony, wytrzymałość ≥ 1,0 N/mm²
+- T = szybkowiążący / przeciwspływny
+- E = wydłużony czas otwarcia (≥ 30 min)
+- S1 = odkształcalny (> 2,5 mm)
+
+## Metoda aplikacji — standard vs back-buttering
+
+**Metoda standardowa** (podłoże): klej na podłoże, płytka wciśnięta.
+Wymagane pokrycie: 65% (wewnątrz suche), 80% (wilgotne), 95% (mokre + zewnętrz + wielkoformatowe).
+
+**Back-buttering** (obie strony): klej na podłoże + warstwa na tył płytki.
+Obowiązkowy przy: formatach > 60x60, gresu gęstym (nasiąkliwość < 0,5%), tarasach zewnętrznych.
+
+W Media Bud oferujemy pełen asortyment klejów Ceresit, Weber, Atlas, Mapei i Sika. Pomożemy dobrać optymalny klej do Twojego zastosowania — zadzwoń: **+48 533 553 344**`
+  },
+  {
+    id: 'b030',
+    slug: 'styropian-xps-vs-eps-roznice-zastosowania-2026',
+    title: 'Styropian XPS vs EPS — różnice, zastosowania i grubości 2026',
+    excerpt: 'EPS i XPS to dwa różne materiały izolacyjne mimo podobnej nazwy. Wyjaśniamy kiedy stosować każdy z nich i dlaczego mylenie ich to kosztowny błąd.',
+    category: 'Izolacje',
+    author: 'Zespół Media Bud',
+    date: '2026-06-01',
+    readTime: 9,
+    image: 'https://images.unsplash.com/photo-1625577815636-d7a61b583799?w=800&q=80',
+    tags: ['XPS', 'EPS', 'styropian', 'izolacja', 'fundamenty', 'ocieplenie'],
+    faq: [
+      { q: 'Czym różni się XPS od EPS i skąd wziąć pewność, że kupuję odpowiedni?', a: 'EPS (biały lub szary styropian) ma strukturę spienioną — kulki widoczne na przekroju. XPS (np. Ravatherm, Nexler, Styrodur) ma strukturę wytłaczaną — przekrój jest jednorodny, gładki. XPS jest zawsze kolorowy (różowy, niebieski, zielony) i twardszy w dotyku. Na opakowaniu musi być oznaczenie XPS i norma EN 13164.' },
+      { q: 'Czy XPS można stosować na ściany zewnętrzne zamiast EPS?', a: 'XPS na ściany zewnętrzne ETICS jest niezalecany — ma gładką powierzchnię o niskiej przyczepności kleju. Wymaga gruntowania i frezowania. EPS fasadowy (np. Swisspor EPS 70, Yetico Lambda) jest znacznie tańszy i w pełni spełnia wymagania systemów ociepleń. XPS do ścian stosuje się wyłącznie poniżej terenu (ściana fundamentowa) lub na dachu odwróconym.' },
+      { q: 'Jaka grubość XPS na ławie fundamentowej?', a: 'Izolacja ławy fundamentowej XPS (pionowo) powinna mieć grubość min. 5 cm, a izolacja pozioma pod posadzką na gruncie min. 10–12 cm (XPS) lub 15 cm (EPS 100). Przy domach pasywnych: 20–25 cm. XPS klasy CS(10)300 lub wyżej pod posadzką przemysłową (magazyn, garaż).' },
+      { q: 'Czy EPS nasiąka wodą i czy to wada przy fundamentach?', a: 'EPS nasiąka wodą do 4–6% objętości po długim kontakcie — to zbyt dużo jak na zastosowania poniżej terenu. XPS ma nasiąkliwość < 0,3% (zamknięte komórki) — stąd do fundamentów, dachów odwróconych i tarasów zawsze wybieramy XPS. Powyżej terenu, przy prawidłowej hydroizolacji, EPS jest w pełni wystarczający.' },
+      { q: 'Ile kosztuje XPS vs EPS na ocieplenie 100 m² fundamentów?', a: 'XPS 10 cm klasy CS(10)200 to ok. 50–65 zł/m², czyli 5 000–6 500 zł na 100 m². EPS 100 15 cm na podłogę to ok. 22–30 zł/m², czyli 2 200–3 000 zł. Różnica ceny jest uzasadniona wymaganiami technicznymi: XPS pod posadzką garażu, EPS pod podłogą mieszkalną to prawidłowy wybór.' },
+    ],
+    content: `## EPS vs XPS — skąd to zamieszanie?
+
+Obie nazwy zawierają słowo polistyren — stąd powszechne mylenie. EPS to polistyren ekspandowany (spieniony), XPS to polistyren ekstrudowany (wytłaczany). Inna technologia produkcji = całkowicie inne właściwości użytkowe.
+
+## Czym jest EPS (Expanded Polystyrene)?
+
+EPS produkowany jest przez spienienie granulatu polistyrenowego za pomocą pary wodnej. W przekroju widoczne są drobne kulki spieczone razem. Barwa: biała lub szara (grafitowa), strukturę porów otwartych.
+
+**Typowe oznaczenia:**
+- EPS 70 — fasada, ściany zewnętrzne ETICS
+- EPS 80 — fasada, grubości 15–25 cm
+- EPS 100 — podłogi, stropodachy (lepsza odporność na ściskanie)
+- EPS 200 — podłogi przemysłowe, obciążone
+
+## Czym jest XPS (Extruded Polystyrene)?
+
+XPS produkowany jest przez wytłaczanie (ekstruzję) stopionego polistyrenu z czynnikiem spieniającym. Powstaje material jednorodny, z zamkniętymi porami. Barwa: różowa, niebieska, zielona, żółta (zależnie od producenta).
+
+| Właściwość | EPS | XPS |
+|-----------|-----|-----|
+| Nasiąkliwość | 4–6% | < 0,3% |
+| λ typowe | 0,033–0,040 W/(m·K) | 0,030–0,035 W/(m·K) |
+| Odporność na ściskanie | 70–200 kPa | 200–700 kPa |
+| Cena (m²/10cm) | 15–22 zł | 40–65 zł |
+| Kolor | biały / szary | różowy / niebieski |
+
+## Gdzie stosować każdy materiał?
+
+### Stosuj EPS:
+- Ocieplenie ścian zewnętrznych ETICS (EPS 70/80)
+- Stropy między kondygnacjami
+- Dach skośny (między krokwiami nie; pod krokwiami tak)
+- Podłoga na gruncie w pomieszczeniach mieszkalnych (EPS 100)
+
+### Stosuj XPS:
+- Ocieplenie fundamentów (pionowo i poziomo poniżej terenu)
+- Dach odwrócony (XPS nad papą) ← kluczowe zastosowanie
+- Tarasy i balkony z drenażem
+- Podłogi garażu, magazynu, podjazdów (duże obciążenia)
+- Cokoły budynków przy gruncie
+
+## Najczęstszy błąd: EPS poniżej terenu
+
+EPS przy fundamentach i poniżej terenu nasiąka wodą w ciągu 10–15 lat, tracąc 30–40% właściwości izolacyjnych. Zawsze stosuj XPS w strefach kontaktu z gruntem!
+
+W Media Bud oferujemy kompletny asortyment EPS i XPS: Swisspor, Styropmin, Ravatherm XPS, Nexler XPS. Nasi doradcy dobiorą właściwy produkt dla Twojego zastosowania — zadzwoń: **+48 533 553 344**`
+  },
+  {
+    id: 'b031',
+    slug: 'fundamenty-obliczenia-wylewka-izolacja-poradnik',
+    title: 'Fundamenty — obliczenia, wylewka i izolacja. Kompletny poradnik budowlany',
+    excerpt: 'Fundamenty to najważniejszy element budynku. Błędy przy ich wykonaniu kosztują dziesiątki tysięcy złotych napraw. Sprawdź jak prawidłowo zaplanować, wykonać i zaizolować fundamenty.',
+    category: 'Poradniki',
+    author: 'Zespół Media Bud',
+    date: '2026-06-05',
+    readTime: 12,
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+    tags: ['fundamenty', 'ława fundamentowa', 'izolacja fundamentów', 'hydroizolacja', 'wylewka', 'zbrojenie'],
+    faq: [
+      { q: 'Ile kosztują fundamenty domu 100 m² w 2026?', a: 'Koszt fundamentów (ławy fundamentowe + ściany fundamentowe + izolacja + wylewka) dla domu 100 m² to 20 000–45 000 zł w zależności od gruntu i standardu. Sam beton i zbrojenie to 8 000–15 000 zł, izolacja (XPS + papa + grunt) 4 000–8 000 zł, wylewka posadzki 5 000–12 000 zł. Robocizna: 15 000–25 000 zł.' },
+      { q: 'Jaka izolacja na ławy fundamentowe i ściany piwnic?', a: 'Ławy fundamentowe i ściany piwnic izoluje się od zewnątrz: primer bitumiczny (np. Ceresit BT 11) + folia kubełkowa lub 2 warstwy papy samoprzylepnej + XPS 10–15 cm. Od wewnątrz — grunt mineralny + tynk renowacyjny przy istniejących budynkach. Drenarz (drenaż opaskowy) obowiązkowy przy poziomie wody gruntowej poniżej 1,5 m od posadzki.' },
+      { q: 'Jak obliczyć głębokość posadowienia fundamentów?', a: 'Głębokość posadowienia musi być poniżej strefy przemarzania gruntu. W Polsce: Lublin, Warszawa — 1,0 m, Białystok, Suwałki — 1,4 m, Zakopane — 1,6 m. Do tego dodaj 10–15 cm (beton podkładowy). Przy gruntach słabonośnych (torfy, namuły) — fundamenty głębsze lub pale/studnie.' },
+      { q: 'Czy wylewka betonowa na gruncie musi być zbrojona?', a: 'Wylewka podposadzkowa (podkład betonowy) grubości 10–15 cm na gruncie zazwyczaj nie wymaga zbrojenia stalowego przy obciążeniach mieszkalnych. Przy garażach, magazynach lub słabym gruncie stosuje się siatkę stalową fi 6 co 15x15 cm lub siatkę zgrzewaną. Zbrojenie obowiązkowe przy ogrzewaniu podłogowym (rura w betonie).' },
+      { q: 'Jaki beton do fundamentów — C16/20 czy C20/25?', a: 'Ławy fundamentowe: minimum C16/20 (dawniej B20). Dla agresywnych gruntów (siarczany, wysoka wilgotność) — C20/25 lub C25/30 z cementem CEM III. Do betonu podkładowego pod ławami: C8/10 (chudy beton, 15 cm). Beton napowietrzony do fundamentów narażonych na zamrażanie-rozmrażanie.' },
+    ],
+    content: `## Dlaczego fundamenty są krytyczne?
+
+Fundamenty przenoszą ciężar całego budynku na grunt. Osiadanie, pęknięcia i wilgoć wynikające z błędów fundamentowych to najdroższe naprawy w budownictwie — kosztują 30 000–150 000 zł i często wymagają tymczasowego opuszczenia budynku.
+
+## Rodzaje fundamentów
+
+### Ławy fundamentowe (najczęstsze)
+Stosowane dla gruntów nośnych (piasek, żwir, glina zwarta). Szerokość ławy = 2x grubość ściany + 20 cm (min. 60 cm). Głębokość: poniżej strefy przemarzania (Lublin: min. 1,0 m).
+
+### Płyta fundamentowa
+Stosowana przy gruntach o niskiej nośności lub gdy poziom wody gruntowej jest wysoki. Całkowita płyta żelbetowa 25–35 cm grubości z izolacją termiczną. Koszt wyższy, ale eliminuje problem nierównomiernego osiadania.
+
+### Pale i studnie (specjalne)
+Przy bardzo słabych gruntach (namuły, torfy, grunty nasypowe) — pale wiercone do warstw nośnych.
+
+## Materiały do izolacji fundamentów
+
+### Hydroizolacja (ochrona przeciwwilgociowa)
+
+**Izolacja lekka** (bez parcia wody):
+- Primer bitumiczny (Ceresit BT 11, Izobud) — gruntowanie betonu
+- Masa bitumiczna (1–2 warstwy) lub papa samoprzylepna
+
+**Izolacja ciężka** (parcie wody, poziom WG < 0,5m):
+- 2 warstwy papy termozgrzewalnej P4/P5 + folia kubełkowa
+
+### Izolacja termiczna
+
+Na ścianach fundamentowych od zewnątrz: XPS 5–12 cm (Ravatherm, Nexler XPS).
+Pod posadzką na gruncie: XPS 10–15 cm lub EPS 100 15–20 cm.
+
+| Materiał | λ [W/m·K] | Odporność na wodę | Odporność na ściskanie |
+|---------|----------|-------------------|----------------------|
+| XPS 10 cm | 0,033 | Bardzo wysoka | 200–500 kPa |
+| EPS 100 15 cm | 0,040 | Niska (niezalecane) | 100 kPa |
+
+## Kolejność robót fundamentowych
+
+1. Wykopy i niwelacja
+2. Beton podkładowy C8/10 (10–15 cm) + folia PE 0,2 mm
+3. Zbrojenie ław (stal A-III fi12–16, strzemiona fi8)
+4. Betonowanie ław (C16/20 lub C20/25)
+5. Murowanie lub betonowanie ścian fundamentowych
+6. Primer bitumiczny + izolacja przeciwwilgociowa
+7. XPS pionowo na ścianie od zewnątrz
+8. Drenaż opaskowy (rura drenarsa Ø100–160 mm) + otulina żwirowa
+9. Zasypanie wykopów z zagęszczeniem warstwami 20 cm
+10. XPS poziomo pod posadzką + folia PE
+11. Zbrojenie siatką + wylewka betonowa C16/20 (10–15 cm)
+
+## Kontrola jakości — co sprawdzić przed zasypaniem?
+
+Przed zasypaniem wykopów koniecznie: sprawdź szczelność hydroizolacji (brak uszkodzeń mechanicznych), sfotografuj wszystkie warstwy, sprawdź grubości XPS i prawidłowość połączeń.
+
+W Media Bud oferujemy wszystkie materiały do izolacji fundamentów: primer bitumiczny, masy bitumiczne, papy samoprzylepne, XPS Ravatherm i Nexler, folie kubełkowe. Zadzwoń: **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
   },
 ];
 

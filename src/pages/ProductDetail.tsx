@@ -240,7 +240,12 @@ export default function ProductDetail() {
           "availability": "https://schema.org/InStock",
           "priceCurrency": "PLN",
           "url": `https://mediabud.pl/produkt/${slug}`,
-          "seller": { "@type": "Organization", "name": "Media Bud", "url": "https://mediabud.pl" },
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://mediabud.pl/#organization",
+            "name": "Media Bud",
+            "url": "https://mediabud.pl",
+          },
         },
       })}} />
 

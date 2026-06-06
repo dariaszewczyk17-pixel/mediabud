@@ -20,14 +20,45 @@ export default function BlogPost() {
     ogImage: post.image,
     schema: {
       "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": post.title,
-      "description": post.excerpt,
-      "image": post.image,
-      "datePublished": post.date,
-      "author": { "@type": "Organization", "name": "Media Bud" },
-      "publisher": { "@type": "Organization", "name": "Media Bud", "logo": { "@type": "ImageObject", "url": "https://mediabud.pl/logo.png" } }
-    }
+      "@graph": [
+        {
+          "@type": ["Article", "TechArticle"],
+          "@id": `https://mediabud.pl/blog/${post.slug}#article`,
+          "url": `https://mediabud.pl/blog/${post.slug}`,
+          "headline": post.title,
+          "description": post.excerpt,
+          "image": { "@type": "ImageObject", "url": post.image, "width": 800, "height": 450 },
+          "datePublished": post.date,
+          "dateModified": post.date,
+          "wordCount": Math.round(post.content.split(/\s+/).length),
+          "inLanguage": "pl-PL",
+          "keywords": post.tags.join(", "),
+          "articleSection": post.category,
+          "author": {
+            "@type": "Organization",
+            "@id": "https://mediabud.pl/#organization",
+            "name": "Media Bud",
+            "url": "https://mediabud.pl",
+          },
+          "publisher": {
+            "@type": "Organization",
+            "@id": "https://mediabud.pl/#organization",
+            "name": "Media Bud",
+            "logo": { "@type": "ImageObject", "url": "https://mediabud.pl/images/logo-mediabud-main.png", "width": 180, "height": 60 },
+          },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": `https://mediabud.pl/blog/${post.slug}` },
+          "isPartOf": { "@type": "Blog", "name": "Blog Media Bud — poradniki budowlane", "url": "https://mediabud.pl/blog" },
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog",           "item": "https://mediabud.pl/blog" },
+            { "@type": "ListItem", "position": 3, "name": post.title,       "item": `https://mediabud.pl/blog/${post.slug}` },
+          ],
+        },
+      ],
+    },
   } : {
     title: "Artykuł – Blog Media Bud",
     description: "Blog techniczny Media Bud — poradniki budowlane, izolacje, tynki, materiały.",
@@ -46,6 +77,18 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
+      {/* JSON-LD FAQPage — tylko dla postów z polem faq */}
+      {(post as any).faq && (post as any).faq.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": (post as any).faq.map((f: { q: string; a: string }) => ({
+            "@type": "Question",
+            "name": f.q,
+            "acceptedAnswer": { "@type": "Answer", "text": f.a },
+          })),
+        })}} />
+      )}
       <div className="container mx-auto px-4 py-8 max-w-4xl">
 
         {/* Back */}

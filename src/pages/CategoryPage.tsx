@@ -563,20 +563,31 @@ export default function CategoryPage() {
         ],
       })}} />
 
-      {/* JSON-LD ItemList — lista produktów w kategorii (pierwsze 10) */}
+      {/* JSON-LD CollectionPage + ItemList — strona kategorii z listą produktów */}
       {paginated.length > 0 && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "ItemList",
+          "@type": "CollectionPage",
+          "@id": `https://mediabud.pl/kategoria/${slug}`,
           "name": cat.name,
+          "description": (cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin.`,
           "url": `https://mediabud.pl/kategoria/${slug}`,
-          "numberOfItems": filtered.length,
-          "itemListElement": paginated.slice(0, 10).map((p, i) => ({
-            "@type": "ListItem",
-            "position": i + 1,
-            "url": `https://mediabud.pl/produkt/${p.slug}`,
-            "name": p.name,
-          })),
+          "provider": {
+            "@type": "Organization",
+            "@id": "https://mediabud.pl/#organization",
+            "name": "Media Bud",
+          },
+          "mainEntity": {
+            "@type": "ItemList",
+            "name": `${cat.name} — lista produktów`,
+            "numberOfItems": filtered.length,
+            "itemListElement": paginated.slice(0, 10).map((p, i) => ({
+              "@type": "ListItem",
+              "position": i + 1,
+              "url": `https://mediabud.pl/produkt/${p.slug}`,
+              "name": p.name,
+            })),
+          },
         })}} />
       )}
 

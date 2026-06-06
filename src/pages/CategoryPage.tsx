@@ -38,6 +38,64 @@ function useReveal() {
   return { ref, vis };
 }
 
+/* ── FAQ per kategoria (JSON-LD FAQPage + widoczna sekcja) ─────────────────── */
+const CATEGORY_FAQS: Record<string, { q: string; a: string }[]> = {
+  "chemia-budowlana": [
+    { q: "Jaka jest różnica między tynkiem silikonowym a akrylowym?", a: "Tynk silikonowy jest bardziej paroprzepuszczalny, elastyczny i odporny na zabrudzenia — idealny na elewacje. Tynk akrylowy jest tańszy i łatwiejszy w aplikacji, ale mniej odporny na UV i glony. W Lublinie przy wilgotnym klimacie rekomendujemy silikonowy." },
+    { q: "Ile kleju do styropianu potrzebuję na 1 m²?", a: "Standardowe zużycie kleju do styropianu EPS (np. Weber.therm Extra, Ceresit CT 85) wynosi 4–6 kg/m² przy metodzie obwodowo-punktowej lub 5–8 kg/m² przy aplikacji grzebykowej. Dokładne zużycie podaje producent na etykiecie opakowania." },
+    { q: "Czym różni się grunt głęboko penetrujący od universalnego?", a: "Grunt głęboko penetrujący wnika w porowate i pylące podłoża (beton komórkowy, cegła), wzmacnia i wiąże luźne cząstki. Grunt universalny poprawia przyczepność na gładkich podłożach. Wybór zależy od chłonności i rodzaju podłoża." },
+    { q: "Jak dobrać fugę do płytek — cementową czy epoksydową?", a: "Fuga cementowa (np. Ceresit CE 33, Mapei Ultracolor) wystarczy do większości zastosowań w domu. Fuga epoksydowa polecana jest do miejsc narażonych na chemikalia, tłuszcze i zabrudzenia (basen, garaż, kuchnia przemysłowa) — jest droższa, ale praktycznie nieporowata." },
+    { q: "Czy zaprawę murarską można stosować w zimie?", a: "Standardowe zaprawy murarskie wymagają temperatury powyżej +5°C podczas aplikacji i przez 24h po. Do prac zimowych stosuje się specjalne zaprawy mrozoodporne (np. Atlas Mur AM 50 zimowy) lub dodaje plastyfikatory. Poniżej 0°C prace murarskie są niezalecane." },
+  ],
+  "dachy": [
+    { q: "Jaka papa jest najlepsza na dach płaski?", a: "Na dachy płaskie polecamy papy termozgrzewalne podkładowe i wierzchniego krycia (np. Icopal Polbit, Sopro, Sika). Papa SBS (elastomerobitumiczna) jest bardziej elastyczna i mrozoodporna niż APP. Dla pełnej szczelności stosuje się system dwuwarstwowy: papa podkładowa + papa nawierzchniowa." },
+    { q: "Ile kosztuje wymiana pokrycia dachowego na 100 m²?", a: "Sam materiał do wymiany pokrycia na 100 m² to koszt od 3 000 zł (papa podwójna) przez 8 000–15 000 zł (blachodachówka, dachówka betonowa) do 20 000–30 000 zł+ (dachówka ceramiczna, blacha na rąbek). W Media Bud dobieramy materiały do budżetu i pomożemy wyliczyć ilości." },
+    { q: "Jaka folia dachowa jest potrzebna pod blachodachówkę?", a: "Pod blachodachówkę stosuje się folię dachową niskoopojemnościową (wstępne krycie, MSD) lub membrany dachowe wysokodyfuzyjne (Nexler, Fakro). Membrana wysokodyfuzyjna umożliwia układanie bezpośrednio na krokwiach bez szczeliny wentylacyjnej poniżej." },
+    { q: "Jak wybrać okno dachowe — Fakro czy Velux?", a: "Oba producentów oferują porównywalną jakość. Fakro (polska marka) często jest nieco tańsze przy zbliżonych parametrach. Velux ma bogatszy wybór dodatków i rolet. Ważne: dobieramy rozmiar do kąta nachylenia dachu — minimalne nachylenie to zazwyczaj 15°." },
+    { q: "Co to jest dyfuzja wodna w membranie dachowej i dlaczego jest ważna?", a: "Dyfuzja wodna (Sd — ekwiwalentna grubość powietrza) określa jak łatwo para wodna przenika przez membranę. Niskie Sd (< 0,02 m) oznacza membranę wysoce paroprzepuszczalną, która odprowadza wilgoć z warstwy ocieplenia — kluczowe dla trwałości izolacji i drewnianych elementów dachu." },
+  ],
+  "farby-i-rozpuszczalniki": [
+    { q: "Jaka farba elewacyjna jest najlepsza na styropian?", a: "Na styropian (system ETICS) stosuje się wyłącznie farby silikonowe (np. Baumit SilikonTop, Weber.ton Sil), silikatowe lub akrylowe niepęczniejące — bez agresywnych rozpuszczalników. Farby silikonowe mają najlepszą paroprzepuszczalność i samooczyszczanie. Przed malowaniem obowiązkowo grunt." },
+    { q: "Ile farby lateksowej potrzebuję na pokrycie 30 m² ściany?", a: "Wydajność farby lateksowej wynosi zazwyczaj 8–12 m²/l na jedno krycie. Ściany wymagają 2 warstw: pierwsza cieńsza (z rozcieńczeniem 10%), druga kryjąca. Na 30 m² potrzeba ok. 5–8 litrów farby. Ciemne kolory mogą wymagać 3 warstw." },
+    { q: "Czym się różni farba lateksowa od akrylowej?", a: "Farba lateksowa to podtyp farby akrylowej — obie zawierają spoiwa akrylowe w dyspersji wodnej. Potocznie 'lateksowa' oznacza farby do wnętrz (zmywalne, elastyczne), 'akrylowa elewacyjna' to fabryczna dyspersja do zewnętrz z dodatkami odporności na warunki atmosferyczne." },
+    { q: "Jak prawidłowo rozcieńczyć farbę i czy zawsze trzeba to robić?", a: "Pierwsza warstwa (gruntująca) rozcieńczana jest o 10–20% wodą lub dedykowanym rozcieńczalnikiem. Kolejne warstwy kryjące stosuje się zazwyczaj bez rozcieńczania. Nadmierne rozcieńczanie obniża krycie i trwałość powłoki. Zawsze sprawdź kartę techniczną produktu." },
+  ],
+  "izolacje": [
+    { q: "Jaki styropian wybrać do ocieplenia ścian zewnętrznych?", a: "Do ocieplenia ścian metodą ETICS (lekka mokra) stosuje się styropian fasadowy EPS 70 lub EPS 80 (np. Swisspor Lambda, Yetico, Styropmin). Grubość minimum 15 cm dla nowych budynków zgodnie z WT 2021. Współczynnik lambda ≤ 0,036 W/(m·K) gwarantuje lepszy efekt cieplny." },
+    { q: "Wełna mineralna czy styropian — co lepsze do ocieplenia domu?", a: "Styropian EPS jest tańszy i łatwiejszy w montażu, wystarczy do większości ścian. Wełna mineralna (Rockwool, Isover, URSA) jest paroprzepuszczalna, niepalna (klasa A1/A2) i ma lepszą izolację akustyczną — polecana na ściany piwnic, stropy, dachy i budynki wyższe niż 25m (warunek p-poż)." },
+    { q: "Jak ocieplić poddasze — styropian między krokwiami czy wełna?", a: "Na poddasze użytkowe stosuje się wełnę mineralną (np. Rockwool Rockmin Plus) układaną w 2 warstwach: między krokwiami + pod krokwiami (eliminacja mostków). Łączna grubość minimum 25–30 cm. Pod wełną od strony ciepłej obowiązkowo folia paroizolacyjna." },
+    { q: "Ile cm izolacji potrzebuję na podłogę na gruncie?", a: "Zgodnie z WT 2021 izolacja podłogi na gruncie powinna mieć U ≤ 0,30 W/(m²·K). Osiąga to styropian EPS 100 o grubości minimum 12–15 cm lub XPS 10–12 cm. Pod ogrzewanie podłogowe rekomendujemy styropian o odporności na ściskanie min. CS(10)100 (EPS 100)." },
+    { q: "Co to jest XPS i kiedy stosować go zamiast EPS?", a: "XPS (polistyren ekstrudowany, np. Ravatherm, Nexler, URSA XPS) ma zamkniętą strukturę komórek — nie nasiąka wodą (chłonność < 0,3%). Stosuj XPS wszędzie tam, gdzie izolacja kontaktuje się z wilgocią: ławy fundamentowe, ściana zewnętrzna poniżej terenu, dach odwrócony, taras." },
+  ],
+  "narzedzia-i-mocowania": [
+    { q: "Jakie kołki rozporowe wybrać do styropianu EPS?", a: "Do mocowania styropianu w systemach ETICS stosuje się kołki teleskopowe z tworzywowymi talerzami lub kołki z wbijanym trzpieniem stalowym. Zalecana liczba kołków to 6 szt./m² (naroża i krawędzie 8 szt./m²). Odpowiednie kołki to np. Ejot STR, Rawplug R-TK, Fischer Etics." },
+    { q: "Czym wiercić w betonie i jakie narzędzia są potrzebne?", a: "Do wiercenia w betonie i żelbecie potrzebna jest wiertarka udarowa lub młotowiertarka (SDS-plus/SDS-max) z wiertłem do betonu. Do mocowań konstrukcyjnych (belki, schody) stosuje się młotowiertarki SDS-max z wiertłami od 16mm. Kołki rozporowe chemiczne (np. Hilti HIT, Fischer FIS) do obciążonych punktów." },
+    { q: "Jakie są rodzaje taśm budowlanych i do czego służą?", a: "Taśmy paroizolacyjne uszczelniają złącza folii na poddaszach. Taśmy rozprężne (kompribandy) uszczelniają przylgnie okienne. Taśmy klejące jednostronne/dwustronne służą do montażu. Siatka zbrojąca na taśmie używana jest w krawędziach tynków. Każda ma inny zakres temperatur i klejenia." },
+  ],
+  "plytki": [
+    { q: "Jak obliczyć ile płytek ceramicznych potrzebuję na łazienkę 8 m²?", a: "Do obliczenia: zmierz osobno powierzchnię podłogi i ścian, dodaj 10–15% zapas na docinki i ewentualne stłuczenia. Na 8 m² podłogi potrzebujesz ok. 9–9,5 m² płytek. Duże formaty (60×60, 80×80) generują więcej odpadów — dodaj 15–20%. Zamów całą partię naraz (ten sam numer produkcyjny = jednolity kolor)." },
+    { q: "Jaki klej wybrać do płytek wielkoformatowych (60×120 i większe)?", a: "Płytki wielkoformatowe wymagają kleju odkształcalnego klasy C2 lub C2S1/C2S2 (np. Ceresit CM 17, Mapei Ultraflex, Weber.set speed). Aplikacja metodą back-buttering (klejenie obu stron: podłoże + płytka). Minimalne pokrycie powierzchni: 95% w mokrych pomieszczeniach, 80% w suchych." },
+    { q: "Jak wybrać grubość fugi do płytek podłogowych?", a: "Grubość spoiny zależy od formatu płytki i rektyfikacji. Płytki rektyfikowane: 1,5–2 mm. Płytki nierektyfikowane: 3–5 mm. Podłogi: minimum 3 mm dla lepszego rozkładu obciążeń. Nigdy nie fuguj wcześniej niż 24h po układaniu płytek (klej musi wyschnąć)." },
+    { q: "Czy płytki gresowe nadają się na zewnątrz i jak je wybrać?", a: "Na zewnątrz stosuje się gres mrozoodporny o nasiąkliwości < 0,5% (norma PN-EN 14411, klasa E ≤ 0,5%). Sprawdź klasę antypoślizgowości: R10 (pochylnie, tarasy) lub R11 (schody zewnętrzne). Format: mniejsze płytki (30×30, 40×40) z większą ilością fug mają lepszą przyczepność w deszczu." },
+  ],
+  "stropy-i-sciany": [
+    { q: "Jakie bloczki z betonu komórkowego wybrać do budowy ściany nośnej?", a: "Do ścian nośnych stosuje się beton komórkowy klasy min. 600 (np. Solbet S600, Ytong PP4/0,6, Xella YTONG). Do ścian dwuwarstwowych i partycji wystarczy klasa 400–500. Grubość ściany nośnej zależy od projektu — zazwyczaj 24–36 cm. Dla lepszej izolacji wybierz bloczki grubości 36–48 cm z lambda ≤ 0,12." },
+    { q: "Czym się różni strop Teriva od Filigran?", a: "Strop Teriva (belkowo-pustakowy) montuje się na budowie z belek prefabrykowanych i pustaków ceramicznych lub styropianowych, a następnie zalewa beton. Filigran to płyta sprężona z żelbetu prefabrykowana w zakładzie, transportowana i układana dźwigiem. Filigran ma wyższą nośność i krótszy czas montażu." },
+    { q: "Jak dobrać grubość ściany murowej dla dobrej izolacji termicznej?", a: "Zgodnie z WT 2021 ściana zewnętrzna musi mieć U ≤ 0,20 W/(m²·K). Ściana z bloczków silikatowych 24 cm sama w sobie nie spełnia tego wymogu — wymaga ocieplenia. Beton komórkowy 36 cm (lambda 0,09) osiąga U ≈ 0,24 — wymaga dodatkowej izolacji. Zawsze projektuj system: mur + ocieplenie." },
+  ],
+  "sucha-zabudowa": [
+    { q: "Jaka grubość płyty GK do ścianki działowej?", a: "Do standardowych ścianek działowych stosuje się płytę GK 12,5 mm (Knauf, Rigips) na profilach metalowych CW/UW 75 lub 100 mm. Jedna warstwa na każdej stronie to minimum, dwie warstwy płyt (25 mm łącznie) poprawiają izolację akustyczną i odporność ogniową (EI 60). Do łazienek — płyta impregnowana GKB (zielona)." },
+    { q: "Ile profili metalowych potrzebuję na 10 m² ścianki GK?", a: "Na 10 m² ścianki: profile pionowe CW co 60 cm = ok. 4–5 szt. po 2,6–3 m. Profile poziome UW pod sufit i podłogę: 2× długość ścianki (np. 4 m = 2×4 = 8 mb UW). Krawędziaki, kliny i wkręty dobierane wg liczby profili. Dokładny materiał wylicza Media Bud po podaniu wymiarów." },
+    { q: "Knauf czy Rigips — która płyta GK jest lepsza?", a: "Obie marki oferują porównywalną jakość i spełniają normy EN 520. Knauf ma nieco bogatszą ofertę grubości i specjalnych płyt (akustyczne, ogniochronne). Rigips (Saint-Gobain) jest liderem w segmencie profesjonalnym w Polsce. Wybór często zależy od dostępności i preferencji ekipy. W Media Bud dostępne są obie marki." },
+    { q: "Jak zamontować konstrukcję pod sufit podwieszany GK?", a: "System sufitu GK: profil przyścienny (UA 30) wokół obrysu + wieszaki bezpośrednie lub na drutach do stropu co 60–80 cm + profile nośne CD 60 co 50 cm w jednej osi + profile poprzeczne CD 60 co 50 cm prostopadle. Płyty GK 12,5 mm mocowane wkrętami TN 3,5×25 co 17 cm." },
+  ],
+  "sufity-podwieszane": [
+    { q: "Jaka jest różnica między sufitem podwieszanym systemowym a GK?", a: "Sufit systemowy (np. Ecophon, Rockfon, OWA) to demontowalne płyty mineralne lub metalowe na widocznej/ukrytej konstrukcji — idealny do biur, hal i obiektów użyteczności publicznej (łatwy dostęp do instalacji). Sufit GK (karton-gips) jest trwały, gładki, bezspoinowy i malowany — dominuje w budownictwie mieszkaniowym." },
+    { q: "Jak poprawić akustykę w pokoju sufitem podwieszanym?", a: "Sufit podwieszany z płyt akustycznych pochłaniających (np. Ecophon Master Ds, Rockfon Sonar) redukuje pogłos (alpha w = 0,7–1,0). Między stropem a sufitem warto ułożyć wełnę mineralną gr. 5 cm. W połączeniu z podwójną płytą GK na ścianach możliwe są bardzo niskie poziomy głośności w pomieszczeniu." },
+    { q: "Ile kosztuje sufit podwieszany GK na 15 m²?", a: "Koszt sufitu GK na 15 m²: profil CD + UW ≈ 150–250 zł, płyty GK 12,5 mm ≈ 100–180 zł, wkręty/wieszaki ≈ 50–80 zł, masa szpachlowa + taśma ≈ 50–100 zł. Łącznie materiały: ok. 350–600 zł. Robocizna (montaż + szpachlowanie) dodaje 40–70 zł/m², czyli 600–1050 zł. Łączny koszt: ok. 1000–1600 zł." },
+  ],
+};
+
 const catImages: Record<string, string> = {
   "chemia-budowlana": "/images/cat-chemia_2.png",
   "dachy": "/images/cat-dachy_2.png",
@@ -49,6 +107,48 @@ const catImages: Record<string, string> = {
   "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
   "sufity-podwieszane": "/images/cat-sufity_2.png",
 };
+
+/* ── FAQ Accordion ─────────────────────────────────────────────────────────── */
+function FaqAccordion({ items, catName }: { items: { q: string; a: string }[]; catName: string }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className="mt-10 rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="px-6 py-4 flex items-center gap-2" style={{ background: "#0f0f0f", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <span className="w-[3px] h-4 bg-[#f81828] rounded-full" />
+        <h3 className="font-bold text-white text-sm">FAQ — {catName}</h3>
+        <span className="ml-2 text-[10px] font-black px-2 py-0.5 rounded-full" style={{ background: "rgba(248,24,40,0.12)", color: "#f88090" }}>
+          {items.length} pytań
+        </span>
+      </div>
+      <div style={{ background: "#0a0a0a" }}>
+        {items.map(({ q, a }, i) => (
+          <div key={i} style={{ borderBottom: i < items.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+            <button
+              onClick={() => setOpen(open === i ? null : i)}
+              className="w-full text-left px-6 py-4 flex items-start justify-between gap-3 group transition-colors"
+              style={{ background: open === i ? "rgba(248,24,40,0.04)" : "transparent" }}
+            >
+              <span className="text-sm font-semibold text-gray-300 group-hover:text-white transition-colors leading-snug">{q}</span>
+              <span
+                className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center transition-all text-xs font-black mt-0.5"
+                style={{
+                  background: open === i ? "#f81828" : "rgba(255,255,255,0.07)",
+                  color: open === i ? "#fff" : "#888",
+                  transform: open === i ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              >▼</span>
+            </button>
+            {open === i && (
+              <div className="px-6 pb-5">
+                <p className="text-sm text-gray-500 leading-relaxed">{a}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -295,6 +395,14 @@ export default function CategoryPage() {
   const subReveal  = useReveal();
   const gridReveal = useReveal();
 
+  /* FAQ — szukamy po bieżącym slugu lub po korzeniu breadcrumbów */
+  const faqItems = useMemo(() => {
+    if (slug && CATEGORY_FAQS[slug]) return CATEGORY_FAQS[slug];
+    const rootSlug = breadcrumbs[0]?.slug;
+    if (rootSlug && CATEGORY_FAQS[rootSlug]) return CATEGORY_FAQS[rootSlug];
+    return null;
+  }, [slug, breadcrumbs]);
+
   /* ── SEO meta tagi ── */
   useSEO({
     title: cat
@@ -468,6 +576,19 @@ export default function CategoryPage() {
             "position": i + 1,
             "url": `https://mediabud.pl/produkt/${p.slug}`,
             "name": p.name,
+          })),
+        })}} />
+      )}
+
+      {/* JSON-LD FAQPage — pytania i odpowiedzi per kategoria */}
+      {faqItems && faqItems.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqItems.map(({ q, a }) => ({
+            "@type": "Question",
+            "name": q,
+            "acceptedAnswer": { "@type": "Answer", "text": a },
           })),
         })}} />
       )}
@@ -1001,6 +1122,11 @@ export default function CategoryPage() {
                   </a>
                 </div>
               </div>
+            )}
+
+            {/* FAQ Section */}
+            {faqItems && faqItems.length > 0 && (
+              <FaqAccordion items={faqItems} catName={cat.name} />
             )}
           </div>
         </div>

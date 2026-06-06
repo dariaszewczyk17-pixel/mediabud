@@ -746,6 +746,33 @@ export default function CategoryPage() {
               </div>
             )}
 
+            {/* Brand cross-links */}
+            {availableBrands.length > 0 && (
+              <div
+                className="rounded-xl p-4"
+                style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                <h3 className="flex items-center gap-1.5 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
+                  <Tag className="w-3 h-3 text-[#f81828]" /> Marki w tej kategorii
+                </h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {availableBrands.slice(0, 18).map(brand => (
+                    <Link
+                      key={brand}
+                      to={`/szukaj?brand=${encodeURIComponent(brand)}`}
+                      className="text-[10px] font-semibold px-2 py-1 rounded-md transition-all text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/08"
+                      style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+                    >
+                      {brand}
+                    </Link>
+                  ))}
+                  {availableBrands.length > 18 && (
+                    <span className="text-[10px] text-gray-700 px-2 py-1">+{availableBrands.length - 18}</span>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Contact CTA */}
             <div
               className="rounded-xl p-4"

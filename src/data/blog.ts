@@ -1526,7 +1526,7 @@ Pod posadzką na gruncie: XPS 10–15 cm lub EPS 100 15–20 cm.
 Przed zasypaniem wykopów koniecznie: sprawdź szczelność hydroizolacji (brak uszkodzeń mechanicznych), sfotografuj wszystkie warstwy, sprawdź grubości XPS i prawidłowość połączeń.
 
 W Media Bud oferujemy wszystkie materiały do izolacji fundamentów: primer bitumiczny, masy bitumiczne, papy samoprzylepne, XPS Ravatherm i Nexler, folie kubełkowe. Zadzwoń: **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
-  },,
+  },
   {
     id: "b032",
     slug: "ogrzewanie-podlogowe-rodzaje-koszty-materialy-2026",

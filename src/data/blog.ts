@@ -1526,7 +1526,333 @@ Pod posadzką na gruncie: XPS 10–15 cm lub EPS 100 15–20 cm.
 Przed zasypaniem wykopów koniecznie: sprawdź szczelność hydroizolacji (brak uszkodzeń mechanicznych), sfotografuj wszystkie warstwy, sprawdź grubości XPS i prawidłowość połączeń.
 
 W Media Bud oferujemy wszystkie materiały do izolacji fundamentów: primer bitumiczny, masy bitumiczne, papy samoprzylepne, XPS Ravatherm i Nexler, folie kubełkowe. Zadzwoń: **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },,
+  {
+    id: "b032",
+    slug: "ogrzewanie-podlogowe-rodzaje-koszty-materialy-2026",
+    title: "Ogrzewanie podłogowe — rodzaje, koszty i materiały 2026",
+    excerpt: "Ogrzewanie podłogowe to komfort cieplny i oszczędność energii. Porównujemy systemy wodne i elektryczne, koszty i dobór materiałów.",
+    category: "Instalacje",
+    author: "Zespół Media Bud",
+    date: "2026-06-10",
+    readTime: 10,
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    tags: ["ogrzewanie podłogowe", "UFH", "wodne", "elektryczne", "jastrich", "wylewka"],
+    faq: [
+      { q: "Czy ogrzewanie podłogowe nadaje się do remontu bez zrywania podłogi?", a: "Tak — systemy suche (maty grzewcze elektryczne lub maty wodne slim 12–20 mm) instaluje się bez wylewki. Mata elektryczna pod płytki: grubość 3–4 mm. System wodny suchy ok. 20 mm. Idealny do renowacji bez podnoszenia poziomu podłogi o więcej niż 2 cm." },
+      { q: "Ile kosztuje ogrzewanie podłogowe wodne na 50 m²?", a: "Materiały: rury PEX/PERT 16 mm (150–200 mb) 400–600 zł, izolacja EPS 100 5 cm 500–700 zł, rozdzielacz 400–800 zł, jastrich 1 500–2 500 zł. Razem materiały: 3 000–5 000 zł. Robocizna 30–50 zł/m². Łącznie: 4 500–7 500 zł." },
+      { q: "Jaki klej stosować do płytek nad ogrzewaniem podłogowym?", a: "Obowiązkowo klej odkształcalny C2TE (Ceresit CM 17, Weber.set speed, Mapei Ultraflex 2). Klasa S1 absorbuje naprężenia termiczne. Wylewkę nagrzewamy cyklicznie 7–14 dni przed układaniem płytek." },
+      { q: "Ile czasu po zalaniu wylewki można włączyć ogrzewanie podłogowe?", a: "Wylewka cementowa: pierwsze nagrzewanie po min. 28 dniach. Wylewka anhydrytowa: po 7–10 dniach. Pierwsze uruchomienie stopniowo: 25°C przez 3 dni, 35°C przez 3 dni, 45°C przez 3 dni." },
+      { q: "Ogrzewanie podłogowe wodne czy elektryczne — co wybrać?", a: "Elektryczne: niski koszt instalacji, wysoki eksploatacji. Idealne do łazienki lub jako wspomagające. Wodne: wysoki koszt instalacji, niski eksploatacji przy pompie ciepła. Opłaca się w całym domu." }
+    ],
+    content: `## Dlaczego ogrzewanie podłogowe zyskuje popularność?
+
+Ogrzewanie podłogowe (UFH) rozprowadza ciepło na całej powierzchni przy niskiej temperaturze zasilania 35–45°C vs 70–90°C dla grzejników. Efekt: równomierne ciepło, brak przeciągów, niewidoczna instalacja.
+
+## Systemy wodne (hydronic UFH)
+
+Rury PEX-A lub PERT 16x2 mm układane w odstępach 10–20 cm zalewane wylewką. Zasilane z rozdzielacza podłączonego do kotła lub pompy ciepła.
+
+### Wylewka — anhydryt czy beton?
+
+| Parametr | Anhydryt (CA) | Beton cementowy (CT) |
+|----------|--------------|---------------------|
+| Grubość nad rurą | 30–35 mm | 45–65 mm |
+| Czas schnięcia | 7–10 dni | 28 dni |
+| Samopoziomowanie | Tak | Nie |
+| Odporność na wilgoć | Niska | Wysoka |
+| Cena (m²) | 30–45 zł | 25–40 zł |
+
+### Izolacja termiczna pod podłogówkę
+EPS 100 min. 5 cm pod ogrzewaniem na gruncie. Panele systemowe z frezowanymi kanałami ułatwiają układanie rur w równych odstępach.
+
+## Systemy elektryczne
+
+- **Maty grzewcze**: grubość 3–4 mm, wbudowane w klej pod płytki. Idealne do łazienki.
+- **Folie grzewcze**: pod podłogi pływające (panele, drewno), bez wylewki.
+- **Przewody grzewcze**: zalewane wylewką, elastyczność rozmieszczenia.
+
+## Krok po kroku — instalacja podłogówki wodnej
+
+1. Izolacja termiczna EPS 100 (5–10 cm) z folią PE
+2. Taśma dylatacyjna wzdłuż ścian — obowiązkowa
+3. Siatka zbrojąca lub panele systemowe
+4. Układanie rur w rozstawie 10–15 cm (łazienka) lub 15–20 cm (salon)
+5. Próba ciśnieniowa rur (6 bar przez 24h)
+6. Zalanie wylewką anhydrytową lub cementową
+7. Schnięcie + cykl nagrzewający
+8. Układanie płytek na kleju C2TE
+
+Pełny asortyment: rury Rehau RAUTHERM, panele systemowe, izolacja EPS 100, anhydryt, kleje C2TE — Media Bud Lublin. Zadzwoń: **+48 533 553 344**`,
   },
+  {
+    id: "b033",
+    slug: "lazienka-pod-klucz-materialy-ile-kosztuje-2026",
+    title: "Łazienka pod klucz — jakie materiały i ile to kosztuje? Poradnik 2026",
+    excerpt: "Remont łazienki 6 m² to koszt 15 000–45 000 zł. Sprawdzamy skąd biorą się te kwoty i jak zaplanować zakup materiałów.",
+    category: "Wykończenia",
+    author: "Zespół Media Bud",
+    date: "2026-06-12",
+    readTime: 11,
+    image: "https://images.unsplash.com/photo-1523413307857-ef24c53571ae?w=800&q=80",
+    tags: ["łazienka", "remont łazienki", "płytki", "hydroizolacja", "wykończenia", "materiały"],
+    faq: [
+      { q: "Ile kosztuje remont łazienki 6 m² w 2026 roku?", a: "Remont łazienki 6 m² (standard): materiały 8 000–18 000 zł + robocizna 8 000–15 000 zł = 16 000–33 000 zł. Premium: do 50 000 zł. Ekonomiczny: 10 000–16 000 zł." },
+      { q: "Co to jest hydroizolacja i czy jest obowiązkowa w łazience?", a: "Hydroizolacja jest obowiązkowa w strefach mokrych (prysznic, wanna, podłoga). Stosuje się masy uszczelniające np. Ceresit CR 65, Weber.tec 933 nakładane w 2 warstwach z taśmą uszczelniającą. Pominięcie = ryzyko zawilgocenia stropu u sąsiadów." },
+      { q: "Ile płytek potrzebuję na łazienkę 6 m²?", a: "Podłoga 7 m², ściany ok. 28 m² = 35 m² okładzin z 15% zapasem = ok. 40 m² płytek. Przy dużych formatach i wielu docinaniach zamów 45 m²." },
+      { q: "Jaka kolejność robót przy remoncie łazienki?", a: "Prawidłowa kolejność: 1. Wyburzenia i instalacje, 2. Tynkowanie, 3. Hydroizolacja, 4. Płytki (podłoga → ściany), 5. Fugowanie, 6. Biały montaż, 7. Malowanie sufitu, 8. Drzwi i listwy." },
+      { q: "Czy można remontować łazienkę bez zrywania starych płytek?", a: "Tak — przy użyciu klejów do aplikacji na stare płytki (Ceresit CM 16). Warunek: stare płytki stabilnie przyklejone, bez pustek. Zwiększa grubość okładziny o ok. 10–12 mm." }
+    ],
+    content: `## Planowanie remontu łazienki krok po kroku
+
+Łazienka to jedno z najdroższych do remontu pomieszczeń przeliczając na m². Wysoka wilgotność i skomplikowane instalacje sprawiają, że błędy kosztują szczególnie dużo.
+
+## Zestawienie materiałów do łazienki 6 m²
+
+### Hydroizolacja — obowiązkowa w strefach mokrych
+
+| Produkt | Zastosowanie | Zużycie |
+|---------|-------------|---------|
+| Ceresit CR 65 | Ściany prysznica i wanny | 1,5–2 kg/m² × 2 warstwy |
+| Mapei Mapelastic | Podłoga łazienki | 1,5 kg/m² |
+| Taśma narożna | Każdy narożnik | mb |
+
+### Kleje i fugi
+- Klej do ścian: C1E lub C2 (Ceresit CM 11)
+- Klej do podłogi: C2TE (Ceresit CM 17) — odkształcalny
+- Fuga cementowa: Ceresit CE 33, Mapei Ultracolor Plus
+- Fuga epoksydowa: do prysznica i wanny — wodoszczelna
+- Silikon sanitarny: połączenie podłogi ze ścianą, wokół wanny
+
+## Szacunkowe zestawienie materiałów (łazienka 6 m², standard)
+
+| Pozycja | Ilość | Cena orientacyjna |
+|---------|-------|-----------------|
+| Płytki ściany (32 m²) | 32 m² | 1 500–5 000 zł |
+| Płytki podłoga (8 m²) | 8 m² | 400–2 000 zł |
+| Klej C2TE do podłogi | 4 worki 25 kg | 200–320 zł |
+| Klej C1/C2 do ścian | 6 worków | 240–480 zł |
+| Fuga (5 kg) | 2 opak. | 80–200 zł |
+| Hydroizolacja CR 65 | 2 opak. 7 kg | 200–400 zł |
+| Grunt + szpachlówka | zestaw | 200–400 zł |
+| Silikon sanitarny | 3 kartridże | 60–120 zł |
+| **Suma materiały** | — | **2 880–8 920 zł** |
+
+W Media Bud: hydroizolacje, kleje, fugi, płytki — kompletne zestawienie do łazienki. Zadzwoń: **+48 533 553 344** | ul. Chemiczna 8d, Lublin`,
+  },
+  {
+    id: "b034",
+    slug: "tynk-maszynowy-vs-reczny-kiedy-ktory-wybrac",
+    title: "Tynk maszynowy vs ręczny — kiedy i który wybrać? Porównanie",
+    excerpt: "Tynk maszynowy jest 3–4x szybszy od ręcznego. Wyjaśniamy różnice, rodzaje tynków i kiedy każdy z nich jest właściwym wyborem.",
+    category: "Tynki i gładzie",
+    author: "Zespół Media Bud",
+    date: "2026-06-14",
+    readTime: 9,
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+    tags: ["tynk maszynowy", "tynk ręczny", "gipsowy", "cementowo-wapienny", "tynkowanie"],
+    faq: [
+      { q: "Czym różni się tynk maszynowy od ręcznego?", a: "To ten sam materiał, ale aplikowany agregatem tynkarskim. Wydajność: 100–200 m²/dzień maszynowo vs 20–40 m²/dzień ręcznie. Jakość powierzchni identyczna lub lepsza." },
+      { q: "Jaki tynk wybrać: gipsowy czy cementowo-wapienny?", a: "Gipsowy (Knauf MP 75, Atlas Neoterm): wewnątrz, suche pomieszczenia. Cementowo-wapienny (Knauf Rotband, Atlas Ceram): wewnątrz i zewnątrz, łazienki, piwnice, wszędzie z wilgocią." },
+      { q: "Ile tynku gipsowego na 100 m² ścian?", a: "Zużycie przy grubości 1,5 cm: ok. 12–15 kg/m². Na 100 m²: 1 200–1 500 kg (24–30 worków 50 kg). Dodaj 10% zapas." },
+      { q: "Czy tynk gipsowy można nakładać na beton?", a: "Tak, ale wymagane gruntowanie preparatem sczepnym (Knauf Betokontakt, Atlas Uni-Grunt). Bez gruntu tynk gipsowy na betonie odpada." },
+      { q: "Kiedy nie stosować tynku gipsowego?", a: "NIE stosuj w łazienkach i kuchniach, piwnicach, garażach, na ściany zewnętrzne. W strefach mokrych: tynk cementowy lub cementowo-wapienny + hydroizolacja." }
+    ],
+    content: `## Tynk — podstawowy etap wykończenia ścian
+
+Właściwy wybór tynku i metody nakładania decyduje o jakości ścian na kolejne dziesięciolecia.
+
+## Rodzaje tynków wewnętrznych
+
+### Tynk gipsowy
+Spoiwo: gips budowlany. Wyłącznie wewnątrz, pomieszczenia suche.
+Zalety: szybkie wysychanie (2–4h robocze), powierzchnia gotowa pod malowanie bez gładzi.
+Przykłady: Knauf MP 75 (maszynowy), Atlas Neoterm, Baumit Gipsputz.
+
+### Tynk cementowo-wapienny
+Spoiwo: cement + wapno. Wewnątrz i zewnątrz, pomieszczenia wilgotne.
+Przykłady: Atlas Ceram, Knauf Unterputz, Baumit MPI 25.
+
+## Maszynowy vs ręczny — tabela
+
+| Kryterium | Maszynowy | Ręczny |
+|-----------|-----------|--------|
+| Wydajność | 100–200 m²/dzień | 20–40 m²/dzień |
+| Koszt robocizny (100 m²) | 1 000–1 800 zł | 2 500–4 500 zł |
+| Min. powierzchnia opłacalna | 200–300 m² | bez minimum |
+| Jednorodność | Bardzo wysoka | Zależna od wykonawcy |
+
+## Przygotowanie podłoża
+
+1. Podłoże suche, nośne, oczyszczone
+2. Gruntowanie: Atlas Uni-Grunt (standard), Knauf Betokontakt (na beton)
+3. Siatka zbrojąca na złączach różnych materiałów
+4. Listwy tynkarskie aluminiowe (prawidłowa grubość i pion)
+
+W Media Bud: Knauf MP 75, Atlas Neoterm, Atlas Ceram, Baumit. Zadzwoń: **+48 533 553 344**`,
+  },
+  {
+    id: "b035",
+    slug: "pokrycia-dachowe-porownanie-rodzajow-ceny-2026",
+    title: "Pokrycia dachowe — porównanie rodzajów i ceny 2026",
+    excerpt: "Dachówka ceramiczna, blachodachówka czy gont? Porównujemy najpopularniejsze pokrycia dachowe pod względem trwałości, wagi i kosztów w 2026.",
+    category: "Dachy",
+    author: "Zespół Media Bud",
+    date: "2026-06-16",
+    readTime: 10,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["dach", "blachodachówka", "dachówka ceramiczna", "pokrycie dachowe", "papa", "dach skośny"],
+    faq: [
+      { q: "Co jest trwalsze — dachówka ceramiczna czy blachodachówka?", a: "Dachówka ceramiczna: trwałość 80–120 lat, odporna na UV, mróz. Blachodachówka stalowa: 30–50 lat (Purex/PurMat). Ceramika trwalsza, ale cięższa (40–55 kg/m²) i droższa. Blachodachówka: 6–9 kg/m², szybszy montaż." },
+      { q: "Ile kosztuje pokrycie dachu blachodachówką na 150 m²?", a: "Materiały (blachodachówka, membrana, łaty, rynny): 12 000–22 000 zł. Robocizna 50–100 zł/m² = 7 500–15 000 zł. Łącznie: 20 000–37 000 zł." },
+      { q: "Jaka membrana dachowa pod blachodachówkę?", a: "Wysokodyfuzyjna membrana dachowa (Sd < 0,02 m) — leży bezpośrednio na krokwiach bez szczeliny. Lub folia MSD — wymaga szczeliny wentylacyjnej poniżej. Polecane: Fakro Pro, Dorken Delta, Marma." },
+      { q: "Jaki kąt nachylenia wymagany dla różnych pokryć?", a: "Blachodachówka: min. 12–15°. Dachówka ceramiczna: min. 22–25°. Papa termozgrzewalna: od 3°. Blacha na rąbek stojący: min. 3°. Zawsze sprawdź wymagania producenta." },
+      { q: "Czy można układać nowe pokrycie na stare?", a: "Technicznie możliwe, ale niezalecane — wyższe obciążenie więźby, ryzyko wilgoci między warstwami. Konieczna ekspertyza statyczna. Wyjątek: blacha na rąbek przy spełnieniu warunków technicznych." }
+    ],
+    content: `## Dach skośny — jakie masz możliwości?
+
+Wybór pokrycia dachowego to decyzja na kilkadziesiąt lat. Wpływa na wygląd, koszty eksploatacji i wymagania dla więźby.
+
+## Przegląd najpopularniejszych pokryć
+
+### Blachodachówka stalowa
+Najczęstsze pokrycie w Polsce (ok. 60% rynku). Arkuszowa lub modułowa z powłoką Purex, PurMat lub PVDF.
+Zalety: niska waga (6–9 kg/m²), szeroka gama kolorów, niska cena.
+
+### Dachówka ceramiczna i betonowa
+
+| Parametr | Ceramiczna | Betonowa |
+|----------|-----------|---------|
+| Trwałość | 80–120 lat | 30–50 lat |
+| Waga (m²) | 40–55 kg | 40–50 kg |
+| Cena (m²) | 60–200 zł | 25–60 zł |
+| Wymagany kąt | min. 22° | min. 17° |
+
+### Papa termozgrzewalna
+Do dachów płaskich. Papa SBS lepsza od APP w polskim klimacie. System dwuwarstwowy: podkładowa + nawierzchniowa.
+
+### Blacha na rąbek stojący
+Profil premium. Min. kąt 3°, trwałość 50–100 lat. Materiały: tytan-cynk, miedź, aluminium, stal powlekana.
+
+## Struktura dachu skośnego (od środka)
+
+1. Krokwie i więźba
+2. Wełna mineralna między krokwiami
+3. Paroizolacja lub membrana paroprzepuszczalna
+4. Łaty i kontrłaty (szczelina wentylacyjna)
+5. Membrana dachowa wysokodyfuzyjna
+6. Pokrycie (blachodachówka, dachówka)
+7. Obróbki blacharskie: gąsiory, okapniki, kosze
+
+W Media Bud: papy (Icopal, Sopro, Sika), membrany (Fakro, Dorken), folie paroizolacyjne. Zadzwoń: **+48 533 553 344**`,
+  },
+  {
+    id: "b036",
+    slug: "plyty-gipsowo-kartonowe-rodzaje-montaz-knauf-rigips",
+    title: "Płyty gipsowo-kartonowe — rodzaje, montaż i porównanie Knauf vs Rigips",
+    excerpt: "Sucha zabudowa z płyt GK to szybki i ekonomiczny sposób na ściany działowe i sufity. Tłumaczymy rodzaje, dobór i montaż.",
+    category: "Sucha zabudowa",
+    author: "Zespół Media Bud",
+    date: "2026-06-18",
+    readTime: 9,
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    tags: ["płyty GK", "gipsowo-kartonowe", "Knauf", "Rigips", "sucha zabudowa", "ścianki działowe"],
+    faq: [
+      { q: "Jaka płyta GK do łazienki i kuchni?", a: "Stosuj płyty GKBI impregnowane (zielone — Knauf Grünband, Rigips RBI). Odporne na wilgoć, ale nie wodoodporne — w strefach mokrych obowiązkowa dodatkowa hydroizolacja." },
+      { q: "Ile warstw GK dla dobrej izolacji akustycznej?", a: "1 warstwa GK 12,5 mm + wełna: ok. 40 dB. 2 warstwy + wełna: 45–50 dB. Podwójna konstrukcja: 55–62 dB. Norma: min. 38 dB dla ścian między mieszkaniami." },
+      { q: "Czym różni się płyta GK 12,5 mm od 15 mm?", a: "Płyta 15 mm: większa sztywność, lepsza izolacja akustyczna o 2–3 dB, wyższa ognioodporność (EI 30 vs EI 15). Stosuj 15 mm na korytarzach ewakuacyjnych lub gdzie wymagana wyższa odporność." },
+      { q: "Jaki raster profili do sufitów GK?", a: "Raster 50×50 cm dla płyt 12,5 mm. Wieszaki bezpośrednie lub noniusze co 50 cm wzdłuż profilu CD 60. Rozstaw profili głównych UD/CD co 50 lub 100 cm." },
+      { q: "Knauf czy Rigips — która lepsza?", a: "Obie marki reprezentują porównywalną jakość. Rigips należy do Saint-Gobain, Knauf to marka własna. Zbliżona cena i certyfikaty CE. Wybór zależy od dostępności regionalnej i preferencji wykonawcy." }
+    ],
+    content: `## Dlaczego sucha zabudowa zdominowała budownictwo?
+
+Płyty GK umożliwiają tworzenie ścian działowych i sufitów bez mokrych procesów. Szybkość montażu i elastyczność sprawiły, że sucha zabudowa jest standardem.
+
+## Rodzaje płyt GK
+
+### GKB — Standardowe (białe)
+Zastosowanie: ściany działowe, sufity w suchych pomieszczeniach.
+Knauf Standard, Rigips RB.
+
+### GKBI — Impregnowane (zielone)
+Do pomieszczeń wilgotnych. Knauf Grünband, Rigips RBI.
+
+### GKF — Ogniochronne (różowe)
+Rdzeń z włóknami szklanymi. Wyższa odporność ogniowa.
+Knauf Fireboard, Rigips RF.
+
+### Akustyczne
+Podwyższona masa (ponad 11 kg/m²). Lepsza izolacja o 3–5 dB.
+
+## Porównanie Knauf vs Rigips
+
+| Parametr | Knauf Standard | Rigips RB |
+|----------|--------------|----------|
+| Grubość | 12,5 mm | 12,5 mm |
+| Masa (m²) | ok. 10 kg | ok. 10 kg |
+| Cena (m²) | 12–16 zł | 12–16 zł |
+| Certyfikat | CE, ETA | CE, ETA |
+
+## Profile stalowe
+
+Profile UW (poziome: posadzka/sufit), CW (pionowe: ściany), UD i CD (sufity).
+Rozstaw CW: co 60 cm (standard) lub co 40 cm (wymagania akustyczne/ogniowe).
+
+W Media Bud: płyty Knauf i Rigips (GKB, GKBI, GKF), profile UW/CW/UD/CD, wkręty, masy szpachlowe. Zadzwoń: **+48 533 553 344**`,
+  },
+  {
+    id: "b037",
+    slug: "remont-starego-budynku-od-czego-zaczac-materialy",
+    title: "Remont starego budynku — od czego zacząć i jakie materiały wybrać?",
+    excerpt: "Remont kamienicy lub domu z lat 60–80 rządzi się innymi prawami. Podpowiadamy kolejność prac i dobór materiałów do starych substancji budowlanych.",
+    category: "Remont",
+    author: "Zespół Media Bud",
+    date: "2026-06-20",
+    readTime: 12,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["remont", "stary budynek", "kamienica", "termomodernizacja", "tynk renowacyjny", "wilgoć"],
+    faq: [
+      { q: "Od czego zacząć remont starej kamienicy?", a: "Kolejność: 1. Ekspertyza budowlana, 2. Izolacja fundamentów i osuszenie, 3. Naprawa więźby i wymiana pokrycia, 4. Wymiana instalacji (przed tynkowaniem), 5. Tynkowanie, 6. ETICS, 7. Wykończenia wnętrz." },
+      { q: "Jaki tynk na stare ściany z wilgocią kapilarną?", a: "Tynki renowacyjne WTA — np. Remmers WTA, Baumit Sanova. Porowata struktura zatrzymuje sole krystalizujące poza warstwą malarską. Przed tynkiem: iniekcja chemiczna lub przepona mechaniczna." },
+      { q: "Jak ocieplić stary budynek bez pozwolenia?", a: "ETICS do 25 cm grubości nie wymaga pozwolenia — wystarcza zgłoszenie. Wyjątek: budynki w strefie ochrony konserwatorskiej — konieczne uzgodnienie z konserwatorem." },
+      { q: "Ile kosztuje termomodernizacja domu 150 m² w 2026?", a: "ETICS 200 m²: 15 000–30 000 zł, okna PVC 20 000–35 000 zł, ocieplenie dachu 5 000–12 000 zł. Łącznie materiały + robocizna: 60 000–120 000 zł. Dofinansowanie Czyste Powietrze: do 66 000 zł." },
+      { q: "Czy stary strop z pustaków można obciążyć nową wylewką?", a: "Stropy ceramiczne Kleina: nośność 150–250 kg/m². Wylewka 5 cm = ok. 115 kg/m². Może przekroczyć nośność — konieczna ekspertyza konstruktora. Alternatywa: sucha wylewka (Knauf Brio)." }
+    ],
+    content: `## Stary budynek — zupełnie inne reguły
+
+Remont budynku z PRL lub kamienicy sprzed 1945 roku wymaga innego podejścia. Starsze materiały (wapno, cegła pełna, drewno) reagują inaczej na nowoczesne produkty.
+
+## Diagnoza przed remontem
+
+### Wilgoć — najczęstszy problem
+- **Kapilarna** (z gruntu): iniekcja chemiczna, tynki renowacyjne WTA
+- **Kondensacyjna** (para wodna): poprawa wentylacji, usunięcie szczelnych powłok
+- **Z nieszczelności**: naprawa dachu i obróbek blacharskich
+
+## Dobór materiałów — zasada kompatybilności
+
+Stosuj materiały o podobnej lub wyższej paroprzepuszczalności co mur.
+- Stara cegła pełna: tynki wapienne lub wapienno-cementowe (NIE gipsowe)
+- Stary mur kamienny: wyłącznie materiały mineralne o wysokim sd
+- Betonowe elementy PRL: standardowe produkty współczesne
+
+## Termomodernizacja starych budynków
+
+Przed ETICS na starym budynku sprawdź: czy stary tynk jest nośny (test odrywający > 0,08 N/mm²), czy mur jest suchy (wilgotność < 6%), czy nie ma azbestu.
+
+## Kolejność robót remontowych
+
+| Etap | Zakres | Przykłady produktów |
+|------|--------|---------------------|
+| 1 | Fundamenty i izolacja | XPS, masa bitumiczna, iniekcja |
+| 2 | Dach i więźba | Papa SBS, impregnaty drewna |
+| 3 | Instalacje | Miedziane rury, przewody YDY |
+| 4 | Tynki wnętrza | Atlas Ceram, tynki wapienne |
+| 5 | ETICS elewacja | Ceresit, Weber, Knauf systemy |
+| 6 | Wykończenia | Płytki, gładzie, malowanie |
+
+Media Bud: tynki renowacyjne WTA, systemy iniekcji, ETICS, materiały wykończeniowe. Zadzwoń: **+48 533 553 344** | ul. Chemiczna 8d, Lublin`,
+  }
 ];
 
 

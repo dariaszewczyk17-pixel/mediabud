@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import {
   Search,
   ChevronRight,
@@ -37,6 +37,7 @@ const categoryLabel = (value: string) =>
     .join(" ");
 
 export default function SearchResultsPage() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const query = (searchParams.get("q") || "").trim();
   const currentPage = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
@@ -91,6 +92,20 @@ export default function SearchResultsPage() {
       product.tags.forEach((tag) => tags.add(tag));
     });
     return Array.from(tags).sort((a, b) => a.localeCompare(b, "pl"));
+  }, [results]);
+
+  /** Liczba wyników per marka (z results, przed dalszym filtrowaniem) */
+  const brandCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    results.forEach((p) => { if (p.brand) counts[p.brand] = (counts[p.brand] || 0) + 1; });
+    return counts;
+  }, [results]);
+
+  /** Liczba wyników per kategoria slug (z results, przed dalszym filtrowaniem) */
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    results.forEach((p) => { if (p.categorySlug) counts[p.categorySlug] = (counts[p.categorySlug] || 0) + 1; });
+    return counts;
   }, [results]);
 
   const filteredResults = useMemo(() => {
@@ -313,13 +328,13 @@ export default function SearchResultsPage() {
                 </span>
                 <select
                   value={selectedBrand}
-                  onChange={(e) => { window.location.hash = createSearchLink({ brand: e.target.value }); }}
+                  onChange={(e) => navigate(createSearchLink({ brand: e.target.value }))}
                   className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <option value={ALL_BRANDS}>Wszystkie marki</option>
+                  <option value={ALL_BRANDS}>Wszystkie marki ({results.length})</option>
                   {availableBrands.map((brand) => (
-                    <option key={brand} value={brand}>{brand}</option>
+                    <option key={brand} value={brand}>{brand} ({brandCounts[brand] ?? 0})</option>
                   ))}
                 </select>
               </label>
@@ -330,13 +345,13 @@ export default function SearchResultsPage() {
                 </span>
                 <select
                   value={selectedCategory}
-                  onChange={(e) => { window.location.hash = createSearchLink({ category: e.target.value }); }}
+                  onChange={(e) => navigate(createSearchLink({ category: e.target.value }))}
                   className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <option value={ALL_CATEGORIES}>Wszystkie kategorie</option>
+                  <option value={ALL_CATEGORIES}>Wszystkie kategorie ({results.length})</option>
                   {availableCategories.map((category) => (
-                    <option key={category} value={category}>{categoryLabel(category)}</option>
+                    <option key={category} value={category}>{categoryLabel(category)} ({categoryCounts[category] ?? 0})</option>
                   ))}
                 </select>
               </label>
@@ -347,7 +362,7 @@ export default function SearchResultsPage() {
                 </span>
                 <select
                   value={selectedTag}
-                  onChange={(e) => { window.location.hash = createSearchLink({ tag: e.target.value }); }}
+                  onChange={(e) => navigate(createSearchLink({ tag: e.target.value }))}
                   className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
@@ -364,7 +379,7 @@ export default function SearchResultsPage() {
                 </span>
                 <select
                   value={sortBy}
-                  onChange={(e) => { window.location.hash = createSearchLink({ sort: e.target.value }); }}
+                  onChange={(e) => navigate(createSearchLink({ sort: e.target.value }))}
                   className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >

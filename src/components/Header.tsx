@@ -15,6 +15,7 @@ import { useAllProducts, useAllCategories } from "@/hooks/useSanityData";
 import { sanityProductToLegacy, sanityCategoryToLegacy, type SanityProduct, type SanityCategory } from "@/lib/adapters";
 import { mergeProductCollections } from "@/lib/productMerge";
 import { searchProducts } from "@/lib/productSearch";
+import { BRANDS, slugifyBrand } from "@/data/brands";
 
 /* ── Category icon map — wszystkie 10 kategorii ─────────────────── */
 const CAT_ICONS: Record<string, React.ReactNode> = {
@@ -129,9 +130,21 @@ export default function Header() {
 
   useEffect(() => {
     if (searchQuery.trim().length > 1) {
-      setSearchResults(searchProducts(mergedProducts, searchQuery, 6));
+      setSearchResults(searchProducts(mergedProducts, searchQuery, 5));
     } else setSearchResults([]);
   }, [searchQuery, mergedProducts]);
+
+  const matchingBrands = useMemo(() => {
+    if (searchQuery.trim().length < 2) return [];
+    const q = searchQuery.toLowerCase();
+    return BRANDS.filter(b => b.name.toLowerCase().includes(q)).slice(0, 3);
+  }, [searchQuery]);
+
+  const matchingCategories = useMemo(() => {
+    if (searchQuery.trim().length < 2) return [];
+    const q = searchQuery.toLowerCase();
+    return categories.filter(c => c.name.toLowerCase().includes(q)).slice(0, 3);
+  }, [searchQuery, categories]);
 
   useEffect(() => {
     const fn = (e: MouseEvent) => {
@@ -321,10 +334,9 @@ export default function Header() {
               <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-[#2d2d2d] bg-[#0d0d0d]/98 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl">
                 {searchResults.length > 0 ? (
                   <>
-                    <div className="grid grid-cols-3 gap-3 border-b border-[#2d2d2d] px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-[#f81828]">
-                      <span>Produkty</span>
-                      <span>Kategorie</span>
-                      <span>Marki</span>
+                    {/* ── Produkty ── */}
+                    <div className="border-b border-[#2d2d2d] px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#f81828]">
+                      Produkty
                     </div>
                     <div className="divide-y divide-[#2d2d2d]">
                       {searchResults.map((p) => (
@@ -358,6 +370,47 @@ export default function Header() {
                         </Link>
                       ))}
                     </div>
+                    {/* ── Marki + Kategorie ── */}
+                    {(matchingBrands.length > 0 || matchingCategories.length > 0) && (
+                      <div className="grid grid-cols-2 divide-x divide-[#2d2d2d] border-t border-[#2d2d2d]">
+                        {matchingBrands.length > 0 && (
+                          <div className="p-3">
+                            <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[#f81828]">Marki</div>
+                            <div className="flex flex-col gap-1">
+                              {matchingBrands.map(b => (
+                                <Link
+                                  key={b.name}
+                                  to={`/marki/${slugifyBrand(b.name)}`}
+                                  className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-semibold text-gray-300 hover:bg-[#f81828]/10 hover:text-white transition-colors"
+                                  onClick={() => { setSearchResults([]); setSearchQuery(""); setSearchFocused(false); }}
+                                >
+                                  <img src={b.logo} alt={b.name} className="w-8 h-6 object-contain bg-white rounded p-0.5 flex-shrink-0" />
+                                  {b.name}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {matchingCategories.length > 0 && (
+                          <div className="p-3">
+                            <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[#f81828]">Kategorie</div>
+                            <div className="flex flex-col gap-1">
+                              {matchingCategories.map(c => (
+                                <Link
+                                  key={c.id}
+                                  to={`/kategoria/${c.slug}`}
+                                  className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-semibold text-gray-300 hover:bg-[#f81828]/10 hover:text-white transition-colors"
+                                  onClick={() => { setSearchResults([]); setSearchQuery(""); setSearchFocused(false); }}
+                                >
+                                  <span className="w-5 h-5 text-[#f81828] flex-shrink-0">{CAT_ICONS[c.slug] ?? <LayoutGrid className="w-5 h-5" />}</span>
+                                  {c.name}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
                     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#2d2d2d] bg-black/30 px-4 py-3">
                       <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#888888]">Naciśnij Enter, aby zobaczyć wszystkie wyniki</div>
                       <button

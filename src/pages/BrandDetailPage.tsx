@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, Phone, Package } from "lucide-react";
+import { ArrowLeft, Phone, Package, ExternalLink, Tag } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 import { useAllProducts } from "@/hooks/useSanityData";
 import { sanityProductToLegacy, type SanityProduct } from "@/lib/adapters";
@@ -120,16 +120,32 @@ export default function BrandDetailPage() {
                 {brand.name}
               </h1>
               <p className="text-gray-400 text-sm max-w-xl leading-relaxed mb-4">
-                Oryginalne produkty marki <strong className="text-gray-300">{brand.name}</strong> dostępne
-                w składzie budowlanym <strong className="text-gray-300">Media Bud</strong> w Lublinie.
-                Pełna dokumentacja techniczna, karty danych bezpieczeństwa i atesty budowlane.
+                {brand.description
+                  ? brand.description
+                  : <>Oryginalne produkty marki <strong className="text-gray-300">{brand.name}</strong> dostępne w składzie budowlanym <strong className="text-gray-300">Media Bud</strong> w Lublinie. Pełna dokumentacja techniczna, karty danych bezpieczeństwa i atesty budowlane.</>
+                }
               </p>
+              {brand.categories && brand.categories.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-4 justify-center sm:justify-start">
+                  {brand.categories.map(cat => (
+                    <span key={cat} className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-white/5 px-2 py-1 rounded-full border border-white/10">
+                      <Tag className="w-2.5 h-2.5 text-[#f81828]" />{cat}
+                    </span>
+                  ))}
+                </div>
+              )}
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
                 {brandProducts.length > 0 && (
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
                     <Package className="w-3.5 h-3.5 text-[#f81828]" />
                     {brandProducts.length} {brandProducts.length === 1 ? "produkt" : brandProducts.length < 5 ? "produkty" : "produktów"} w katalogu
                   </span>
+                )}
+                {brand.website && (
+                  <a href={brand.website} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 hover:text-white hover:border-white/30 transition-all">
+                    <ExternalLink className="w-3 h-3" /> Strona producenta
+                  </a>
                 )}
                 <a
                   href="tel:+48533553344"

@@ -99,6 +99,23 @@ export default function ProductDetail() {
       .slice(0, 4);
   }, [sanityRelated, product]);
 
+  /* ── Podobne produkty — fallback gdy brak explicit related ── */
+  const similarProducts = useMemo(() => {
+    if (!product) return [];
+    return staticProducts
+      .filter(p =>
+        p.slug !== product.slug &&
+        (p.categorySlug === product.categorySlug || p.brand === product.brand)
+      )
+      .sort((a, b) => {
+        // preferuj tę samą markę + kategorię
+        const scoreA = (a.categorySlug === product.categorySlug ? 2 : 0) + (a.brand === product.brand ? 1 : 0);
+        const scoreB = (b.categorySlug === product.categorySlug ? 2 : 0) + (b.brand === product.brand ? 1 : 0);
+        return scoreB - scoreA;
+      })
+      .slice(0, 6);
+  }, [product]);
+
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [added, setAdded]         = useState(false);
   const [qty, setQty]             = useState(1);
@@ -736,6 +753,28 @@ export default function ProductDetail() {
                 >
                   <ProductCard product={p} />
                 </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Podobne produkty (fallback gdy brak related, albo zawsze jako dodatkowa sekcja) ── */}
+        {similarProducts.length > 0 && (
+          <div className="mt-10">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-xl font-black text-white flex items-center gap-2 font-display">
+                <span className="w-[3px] h-5 bg-[#f81828] rounded-full" />
+                {related.length > 0 ? "Inne produkty z tej kategorii" : "Podobne produkty"}
+              </h2>
+              {cat && (
+                <Link to={`/kategoria/${cat.slug}`} className="text-sm text-[#f81828] hover:underline flex items-center gap-1 font-medium">
+                  Więcej <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              )}
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+              {similarProducts.map(p => (
+                <ProductCard key={p.id} product={p} />
               ))}
             </div>
           </div>

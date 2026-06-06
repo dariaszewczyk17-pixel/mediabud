@@ -496,6 +496,201 @@ Przy większych zamówieniach uzgodnij dostawy zgodnie z harmonogramem robót �
 
 Przy ul. Chemicznej 8d (Lublin, Pon–Pt 7:00–16:00) oferujemy ponad 15 000 produktów: Weber, Ceresit, Atlas, Knauf, Rigips, Rockwool, Swisspor, Bolix, Baumit i wiele innych. Doradztwo techniczne gratis — zadzwoń +48 509 567 213.`
   },
+  {
+    id: "b012",
+    slug: "tynk-silikonowy-vs-akrylowy-jaki-wybrac",
+    title: "Tynk silikonowy vs akrylowy — który wybrać na elewację? [2026]",
+    excerpt: "Tynk silikonowy czy akrylowy? Porównujemy paroprzepuszczalność, trwałość, cenę i łatwość aplikacji. Praktyczny przewodnik dla inwestorów budujących lub remontujących elewację.",
+    category: "Tynki i elewacje",
+    author: "Zespół Media Bud",
+    date: "2026-06-01",
+    readTime: 9,
+    image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=800&q=80",
+    tags: ["tynk silikonowy", "tynk akrylowy", "elewacja", "weber", "ceresit", "baumit"],
+    content: `## Tynk silikonowy vs akrylowy — podstawowe różnice
+
+Wybór tynku elewacyjnego to decyzja na 15–20 lat. Tynk silikonowy i akrylowy to dwa najpopularniejsze rodzaje — różnią się właściwościami, ceną i przeznaczeniem.
+
+## Czym jest tynk silikonowy?
+
+Tynk silikonowy (polisiloksanowy) zawiera polimery silikonowe. Łączy elastyczność akrylu z paroprzepuszczalnością tynku silikatowego. To tynk premium.
+
+**Przykłady:** Weber.ton Sil, Ceresit CT 174, Baumit SilikonTop, Atlas Silkon-T
+
+## Czym jest tynk akrylowy?
+
+Tynk akrylowy używa dyspersji akrylowej jako spoiwa. Jest elastyczny, odporny na uderzenia i łatwy w aplikacji. Najchętniej wybierany ze względu na cenę.
+
+**Przykłady:** Weber.pas Akryl, Ceresit CT 60, Atlas Cermit A, Bolix AC
+
+## Porównanie parametrów
+
+| Parametr | Silikonowy | Akrylowy |
+|---|---|---|
+| Paroprzepuszczalność (sd) | bardzo wysoka (< 0,01 m) | niska (0,1–0,5 m) |
+| Odporność na glony i grzyby | bardzo dobra (efekt lotosu) | dobra |
+| Elastyczność | bardzo dobra | dobra |
+| Odporność na UV | bardzo dobra | dobra |
+| Łatwość aplikacji | dobra | bardzo dobra |
+| Cena (25 kg) | 150–220 zł | 80–140 zł |
+| Trwałość koloru | 15–20 lat+ | 10–15 lat |
+
+## Kiedy wybrać silikonowy?
+
+- Nowy dom — chcesz elewację bez remontów przez 20 lat
+- Budynek w miejscu narażonym na wilgoć
+- Ocieplenie ze styropianem — konieczne odprowadzanie pary
+- Zależy Ci na samooczyszczaniu (efekt lotosu)
+
+## Kiedy wybrać akrylowy?
+
+- Ograniczony budżet (różnica na dom 150 m²: ok. 2 000–5 000 zł)
+- Remont budynku w suchej lokalizacji
+- Krótki czas realizacji — szybsze schnięcie
+- Budynek w suchym klimacie
+
+## UWAGA: Akryl na styropianie (ETICS)
+
+Na systemie ETICS ze styropianem EPS tynk akrylowy może powodować zawilgocenie, odspajanie i glony. Na EPS zalecamy wyłącznie tynk silikonowy lub silikatowy.
+
+## Koszty dla domu 150 m² (elewacja ~350 m²)
+
+| | Silikonowy | Akrylowy |
+|---|---|---|
+| Materiał | ok. 4 900–7 700 zł | ok. 2 800–4 900 zł |
+| Różnica | +2 100–2 800 zł | — |
+
+Przy 20-letniej perspektywie jeden remont elewacji akrylowej kosztuje 8 000–15 000 zł — tynk silikonowy zwraca się po ok. 8–10 latach.
+
+Wyliczymy ilości materiału — zadzwoń: **+48 533 553 344** lub odwiedź skład przy ul. Chemicznej 8d, Lublin.`
+  },
+  {
+    id: "b013",
+    slug: "koszt-ocieplenia-domu-150m2-2026",
+    title: "Ile kosztuje ocieplenie domu 150 m² w 2026 roku? Kalkulator i zestawienie",
+    excerpt: "Kompleksowa kalkulacja kosztów ocieplenia domu jednorodzinnego 150 m² metodą ETICS. Ceny materiałów, robocizna, dofinansowanie Czyste Powietrze — sprawdź ile zapłacisz.",
+    category: "Izolacje",
+    author: "Zespół Media Bud",
+    date: "2026-06-03",
+    readTime: 11,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["koszt ocieplenia domu", "ocieplenie 150m2", "ETICS", "czyste powietrze", "termomodernizacja", "ceny 2026"],
+    content: `## Koszt ocieplenia domu 150 m² — co wchodzi w cenę?
+
+Ocieplenie domu to inwestycja obniżająca rachunki za ogrzewanie o 30–60% rocznie. Ile kosztuje termomodernizacja domu 150 m² w 2026 roku?
+
+## Założenia kalkulacji
+
+- Dom jednorodzinny 150 m² użytkowej
+- Powierzchnia elewacji: ~350 m²
+- Metoda: ETICS (styropian EPS grafitowy 15 cm + tynk silikonowy)
+- System Weber lub Ceresit (jedna marka = jedna gwarancja)
+
+## Koszty materiałów (350 m²)
+
+| Materiał | Ilość | Cena jedn. | Koszt |
+|---|---|---|---|
+| Styropian EPS grafitowy λ0,031 gr. 15 cm | 360 m² | 32–40 zł/m² | 11 500–14 400 zł |
+| Klej do styropianu (5 kg/m²) | 1 800 kg | 1,40–1,80 zł/kg | 2 520–3 240 zł |
+| Kołki teleskopowe (6 szt./m²) | 2 160 szt. | 0,45–0,65 zł/szt. | 970–1 400 zł |
+| Masa zbrojąca + siatka | — | — | 4 550–6 620 zł |
+| Grunt + tynk silikonowy (2,5 kg/m²) | 875 kg | 5,80–7,50 zł/kg | 6 200–8 360 zł |
+| Profile, narożniki, akcesoria | — | — | 800–1 400 zł |
+| **RAZEM materiały** | | | **26 540–35 420 zł** |
+
+## Koszty robocizny
+
+| Etap | Stawka | Koszt 350 m² |
+|---|---|---|
+| Klejenie styropianu + kołkowanie | 20–30 zł/m² | 7 000–10 500 zł |
+| Zbrojenie siatką | 12–18 zł/m² | 4 200–6 300 zł |
+| Tynkowanie | 25–40 zł/m² | 8 750–14 000 zł |
+| Przygotowanie podłoża + rusztowanie | — | 5 300–9 750 zł |
+| **RAZEM robocizna** | | **25 250–40 550 zł** |
+
+## Całkowity koszt — trzy warianty
+
+| Wariant | Materiały | Robocizna | RAZEM |
+|---|---|---|---|
+| Ekonomiczny (EPS biały, tynk akrylowy) | 22 000–26 000 zł | 22 000–28 000 zł | **44 000–54 000 zł** |
+| Standard (EPS grafitowy, tynk silikonowy) | 27 000–35 000 zł | 25 000–40 000 zł | **52 000–75 000 zł** |
+| Premium (wełna mineralna, tynk silikatowy) | 38 000–52 000 zł | 28 000–44 000 zł | **66 000–96 000 zł** |
+
+## Dofinansowanie Czyste Powietrze 2026
+
+- **Podstawowe**: do 66 000 zł (dochód do 135 000 zł/rok)
+- **Podwyższone**: do 99 000 zł (dochód poniżej 1 894 zł/os.)
+- **Najwyższe**: do 135 000 zł (skrajnie niska dochodowość)
+
+Faktura VAT od dostawcy materiałów (np. Media Bud) jest niezbędna do wniosku.
+
+## Zwrot z inwestycji
+
+Dom 150 m² z ogrzewaniem gazowym, przejście z klasy F do C:
+- Oszczędność gazu: ok. 1 200–2 000 m³/rok
+- Oszczędność finansowa: ok. 3 600–6 000 zł/rok
+- Okres zwrotu: **3–8 lat** (z dofinansowaniem CP)
+
+Wyliczymy dokładne zestawienie materiałów po podaniu rzutu budynku — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
+  {
+    id: "b014",
+    slug: "knauf-vs-rigips-porownanie-plyt-gk-2026",
+    title: "Knauf vs Rigips — która płyta GK lepsza? Porównanie 2026",
+    excerpt: "Knauf czy Rigips — dwie największe marki płyt gipsowo-kartonowych w Polsce. Porównujemy jakość, asortyment, ceny i profile. Które systemy wybrać do suchej zabudowy?",
+    category: "Sucha zabudowa",
+    author: "Zespół Media Bud",
+    date: "2026-06-05",
+    readTime: 8,
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+    tags: ["knauf", "rigips", "płyta GK", "sucha zabudowa", "gipsowo-kartonowe", "ścianka działowa"],
+    content: `## Knauf vs Rigips — dwie marki, jeden standard EN 520
+
+Na polskim rynku suchej zabudowy dominują Knauf i Rigips (Saint-Gobain). Obie marki produkują płyty zgodnie z normą EN 520 i mają porównywalną jakość. Która wybrać?
+
+## Porównanie asortymentu płyt
+
+| Typ płyty | Knauf | Rigips | Zastosowanie |
+|---|---|---|---|
+| Standardowa 12,5 mm | GKB (biała) | Standard (biała) | Ściany i sufity suche |
+| Impregnowana (łazienka) | GKBi (zielona) | Blue (zielona) | Mokre pomieszczenia |
+| Ognioodporna | GKF (różowa) | RF (różowa) | Odporność ogniowa EI |
+| Akustyczna | Silentboard | Phonique | Wyciszenie pomieszczeń |
+| Udaroodporna | Aquapanel | Glasroc Impact | Garaże, klatki schodowe |
+
+Knauf oferuje bogatszy asortyment specjalnych płyt. Rigips przewodzi w standardowych segmentach biurowych i komercyjnych.
+
+## Porównanie cen (Lublin, 2026)
+
+| Produkt | Knauf | Rigips | Różnica |
+|---|---|---|---|
+| Płyta GKB 12,5 mm / m² | 14–16 zł | 14–17 zł | do 1 zł/m² |
+| Płyta GKBi (zielona) / m² | 17–20 zł | 18–21 zł | do 2 zł/m² |
+| Profil CW 75/0,5 mm / mb | 5,50–6,50 zł | 5,80–7,00 zł | do 0,80 zł/mb |
+| Profil CD 60/0,5 mm / mb | 4,50–5,50 zł | 4,80–5,80 zł | do 0,60 zł/mb |
+
+Ceny są zbliżone — Knauf często bywa nieznacznie tańszy. Na dużym zleceniu różnica może wynosić kilkaset złotych.
+
+## Kiedy wybrać Knauf?
+
+- Potrzebujesz specjalnych płyt: Aquapanel, Cleaneo, grubości 15/18 mm
+- Budujesz dom jednorodzinny — dobra dostępność w Polsce
+- Chcesz kompletny system jednej marki (kleje, masy, grunty)
+- Projekt wymaga certyfikowanego systemu ognioodpornego EI
+
+## Kiedy wybrać Rigips?
+
+- Projekt komercyjny, biurowy lub deweloperski — standard w tej branży
+- Ekipa przyzwyczajona do systemów Rigips
+- Budujesz w systemach Habito lub DuraBase (premium)
+- Potrzebujesz dużych ilości — dystrybucja Saint-Gobain sprawna
+
+## Najważniejsza zasada
+
+**Nie mieszaj systemów!** Używaj kleju, taśmy, masy i profili jednej marki. Producenci gwarantują parametry (akustyczne, ogniowe) tylko dla kompletnych systemów certyfikowanych.
+
+W Media Bud dostępne są płyty i profile Knauf oraz Rigips. Wyliczymy materiały i doradzimy system — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
+  },
 ];
 
 

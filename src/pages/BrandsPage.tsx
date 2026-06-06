@@ -393,7 +393,7 @@ export default function BrandsPage() {
                 {visibleBrands.map((brand, idx) => (
                   <Link
                     key={brand.name}
-                    to={`/szukaj?q=${encodeURIComponent(brand.name)}`}
+                    to={`/szukaj?brand=${encodeURIComponent(brand.name)}`}
                     className="group flex flex-col items-center rounded-xl overflow-hidden transition-all duration-200"
                     style={{ background: "#111", border: "1px solid rgba(255,255,255,0.07)" }}
                     onMouseEnter={e => {

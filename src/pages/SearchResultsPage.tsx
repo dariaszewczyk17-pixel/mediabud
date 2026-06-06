@@ -55,6 +55,13 @@ export default function SearchResultsPage() {
     return mergeProductCollections(sanityLegacyProducts, staticProducts);
   }, [sanityProducts]);
 
+  const results = useMemo(
+    () => brandMode
+      ? mergedProducts.filter(p => p.brand === selectedBrand)
+      : (query ? searchProducts(mergedProducts, query) : []),
+    [mergedProducts, query, brandMode, selectedBrand],
+  );
+
   useSEO({
     title: brandMode
       ? `Produkty marki ${selectedBrand} — Media Bud Lublin`
@@ -67,13 +74,6 @@ export default function SearchResultsPage() {
     noIndex: !brandMode,
     canonical: brandMode ? `/szukaj?brand=${encodeURIComponent(selectedBrand)}` : undefined,
   });
-
-  const results = useMemo(
-    () => brandMode
-      ? mergedProducts.filter(p => p.brand === selectedBrand)
-      : (query ? searchProducts(mergedProducts, query) : []),
-    [mergedProducts, query, brandMode, selectedBrand],
-  );
 
   const availableBrands = useMemo(
     () => Array.from(new Set(results.map((product) => product.brand).filter(Boolean))).sort((a, b) => a.localeCompare(b, "pl")),

@@ -18,26 +18,13 @@ const BrandsPage        = lazy(() => import("@/pages/BrandsPage"));
 const BrandDetailPage   = lazy(() => import("@/pages/BrandDetailPage"));
 const BestsellerPage    = lazy(() => import("@/pages/BestsellerPage"));
 
-/* Pages.tsx eksportuje wiele named exports — lazy() wymaga
-   default export, więc mapujemy każdy komponent osobno.    */
-const AllCategoriesPage = lazy(() =>
-  import("@/pages/Pages").then(m => ({ default: m.AllCategoriesPage }))
-);
-const ContactPage = lazy(() =>
-  import("@/pages/Pages").then(m => ({ default: m.ContactPage }))
-);
-const AboutPage = lazy(() =>
-  import("@/pages/Pages").then(m => ({ default: m.AboutPage }))
-);
-const ServicesPage = lazy(() =>
-  import("@/pages/Pages").then(m => ({ default: m.ServicesPage }))
-);
-const AdminPanel = lazy(() =>
-  import("@/pages/Pages").then(m => ({ default: m.AdminPanel }))
-);
-const PolicyPage = lazy(() =>
-  import("@/pages/Pages").then(m => ({ default: m.PolicyPage }))
-);
+/* Osobne pliki — każdy ma własny chunk, bez wspólnego 119 KB Pages.js */
+const AllCategoriesPage = lazy(() => import("@/pages/AllCategoriesPage"));
+const ContactPage       = lazy(() => import("@/pages/ContactPage"));
+const AboutPage         = lazy(() => import("@/pages/AboutPage"));
+const ServicesPage      = lazy(() => import("@/pages/ServicesPage"));
+const AdminPanel        = lazy(() => import("@/pages/AdminPanel"));
+const PolicyPage        = lazy(() => import("@/pages/PolicyPage"));
 
 /* ─── Fallback spinner ──────────────────────────────────
    Widoczny tylko przy pierwszym wejściu na podstronę

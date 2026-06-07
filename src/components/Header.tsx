@@ -364,7 +364,7 @@ export default function Header() {
       ════════════════════════════════════════════════ */}
       <div
         className="relative border-b border-[#e5e5e5] overflow-hidden transition-all duration-300"
-        style={{ maxHeight: scrolled ? "0" : "80px", background: scrolled ? "transparent" : "white" }}
+        style={{ maxHeight: scrolled ? "0" : "120px", background: scrolled ? "transparent" : "white" }}
       >
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
         <div className="container mx-auto flex items-center gap-4 px-4 py-4">
@@ -373,7 +373,7 @@ export default function Header() {
             <img
               src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-03/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/7435729631584985088_95351505e7074b448f31c489e4513303.png"
               alt="Media Bud – Skład Budowlany"
-              className="h-14 sm:h-16 md:h-[90px] w-auto object-contain transition-opacity duration-200 hover:opacity-80"
+              className="h-[42px] sm:h-12 md:h-[68px] w-auto object-contain transition-opacity duration-200 hover:opacity-80"
               style={{ maxWidth: "clamp(130px, 36vw, 300px)" }}
             />
           </Link>

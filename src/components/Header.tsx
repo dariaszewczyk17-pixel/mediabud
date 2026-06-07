@@ -57,6 +57,9 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [promoVisible, setPromoVisible] = useState(() => {
+    try { return localStorage.getItem("mb_promo_v1") !== "hidden"; } catch { return true; }
+  });
   const [recentlyViewed, setRecentlyViewed] = useState<{ name: string; slug: string; image?: string }[]>([]);
   const { items, openDrawer } = useWycena();
   const totalCount = items.reduce((s, i) => s + i.quantity, 0);
@@ -236,6 +239,50 @@ export default function Header() {
       className="sticky top-0 z-50 bg-transparent text-white"
       style={{ boxShadow: scrolled ? "0 10px 36px rgba(0,0,0,0.85)" : "none", transition: "box-shadow .3s" }}
     >
+      {/* ════════════════════════════════════════════════
+          PROMO STRIP — zamykany, zapamiętywany
+      ════════════════════════════════════════════════ */}
+      <div
+        className="overflow-hidden transition-all duration-300"
+        style={{ maxHeight: promoVisible ? "36px" : "0" }}
+      >
+        <div className="relative flex h-9 items-center justify-center overflow-hidden px-10 text-[11px] font-bold uppercase tracking-[0.14em]"
+          style={{ background: "linear-gradient(90deg,#1a0000,#2d0003,#1a0000)", borderBottom: "1px solid rgba(248,24,40,0.25)" }}>
+          {/* Ticker */}
+          <style>{`
+            @keyframes promo-scroll {
+              0%   { transform: translateX(100vw); }
+              100% { transform: translateX(-100%); }
+            }
+            .promo-track { animation: promo-scroll 22s linear infinite; white-space: nowrap; }
+          `}</style>
+          <div className="promo-track flex items-center gap-10 text-[#e0a0a8]">
+            {[
+              "🚚  Dostawa na teren Lublina i woj. lubelskiego",
+              "📦  Bezpłatna wycena każdego projektu",
+              "⚡  Ponad 15 000 produktów w magazynie",
+              "🏗️  Obsługa inwestycji B2B i B2C",
+            ].map((msg, i) => (
+              <span key={i} className="flex items-center gap-6">
+                {msg}
+                <span className="text-[#f81828]/40">◆</span>
+              </span>
+            ))}
+          </div>
+          {/* Zamknij */}
+          <button
+            aria-label="Zamknij pasek promocyjny"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-[#888] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828]"
+            onClick={() => {
+              setPromoVisible(false);
+              try { localStorage.setItem("mb_promo_v1", "hidden"); } catch { /* ignore */ }
+            }}
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </div>
+
       {/* ════════════════════════════════════════════════
           ROW 1 — Top info bar (collapses on scroll)
       ════════════════════════════════════════════════ */}

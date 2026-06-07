@@ -85,7 +85,7 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
       >
         {/* ── Image area ── */}
         <Link to={`/produkt/${product.slug}`} className="block relative overflow-hidden"
-          style={{ background: "#141414", height: "200px" }}>
+          style={{ background: "#141414", aspectRatio: "4/3" }}>
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
 
@@ -97,7 +97,7 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           <div className="card-spark-bl absolute bottom-0.5 left-0.5 w-1.5 h-1.5 rounded-full pointer-events-none z-30"
             style={{ background: "#ff6b35", boxShadow: "0 0 4px rgba(255,107,53,0.8)", opacity: 0 }} />
 
-          <div className="relative w-full h-full" style={{ background: "#141414" }}>
+          <div className="absolute inset-0" style={{ background: "#141414" }}>
             {/* Shimmer skeleton */}
             <div className="absolute inset-0 overflow-hidden">
               <style>{`
@@ -149,15 +149,6 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
                 POLECANY
               </span>
             )}
-          </div>
-
-          {/* Status badge — availability */}
-          <div className="absolute top-2.5 right-2.5">
-            <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider flex items-center gap-1"
-              style={{ background: "rgba(16,185,129,0.85)", border: "1px solid rgba(16,185,129,0.6)" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              Dostępny
-            </span>
           </div>
 
         </Link>

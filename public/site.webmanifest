@@ -1,0 +1,26 @@
+{
+  "name": "Media Bud — Skład Budowlany Lublin",
+  "short_name": "Media Bud",
+  "description": "Hurtownia i skład budowlany w Lublinie. Materiały budowlane, wykończeniowe, chemia budowlana — dostawa na budowę.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#f81828",
+  "lang": "pl",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["shopping", "business"],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

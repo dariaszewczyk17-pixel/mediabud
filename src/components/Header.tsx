@@ -693,14 +693,14 @@ export default function Header() {
                           </div>
 
                           {/* Col 4: CTA */}
-                          <div className="flex w-44 flex-shrink-0 flex-col gap-3">
+                          <div className="flex w-52 flex-shrink-0 flex-col gap-3">
                             <div className="flex-1 rounded-xl border border-[#f81828]/22 bg-gradient-to-br from-[#f81828]/14 to-[#f81828]/7 p-4">
                               <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#f81828]">Szybka wycena</div>
                               <p className="mb-3 text-xs font-bold uppercase tracking-[0.08em] text-[#888888]">Potrzebujesz materiałów? Wycenimy projekt.</p>
                               <Link
                                 to="/kontakt"
                                 onClick={() => setActiveMenu(null)}
-                                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#f81828] py-2 text-xs font-bold uppercase tracking-[0.08em] text-white transition-all hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#f81828] py-2 text-xs font-bold uppercase tracking-normal text-white transition-all hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                               >
                                 Zapytaj o ofertę <ArrowRight className="h-3 w-3" />
                               </Link>

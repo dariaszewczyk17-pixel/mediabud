@@ -1,44 +1,92 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Calculator, Phone, ArrowRight, ChevronRight, Info } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 
-type CalcId = "tynk" | "farba" | "styropian" | "klej" | "plytki";
+type CalcId = "tynk" | "farba" | "styropian" | "klej" | "plytki" | "izolacja";
 
 interface CalcDef {
   id: CalcId;
   label: string;
   icon: string;
   desc: string;
+  slug: string;
 }
 
 const calcs: CalcDef[] = [
-  { id: "tynk",      icon: "🪣", label: "Tynk elewacyjny",      desc: "Ile kg tynku potrzebujesz na elewację?" },
-  { id: "farba",     icon: "🎨", label: "Farba elewacyjna",      desc: "Ile litrów farby na ścianę zewnętrzną?" },
-  { id: "styropian", icon: "🧊", label: "Styropian / wełna",     desc: "Ile m² izolacji na ocieplenie budynku?" },
-  { id: "klej",      icon: "🔧", label: "Klej do płytek",        desc: "Ile kg kleju potrzebujesz do glazury?" },
-  { id: "plytki",    icon: "⬜", label: "Płytki ceramiczne",     desc: "Ile m² płytek z uwzględnieniem odpadów?" },
+  { id: "tynk",      icon: "🪣", label: "Tynk elewacyjny",      desc: "Ile kg tynku potrzebujesz na elewację?",           slug: "tynk-elewacyjny" },
+  { id: "farba",     icon: "🎨", label: "Farba elewacyjna",      desc: "Ile litrów farby na ścianę zewnętrzną?",          slug: "farba-elewacyjna" },
+  { id: "styropian", icon: "🧊", label: "Styropian / wełna",     desc: "Ile m² izolacji na ocieplenie budynku?",          slug: "styropian-welna" },
+  { id: "klej",      icon: "🔧", label: "Klej do płytek",        desc: "Ile kg kleju potrzebujesz do glazury?",           slug: "klej-do-plytek" },
+  { id: "plytki",    icon: "⬜", label: "Płytki ceramiczne",     desc: "Ile m² płytek z uwzględnieniem odpadów?",        slug: "plytki-ceramiczne" },
+  { id: "izolacja",  icon: "🏗️", label: "Izolacja fundamentów", desc: "Ile m³ XPS do izolacji fundamentów i cokołu?",    slug: "izolacja-fundamentow" },
 ];
 
-function round2(v: number) { return Math.round(v * 100) / 100; }
-function ceil5(v: number) { return Math.ceil(v / 5) * 5; }
+const SLUG_TO_ID: Record<string, CalcId> = Object.fromEntries(calcs.map(c => [c.slug, c.id]));
 
-/* ─── TYNK ─────────────────────────────────────────── */
+/* ─── HowTo JSON-LD per kalkulator ─────────────────────────────── */
+const HOWTO_SCHEMAS: Partial<Record<CalcId, object>> = {
+  klej: {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Jak obliczyć ilość kleju do płytek ceramicznych",
+    "description": "Krok po kroku: oblicz ile kleju do płytek potrzebujesz na podstawie powierzchni, formatu i stanu podłoża.",
+    "totalTime": "PT3M",
+    "estimatedCost": { "@type": "MonetaryAmount", "currency": "PLN", "value": "0" },
+    "tool": [{ "@type": "HowToTool", "name": "Kalkulator kleju do płytek Media Bud" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Zmierz powierzchnię do wyłożenia", "text": "Oblicz m² podłogi lub ściany (długość × szerokość). Wpisz wynik do kalkulatora." },
+      { "@type": "HowToStep", "position": 2, "name": "Wybierz format płytki", "text": "Mały format (do 20×20 cm) wymaga ~3 kg/m², średni 30×60 cm ~4,5 kg/m², duży 60×60 cm ~6 kg/m², wielki 80×80+ cm ~8 kg/m²." },
+      { "@type": "HowToStep", "position": 3, "name": "Oceń stan podłoża", "text": "Gładkie poziome podłoże nie wymaga korekty. Nierówne podłoże +20%, układanie na ścianie +40%." },
+      { "@type": "HowToStep", "position": 4, "name": "Odczytaj wynik i zamów worki 25 kg", "text": "Kalkulator podaje łączne zużycie kleju w kg i liczbę worków 25 kg. Do płytek wielkoformatowych i ogrzewania podłogowego użyj kleju C2TE S1/S2." },
+    ],
+  },
+  izolacja: {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Jak obliczyć ilość XPS do izolacji fundamentów",
+    "description": "Krok po kroku: oblicz ile płyt XPS lub styropianu fundamentowego potrzebujesz do izolacji pionowej fundamentów i cokołu.",
+    "totalTime": "PT3M",
+    "estimatedCost": { "@type": "MonetaryAmount", "currency": "PLN", "value": "0" },
+    "tool": [{ "@type": "HowToTool", "name": "Kalkulator izolacji fundamentów Media Bud" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Zmierz obwód budynku", "text": "Zsumuj długości wszystkich ścian zewnętrznych styku z gruntem. Wynik w metrach bieżących." },
+      { "@type": "HowToStep", "position": 2, "name": "Zmierz głębokość izolacji", "text": "Mierz od górnej krawędzi izolacji (ok. 30 cm nad terenem) do ławy fundamentowej. Typowo 1,5–2,5 m." },
+      { "@type": "HowToStep", "position": 3, "name": "Wybierz grubość płyty XPS", "text": "Standard to 8–10 cm XPS (λ=0,034 W/mK). Przy pasywnym lub energooszczędnym standardzie warto użyć 12–16 cm." },
+      { "@type": "HowToStep", "position": 4, "name": "Dodaj bufor i odczytaj wynik", "text": "Kalkulator podaje m² izolacji (z buforem 10%) i orientacyjną liczbę płyt 60×125 cm. Zamów też primer i taśmę uszczelniającą." },
+    ],
+  },
+  farba: {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Jak obliczyć ilość farby elewacyjnej",
+    "description": "Krok po kroku: oblicz ile litrów farby elewacyjnej (silikonowej, akrylowej, silikatowej) potrzebujesz na malowanie elewacji.",
+    "totalTime": "PT3M",
+    "estimatedCost": { "@type": "MonetaryAmount", "currency": "PLN", "value": "0" },
+    "tool": [{ "@type": "HowToTool", "name": "Kalkulator farby elewacyjnej Media Bud" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Zmierz całkowitą powierzchnię ścian", "text": "Oblicz sumę pow. wszystkich ścian zewnętrznych (wys. × obwód). Wynik w m²." },
+      { "@type": "HowToStep", "position": 2, "name": "Odejmij okna i drzwi", "text": "Zmierz i zsumuj pow. wszystkich otworów okiennych i drzwiowych. Odejmij od całości." },
+      { "@type": "HowToStep", "position": 3, "name": "Wybierz rodzaj farby i liczbę warstw", "text": "Farba silikonowa ~0,18 l/m²/warstwę, akrylowa ~0,20 l/m², silikatowa ~0,22 l/m². Standardowo 2 warstwy, ciemne kolory 3 warstwy." },
+      { "@type": "HowToStep", "position": 4, "name": "Odczytaj wynik i zamów opakowania", "text": "Kalkulator podaje łączne zużycie farby w litrach i liczbę pojemników 10 l. Zawsze zamów minimum 10% zapas." },
+    ],
+  },
+};
+
+function round2(v: number) { return Math.round(v * 100) / 100; }
+
+/* ─── TYNK ──────────────────────────────────────────── */
 function TynkCalc() {
   const [pow, setPow] = useState("100");
   const [okna, setOkna] = useState("15");
   const [ziarno, setZiarno] = useState("1.5");
   const [bufor, setBufor] = useState("10");
-
   const result = useMemo(() => {
     const netto = Math.max(0, parseFloat(pow) - parseFloat(okna));
     const zuzycie = parseFloat(ziarno) === 1.0 ? 2.0 : parseFloat(ziarno) === 1.5 ? 2.5 : parseFloat(ziarno) === 2.0 ? 3.0 : 4.0;
-    const kgNetto = netto * zuzycie;
-    const kgBrutto = kgNetto * (1 + parseFloat(bufor) / 100);
-    const worki25 = Math.ceil(kgBrutto / 25);
-    return { netto: round2(netto), kgNetto: round2(kgNetto), kgBrutto: round2(kgBrutto), worki25 };
+    const kgBrutto = netto * zuzycie * (1 + parseFloat(bufor) / 100);
+    return { netto: round2(netto), kgNetto: round2(netto * zuzycie), kgBrutto: round2(kgBrutto), worki25: Math.ceil(kgBrutto / 25) };
   }, [pow, okna, ziarno, bufor]);
-
   return (
     <div className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-4">
@@ -59,32 +107,28 @@ function TynkCalc() {
         ]} />
       </div>
       <Result rows={[
-        { label: "Netto powierzchnia do tynkowania", val: `${result.netto} m²` },
+        { label: "Netto pow. do tynkowania", val: `${result.netto} m²` },
         { label: "Zużycie tynku (bez bufora)", val: `${result.kgNetto} kg` },
         { label: "Zużycie z buforem", val: `${result.kgBrutto} kg`, accent: true },
         { label: "Worki 25 kg do zamówienia", val: `${result.worki25} szt.` },
       ]} />
-      <Note text="Zużycia orientacyjne wg kart technicznych Weber, Ceresit, Atlas. Różnią się zależnie od podłoża — sprawdź kartę techniczną wybranego produktu." />
+      <Note text="Zużycia orientacyjne wg kart technicznych Weber, Ceresit, Atlas. Sprawdź kartę techniczną wybranego produktu." />
     </div>
   );
 }
 
-/* ─── FARBA ─────────────────────────────────────────── */
+/* ─── FARBA ──────────────────────────────────────────── */
 function FarbaCalc() {
   const [pow, setPow] = useState("100");
   const [okna, setOkna] = useState("15");
   const [warstwy, setWarstwy] = useState("2");
   const [rodzaj, setRodzaj] = useState("silikonowa");
-
   const result = useMemo(() => {
     const netto = Math.max(0, parseFloat(pow) - parseFloat(okna));
     const zuzycie = rodzaj === "akrylowa" ? 0.20 : rodzaj === "silikonowa" ? 0.18 : rodzaj === "silikatowa" ? 0.22 : 0.25;
-    const lWarstwa = netto * zuzycie;
-    const lTotal = lWarstwa * parseFloat(warstwy);
-    const puszki10 = Math.ceil(lTotal / 10);
-    return { netto: round2(netto), lWarstwa: round2(lWarstwa), lTotal: round2(lTotal), puszki10 };
+    const lTotal = netto * zuzycie * parseFloat(warstwy);
+    return { netto: round2(netto), lWarstwa: round2(netto * zuzycie), lTotal: round2(lTotal), puszki10: Math.ceil(lTotal / 10) };
   }, [pow, okna, warstwy, rodzaj]);
-
   return (
     <div className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-4">
@@ -105,29 +149,26 @@ function FarbaCalc() {
         ]} />
       </div>
       <Result rows={[
-        { label: "Netto powierzchnia do malowania", val: `${result.netto} m²` },
+        { label: "Netto pow. do malowania", val: `${result.netto} m²` },
         { label: "Zużycie na 1 warstwę", val: `${result.lWarstwa} l` },
         { label: "Łączne zużycie farby", val: `${result.lTotal} l`, accent: true },
         { label: "Pojemniki 10 l do zamówienia", val: `${result.puszki10} szt.` },
       ]} />
-      <Note text="Zużycia orientacyjne. Faktyczne zużycie może się różnić zależnie od chłonności podłoża i techniki nanoszenia." />
+      <Note text="Faktyczne zużycie może różnić się zależnie od chłonności podłoża i techniki nanoszenia." />
     </div>
   );
 }
 
-/* ─── STYROPIAN ─────────────────────────────────────── */
+/* ─── STYROPIAN ──────────────────────────────────────── */
 function StyropianCalc() {
   const [pow, setPow] = useState("150");
   const [okna, setOkna] = useState("20");
   const [bufor, setBufor] = useState("10");
-
   const result = useMemo(() => {
     const netto = Math.max(0, parseFloat(pow) - parseFloat(okna));
     const brutto = netto * (1 + parseFloat(bufor) / 100);
-    const plyty = Math.ceil(brutto / 0.5); // 50x100cm = 0,5m² / płyta
-    return { netto: round2(netto), brutto: round2(brutto), plyty };
+    return { netto: round2(netto), brutto: round2(brutto), plyty: Math.ceil(brutto / 0.5) };
   }, [pow, okna, bufor]);
-
   return (
     <div className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-4">
@@ -140,29 +181,26 @@ function StyropianCalc() {
         { v: "15", l: "15% — elewacja z niszami i detalami" },
       ]} />
       <Result rows={[
-        { label: "Netto powierzchnia do ocieplenia", val: `${result.netto} m²` },
+        { label: "Netto pow. do ocieplenia", val: `${result.netto} m²` },
         { label: "Do zamówienia (z buforem)", val: `${result.brutto} m²`, accent: true },
-        { label: "Orientacyjna liczba płyt 50×100 cm", val: `${result.plyty} szt.` },
+        { label: "Płyty 50×100 cm (orientacyjnie)", val: `${result.plyty} szt.` },
       ]} />
-      <Note text="Standardowe płyty styropianu/wełny mają wymiar 50×100 cm (0,5 m²). Przy zamówieniu uwzględnij też klej, siatkę zbrojącą i grunt." />
+      <Note text="Przy zamówieniu uwzględnij też klej do styropianu, siatkę zbrojącą i grunt." />
     </div>
   );
 }
 
-/* ─── KLEJ DO PŁYTEK ────────────────────────────────── */
+/* ─── KLEJ DO PŁYTEK ─────────────────────────────────── */
 function KlejCalc() {
   const [pow, setPow] = useState("20");
   const [format, setFormat] = useState("sredni");
   const [podloze, setPodloze] = useState("gladkie");
-
   const result = useMemo(() => {
     const base = format === "maly" ? 3.0 : format === "sredni" ? 4.5 : format === "duzy" ? 6.0 : 8.0;
     const mult = podloze === "gladkie" ? 1.0 : podloze === "nierówne" ? 1.2 : 1.4;
     const kg = parseFloat(pow) * base * mult;
-    const worki25 = Math.ceil(kg / 25);
-    return { kg: round2(kg), worki25 };
+    return { kg: round2(kg), worki25: Math.ceil(kg / 25) };
   }, [pow, format, podloze]);
-
   return (
     <div className="space-y-5">
       <Field label="Powierzchnia płytek (m²)" value={pow} onChange={setPow} min={1} />
@@ -183,7 +221,7 @@ function KlejCalc() {
         { label: "Łączne zużycie kleju", val: `${result.kg} kg`, accent: true },
         { label: "Worki 25 kg do zamówienia", val: `${result.worki25} szt.` },
       ]} />
-      <Note text="Przy okładzinach wielkogabarytowych (80×80+) stosuj klej S1 lub S2 z elastyfikatorem." />
+      <Note text="Przy okładzinach wielkoformatowych (80×80+) i ogrzewaniu podłogowym stosuj klej odkształcalny C2TE S1 lub S2." />
     </div>
   );
 }
@@ -193,13 +231,10 @@ function PlytkiCalc() {
   const [szer, setSzer] = useState("4");
   const [wys, setWys] = useState("5");
   const [odpad, setOdpad] = useState("10");
-
   const result = useMemo(() => {
     const pow = parseFloat(szer) * parseFloat(wys);
-    const brutto = pow * (1 + parseFloat(odpad) / 100);
-    return { pow: round2(pow), brutto: round2(brutto) };
+    return { pow: round2(pow), brutto: round2(pow * (1 + parseFloat(odpad) / 100)) };
   }, [szer, wys, odpad]);
-
   return (
     <div className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-4">
@@ -213,10 +248,56 @@ function PlytkiCalc() {
         { v: "20", l: "20% — skomplikowany układ" },
       ]} />
       <Result rows={[
-        { label: "Netto powierzchnia do wyłożenia", val: `${result.pow} m²` },
+        { label: "Netto pow. do wyłożenia", val: `${result.pow} m²` },
         { label: "Do zamówienia (z naddatkiem)", val: `${result.brutto} m²`, accent: true },
       ]} />
-      <Note text="Zawsze zamów trochę więcej niż potrzebujesz — różne partie produkcji mogą się różnić odcieniem." />
+      <Note text="Zawsze zamawiaj z jednej partii produkcji — różne partie mogą różnić się odcieniem." />
+    </div>
+  );
+}
+
+/* ─── IZOLACJA FUNDAMENTÓW ───────────────────────────── */
+function IzolacjaCalc() {
+  const [obwod, setObwod] = useState("40");
+  const [glebokos, setGlebokos] = useState("2.0");
+  const [grubosc, setGrubosc] = useState("10");
+  const [bufor, setBufor] = useState("10");
+  const result = useMemo(() => {
+    const pow = parseFloat(obwod) * parseFloat(glebokos);
+    const brutto = round2(pow * (1 + parseFloat(bufor) / 100));
+    // Płyta XPS 60×125 cm = 0,75 m²
+    const plyty = Math.ceil(brutto / 0.75);
+    // m³ = m² × grubość [m]
+    const m3 = round2(brutto * parseFloat(grubosc) / 100);
+    return { pow: round2(pow), brutto, plyty, m3 };
+  }, [obwod, glebokos, grubosc, bufor]);
+  return (
+    <div className="space-y-5">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <Field label="Obwód budynku do izolacji (mb)" value={obwod} onChange={setObwod} min={4} />
+        <Field label="Głębokość izolacji (m)" value={glebokos} onChange={setGlebokos} min={0.5} step="0.1" />
+      </div>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SelectField label="Grubość płyty XPS (cm)" value={grubosc} onChange={setGrubosc} options={[
+          { v: "6",  l: "6 cm — renowacja, ciepły klimat" },
+          { v: "8",  l: "8 cm — standard WT2021" },
+          { v: "10", l: "10 cm — energooszczędny (rekomendowane)" },
+          { v: "12", l: "12 cm — dom pasywny / NF40" },
+          { v: "16", l: "16 cm — standard pasywny NF15" },
+        ]} />
+        <SelectField label="Bufor na cięcia (%)" value={bufor} onChange={setBufor} options={[
+          { v: "5",  l: "5% — regularny rzut" },
+          { v: "10", l: "10% — standardowy bufor" },
+          { v: "15", l: "15% — nieregularny kształt" },
+        ]} />
+      </div>
+      <Result rows={[
+        { label: "Netto pow. izolacji", val: `${result.pow} m²` },
+        { label: "Do zamówienia (z buforem)", val: `${result.brutto} m²`, accent: true },
+        { label: "Objętość materiału", val: `${result.m3} m³` },
+        { label: "Płyty 60×125 cm (orientacyjnie)", val: `${result.plyty} szt.` },
+      ]} />
+      <Note text="Do izolacji pionowej fundamentów stosuj XPS (np. Ravatherm, Synthos XPS) odporny na wilgoć. Pamiętaj o primerze bitumicznym i folii kubełkowej." />
     </div>
   );
 }
@@ -227,10 +308,7 @@ function Field({ label, value, onChange, min = 0, step = "1" }: { label: string;
     <div>
       <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">{label}</label>
       <input
-        type="number"
-        min={min}
-        step={step}
-        value={value}
+        type="number" min={min} step={step} value={value}
         onChange={e => onChange(e.target.value)}
         className="w-full px-3 py-2.5 rounded-lg text-sm font-medium text-white focus:outline-none transition-colors"
         style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
@@ -245,9 +323,7 @@ function SelectField({ label, value, onChange, options }: { label: string; value
   return (
     <div>
       <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">{label}</label>
-      <select
-        value={value}
-        onChange={e => onChange(e.target.value)}
+      <select value={value} onChange={e => onChange(e.target.value)}
         className="w-full px-3 py-2.5 rounded-lg text-sm font-medium text-white focus:outline-none transition-colors"
         style={{ background: "#111", border: "1px solid rgba(255,255,255,0.1)" }}
       >
@@ -285,64 +361,145 @@ function Note({ text }: { text: string }) {
   );
 }
 
-/* ─── MAIN PAGE ─────────────────────────────────────── */
-export default function KalkulatorPage() {
-  const [active, setActive] = useState<CalcId>("tynk");
+/* ─── SEO meta per kalkulator ────────────────────────── */
+const CALC_SEO: Record<CalcId, { title: string; description: string }> = {
+  tynk:      { title: "Kalkulator tynku elewacyjnego — ile kg potrzebujesz? | Media Bud Lublin",       description: "Oblicz ilość tynku elewacyjnego (Weber, Ceresit, Atlas) na m². Wpisz pow. ścian, ziarno i bufor — wynik w kg i workach 25 kg." },
+  farba:     { title: "Kalkulator farby elewacyjnej — ile litrów? | Media Bud Lublin",                 description: "Oblicz zużycie farby elewacyjnej silikonowej, akrylowej lub silikatowej. Wpisz pow. ścian i liczbę warstw — wynik w litrach i pojemnikach 10 l." },
+  styropian: { title: "Kalkulator styropianu i wełny mineralnej — ile m²? | Media Bud Lublin",        description: "Oblicz ile m² styropianu fasadowego EPS lub wełny mineralnej potrzebujesz na ocieplenie budynku. Szybki kalkulator ETICS." },
+  klej:      { title: "Kalkulator kleju do płytek ceramicznych — ile worków? | Media Bud Lublin",      description: "Oblicz ilość kleju do płytek na podstawie m², formatu płytki i stanu podłoża. Wynik w kg i workach 25 kg. Kalkulator glazury." },
+  plytki:    { title: "Kalkulator płytek ceramicznych — ile m² zamówić? | Media Bud Lublin",          description: "Oblicz ile m² płytek ceramicznych, gresu lub mozaiki potrzebujesz z uwzględnieniem odpadów i cięć. Podaj wymiary pomieszczenia." },
+  izolacja:  { title: "Kalkulator izolacji fundamentów XPS — ile m³? | Media Bud Lublin",             description: "Oblicz ile płyt XPS potrzebujesz do pionowej izolacji fundamentów i cokołu. Wpisz obwód budynku i głębokość — wynik w m² i m³." },
+};
 
-  useSEO({
+/* ─── CTA i linki ────────────────────────────────────── */
+function CalcCTA() {
+  return (
+    <div className="mt-8 rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.10),rgba(248,24,40,0.04))", border: "1px solid rgba(248,24,40,0.2)" }}>
+      <div className="grid md:grid-cols-[1fr_auto] gap-5 items-center">
+        <div>
+          <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-2">Masz wyniki?</p>
+          <h3 className="font-display text-xl font-black text-white mb-2">Wyślij zapytanie — wycenimy dostawę</h3>
+          <p className="text-sm text-gray-400 leading-relaxed">Podaj obliczone ilości, a przygotujemy ofertę z dostawą na budowę w Lublinie i woj. lubelskim.</p>
+        </div>
+        <div className="flex flex-col gap-3 min-w-[200px]">
+          <a href="tel:+48533553344" className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wide text-white" style={{ background: "#f81828" }}>
+            <Phone className="w-4 h-4" /> Zadzwoń: 533 553 344
+          </a>
+          <Link to="/kontakt" className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wide text-white border border-white/10">
+            <ArrowRight className="w-4 h-4 text-[#f81828]" /> Wyślij zapytanie
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── MAIN PAGE ──────────────────────────────────────── */
+export default function KalkulatorPage() {
+  const { calcId: calcSlug } = useParams<{ calcId?: string }>();
+  const activeId: CalcId = (calcSlug && SLUG_TO_ID[calcSlug]) ? SLUG_TO_ID[calcSlug] : "tynk";
+  const [tabActive, setTabActive] = useState<CalcId>(activeId);
+
+  // Jeśli URL zawiera slug — używamy go jako aktywnej zakładki
+  const active: CalcId = calcSlug ? activeId : tabActive;
+  const activeDef = calcs.find(c => c.id === active)!;
+
+  const seo = calcSlug ? CALC_SEO[active] : {
     title: "Kalkulator zużycia materiałów budowlanych — Media Bud Lublin",
-    description: "Oblicz ile tynku, farby elewacyjnej, styropianu, kleju do płytek potrzebujesz na swój projekt. Bezpłatny kalkulator budowlany od Media Bud w Lublinie.",
-    canonical: "/kalkulator",
-    schema: {
+    description: "Oblicz ile tynku, farby elewacyjnej, styropianu, kleju do płytek lub XPS na fundamenty potrzebujesz. Bezpłatny kalkulator budowlany.",
+  };
+
+  const howto = calcSlug ? HOWTO_SCHEMAS[active] : undefined;
+
+  const schemas: object[] = [
+    {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Kalkulator zużycia materiałów budowlanych",
-      "description": "Oblicz potrzebne ilości tynku, farby, styropianu i kleju do swojej inwestycji.",
-      "url": "https://mediabud.pl/kalkulator",
+      "name": calcSlug ? activeDef.label + " — kalkulator budowlany" : "Kalkulator zużycia materiałów budowlanych",
+      "description": seo.description,
+      "url": `https://mediabud.pl/kalkulator${calcSlug ? "/" + calcSlug : ""}`,
       "applicationCategory": "UtilitiesApplication",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PLN" }
-    }
-  });
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PLN" },
+    },
+    ...(howto ? [howto] : []),
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Kalkulator materiałów", "item": "https://mediabud.pl/kalkulator" },
+        ...(calcSlug ? [{ "@type": "ListItem", "position": 3, "name": activeDef.label, "item": `https://mediabud.pl/kalkulator/${calcSlug}` }] : []),
+      ],
+    },
+  ];
 
-  const activeCalc = calcs.find(c => c.id === active)!;
+  useSEO({
+    title: seo.title,
+    description: seo.description,
+    canonical: `/kalkulator${calcSlug ? "/" + calcSlug : ""}`,
+    schema: schemas,
+  });
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
-
       {/* Hero */}
       <div className="relative overflow-hidden" style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
         <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.4)" }} />
         <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.2) 60%,transparent)" }} />
-        <div className="relative container mx-auto px-4 pl-10 py-12">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="relative container mx-auto px-4 pl-10 py-10">
+          <div className="flex items-center gap-2 mb-1">
             <Calculator className="w-4 h-4 text-[#f81828]" />
-            <span className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">Narzędzie</span>
+            <span className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">
+              {calcSlug
+                ? <><Link to="/kalkulator" className="hover:underline opacity-70">Kalkulator</Link> / {activeDef.label}</>
+                : "Narzędzie"}
+            </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-black text-white mb-2">Kalkulator materiałów</h1>
-          <p className="text-gray-400 text-sm max-w-xl">Oblicz ile tynku, farby, styropianu lub kleju do płytek potrzebujesz. Wyniki są orientacyjne — zawsze sprawdź kartę techniczną producenta.</p>
+          <h1 className="font-display text-3xl md:text-4xl font-black text-white mb-2">
+            {calcSlug ? activeDef.label : "Kalkulator materiałów"}
+          </h1>
+          <p className="text-gray-400 text-sm max-w-xl">{activeDef.desc}</p>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-10 max-w-4xl">
-
-        {/* Zakładki */}
+        {/* Zakładki / linki do sub-stron */}
         <div className="flex flex-wrap gap-2 mb-8">
           {calcs.map(c => (
-            <button
-              key={c.id}
-              onClick={() => setActive(c.id)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-200"
-              style={{
-                background: active === c.id ? "#f81828" : "rgba(255,255,255,0.04)",
-                color: active === c.id ? "#fff" : "#888",
-                border: `1px solid ${active === c.id ? "#f81828" : "rgba(255,255,255,0.08)"}`,
-                boxShadow: active === c.id ? "0 4px 16px rgba(248,24,40,0.3)" : "none",
-              }}
-            >
-              <span className="text-base leading-none">{c.icon}</span>
-              <span>{c.label}</span>
-            </button>
+            calcSlug
+              ? (
+                <Link
+                  key={c.id}
+                  to={`/kalkulator/${c.slug}`}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-200"
+                  style={{
+                    background: active === c.id ? "#f81828" : "rgba(255,255,255,0.04)",
+                    color: active === c.id ? "#fff" : "#888",
+                    border: `1px solid ${active === c.id ? "#f81828" : "rgba(255,255,255,0.08)"}`,
+                    boxShadow: active === c.id ? "0 4px 16px rgba(248,24,40,0.3)" : "none",
+                  }}
+                >
+                  <span className="text-base leading-none">{c.icon}</span>
+                  <span>{c.label}</span>
+                </Link>
+              )
+              : (
+                <button
+                  key={c.id}
+                  onClick={() => setTabActive(c.id)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-200"
+                  style={{
+                    background: active === c.id ? "#f81828" : "rgba(255,255,255,0.04)",
+                    color: active === c.id ? "#fff" : "#888",
+                    border: `1px solid ${active === c.id ? "#f81828" : "rgba(255,255,255,0.08)"}`,
+                    boxShadow: active === c.id ? "0 4px 16px rgba(248,24,40,0.3)" : "none",
+                  }}
+                >
+                  <span className="text-base leading-none">{c.icon}</span>
+                  <span>{c.label}</span>
+                </button>
+              )
           ))}
         </div>
 
@@ -350,51 +507,57 @@ export default function KalkulatorPage() {
         <div className="rounded-2xl p-6 md:p-8" style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}>
           <div className="mb-6">
             <h2 className="font-display text-xl font-black text-white flex items-center gap-2 mb-1">
-              <span className="text-2xl">{activeCalc.icon}</span>
-              {activeCalc.label}
+              <span className="text-2xl">{activeDef.icon}</span>
+              {activeDef.label}
             </h2>
-            <p className="text-sm text-gray-500">{activeCalc.desc}</p>
+            <p className="text-sm text-gray-500">{activeDef.desc}</p>
           </div>
-
           {active === "tynk"      && <TynkCalc />}
           {active === "farba"     && <FarbaCalc />}
           {active === "styropian" && <StyropianCalc />}
           {active === "klej"      && <KlejCalc />}
           {active === "plytki"    && <PlytkiCalc />}
+          {active === "izolacja"  && <IzolacjaCalc />}
         </div>
 
-        {/* CTA */}
-        <div className="mt-8 rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.10),rgba(248,24,40,0.04))", border: "1px solid rgba(248,24,40,0.2)" }}>
-          <div className="grid md:grid-cols-[1fr_auto] gap-5 items-center">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-2">Masz wyniki?</p>
-              <h3 className="font-display text-xl font-black text-white mb-2">Wyślij zapytanie — wycenimy dostawę</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">Skontaktuj się z naszym doradcą — podaj obliczone ilości, a przygotujemy ofertę z dostawą na budowę w Lublinie i województwie lubelskim.</p>
-            </div>
-            <div className="flex flex-col gap-3 min-w-[200px]">
-              <a href="tel:+48533553344" className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wide text-white" style={{ background: "#f81828" }}>
-                <Phone className="w-4 h-4" /> Zadzwoń
-              </a>
-              <Link to="/kontakt" className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wide text-white border border-white/10">
-                <ArrowRight className="w-4 h-4 text-[#f81828]" /> Wyślij zapytanie
-              </Link>
-            </div>
-          </div>
-        </div>
+        <CalcCTA />
 
-        {/* Linki do kategorii */}
+        {/* Linki do powiązanych kategorii */}
         <div className="mt-6 flex flex-wrap gap-3 justify-center">
           {[
-            { href: "/kategoria/tynki", l: "Tynki elewacyjne →" },
-            { href: "/kategoria/farby-i-rozpuszczalniki", l: "Farby →" },
-            { href: "/kategoria/styropian-wełna-mineralna-piana", l: "Izolacje →" },
-            { href: "/kategoria/kleje-i-zaprawy", l: "Kleje →" },
+            { href: "/kategoria/tynki",                        l: "Tynki elewacyjne →" },
+            { href: "/kategoria/farby-i-rozpuszczalniki",      l: "Farby →" },
+            { href: "/kategoria/izolacje",                     l: "Izolacje →" },
+            { href: "/kategoria/kleje-i-zaprawy",              l: "Kleje →" },
           ].map(item => (
             <Link key={item.href} to={item.href} className="text-xs font-bold text-gray-500 hover:text-[#f81828] transition-colors flex items-center gap-1">
               <ChevronRight className="w-3 h-3" /> {item.l}
             </Link>
           ))}
         </div>
+
+        {/* Linki do indywidualnych kalkulatorów (SEO internal linking) */}
+        {!calcSlug && (
+          <div className="mt-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+            <p className="text-[10px] font-black uppercase tracking-widest text-gray-600 mb-4">Kalkulatory szczegółowe</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {calcs.map(c => (
+                <Link
+                  key={c.id}
+                  to={`/kalkulator/${c.slug}`}
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-xs font-bold text-gray-500 hover:text-white transition-all group"
+                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.3)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.06)"; }}
+                >
+                  <span>{c.icon}</span>
+                  <span>{c.label}</span>
+                  <ChevronRight className="w-3 h-3 ml-auto text-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

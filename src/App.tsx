@@ -39,6 +39,7 @@ export default function App() {
           <Route path="/regulamin" element={<PolicyPage />} />
           <Route path="/sitemap" element={<AllCategoriesPage />} />
           <Route path="/kalkulator" element={<KalkulatorPage />} />
+          <Route path="/kalkulator/:calcId" element={<KalkulatorPage />} />
           <Route path="/marki" element={<BrandsPage />} />
           <Route path="/marki/:slug" element={<BrandDetailPage />} />
           <Route path="/bestsellery" element={<BestsellerPage />} />

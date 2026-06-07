@@ -225,9 +225,12 @@ export default function ProductDetail() {
         "name": product.name,
         "description": product.shortDescription || product.description || undefined,
         "brand": product.brand ? { "@type": "Brand", "name": product.brand } : undefined,
+        "manufacturer": product.brand ? { "@type": "Organization", "name": product.brand } : undefined,
         "sku": product.sku || undefined,
+        "mpn": product.sku || undefined,
         "image": images.filter(i => i && !i.includes("placeholder")),
         "category": cat?.name || undefined,
+        "keywords": [product.brand, cat?.name, "materiały budowlane", "Lublin"].filter(Boolean).join(", "),
         ...(product.technicalSpec?.length > 0 && {
           "additionalProperty": product.technicalSpec.map(s => ({
             "@type": "PropertyValue",
@@ -238,8 +241,31 @@ export default function ProductDetail() {
         "offers": {
           "@type": "Offer",
           "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
           "priceCurrency": "PLN",
           "url": `https://mediabud.pl/produkt/${slug}`,
+          "areaServed": {
+            "@type": "AdministrativeArea",
+            "name": "Lublin i województwo lubelskie",
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": { "@type": "MonetaryAmount", "currency": "PLN" },
+            "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "PL" },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY" },
+              "transitTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" },
+            },
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "PL",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": "https://schema.org/ReturnByMail",
+            "returnFees": "https://schema.org/FreeReturn",
+          },
           "seller": {
             "@type": "Organization",
             "@id": "https://mediabud.pl/#organization",

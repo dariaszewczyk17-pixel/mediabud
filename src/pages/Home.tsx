@@ -500,8 +500,8 @@ export default function Home() {
           <ChevronRight className="w-5 h-5" aria-hidden="true" />
         </button>
 
-        {/* Dots */}
-        <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2" role="group" aria-label="Nawigacja slajdów">
+        {/* Dots — touch area min 44×44px (WCAG 2.5.8), wizualny wskaźnik w <span> */}
+        <div className="absolute bottom-4 right-4 z-30 flex items-center" role="group" aria-label="Nawigacja slajdów">
           {heroSlides.map((_, i) => (
             <button
               key={i}
@@ -509,8 +509,10 @@ export default function Home() {
               aria-label={`Slajd ${i + 1}`}
               aria-current={i === slide ? "true" : undefined}
               onClick={() => goTo(i)}
-              className={`transition-all duration-300 rounded-full ${i === slide ? "w-8 h-2 bg-[#f81828]" : "w-2 h-2 bg-white/30 hover:bg-white/60"}`}
-            />
+              className="flex items-center justify-center w-11 h-11 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 rounded-full"
+            >
+              <span className={`block transition-all duration-300 rounded-full ${i === slide ? "w-8 h-2 bg-[#f81828]" : "w-2 h-2 bg-white/30 hover:bg-white/60"}`} />
+            </button>
           ))}
         </div>
         <div className="absolute bottom-6 left-6 z-30 text-xs font-black uppercase tracking-[0.25em]" style={{ color: "#888", fontFamily: "'Share Tech Mono',monospace" }}>

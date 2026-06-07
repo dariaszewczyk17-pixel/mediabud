@@ -13,8 +13,17 @@ export default function Layout() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS_JSONLD) }}
       />
+      {/* ── Skip-link — Lighthouse accessibility ── */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:text-white focus:text-sm focus:font-bold focus:outline-none"
+        style={{ background: "#f81828", boxShadow: "0 0 0 3px rgba(248,24,40,0.4)" }}
+      >
+        Pomiń do treści
+      </a>
+
       <Header />
-      <main className="flex-1">
+      <main id="main" className="flex-1">
         <Outlet />
       </main>
       <Footer />

@@ -116,7 +116,7 @@ function FaqAccordion({ items, catName }: { items: { q: string; a: string }[]; c
       <div className="px-6 py-4 flex items-center gap-2" style={{ background: "#0f0f0f", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
         <span className="w-[3px] h-4 bg-[#f81828] rounded-full" />
         <h3 className="font-bold text-white text-sm">FAQ — {catName}</h3>
-        <span className="ml-2 text-[10px] font-black px-2 py-0.5 rounded-full" style={{ background: "rgba(248,24,40,0.12)", color: "#f88090" }}>
+        <span className="ml-2 text-[10px] font-black px-2 py-0.5 rounded-full" style={{ background: "#1e0304", color: "#ff9aa3" }}>
           {items.length} pytań
         </span>
       </div>
@@ -863,7 +863,7 @@ export default function CategoryPage() {
                 <h2 className="text-sm font-bold text-white">Produkty</h2>
                 <span
                   className="text-[11px] font-bold px-2 py-0.5 rounded-full"
-                  style={{ background: "rgba(248,24,40,0.12)", color: "#f88090", border: "1px solid rgba(248,24,40,0.2)" }}
+                  style={{ background: "#1e0304", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.35)" }}
                 >
                   {isLoadingProducts
                     ? "Ładowanie…"

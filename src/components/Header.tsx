@@ -497,7 +497,7 @@ export default function Header() {
             >
               <Calculator className="h-4 w-4" />
               <div className="hidden text-left leading-none sm:block">
-                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/70">Koszyk</div>
+                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/90">Koszyk</div>
                 <div className="text-xs font-black">Moja Wycena</div>
               </div>
               {totalCount > 0 && (

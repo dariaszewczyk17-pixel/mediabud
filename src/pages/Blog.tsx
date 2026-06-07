@@ -100,7 +100,7 @@ export default function Blog() {
               </div>
               <div className="p-8 flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-[10px] font-black px-2.5 py-1 rounded-full" style={{ background: "rgba(248,24,40,0.12)", color: "#f88090", border: "1px solid rgba(248,24,40,0.22)" }}>{featured.category}</span>
+                  <span className="text-[10px] font-black px-2.5 py-1 rounded-full" style={{ background: "#1e0304", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.35)" }}>{featured.category}</span>
                   <span className="text-[10px] font-black text-[#f81828] uppercase tracking-widest">Polecany</span>
                 </div>
                 <h2 className="font-display text-2xl md:text-3xl font-black text-white leading-tight mb-3 group-hover:text-[#f88090] transition-colors">{featured.title}</h2>

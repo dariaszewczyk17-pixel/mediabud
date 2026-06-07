@@ -108,7 +108,7 @@ export default function BlogPost() {
           <div className="p-8">
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="text-[11px] font-bold px-2.5 py-1 rounded-full" style={{ background: "rgba(248,24,40,0.12)", color: "#f88090", border: "1px solid rgba(248,24,40,0.22)" }}>{post.category}</span>
+              <span className="text-[11px] font-bold px-2.5 py-1 rounded-full" style={{ background: "#1e0304", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.35)" }}>{post.category}</span>
               <span className="flex items-center gap-1.5 text-xs text-gray-500"><Calendar className="w-3.5 h-3.5" />{new Date(post.date).toLocaleDateString("pl-PL", { day:"numeric", month:"long", year:"numeric" })}</span>
               <span className="flex items-center gap-1.5 text-xs text-gray-500"><Clock className="w-3.5 h-3.5" />{post.readTime} min czytania</span>
               <span className="text-xs text-gray-600 ml-auto">Autor: <strong className="text-gray-400">{post.author}</strong></span>

@@ -138,7 +138,7 @@ export function AllCategoriesPage() {
                     <span className="font-mono text-[11px] font-bold text-gray-700 group-hover:text-[#f81828]/50 transition-colors">{num}</span>
                     {cat.children && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide"
-                        style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)", color: "#f2b3b8" }}>
+                        style={{ background: "#1e0304", border: "1px solid rgba(248,24,40,0.35)", color: "#ff9aa3" }}>
                         {cat.children.length} kat.
                       </span>
                     )}

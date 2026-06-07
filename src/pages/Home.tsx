@@ -753,7 +753,7 @@ export default function Home() {
                       {cat.children && cat.children.length > 0 && (
                         <span
                           className="text-[9px] font-bold px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                          style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.28)", color: "#f88090" }}
+                          style={{ background: "#1e0304", border: "1px solid rgba(248,24,40,0.35)", color: "#ff9aa3" }}
                         >
                           {cat.children.length} kat.
                         </span>
@@ -1209,6 +1209,7 @@ export default function Home() {
             ].map((step, i) => (
               <div key={i} className="relative text-center">
                 <div
+                  aria-hidden="true"
                   className="font-black text-6xl mb-4 leading-none select-none"
                   style={{ fontFamily: "'Share Tech Mono',monospace", color: "rgba(248,24,40,0.12)", letterSpacing: "-0.04em" }}
                 >
@@ -1293,7 +1294,7 @@ export default function Home() {
                 >
                   <div className="flex items-center justify-between gap-4 mb-5">
                     <span className="text-[10px] font-black uppercase tracking-[0.28em] px-3 py-1.5 rounded-full"
-                      style={{ color: isB2B ? "#ff6b35" : "#f81828", background: isB2B ? "rgba(255,107,53,0.10)" : "rgba(248,24,40,0.10)", border: `1px solid ${isB2B ? "rgba(255,107,53,0.24)" : "rgba(248,24,40,0.24)"}` }}>
+                      style={{ color: "#fff", background: isB2B ? "rgba(255,107,53,0.85)" : "rgba(248,24,40,0.85)", border: `1px solid ${isB2B ? "rgba(255,107,53,0.24)" : "rgba(248,24,40,0.24)"}` }}>
                       {service.segment}
                     </span>
                     <span className="text-[10px] font-black uppercase tracking-[0.22em]" style={{ color: "#888" }}>{service.tag}</span>

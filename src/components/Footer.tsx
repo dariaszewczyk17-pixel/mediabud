@@ -216,7 +216,7 @@ export default function Footer() {
 
         <div style={{ borderTop: "1px solid #1a1a1a" }} className="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs" style={{ color: "#888" }}>© 2026 Media Bud. Wszelkie prawa zastrzeżone.</p>
-          <p className="text-xs" style={{ color: "#444" }}>Lublin, ul. Chemiczna 8d | +48 533 553 344 | sprzedaz@mediabud.pl</p>
+          <p className="text-xs" style={{ color: "#888" }}>Lublin, ul. Chemiczna 8d | +48 533 553 344 | sprzedaz@mediabud.pl</p>
         </div>
       </div>
     </footer>

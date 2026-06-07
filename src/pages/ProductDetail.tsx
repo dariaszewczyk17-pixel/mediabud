@@ -409,7 +409,7 @@ export default function ProductDetail() {
               <Link
                 to={`/szukaj?brand=${encodeURIComponent(product.brand)}`}
                 className="text-xs font-bold px-2.5 py-1 rounded-full transition-all hover:bg-[#f81828] hover:text-white"
-                style={{ background: "rgba(248,24,40,0.12)", color: "#f88090", border: "1px solid rgba(248,24,40,0.22)" }}
+                style={{ background: "#1e0304", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.35)" }}
                 title={`Wszystkie produkty marki ${product.brand}`}
               >
                 {product.brand}

@@ -283,6 +283,15 @@ export default function Home() {
       .catch(() => { /* fallback na 15921 */ });
   }, []);
 
+  /* ── Prefetch najczęściej odwiedzanych stron po załadowaniu Home ── */
+  useEffect(() => {
+    const t = setTimeout(() => {
+      import("@/pages/Blog");
+      import("@/pages/Kalkulator");
+    }, 2000);
+    return () => clearTimeout(t);
+  }, []);
+
   /* ── Hero slider ── */
   const [slide, setSlide]   = useState(0);
   const [sliding, setSliding] = useState(false);

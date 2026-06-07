@@ -336,32 +336,49 @@ function PlytkiCalc() {
 }
 
 /* ─── IZOLACJA FUNDAMENTÓW ───────────────────────────── */
+const XPS_PLATE_SIZES: Record<string, { area: number; label: string }> = {
+  xps_60x125: { area: 0.750, label: "Synthos XPS Prime / Austrotherm 60×125 cm (0,75 m²)" },
+  xps_60x120: { area: 0.720, label: "Ravatherm XPS 300 / Finnfoam 60×120 cm (0,72 m²)" },
+  xps_60x125b:{ area: 0.750, label: "Swisspor XPS 300-F 60×125 cm (0,75 m²)" },
+  xps_60x81:  { area: 0.486, label: "Małe formaty / docinki 60×81 cm (0,486 m²)" },
+};
+
 function IzolacjaCalc() {
-  const [obwod, setObwod] = useState("40");
-  const [wys, setWys] = useState("2.0");
+  const [obwod, setObwod]     = useState("40");
+  const [wys, setWys]         = useState("2.0");
   const [grubosc, setGrubosc] = useState("10");
-  const [bufor, setBufor] = useState("10");
+  const [bufor, setBufor]     = useState("10");
+  const [format, setFormat]   = useState("xps_60x125");
   const result = useMemo(() => {
     const o = safeFloat(obwod); const h = safeFloat(wys);
     if (o <= 0 || h <= 0) return null;
-    const pow = o * h;
-    const brutto = pow * (1 + safeFloat(bufor) / 100);
-    const m3 = brutto * safeFloat(grubosc) / 100;
-    return { pow, brutto: round2(brutto), m3: round2(m3), plyty: Math.ceil(brutto / 0.75) };
-  }, [obwod, wys, grubosc, bufor]);
+    const pow     = round2(o * h);
+    const brutto  = round2(pow * (1 + safeFloat(bufor) / 100));
+    const m3      = round2(brutto * safeFloat(grubosc) / 100);
+    const plateArea = XPS_PLATE_SIZES[format]?.area ?? 0.75;
+    const plyty   = Math.ceil(brutto / plateArea);
+    return { pow, brutto, m3, plyty };
+  }, [obwod, wys, grubosc, bufor, format]);
+
+  const warnWys   = safeFloat(wys) > 4.5;
+  const warnObwod = safeFloat(obwod) > 0 && safeFloat(obwod) < 8;
+
   return (
     <div className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label="Obwód budynku do izolacji (mb)" value={obwod} onChange={setObwod} min={4} />
+        <Field label="Obwód budynku do izolacji (m)" value={obwod} onChange={setObwod} min={4} />
         <Field label="Wys. izolowanej ściany fundamentowej (m)" value={wys} onChange={setWys} min={0.5} step="0.1" />
       </div>
-      <Note text="Wysokość mierz od górnej krawędzi tynku cokołowego (~30 cm nad terenem) do górnej powierzchni ławy fundamentowej — nie jest to głębokość kopania." />
+      <Note text="Obwód = suma długości wszystkich ścian zewnętrznych (np. dom 10×12 m → obwód = 44 m). Wysokość mierz od górnej krawędzi tynku cokołowego (~30 cm nad terenem) do górnej powierzchni ławy fundamentowej — typowo 1,5–2,5 m. Nie jest to głębokość kopania." />
+      {warnObwod && <Warn text="Obwód < 8 m to bardzo mały budynek — sprawdź czy dane są poprawne." />}
+      {warnWys   && <Warn text="Wysokość > 4,5 m jest niestandardowa dla domu jednorodzinnego — sprawdź pomiar." />}
       <div className="grid sm:grid-cols-2 gap-4">
         <SelectField label="Grubość płyty XPS (cm)" value={grubosc} onChange={setGrubosc} options={[
           { v: "6",  l: "6 cm — renowacja istniejących fundamentów" },
           { v: "8",  l: "8 cm — minimum WT2021 (nowe budynki)" },
           { v: "10", l: "10 cm — energooszczędny (rekomendowane)" },
           { v: "12", l: "12 cm — dom pasywny NF40" },
+          { v: "14", l: "14 cm — standard NF25 (BGK/dofinansowania)" },
           { v: "16", l: "16 cm — standard pasywny NF15" },
         ]} />
         <SelectField label="Bufor na cięcia (%)" value={bufor} onChange={setBufor} options={[
@@ -370,11 +387,14 @@ function IzolacjaCalc() {
           { v: "15", l: "15% — nieregularny kształt / wykusze" },
         ]} />
       </div>
+      <SelectField label="Format płyty XPS (producent)" value={format} onChange={setFormat}
+        options={Object.entries(XPS_PLATE_SIZES).map(([v, d]) => ({ v, l: d.label }))}
+      />
       <Result rows={[
         { label: "Netto pow. izolacji", val: `${fmt(result?.pow)} m²` },
         { label: "Do zamówienia (z buforem)", val: `${fmt(result?.brutto)} m²`, accent: true },
         { label: "Objętość materiału (m³)", val: `${fmt(result?.m3)} m³` },
-        { label: "Płyty 60×125 cm (orientacyjnie)", val: result ? `${result.plyty} szt.` : "—" },
+        { label: `Płyty ${XPS_PLATE_SIZES[format]?.label.split(" ")[3] ?? "60×125"} cm do zamówienia`, val: result ? `${result.plyty} szt.` : "—" },
       ]} copyText={result ? `Izolacja fundamentów: ${fmt(result.brutto)} m² / ${fmt(result.m3)} m³ / ${result.plyty} płyt XPS` : ""} />
       <Note text="Stosuj XPS odporny na wilgoć (Ravatherm, Synthos XPS Prime). Pamiętaj o primerze bitumicznym, masie uszczelniającej i folii kubełkowej drenażowej." />
     </div>

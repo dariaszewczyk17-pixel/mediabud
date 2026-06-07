@@ -63,6 +63,7 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const searchRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const menuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
@@ -98,6 +99,22 @@ export default function Header() {
     () => ["tynk", "weber", "styropian", "atlas", "grunt"],
     [],
   );
+
+  /* ── Status otwarcia firmy ── */
+  const businessStatus = useMemo(() => {
+    const now = new Date();
+    const day = now.getDay(); // 0=Nd, 1=Pn … 6=Sb
+    const t = now.getHours() * 60 + now.getMinutes();
+    const isWeekday = day >= 1 && day <= 5;
+    const isSat = day === 6;
+    if ((isWeekday && t >= 420 && t < 960) || (isSat && t >= 420 && t < 780)) {
+      return { open: true, label: "Teraz otwarte", color: "bg-emerald-500" };
+    }
+    if (day === 5 && t >= 960) return { open: false, label: "Otwieramy Sob 7:00", color: "bg-red-500" };
+    if (isSat && t >= 780) return { open: false, label: "Otwieramy Pn 7:00", color: "bg-red-500" };
+    if (day === 0) return { open: false, label: "Otwieramy Pn 7:00", color: "bg-red-500" };
+    return { open: false, label: "Otwieramy jutro 7:00", color: "bg-red-500" };
+  }, []);
 
   const submitSearch = (value: string) => {
     const trimmedValue = value.trim();
@@ -192,6 +209,19 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
+  /* ── Skrót / → fokus wyszukiwarki (desktop) ── */
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => {
+      if (e.key === "/" && !["INPUT","TEXTAREA","SELECT"].includes((document.activeElement as HTMLElement)?.tagName ?? "")) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+        setSearchFocused(true);
+      }
+    };
+    document.addEventListener("keydown", fn);
+    return () => document.removeEventListener("keydown", fn);
+  }, []);
+
   const menuEnter = (id: string) => {
     if (menuTimeout.current) clearTimeout(menuTimeout.current);
     setActiveMenu(id);
@@ -249,9 +279,11 @@ export default function Header() {
             <div className="hidden flex-shrink-0 items-center gap-4 lg:flex">
               <div className="flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-[#888888]">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                  <span className={`absolute inline-flex h-full w-full animate-ping rounded-full ${businessStatus.open ? "bg-emerald-400" : "bg-red-400"} opacity-60`} />
+                  <span className={`relative inline-flex h-2 w-2 rounded-full ${businessStatus.color}`} />
                 </span>
+                <span className={businessStatus.open ? "text-emerald-400" : "text-red-400"}>{businessStatus.label}</span>
+                <span className="text-[#555]">·</span>
                 <span>Pon–Pt <strong className="text-white">7:00–16:00</strong></span>
               </div>
               <span className="h-3 w-px bg-white/10" />
@@ -284,10 +316,11 @@ export default function Header() {
           ROW 2 — Main bar: Logo + Search + CTAs
       ════════════════════════════════════════════════ */}
       <div
-        className={`relative border-b border-[#e5e5e5] transition-all duration-300 ${scrolled ? "bg-white/98 py-3 shadow-md backdrop-blur-xl" : "bg-white py-4"}`}
+        className="relative border-b border-[#e5e5e5] overflow-hidden transition-all duration-300"
+        style={{ maxHeight: scrolled ? "0" : "80px", background: scrolled ? "transparent" : "white" }}
       >
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
-        <div className="container mx-auto flex items-center gap-4 px-4">
+        <div className="container mx-auto flex items-center gap-4 px-4 py-4">
           {/* Logo */}
           <Link to="/" className="-ml-2 flex-shrink-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
             <img
@@ -304,6 +337,7 @@ export default function Header() {
               <div className="relative flex-1">
                 <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666]" />
                 <Input
+                  ref={searchInputRef}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}

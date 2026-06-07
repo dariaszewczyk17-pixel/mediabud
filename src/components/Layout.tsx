@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
+import BottomNav from "./BottomNav";
 import { WycenaDrawer } from "./Commerce";
 import { Toaster } from "sonner";
 import { LOCAL_BUSINESS_JSONLD } from "@/lib/localBusiness";
@@ -23,11 +24,12 @@ export default function Layout() {
       </a>
 
       <Header />
-      <main id="main" className="flex-1">
+      <main id="main" className="flex-1 pb-16 lg:pb-0">
         <Outlet />
       </main>
       <Footer />
       <WycenaDrawer />
+      <BottomNav />
       <Toaster position="bottom-right" richColors />
     </div>
   );

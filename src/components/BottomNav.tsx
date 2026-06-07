@@ -8,7 +8,9 @@ export default function BottomNav() {
   const { items, openDrawer } = useWycena();
   const count = items.reduce((s, i) => s + i.quantity, 0);
 
-  const active = (path: string) => pathname === path || pathname.startsWith(path + "/");
+  const isBrowse = ["/szukaj", "/kategoria", "/marki", "/bestsellery", "/produkty"].some(
+    p => pathname === p || pathname.startsWith(p + "/")
+  );
 
   const items4 = [
     {
@@ -21,7 +23,7 @@ export default function BottomNav() {
       label: "Szukaj",
       icon: <Search className="h-5 w-5" />,
       action: () => navigate("/szukaj"),
-      isActive: active("/szukaj"),
+      isActive: isBrowse,
     },
     {
       label: "Wycena",

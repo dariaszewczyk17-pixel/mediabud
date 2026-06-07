@@ -317,7 +317,7 @@ export default function Header() {
             {/* Ticker (mobile + tablet) */}
             <div className="ticker-wrap flex-1 overflow-hidden lg:hidden">
               <div className="ticker-content flex items-center gap-8 whitespace-nowrap">
-                {["📞 +48 533 553 344", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", "🕐 Pon–Pt 7:00–16:00", "🚚 Dostawa na teren Lublina i okolic"].map((t, i) => (
+                {["📞 +48 533 553 344", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", `🕐 ${businessStatus.label}`, "🚚 Dostawa na teren Lublina i okolic"].map((t, i) => (
                   <span key={i} className="flex items-center font-bold uppercase tracking-[0.12em] text-[#888888]">{t}<span className="mx-4 text-[#2d2d2d]">·</span></span>
                 ))}
               </div>
@@ -916,8 +916,10 @@ export default function Header() {
             >
               <Mail className="h-4 w-4" />Email
             </a>
-            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888888]">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />Pon–Pt 7–17
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.08em]"
+              style={{ color: businessStatus.open ? "#4ade80" : "#f87171" }}>
+              <span className={`h-1.5 w-1.5 rounded-full animate-pulse ${businessStatus.color}`} />
+              {businessStatus.label}
             </span>
           </div>
 

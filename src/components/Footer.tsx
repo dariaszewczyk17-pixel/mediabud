@@ -91,9 +91,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
+            <p className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
               Produkty
-            </h4>
+            </p>
             <ul className="space-y-3">
               {topCats.map((cat) => (
                 <li key={cat.id}>
@@ -113,9 +113,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
+            <p className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
               Informacje
-            </h4>
+            </p>
             <ul className="space-y-3 mb-6">
               {QUICK_LINKS.slice(0, 6).map((l) => (
                 <li key={l.label}>
@@ -133,9 +133,9 @@ export default function Footer() {
               ))}
             </ul>
             <div>
-              <h4 className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
+              <p className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
                 Usługi
-              </h4>
+              </p>
               <ul className="space-y-2">
                 {SERVICES.slice(0, 4).map((service) => (
                   <li key={service} className="text-sm" style={{ color: "#888" }}>
@@ -147,9 +147,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
+            <p className="font-bold text-xs uppercase tracking-[0.2em] mb-4" style={{ color: "#f81828" }}>
               Kontakt
-            </h4>
+            </p>
             <div className="space-y-3 mb-6 text-sm" style={{ color: "#888" }}>
               <a
                 href="tel:+48533553344"

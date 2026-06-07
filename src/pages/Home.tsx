@@ -468,6 +468,8 @@ export default function Home() {
 
         {/* Prev/next */}
         <button
+          type="button"
+          aria-label="Poprzedni slajd"
           onClick={() => goTo((slide - 1 + heroSlides.length) % heroSlides.length)}
           className="absolute left-4 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-11 h-11 rounded-full border border-white/15 bg-black/55 items-center justify-center text-white transition-all duration-200"
           onMouseEnter={e => {
@@ -479,9 +481,11 @@ export default function Home() {
             e.currentTarget.style.boxShadow = "none";
           }}
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-5 h-5" aria-hidden="true" />
         </button>
         <button
+          type="button"
+          aria-label="Następny slajd"
           onClick={() => goTo((slide + 1) % heroSlides.length)}
           className="absolute right-4 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-11 h-11 rounded-full border border-white/15 bg-black/55 items-center justify-center text-white transition-all duration-200"
           onMouseEnter={e => {
@@ -493,14 +497,17 @@ export default function Home() {
             e.currentTarget.style.boxShadow = "none";
           }}
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-5 h-5" aria-hidden="true" />
         </button>
 
         {/* Dots */}
-        <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2">
+        <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2" role="group" aria-label="Nawigacja slajdów">
           {heroSlides.map((_, i) => (
             <button
               key={i}
+              type="button"
+              aria-label={`Slajd ${i + 1}`}
+              aria-current={i === slide ? "true" : undefined}
               onClick={() => goTo(i)}
               className={`transition-all duration-300 rounded-full ${i === slide ? "w-8 h-2 bg-[#f81828]" : "w-2 h-2 bg-white/30 hover:bg-white/60"}`}
             />

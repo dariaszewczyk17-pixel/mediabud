@@ -312,7 +312,7 @@ export default function Header() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
                   placeholder="Szukaj produktów, marek, kategorii..."
-                  className="h-11 rounded-r-none border border-[#ddd] border-r-0 bg-[#f5f5f5] pl-10 text-sm font-bold uppercase tracking-[0.08em] text-[#111] placeholder:text-[#999] transition-all focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.2)] focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                  className="h-11 rounded-r-none border border-[#ddd] border-r-0 bg-[#f5f5f5] pl-10 text-sm font-bold uppercase tracking-[0.08em] text-[#111] placeholder:text-[#555] transition-all focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.2)] focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && searchQuery) {
                       submitSearch(searchQuery);
@@ -501,7 +501,7 @@ export default function Header() {
             >
               <Calculator className="h-4 w-4" />
               <div className="hidden text-left leading-none sm:block">
-                <div className="text-[9px] font-bold uppercase tracking-[0.12em] opacity-80">Koszyk</div>
+                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/70">Koszyk</div>
                 <div className="text-xs font-black">Moja Wycena</div>
               </div>
               {totalCount > 0 && (

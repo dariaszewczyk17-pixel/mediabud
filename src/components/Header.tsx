@@ -206,10 +206,6 @@ export default function Header() {
       className="sticky top-0 z-50 bg-transparent text-white"
       style={{ boxShadow: scrolled ? "0 10px 36px rgba(0,0,0,0.85)" : "none", transition: "box-shadow .3s" }}
     >
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[#f81828] focus:text-white focus:font-bold focus:rounded">
-        Przejdź do treści
-      </a>
-
       {/* ════════════════════════════════════════════════
           ROW 1 — Top info bar (collapses on scroll)
       ════════════════════════════════════════════════ */}

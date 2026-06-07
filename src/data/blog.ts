@@ -1853,6 +1853,109 @@ Przed ETICS na starym budynku sprawdź: czy stary tynk jest nośny (test odrywaj
 
 Media Bud: tynki renowacyjne WTA, systemy iniekcji, ETICS, materiały wykończeniowe. Zadzwoń: **+48 533 553 344** | ul. Chemiczna 8d, Lublin`,
   }
+  ,{
+    id: "b032",
+    slug: "materialy-budowlane-lublin-gdzie-kupic-taniej",
+    title: "Materiały budowlane w Lublinie — gdzie kupić i ile kosztują w 2026 r.?",
+    excerpt: "Planujesz budowę lub remont w Lublinie? Sprawdź, gdzie kupić styropian, tynk, klej i inne materiały budowlane w najlepszej cenie. Praktyczny przewodnik po lubelskim rynku.",
+    category: "Poradniki",
+    author: "Zespół Media Bud",
+    date: "2026-06-07",
+    readTime: 9,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tags: ["materiały budowlane Lublin", "skład budowlany Lublin", "hurtownia Lublin", "styropian Lublin", "tynk elewacyjny Lublin"],
+    content: `## Gdzie kupić materiały budowlane w Lublinie?
+
+Lublin i okolice to dynamicznie rozwijający się rynek budowlany — rocznie powstają tu setki nowych domów jednorodzinnych, bloków wielorodzinnych i obiektów komercyjnych. Jeśli planujesz budowę lub remont, wiesz już, że ceny i dostępność materiałów potrafią się znacznie różnić między dostawcami. Ten przewodnik pomoże Ci świadomie wybrać miejsce zakupu i zaoszczędzić na materiałach bez kompromisów jakościowych.
+
+## Skład budowlany vs. markety budowlane — co wybrać?
+
+W Lublinie masz do wyboru kilka opcji: duże markety budowlane (Leroy Merlin, OBI, Castorama), regionalne hurtownie i składy budowlane oraz sklepy internetowe z odbiorem osobistym.
+
+### Zalety składu budowlanego (takiego jak Media Bud):
+
+- **Ceny hurtowe** — przy większych zamówieniach (paleta styropianu, wór tynku × 50 szt.) składy oferują ceny nawet 15–25% niższe niż markety detaliczne
+- **Doradztwo techniczne** — handlowiec z doświadczeniem dobrze dobierze parametry produktu do konkretnego projektu
+- **Dostawa na plac budowy** — transport ciężkim HDS bezpośrednio na budowę w Lublinie i woj. lubelskim
+- **Pełne systemy od jednego dostawcy** — np. kompletny system ETICS (Knauf, Atlas, Weber) z jednego miejsca, bez łączenia niekompatybilnych produktów
+
+### Kiedy market budowlany jest OK:
+
+- Małe ilości (remont łazienki, 2–3 worki gładzi)
+- Zakup w niedzielę lub poza godzinami pracy składu
+- Odbiór natychmiastowy bez czekania na awizowanie dostawy
+
+## Najpopularniejsze materiały budowlane w Lublinie — ceny i marki
+
+### Styropian fasadowy EPS 100 (Lublin, 2026)
+
+Styropian to jeden z najczęściej kupowanych materiałów budowlanych w regionie lubelskim. Standardowe systemy ociepleń w Lublinie wymagają grubości 15–20 cm przy λ = 0,040 W/(m·K).
+
+**Orientacyjne ceny za m³ (hurtowo, pełna paleta):**
+- Styropian biały EPS 100 15 cm: 85–105 zł/m²
+- Styropian grafitowy EPS 100 15 cm: 100–125 zł/m²
+- Styropian EPS 150 (podłogi): 75–95 zł/m²
+
+> Przy zamówieniu przez Media Bud możesz skonfigurować dostawę na konkretny termin — ważne, gdy budujesz etapami.
+
+### Tynki elewacyjne — co dominuje w Lublinie?
+
+Lubelski klimat (duże skoki temperatur, wilgotne jesienie) sprawia, że tynki silikonowe i silikatowe zyskują przewagę nad akrylowymi. Odporność na glony i łatwe czyszczenie to tutaj kluczowe kryteria.
+
+**Bestsellery w regionie:**
+- **Weber.pas DR1** — tynk silikonowy, dostępny w 580 kolorach NCS
+- **Atlas Silkon** — dobry stosunek ceny do jakości, popularny wśród lubelskich firm budowlanych
+- **Ceresit CT 174** — tynk silikatowy, szczególnie polecany przy remontach starszych budynków
+
+### Kleje do styropianu
+
+Przy systemach ETICS z atestem dobór kleju ma znaczenie zarówno techniczne, jak i gwarancyjne. Mieszanie klejów różnych producentów może unieważnić certyfikat systemu.
+
+**Rekomendowane kleje do styropianu w Lublinie:**
+- **Atlas Stopter K-20** — cement, do przyklejania i zatapiania siatki, szeroka dostępność
+- **Knauf Goldband Grunt** — do systemów Knauf, gotowy do użycia po dodaniu wody
+- **Weber therm** — dedykowany do systemów weber.therm
+
+## Dostawa materiałów budowlanych na terenie Lublina
+
+Duże zamówienia (palety styropianu, pełne dostawy tynków) wymagają transportu specjalistycznym samochodem HDS. Media Bud realizuje dostawy na terenie:
+
+- **Lublina** — w ciągu 24 h od złożenia zamówienia
+- **Powiatu lubelskiego** — Świdnik, Niemce, Głusk, Jabłonna, Wólka, Konopnica
+- **Woj. lubelskiego** — Zamość, Chełm, Biała Podlaska, Puławy (termin do uzgodnienia)
+
+> Przy zamówieniu powyżej określonej wartości — dostawa bezpłatna. Zadzwoń i zapytaj o warunki: **+48 533 553 344**
+
+## Bezpłatna wycena projektu — jak to działa?
+
+Jeśli budujesz dom lub planujesz większy remont, możemy wycenić całe zamówienie na podstawie projektu budowlanego lub przedmiaru robót. Wyślij nam:
+
+1. Projekt budowlany (PDF lub DWG) **lub** przedmiar robót
+2. Preferowany termin realizacji
+3. Adres budowy na terenie Lublina lub woj. lubelskiego
+
+Nasz handlowiec przygotuje zestawienie materiałów z cenami hurtowymi w ciągu 24 godzin roboczych.
+
+## FAQ — materiały budowlane w Lublinie
+
+**Czy sprzedajecie na faktury VAT dla firm?**
+Tak — obsługujemy zarówno klientów B2C (osoby prywatne), jak i B2B (firmy budowlane, deweloperzy, spółdzielnie). Wystawiamy faktury VAT, przyjmujemy przelewy i płatności gotówkowe.
+
+**Czy można zamówić i odebrać tego samego dnia?**
+Przy towarach dostępnych na stanie — tak. Nasz magazyn przy ul. Chemicznej 8d jest otwarty Pon–Pt 7:00–16:00, Sob 7:00–13:00.
+
+**Czy dowoziecie materiały na rusztowanie?**
+Transport HDS umożliwia rozładunek na placu budowy, jednak wnoszenie materiałów na rusztowania wyceniamy indywidualnie. Zapytaj przed zamówieniem.
+
+**Jakie marki styropianu macie w ofercie?**
+W ofercie Media Bud znajdziesz produkty Swisspor, Synthos, Austrotherm, Ravatherm — w różnych grubościach i klasach lambda. Doradzamy przy wyborze pod konkretny projekt.`,
+    faq: [
+      { q: "Gdzie kupić materiały budowlane w Lublinie?", a: "Media Bud — skład budowlany przy ul. Chemicznej 8d w Lublinie. Oferujemy ponad 15 000 produktów z dostawą na teren całego woj. lubelskiego." },
+      { q: "Czy Media Bud dostarcza materiały na plac budowy?", a: "Tak, realizujemy dostawy transportem HDS na terenie Lublina (24h) i całego województwa lubelskiego." },
+      { q: "Czy można uzyskać bezpłatną wycenę projektu?", a: "Tak — wyślij projekt lub przedmiar, a nasz handlowiec przygotuje zestawienie materiałów z cenami hurtowymi w ciągu 24 h." },
+      { q: "Jakie godziny otwarcia ma skład budowlany Media Bud?", a: "Pon–Pt 7:00–16:00, Sob 7:00–13:00. Adres: ul. Chemiczna 8d, 20-329 Lublin." },
+    ],
+  }
 ];
 
 

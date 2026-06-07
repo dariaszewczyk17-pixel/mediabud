@@ -136,7 +136,7 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           </div>
 
           {/* Badges — NEW / FEATURED */}
-          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1">
+          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-[2]">
             {product.isNew && (
               <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider"
                 style={{ background: "#10b981", boxShadow: "0 0 8px rgba(16,185,129,0.5)" }}>

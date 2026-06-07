@@ -6,7 +6,7 @@
 
     <!-- ── Primary SEO ─────────────────────────────────────────────── -->
     <title>Media Bud – Skład Budowlany Lublin | Materiały Budowlane, Tynki, Izolacje</title>
-    <meta name="description" content="Media Bud – skład budowlany Lublin. Tynki, kleje, styropian, wełna mineralna, farby, gres, narzędzia. Dostawa 24h. Doradztwo techniczne. Zadzwoń: +48 509 567 213." />
+    <meta name="description" content="Media Bud – skład budowlany Lublin. Tynki, kleje, styropian, wełna mineralna, farby, gres, narzędzia. Dostawa 24h. Doradztwo techniczne. Zadzwoń: +48 533 553 344." />
     <meta name="keywords" content="skład budowlany Lublin, materiały budowlane Lublin, tynki Lublin, styropian Lublin, wełna mineralna, farby elewacyjne, Media Bud" />
     <meta name="author" content="Media Bud – Skład Budowlany" />
     <meta name="robots" content="index, follow" />
@@ -48,59 +48,70 @@
       "@graph": [
         {
           "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-          "@id": "https://mediabud.pl/#business",
+          "@id": "https://mediabud.pl/#localbusiness",
           "name": "Media Bud – Skład Budowlany",
+          "legalName": "Media Bud Sp. z o.o.",
           "alternateName": "Media Bud Lublin",
           "description": "Profesjonalny skład budowlany w Lublinie. Sprzedaż materiałów budowlanych: tynki, kleje, izolacje, farby, płytki ceramiczne, narzędzia. Dostawa na teren Lublina i województwa lubelskiego.",
           "url": "https://mediabud.pl",
-          "telephone": "+48509567213",
-          "email": "biuro@mediabud.pl",
+          "telephone": "+48533553344",
+          "email": "sprzedaz@mediabud.pl",
+          "vatID": "PL9462743421",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "ul. Budowlana 1",
+            "streetAddress": "ul. Chemiczna 8d",
             "addressLocality": "Lublin",
-            "postalCode": "20-469",
+            "postalCode": "20-329",
             "addressRegion": "lubelskie",
             "addressCountry": "PL"
           },
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 51.2465,
-            "longitude": 22.5684
+            "latitude": 51.2375,
+            "longitude": 22.6016
           },
           "openingHoursSpecification": [
             {
               "@type": "OpeningHoursSpecification",
               "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
               "opens": "07:00",
-              "closes": "17:00"
+              "closes": "16:00"
             },
             {
               "@type": "OpeningHoursSpecification",
               "dayOfWeek": "Saturday",
               "opens": "07:00",
-              "closes": "14:00"
+              "closes": "13:00"
             }
           ],
           "priceRange": "$$",
-          "areaServed": {
-            "@type": "State",
-            "name": "województwo lubelskie"
+          "currenciesAccepted": "PLN",
+          "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://mediabud.pl/images/logo-mediabud-main.png",
+            "width": 180,
+            "height": 60
           },
+          "areaServed": [
+            { "@type": "City", "name": "Lublin" },
+            { "@type": "State", "name": "województwo lubelskie" }
+          ],
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Materiały budowlane",
             "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tynki elewacyjne" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Systemy ociepleń ETICS" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tynki elewacyjne i systemy ETICS" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Kleje i zaprawy budowlane" } },
               { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Farby elewacyjne i wewnętrzne" } },
               { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Płytki ceramiczne i gres" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Izolacje termiczne i akustyczne" } },
               { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Materiały murarskie i betonowe" } }
             ]
           },
           "sameAs": [
             "https://www.facebook.com/mediabud",
-            "https://www.google.com/maps?q=Media+Bud+Lublin"
+            "https://www.instagram.com/mediabud"
           ]
         },
         {
@@ -109,12 +120,12 @@
           "url": "https://mediabud.pl",
           "name": "Media Bud – Skład Budowlany Lublin",
           "description": "Materiały budowlane Lublin – tynki, izolacje, farby, narzędzia",
-          "publisher": { "@id": "https://mediabud.pl/#business" },
+          "publisher": { "@id": "https://mediabud.pl/#localbusiness" },
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://mediabud.pl/#/szukaj?q={search_term_string}"
+              "urlTemplate": "https://mediabud.pl/szukaj?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           }

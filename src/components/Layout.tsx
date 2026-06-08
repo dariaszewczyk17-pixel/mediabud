@@ -13,7 +13,7 @@ const WycenaDrawer = lazy(() =>
 
 export default function Layout() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-[#080808]">
       {/* ── LocalBusiness JSON-LD — globalny na każdej podstronie ── */}
       <script
         type="application/ld+json"

@@ -1389,6 +1389,7 @@ export default function Home() {
       <section
         ref={r6.ref as React.RefObject<HTMLElement>}
         className="container mx-auto px-4 py-14"
+        style={{ background: "#080808" }}
       >
         <div className="flex items-end justify-between mb-8">
           <div>

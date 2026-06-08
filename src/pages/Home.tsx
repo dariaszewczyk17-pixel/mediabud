@@ -61,27 +61,27 @@ function CountUp({ to, suffix = "", duration = 1600 }: { to: number; suffix?: st
 const heroSlides = [
   {
     image: "/images/hero-materialy_2.png",
-    label: "Materiały budowlane",
-    title: "Kompleksowe wsparcie\ndla Twojego projektu",
-    subtitle: "Od projektu przez materiały, aż po realizację — z nami zbudujesz solidne fundamenty.",
-    cta: "Przeglądaj ofertę",
+    label: "Skład budowlany · Lublin",
+    title: "15 000+ produktów.\nDostawa na budowę.",
+    subtitle: "Odbierasz od ręki lub zamawiasz z dostawą na plac budowy. Materiały renomowanych marek, doradztwo techniczne gratis.",
+    cta: "Przeglądaj produkty",
     ctaLink: "/produkty",
   },
   {
     image: "/images/hero-etics_2.png",
-    label: "Systemy ociepleń",
-    title: "Systemy ETICS i\nocieplenia dla profesjonalistów",
-    subtitle: "Rockwool, Swisspor, Weber, Knauf — renomowane marki i bezpłatne doradztwo techniczne dla Twojego projektu.",
-    cta: "Zapytaj o wycenę",
-    ctaLink: "/kontakt",
+    label: "Ocieplenia i OZE",
+    title: "Dom cieplejszy.\nRachunki niższe o 50%.",
+    subtitle: "Termomodernizacja, pompy ciepła, fotowoltaika — z dofinansowaniem do 136 200 zł z programu Czyste Powietrze. Pomagamy od A do Z.",
+    cta: "Sprawdź usługi",
+    ctaLink: "/uslugi/termomodernizacja",
   },
   {
     image: "/images/hero-chemia_2.png",
-    label: "Chemia budowlana",
-    title: "Profesjonalna chemia\nbudowlana Ceresit, Atlas, Weber",
-    subtitle: "Profesjonalna hurtownia budowlana w Lublinie. Tynki, systemy ociepleń, styropiany i ponad 15 000 produktów — z doradztwem technicznym krok po kroku.",
-    cta: "Skontaktuj się",
-    ctaLink: "/kontakt",
+    label: "Budujesz lub remontujesz?",
+    title: "Materiały i ekipa.\nJeden partner.",
+    subtitle: "Media Bud to skład budowlany i firma wykonawcza w jednym. Kupujesz materiały i zamawiasz ekipę u jednego sprawdzonego partnera w Lublinie.",
+    cta: "Zobacz usługi",
+    ctaLink: "/uslugi",
   },
 ];
 
@@ -111,23 +111,23 @@ const stats = [
 ];
 
 const features = [
-  { icon: "🔧", title: "Doradztwo techniczne", desc: "Bezpłatne konsultacje z ekspertami budowlanymi dla każdego projektu budowlanego, bez zobowiązań." },
-  { icon: "📋", title: "Obsługa krok po kroku", desc: "Kompleksowe wsparcie od wyboru materiałów aż po odbiór gotowej budowy — jesteśmy z Tobą na każdym etapie." },
-  { icon: "🚚", title: "Szybka dostawa", desc: "Transport materiałów na teren Lublina i całego województwa lubelskiego bezpośrednio na plac budowy." },
-  { icon: "⭐", title: "Renomowane marki", desc: "Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor i wiele innych marek premium z oficjalną gwarancją." },
-  { icon: "🏅", title: "Gwarancja jakości", desc: "Wszystkie produkty posiadają oryginalne certyfikaty, atesty budowlane i deklaracje właściwości użytkowych." },
-  { icon: "🏗️", title: "Obsługa deweloperów", desc: "Indywidualne warunki handlowe, dedykowany opiekun, faktury zbiorcze i rabaty ilościowe dla firm." },
+  { icon: "🔧", title: "Doradztwo gratis", desc: "Nie wiesz jakich materiałów potrzebujesz? Nasi eksperci dobiorą system i policzą ilości — bez opłat i zobowiązań." },
+  { icon: "📋", title: "Od materiałów po klucze", desc: "Możesz kupić same materiały albo zamówić kompleksową usługę. Wszystko u jednego partnera, bez szukania ekip po całym mieście." },
+  { icon: "🚚", title: "Dostawa na plac budowy", desc: "Dowozimy materiały na teren Lublina i całego woj. lubelskiego. Prosto na budowę, we wskazanym terminie." },
+  { icon: "⭐", title: "Tylko renomowane marki", desc: "Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor — oryginalne produkty z gwarancją producenta, bez podróbek." },
+  { icon: "🏅", title: "Certyfikaty i atesty", desc: "Każdy produkt posiada pełną dokumentację techniczną, deklaracje właściwości użytkowych i certyfikaty zgodności." },
+  { icon: "🏗️", title: "Deweloperzy i firmy B2B", desc: "Indywidualne ceny, dedykowany opiekun, faktury zbiorcze i rabaty dla firm budowlanych oraz deweloperów." },
 ];
 
 const serviceCards = [
-  { segment: "B2C", tag: "PROGRAM", title: "Dom od podstaw", desc: "Parasolowy program MediaBud: od wyceny i harmonogramu po materiały, fachowców i realizację.", href: "#dom-od-podstaw" },
-  { segment: "B2C", tag: "BUDOWA", title: "Budowa domów Lublin", desc: "Kompleksowa budowa domu z lokalnym zapleczem materiałowym i wykonawczym.", href: "/uslugi/budowa-domow-lublin" },
-  { segment: "B2C", tag: "TERMO", title: "Termomodernizacja i ocieplenia", desc: "Ocieplenia, systemy ETICS i przygotowanie inwestycji pod lokalne programy wsparcia.", href: "/uslugi/termomodernizacja-ocieplenia" },
-  { segment: "B2C", tag: "POD KLUCZ", title: "Wykończenia wnętrz pod klucz", desc: "Koordynacja materiałów i ekip wykończeniowych dla domów, mieszkań i lokali.", href: "/uslugi/wykonczenia-wnetrz-pod-klucz" },
-  { segment: "Oba", tag: "DACHY", title: "Usługi dekarskie Lublin", desc: "Pokrycia dachowe, wymiany i prace dekarskie dla klientów prywatnych i firm.", href: "/uslugi/uslugi-dekarskie-lublin" },
-  { segment: "Oba", tag: "ELEWACJE", title: "Elewacje i tynki Lublin", desc: "Systemowe elewacje i tynki zewnętrzne dla domów oraz obiektów użytkowych.", href: "/uslugi/elewacje-tynki-lublin" },
-  { segment: "B2B", tag: "OBIEKTY", title: "Remonty B2B Lublin", desc: "Remonty dla galerii, szkół i obiektów użyteczności publicznej z logistyką MediaBud.", href: "/uslugi/remonty-b2b-lublin" },
-  { segment: "B2C", tag: "PODDASZA", title: "Adaptacja poddaszy Lublin", desc: "Suche zabudowy, izolacje i wykończenie skosów z wykorzystaniem sprawdzonych systemów.", href: "/uslugi/adaptacja-poddaszy-lublin" },
+  { segment: "B2C", tag: "PROGRAM", title: "Dom od podstaw", desc: "Budujesz pierwszy dom? Jeden opiekun, jeden kosztorys, zero koordynowania wielu firm. Od projektu po klucze.", href: "/uslugi/dom-od-podstaw" },
+  { segment: "B2C", tag: "REMONT", title: "Remont łazienki", desc: "Stara glazura lub cieknący prysznic? Robimy łazienki pod klucz w 2–3 tygodnie. Skucie, instalacje, płytki, armatura.", href: "/uslugi/remont-lazienki" },
+  { segment: "B2C", tag: "OZE", title: "Pompa ciepła + fotowoltaika", desc: "Ogrzewasz dom prądem, który sam produkujesz. Dotacja Czyste Powietrze. Zwrot inwestycji w 6–10 lat.", href: "/uslugi/pompa-ciepla-fotowoltaika" },
+  { segment: "B2C", tag: "TERMO", title: "Termomodernizacja", desc: "Dom traci ciepło? Ocieplamy raz na 25 lat — rachunki o 50% niższe. Pomagamy dostać do 136 200 zł dotacji.", href: "/uslugi/termomodernizacja" },
+  { segment: "Oba", tag: "DACHY", title: "Dachy", desc: "Nowy dach lub przeciek? Własna ekipa dekarska, gwarancja 5 lat na szczelność. Dachówka, blacha, papa.", href: "/uslugi/dachy" },
+  { segment: "Oba", tag: "ELEWACJE", title: "Elewacje", desc: "Ocieplamy i wykańczamy dom w jednym projekcie. Tynk, klinkier lub elewacja wentylowana. Efekt na 20 lat.", href: "/uslugi/elewacje" },
+  { segment: "B2B", tag: "FIRMY", title: "Remonty dla firm", desc: "Remont sklepu, biura lub hali w nocy i w weekendy. Twoja firma działa normalnie, my remontujemy w tle.", href: "/uslugi/remonty-b2b" },
+  { segment: "B2C", tag: "POD KLUCZ", title: "Wykończenia pod klucz", desc: "Stan surowy → gotowy dom do życia. Tynki, podłogi, glazura, łazienki. Jedna ekipa, jeden kosztorys.", href: "/uslugi/wykonczenia-pod-klucz" },
 ];
 
 const brands = [

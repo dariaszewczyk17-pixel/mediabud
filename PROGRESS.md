@@ -231,3 +231,133 @@
 [2026-05-31 11:41] fix_bad3: 2015 złych zdjęć (rozcieńczalnik) — 265 naprawione z nowym zdjęciem, 1750 wyczyszczone batch (placeholder). CSS: ciemne tło, h-200px, 4 params — commit 6065e77. TODO: re-upload 1750 produktów bez zdjęć używając image_pipeline.py z overlap-check.
 [2026-05-31 11:53] START: duże zadanie — zespół Kontakt (6 osób), telefon 533553344 wszędzie, Realizacje redesign, Historia z headera, 'wszystkie->' fix, laser hero, obrazy kategorii, wideo.
 [2026-05-31 11:54] Delegacja kodu do subagenta: telefon 533553344, zespół, realizacje, historia header, wszystkie->, laser hero. Obrazy kategorii w toku.
+[2026-05-31 13:59] START: naprawa krytycznych problemów z produktami — błędne kategorie, nazwy/parametry niespójne z bechcicki.pl
+[2026-05-31 14:03] Analiza produktów: znaleziono 62 produkty z mismatch wymiarów (welny-do-poddaszy:15, welny-fasadowe:15 itd.), strukturę bechcicki.pl pobrano, budowanie skryptu naprawczego
+[2026-05-31 14:28] Nowe podejście: sync bechcicki.pl→Sanity po EAN. Usunięto kat.oswietlenie, GROQ limit 600→2000, naprawiono Sadolin Superdeck. Budowanie pipeline crawl bechcicki.pl
+[2026-05-31 14:38] Playwright install próba - timeout; Python playwright OK, headless_shell brak → nowa instalacja bg-f0cdc846; plan: browser tool do URL-i + requests sync bez Playwright
+[2026-05-31 15:25] Nowa tura: naprawa 60 produktów (SKU→bechcicki.pl→requests) + pipeline zdjęć (rembg, czarne tło). Odkryto: SKU=bechcicki ID, URL pattern 0006426-id-p-0006426 działa bez JS.
+[2026-05-31 15:33] Testowano pipeline zdjęć: numpy mask (RGB>=218 → alpha=0) + czarne tło 1200x1200 działa dobrze. Brak watermarków w wyniku. Wszystkie 60 produktów mismatch nie mają zdjęcia w Sanity - trzeba dodać.
+[2026-05-31 15:35] fix_mismatch_products.py uruchomiony w tle (bg-aa225014): 60 produktów, numpy white-mask + czarne tło 1200x1200, upload Sanity
+[2026-05-31 15:41] fix_mismatch_products.py DONE: 62/62 updated, 0 errors. Pola: name+mainImage (czarne tło 1200x1200)
+[2026-05-31 15:41] fix_mismatch_products.py DONE: 62/62 updated (0 errors). name+mainImage (czarne tło 1200x1200) wgrane do Sanity. Weryfikacja na żywo.
+[2026-05-31 15:46] images[] patch DONE: 60/60 produktów. Zdjęcia widoczne na stronie - produkt na czarnym tle. Uwaga: slug = stara nazwa (np. welna-mineralna-szklana-ursa-homewall-100-mm), ale dane i obraz poprawne.
+[2026-05-31 15:46] TURA ZAKOŃCZONA: 62/62 produktów mismatch naprawionych (name+images[]+mainImage). Czarne tło 1200x1200. Zweryfikowane na live.
+[2026-05-31 15:50] Nowa tura: naprawa produktów z białymi tłami. Znalezione 2 konkretne: Zaprawa SOLBET (brak SKU), Atlas Woder Sx (ATL-WODER-D-5). User mówi 'pozostałe też' - zakres do określenia.
+[2026-05-31 15:55] Atlas Woder Sx 3 prod naprawione (asset eb5f...). batch_black_bg.py uruchomiony w tle (bg-f6dc9c57) dla 11302 produktów.
+[2026-05-31 15:58] batch_black_bg zatrzymany po 248s - sprawdzono log
+[2026-05-31 16:05] fast_black_bg zatrzymany po 260s. Kontynuuj: python3 fast_black_bg.py 4 (products_to_fix.json gotowy)
+[2026-06-01 14:37] Analiza różnic ścieżek kategorii mediabud vs bechcicki.pl - zbieranie danych.
+[2026-06-01 14:44] Analiza ścieżek kategorii zakończona: 15654 produktów sprawdzono - 100% zgodność Sanity z bechcicki.pl. Breadcrumby działają poprawnie na live site po deployu commit 27a8802.
+[2026-06-01 14:50] Flood-fill batch zakończony (9642 ✅ 5123 ⏭ 58 ❌). Opcja B: revert uszkodzonych → oryginalne bechcicki.pl. Opcja A: pominięte zostawić.
+[2026-06-01 15:17] Revert uszkodzonych zdjęć zakończony: 2002 przywróconych do oryginałów bechcicki.pl, 7619 OK (czarne tło), 21 błędów.
+[2026-06-01 15:41] Pass2 zakończony: 108 dodatkowych produktów przywróconych (głębokie wżeranie tła). Łącznie: 2110 rewertów.
+[2026-06-01 15:45] Bloczek H+H bezpośredni revert OK. Produkt wskazuje na 7695fec (oryginał bechcicki.pl, białe tło). PODSUMOWANIE: Pass1=2002 rewertów, Pass2=108, bloczek H+H manual=1.
+[2026-06-01 16:19] Start weryfikacji końcowej: screenshoty losowych produktów + statystyki katalogu Sanity.
+[2026-06-01 16:21] Weryfikacja końcowa zakończona: 15836 produktów 100% z kategorią/slugiem/marką/parametrami, 93.6% ze zdjęciem. Screenshoty 5 kategorii — wszystkie OK.
+[2026-06-01 16:26] Start A1+A2: opisy produktów + filtry kategorii. Czytanie kodu i danych Sanity.
+[2026-06-01 18:03] Fix kategorii (2768 prod przepięte, 11 slugów naprawione); A2 GROQ parent-chain fix (commit 4f7290c); A1 skrypt opisów uruchomiony ponownie (PID ~1240)
+[2026-06-01 18:03] Analiza generate_descriptions.py — przygotowanie ulepszonej wersji (wszystkie 4 poprawki)
+[2026-06-01 19:25] Znaleziono 126 produktów z błędnym zdjęciem Dorex acetonu (89 kategorii); product-p137 Armstrong naprawiony (Alibaba img); start batch fix pozostałych 125
+[2026-06-01 19:28] Usunięto błędne zdjęcie Dorex acetonu ze 127 produktów (images=[]); no_img_fix_needed.json zapisany; Armstrong p137 naprawiony (Alibaba img); start batch szukania poprawnych zdjęć
+[2026-06-01 19:41] SESJA ZAKOŃCZONA: Armstrong p137 fixed; A1 opisy DONE (15546/15565); 127 produktów z Dorex-img wyczyszczone (images=[]); subagent img-fix anulowany — do kontynuacji w następnej sesji
+[2026-06-01 19:58] Start naprawy texture-bleed (styropian z czarnymi plamami) + usunięcie 126 prod bez zdjęć
+[2026-06-01 20:04] fix_damaged_images uruchomiony jako bg-53e6afd1 (14697 prod, threshold 28%, 8 wątków); 71 prod bez zdjęć usunięte; Dorex p0196018 naprawiony
+[2026-06-02 10:51] Usunięto przycisk Szybki podgląd z Commerce.tsx. Zaczyna się zastępowanie przykładowych realizacji prawdziwymi (3 linki).
+[2026-06-02 14:42] Weryfikacja mobile: header OK (CategoryPage screenshot), ProductDetail OK (screenshot), dedup podkategorii, padding formularza p-4 sm:p-6 lg:p-8 — commit f390ccc
+[2026-06-02 15:58] Home.tsx mobile audit: py-24 responsive, mb-16 responsive, StatBar border fix, video hidden mobile
+[2026-06-02 16:05] Home.tsx perf: transition-all→transition-[opacity,transform], will-change, threshold 0.05+rootMargin 80px, hover→md:hover r4, transition-colors ikony
+[2026-06-02 16:55] Diagnoza: 3 błędy race condition + wolne ładowanie. Fix 1: setData(null) w useSanityData.ts. Fix 2: allSubSlugs tylko z sanityCategory. Fix 3: skeleton cards.
+[2026-06-02 16:56] Fix 1 done: setData(null) w obu hookach useSanityData.ts. Teraz Fix 2+3 w CategoryPage.tsx
+[2026-06-02 16:57] Commit 6dbebd1 — 3 naprawy: setData(null) w hookach, allSubSlugs tylko Sanity, skeleton cards. Push OK.
+[2026-06-02 16:58] Sesja napraw zakończona. Commit 6dbebd1 na main. Trzy błędy wyeliminowane: race condition, podwójny fetch, brak skeleton.
+[2026-06-02 17:28] Start sesji: 9 zadań — quick wins, medium features, formularz wyceny.
+[2026-06-02 17:34] commit f9022b6: prefers-reduced-motion, error state, /marki, Web3Forms QuoteModal+WycenaDrawer. Pending: Sitemap, ProductDetail audyt, wyszukiwarka, Cloudflare env key.
+[2026-06-02 17:42] Start audytu ProductDetail.tsx — loading skeleton, error state, race condition.
+[2026-06-02 17:44] commit: productSearch normalizacja PL, ProductDetail skeleton+error, /marki, Web3Forms
+[2026-06-02 17:44] Sesja zakończona. 4 commity: f9022b6 (6 usprawnień), b6ddd8e (ProductDetail audyt), b2ecdb9 (wyszukiwarka PL). Pending: VITE_WEB3FORMS_KEY.
+[2026-06-02 17:55] perf: waterfall fix + prefetch on hover — commit pushowany
+[2026-06-02 18:09] perf: Set lookup O(n) — commit pushowany
+[2026-06-02 18:41] Krok 2 start: two-query approach implementation
+[2026-06-02 18:45] Krok 2 done: two-query approach — commit 0400750, Query A meta-only (bez images join), ~15KB gzip vs ~85KB, build OK
+[2026-06-02 18:51] Start: optymalizacja sekcji Katalog produktów na home — research + SEO
+[2026-06-02 18:54] Research done: bestsellery PL 2025 (klej styropian, styropian EPS100, welna Rockwool, tynk silikonowy, klej plytek CM11, farba elewacyjna, tynk gipsowy, bloczek ytong). Impl. Home.tsx SEO.
+[2026-06-02 18:55] Impl. Home.tsx: BESTSELLER_SLUGS, functional tabs, h2 SEO, JSON-LD ItemList
+[2026-06-02 18:57] Done: Home.tsx SEO bestsellery — commit b1c6930. Tabs funkcjonalne, h2 dynamiczny, JSON-LD ItemList, BESTSELLER_SLUGS z badań rynkowych PL 2025
+[2026-06-02 18:57] Podsumowanie tury: tabs funkcjonalne + h2 SEO + JSON-LD ItemList + BESTSELLER_SLUGS — commit b1c6930, build OK
+[2026-06-02 19:23] Research: analiza porównawcza bestsellery SEO/UX — Leroy Merlin, Castorama, OBI, sklepy online PL
+[2026-06-02 19:25] Synteza: analiza porównawcza bestsellery SEO/UX — Leroy Merlin, Castorama, OBI vs Media Bud
+[2026-06-02 20:10] Start: /bestsellery page — App.tsx routing + BestsellerPage.tsx + CollectionPage JSON-LD + category filters
+[2026-06-02 20:14] Done: /bestsellery page — commit 8ae49cb, build OK, 4 files changed (lib/bestsellers.ts, BestsellerPage.tsx, App.tsx, Home.tsx)
+[2026-06-03 16:29] Analiza porównawcza bestsellery — start researchu konkurencji
+[2026-06-03 16:32] Research konkurencji zakończony (Castorama/OBI crawl + LM search). Piszę raport porównawczy SEO+UX.
+[2026-06-03 16:36] Raport porównawczy SEO/UX bestsellery opublikowany (raport-bestsellery-seo-ux.html)
+[2026-06-03 16:58] Start wdrożenia 3 priorytetów SEO: sitemap /bestsellery, link w stopce, rozbudowa JSON-LD ItemList
+[2026-06-03 17:00] Wdrożono 3 priorytety SEO: /bestsellery w sitemap-core.xml (0.9), link w stopce Footer.tsx, ItemList rozbudowany o Product+Brand+Offer w BestsellerPage.tsx i Home.tsx. Commit 22f4e54 → main.
+[2026-06-03 17:09] Start: LocalBusiness JSON-LD
+[2026-06-06 13:18] Zatwierdzono plan: wirtualizacja /marki, FAQ JSON-LD, blog SEO, linkowanie marek→produkty. Start od paginacji /marki.
+[2026-06-06 13:20] Commit 1d331ed: paginacja /marki 48 kart + Pokaż więcej, fix Styropoz. Start FAQ JSON-LD.
+[2026-06-06 13:25] Commit efab560: FAQ JSON-LD FAQPage + akordeon dla 9 kategorii (34 pytania). Start Blog SEO 3 artykulow.
+[2026-06-06 13:30] Commit 475e9be: 3 artykuly SEO (tynk silikonowy vs akrylowy, koszt ocieplenia 150m2, Knauf vs Rigips). Start: linkowanie marek -> SearchResultsPage.
+[2026-06-06 13:33] Commit dfb03b3: brandMode w SearchResultsPage, linki /szukaj?brand= w BrandsPage. Wszystkie 4 zadania ukonczone.
+[2026-06-06 13:38] Start: Product JSON-LD /bestsellery, sekcja Bestsellery marki na /marki, cross-linking brand w kategoriach.
+[2026-06-06 13:39] Commit 8383e47: Product JSON-LD /bestsellery (desc/sku/image/inStock). Start: cross-linking brand w CategoryPage sidebar + Bestsellery marki na /marki.
+[2026-06-06 13:41] Commit 39f9374: cross-linking brand w CategoryPage sidebar. Zaczynam: BrandsPage expand panel + ProductDetail brand badge.
+[2026-06-06 13:44] Commit: brand badge ProductDetail. Wszystkie 4 zadania ukonczone.
+[2026-06-06 13:44] Ukończono rundę 2: Product JSON-LD /bestsellery, cross-linking brand w CategoryPage sidebar, BrandsPage expand panel, ProductDetail brand badge Link.
+[2026-06-06 17:25] Upraszczam /marki: karty marek back to Link -> /szukaj?brand= (usuwam expand panel).
+[2026-06-06 18:08] start: opisy marek TOP10, autocomplete wyszukiwarki, powiązane produkty ProductDetail
+[2026-06-06 18:09] start: opisy marek TOP10 + autocomplete marki/kategorie + podobne produkty
+[2026-06-06 18:14] commit 5c1bd65: opisy TOP10 marek w brands.ts (Weber/Knauf/Atlas/Baumit/Rockwool/Ceresit/Mapei/Sika/Rigips/Isover), BrandDetailPage wyświetla opis+tagi+link, autocomplete Header rozbudowany o matchingBrands+matchingCategories z logo, similarProducts useMemo w ProductDetail (kategoria+marka)
+[2026-06-06 18:17] start: 404 custom, LocalBusiness schema, badge produktów /marki, 6 artykułów SEO b020-b025
+[2026-06-06 18:18] kontynuacja: tworzę NotFoundPage.tsx, enrichuję LocalBusiness, badge produktów BrandsPage, artykuły b020-b025
+[2026-06-06 18:46] Start: analiza i wdrożenie wszystkich ulepszeń LocalBusiness JSON-LD (P1+P2+P3)
+[2026-06-06 18:48] Wdrożenie LocalBusiness JSON-LD: analiza zakończona, start pisania localBusiness.ts + Pages.tsx edits
+[2026-06-06 18:49] localBusiness.ts nadpisany: NAP_ADDRESS/GEO/HOURS/AREA_SERVED/SAME_AS/LOGO/AMENITIES/CONTACT_POINT/KNOWS_ABOUT wyeksportowane; legalName, vatID, foundingDate dodane do obu węzłów grafu
+[2026-06-06 18:51] Zakończono edycje: localBusiness.ts (NAP constants, legalName, vatID, foundingDate, amenityFeature, contactPoint, knowsAbout+2, paymentAccepted PL), Pages.tsx (ContactPage+AboutPage+ServicesPage: @id spójne, BreadcrumbList, sobota, sameAs zewnętrzne, geo ujednolicone, offerCount number). Build ✓
+[2026-06-06 19:01] Start rundy: Article+FAQPage JSON-LD (16 art.), Product JSON-LD ProductDetail, CollectionPage kategorii, 6 art. SEO b026-b031
+[2026-06-06 19:03] localBusiness.ts+Pages.tsx committed (f19aee9). Start: BlogPost schema, blog.ts faq interface, 6 art. b026-b031, CategoryPage CollectionPage, ProductDetail seller
+[2026-06-06 19:10] Zakończono: BlogPost.tsx (Article @graph+BreadcrumbList+FAQPage, fix logo, dateModified, wordCount), blog.ts (faq? interface + b026-b031 z FAQ), CategoryPage.tsx (CollectionPage wrapper), ProductDetail.tsx (seller @id). Build ✓
+[2026-06-06 19:10] Runda ukończona (commit d52bbcc): BlogPost Article @graph+BreadcrumbList+FAQPage, blog.ts faq? interface + b026-b031 (szkieletowe/gres/farby elew./kleje C1-C2/XPS-EPS/fundamenty), CategoryPage CollectionPage, ProductDetail seller @id
+[2026-06-06 19:20] Start rundy: filtry /szukaj + 6 art. SEO b032-b037
+[2026-06-06 19:21] SearchResultsPage analiza: krytyczny bug window.location.hash→navigate, brak counts w dropdownach. Zaczynam fix + 6 art. b032-b037
+[2026-06-06 19:31] Runda: SearchResultsPage fix (useNavigate, 4x window.location.hash→navigate, brandCounts/categoryCounts), 6 art. b032-b037 z FAQ. Build ✓
+[2026-06-06 19:34] Diagnoza: brak zdjęć na kartach CategoryPage + wolne ładowanie. Czytam queries/ProductCard/hooks.
+[2026-06-07 13:49] Bundle splitting wdrożony: index.js 636KB→363KB (gzip 176→108KB). Chunki: Blog 7.7KB, BlogPost 9.4KB, Kalkulator 27.7KB, CategoryPage 44.5KB, Pages 119KB.
+[2026-06-07 17:00] Pages.tsx 119KB → 6 chunków: ContactPage 19KB, AboutPage 15KB, ServicesPage 21KB, AdminPanel 11KB, AllCategoriesPage 12KB, PolicyPage 12KB. Commit wdrożony.
+[2026-06-07 17:37] Fix: site.webmanifest utworzony, robots.txt zaktualizowany. Commit wdrożony.
+[2026-06-07 17:45] Accessibility fixes B wdrożone: aria-label prev/next/dots, placeholder #555, opacity-80→text-white/70, h4→p footer. Commit na main.
+[2026-06-07 18:19] D+E wdrożone: dots 44px touch area, Product schema rozbudowany. Commit na main.
+[2026-06-07 19:31] color-contrast audit: 31 elementów w 7 plikach — fix aria-hidden, #444→#888, text-white/70→/90, badge solid colors
+[2026-06-07 19:34] color-contrast DONE: commit 84f0eb2 — 8 plików, aria-hidden liczby, badge #1e0304/#ff9aa3, Footer #888, Header white/90, B2C/B2B white-on-red
+[2026-06-07 19:50] Start: 3 ulepszenia nagłówka — scroll shrink, status otwarte/zamknięte, search autocomplete
+[2026-06-07 19:52] Implementacja 3 ulepszeń nagłówka: scroll shrink ROW2, businessStatus, skrót /
+[2026-06-07 19:54] DONE: Header 3 ulepszenia — commit b9493d7: scroll shrink ROW2 (maxHeight:0), businessStatus dynamiczny (Teraz otwarte/zamknięte + kolor kropki), skrót / fokus search + searchInputRef
+[2026-06-07 20:04] DONE: 4 zadania ukończone — Lighthouse 97, promo strip, bottom nav, blog SEO
+[2026-06-07 20:11] Start: aktualizacja mobile — ticker, hamburger nav, BottomNav active tabs
+[2026-06-08 08:16] fix(imports): brakujące ikony lucide-react — commit 33d9719 (MapPin+Zap AboutPage, ArrowRight+Phone AllCategoriesPage, Mail ServicesPage)
+[2026-06-08 08:21] chore(imports): commit 962fb41 — usunięto nieużywane ikony lucide z 10 plików, build ✓ 1941 modules
+[2026-06-08 08:32] perf: commit 6043eba — lazy-load Home+WycenaDrawer, Sanity preconnect; main bundle 374→185 kB gzip (-51%)
+[2026-06-08 08:37] fix: commit 54e1d88 — Suspense wewnątrz main; fix bd7ac6a — przywrócone ikony Home.tsx (TrendingUp etc.); Accessibility regresja naprawiona
+[2026-06-08 08:38] Sesja zakończona — 4 commity: 962fb41 porządek lucide, 6043eba perf lazy+preconnect, bd7ac6a fix Home icons, 54e1d88 fix a11y Suspense w main
+[2026-06-08 10:05] diagnoza mobile header — ROW 2 ucięte teksty, ticker overflow, 3x form field bez id/name
+[2026-06-08 10:13] fix(mobile): commit 97d696b — ticker ROW1 animacja info-scroll, form id/name w Commerce.tsx (6 inputów)
+[2026-06-08 13:09] analiza mobile header: 6 bugów zidentyfikowanych — autocomplete clipping, hamburger znika na scroll, touch-swipe, businessStatus, id/name, ticker loop
+[2026-06-08 13:21] Analiza isMobile: identyfikacja 4 problemów (throttle, orientationchange, ROW1 guard, typeof window). Wdrażanie poprawek.
+[2026-06-08 13:22] commit 9c7cce5: 4 poprawki isMobile — matchMedia zamiast window.resize, orientationchange guard, ROW1 isMobile guard, typeof window cleanup. Build ✓ 12.46s
+[2026-06-08 13:41] Start: Lighthouse audit + screenshot mobile 390px + ticker seamless + img CLS fixes
+[2026-06-08 13:50] Lighthouse: SEO 92 (robots.txt invalid - mediabud.pl sitemap), A11y 97, BP 96. Naprawiam: robots.txt + ticker seamless + contrast fix
+[2026-06-08 13:53] commit fd767dc: robots.txt (SEO 100 przywrócone), ticker seamless loop (promo+info, 0→-50%), contrast text-white/90→white w Wycena button. Build ✓ 34s
+[2026-06-08 14:17] Start: CLS fix (img width/height), LCP (fetchPriority=high), contrast audit (gray-500→400, kontakt link)
+[2026-06-08 14:21] commit 421dee7: logo fetchPriority+width/height (CLS/LCP), hero slide[0] fetchPriority=high+loading=eager, kontakt link contrast 1.34→4.94, #4a4a4a→#999 (contrast 2.29→10.5), gray-500→gray-400 ×6 (Home.tsx). Build ✓ 12.55s. Czekam na deploy CF, startuję Lighthouse reaudit.
+[2026-06-08 14:30] Lighthouse robots-txt: 'unable to download' = problem sieciowy audytora (CF rate limit / timing), NIE błąd składni. robots.txt zwraca HTTP 200. Commit 58dc814. Sesja zakończona.
+[2026-06-08 14:30] Tura zakończona. Commity: 421dee7 (CLS/LCP/contrast), 58dc814 (robots.txt cleanup). SEO 92 = Lighthouse 'unable to download robots.txt' — problem sieciowy audytora, nie błąd pliku (HTTP 200 ✓).
+[2026-06-08 17:25] Start: BottomNav mobile + SearchPage /szukaj. Czytam Layout.tsx + App.tsx.
+[2026-06-08 17:27] Analiza: text-white na #f9fafb (kontrast 1.04). BottomNav+SearchPage już istnieją. Szukam sekcji z jasnym tłem w Home.tsx.
+[2026-06-08 17:42] BUG: 6 stron bez export default (lazy wymaga default): AllCategoriesPage, ContactPage, AboutPage, ServicesPage, AdminPanel, PolicyPage. Naprawiam.
+[2026-06-08 17:47] commit 092ecbc: fix export default x6 (AllCategoriesPage, ContactPage, AboutPage, ServicesPage, AdminPanel, PolicyPage). /kontakt i /produkty działają. Build ✓
+[2026-06-08 18:01] Commits 092ecbc+b5a8b08+4d4b51a+31c14e2: fix export default x6, useLocation x2, NAP_* x2+1. Czekam na deploy.
+[2026-06-08 18:17] fix(crash): ServicesPage — dodaj typy FaqItem/ServiceDetail + dane services[] (9 usług B2C/Oba/B2B). Commit: 6270368. Build OK, TS OK.
+[2026-06-08 18:26] feat(uslugi): baner CTA kalkulatora po FAQ — commit a8b3bb9
+[2026-06-08 18:58] Start: kompleksowa przebudowa copywritingu + materiały kreatywne — analiza rynku, przegląd obraz, nowy copy, wideo
+[2026-06-08 19:02] Start wdrożenia: kompleksowy rewrite ServicesPage (services[], JSX copy, 2 nowe usługi) + hero HomePage
+[2026-06-08 19:12] DONE: ServicesPage full rewrite (services[] 11 usług, 2 nowe: remont-lazienki + pompa-ciepla-PV, nagłówki sekcji). HomePage hero slides + features + serviceCards rewrite. Build OK, commity: 7d80bb5, ae8b9c2

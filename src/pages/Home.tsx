@@ -352,34 +352,33 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       {/* ── Hero Section ── */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
-        {/* Slides */}
-        {heroSlides.map((s, i) => (
-          <div
-            key={i}
-            className="absolute inset-0 transition-opacity duration-700"
-            style={{ opacity: i === slide ? 1 : 0, zIndex: i === slide ? 1 : 0 }}
+        {/* ── Wideo tło — Industrial Pulse Hero (Seedance 2.0) ── */}
+        <div className="absolute inset-0" style={{ zIndex: 1 }}>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            style={{ filter: "brightness(0.52) saturate(0.88)" }}
           >
-            <img
-              src={s.image}
-              alt={s.label}
-              className="w-full h-full object-cover"
-              fetchPriority={i === 0 ? "high" : "low"}
-              loading={i === 0 ? "eager" : "lazy"}
-              style={{ filter: "brightness(0.45) saturate(0.85)" }}
+            <source
+              src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/image2video-d8jkhjv80j2drgd1t820.mp4"
+              type="video/mp4"
             />
-            {/* Laser line — czerwona linia jak na kategoriach */}
-            <div
-              className="absolute left-0 right-0 pointer-events-none z-10"
-              style={{
-                top: "50%",
-                height: "2px",
-                background: "linear-gradient(90deg, transparent 0%, #f81828 20%, #ff6b6b 50%, #f81828 80%, transparent 100%)",
-                boxShadow: "0 0 12px 3px rgba(248,24,40,0.7), 0 0 24px 6px rgba(248,24,40,0.35)",
-                opacity: 0.85,
-              }}
-            />
-          </div>
-        ))}
+          </video>
+          {/* Laser line — czerwona linia jak na kategoriach */}
+          <div
+            className="absolute left-0 right-0 pointer-events-none z-10"
+            style={{
+              top: "50%",
+              height: "2px",
+              background: "linear-gradient(90deg, transparent 0%, #f81828 20%, #ff6b6b 50%, #f81828 80%, transparent 100%)",
+              boxShadow: "0 0 12px 3px rgba(248,24,40,0.7), 0 0 24px 6px rgba(248,24,40,0.35)",
+              opacity: 0.85,
+            }}
+          />
+        </div>
 
         {/* Warstwa 1: Siatka techniczna CSS */}
         <div className="absolute inset-0 pointer-events-none" style={{

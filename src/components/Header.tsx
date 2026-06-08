@@ -72,7 +72,7 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 1024);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1024);
   const [promoVisible, setPromoVisible] = useState(() => {
     try { return localStorage.getItem("mb_promo_v1") !== "hidden"; } catch { return true; }
   });
@@ -191,13 +191,31 @@ export default function Header() {
   }, [location.pathname]);
 
   useEffect(() => {
-    // Zamknij gdy resize do desktop
-    const onResize = () => {
-      if (window.innerWidth >= 1024) setMobileOpen(false);
-      setIsMobile(window.innerWidth < 1024);
+    // matchMedia odpala się TYLKO przy przekroczeniu breakpointu (nie przy każdym px)
+    // → eliminuje ~400 re-renderów podczas resize okna
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const onMqChange = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+      if (!e.matches) setMobileOpen(false); // zamknij drawer po przejściu do desktop
     };
-    window.addEventListener("resize", onResize, { passive: true });
-    return () => window.removeEventListener("resize", onResize);
+    mq.addEventListener("change", onMqChange);
+
+    // orientationchange — starszy iOS/Android aktualizuje innerWidth z opóźnieniem
+    let orientationTimer: ReturnType<typeof setTimeout>;
+    const onOrientation = () => {
+      orientationTimer = setTimeout(() => {
+        const mobile = window.innerWidth < 1024;
+        setIsMobile(mobile);
+        if (!mobile) setMobileOpen(false);
+      }, 100);
+    };
+    window.addEventListener("orientationchange", onOrientation);
+
+    return () => {
+      mq.removeEventListener("change", onMqChange);
+      window.removeEventListener("orientationchange", onOrientation);
+      clearTimeout(orientationTimer);
+    };
   }, []);
 
   useEffect(() => {
@@ -304,7 +322,7 @@ export default function Header() {
       ════════════════════════════════════════════════ */}
       <div
         className="overflow-hidden border-b border-white/5 bg-black transition-all duration-300"
-        style={{ maxHeight: scrolled ? "0" : "40px" }}
+        style={{ maxHeight: (scrolled && !isMobile) ? "0" : "40px" }}
       >
         <div className="container mx-auto px-4">
           <div className="flex h-10 items-center justify-between text-[11px]">

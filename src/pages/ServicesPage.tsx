@@ -244,16 +244,35 @@ function ServiceTile({ svc }: { svc: ServiceDetail }) {
   );
 }
 
+/* ─── Wideo hero dla głównych usług ─────────────────────────────── */
+const SERVICE_VIDEOS: Record<string, string> = {
+  "dom-od-podstaw":                          "https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jjkp780j2drgd1t600.mp4",
+  "remonty-b2b":                             "https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jjkrv80j2drgd1t60g.mp4",
+  "kompleksowa-wspolpraca-z-deweloperami":   "https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jjkun80j2drgd1t610.mp4",
+};
+
 /* ─── Podstrona szczegółowa usługi ──────────────────────────────── */
 function ServiceDetailPage({ service }: { service: ServiceDetail }) {
+  const heroVideo = SERVICE_VIDEOS[service.slug];
   return (
     <div className="min-h-screen" style={{ background: "#050505" }}>
       {/* Hero */}
       <div className="relative overflow-hidden border-b border-[#1a1a1a]" style={{ background: "linear-gradient(180deg,#0a0a0a 0%,#050505 100%)" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "42px 42px" }} />
-        <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.45)" }} />
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.22) 55%,transparent)" }} />
-        <div className="relative container mx-auto px-4 pl-9 py-12 md:py-16">
+        {/* Wideo tło dla głównych usług */}
+        {heroVideo && (
+          <video
+            src={heroVideo}
+            autoPlay loop muted playsInline
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            style={{ opacity: 0.20, zIndex: 0 }}
+          />
+        )}
+        {/* Overlay gradient nad wideo */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: heroVideo ? "linear-gradient(180deg,rgba(5,5,5,0.55) 0%,rgba(5,5,5,0.80) 100%)" : undefined, zIndex: 1 }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "42px 42px", zIndex: 1 }} />
+        <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.45)", zIndex: 2 }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.22) 55%,transparent)", zIndex: 2 }} />
+        <div className="relative container mx-auto px-4 pl-9 py-12 md:py-16" style={{ zIndex: 3 }}>
           <Link to="/uslugi" className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-[#888] hover:text-white transition-colors mb-6">
             <ChevronRight className="w-4 h-4 rotate-180" /> Wszystkie usługi
           </Link>

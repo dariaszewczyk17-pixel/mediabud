@@ -44,7 +44,7 @@ const services: ServiceDetail[] = [
     korzysci: [
       "Nie musisz koordynować wielu firm — zajmujemy się tym za Ciebie",
       "Jeden rachunek zamiast stosu faktur od różnych wykonawców",
-      "Gwarancja wykonawcza Media Bud na cały zakres prac",
+      "Pełna dokumentacja powykonawcza i kosztorys otwarty — bez ukrytych kosztów",
     ],
   },
   {
@@ -69,7 +69,7 @@ const services: ServiceDetail[] = [
     korzysci: [
       "Łazienka gotowa w 2–3 tygodnie, bez Twojego codziennego nadzoru",
       "Płacisz etapowo — za wykonaną robotę, nie z góry",
-      "2 lata gwarancji na całość, 5 lat na szczelność instalacji",
+      "Pełna dokumentacja powykonawcza po zakończeniu prac",
     ],
   },
   {
@@ -123,7 +123,7 @@ const services: ServiceDetail[] = [
     korzysci: [
       "Dom gotowy do zamieszkania bez Twojego nadzoru na budowie każdego dnia",
       "Trzy standardy do wyboru: ekonomiczny, standard i premium",
-      "2 lata gwarancji na wszystkie roboty wykończeniowe",
+      "Pełna dokumentacja powykonawcza po zakończeniu prac",
     ],
   },
   {
@@ -131,9 +131,9 @@ const services: ServiceDetail[] = [
     segment: "Oba",
     title: "Dachy",
     icon: <Layers className="w-7 h-7 text-[#f81828]" />,
-    badge: "Nowe dachy · Naprawy · 5 lat gwarancji szczelności",
+    badge: "Nowe dachy · Naprawy · Własna ekipa dekarska",
     krotkiOpis:
-      "Nowy dach lub aktywny przeciek? Własna ekipa dekarska, materiały z magazynu i gwarancja szczelności 5 lat na piśmie. Działamy dla domów, hal i obiektów użyteczności publicznej.",
+      "Nowy dach lub aktywny przeciek? Własna ekipa dekarska, materiały z magazynu. Działamy dla domów, hal i obiektów użyteczności publicznej.",
     co_robimy: [
       "Nowe pokrycia — dachówka ceramiczna i betonowa, blachodachówka, blacha płaska",
       "Diagnostyka i naprawa aktywnych przecieków",
@@ -146,8 +146,8 @@ const services: ServiceDetail[] = [
       "Jeden kontrakt: pokrycie, obróbki i orynnowanie",
     ],
     korzysci: [
-      "5 lat gwarancji na szczelność — na piśmie, bez gwiazdek",
       "Szybka naprawa przecieków — działamy bez zbędnych formalności",
+      "Solidne wykonanie potwierdzone referencjami z całego woj. lubelskiego",
       "Ten sam standard dla domu prywatnego i dużego obiektu",
     ],
     ostrzezenia: [

@@ -27,7 +27,7 @@ const SERVICES = [
 
 const TRUST_BADGES = [
   { icon: <Truck className="w-5 h-5" />,   label: "Szybka dostawa",    desc: "Na terenie Lublina" },
-  { icon: <Shield className="w-5 h-5" />,  label: "Gwarancja jakości", desc: "Sprawdzone produkty" },
+  { icon: <Shield className="w-5 h-5" />,  label: "Jakość wykonania",  desc: "Sprawdzone produkty" },
   { icon: <Wrench className="w-5 h-5" />,  label: "Doradztwo",         desc: "Eksperci budowlani" },
   { icon: <Award className="w-5 h-5" />,   label: "Lata doświadczenia", desc: "Zaufana marka" },
 ];

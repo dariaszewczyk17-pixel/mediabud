@@ -114,7 +114,7 @@ const features = [
   { Icon: HardHat,   code: "01", title: "Doradztwo gratis",       desc: "Nie wiesz jakich materiałów potrzebujesz? Nasi eksperci dobiorą system i policzą ilości — bez opłat i zobowiązań." },
   { Icon: Building2, code: "02", title: "Od materiałów po klucze", desc: "Możesz kupić same materiały albo zamówić kompleksową usługę. Wszystko u jednego partnera, bez szukania ekip po całym mieście." },
   { Icon: ArrowRight,code: "03", title: "Dostawa na plac budowy",  desc: "Dowozimy materiały na teren Lublina i całego woj. lubelskiego. Prosto na budowę, we wskazanym terminie." },
-  { Icon: Star,      code: "04", title: "Tylko renomowane marki",  desc: "Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor — oryginalne produkty z gwarancją producenta, bez podróbek." },
+  { Icon: Star,      code: "04", title: "Tylko renomowane marki",  desc: "Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor — oryginalne produkty renomowanych marek, bez podróbek." },
   { Icon: Award,     code: "05", title: "Certyfikaty i atesty",    desc: "Każdy produkt posiada pełną dokumentację techniczną, deklaracje właściwości użytkowych i certyfikaty zgodności." },
   { Icon: Users,     code: "06", title: "Deweloperzy i firmy B2B", desc: "Indywidualne ceny, dedykowany opiekun, faktury zbiorcze i rabaty dla firm budowlanych oraz deweloperów." },
 ];
@@ -123,7 +123,7 @@ const serviceCards = [
   { segment: "B2C", tag: "PROGRAM", title: "Dom od podstaw", desc: "Budujesz pierwszy dom? Jeden opiekun, jeden kosztorys, zero koordynowania wielu firm. Od projektu po klucze.", href: "/uslugi/dom-od-podstaw" },
   { segment: "B2C", tag: "REMONT", title: "Remont łazienki", desc: "Stara glazura lub cieknący prysznic? Robimy łazienki pod klucz w 2–3 tygodnie. Skucie, instalacje, płytki, armatura.", href: "/uslugi/remont-lazienki" },
   { segment: "B2C", tag: "TERMO", title: "Termomodernizacja", desc: "Dom traci ciepło? Ocieplamy raz na 25 lat — rachunki o 50% niższe. Pomagamy dostać do 136 200 zł dotacji.", href: "/uslugi/termomodernizacja" },
-  { segment: "Oba", tag: "DACHY", title: "Dachy", desc: "Nowy dach lub przeciek? Własna ekipa dekarska, gwarancja 5 lat na szczelność. Dachówka, blacha, papa.", href: "/uslugi/dachy" },
+  { segment: "Oba", tag: "DACHY", title: "Dachy", desc: "Nowy dach lub przeciek? Własna ekipa dekarska, szybka diagnoza i naprawa. Dachówka, blacha, papa.", href: "/uslugi/dachy" },
   { segment: "Oba", tag: "ELEWACJE", title: "Elewacje", desc: "Ocieplamy i wykańczamy dom w jednym projekcie. Tynk, klinkier lub elewacja wentylowana. Efekt na 20 lat.", href: "/uslugi/elewacje" },
   { segment: "B2B", tag: "FIRMY", title: "Remonty dla firm", desc: "Remont sklepu, biura lub hali w nocy i w weekendy. Twoja firma działa normalnie, my remontujemy w tle.", href: "/uslugi/remonty-b2b" },
   { segment: "B2C", tag: "POD KLUCZ", title: "Wykończenia pod klucz", desc: "Stan surowy → gotowy dom do życia. Tynki, podłogi, glazura, łazienki. Jedna ekipa, jeden kosztorys.", href: "/uslugi/wykonczenia-pod-klucz" },

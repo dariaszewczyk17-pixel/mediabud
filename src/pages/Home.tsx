@@ -948,23 +948,16 @@ export default function Home() {
 
         <div className="container mx-auto px-4 relative" style={{ zIndex: 3 }}>
           {/* ── Header ── */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-sm border border-[#f81828]/30" style={{ background: "rgba(248,24,40,0.07)", fontFamily: "monospace" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] animate-pulse" />
-              <span className="text-[#f81828] text-[9px] tracking-[0.3em] uppercase font-bold">SYSTEM_STATUS: AKTYWNY</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] animate-pulse" />
-            </div>
+          <div className="mb-12">
+            <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-3 flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-[#f81828]" />DLACZEGO MY?
+            </p>
             <h2 className="font-display text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
               Dlaczego <span className="text-[#f81828]">Media Bud</span>?
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed text-sm">
+            <p className="text-gray-400 max-w-2xl leading-relaxed text-sm">
               Łączymy profesjonalną wiedzę techniczną z indywidualnym podejściem — zarówno dla deweloperów, jak i klientów budujących własny dom.
             </p>
-            <div className="mt-6 flex items-center justify-center gap-3">
-              <div className="h-px w-20 bg-gradient-to-r from-transparent to-[#f81828]" />
-              <div className="w-1.5 h-1.5 bg-[#f81828] rotate-45" />
-              <div className="h-px w-20 bg-gradient-to-l from-transparent to-[#f81828]" />
-            </div>
           </div>
 
           {/* ── Cards grid ── */}

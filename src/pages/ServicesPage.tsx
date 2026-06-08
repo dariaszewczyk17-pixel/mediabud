@@ -279,10 +279,23 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
             </div>
             {/* CTA karta */}
             <div className="rounded-2xl p-6" style={{ background: "#0f0f0f", border: "1px solid #1f1f1f", boxShadow: "0 20px 44px rgba(0,0,0,0.35)" }}>
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)" }}>
-                {service.icon}
-              </div>
-              <p className="text-xs text-[#888] mb-4 leading-relaxed">Zadzwoń lub napisz — wycenę wstępną przygotujemy w 24 h.</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-3 flex items-center gap-2">
+                <span className="w-3 h-0.5 bg-[#f81828]" />Zapytaj o wycenę
+              </p>
+              <h3 className="font-display text-xl font-black text-white mb-4 leading-tight">
+                Wycenę wstępną przygotujemy w 24 h
+              </h3>
+              <ul className="space-y-2 mb-5">
+                {[
+                  "Bezpłatna konsultacja techniczna",
+                  "Kosztorys otwarty — bez ukrytych kosztów",
+                  "Lublin i woj. lubelskie",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-xs text-[#aaa]">
+                    <Check className="w-3.5 h-3.5 text-[#f81828] flex-shrink-0" />{item}
+                  </li>
+                ))}
+              </ul>
               <div className="space-y-3">
                 <a href="tel:+48533553344" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white transition-all hover:brightness-110" style={{ background: "#f81828", boxShadow: "0 12px 30px rgba(248,24,40,0.22)" }}>
                   <Phone className="w-4 h-4" /> +48 533 553 344

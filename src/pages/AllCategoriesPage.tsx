@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
-import { ChevronRight, Package, Tag } from "lucide-react";
+import { ChevronRight, Package, Tag, ArrowRight, Phone } from "lucide-react";
 import { categories } from "@/data/categories";
 
 const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;

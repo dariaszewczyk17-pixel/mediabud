@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
 import { Phone, Users, Award, Truck, Star, ChevronRight, ArrowRight,
-         Home, PaintBucket, Ruler, Hammer, Building2, HousePlus, ExternalLink, Check, Shield } from "lucide-react";
+         Home, PaintBucket, Ruler, Hammer, Building2, HousePlus, ExternalLink, Check, Shield,
+         MapPin, Zap } from "lucide-react";
 
 const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;
 const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] transition-all duration-300";

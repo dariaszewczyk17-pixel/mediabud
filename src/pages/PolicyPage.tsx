@@ -1,6 +1,6 @@
 import { useSEO } from "@/hooks/useSEO";
 
-export function PolicyPage() {
+export default function PolicyPage() {
   const location = useLocation();
   const isRegulamin = location.pathname.includes("regulamin");
   const isRodo      = location.pathname.includes("rodo");

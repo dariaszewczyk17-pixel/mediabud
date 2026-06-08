@@ -187,7 +187,7 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
   );
 }
 
-export function ServicesPage() {
+export default function ServicesPage() {
   const { slug } = useParams<{ slug?: string }>();
 
   const service = slug ? services.find((item) => item.slug === slug) : null;

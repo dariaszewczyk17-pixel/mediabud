@@ -12,7 +12,7 @@ const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)"
 const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] transition-all duration-300";
 
 
-export function AdminPanel() {
+export default function AdminPanel() {
   const [activeTab, setActiveTab] = useState<AdminTab>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);

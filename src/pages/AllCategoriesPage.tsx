@@ -7,7 +7,7 @@ const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)"
 const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] transition-all duration-300";
 
 
-export function AllCategoriesPage() {
+export default function AllCategoriesPage() {
   const catImages: Record<string, string> = {
     "chemia-budowlana":       "https://images.unsplash.com/photo-1612428177037-c6f2d48ce357?auto=format&fit=crop&w=800&q=80",
     "dachy":                  "https://images.unsplash.com/photo-1726589004565-bedfba94d3a2?auto=format&fit=crop&w=800&q=80",

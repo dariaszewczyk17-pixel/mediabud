@@ -122,7 +122,6 @@ const features = [
 const serviceCards = [
   { segment: "B2C", tag: "PROGRAM", title: "Dom od podstaw", desc: "Budujesz pierwszy dom? Jeden opiekun, jeden kosztorys, zero koordynowania wielu firm. Od projektu po klucze.", href: "/uslugi/dom-od-podstaw" },
   { segment: "B2C", tag: "REMONT", title: "Remont łazienki", desc: "Stara glazura lub cieknący prysznic? Robimy łazienki pod klucz w 2–3 tygodnie. Skucie, instalacje, płytki, armatura.", href: "/uslugi/remont-lazienki" },
-  { segment: "B2C", tag: "OZE", title: "Pompa ciepła + fotowoltaika", desc: "Ogrzewasz dom prądem, który sam produkujesz. Dotacja Czyste Powietrze. Zwrot inwestycji w 6–10 lat.", href: "/uslugi/pompa-ciepla-fotowoltaika" },
   { segment: "B2C", tag: "TERMO", title: "Termomodernizacja", desc: "Dom traci ciepło? Ocieplamy raz na 25 lat — rachunki o 50% niższe. Pomagamy dostać do 136 200 zł dotacji.", href: "/uslugi/termomodernizacja" },
   { segment: "Oba", tag: "DACHY", title: "Dachy", desc: "Nowy dach lub przeciek? Własna ekipa dekarska, gwarancja 5 lat na szczelność. Dachówka, blacha, papa.", href: "/uslugi/dachy" },
   { segment: "Oba", tag: "ELEWACJE", title: "Elewacje", desc: "Ocieplamy i wykańczamy dom w jednym projekcie. Tynk, klinkier lub elewacja wentylowana. Efekt na 20 lat.", href: "/uslugi/elewacje" },

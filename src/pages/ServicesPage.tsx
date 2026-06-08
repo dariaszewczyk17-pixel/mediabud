@@ -1,15 +1,9 @@
 import { useState, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useSEO } from "@/hooks/useSEO";
 import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_CONTACT_POINT, NAP_SAME_AS } from "@/lib/localBusiness";
-import { ChevronRight, ArrowRight, Phone, Check, Mail, Home, Zap, Hammer, Building2, Layers, HardHat, PenTool } from "lucide-react";
-import { products } from "@/data/products";
-import { categories } from "@/data/categories";
+import { ChevronRight, ArrowRight, Phone, Check, Mail, Zap, Hammer, Building2, Layers, HardHat, Home } from "lucide-react";
 
-const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;
-const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] transition-all duration-300";
-
-/* ── Typy ── */
+/* ─── Typy ─────────────────────────────────────────────────────── */
 type FaqItem = { q: string; a: string };
 
 type ServiceDetail = {
@@ -19,109 +13,63 @@ type ServiceDetail = {
   icon: ReactNode;
   badge: string;
   krotkiOpis: string;
-  frazySEO: string[];
-  parametry: string[];
-  zastosowanie: string[];
+  co_robimy: string[];
   zalety: string[];
   korzysci: string[];
   ostrzezenia?: string[];
 };
 
-/* ── Dane usług Media Bud ── */
+/* ─── Dane usług ────────────────────────────────────────────────── */
 const services: ServiceDetail[] = [
-  /* ---- B2C: Parasol ---- */
   {
     slug: "dom-od-podstaw",
     segment: "B2C",
     title: "Dom od podstaw",
     icon: <Home className="w-7 h-7 text-[#f81828]" />,
-    badge: "Flagowy program · Lublin i woj. lubelskie",
+    badge: "Kompleksowa realizacja · Lublin i woj. lubelskie",
     krotkiOpis:
-      "Powiedz nam, co chcesz zbudować — my zadbamy o resztę. Projekt, pozwolenie, stan surowy, wykończenie. Jeden telefon, jeden opiekun, jedna cena końcowa. Bez niespodzianek.",
-    frazySEO: ["budowa domu lublin", "dom pod klucz lublin", "budowa domu od podstaw lublin"],
-    parametry: [
-      "Zakres: projekt + pozwolenie + stan surowy + instalacje + wykończenie",
-      "Obszar obsługi: Lublin i woj. lubelskie (do 60 km od składu)",
-      "Rozliczenie: kosztorys etapowy z harmonogramem płatności",
-      "Opiekun: dedykowany kierownik budowy przez cały projekt",
-    ],
-    zastosowanie: [
-      "Pierwsza budowa — prowadzimy przez cały proces krok po kroku",
-      "Domy jednorodzinne wolnostojące i bliźniacze",
-      "Budynki rekreacyjne i letniskowe",
+      "Budujesz pierwszy dom i nie wiesz, od czego zacząć? Jeden opiekun prowadzi Cię od projektu po klucze — bez koordynowania kilku firm i bez niespodzianek w rachunku końcowym.",
+    co_robimy: [
+      "Projekt architektoniczny i uzyskanie pozwolenia na budowę",
+      "Stan surowy otwarty i zamknięty — własna ekipa, materiały z magazynu",
+      "Instalacje elektryczne, wod-kan i gazowe",
+      "Wykończenie wnętrz według wybranego standardu",
     ],
     zalety: [
       "Jeden człowiek odpowiada za całość — koniec z przepychaniem odpowiedzialności",
-      "Materiały z własnego składu — realnie taniej niż u konkurencji",
-      "Kosztorys otwarty — widzisz każdą złotówkę, nie ma ukrytych kosztów",
-      "15 lat doświadczenia i 500+ zrealizowanych projektów w regionie",
+      "Materiały z własnego składu — realnie taniej niż kupując u różnych dostawców",
+      "Kosztorys otwarty — widzisz każdą złotówkę, bez ukrytych kosztów",
+      "15 lat doświadczenia, ponad 500 realizacji w regionie",
     ],
     korzysci: [
-      "Nie musisz koordynować 6 różnych firm — my to robimy",
+      "Nie musisz koordynować wielu firm — zajmujemy się tym za Ciebie",
       "Jeden rachunek zamiast stosu faktur od różnych wykonawców",
-      "Gwarancja wykonawcza MediaBud na cały zakres prac",
-    ],
-  },
-  /* ---- B2C ---- */
-  {
-    slug: "budowa-domu",
-    segment: "B2C",
-    title: "Budowa domu",
-    icon: <HardHat className="w-7 h-7 text-[#f81828]" />,
-    badge: "Stan surowy · Instalacje · Lublin",
-    krotkiOpis:
-      "Stan surowy bez kompromisów — fundamenty, ściany, stropy, dach, okna. Wiesz dokładnie, ile zapłacisz, zanim zaczniemy. Ekipa własna, materiały z naszego magazynu.",
-    frazySEO: ["budowa domu lublin", "stan surowy lublin", "ekipa budowlana lublin"],
-    parametry: [
-      "Etapy: fundamenty → stan surowy otwarty → stan surowy zamknięty",
-      "Technologie: mur tradycyjny, pustak ceramiczny, szkielet drewniany",
-      "Instalacje: wod-kan, elektryka, gaz (z gwarancją podwykonawcy)",
-      "Obszar: Lublin i powiat lubelski",
-    ],
-    zastosowanie: [
-      "Nowe domy jednorodzinne i bliźniaki na działce własnej klienta",
-      "Rozbudowy i nadbudowy istniejących budynków",
-    ],
-    zalety: [
-      "Własna ekipa budowlana — żadnych przypadkowych podwykonawców",
-      "Materiały renomowanych marek (Ytong, Wienerberger, Lafarge) z magazynu",
-      "Przejrzysty kosztorys etapowy — bez zaskoczeń w rachunku końcowym",
-    ],
-    korzysci: [
-      "Ponad 500 ukończonych budów potwierdza naszą terminowość",
-      "3 lata gwarancji wykonawczej na stan surowy",
-      "Dostawa materiałów bezpośrednio na plac budowy — zero przestojów",
+      "Gwarancja wykonawcza Media Bud na cały zakres prac",
     ],
   },
   {
     slug: "remont-lazienki",
     segment: "B2C",
     title: "Remont łazienki",
-    icon: <PenTool className="w-7 h-7 text-[#f81828]" />,
-    badge: "Najpopularniejsza usługa · Pod klucz",
+    icon: <HardHat className="w-7 h-7 text-[#f81828]" />,
+    badge: "Najpopularniejsza usługa · Pod klucz · 2–3 tygodnie",
     krotkiOpis:
-      "Stara glazura, cieknący prysznic, za mała przestrzeń? Robimy łazienki od A do Z — skucie, nowe instalacje, płytki, armatura, oświetlenie. Wchodzisz po kluczu, wszystko gotowe.",
-    frazySEO: ["remont łazienki lublin", "łazienka pod klucz lublin", "remont łazienki cena lublin"],
-    parametry: [
-      "Zakres: skucie + instalacje wod-kan + glazura + malowanie + armatura",
-      "Czas realizacji: 10–20 dni roboczych (typowa łazienka 5–8 m²)",
-      "Materiały: z magazynu MediaBud lub wg własnego wyboru klienta",
-      "Gwarancja: 2 lata na całość + 5 lat na szczelność instalacji",
-    ],
-    zastosowanie: [
-      "Łazienki w domach jednorodzinnych i mieszkaniach",
-      "Wykończenie nowego mieszkania deweloperskiego",
-      "Modernizacja starej łazienki z lat 80. i 90.",
+      "Stara glazura, cieknący prysznic albo za ciasna przestrzeń? Robimy łazienki od A do Z — skucie, instalacje, płytki, armatura. Wchodzisz po kluczu, wszystko gotowe.",
+    co_robimy: [
+      "Skucie starej glazury i posadzki",
+      "Nowe instalacje wod-kan — hydraulik z naszej ekipy",
+      "Układanie płytek, glazura, fugi",
+      "Montaż armatury, oświetlenia i akcesoriów",
     ],
     zalety: [
-      "Jeden wykonawca od projektu po armaturę — koniec z szukaniem kaflarza i hydraulika z osobna",
-      "Płytki, kleje, fugi, farby — wszystko z własnego składu MediaBud",
-      "Projekt wizualizacji 2D w cenie usługi — widzisz efekt przed rozpoczęciem",
+      "Jeden wykonawca od skucia do armatury — nie szukasz kaflarza i hydraulika osobno",
+      "Płytki, kleje, fugi z własnego składu Media Bud — wszystko dostępne od ręki",
+      "Projekt wizualizacji 2D w cenie — widzisz efekt zanim zaczniemy",
     ],
     korzysci: [
-      "Łazienka gotowa w maks. 3 tygodnie bez angażowania Twojego czasu",
-      "Rozliczenie etapowe — płacisz za wykonaną robotę, nie z góry",
-      "Szczelność instalacji gwarantowana przez 5 lat",
+      "Łazienka gotowa w 2–3 tygodnie, bez Twojego codziennego nadzoru",
+      "Płacisz etapowo — za wykonaną robotę, nie z góry",
+      "2 lata gwarancji na całość, 5 lat na szczelność instalacji",
     ],
   },
   {
@@ -131,22 +79,17 @@ const services: ServiceDetail[] = [
     icon: <Zap className="w-7 h-7 text-[#f81828]" />,
     badge: "Czyste Powietrze · Do 136 200 zł dotacji",
     krotkiOpis:
-      "Dom traci ciepło przez ściany, dach i okna. Zatrzymujemy je raz na 25 lat — i pomagamy dostać dotację z programu Czyste Powietrze. Mniej płacisz za ciepło, dom wart więcej.",
-    frazySEO: ["termomodernizacja lublin", "ocieplenie budynku lublin", "czyste powietrze lublin dofinansowanie"],
-    parametry: [
-      "System ociepleń: ETICS — styropian EPS lub wełna mineralna",
-      "Izolacja: 15–25 cm grubości, dobór wg audytu energetycznego",
-      "Dofinansowanie: Czyste Powietrze (do 136 200 zł), Mój Prąd, BOCIAN",
-      "Obszar: Lublin i całe woj. lubelskie",
-    ],
-    zastosowanie: [
-      "Domy wybudowane przed 2000 r. z wysokimi rachunkami za ogrzewanie",
-      "Budynki wielorodzinne (małe wspólnoty do 5 lokali)",
+      "Dom traci ciepło przez ściany, dach i okna? Ocieplamy go raz na 25 lat i pomagamy dostać dotację z programu Czyste Powietrze. Rachunki niższe o 30–50%, dom wart więcej.",
+    co_robimy: [
+      "Audyt energetyczny budynku przed i po modernizacji",
+      "Ocieplenie ścian systemem ETICS — styropian lub wełna mineralna, 15–25 cm",
+      "Wymiana okien i drzwi na energooszczędne",
+      "Pomoc w złożeniu i rozliczeniu dotacji Czyste Powietrze",
     ],
     zalety: [
-      "Kompleksowo: ocieplenie + elewacja + okna w jednym kontrakcie i jednej cenie",
-      "Pomagamy złożyć wniosek o dotację i rozliczyć ją — od początku do wypłaty",
-      "Audyt energetyczny przed i po modernizacji — masz czarno na białym wynik",
+      "Kompleksowo — ocieplenie, elewacja i okna w jednym kontrakcie i jednej cenie",
+      "Pomagamy złożyć wniosek o dotację i rozliczyć go od początku do wypłaty",
+      "Materiały systemowe z naszego składu: Weber, Ceresit, Atlas, Rockwool",
     ],
     korzysci: [
       "Rachunki za ogrzewanie niższe o 30–50% rok do roku",
@@ -155,42 +98,7 @@ const services: ServiceDetail[] = [
     ],
     ostrzezenia: [
       "Prace wymagają wcześniejszego audytu energetycznego budynku",
-      "Optymalny termin realizacji: kwiecień–październik (poza sezonem grzewczym)",
-    ],
-  },
-  {
-    slug: "pompa-ciepla-fotowoltaika",
-    segment: "B2C",
-    title: "Pompa ciepła + fotowoltaika",
-    icon: <Zap className="w-7 h-7 text-[#f81828]" />,
-    badge: "OZE · Niezależność energetyczna",
-    krotkiOpis:
-      "Ogrzewasz dom prądem, który sam produkujesz. Pompa ciepła + panele fotowoltaiczne to dziś najlepsza inwestycja w dom — pomagamy przeprowadzić ją od A do Z, z dotacją.",
-    frazySEO: ["pompa ciepła lublin", "fotowoltaika lublin", "OZE Lublin dofinansowanie"],
-    parametry: [
-      "Pompy ciepła: powietrzne i gruntowe, moc 6–22 kW",
-      "Fotowoltaika: systemy 3–15 kWp, panele premium (Longi, Jinko)",
-      "Integracja: PV + pompa ciepła + bufor ciepła + zarządzanie energią",
-      "Dofinansowanie: Czyste Powietrze, Mój Prąd 6.0, premia za magazyn energii",
-    ],
-    zastosowanie: [
-      "Nowe domy — montaż podczas budowy lub wykończenia",
-      "Istniejące domy po termomodernizacji lub bez",
-      "Wymiana starego kotła gazowego lub węglowego",
-    ],
-    zalety: [
-      "Kompletna instalacja z montażem, rozruchem i konfiguracją",
-      "Pomagamy uzyskać dotację — wypełniamy wniosek razem z Tobą",
-      "Serwis i przeglądy gwarancyjne na terenie Lublina i woj. lubelskiego",
-    ],
-    korzysci: [
-      "Rachunki za ogrzewanie praktycznie do zera — prąd produkujesz sam",
-      "Zwrot z inwestycji w 6–10 lat, potem zysk przez kolejne 20 lat",
-      "Niezależność od cen gazu i węgla — nieważne co się dzieje na rynku",
-    ],
-    ostrzezenia: [
-      "Pompa gruntowa wymaga wcześniejszego badania geotechnicznego działki",
-      "Montaż PV: ocena zacienienia dachu przed zakupem instalacji",
+      "Optymalny termin realizacji: kwiecień–październik, poza sezonem grzewczym",
     ],
   },
   {
@@ -198,195 +106,132 @@ const services: ServiceDetail[] = [
     segment: "B2C",
     title: "Wykończenia pod klucz",
     icon: <Hammer className="w-7 h-7 text-[#f81828]" />,
-    badge: "Wnętrza · Stan deweloperski → do życia",
+    badge: "Stan deweloperski → gotowy dom do życia",
     krotkiOpis:
-      "Bierzemy Twój stan surowy lub deweloperski i oddajemy gotowy dom do życia. Tynki, podłogi, glazura, malowanie, łazienki, kuchnia — jedna ekipa, jeden kosztorys, bez chaosu.",
-    frazySEO: ["wykończenie wnętrz lublin", "wykończenie pod klucz lublin", "stan deweloperski lublin"],
-    parametry: [
-      "Zakres: tynki maszynowe, posadzki, glazura, malowanie, zabudowy G-K",
-      "Łazienki i kuchnie: instalacje + glazura + armatura w jednym",
-      "Materiały: Knauf, Mapei, Atlas — z magazynu MediaBud lub własne",
-      "Czas: ok. 4–8 tygodni na 100 m² w zależności od standardu",
-    ],
-    zastosowanie: [
-      "Nowe domy po stanie surowym i zamkniętym",
-      "Mieszkania deweloperskie do wykończenia",
-      "Generalne remonty starszych nieruchomości",
+      "Masz stan surowy lub deweloperski i chcesz się wprowadzić? Oddajemy gotowy dom — tynki, podłogi, glazura, łazienki, kuchnia. Jedna ekipa, jeden kosztorys, bez chaosu.",
+    co_robimy: [
+      "Tynki maszynowe, gładzie, malowanie",
+      "Posadzki — jastrych, panele, parkiet, płytki",
+      "Łazienki i kuchnie — instalacje, glazura, armatura",
+      "Zabudowy G-K, sufity podwieszane, ościeżnice",
     ],
     zalety: [
       "Jeden wykonawca od pierwszej do ostatniej ściany — zero chaosu koordynacyjnego",
-      "Materiały z naszego magazynu — bez opóźnień, bo mamy je na stanie",
+      "Materiały z własnego magazynu — bez opóźnień, bo zawsze mamy je na stanie",
       "Projekt wykończenia z wizualizacją w cenie usługi",
     ],
     korzysci: [
-      "Dom gotowy do zamieszkania bez Twojego codziennego nadzoru na budowie",
+      "Dom gotowy do zamieszkania bez Twojego nadzoru na budowie każdego dnia",
+      "Trzy standardy do wyboru: ekonomiczny, standard i premium",
       "2 lata gwarancji na wszystkie roboty wykończeniowe",
-      "Trzy standardy do wyboru: ekonomiczny, standard, premium",
     ],
   },
-  {
-    slug: "male-domy",
-    segment: "B2C",
-    title: "Małe domy i domki",
-    icon: <Home className="w-7 h-7 text-[#f81828]" />,
-    badge: "Do 35 m² bez pozwolenia · Szybka realizacja",
-    krotkiOpis:
-      "Dom do 35 m² budujesz bez pozwolenia, w 6–10 tygodni, za ułamek ceny tradycyjnej budowy. Rewelacyjny wybór na działkę rekreacyjną, starter dla młodych lub domek letniskowy.",
-    frazySEO: ["mały dom lublin", "dom do 35m2 bez pozwolenia", "domek letniskowy lublin"],
-    parametry: [
-      "Do 35 m²: budowa na zgłoszenie, bez pozwolenia na budowę",
-      "Do 70 m²: uproszczona procedura administracyjna",
-      "Technologia: szkielet drewniany lub moduły prefabrykowane",
-      "Czas realizacji: 4–10 tygodni od decyzji",
-    ],
-    zastosowanie: [
-      "Działki rekreacyjne i ogrodnicze",
-      "Starter home — własny kąt bez wieloletnich kredytów",
-      "Dodatkowy domek na wynajem krótkoterminowy (AirBnB)",
-    ],
-    zalety: [
-      "Niska cena całości dzięki prefabrykacji i standarda­zacji",
-      "Ekspresowy montaż — nie czekasz lat na własne M",
-      "Do wyboru: stan surowy lub gotowy do zamieszkania",
-    ],
-    korzysci: [
-      "Zero formalności z pozwoleniem przy domku do 35 m²",
-      "Niskie koszty eksploatacji — małe powierzchnie to małe rachunki",
-      "Możliwość rozbudowy w przyszłości bez burzenia całości",
-    ],
-  },
-  {
-    slug: "adaptacja-poddaszy",
-    segment: "B2C",
-    title: "Adaptacja poddaszy",
-    icon: <Layers className="w-7 h-7 text-[#f81828]" />,
-    badge: "Nowe metry bez rozbudowy · B2C",
-    krotkiOpis:
-      "Masz puste poddasze nad głową? Zamieniamy je w pełnowartościową sypialnię, gabinet lub pokój dla dzieci. Bez kosztownej rozbudowy — zyskujesz metry, które już masz.",
-    frazySEO: ["adaptacja poddasza lublin", "poddasze użytkowe lublin", "remont poddasza lublin"],
-    parametry: [
-      "Izolacja termiczna dachu: wełna mineralna 20–25 cm",
-      "Okna dachowe: Velux lub Fakro — montaż z pełną obróbką",
-      "Zabudowy G-K: ściany, sufit podwieszany, wykończenie skosów",
-      "Formalności: w razie potrzeby obsługujemy zmianę sposobu użytkowania",
-    ],
-    zastosowanie: [
-      "Domy jednorodzinne z dachem dwu- lub wielospadowym",
-      "Starsze budynki z nieużytkową przestrzenią na strychu",
-    ],
-    zalety: [
-      "Nowe metry kwadratowe bez kosztów rozbudowy bocznej ani nadbudowy",
-      "Projekt wnętrza poddasza z wizualizacją w cenie usługi",
-      "Możliwość połączenia z termomodernizacją dachu — jedno rusztowanie, niższy koszt",
-    ],
-    korzysci: [
-      "Dom wart 15–25% więcej po adaptacji poddasza",
-      "Nowy pokój dla rodziny bez konieczności przeprowadzki lub dokupowania mieszkania",
-    ],
-  },
-  /* ---- Oba ---- */
   {
     slug: "dachy",
     segment: "Oba",
     title: "Dachy",
-    icon: <Layers className="w-7 h-7 text-[#ff6b35]" />,
-    badge: "Nowe dachy · Naprawy · 5 lat gwarancji",
+    icon: <Layers className="w-7 h-7 text-[#f81828]" />,
+    badge: "Nowe dachy · Naprawy · 5 lat gwarancji szczelności",
     krotkiOpis:
-      "Nowy dach lub naprawa przecieku? Działamy w całym woj. lubelskim — dachówka ceramiczna, blacha, papa termozgrzewalna. Robimy dachy dla domów i dużych obiektów. Gwarancja 5 lat na szczelność.",
-    frazySEO: ["pokrycia dachowe lublin", "remont dachu lublin", "dekarstwo lublin woj lubelskie"],
-    parametry: [
-      "Pokrycia: dachówka ceramiczna i betonowa, blachodachówka, blacha płaska",
-      "Stropodachy: papa termozgrzewalna dwuwarstwowa",
-      "Orynnowanie: PVC, tytan-cynk, ocynk — pełna obróbka blacharska",
-      "Izolacja: wełna mineralna, membrana dachowa, folia paroizolacyjna",
-    ],
-    zastosowanie: [
-      "Domy jednorodzinne — nowy dach lub wymiana starego pokrycia",
-      "Hale, magazyny i obiekty przemysłowe",
-      "Szkoły, urzędy i inne budynki użyteczności publicznej",
+      "Nowy dach lub aktywny przeciek? Własna ekipa dekarska, materiały z magazynu i gwarancja szczelności 5 lat na piśmie. Działamy dla domów, hal i obiektów użyteczności publicznej.",
+    co_robimy: [
+      "Nowe pokrycia — dachówka ceramiczna i betonowa, blachodachówka, blacha płaska",
+      "Diagnostyka i naprawa aktywnych przecieków",
+      "Stropodachy — papa termozgrzewalna dwuwarstwowa",
+      "Orynnowanie PVC i tytan-cynk, pełna obróbka blacharska",
     ],
     zalety: [
-      "Własna ekipa dekarska — nie oddajemy roboty przypadkowym podwykonawcom",
-      "Materiały renomowanych marek z naszego magazynu (Creaton, Ruukki, Fakro)",
-      "5 lat gwarancji na szczelność — na piśmie",
+      "Własna ekipa dekarska — żadnych przypadkowych podwykonawców",
+      "Materiały renomowanych marek: Creaton, Ruukki, Fakro — z naszego magazynu",
+      "Jeden kontrakt: pokrycie, obróbki i orynnowanie",
     ],
     korzysci: [
-      "Jeden kontrakt: pokrycie + obróbki blacharskie + orynnowanie",
-      "Szybka diagnoza i naprawa aktywnych przecieków — działamy bez zbędnych formalności",
-      "Ten sam standard dla domu i dużego obiektu",
+      "5 lat gwarancji na szczelność — na piśmie, bez gwiazdek",
+      "Szybka naprawa przecieków — działamy bez zbędnych formalności",
+      "Ten sam standard dla domu prywatnego i dużego obiektu",
     ],
     ostrzezenia: [
       "Prace dachowe wyłącznie w temperaturach powyżej +5°C",
-      "Papa zgrzewalna: nie stosować przy silnym wietrze powyżej 10 m/s",
+      "Papa termozgrzewalna: nie stosować przy silnym wietrze powyżej 10 m/s",
     ],
   },
   {
     slug: "elewacje",
     segment: "Oba",
     title: "Elewacje",
-    icon: <Building2 className="w-7 h-7 text-[#ff6b35]" />,
+    icon: <Building2 className="w-7 h-7 text-[#f81828]" />,
     badge: "Tynk · Klinkier · Ocieplenie ETICS",
     krotkiOpis:
-      "Dom ocieplamy i wykańczamy wizualnie w jednym projekcie — tynk cienkowarstwowy, klinkier lub elewacja wentylowana. Efekt estetyczny na 20 lat, możliwa dotacja z Czystego Powietrza.",
-    frazySEO: ["elewacja budynku lublin", "tynk elewacyjny lublin", "ocieplenie elewacji lublin etics"],
-    parametry: [
-      "Systemy: ETICS ze styropianem lub wełną + tynk cienkowarstwowy",
-      "Tynki: akrylowy, silikonowy, silikatowy, mozaikowy (Ceresit, Caparol, Weber)",
-      "Elewacja klinkierowa: płytki klinkierowe na siatce zbrojonej",
-      "Elewacja wentylowana: okładziny ceramiczne, kompozytowe, HPL",
-    ],
-    zastosowanie: [
-      "Nowe budynki — elewacja podczas trwania budowy",
-      "Renowacja zniszczonych elewacji (pęknięcia, odpryski, grzyb, zacieki)",
-      "Obiekty komercyjne i usługowe",
+      "Ocieplamy i wykańczamy wizualnie w jednym projekcie — tynk cienkowarstwowy, klinkier lub elewacja wentylowana. Efekt estetyczny na 20 lat, możliwa dotacja z Czystego Powietrza.",
+    co_robimy: [
+      "System ETICS — styropian lub wełna + tynk cienkowarstwowy",
+      "Tynki silikonowe, akrylowe, silikatowe i mozaikowe",
+      "Elewacja klinkierowa i wentylowana",
+      "Renowacja zniszczonych elewacji — pęknięcia, grzyb, odpryski, zacieki",
     ],
     zalety: [
-      "Ocieplenie + wykończenie wizualne + cokół w jednym kontrakcie — taniej i szybciej",
+      "Ocieplenie, wykończenie i cokół w jednym kontrakcie i jednej cenie",
       "Dobieramy system do orientacji budynku i lokalnego klimatu",
-      "Powłoki silikonowe i silikatowe trzymają efekt nawet 20 lat",
+      "Tynki silikonowe utrzymują efekt estetyczny nawet 20 lat",
     ],
     korzysci: [
-      "Lepsza izolacja termiczna + nowy wygląd domu w jednej inwestycji",
+      "Lepsza izolacja termiczna i nowy wygląd domu w jednej inwestycji",
       "Możliwość dofinansowania z programu Czyste Powietrze",
-      "Elewacja samooczyszczająca — brud spływa z deszczem, dom wygląda świeżo",
+      "Elewacja samooczyszczająca — brud spływa z deszczem",
     ],
   },
-  /* ---- B2B ---- */
   {
     slug: "remonty-b2b",
     segment: "B2B",
     title: "Remonty dla firm",
-    icon: <Building2 className="w-7 h-7 text-[#ff6b35]" />,
-    badge: "Firmy · Instytucje · Bez przestojów",
+    icon: <Building2 className="w-7 h-7 text-[#f81828]" />,
+    badge: "Firmy · Instytucje · Bez przestojów w działalności",
     krotkiOpis:
-      "Prowadzisz firmę lub instytucję? Remontujemy sklepy, szkoły, biura i hale — w godzinach Twojej działalności lub nocą i w weekendy. Minimum przestojów dla Ciebie, pełna dokumentacja dla księgowości.",
-    frazySEO: ["remont obiektu lublin", "remonty dla firm lublin", "modernizacja budynku firma lublin"],
-    parametry: [
-      "Zakres: posadzki przemysłowe, ściany, sufity podwieszane, instalacje",
-      "Harmonogram: dopasowany do godzin pracy lub działalności klienta",
-      "Przetargi: doświadczenie w postępowaniach PZP i zamówieniach publicznych",
-      "Obszar: Lublin i woj. lubelskie",
-    ],
-    zastosowanie: [
-      "Sklepy, galerie handlowe i lokale usługowe",
-      "Szkoły, przedszkola i obiekty oświatowe",
-      "Urzędy, biura i instytucje publiczne",
-      "Hale produkcyjne, magazyny i zakłady przemysłowe",
+      "Remontujesz sklep, biuro lub halę? Pracujemy w nocy i w weekendy — Twoja firma działa normalnie, my remontujemy w tle. Pełna dokumentacja, faktura VAT, 30-dniowy termin płatności.",
+    co_robimy: [
+      "Posadzki przemysłowe, ściany, sufity podwieszane",
+      "Instalacje elektryczne i sanitarne w obiektach komercyjnych",
+      "Remonty lokali handlowych, biur, szkół i obiektów publicznych",
+      "Przetargi PZP — doświadczenie w zamówieniach publicznych",
     ],
     zalety: [
-      "Robimy w nocy i w weekendy — Twoja firma nie traci ani jednego dnia pracy",
+      "Harmonogram dopasowany do Twoich godzin pracy — zero przestojów w działalności",
       "Pełna dokumentacja powykonawcza i gwarancyjna dla działu technicznego",
-      "Faktura z 30-dniowym terminem płatności — standard, bez negocjacji",
+      "Faktura VAT z 30-dniowym terminem płatności — standard, bez negocjacji",
     ],
     korzysci: [
       "Twoja firma działa normalnie, my remontujemy w tle",
       "Jeden wykonawca na wiele zakresów — mniej umów, mniej problemów",
-      "Mamy referencje z obiektów publicznych — audyt nie będzie problemem",
+      "Referencje z obiektów publicznych — audyt nie będzie problemem",
     ],
   },
 ];
 
+/* ─── FAQ ───────────────────────────────────────────────────────── */
+const generalFaq: FaqItem[] = [
+  {
+    q: "Czy Media Bud łączy sprzedaż materiałów z usługami wykonawczymi?",
+    a: "Tak — to główny wyróżnik. Media Bud to skład budowlany i firma wykonawcza w jednym: kupujesz materiały w korzystnej cenie i korzystasz z naszej ekipy. Jeden partner, jeden rachunek.",
+  },
+  {
+    q: "Czy mogę zamówić tylko materiały, bez usługi wykonawczej?",
+    a: "Oczywiście. Możesz kupić same materiały z dostawą na plac budowy, skorzystać z doradztwa technicznego i polecamy sprawdzonych fachowców. Zakres współpracy ustalamy indywidualnie.",
+  },
+  {
+    q: "Czy pomagacie przy dotacjach z programu Czyste Powietrze?",
+    a: "Tak. Przy termomodernizacji i elewacjach pomagamy przygotować dokumentację i złożyć wniosek o dotację. Zakres wsparcia i warunki dotacji ustalamy na konsultacji — każdy przypadek jest inny.",
+  },
+  {
+    q: "Jak szybko mogę dostać wycenę?",
+    a: "Zadzwoń lub wyślij e-mail z zakresem prac i lokalizacją. Wycenę wstępną przygotowujemy w ciągu 24 godzin dla standardowych zakresów. Dla większych projektów umawiamy się na oględziny.",
+  },
+  {
+    q: "Jaki obszar obsługujecie?",
+    a: "Lublin i całe województwo lubelskie. Dla większych projektów B2B możliwa obsługa poza regionem — warunki ustalamy indywidualnie.",
+  },
+];
 
+/* ─── Komponenty pomocnicze ─────────────────────────────────────── */
 function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(null);
   return (
@@ -395,7 +240,10 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
         <div
           key={i}
           className="rounded-xl overflow-hidden"
-          style={{ background: "#0f0f0f", border: open === i ? "1px solid rgba(248,24,40,0.4)" : "1px solid #1a1a1a" }}
+          style={{
+            background: "#0f0f0f",
+            border: open === i ? "1px solid rgba(248,24,40,0.4)" : "1px solid #1a1a1a",
+          }}
         >
           <button
             className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
@@ -418,24 +266,16 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
   );
 }
 
-const generalFaq: FaqItem[] = [
-  { q: "Czy MediaBud łączy sprzedaż materiałów z usługami wykonawczymi?", a: "Tak. To główny wyróżnik tej sekcji — MediaBud łączy rolę składu budowlanego, doradcy technicznego i organizatora wykonawstwa dla inwestycji B2C oraz B2B w Lublinie i województwie lubelskim." },
-  { q: "Czy w ofercie są usługi dla klientów indywidualnych i firm?", a: "Tak. Oferta została podzielona na segmenty B2C, B2B i usługi wspólne. Klienci indywidualni mogą skorzystać m.in. z programu Dom od podstaw, budowy domu, termomodernizacji i wykończeń pod klucz, a firmy z remontów B2B i usług wspólnych, takich jak dachy czy elewacje." },
-  { q: "Czy MediaBud pomaga przy termomodernizacji z programem Czyste Powietrze?", a: "MediaBud wspiera przygotowanie inwestycji materiałowo i wykonawczo, ale nie deklaruje automatycznego uzyskania dotacji. W researchu wskazano dofinansowanie do 136 200 zł oraz możliwość prefinansowania do 35% w określonych przypadkach, jednak każdy wniosek i zakres prac trzeba potwierdzić indywidualnie." },
-  { q: "Czy można zamówić samą usługę albo same materiały?", a: "Zakres współpracy jest elastyczny. W zależności od usługi MediaBud może przygotować wycenę materiałów, wskazać sprawdzonych fachowców albo przeprowadzić klienta przez szerszy proces realizacji." },
-  { q: "Jak zgłosić zapytanie o usługę w Lublinie?", a: "Najprościej zadzwonić pod +48 533 553 344, napisać na sprzedaz@mediabud.pl albo odwiedzić MediaBud przy ul. Chemicznej 8, 20-329 Lublin. W zapytaniu warto podać lokalizację, typ obiektu, zakres robót i oczekiwany termin." }
-];
-
-function ServiceSection({ title, items, accent = "#f81828" }: { title: string; items: string[]; accent?: string }) {
+function CheckList({ title, items, accent = "#f81828" }: { title: string; items: string[]; accent?: string }) {
   return (
-    <div className="rounded-2xl p-5 md:p-6" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a", boxShadow: "0 16px 40px rgba(0,0,0,0.28)" }}>
+    <div className="rounded-2xl p-5 md:p-6" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}>
       <div className="flex items-center gap-3 mb-4">
-        <span className="w-2.5 h-2.5 rounded-full" style={{ background: accent, boxShadow: `0 0 16px ${accent}66` }} />
-        <h3 className="text-[0.95rem] md:text-[1rem] font-black uppercase tracking-[0.22em] text-white break-words" style={{ overflowWrap: "anywhere" }}>{title}</h3>
+        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: accent, boxShadow: `0 0 12px ${accent}66` }} />
+        <h3 className="text-sm font-black uppercase tracking-widest text-white">{title}</h3>
       </div>
-      <ul className="grid gap-3">
-        {items.map((item, index) => (
-          <li key={`${title}-${index}`} className="flex items-start gap-3 text-sm leading-relaxed text-[#d7d7d7]">
+      <ul className="space-y-3">
+        {items.map((item, i) => (
+          <li key={i} className="flex items-start gap-3 text-sm leading-relaxed text-[#d7d7d7]">
             <Check className="w-4 h-4 text-[#f81828] flex-shrink-0 mt-0.5" />
             <span>{item}</span>
           </li>
@@ -449,72 +289,75 @@ function ServiceTile({ svc }: { svc: ServiceDetail }) {
   return (
     <Link
       to={`/uslugi/${svc.slug}`}
-      className="group rounded-2xl p-5 md:p-6 flex flex-col min-h-[260px] transition-all duration-300"
-      style={{ background: "#0f0f0f", border: "1px solid #2d2d2d", boxShadow: "0 12px 32px rgba(0,0,0,0.25)" }}
+      className="group rounded-2xl p-5 md:p-6 flex flex-col min-h-[240px] transition-all duration-300 hover:border-[#f81828]/40 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)]"
+      style={{ background: "#0f0f0f", border: "1px solid #2a2a2a" }}
     >
-      <div className="flex items-start justify-between gap-4 mb-5">
-        <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.24)" }}>
+      <div className="flex items-start justify-between gap-4 mb-4">
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(248,24,40,0.10)", border: "1px solid rgba(248,24,40,0.22)" }}>
           {svc.icon}
         </div>
-        <div className="text-[10px] font-black uppercase tracking-[0.22em] px-3 py-1.5 rounded-full text-white border" style={{ borderColor: svc.segment === "B2B" ? "rgba(255,107,53,0.35)" : "rgba(248,24,40,0.35)", color: svc.segment === "B2B" ? "#ff6b35" : "#f81828", background: svc.segment === "B2B" ? "rgba(255,107,53,0.08)" : "rgba(248,24,40,0.08)" }}>
+        <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border"
+          style={{
+            borderColor: svc.segment === "B2B" ? "rgba(255,107,53,0.35)" : "rgba(248,24,40,0.35)",
+            color: svc.segment === "B2B" ? "#ff6b35" : "#f81828",
+            background: svc.segment === "B2B" ? "rgba(255,107,53,0.08)" : "rgba(248,24,40,0.08)",
+          }}
+        >
           {svc.segment}
-        </div>
+        </span>
       </div>
-      <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#888] mb-2 break-words" style={{ overflowWrap: "anywhere" }}>{svc.badge}</p>
-      <h2 className="font-display text-[1.25rem] md:text-[1.45rem] font-black uppercase leading-[1.05] tracking-[0.01em] text-white mb-3 break-words" style={{ overflowWrap: "anywhere" }}>
+      <p className="text-[10px] font-bold uppercase tracking-wider text-[#666] mb-2">{svc.badge}</p>
+      <h2 className="font-display text-xl font-black text-white mb-3 group-hover:text-[#f81828] transition-colors duration-200">
         {svc.title}
       </h2>
       <p className="text-sm leading-relaxed text-[#b7b7b7] flex-1">{svc.krotkiOpis}</p>
-      <div className="mt-5 pt-5 border-t border-[#1f1f1f] flex items-center justify-between gap-4">
-        <span className="text-[11px] uppercase tracking-[0.22em] text-[#888]">/uslugi/{svc.slug}</span>
-        <span className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#f81828]">Zobacz usługę <ArrowRight className="w-4 h-4" /></span>
+      <div className="mt-5 pt-4 border-t border-[#1f1f1f] flex items-center justify-end">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-[#f81828]">
+          Dowiedz się więcej <ArrowRight className="w-3.5 h-3.5" />
+        </span>
       </div>
     </Link>
   );
 }
 
+/* ─── Podstrona szczegółowa usługi ──────────────────────────────── */
 function ServiceDetailPage({ service }: { service: ServiceDetail }) {
   return (
     <div className="min-h-screen" style={{ background: "#050505" }}>
+      {/* Hero */}
       <div className="relative overflow-hidden border-b border-[#1a1a1a]" style={{ background: "linear-gradient(180deg,#0a0a0a 0%,#050505 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "42px 42px" }} />
         <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.45)" }} />
         <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.22) 55%,transparent)" }} />
         <div className="relative container mx-auto px-4 pl-9 py-12 md:py-16">
-          <Link to="/uslugi" className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.26em] text-[#888] hover:text-white transition-colors mb-5">
+          <Link to="/uslugi" className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-[#888] hover:text-white transition-colors mb-6">
             <ChevronRight className="w-4 h-4 rotate-180" /> Wszystkie usługi
           </Link>
-          <div className="max-w-5xl grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+          <div className="max-w-5xl grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
             <div>
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className="text-[10px] font-black uppercase tracking-[0.28em] px-3 py-1.5 rounded-full border text-[#f81828] border-[#f81828]/30 bg-[#f81828]/10">{service.segment}</span>
-                <span className="text-[10px] font-black uppercase tracking-[0.28em] text-[#888]">MediaBud · Lublin / lubelskie</span>
+                <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full border text-[#f81828] border-[#f81828]/30 bg-[#f81828]/10">{service.segment}</span>
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#666]">Media Bud · Lublin i woj. lubelskie</span>
               </div>
-              <h1 className="font-display font-black uppercase text-white leading-[0.92] break-words mb-5" style={{ fontSize: "clamp(2.25rem,6vw,4.5rem)", overflowWrap: "anywhere" }}>
+              <h1 className="font-display font-black text-white leading-[0.95] mb-5" style={{ fontSize: "clamp(2.2rem,5.5vw,4.2rem)" }}>
                 {service.title}
               </h1>
-              <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-3xl">
+              <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-2xl">
                 {service.krotkiOpis}
               </p>
             </div>
+            {/* CTA karta */}
             <div className="rounded-2xl p-6" style={{ background: "#0f0f0f", border: "1px solid #1f1f1f", boxShadow: "0 20px 44px rgba(0,0,0,0.35)" }}>
-              <div className="flex items-center gap-4 mb-5">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)" }}>
-                  {service.icon}
-                </div>
-                {/* Frazy SEO — ukryte z UI, tylko metadata */}
-                <div style={{ display:"none" }}>
-                  <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#888]">Frazy lokalne</p>
-                  <p className="text-sm text-white font-semibold">Lublin · woj. lubelskie</p>
-                </div>
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.22)" }}>
+                {service.icon}
               </div>
-              {/* frazySEO hidden */}
+              <p className="text-xs text-[#888] mb-4 leading-relaxed">Zadzwoń lub napisz — wycenę wstępną przygotujemy w 24 h.</p>
               <div className="space-y-3">
-                <a href="tel:+48533553344" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white transition-colors" style={{ background: "#f81828", boxShadow: "0 14px 32px rgba(248,24,40,0.22)" }}>
-                  <Phone className="w-4 h-4" /> Zadzwoń
+                <a href="tel:+48533553344" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white transition-all hover:brightness-110" style={{ background: "#f81828", boxShadow: "0 12px 30px rgba(248,24,40,0.22)" }}>
+                  <Phone className="w-4 h-4" /> +48 533 553 344
                 </a>
-                <Link to="/kontakt" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white border border-[#2d2d2d] bg-[#050505]">
-                  <Mail className="w-4 h-4 text-[#ff6b35]" /> {service.cta}
+                <Link to="/kontakt" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white border border-[#2a2a2a] bg-[#050505] hover:border-[#f81828]/30 transition-colors">
+                  <Mail className="w-4 h-4 text-[#f81828]" /> Wyślij zapytanie
                 </Link>
               </div>
             </div>
@@ -522,40 +365,36 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-10 md:py-14 space-y-8">
-        <div className="rounded-2xl p-6 md:p-8" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a", boxShadow: "0 18px 40px rgba(0,0,0,0.28)" }}>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 14px rgba(248,24,40,0.55)" }} />
-            <h2 className="text-[0.95rem] font-black uppercase tracking-[0.24em] text-white">Długi opis</h2>
-          </div>
-          <p className="text-sm md:text-base leading-relaxed text-[#d7d7d7]">{service.dlugiOpis}</p>
+      {/* Treść */}
+      <div className="container mx-auto px-4 py-10 md:py-14 space-y-6">
+        <div className="grid lg:grid-cols-2 gap-5">
+          <CheckList title="Co robimy" items={service.co_robimy} />
+          <CheckList title="Dlaczego Media Bud" items={service.zalety} accent="#ff6b35" />
         </div>
+        <CheckList title="Co zyskujesz" items={service.korzysci} />
+        {service.ostrzezenia && service.ostrzezenia.length > 0 && (
+          <CheckList title="Ważne informacje" items={service.ostrzezenia} accent="#888" />
+        )}
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          <ServiceSection title="Parametry techniczne" items={service.parametry} />
-          <ServiceSection title="Zastosowanie" items={service.zastosowanie} accent="#ff6b35" />
-          <ServiceSection title="Zalety" items={service.zalety} />
-          <ServiceSection title="Korzyści" items={service.korzysci} accent="#ff6b35" />
-          <div className="lg:col-span-2">
-            <ServiceSection title="Ostrzeżenia" items={service.ostrzezenia} accent="#f81828" />
-          </div>
-        </div>
-
-        <div className="rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.10),rgba(255,107,53,0.07))", border: "1px solid rgba(248,24,40,0.18)", boxShadow: "0 18px 44px rgba(0,0,0,0.32)" }}>
+        {/* CTA kontakt */}
+        <div className="rounded-2xl p-7 md:p-10 relative overflow-hidden" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.10),rgba(255,107,53,0.06))", border: "1px solid rgba(248,24,40,0.18)" }}>
+          <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.15) 60%,transparent)" }} />
           <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-center">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">Kontakt wykonawczy</p>
-              <h2 className="font-display text-[clamp(1.8rem,4vw,3.2rem)] font-black uppercase leading-[0.94] text-white break-words mb-3" style={{ overflowWrap: "anywhere" }}>
-                MediaBud — ul. Chemiczna 8d, 20-329 Lublin
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-2">Zapytaj o wycenę</p>
+              <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-2">
+                Media Bud — ul. Chemiczna 8d, Lublin
               </h2>
-              <p className="text-sm md:text-base leading-relaxed text-[#e6e6e6]">Zadzwoń, wyślij zakres prac lub odwiedź skład. Przygotujemy wycenę, dobierzemy system materiałowy i zaproponujemy ścieżkę realizacji dopasowaną do segmentu {service.segment}.</p>
+              <p className="text-sm text-[#bbb] leading-relaxed">
+                Zadzwoń, wyślij zakres prac lub odwiedź skład. Wycenę wstępną przygotujemy w 24 h.
+              </p>
             </div>
-            <div className="flex flex-col gap-3 min-w-[240px]">
-              <a href="tel:+48533553344" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white" style={{ background: "#f81828", boxShadow: "0 12px 30px rgba(248,24,40,0.25)" }}>
-                <Phone className="w-4 h-4" /> +48 533 553 344
+            <div className="flex flex-col gap-3 min-w-[220px]">
+              <a href="tel:+48533553344" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white" style={{ background: "#f81828", boxShadow: "0 12px 28px rgba(248,24,40,0.25)" }}>
+                <Phone className="w-4 h-4" /> Zadzwoń
               </a>
-              <a href="mailto:sprzedaz@mediabud.pl" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white border border-[#2d2d2d] bg-[#0a0a0a]">
-                <Mail className="w-4 h-4 text-[#ff6b35]" /> sprzedaz@mediabud.pl
+              <a href="mailto:sprzedaz@mediabud.pl" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white border border-[#2a2a2a] bg-[#0a0a0a]">
+                <Mail className="w-4 h-4 text-[#f81828]" /> sprzedaz@mediabud.pl
               </a>
             </div>
           </div>
@@ -565,67 +404,63 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
   );
 }
 
+/* ─── Główny komponent ──────────────────────────────────────────── */
 export default function ServicesPage() {
   const { slug } = useParams<{ slug?: string }>();
 
-  const service = slug ? services.find((item) => item.slug === slug) : null;
-  const b2cServices = services.filter((item) => item.segment === "B2C" && item.slug !== "dom-od-podstaw");
-  const mixedServices = services.filter((item) => item.segment === "Oba");
-  const b2bServices = services.filter((item) => item.segment === "B2B");
-  const umbrellaService = services.find((item) => item.slug === "dom-od-podstaw");
+  const service = slug ? services.find((s) => s.slug === slug) : null;
+  const b2cServices = services.filter((s) => s.segment === "B2C");
+  const obaServices = services.filter((s) => s.segment === "Oba");
+  const b2bServices = services.filter((s) => s.segment === "B2B");
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
-          { "@type": "ListItem", "position": 2, "name": "Usługi",         "item": "https://mediabud.pl/uslugi" },
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://mediabud.pl/" },
+          { "@type": "ListItem", position: 2, name: "Usługi", item: "https://mediabud.pl/uslugi" },
+          ...(service ? [{ "@type": "ListItem", position: 3, name: service.title, item: `https://mediabud.pl/uslugi/${service.slug}` }] : []),
         ],
       },
       {
         "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
         "@id": "https://mediabud.pl/#localbusiness",
-        "name": "MediaBud — usługi wykonawcze i materiały budowlane",
-        "legalName": "Media Bud",
-        "description": "Usługi wykonawcze MediaBud w Lublinie: budowa domów, termomodernizacja, wykończenia pod klucz, dachy, elewacje, remonty B2B i adaptacja poddaszy.",
-        "url": "https://mediabud.pl",
-        "telephone": "+48533553344",
-        "email": "sprzedaz@mediabud.pl",
-        "taxID": "9462743421",
-        "vatID": "9462743421",
-        "address": NAP_ADDRESS,
-        "geo": NAP_GEO,
-        "openingHoursSpecification": NAP_HOURS,
-        "priceRange": "$$",
-        "currenciesAccepted": "PLN",
-        "paymentAccepted": "Gotówka, przelew bankowy, karta płatnicza, faktura VAT",
-        "areaServed": NAP_AREA_SERVED,
-        "contactPoint": NAP_CONTACT_POINT,
-        "sameAs": NAP_SAME_AS,
-        "hasOfferCatalog": {
+        name: "Media Bud — skład budowlany i usługi wykonawcze",
+        description: "Usługi wykonawcze Media Bud w Lublinie: budowa domów, remont łazienki, termomodernizacja, wykończenia pod klucz, dachy, elewacje, remonty B2B.",
+        url: "https://mediabud.pl",
+        telephone: "+48533553344",
+        email: "sprzedaz@mediabud.pl",
+        address: NAP_ADDRESS,
+        geo: NAP_GEO,
+        openingHoursSpecification: NAP_HOURS,
+        areaServed: NAP_AREA_SERVED,
+        contactPoint: NAP_CONTACT_POINT,
+        sameAs: NAP_SAME_AS,
+        hasOfferCatalog: {
           "@type": "OfferCatalog",
-          "name": "Usługi wykonawcze MediaBud",
-          "itemListElement": services.map((item) => ({
+          name: "Usługi wykonawcze Media Bud",
+          itemListElement: services.map((s) => ({
             "@type": "Offer",
-            "name": item.title,
-            "category": item.segment,
-            "areaServed": "Lublin i województwo lubelskie",
+            name: s.title,
+            category: s.segment,
+            areaServed: "Lublin i województwo lubelskie",
           })),
         },
       },
     ],
   };
 
+  /* 404 dla nieznanego sluga */
   if (slug && !service) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#050505" }}>
         <div className="max-w-xl w-full rounded-2xl p-8 text-center" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}>
-          <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-3">404 · usługa</p>
-          <h1 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-black uppercase text-white leading-[0.95] break-words mb-4" style={{ overflowWrap: "anywhere" }}>Nie znaleźliśmy tej podstrony</h1>
-          <p className="text-sm leading-relaxed text-[#b7b7b7] mb-6">Sprawdź listę usług wykonawczych MediaBud lub skontaktuj się z nami, jeśli chcesz wycenić niestandardowy zakres prac w Lublinie i województwie lubelskim.</p>
-          <Link to="/uslugi" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.2em] text-white" style={{ background: "#f81828" }}>
+          <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-3">404 · usługa nie znaleziona</p>
+          <h1 className="font-display text-4xl font-black text-white mb-4">Nie znaleźliśmy tej podstrony</h1>
+          <p className="text-sm text-[#b7b7b7] mb-6 leading-relaxed">Sprawdź pełną listę usług Media Bud lub skontaktuj się z nami.</p>
+          <Link to="/uslugi" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white" style={{ background: "#f81828" }}>
             <ArrowRight className="w-4 h-4" /> Zobacz wszystkie usługi
           </Link>
         </div>
@@ -633,6 +468,7 @@ export default function ServicesPage() {
     );
   }
 
+  /* Podstrona szczegółowa */
   if (service) {
     return (
       <>
@@ -642,10 +478,12 @@ export default function ServicesPage() {
     );
   }
 
+  /* Lista usług — /uslugi */
   return (
     <div className="min-h-screen" style={{ background: "#050505" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
+      {/* Hero */}
       <div className="relative overflow-hidden border-b border-[#1a1a1a]" style={{ background: "linear-gradient(180deg,#0a0a0a 0%,#050505 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "42px 42px" }} />
         <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.22) 55%,transparent)" }} />
@@ -653,24 +491,26 @@ export default function ServicesPage() {
         <div className="relative container mx-auto px-4 pl-9 py-12 md:py-16">
           <div className="max-w-5xl grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-4">Media Bud · Lublin i woj. lubelskie</p>
-              <h1 className="font-display font-black uppercase text-white leading-[0.9] break-words mb-5" style={{ fontSize: "clamp(2.4rem,6vw,4.5rem)", overflowWrap: "anywhere" }}>
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-4">Media Bud · Lublin i woj. lubelskie</p>
+              <h1 className="font-display font-black text-white leading-[0.92] mb-5" style={{ fontSize: "clamp(2.4rem,6vw,4.5rem)" }}>
                 Budujesz lub remontujesz?
               </h1>
-              <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-3xl">Masz projekt, pomysł lub problem budowlany — my mamy materiały, ekipę i doświadczenie. Media Bud to skład budowlany i firma wykonawcza w jednym: kupujesz i budujesz u jednego sprawdzonego partnera w Lublinie.</p>
+              <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-2xl">
+                Media Bud to skład budowlany i firma wykonawcza w jednym — kupujesz materiały w korzystnej cenie i budujesz z naszą ekipą. Jeden partner, jeden rachunek, bez szukania podwykonawców.
+              </p>
             </div>
             <div className="rounded-2xl p-6" style={{ background: "#0f0f0f", border: "1px solid #1f1f1f", boxShadow: "0 20px 44px rgba(0,0,0,0.35)" }}>
-              <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#888] mb-3">Media Bud w liczbach</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#888] mb-3">Media Bud w liczbach</p>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { value: "15+",    label: "lat na rynku",          accent: "#f81828" },
-                  { value: "500+",   label: "projektów wykonanych",   accent: "#f81828" },
-                  { value: "50+",    label: "marek w ofercie",        accent: "#ff6b35" },
-                  { value: "16 000+",label: "produktów w magazynie",  accent: "#ff6b35" },
+                  { value: "15+",     label: "lat na rynku",           accent: "#f81828" },
+                  { value: "500+",    label: "projektów wykonanych",    accent: "#f81828" },
+                  { value: "50+",     label: "marek w ofercie",         accent: "#ff6b35" },
+                  { value: "16 000+", label: "produktów w magazynie",   accent: "#ff6b35" },
                 ].map((item) => (
                   <div key={item.label} className="rounded-xl p-4 border border-[#1f1f1f] bg-[#0a0a0a]" style={{ borderLeft: `2px solid ${item.accent}` }}>
-                    <div className="font-display font-black text-white mb-0.5" style={{ fontSize: "1.55rem", color: item.accent }}>{item.value}</div>
-                    <div className="text-[11px] uppercase tracking-[0.16em] text-[#888]">{item.label}</div>
+                    <div className="font-display font-black mb-0.5 text-2xl" style={{ color: item.accent }}>{item.value}</div>
+                    <div className="text-[11px] uppercase tracking-wider text-[#888]">{item.label}</div>
                   </div>
                 ))}
               </div>
@@ -679,18 +519,18 @@ export default function ServicesPage() {
         </div>
       </div>
 
-      {/* ── Sekcja wideo promocyjnego ── */}
+      {/* Spot wideo */}
       <div className="border-b border-[#1a1a1a]" style={{ background: "#050505" }}>
         <div className="container mx-auto px-4 py-10 md:py-14">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-3 mb-6">
               <span className="w-[3px] h-8 bg-[#f81828] rounded-full" />
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828]">Spot brandowy · Media Bud</p>
-                <h2 className="font-display text-[clamp(1.5rem,2.5vw,2.2rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Budujesz. Remontujesz. Media Bud.</h2>
+                <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">Spot brandowy · Media Bud</p>
+                <h2 className="font-display text-2xl font-black text-white">Budujesz. Remontujesz. Media Bud.</h2>
               </div>
             </div>
-            <div className="rounded-2xl overflow-hidden relative" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
               <video
                 src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/spot_mediabud_logo_v2_b0620ee3b8a848d5b0d2f5e505d8cb1a.mp4"
                 controls
@@ -698,94 +538,72 @@ export default function ServicesPage() {
                 preload="metadata"
                 className="w-full aspect-video"
                 style={{ display: "block", background: "#050505" }}
-                poster="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jhdv780j2drgd1svh0.mp4?x-oss-process=video/snapshot,t_0,f_jpg"
               />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-10 md:py-14 space-y-10">
-        {umbrellaService ? (
-          <div className="rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.12),rgba(255,107,53,0.05))", border: "1px solid rgba(248,24,40,0.18)", boxShadow: "0 18px 44px rgba(0,0,0,0.32)" }}>
-            <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-3">Parasol B2C</p>
-                <h2 className="font-display text-[clamp(1.9rem,4vw,3.4rem)] font-black uppercase leading-[0.94] text-white break-words mb-4" style={{ overflowWrap: "anywhere" }}>{umbrellaService.title}</h2>
-                <p className="text-sm md:text-base leading-relaxed text-[#e6e6e6] mb-5">{umbrellaService.krotkiOpis}</p>
-                <div className="flex flex-wrap gap-2">
-                  {/* frazySEO hidden */ umbrellaService.frazySEO.slice(0,0).map((phrase) => (
-                    <span key={phrase} className="px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.18em] text-white border border-[#2d2d2d] bg-[#0a0a0a]">{phrase}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-col gap-3">
-                <Link to="/" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white border border-[#2d2d2d] bg-[#0a0a0a]">
-                  <ArrowRight className="w-4 h-4 text-[#ff6b35]" /> Sekcja #dom-od-podstaw na stronie głównej
-                </Link>
-                <Link to={`/uslugi/${umbrellaService.slug}`} className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white" style={{ background: "#f81828" }}>
-                  <Phone className="w-4 h-4" /> Zobacz podstronę programu
-                </Link>
-              </div>
-            </div>
-          </div>
-        ) : null}
+      {/* Lista usług */}
+      <div className="container mx-auto px-4 py-10 md:py-14 space-y-12">
 
+        {/* B2C */}
         <section className="space-y-5">
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">Dla Ciebie · B2C</p>
-              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Budujesz lub remontujesz prywatnie?</h2>
-            </div>
-            <p className="text-sm text-[#888] max-w-2xl">Dom od zera, remont łazienki, pompa ciepła, małe domy, adaptacja poddasza — wszystko w Lublinie i woj. lubelskim z materiałami z własnego składu.</p>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-2 flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-[#f81828]" />Klienci indywidualni · B2C
+            </p>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white">Budujesz lub remontujesz prywatnie?</h2>
+            <p className="text-sm text-[#888] mt-1 max-w-2xl">Dom od zera, remont łazienki, termomodernizacja, wykończenia pod klucz — wszystko w Lublinie i woj. lubelskim.</p>
           </div>
-          <div className="grid xl:grid-cols-2 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5">
             {b2cServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
           </div>
         </section>
 
+        {/* Oba */}
         <section className="space-y-5">
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#ff6b35] mb-2">Domy i obiekty · B2C / B2B</p>
-              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Dach i elewacja — dla domu i firmy</h2>
-            </div>
-            <p className="text-sm text-[#888] max-w-2xl">Dachy i elewacje to roboty, które robimy zarówno dla prywatnych inwestorów, jak i dla firm, szkół czy obiektów komercyjnych. Jeden standard jakości, niezależnie od skali.</p>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-[#ff6b35] mb-2 flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-[#ff6b35]" />Dla domu i firm · B2C / B2B
+            </p>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white">Dach i elewacja — jeden standard dla każdego</h2>
+            <p className="text-sm text-[#888] mt-1 max-w-2xl">Dachy i elewacje dla prywatnych inwestorów i firm. Ten sam poziom wykonania, niezależnie od skali.</p>
           </div>
-          <div className="grid xl:grid-cols-2 gap-5">
-            {mixedServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
+          <div className="grid sm:grid-cols-2 gap-5">
+            {obaServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
           </div>
         </section>
 
+        {/* B2B */}
         <section className="space-y-5">
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#ff6b35] mb-2">Dla Twojej firmy · B2B</p>
-              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Twoja firma potrzebuje remontu?</h2>
-            </div>
-            <p className="text-sm text-[#888] max-w-2xl">Robimy remonty sklepów, biur, hal i szkół — w nocy i w weekendy, żebyś nie stracił ani jednego dnia pracy. Pełna dokumentacja, FV z 30-dniowym terminem.</p>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-[#ff6b35] mb-2 flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-[#ff6b35]" />Firmy i instytucje · B2B
+            </p>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white">Remonty bez przestojów w Twojej działalności</h2>
+            <p className="text-sm text-[#888] mt-1 max-w-2xl">Sklepy, biura, hale, szkoły — remontujemy nocą i w weekendy. Pełna dokumentacja, faktura VAT, 30-dniowy termin.</p>
           </div>
-          <div className="grid xl:grid-cols-2 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5">
             {b2bServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
           </div>
         </section>
 
+        {/* FAQ */}
         <section>
           <div className="flex items-center gap-3 mb-6">
             <span className="w-[3px] h-8 bg-[#f81828] rounded-full" />
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828]">FAQ</p>
-              <h2 className="font-display text-[clamp(1.7rem,3vw,2.8rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Najczęstsze pytania o usługi wykonawcze</h2>
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">FAQ</p>
+              <h2 className="font-display text-2xl md:text-3xl font-black text-white">Najczęstsze pytania</h2>
             </div>
           </div>
           <FaqAccordion items={generalFaq} />
         </section>
 
-        {/* ── Kalkulator CTA ── */}
-        <div className="rounded-2xl p-7 md:p-10 relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0f0f0f 0%,#0a0a0a 100%)", border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 20px 50px rgba(0,0,0,0.35)" }}>
-          {/* siatka tła */}
+        {/* Kalkulator CTA */}
+        <div className="rounded-2xl p-7 md:p-10 relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0f0f0f 0%,#0a0a0a 100%)", border: "1px solid rgba(248,24,40,0.22)" }}>
           <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "38px 38px" }} />
-          {/* linia akcentowa */}
           <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.15) 60%,transparent)" }} />
           <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-7">
             <div className="flex items-start gap-5">
@@ -793,18 +611,16 @@ export default function ServicesPage() {
                 <Check className="w-7 h-7 text-[#f81828]" />
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">Bezpłatne narzędzie</p>
-                <h2 className="font-display text-[clamp(1.4rem,3vw,2.1rem)] font-black uppercase leading-[1.0] text-white mb-3 break-words" style={{ overflowWrap: "anywhere" }}>
-                  Oblicz zużycie materiałów
-                </h2>
-                <p className="text-sm leading-relaxed text-[#b7b7b7] max-w-xl">
-                  Tynk, styropian, klej do płytek, farba elewacyjna — kalkulator budowlany z normami EN oblicza potrzebną ilość materiałów i szacunkowy koszt. Zero arkuszy Excel.
+                <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-2">Bezpłatne narzędzie</p>
+                <h2 className="font-display text-xl md:text-2xl font-black text-white mb-2">Oblicz zużycie materiałów</h2>
+                <p className="text-sm text-[#b7b7b7] leading-relaxed max-w-xl">
+                  Tynk, styropian, klej do płytek, farba elewacyjna — kalkulator budowlany oblicza ilości i szacunkowy koszt. Zero arkuszy Excel.
                 </p>
               </div>
             </div>
             <Link
               to="/kalkulator"
-              className="inline-flex items-center gap-3 px-7 py-4 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white flex-shrink-0 transition-all duration-200 hover:brightness-110 hover:scale-[1.02]"
+              className="inline-flex items-center gap-3 px-7 py-4 rounded-xl text-sm font-black uppercase tracking-wider text-white flex-shrink-0 transition-all hover:brightness-110 hover:scale-[1.02]"
               style={{ background: "#f81828", boxShadow: "0 8px 28px rgba(248,24,40,0.35)" }}
             >
               Przejdź do kalkulatora <ArrowRight className="w-5 h-5" />
@@ -816,7 +632,3 @@ export default function ServicesPage() {
     </div>
   );
 }
-
-// ─── ADMIN PANEL ───────────────────────────────────────────────────
-type AdminTab = "dashboard" | "products" | "categories" | "blog" | "inquiries" | "settings";
-

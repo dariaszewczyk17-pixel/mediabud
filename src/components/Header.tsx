@@ -280,28 +280,30 @@ export default function Header() {
           {/* Ticker */}
           <style>{`
             @keyframes promo-scroll {
-              0%   { transform: translateX(100vw); }
-              100% { transform: translateX(-100%); }
+              0%   { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
             }
-            .promo-track { animation: promo-scroll 22s linear infinite; white-space: nowrap; }
+            .promo-track { animation: promo-scroll 28s linear infinite; white-space: nowrap; display: inline-flex; }
             @keyframes info-scroll {
-              0%   { transform: translateX(100vw); }
-              100% { transform: translateX(-100%); }
+              0%   { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
             }
-            .info-track { animation: info-scroll 18s linear infinite; white-space: nowrap; display: inline-flex; align-items: center; }
+            .info-track { animation: info-scroll 22s linear infinite; white-space: nowrap; display: inline-flex; align-items: center; }
           `}</style>
-          <div className="promo-track flex items-center gap-10 text-[#e0a0a8]">
-            {[
-              "🚚  Dostawa na teren Lublina i woj. lubelskiego",
-              "📦  Bezpłatna wycena każdego projektu",
-              "⚡  Ponad 15 000 produktów w magazynie",
-              "🏗️  Obsługa inwestycji B2B i B2C",
-            ].map((msg, i) => (
-              <span key={i} className="flex items-center gap-6">
-                {msg}
-                <span className="text-[#f81828]/40">◆</span>
-              </span>
-            ))}
+          {/* Podwojony content — seamless infinite loop (0 → -50%) */}
+          <div className="promo-track items-center gap-10 text-[#e0a0a8]">
+            {[...Array(2)].map((_, copy) =>
+              ["🚚  Dostawa na teren Lublina i woj. lubelskiego",
+               "📦  Bezpłatna wycena każdego projektu",
+               "⚡  Ponad 15 000 produktów w magazynie",
+               "🏗️  Obsługa inwestycji B2B i B2C",
+              ].map((msg, i) => (
+                <span key={`${copy}-${i}`} className="flex items-center gap-10 px-5">
+                  {msg}
+                  <span className="text-[#f81828]/40">◆</span>
+                </span>
+              ))
+            )}
           </div>
           {/* Zamknij */}
           <button
@@ -351,9 +353,11 @@ export default function Header() {
             {/* Ticker (mobile + tablet) */}
             <div className="ticker-wrap flex-1 overflow-hidden lg:hidden">
               <div className="info-track gap-8 text-[11px]">
-                {["📞 +48 533 553 344", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", `🕐 ${businessStatus.label}`, "🚚 Dostawa Lublin"].map((t, i) => (
-                  <span key={i} className="font-bold uppercase tracking-[0.12em] text-[#888888]">{t}<span className="mx-4 text-[#2d2d2d]">·</span></span>
-                ))}
+                {[...Array(2)].map((_, copy) =>
+                  ["📞 +48 533 553 344", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", `🕐 ${businessStatus.label}`, "🚚 Dostawa Lublin"].map((t, i) => (
+                    <span key={`${copy}-${i}`} className="font-bold uppercase tracking-[0.12em] text-[#888888] px-4">{t}<span className="mx-4 text-[#2d2d2d]">·</span></span>
+                  ))
+                )}
               </div>
             </div>
             {/* Right — hours + social */}
@@ -613,8 +617,8 @@ export default function Header() {
               className="relative flex h-11 flex-shrink-0 items-center gap-2 rounded-lg bg-[#f81828] px-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-all duration-200 hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
             >
               <Calculator className="h-4 w-4" />
-              <div className="hidden text-left leading-none sm:block">
-                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/90">Koszyk</div>
+                <div className="hidden text-left leading-none sm:block">
+                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-white">Koszyk</div>
                 <div className="text-xs font-black">Moja Wycena</div>
               </div>
               {totalCount > 0 && (

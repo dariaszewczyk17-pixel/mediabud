@@ -11,5 +11,4 @@ Disallow: /szukaj
 User-agent: Bingbot
 Disallow: /szukaj
 
-Sitemap: https://mediabud.pl/sitemap.xml
 Sitemap: https://mediabud.pages.dev/sitemap.xml

@@ -1,11 +1,9 @@
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_CONTACT_POINT, NAP_SAME_AS } from "@/lib/localBusiness";
 import { ChevronRight, ArrowRight, Phone, Check, Mail, Zap, Hammer, Building2, Layers, HardHat, Home } from "lucide-react";
 
 /* ─── Typy ─────────────────────────────────────────────────────── */
-type FaqItem = { q: string; a: string };
-
 type ServiceDetail = {
   slug: string;
   segment: "B2C" | "B2B" | "Oba";
@@ -178,65 +176,7 @@ const services: ServiceDetail[] = [
   },
 ];
 
-/* ─── FAQ ───────────────────────────────────────────────────────── */
-const generalFaq: FaqItem[] = [
-  {
-    q: "Czy Media Bud łączy sprzedaż materiałów z usługami wykonawczymi?",
-    a: "Tak — to główny wyróżnik. Media Bud to skład budowlany i firma wykonawcza w jednym: kupujesz materiały w korzystnej cenie i korzystasz z naszej ekipy. Jeden partner, jeden rachunek.",
-  },
-  {
-    q: "Czy mogę zamówić tylko materiały, bez usługi wykonawczej?",
-    a: "Oczywiście. Możesz kupić same materiały z dostawą na plac budowy, skorzystać z doradztwa technicznego i polecamy sprawdzonych fachowców. Zakres współpracy ustalamy indywidualnie.",
-  },
-  {
-    q: "Czy pomagacie przy dotacjach z programu Czyste Powietrze?",
-    a: "Tak. Przy termomodernizacji i elewacjach pomagamy przygotować dokumentację i złożyć wniosek o dotację. Zakres wsparcia i warunki dotacji ustalamy na konsultacji — każdy przypadek jest inny.",
-  },
-  {
-    q: "Jak szybko mogę dostać wycenę?",
-    a: "Zadzwoń lub wyślij e-mail z zakresem prac i lokalizacją. Wycenę wstępną przygotowujemy w ciągu 24 godzin dla standardowych zakresów. Dla większych projektów umawiamy się na oględziny.",
-  },
-  {
-    q: "Jaki obszar obsługujecie?",
-    a: "Lublin i całe województwo lubelskie. Dla większych projektów B2B możliwa obsługa poza regionem — warunki ustalamy indywidualnie.",
-  },
-];
-
 /* ─── Komponenty pomocnicze ─────────────────────────────────────── */
-function FaqAccordion({ items }: { items: FaqItem[] }) {
-  const [open, setOpen] = useState<number | null>(null);
-  return (
-    <div className="space-y-3">
-      {items.map((item, i) => (
-        <div
-          key={i}
-          className="rounded-xl overflow-hidden"
-          style={{
-            background: "#0f0f0f",
-            border: open === i ? "1px solid rgba(248,24,40,0.4)" : "1px solid #1a1a1a",
-          }}
-        >
-          <button
-            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
-            onClick={() => setOpen(open === i ? null : i)}
-          >
-            <span className="text-sm font-bold text-white leading-snug">{item.q}</span>
-            <ChevronRight
-              className="w-4 h-4 text-[#f81828] flex-shrink-0 transition-transform duration-200"
-              style={{ transform: open === i ? "rotate(90deg)" : "rotate(0deg)" }}
-            />
-          </button>
-          {open === i && (
-            <div className="px-5 pb-5 text-sm text-[#aaa] leading-relaxed border-t border-white/5 pt-3">
-              {item.a}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function CheckList({ title, items, accent = "#f81828" }: { title: string; items: string[]; accent?: string }) {
   return (
     <div className="rounded-2xl p-5 md:p-6" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}>
@@ -558,18 +498,6 @@ export default function ServicesPage() {
           <div className="grid sm:grid-cols-2 gap-5">
             {b2bServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
           </div>
-        </section>
-
-        {/* FAQ */}
-        <section>
-          <div className="flex items-center gap-3 mb-6">
-            <span className="w-[3px] h-8 bg-[#f81828] rounded-full" />
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">FAQ</p>
-              <h2 className="font-display text-2xl md:text-3xl font-black text-white">Najczęstsze pytania</h2>
-            </div>
-          </div>
-          <FaqAccordion items={generalFaq} />
         </section>
 
         {/* Kalkulator CTA */}

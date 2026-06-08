@@ -258,20 +258,9 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
     <div className="min-h-screen" style={{ background: "#050505" }}>
       {/* Hero */}
       <div className="relative overflow-hidden border-b border-[#1a1a1a]" style={{ background: "linear-gradient(180deg,#0a0a0a 0%,#050505 100%)" }}>
-        {/* Wideo tło dla głównych usług */}
-        {heroVideo && (
-          <video
-            src={heroVideo}
-            autoPlay loop muted playsInline
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-            style={{ opacity: 0.20, zIndex: 0 }}
-          />
-        )}
-        {/* Overlay gradient nad wideo */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: heroVideo ? "linear-gradient(180deg,rgba(5,5,5,0.55) 0%,rgba(5,5,5,0.80) 100%)" : undefined, zIndex: 1 }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "42px 42px", zIndex: 1 }} />
-        <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.45)", zIndex: 2 }} />
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.22) 55%,transparent)", zIndex: 2 }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "42px 42px" }} />
+        <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.45)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.22) 55%,transparent)" }} />
         <div className="relative container mx-auto px-4 pl-9 py-12 md:py-16" style={{ zIndex: 3 }}>
           <Link to="/uslugi" className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-[#888] hover:text-white transition-colors mb-6">
             <ChevronRight className="w-4 h-4 rotate-180" /> Wszystkie usługi
@@ -306,6 +295,44 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
           </div>
         </div>
       </div>
+
+      {/* Sekcja wideo dla głównych usług */}
+      {heroVideo && (
+        <section className="py-12 md:py-16 relative overflow-hidden" style={{ background: "#000" }}>
+          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
+          <div className="relative z-10 container mx-auto px-4">
+            <p className="text-xs font-black uppercase tracking-widest text-[#f81828] mb-3 flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-[#f81828]" />Realizacja w praktyce
+            </p>
+            <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-8 items-center">
+              <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.55)" }}>
+                <video
+                  src={heroVideo}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="w-full aspect-video"
+                  style={{ display: "block", background: "#050505" }}
+                />
+              </div>
+              <div className="space-y-5">
+                <h2 className="font-display text-2xl md:text-3xl font-black text-white leading-tight">
+                  {service.title}
+                </h2>
+                <p className="text-sm text-[#888] leading-relaxed">{service.krotkiOpis}</p>
+                <div className="pt-2 space-y-3">
+                  <a href="tel:+48533553344" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white transition-all hover:brightness-110" style={{ background: "#f81828", boxShadow: "0 12px 30px rgba(248,24,40,0.22)" }}>
+                    <Phone className="w-4 h-4" /> Zadzwoń po wycenę
+                  </a>
+                  <Link to="/kontakt" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white border border-[#2a2a2a] bg-[#050505] hover:border-[#f81828]/30 transition-colors">
+                    <Mail className="w-4 h-4 text-[#f81828]" /> Wyślij zapytanie
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Treść */}
       <div className="container mx-auto px-4 py-10 md:py-14 space-y-6">

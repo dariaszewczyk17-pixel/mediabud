@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
-import { Phone, Users, Award, Truck, Star, ChevronRight, ArrowRight,
-         Home, PaintBucket, Ruler, Hammer, Building2, HousePlus, ExternalLink, Check, Shield,
+import { Phone, Users, Award, ArrowRight,
+         Home, PaintBucket, Hammer, Building2, HousePlus, ExternalLink, Shield,
          MapPin, Zap } from "lucide-react";
 
 const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;

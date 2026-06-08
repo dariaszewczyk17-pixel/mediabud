@@ -5,7 +5,7 @@ import {
   NAP_SAME_AS, NAP_LOGO, NAP_AMENITIES, NAP_CONTACT_POINT,
 } from "@/lib/localBusiness";
 import { useSEO } from "@/hooks/useSEO";
-import { Phone, Mail, MapPin, Clock, Check, ArrowRight, ChevronRight, Shield } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

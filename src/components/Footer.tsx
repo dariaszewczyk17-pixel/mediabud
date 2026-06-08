@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Phone, Mail, MapPin, Clock, Facebook, Instagram, Youtube,
-  ChevronRight, ArrowUpRight, Shield, Truck, Wrench, Award,
-  Send, CheckCircle2
+  Facebook, Instagram, Youtube,
+  ChevronRight, Shield, Truck, Wrench, Award, CheckCircle2
 } from "lucide-react";
 import { categories } from "@/data/categories";
 

@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
-import { ChevronRight, ArrowRight, Phone, Check, Hammer, Ruler, Home,
-         Building2, HousePlus, PaintBucket, Truck, Award, Users, Star,
-         ExternalLink, Zap, Shield, Mail } from "lucide-react";
+import { ChevronRight, ArrowRight, Phone, Check, Mail } from "lucide-react";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Phone, Mail, Plus, Check, ExternalLink, X, ArrowLeft, Trash2, Package, ShieldCheck, Layers3 } from "lucide-react";
+import { ShoppingCart, Phone, Mail, Check, X, ArrowLeft, Trash2, Package, Layers3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";

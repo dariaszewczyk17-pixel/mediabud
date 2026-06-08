@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
 import { BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus,
-         Pencil, Trash2, Zap, Shield, Phone, Mail } from "lucide-react";
+         Pencil, Trash2, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";

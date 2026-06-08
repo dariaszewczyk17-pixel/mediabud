@@ -11,7 +11,7 @@ import {
   NAP_CONTACT_POINT,
 } from "@/lib/localBusiness";
 import { useSEO } from "@/hooks/useSEO";
-import { Phone, Mail, MapPin, Clock, Check, Users, Award, Truck, Star, ChevronRight, BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil, Trash2, Zap, Shield, ArrowRight, Home, PaintBucket, Ruler, Hammer, Building2, HousePlus, ExternalLink } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Check, Users, Award, ChevronRight, BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil, Trash2, Zap, Shield, ArrowRight, Home, PaintBucket, Hammer, Building2, HousePlus, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

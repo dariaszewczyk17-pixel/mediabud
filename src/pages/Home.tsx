@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Award, Clock, ChevronLeft, Star, CheckCircle2, Send, Building2, HardHat, Home as HomeIcon } from "lucide-react";
+import { Phone, Mail, ChevronRight, ArrowRight, Calendar, ChevronLeft, Star, CheckCircle2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { categories as staticCategories } from "@/data/categories";

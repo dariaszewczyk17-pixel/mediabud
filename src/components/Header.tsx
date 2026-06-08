@@ -2,9 +2,9 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Search, Phone, Mail, Menu, X, ChevronDown, Calculator,
-  ShoppingBag, MapPin, Clock, ArrowRight, Zap, FlaskConical,
+  ShoppingBag, MapPin, ArrowRight, FlaskConical,
   Home, Paintbrush, Shield, Wrench, LayoutGrid, Layers,
-  Package, Facebook, Instagram, CheckCircle2, Star, Sparkles,
+  Package, Facebook, Instagram, Star, Sparkles,
   Grid2X2, Minus, ChevronRight,
 } from "lucide-react";
 import { categories as staticCategories } from "@/data/categories";

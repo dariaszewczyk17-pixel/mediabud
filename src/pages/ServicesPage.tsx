@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_CONTACT_POINT, NAP_SAME_AS } from "@/lib/localBusiness";
-import { ChevronRight, ArrowRight, Phone, Check, Mail, Zap, Hammer, Building2, Layers, HardHat, Home } from "lucide-react";
+import { ChevronRight, ArrowRight, Phone, Check, Mail, Zap, Hammer, Building2, Layers, HardHat, Home, Users } from "lucide-react";
 
 /* ─── Typy ─────────────────────────────────────────────────────── */
 type ServiceDetail = {

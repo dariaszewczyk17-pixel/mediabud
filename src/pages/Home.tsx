@@ -111,12 +111,12 @@ const stats = [
 ];
 
 const features = [
-  { icon: "🔧", title: "Doradztwo gratis", desc: "Nie wiesz jakich materiałów potrzebujesz? Nasi eksperci dobiorą system i policzą ilości — bez opłat i zobowiązań." },
-  { icon: "📋", title: "Od materiałów po klucze", desc: "Możesz kupić same materiały albo zamówić kompleksową usługę. Wszystko u jednego partnera, bez szukania ekip po całym mieście." },
-  { icon: "🚚", title: "Dostawa na plac budowy", desc: "Dowozimy materiały na teren Lublina i całego woj. lubelskiego. Prosto na budowę, we wskazanym terminie." },
-  { icon: "⭐", title: "Tylko renomowane marki", desc: "Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor — oryginalne produkty z gwarancją producenta, bez podróbek." },
-  { icon: "🏅", title: "Certyfikaty i atesty", desc: "Każdy produkt posiada pełną dokumentację techniczną, deklaracje właściwości użytkowych i certyfikaty zgodności." },
-  { icon: "🏗️", title: "Deweloperzy i firmy B2B", desc: "Indywidualne ceny, dedykowany opiekun, faktury zbiorcze i rabaty dla firm budowlanych oraz deweloperów." },
+  { Icon: HardHat,   code: "01", title: "Doradztwo gratis",       desc: "Nie wiesz jakich materiałów potrzebujesz? Nasi eksperci dobiorą system i policzą ilości — bez opłat i zobowiązań." },
+  { Icon: Building2, code: "02", title: "Od materiałów po klucze", desc: "Możesz kupić same materiały albo zamówić kompleksową usługę. Wszystko u jednego partnera, bez szukania ekip po całym mieście." },
+  { Icon: ArrowRight,code: "03", title: "Dostawa na plac budowy",  desc: "Dowozimy materiały na teren Lublina i całego woj. lubelskiego. Prosto na budowę, we wskazanym terminie." },
+  { Icon: Star,      code: "04", title: "Tylko renomowane marki",  desc: "Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor — oryginalne produkty z gwarancją producenta, bez podróbek." },
+  { Icon: Award,     code: "05", title: "Certyfikaty i atesty",    desc: "Każdy produkt posiada pełną dokumentację techniczną, deklaracje właściwości użytkowych i certyfikaty zgodności." },
+  { Icon: Users,     code: "06", title: "Deweloperzy i firmy B2B", desc: "Indywidualne ceny, dedykowany opiekun, faktury zbiorcze i rabaty dla firm budowlanych oraz deweloperów." },
 ];
 
 const serviceCards = [
@@ -926,41 +926,94 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r4.ref as React.RefObject<HTMLElement>}
-        className="py-14"
-        style={{ background: "#050505", borderTop: "1px solid #1a1a1a" }}
+        className="py-20 relative overflow-hidden"
+        style={{ background: "#050505" }}
       >
-        <div className="container mx-auto px-4">
-        <div className="text-center mb-10">
-          <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center justify-center gap-2">
-            <span className="w-4 h-0.5 bg-[#f81828]" />Dlaczego my?<span className="w-4 h-0.5 bg-[#f81828]" />
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-3">Dlaczego Media Bud?</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed text-sm">
-            Łączymy profesjonalną wiedzę techniczną z indywidualnym podejściem — zarówno dla deweloperów, jak i klientów budujących własny dom.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {features.map((f, i) => (
-            <div
-              key={i}
-              className={`group rounded-xl p-6 transition-[opacity,transform] duration-300 md:hover:-translate-y-1 ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{
-                background: "#0f0f0f",
-                border: "1px solid rgba(255,255,255,0.07)",
-                transitionDelay: `${Math.min(i * 70, 280)}ms`,
-                willChange: r4.visible ? "auto" : "transform, opacity",
-              }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.35)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.10)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
-            >
-              <div className="w-12 h-12 bg-[#1a1a1a] group-hover:bg-[#f81828] rounded-xl flex items-center justify-center text-2xl mb-4 transition-colors duration-200">
-                {f.icon}
-              </div>
-              <h3 className="font-display font-black text-white mb-2 text-base">{f.title}</h3>
-              <p className="text-sm text-gray-300 leading-relaxed">{f.desc}</p>
+        {/* ── Video background ── */}
+        <video
+          autoPlay loop muted playsInline
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          style={{ opacity: 0.22 }}
+          src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8ji72v80j2drgd1t2kg.mp4"
+        />
+        {/* ── Dark gradient overlay ── */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg,rgba(5,5,5,0.80) 0%,rgba(5,5,5,0.55) 50%,rgba(5,5,5,0.85) 100%)" }} />
+        {/* ── Scanline texture ── */}
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px)", zIndex: 1 }} />
+        {/* ── Corner accent lines ── */}
+        <div className="absolute top-0 left-0 w-32 h-px pointer-events-none" style={{ background: "linear-gradient(to right,#f81828,transparent)", zIndex: 2, opacity: 0.7 }} />
+        <div className="absolute top-0 right-0 w-32 h-px pointer-events-none" style={{ background: "linear-gradient(to left,#f81828,transparent)", zIndex: 2, opacity: 0.7 }} />
+        <div className="absolute bottom-0 left-0 w-32 h-px pointer-events-none" style={{ background: "linear-gradient(to right,#f81828,transparent)", zIndex: 2, opacity: 0.4 }} />
+        <div className="absolute bottom-0 right-0 w-32 h-px pointer-events-none" style={{ background: "linear-gradient(to left,#f81828,transparent)", zIndex: 2, opacity: 0.4 }} />
+
+        <div className="container mx-auto px-4 relative" style={{ zIndex: 3 }}>
+          {/* ── Header ── */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-sm border border-[#f81828]/30" style={{ background: "rgba(248,24,40,0.07)", fontFamily: "monospace" }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] animate-pulse" />
+              <span className="text-[#f81828] text-[9px] tracking-[0.3em] uppercase font-bold">SYSTEM_STATUS: AKTYWNY</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] animate-pulse" />
             </div>
-          ))}
-        </div>
+            <h2 className="font-display text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
+              Dlaczego <span className="text-[#f81828]">Media Bud</span>?
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed text-sm">
+              Łączymy profesjonalną wiedzę techniczną z indywidualnym podejściem — zarówno dla deweloperów, jak i klientów budujących własny dom.
+            </p>
+            <div className="mt-6 flex items-center justify-center gap-3">
+              <div className="h-px w-20 bg-gradient-to-r from-transparent to-[#f81828]" />
+              <div className="w-1.5 h-1.5 bg-[#f81828] rotate-45" />
+              <div className="h-px w-20 bg-gradient-to-l from-transparent to-[#f81828]" />
+            </div>
+          </div>
+
+          {/* ── Cards grid ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {features.map((f, i) => {
+              const Icon = f.Icon;
+              return (
+                <div
+                  key={i}
+                  className={`group relative rounded-lg p-6 transition-all duration-300 cursor-default ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    transitionDelay: `${Math.min(i * 80, 320)}ms`,
+                    willChange: r4.visible ? "auto" : "transform, opacity",
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = "rgba(248,24,40,0.45)";
+                    el.style.boxShadow = "0 0 32px rgba(248,24,40,0.16), inset 0 0 24px rgba(248,24,40,0.04)";
+                    el.style.background = "rgba(248,24,40,0.06)";
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = "rgba(255,255,255,0.08)";
+                    el.style.boxShadow = "none";
+                    el.style.background = "rgba(255,255,255,0.04)";
+                  }}
+                >
+                  {/* Numer porządkowy */}
+                  <span className="absolute top-4 right-5 text-[10px] font-mono tracking-widest" style={{ color: "rgba(248,24,40,0.4)" }}>{f.code}</span>
+                  {/* Narożny akcent – pojawia się na hover */}
+                  <div className="absolute top-0 left-0 w-8 h-px bg-[#f81828] opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
+                  <div className="absolute top-0 left-0 w-px h-8 bg-[#f81828] opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
+                  {/* Ikona */}
+                  <div
+                    className="w-11 h-11 rounded-lg flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110"
+                    style={{ background: "rgba(248,24,40,0.10)", border: "1px solid rgba(248,24,40,0.22)" }}
+                  >
+                    <Icon className="w-5 h-5 text-[#f81828]" />
+                  </div>
+                  <h3 className="font-display font-black text-white mb-2 text-base group-hover:text-[#f81828] transition-colors duration-200">{f.title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-200">{f.desc}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
+import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_CONTACT_POINT } from "@/lib/localBusiness";
 import { ChevronRight, ArrowRight, Phone, Check, Mail } from "lucide-react";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";

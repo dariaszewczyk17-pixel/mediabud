@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
+import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_SAME_AS, NAP_LOGO, NAP_AMENITIES, NAP_CONTACT_POINT } from "@/lib/localBusiness";
 import { Phone, Users, Award, ArrowRight,
          Home, PaintBucket, Hammer, Building2, HousePlus, ExternalLink, Shield,
          MapPin, Zap } from "lucide-react";

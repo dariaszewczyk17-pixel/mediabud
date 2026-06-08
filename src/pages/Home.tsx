@@ -365,6 +365,8 @@ export default function Home() {
               src={s.image}
               alt={s.label}
               className="w-full h-full object-cover"
+              fetchPriority={i === 0 ? "high" : "low"}
+              loading={i === 0 ? "eager" : "lazy"}
               style={{ filter: "brightness(0.45) saturate(0.85)" }}
             />
             {/* Laser line — czerwona linia jak na kategoriach */}
@@ -670,7 +672,7 @@ export default function Home() {
                 Nasze<br />
                 <span style={{ color: "#f81828" }}>kategorie</span>
               </h2>
-              <p className="text-sm mt-2" style={{ color: "#4a4a4a" }}>
+              <p className="text-sm mt-2" style={{ color: "#999999" }}>
                 Kompleksowy asortyment materiałów dla każdej budowy
               </p>
             </div>
@@ -865,7 +867,7 @@ export default function Home() {
                   ? "Nowości w ofercie"
                   : "Katalog produktów"}
               </h2>
-              <p className="text-gray-500 mt-1 text-sm">
+              <p className="text-gray-400 mt-1 text-sm">
                 {activeTab === "bestsellery"
                   ? "Najchętniej wybierane materiały budowlane w Lublinie"
                   : activeTab === "nowosci"
@@ -1022,7 +1024,7 @@ export default function Home() {
                 <div className="space-y-5 p-5">
                   <div>
                     <div className="mb-2 text-sm font-semibold text-[#f4f4f4]">{r.title}</div>
-                    <div className="text-xs font-medium uppercase tracking-[0.14em] text-gray-500">{r.client}</div>
+                    <div className="text-xs font-medium uppercase tracking-[0.14em] text-gray-400">{r.client}</div>
                   </div>
 
                   <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
@@ -1072,7 +1074,7 @@ export default function Home() {
               <span className="w-4 h-0.5 bg-[#f81828]" />Opinie klientów<span className="w-4 h-0.5 bg-[#f81828]" />
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-2">Co mówią nasi klienci?</h2>
-            <p className="text-gray-500 text-sm max-w-lg mx-auto">Zaufali nam dewelopierzy, architekci i tysiące prywatnych inwestorów z regionu lubelskiego.</p>
+            <p className="text-gray-400 text-sm max-w-lg mx-auto">Zaufali nam dewelopierzy, architekci i tysiące prywatnych inwestorów z regionu lubelskiego.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1110,7 +1112,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="text-sm font-bold text-white">{t.name}</div>
-                    <div className="text-xs text-gray-500">{t.role} · {t.company}</div>
+                    <div className="text-xs text-gray-400">{t.role} · {t.company}</div>
                   </div>
                   <CheckCircle2 className="w-5 h-5 text-emerald-500 ml-auto flex-shrink-0" />
                 </div>
@@ -1394,7 +1396,7 @@ export default function Home() {
               <span className="w-4 h-0.5 bg-[#f81828]" />Wiedza
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-black text-white">Blog techniczny</h2>
-            <p className="text-gray-500 mt-1 text-sm">Ekspercka wiedza dla budowniczych i inwestorów</p>
+            <p className="text-gray-400 mt-1 text-sm">Ekspercka wiedza dla budowniczych i inwestorów</p>
           </div>
           <Link to="/blog" className="hidden md:flex items-center gap-1 text-sm font-bold text-[#f81828] hover:underline">
             Wszystkie artykuły <ArrowRight className="w-4 h-4" />
@@ -1433,7 +1435,7 @@ export default function Home() {
                 <h3 className="font-display font-black text-white leading-snug mb-2 group-hover:text-[#f81828] transition-colors line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">{post.excerpt}</p>
+                <p className="text-sm text-gray-400 line-clamp-2 leading-relaxed">{post.excerpt}</p>
                 <div className="mt-3 flex items-center gap-1 text-xs text-[#f81828] font-bold">
                   Czytaj więcej <ChevronRight className="w-3 h-3" />
                 </div>

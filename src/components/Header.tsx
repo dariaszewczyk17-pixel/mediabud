@@ -411,6 +411,9 @@ export default function Header() {
             <img
               src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-03/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/7435729631584985088_95351505e7074b448f31c489e4513303.png"
               alt="Media Bud – Skład Budowlany"
+              width="300"
+              height="68"
+              fetchPriority="high"
               className="h-[42px] sm:h-12 md:h-[68px] w-auto object-contain transition-opacity duration-200 hover:opacity-80"
               style={{ maxWidth: "clamp(130px, 36vw, 300px)" }}
             />
@@ -874,7 +877,7 @@ export default function Header() {
                 ))}
                 <Link
                   to="/kontakt"
-                  className="ml-1 flex items-center gap-1 rounded-md border border-[#f81828]/30 bg-[#f81828]/15 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.08em] text-white transition-all hover:bg-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                  className="ml-1 flex items-center gap-1 rounded-md border border-[#f81828]/50 bg-[#f81828]/10 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.08em] text-[#f81828] transition-all hover:bg-[#f81828] hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                 >
                   <Mail className="h-3 w-3" />Kontakt
                 </Link>

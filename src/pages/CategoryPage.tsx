@@ -106,6 +106,7 @@ const catImages: Record<string, string> = {
   "stropy-i-sciany": "/images/cat-sciany_2.png",
   "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
   "sufity-podwieszane": "/images/cat-sufity_2.png",
+  "pozostale": "https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/pozostale_kategoria_2_8a82cc38d2a44d9b884d891b1745b7b2.png",
 };
 
 /* ── FAQ Accordion ─────────────────────────────────────────────────────────── */

@@ -1719,7 +1719,7 @@ export function AllCategoriesPage() {
     "stropy-i-sciany":        "https://images.unsplash.com/photo-1701850009190-2859ba2aeea6?auto=format&fit=crop&w=800&q=80",
     "sucha-zabudowa":         "https://images.unsplash.com/photo-1763593125291-a46ef2b784e5?auto=format&fit=crop&w=800&q=80",
     "sufity-podwieszane":     "https://images.unsplash.com/photo-1769008302212-816b6a07e10c?auto=format&fit=crop&w=800&q=80",
-    "pozostale":              "https://images.unsplash.com/photo-1763926062529-1edf8664c366?auto=format&fit=crop&w=800&q=80",
+    "pozostale":              "https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/pozostale_kategoria_2_8a82cc38d2a44d9b884d891b1745b7b2.png",
   };
 
   useSEO({

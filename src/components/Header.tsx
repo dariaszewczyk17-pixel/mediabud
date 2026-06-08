@@ -48,6 +48,21 @@ declare global { interface Window { gtag?: (...a: unknown[]) => void } }
 const trackNav = (label: string, level: string, slug?: string) =>
   window.gtag?.("event", "navigation_click", { nav_label: label, nav_level: level, nav_slug: slug });
 
+/* ── Obliczanie statusu otwarcia (współdzielone przez useState + interval) ── */
+const calcBusinessStatus = () => {
+  const now = new Date();
+  const day = now.getDay();
+  const t = now.getHours() * 60 + now.getMinutes();
+  const isWeekday = day >= 1 && day <= 5;
+  const isSat = day === 6;
+  if ((isWeekday && t >= 420 && t < 960) || (isSat && t >= 420 && t < 780))
+    return { open: true,  label: "Teraz otwarte",       color: "bg-emerald-500" };
+  if (day === 5 && t >= 960)  return { open: false, label: "Otwieramy Sob 7:00",  color: "bg-red-500" };
+  if (isSat && t >= 780)      return { open: false, label: "Otwieramy Pn 7:00",   color: "bg-red-500" };
+  if (day === 0)              return { open: false, label: "Otwieramy Pn 7:00",   color: "bg-red-500" };
+  return                             { open: false, label: "Otwieramy jutro 7:00", color: "bg-red-500" };
+};
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaSearch, setMegaSearch] = useState("");
@@ -57,6 +72,7 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 1024);
   const [promoVisible, setPromoVisible] = useState(() => {
     try { return localStorage.getItem("mb_promo_v1") !== "hidden"; } catch { return true; }
   });
@@ -104,19 +120,11 @@ export default function Header() {
   );
 
   /* ── Status otwarcia firmy ── */
-  const businessStatus = useMemo(() => {
-    const now = new Date();
-    const day = now.getDay(); // 0=Nd, 1=Pn … 6=Sb
-    const t = now.getHours() * 60 + now.getMinutes();
-    const isWeekday = day >= 1 && day <= 5;
-    const isSat = day === 6;
-    if ((isWeekday && t >= 420 && t < 960) || (isSat && t >= 420 && t < 780)) {
-      return { open: true, label: "Teraz otwarte", color: "bg-emerald-500" };
-    }
-    if (day === 5 && t >= 960) return { open: false, label: "Otwieramy Sob 7:00", color: "bg-red-500" };
-    if (isSat && t >= 780) return { open: false, label: "Otwieramy Pn 7:00", color: "bg-red-500" };
-    if (day === 0) return { open: false, label: "Otwieramy Pn 7:00", color: "bg-red-500" };
-    return { open: false, label: "Otwieramy jutro 7:00", color: "bg-red-500" };
+  /* ── Status otwarcia — odświeżany co minutę ── */
+  const [businessStatus, setBusinessStatus] = useState(calcBusinessStatus);
+  useEffect(() => {
+    const id = setInterval(() => setBusinessStatus(calcBusinessStatus()), 60_000);
+    return () => clearInterval(id);
   }, []);
 
   const submitSearch = (value: string) => {
@@ -184,7 +192,10 @@ export default function Header() {
 
   useEffect(() => {
     // Zamknij gdy resize do desktop
-    const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false); };
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setMobileOpen(false);
+      setIsMobile(window.innerWidth < 1024);
+    };
     window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -368,8 +379,8 @@ export default function Header() {
           ROW 2 — Main bar: Logo + Search + CTAs
       ════════════════════════════════════════════════ */}
       <div
-        className="relative border-b border-[#e5e5e5] overflow-hidden transition-all duration-300"
-        style={{ maxHeight: scrolled ? "0" : "120px", background: scrolled ? "transparent" : "white" }}
+        className={`relative border-b border-[#e5e5e5] transition-all duration-300 ${scrolled && !isMobile ? "overflow-hidden" : "overflow-visible"}`}
+        style={{ maxHeight: (scrolled && !isMobile) ? "0" : "120px", background: "white" }}
       >
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
         <div className="container mx-auto flex items-center gap-4 px-4 py-4">
@@ -390,6 +401,8 @@ export default function Header() {
                 <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666]" />
                 <Input
                   ref={searchInputRef}
+                  id="header-search"
+                  name="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
@@ -876,7 +889,11 @@ export default function Header() {
         }}
         onTouchStart={(e) => { touchStartY.current = e.touches[0].clientY; touchCurrentY.current = e.touches[0].clientY; }}
         onTouchMove={(e) => { touchCurrentY.current = e.touches[0].clientY; }}
-        onTouchEnd={() => { if (touchCurrentY.current - touchStartY.current > 80) setMobileOpen(false); }}
+        onTouchEnd={(e) => {
+          const swipe = touchCurrentY.current - touchStartY.current;
+          const inScrollBody = !!(e.target as HTMLElement).closest(".mobile-menu-body");
+          if (swipe > 80 && !inScrollBody) setMobileOpen(false);
+        }}
       >
         <div className="absolute inset-y-0 left-0 w-[3px] bg-[#f81828]" />
 
@@ -905,7 +922,7 @@ export default function Header() {
         </div>
 
         {/* Scrollable body */}
-        <div className="flex-1 overflow-y-auto overscroll-contain">
+        <div className="mobile-menu-body flex-1 overflow-y-auto overscroll-contain">
           {/* Contact strip */}
           <div className="flex items-center justify-around border-b border-white/5 bg-[#090909] px-4 py-3">
             <a

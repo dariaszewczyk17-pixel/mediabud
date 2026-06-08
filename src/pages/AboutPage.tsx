@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
 import { Phone, Users, Award, ArrowRight,
          Home, PaintBucket, Hammer, Building2, HousePlus, ExternalLink, Shield,

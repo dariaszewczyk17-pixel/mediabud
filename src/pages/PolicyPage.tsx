@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
 
 export default function PolicyPage() {

@@ -1168,52 +1168,83 @@ export default function Home() {
       </section>
 
       {/* ── Dom od podstaw ── */}
-      <section id="dom-od-podstaw" className="py-14 md:py-24 relative overflow-hidden" style={{ background: "#000" }}>
+      <section id="dom-od-podstaw" className="py-14 md:py-20 relative overflow-hidden" style={{ background: "#000" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.04) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }} />
         <div className="relative z-10 container mx-auto px-4">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.25em] mb-3" style={{ color: "#f81828" }}>
-            — PROGRAM SPECJALNY —
-          </p>
-          <h2
-            className="text-center font-black uppercase text-white mb-4"
-            style={{ fontSize: "clamp(1.75rem,4vw,3.5rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}
-          >
-            Dom od podstaw
-          </h2>
-          <p className="text-center max-w-2xl mx-auto mb-8 md:mb-16 leading-relaxed" style={{ color: "#888", fontSize: "1.05rem" }}>
-            Kompleksowe wsparcie dla tych, którzy budują dom po raz pierwszy. Prowadzimy Cię od projektu do odbioru — krok po kroku, z pełnym doradztwem technicznym i dostępem do sprawdzonej sieci wykonawców.
-          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {[
-              { icon: "📐", title: "Bezpłatna analiza projektu", desc: "Analizujemy Twój projekt i dobieramy optymalne materiały." },
-              { icon: "📋", title: "Kosztorys etapami", desc: "Szczegółowy kosztorys materiałów do każdego etapu budowy." },
-              { icon: "👷", title: "Sieć wykonawców", desc: "Sprawdzeni tynkarze, montażyści i specjaliści budowlani." },
-              { icon: "🔧", title: "Wsparcie techniczne", desc: "Jesteśmy z Tobą przez cały czas realizacji budowy." },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="group rounded-xl p-6 transition-all duration-300"
-                style={{ background: "#0f0f0f", border: "1px solid #2d2d2d" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(248,24,40,0.4)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.1)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "#2d2d2d"; (e.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}
-              >
-                <div className="text-3xl mb-4">{item.icon}</div>
-                <h3 className="font-bold text-white text-sm uppercase tracking-wide mb-2">{item.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "#888" }}>{item.desc}</p>
-              </div>
-            ))}
+          {/* ── Nagłówek ── */}
+          <div className="mb-8">
+            <p className="text-xs font-black uppercase tracking-widest text-[#f81828] mb-3 flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-[#f81828]" />PROGRAM SPECJALNY
+            </p>
+            <h2 className="font-display text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
+              Dom od <span className="text-[#f81828]">Podstaw</span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl leading-relaxed text-sm">
+              Kompleksowe wsparcie dla tych, którzy budują dom po raz pierwszy. Od projektu do odbioru — jeden opiekun, jeden kosztorys, zero chaosu.
+            </p>
           </div>
 
+          {/* ── Wideo + Etapy ── */}
+          <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-8 mb-12">
+            {/* Wideo */}
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.55)" }}>
+              <video
+                src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jir6n80j2drgd1t400.mp4"
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full aspect-video"
+                style={{ display: "block", background: "#050505" }}
+              />
+            </div>
+
+            {/* Etapy programu */}
+            <div className="flex flex-col justify-center space-y-5">
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-1 flex items-center gap-2">
+                <span className="w-3 h-0.5 bg-[#f81828]" />5 etapów realizacji
+              </p>
+              {[
+                { num: "01", title: "Projekt i pozwolenie",  desc: "Analizujemy projekt, dobieramy materiały, pomagamy w formalnościach." },
+                { num: "02", title: "Stan surowy",           desc: "Fundamenty, ściany, strop, dach — własna ekipa i materiały z magazynu." },
+                { num: "03", title: "Instalacje",            desc: "Elektryka, wod-kan, ogrzewanie — zaplanowane i wykonane razem." },
+                { num: "04", title: "Wykończenia",           desc: "Tynki, podłogi, łazienki, kuchnia — jeden kosztorys, jeden wykonawca." },
+                { num: "05", title: "Odbiór i klucze",       desc: "Odbierasz gotowy dom z dokumentacją. Jeden telefon był początkiem." },
+              ].map((step, i) => (
+                <div key={i} className="flex items-start gap-4 group">
+                  <span className="text-lg font-mono font-black flex-shrink-0 w-9 transition-colors duration-200" style={{ color: "rgba(248,24,40,0.45)" }}>{step.num}</span>
+                  <div className="border-l border-[#2a2a2a] pl-4 group-hover:border-[#f81828]/30 transition-colors duration-200">
+                    <h3 className="font-black text-white text-sm mb-0.5">{step.title}</h3>
+                    <p className="text-xs text-[#777] leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Slogan ── */}
+          <div className="text-center py-8 mb-8" style={{ borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}>
+            <p className="font-display text-2xl md:text-4xl font-black text-white tracking-tight leading-tight">
+              Jeden opiekun. Jeden dom.
+            </p>
+            <p className="font-display text-2xl md:text-4xl font-black tracking-tight leading-tight mt-1" style={{ color: "#f81828" }}>
+              Od fundamentów do kluczy.
+            </p>
+          </div>
+
+          {/* ── CTA ── */}
           <div className="text-center">
-            <a href="/kontakt" className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-wider text-white rounded-lg"
-              style={{ background: "#f81828", fontSize: "0.875rem", letterSpacing: "0.1em", boxShadow: "0 16px 36px rgba(248,24,40,0.22)" }}>
-              Dowiedz się więcej →
-            </a>
+            <Link to="/uslugi/dom-od-podstaw"
+              className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-wider text-white rounded-lg transition-all duration-200 hover:brightness-110 hover:scale-[1.02]"
+              style={{ background: "#f81828", fontSize: "0.875rem", letterSpacing: "0.1em", boxShadow: "0 16px 36px rgba(248,24,40,0.22)" }}
+            >
+              Zapytaj o wycenę <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
+
         </div>
       </section>
 

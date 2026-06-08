@@ -255,6 +255,11 @@ export default function Header() {
               100% { transform: translateX(-100%); }
             }
             .promo-track { animation: promo-scroll 22s linear infinite; white-space: nowrap; }
+            @keyframes info-scroll {
+              0%   { transform: translateX(100vw); }
+              100% { transform: translateX(-100%); }
+            }
+            .info-track { animation: info-scroll 18s linear infinite; white-space: nowrap; display: inline-flex; align-items: center; }
           `}</style>
           <div className="promo-track flex items-center gap-10 text-[#e0a0a8]">
             {[
@@ -316,9 +321,9 @@ export default function Header() {
             </div>
             {/* Ticker (mobile + tablet) */}
             <div className="ticker-wrap flex-1 overflow-hidden lg:hidden">
-              <div className="ticker-content flex items-center gap-8 whitespace-nowrap">
-                {["📞 +48 533 553 344", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", `🕐 ${businessStatus.label}`, "🚚 Dostawa na teren Lublina i okolic"].map((t, i) => (
-                  <span key={i} className="flex items-center font-bold uppercase tracking-[0.12em] text-[#888888]">{t}<span className="mx-4 text-[#2d2d2d]">·</span></span>
+              <div className="info-track gap-8 text-[11px]">
+                {["📞 +48 533 553 344", "✉ sprzedaz@mediabud.pl", "📍 Chemiczna 8d, Lublin", `🕐 ${businessStatus.label}`, "🚚 Dostawa Lublin"].map((t, i) => (
+                  <span key={i} className="font-bold uppercase tracking-[0.12em] text-[#888888]">{t}<span className="mx-4 text-[#2d2d2d]">·</span></span>
                 ))}
               </div>
             </div>

@@ -372,20 +372,20 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label className="text-[10px] text-gray-500 mb-1 block">Imię i nazwisko *</Label>
-                  <Input required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} placeholder="Jan Kowalski"
+                  <Input id="quote-name" name="name" required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} placeholder="Jan Kowalski"
                     className="text-sm h-9 text-gray-200 placeholder:text-gray-600 focus-visible:ring-0 focus-visible:border-[#f81828]"
                     style={inputStyle} />
                 </div>
                 <div>
                   <Label className="text-[10px] text-gray-500 mb-1 block">Telefon *</Label>
-                  <Input required value={form.phone} onChange={e => setForm(f => ({...f, phone: e.target.value}))} placeholder="+48..."
+                  <Input id="quote-phone" name="phone" required value={form.phone} onChange={e => setForm(f => ({...f, phone: e.target.value}))} placeholder="+48..."
                     className="text-sm h-9 text-gray-200 placeholder:text-gray-600 focus-visible:ring-0 focus-visible:border-[#f81828]"
                     style={inputStyle} />
                 </div>
               </div>
               <div>
                 <Label className="text-[10px] text-gray-500 mb-1 block">Email *</Label>
-                <Input required type="email" value={form.email} onChange={e => setForm(f => ({...f, email: e.target.value}))} placeholder="email@firma.pl"
+                <Input id="quote-email" name="email" required type="email" value={form.email} onChange={e => setForm(f => ({...f, email: e.target.value}))} placeholder="email@firma.pl"
                   className="text-sm h-9 text-gray-200 placeholder:text-gray-600 focus-visible:ring-0 focus-visible:border-[#f81828]"
                   style={inputStyle} />
               </div>
@@ -615,19 +615,19 @@ export function WycenaDrawer() {
                   </div>
                   <div>
                     <Label className="text-[10px] text-gray-500 mb-1 block">Imię i nazwisko *</Label>
-                    <Input required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} placeholder="Jan Kowalski"
+                    <Input id="drawer-name" name="name" required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} placeholder="Jan Kowalski"
                       className="text-sm h-9 text-gray-200 placeholder:text-gray-600 focus-visible:ring-0 focus-visible:border-[#f81828] mt-1"
                       style={drawerInput} />
                   </div>
                   <div>
                     <Label className="text-[10px] text-gray-500 mb-1 block">Email *</Label>
-                    <Input required type="email" value={form.email} onChange={e => setForm(f => ({...f, email: e.target.value}))}
+                    <Input id="drawer-email" name="email" required type="email" value={form.email} onChange={e => setForm(f => ({...f, email: e.target.value}))}
                       className="text-sm h-9 text-gray-200 placeholder:text-gray-600 focus-visible:ring-0 focus-visible:border-[#f81828] mt-1"
                       style={drawerInput} />
                   </div>
                   <div>
                     <Label className="text-[10px] text-gray-500 mb-1 block">Telefon *</Label>
-                    <Input required value={form.phone} onChange={e => setForm(f => ({...f, phone: e.target.value}))} placeholder="+48..."
+                    <Input id="drawer-phone" name="phone" required value={form.phone} onChange={e => setForm(f => ({...f, phone: e.target.value}))} placeholder="+48..."
                       className="text-sm h-9 text-gray-200 placeholder:text-gray-600 focus-visible:ring-0 focus-visible:border-[#f81828] mt-1"
                       style={drawerInput} />
                   </div>

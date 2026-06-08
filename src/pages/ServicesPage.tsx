@@ -692,7 +692,7 @@ export default function ServicesPage() {
             </div>
             <div className="rounded-2xl overflow-hidden relative" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
               <video
-                src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/spot_mediabud_logo_af578a20304f4874b8e0ced41a4f0bb0.mp4"
+                src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/spot_mediabud_logo_v2_b0620ee3b8a848d5b0d2f5e505d8cb1a.mp4"
                 controls
                 playsInline
                 preload="metadata"

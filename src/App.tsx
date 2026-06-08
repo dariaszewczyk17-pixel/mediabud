@@ -2,12 +2,12 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import Layout from "@/components/Layout";
-import Home from "@/pages/Home";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 /* ─── Lazy-loaded pages ─────────────────────────────────
    Każda strona ładuje się osobnym chunk-em — Vite rozbija
    dynamiczne importy na pliki .js ładowane na żądanie.    */
+const Home              = lazy(() => import("@/pages/Home"));
 const CategoryPage      = lazy(() => import("@/pages/CategoryPage"));
 const ProductDetail     = lazy(() => import("@/pages/ProductDetail"));
 const SearchResultsPage = lazy(() => import("@/pages/SearchResultsPage"));

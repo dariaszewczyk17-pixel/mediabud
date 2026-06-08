@@ -1,10 +1,15 @@
+import { lazy, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import BottomNav from "./BottomNav";
-import { WycenaDrawer } from "./Commerce";
 import { Toaster } from "sonner";
 import { LOCAL_BUSINESS_JSONLD } from "@/lib/localBusiness";
+
+/* WycenaDrawer lazy — wyciąga Commerce.tsx (~40 kB) z critical path */
+const WycenaDrawer = lazy(() =>
+  import("./Commerce").then((m) => ({ default: m.WycenaDrawer }))
+);
 
 export default function Layout() {
   return (
@@ -28,7 +33,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
-      <WycenaDrawer />
+      <Suspense fallback={null}><WycenaDrawer /></Suspense>
       <BottomNav />
       <Toaster position="bottom-right" richColors />
     </div>

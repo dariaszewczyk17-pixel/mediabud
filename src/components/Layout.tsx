@@ -30,7 +30,14 @@ export default function Layout() {
 
       <Header />
       <main id="main" className="flex-1 pb-16 lg:pb-0">
-        <Outlet />
+        <Suspense fallback={
+          <div className="min-h-[60vh] flex items-center justify-center" style={{ background: "#080808" }}>
+            <div className="w-8 h-8 rounded-full border-2 animate-spin"
+              style={{ borderColor: "rgba(248,24,40,0.2)", borderTopColor: "#f81828" }} />
+          </div>
+        }>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
       <Suspense fallback={null}><WycenaDrawer /></Suspense>

@@ -26,36 +26,12 @@ const ServicesPage      = lazy(() => import("@/pages/ServicesPage"));
 const AdminPanel        = lazy(() => import("@/pages/AdminPanel"));
 const PolicyPage        = lazy(() => import("@/pages/PolicyPage"));
 
-/* ─── Fallback spinner ──────────────────────────────────
-   Widoczny tylko przy pierwszym wejściu na podstronę
-   (zwykle < 200 ms przy łączu broadband).                 */
-function PageLoader() {
-  return (
-    <div
-      className="min-h-[60vh] flex items-center justify-center"
-      style={{ background: "#080808" }}
-    >
-      <div className="flex flex-col items-center gap-4">
-        <div
-          className="w-8 h-8 rounded-full border-2 animate-spin"
-          style={{
-            borderColor: "rgba(248,24,40,0.2)",
-            borderTopColor: "#f81828",
-          }}
-        />
-        <span className="text-[10px] font-black uppercase tracking-widest text-gray-700">
-          Ładowanie…
-        </span>
-      </div>
-    </div>
-  );
-}
-
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Suspense fallback={<PageLoader />}>
+      {/* Outer Suspense: fallback=null — spinner obsługiwany przez Layout/Suspense wewnątrz main */}
+      <Suspense fallback={null}>
         <Routes>
           <Route path="/admin" element={<AdminPanel />} />
           <Route element={<Layout />}>

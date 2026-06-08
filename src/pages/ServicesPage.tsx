@@ -73,35 +73,6 @@ const services: ServiceDetail[] = [
     ],
   },
   {
-    slug: "termomodernizacja",
-    segment: "B2C",
-    title: "Termomodernizacja",
-    icon: <Zap className="w-7 h-7 text-[#f81828]" />,
-    badge: "Czyste Powietrze · Do 136 200 zł dotacji",
-    krotkiOpis:
-      "Dom traci ciepło przez ściany, dach i okna? Ocieplamy go raz na 25 lat i pomagamy dostać dotację z programu Czyste Powietrze. Rachunki niższe o 30–50%, dom wart więcej.",
-    co_robimy: [
-      "Audyt energetyczny budynku przed i po modernizacji",
-      "Ocieplenie ścian systemem ETICS — styropian lub wełna mineralna, 15–25 cm",
-      "Wymiana okien i drzwi na energooszczędne",
-      "Pomoc w złożeniu i rozliczeniu dotacji Czyste Powietrze",
-    ],
-    zalety: [
-      "Kompleksowo — ocieplenie, elewacja i okna w jednym kontrakcie i jednej cenie",
-      "Pomagamy złożyć wniosek o dotację i rozliczyć go od początku do wypłaty",
-      "Materiały systemowe z naszego składu: Weber, Ceresit, Atlas, Rockwool",
-    ],
-    korzysci: [
-      "Rachunki za ogrzewanie niższe o 30–50% rok do roku",
-      "Dom wart więcej na rynku po termomodernizacji",
-      "Komfort przez cały rok — ani za gorąco latem, ani za zimno zimą",
-    ],
-    ostrzezenia: [
-      "Prace wymagają wcześniejszego audytu energetycznego budynku",
-      "Optymalny termin realizacji: kwiecień–październik, poza sezonem grzewczym",
-    ],
-  },
-  {
     slug: "wykonczenia-pod-klucz",
     segment: "B2C",
     title: "Wykończenia pod klucz",
@@ -428,7 +399,7 @@ export default function ServicesPage() {
         "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
         "@id": "https://mediabud.pl/#localbusiness",
         name: "Media Bud — skład budowlany i usługi wykonawcze",
-        description: "Usługi wykonawcze Media Bud w Lublinie: budowa domów, remont łazienki, termomodernizacja, wykończenia pod klucz, dachy, elewacje, remonty B2B.",
+        description: "Usługi wykonawcze Media Bud w Lublinie: budowa domów, remont łazienki, wykończenia pod klucz, dachy, elewacje, remonty B2B.",
         url: "https://mediabud.pl",
         telephone: "+48533553344",
         email: "sprzedaz@mediabud.pl",
@@ -554,7 +525,7 @@ export default function ServicesPage() {
               <span className="w-4 h-0.5 bg-[#f81828]" />Klienci indywidualni · B2C
             </p>
             <h2 className="font-display text-2xl md:text-3xl font-black text-white">Budujesz lub remontujesz prywatnie?</h2>
-            <p className="text-sm text-[#888] mt-1 max-w-2xl">Dom od zera, remont łazienki, termomodernizacja, wykończenia pod klucz — wszystko w Lublinie i woj. lubelskim.</p>
+            <p className="text-sm text-[#888] mt-1 max-w-2xl">Dom od zera, remont łazienki, wykończenia pod klucz — wszystko w Lublinie i woj. lubelskim.</p>
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             {b2cServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}

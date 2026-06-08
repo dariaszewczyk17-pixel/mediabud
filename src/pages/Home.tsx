@@ -71,9 +71,9 @@ const heroSlides = [
     image: "/images/hero-etics_2.png",
     label: "Ocieplenia i OZE",
     title: "Dom cieplejszy.\nRachunki niższe o 50%.",
-    subtitle: "Termomodernizacja, pompy ciepła, fotowoltaika — z dofinansowaniem do 136 200 zł z programu Czyste Powietrze. Pomagamy od A do Z.",
+    subtitle: "Ocieplenie ścian, elewacje i dachy — materiały systemowe z naszego składu, własna ekipa wykonawcza.",
     cta: "Sprawdź usługi",
-    ctaLink: "/uslugi/termomodernizacja",
+    ctaLink: "/uslugi/elewacje",
   },
   {
     image: "/images/hero-chemia_2.png",
@@ -122,7 +122,6 @@ const features = [
 const serviceCards = [
   { segment: "B2C", tag: "PROGRAM", title: "Dom od podstaw", desc: "Budujesz pierwszy dom? Jeden opiekun, jeden kosztorys, zero koordynowania wielu firm. Od projektu po klucze.", href: "/uslugi/dom-od-podstaw" },
   { segment: "B2C", tag: "REMONT", title: "Remont łazienki", desc: "Stara glazura lub cieknący prysznic? Robimy łazienki pod klucz w 2–3 tygodnie. Skucie, instalacje, płytki, armatura.", href: "/uslugi/remont-lazienki" },
-  { segment: "B2C", tag: "TERMO", title: "Termomodernizacja", desc: "Dom traci ciepło? Ocieplamy raz na 25 lat — rachunki o 50% niższe. Pomagamy dostać do 136 200 zł dotacji.", href: "/uslugi/termomodernizacja" },
   { segment: "Oba", tag: "DACHY", title: "Dachy", desc: "Nowy dach lub przeciek? Własna ekipa dekarska, szybka diagnoza i naprawa. Dachówka, blacha, papa.", href: "/uslugi/dachy" },
   { segment: "Oba", tag: "ELEWACJE", title: "Elewacje", desc: "Ocieplamy i wykańczamy dom w jednym projekcie. Tynk, klinkier lub elewacja wentylowana. Efekt na 20 lat.", href: "/uslugi/elewacje" },
   { segment: "B2B", tag: "FIRMY", title: "Remonty dla firm", desc: "Remont sklepu, biura lub hali w nocy i w weekendy. Twoja firma działa normalnie, my remontujemy w tle.", href: "/uslugi/remonty-b2b" },

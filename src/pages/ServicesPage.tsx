@@ -203,19 +203,10 @@ function ServiceTile({ svc }: { svc: ServiceDetail }) {
       className="group rounded-2xl p-5 md:p-6 flex flex-col min-h-[240px] transition-all duration-300 hover:border-[#f81828]/40 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)]"
       style={{ background: "#0f0f0f", border: "1px solid #2a2a2a" }}
     >
-      <div className="flex items-start justify-between gap-4 mb-4">
+      <div className="flex items-start gap-4 mb-4">
         <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(248,24,40,0.10)", border: "1px solid rgba(248,24,40,0.22)" }}>
           {svc.icon}
         </div>
-        <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border"
-          style={{
-            borderColor: svc.segment === "B2B" ? "rgba(255,107,53,0.35)" : "rgba(248,24,40,0.35)",
-            color: svc.segment === "B2B" ? "#ff6b35" : "#f81828",
-            background: svc.segment === "B2B" ? "rgba(255,107,53,0.08)" : "rgba(248,24,40,0.08)",
-          }}
-        >
-          {svc.segment}
-        </span>
       </div>
       <p className="text-[10px] font-bold uppercase tracking-wider text-[#666] mb-2">{svc.badge}</p>
       <h2 className="font-display text-xl font-black text-white mb-3 group-hover:text-[#f81828] transition-colors duration-200">
@@ -247,7 +238,6 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
           <div className="max-w-5xl grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
             <div>
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full border text-[#f81828] border-[#f81828]/30 bg-[#f81828]/10">{service.segment}</span>
                 <span className="text-[10px] font-black uppercase tracking-wider text-[#666]">Media Bud · Lublin i woj. lubelskie</span>
               </div>
               <h1 className="font-display font-black text-white leading-[0.95] mb-5" style={{ fontSize: "clamp(2.2rem,5.5vw,4.2rem)" }}>
@@ -320,9 +310,6 @@ export default function ServicesPage() {
   const { slug } = useParams<{ slug?: string }>();
 
   const service = slug ? services.find((s) => s.slug === slug) : null;
-  const b2cServices = services.filter((s) => s.segment === "B2C");
-  const obaServices = services.filter((s) => s.segment === "Oba");
-  const b2bServices = services.filter((s) => s.segment === "B2B");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -458,45 +445,17 @@ export default function ServicesPage() {
       {/* Lista usług */}
       <div className="container mx-auto px-4 py-10 md:py-14 space-y-12">
 
-        {/* B2C */}
+        {/* Wszystkie usługi */}
         <section className="space-y-5">
           <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-2 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#f81828]" />Klienci indywidualni · B2C
+              <span className="w-4 h-0.5 bg-[#f81828]" />Lublin i woj. lubelskie
             </p>
-            <h2 className="font-display text-2xl md:text-3xl font-black text-white">Budujesz lub remontujesz prywatnie?</h2>
-            <p className="text-sm text-[#888] mt-1 max-w-2xl">Dom od zera, remont łazienki, wykończenia pod klucz — wszystko w Lublinie i woj. lubelskim.</p>
+            <h2 className="font-display text-2xl md:text-3xl font-black text-white">Nasze usługi</h2>
+            <p className="text-sm text-[#888] mt-1 max-w-2xl">Budowa, remont, wykończenie — jeden partner dla klientów indywidualnych i firm.</p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-5">
-            {b2cServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
-          </div>
-        </section>
-
-        {/* Oba */}
-        <section className="space-y-5">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-[#ff6b35] mb-2 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#ff6b35]" />Dla domu i firm · B2C / B2B
-            </p>
-            <h2 className="font-display text-2xl md:text-3xl font-black text-white">Dach i elewacja — jeden standard dla każdego</h2>
-            <p className="text-sm text-[#888] mt-1 max-w-2xl">Dachy i elewacje dla prywatnych inwestorów i firm. Ten sam poziom wykonania, niezależnie od skali.</p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-5">
-            {obaServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
-          </div>
-        </section>
-
-        {/* B2B */}
-        <section className="space-y-5">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-[#ff6b35] mb-2 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#ff6b35]" />Firmy i instytucje · B2B
-            </p>
-            <h2 className="font-display text-2xl md:text-3xl font-black text-white">Remonty bez przestojów w Twojej działalności</h2>
-            <p className="text-sm text-[#888] mt-1 max-w-2xl">Sklepy, biura, hale, szkoły — remontujemy nocą i w weekendy. Pełna dokumentacja, faktura VAT, 30-dniowy termin.</p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-5">
-            {b2bServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {services.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
           </div>
         </section>
 

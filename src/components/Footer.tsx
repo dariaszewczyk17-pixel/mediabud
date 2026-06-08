@@ -13,6 +13,7 @@ const QUICK_LINKS = [
   { label: "Blog techniczny",    to: "/blog" },
   { label: "O firmie",           to: "/o-firmie" },
   { label: "Usługi",             to: "/uslugi" },
+  { label: "Kalkulatory",        to: "/kalkulator" },
   { label: "Kontakt",            to: "/kontakt" },
 ];
 

@@ -361,3 +361,4 @@
 [2026-06-08 18:58] Start: kompleksowa przebudowa copywritingu + materiały kreatywne — analiza rynku, przegląd obraz, nowy copy, wideo
 [2026-06-08 19:02] Start wdrożenia: kompleksowy rewrite ServicesPage (services[], JSX copy, 2 nowe usługi) + hero HomePage
 [2026-06-08 19:12] DONE: ServicesPage full rewrite (services[] 11 usług, 2 nowe: remont-lazienki + pompa-ciepla-PV, nagłówki sekcji). HomePage hero slides + features + serviceCards rewrite. Build OK, commity: 7d80bb5, ae8b9c2
+[2026-06-08 19:15] DONE: storyboard wideo zapisany i opublikowany (storyboard_design.md)

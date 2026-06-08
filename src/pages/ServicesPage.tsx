@@ -688,6 +688,38 @@ export default function ServicesPage() {
           </div>
           <FaqAccordion items={generalFaq} />
         </section>
+
+        {/* ── Kalkulator CTA ── */}
+        <div className="rounded-2xl p-7 md:p-10 relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0f0f0f 0%,#0a0a0a 100%)", border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 20px 50px rgba(0,0,0,0.35)" }}>
+          {/* siatka tła */}
+          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "38px 38px" }} />
+          {/* linia akcentowa */}
+          <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.15) 60%,transparent)" }} />
+          <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-7">
+            <div className="flex items-start gap-5">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.28)" }}>
+                <Check className="w-7 h-7 text-[#f81828]" />
+              </div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">Bezpłatne narzędzie</p>
+                <h2 className="font-display text-[clamp(1.4rem,3vw,2.1rem)] font-black uppercase leading-[1.0] text-white mb-3 break-words" style={{ overflowWrap: "anywhere" }}>
+                  Oblicz zużycie materiałów
+                </h2>
+                <p className="text-sm leading-relaxed text-[#b7b7b7] max-w-xl">
+                  Tynk, styropian, klej do płytek, farba elewacyjna — kalkulator budowlany z normami EN oblicza potrzebną ilość materiałów i szacunkowy koszt. Zero arkuszy Excel.
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/kalkulator"
+              className="inline-flex items-center gap-3 px-7 py-4 rounded-xl text-sm font-black uppercase tracking-[0.18em] text-white flex-shrink-0 transition-all duration-200 hover:brightness-110 hover:scale-[1.02]"
+              style={{ background: "#f81828", boxShadow: "0 8px 28px rgba(248,24,40,0.35)" }}
+            >
+              Przejdź do kalkulatora <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+
       </div>
     </div>
   );

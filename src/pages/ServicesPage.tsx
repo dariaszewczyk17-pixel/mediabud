@@ -679,6 +679,32 @@ export default function ServicesPage() {
         </div>
       </div>
 
+      {/* ── Sekcja wideo promocyjnego ── */}
+      <div className="border-b border-[#1a1a1a]" style={{ background: "#050505" }}>
+        <div className="container mx-auto px-4 py-10 md:py-14">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-[3px] h-8 bg-[#f81828] rounded-full" />
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828]">Spot brandowy · Media Bud</p>
+                <h2 className="font-display text-[clamp(1.5rem,2.5vw,2.2rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Budujesz. Remontujesz. Media Bud.</h2>
+              </div>
+            </div>
+            <div className="rounded-2xl overflow-hidden relative" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
+              <video
+                src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/spot_mediabud_logo_af578a20304f4874b8e0ced41a4f0bb0.mp4"
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full aspect-video"
+                style={{ display: "block", background: "#050505" }}
+                poster="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jhdv780j2drgd1svh0.mp4?x-oss-process=video/snapshot,t_0,f_jpg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-10 md:py-14 space-y-10">
         {umbrellaService ? (
           <div className="rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.12),rgba(255,107,53,0.05))", border: "1px solid rgba(248,24,40,0.18)", boxShadow: "0 18px 44px rgba(0,0,0,0.32)" }}>

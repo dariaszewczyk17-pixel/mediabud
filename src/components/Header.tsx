@@ -277,7 +277,7 @@ export default function Header() {
         style={{ maxHeight: promoVisible ? "36px" : "0" }}
       >
         <div className="relative flex h-9 items-center justify-center overflow-hidden px-10 text-[11px] font-bold uppercase tracking-[0.14em]"
-          style={{ background: "linear-gradient(90deg,#1a0000,#2d0003,#1a0000)", borderBottom: "1px solid rgba(248,24,40,0.25)" }}>
+          style={{ background: "#ffffff", borderBottom: "1px solid rgba(248,24,40,0.30)" }}>
           {/* Ticker */}
           <style>{`
             @keyframes promo-scroll {
@@ -292,7 +292,7 @@ export default function Header() {
             .info-track { animation: info-scroll 22s linear infinite; white-space: nowrap; display: inline-flex; align-items: center; }
           `}</style>
           {/* Podwojony content — seamless infinite loop (0 → -50%) */}
-          <div className="promo-track items-center gap-10 text-[#e0a0a8]">
+          <div className="promo-track items-center gap-10 text-[#f81828]">
             {[...Array(2)].map((_, copy) =>
               ["🚚  Dostawa na teren Lublina i woj. lubelskiego",
                "📦  Bezpłatna wycena każdego projektu",
@@ -301,7 +301,7 @@ export default function Header() {
               ].map((msg, i) => (
                 <span key={`${copy}-${i}`} className="flex items-center gap-10 px-5">
                   {msg}
-                  <span className="text-[#f81828]/40">◆</span>
+                  <span className="text-[#f81828]/50">◆</span>
                 </span>
               ))
             )}
@@ -309,7 +309,7 @@ export default function Header() {
           {/* Zamknij */}
           <button
             aria-label="Zamknij pasek promocyjny"
-            className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-[#888] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-[#f81828]/60 transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828]"
             onClick={() => {
               setPromoVisible(false);
               try { localStorage.setItem("mb_promo_v1", "hidden"); } catch { /* ignore */ }

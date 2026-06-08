@@ -70,8 +70,8 @@ const heroSlides = [
   {
     image: "/images/hero-etics_2.png",
     label: "Ocieplenia i OZE",
-    title: "Dom cieplejszy.\nRachunki niższe o 50%.",
-    subtitle: "Ocieplenie ścian, elewacje i dachy — materiały systemowe z naszego składu, własna ekipa wykonawcza.",
+    title: "Ocieplenie i elewacja.\nMateriały + ekipa w jednym.",
+    subtitle: "Ocieplamy ściany, dachy i elewacje. Materiały renomowanych marek z naszego składu — nasza ekipa wbudowuje je pod klucz.",
     cta: "Sprawdź usługi",
     ctaLink: "/uslugi/elewacje",
   },

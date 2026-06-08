@@ -273,8 +273,8 @@ export default function Header() {
           PROMO STRIP — zamykany, zapamiętywany
       ════════════════════════════════════════════════ */}
       <div
-        className="overflow-hidden transition-all duration-300"
-        style={{ maxHeight: promoVisible ? "36px" : "0" }}
+        className="overflow-hidden"
+        style={{ maxHeight: promoVisible ? "36px" : "0", transition: "max-height 0.3s ease" }}
       >
         <div className="relative flex h-9 items-center justify-center overflow-hidden px-10 text-[11px] font-bold uppercase tracking-[0.14em]"
           style={{ background: "#ffffff", borderBottom: "1px solid rgba(248,24,40,0.30)" }}>
@@ -324,8 +324,8 @@ export default function Header() {
           ROW 1 — Top info bar (collapses on scroll)
       ════════════════════════════════════════════════ */}
       <div
-        className="overflow-hidden border-b border-white/5 bg-black transition-all duration-300"
-        style={{ maxHeight: (scrolled && !isMobile) ? "0" : "40px" }}
+        className="overflow-hidden border-b border-white/5 bg-black"
+        style={{ maxHeight: (scrolled && !isMobile) ? "0" : "40px", transition: "max-height 0.3s ease" }}
       >
         <div className="container mx-auto px-4">
           <div className="flex h-10 items-center justify-between text-[11px]">
@@ -402,8 +402,8 @@ export default function Header() {
           ROW 2 — Main bar: Logo + Search + CTAs
       ════════════════════════════════════════════════ */}
       <div
-        className={`relative border-b border-[#e5e5e5] transition-all duration-300 ${scrolled && !isMobile ? "overflow-hidden" : "overflow-visible"}`}
-        style={{ maxHeight: (scrolled && !isMobile) ? "0" : "120px", background: "white" }}
+        className={`relative border-b border-[#e5e5e5] bg-white ${scrolled && !isMobile ? "overflow-hidden" : "overflow-visible"}`}
+        style={{ maxHeight: (scrolled && !isMobile) ? "0" : "120px", transition: "max-height 0.3s ease" }}
       >
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
         <div className="container mx-auto flex items-center gap-4 px-4 py-4">

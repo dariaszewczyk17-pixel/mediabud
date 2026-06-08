@@ -1345,6 +1345,15 @@ export default function Home() {
             MediaBud łączy skład budowlany, doradztwo techniczne i usługi wykonawcze dla klientów indywidualnych oraz biznesowych w Lublinie i województwie lubelskim.
           </p>
 
+          <div className="rounded-2xl p-6 md:p-7 mb-8" style={{ background: "#0f0f0f", border: "1px solid #2d2d2d", boxShadow: "0 16px 40px rgba(0,0,0,0.28)" }}>
+            <h3 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-black uppercase text-white leading-[0.95] break-words mb-3" style={{ overflowWrap: "anywhere" }}>
+              Galerie, szkoły i obiekty użytkowe
+            </h3>
+            <p className="text-sm leading-relaxed" style={{ color: "#888" }}>
+              Realizujemy remonty i modernizacje dla firm oraz instytucji — usługi dekarskie i elewacyjne obsługują zarówno inwestycje prywatne, jak i obiektowe.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {serviceCards.map((service, i) => {
               return (

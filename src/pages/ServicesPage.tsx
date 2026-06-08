@@ -35,31 +35,31 @@ const services: ServiceDetail[] = [
     segment: "B2C",
     title: "Dom od podstaw",
     icon: <Home className="w-7 h-7 text-[#f81828]" />,
-    badge: "Program parasol B2C · Lublin",
+    badge: "Flagowy program · Lublin i woj. lubelskie",
     krotkiOpis:
-      "Kompleksowe wsparcie inwestora indywidualnego — od projektu i urzędówki, przez stan surowy, po wykończenie pod klucz. Jeden opiekun, jeden budżet, pełna ścieżka.",
-    frazySEO: ["budowa domu lublin", "dom pod klucz lublin", "budowa domu od podstaw"],
+      "Powiedz nam, co chcesz zbudować — my zadbamy o resztę. Projekt, pozwolenie, stan surowy, wykończenie. Jeden telefon, jeden opiekun, jedna cena końcowa. Bez niespodzianek.",
+    frazySEO: ["budowa domu lublin", "dom pod klucz lublin", "budowa domu od podstaw lublin"],
     parametry: [
       "Zakres: projekt + pozwolenie + stan surowy + instalacje + wykończenie",
-      "Obszar: Lublin i województwo lubelskie (do 60 km)",
-      "Finansowanie: kosztorys etapowy z harmonogramem płatności",
-      "Opiekun projektu: dedykowany kierownik budowy",
+      "Obszar obsługi: Lublin i woj. lubelskie (do 60 km od składu)",
+      "Rozliczenie: kosztorys etapowy z harmonogramem płatności",
+      "Opiekun: dedykowany kierownik budowy przez cały projekt",
     ],
     zastosowanie: [
+      "Pierwsza budowa — prowadzimy przez cały proces krok po kroku",
       "Domy jednorodzinne wolnostojące i bliźniacze",
       "Budynki rekreacyjne i letniskowe",
-      "Pierwsza inwestycja — pełna obsługa bez doświadczenia własnego",
     ],
     zalety: [
-      "Jeden punkt kontaktu na cały projekt",
-      "Materiały z własnego składu — oszczędność do 15% vs. rynek",
-      "Kosztorys otwarty — inwestor widzi każdą pozycję",
-      "Doświadczenie 15+ lat i 500+ projektów w regionie",
+      "Jeden człowiek odpowiada za całość — koniec z przepychaniem odpowiedzialności",
+      "Materiały z własnego składu — realnie taniej niż u konkurencji",
+      "Kosztorys otwarty — widzisz każdą złotówkę, nie ma ukrytych kosztów",
+      "15 lat doświadczenia i 500+ zrealizowanych projektów w regionie",
     ],
     korzysci: [
-      "Oszczędność czasu — brak konieczności koordynacji wielu firm",
-      "Jedno ubezpieczenie OC na cały zakres",
-      "Gwarancja materiałowa producenta + gwarancja wykonawcza MediaBud",
+      "Nie musisz koordynować 6 różnych firm — my to robimy",
+      "Jeden rachunek zamiast stosu faktur od różnych wykonawców",
+      "Gwarancja wykonawcza MediaBud na cały zakres prac",
     ],
   },
   /* ---- B2C ---- */
@@ -68,29 +68,60 @@ const services: ServiceDetail[] = [
     segment: "B2C",
     title: "Budowa domu",
     icon: <HardHat className="w-7 h-7 text-[#f81828]" />,
-    badge: "Stan surowy · Instalacje · B2C",
+    badge: "Stan surowy · Instalacje · Lublin",
     krotkiOpis:
-      "Realizacja stanu surowego otwartego i zamkniętego — fundamenty, ściany, stropy, dach, stolarka. Materiały z naszego składu, kosztorys przejrzysty.",
+      "Stan surowy bez kompromisów — fundamenty, ściany, stropy, dach, okna. Wiesz dokładnie, ile zapłacisz, zanim zaczniemy. Ekipa własna, materiały z naszego magazynu.",
     frazySEO: ["budowa domu lublin", "stan surowy lublin", "ekipa budowlana lublin"],
     parametry: [
-      "Etapy: fundamenty, stan surowy otwarty, stan surowy zamknięty",
-      "Systemy: tradycja murowana, szkielet drewniany, pustak ceramiczny",
-      "Instalacje: wod-kan, elektryka, gaz (podwykonawstwo z gwarancją)",
+      "Etapy: fundamenty → stan surowy otwarty → stan surowy zamknięty",
+      "Technologie: mur tradycyjny, pustak ceramiczny, szkielet drewniany",
+      "Instalacje: wod-kan, elektryka, gaz (z gwarancją podwykonawcy)",
       "Obszar: Lublin i powiat lubelski",
     ],
     zastosowanie: [
-      "Nowe domy jednorodzinne i bliźniaki",
-      "Rozbudowy i nadbudowy budynków istniejących",
+      "Nowe domy jednorodzinne i bliźniaki na działce własnej klienta",
+      "Rozbudowy i nadbudowy istniejących budynków",
     ],
     zalety: [
-      "Ekipa własna — brak pośredników",
-      "Materiały systemowe (Ytong, Wienerberger, Lafarge)",
-      "Kosztorys etapowy z harmonogramem",
+      "Własna ekipa budowlana — żadnych przypadkowych podwykonawców",
+      "Materiały renomowanych marek (Ytong, Wienerberger, Lafarge) z magazynu",
+      "Przejrzysty kosztorys etapowy — bez zaskoczeń w rachunku końcowym",
     ],
     korzysci: [
-      "Terminowość potwierdzona 500+ realizacjami",
-      "Gwarancja wykonawcza 3 lata na stan surowy",
-      "Dostawa materiałów na plac budowy z własnego magazynu",
+      "Ponad 500 ukończonych budów potwierdza naszą terminowość",
+      "3 lata gwarancji wykonawczej na stan surowy",
+      "Dostawa materiałów bezpośrednio na plac budowy — zero przestojów",
+    ],
+  },
+  {
+    slug: "remont-lazienki",
+    segment: "B2C",
+    title: "Remont łazienki",
+    icon: <PenTool className="w-7 h-7 text-[#f81828]" />,
+    badge: "Najpopularniejsza usługa · Pod klucz",
+    krotkiOpis:
+      "Stara glazura, cieknący prysznic, za mała przestrzeń? Robimy łazienki od A do Z — skucie, nowe instalacje, płytki, armatura, oświetlenie. Wchodzisz po kluczu, wszystko gotowe.",
+    frazySEO: ["remont łazienki lublin", "łazienka pod klucz lublin", "remont łazienki cena lublin"],
+    parametry: [
+      "Zakres: skucie + instalacje wod-kan + glazura + malowanie + armatura",
+      "Czas realizacji: 10–20 dni roboczych (typowa łazienka 5–8 m²)",
+      "Materiały: z magazynu MediaBud lub wg własnego wyboru klienta",
+      "Gwarancja: 2 lata na całość + 5 lat na szczelność instalacji",
+    ],
+    zastosowanie: [
+      "Łazienki w domach jednorodzinnych i mieszkaniach",
+      "Wykończenie nowego mieszkania deweloperskiego",
+      "Modernizacja starej łazienki z lat 80. i 90.",
+    ],
+    zalety: [
+      "Jeden wykonawca od projektu po armaturę — koniec z szukaniem kaflarza i hydraulika z osobna",
+      "Płytki, kleje, fugi, farby — wszystko z własnego składu MediaBud",
+      "Projekt wizualizacji 2D w cenie usługi — widzisz efekt przed rozpoczęciem",
+    ],
+    korzysci: [
+      "Łazienka gotowa w maks. 3 tygodnie bez angażowania Twojego czasu",
+      "Rozliczenie etapowe — płacisz za wykonaną robotę, nie z góry",
+      "Szczelność instalacji gwarantowana przez 5 lat",
     ],
   },
   {
@@ -98,64 +129,99 @@ const services: ServiceDetail[] = [
     segment: "B2C",
     title: "Termomodernizacja",
     icon: <Zap className="w-7 h-7 text-[#f81828]" />,
-    badge: "Ocieplenie · Dofinansowania · B2C",
+    badge: "Czyste Powietrze · Do 136 200 zł dotacji",
     krotkiOpis:
-      "Ocieplenie ścian i dachu, wymiana okien i drzwi, instalacja pomp ciepła i fotowoltaiki. Pomagamy uzyskać dofinansowanie Czyste Powietrze i Mój Prąd.",
-    frazySEO: ["termomodernizacja lublin", "ocieplenie budynku lublin", "czyste powietrze lublin"],
+      "Dom traci ciepło przez ściany, dach i okna. Zatrzymujemy je raz na 25 lat — i pomagamy dostać dotację z programu Czyste Powietrze. Mniej płacisz za ciepło, dom wart więcej.",
+    frazySEO: ["termomodernizacja lublin", "ocieplenie budynku lublin", "czyste powietrze lublin dofinansowanie"],
     parametry: [
-      "Systemy ociepleń: ETICS (styropian, wełna mineralna)",
-      "Grubość izolacji: 15–25 cm wg audytu energetycznego",
-      "Dofinansowania: Czyste Powietrze, Mój Prąd, BOCIAN",
-      "Obszar: Lublin i województwo lubelskie",
+      "System ociepleń: ETICS — styropian EPS lub wełna mineralna",
+      "Izolacja: 15–25 cm grubości, dobór wg audytu energetycznego",
+      "Dofinansowanie: Czyste Powietrze (do 136 200 zł), Mój Prąd, BOCIAN",
+      "Obszar: Lublin i całe woj. lubelskie",
     ],
     zastosowanie: [
-      "Domy jednorodzinne wybudowane przed 2000 r.",
-      "Budynki wielorodzinne (małe wspólnoty)",
+      "Domy wybudowane przed 2000 r. z wysokimi rachunkami za ogrzewanie",
+      "Budynki wielorodzinne (małe wspólnoty do 5 lokali)",
     ],
     zalety: [
-      "Audyt energetyczny przed i po termomodernizacji",
-      "Obsługa wniosków o dofinansowanie — od początku do wypłaty",
-      "Kompleksowość: ocieplenie + elewacja + okna w jednym kontrakcie",
+      "Kompleksowo: ocieplenie + elewacja + okna w jednym kontrakcie i jednej cenie",
+      "Pomagamy złożyć wniosek o dotację i rozliczyć ją — od początku do wypłaty",
+      "Audyt energetyczny przed i po modernizacji — masz czarno na białym wynik",
     ],
     korzysci: [
-      "Redukcja rachunków za ogrzewanie nawet o 50%",
-      "Wzrost wartości nieruchomości",
-      "Poprawa komfortu termicznego przez cały rok",
+      "Rachunki za ogrzewanie niższe o 30–50% rok do roku",
+      "Dom wart więcej na rynku po termomodernizacji",
+      "Komfort przez cały rok — ani za gorąco latem, ani za zimno zimą",
     ],
     ostrzezenia: [
-      "Wymaga wcześniejszego audytu energetycznego",
-      "Termin prac: poza sezonem grzewczym (kwiecień–październik)",
+      "Prace wymagają wcześniejszego audytu energetycznego budynku",
+      "Optymalny termin realizacji: kwiecień–październik (poza sezonem grzewczym)",
+    ],
+  },
+  {
+    slug: "pompa-ciepla-fotowoltaika",
+    segment: "B2C",
+    title: "Pompa ciepła + fotowoltaika",
+    icon: <Zap className="w-7 h-7 text-[#f81828]" />,
+    badge: "OZE · Niezależność energetyczna",
+    krotkiOpis:
+      "Ogrzewasz dom prądem, który sam produkujesz. Pompa ciepła + panele fotowoltaiczne to dziś najlepsza inwestycja w dom — pomagamy przeprowadzić ją od A do Z, z dotacją.",
+    frazySEO: ["pompa ciepła lublin", "fotowoltaika lublin", "OZE Lublin dofinansowanie"],
+    parametry: [
+      "Pompy ciepła: powietrzne i gruntowe, moc 6–22 kW",
+      "Fotowoltaika: systemy 3–15 kWp, panele premium (Longi, Jinko)",
+      "Integracja: PV + pompa ciepła + bufor ciepła + zarządzanie energią",
+      "Dofinansowanie: Czyste Powietrze, Mój Prąd 6.0, premia za magazyn energii",
+    ],
+    zastosowanie: [
+      "Nowe domy — montaż podczas budowy lub wykończenia",
+      "Istniejące domy po termomodernizacji lub bez",
+      "Wymiana starego kotła gazowego lub węglowego",
+    ],
+    zalety: [
+      "Kompletna instalacja z montażem, rozruchem i konfiguracją",
+      "Pomagamy uzyskać dotację — wypełniamy wniosek razem z Tobą",
+      "Serwis i przeglądy gwarancyjne na terenie Lublina i woj. lubelskiego",
+    ],
+    korzysci: [
+      "Rachunki za ogrzewanie praktycznie do zera — prąd produkujesz sam",
+      "Zwrot z inwestycji w 6–10 lat, potem zysk przez kolejne 20 lat",
+      "Niezależność od cen gazu i węgla — nieważne co się dzieje na rynku",
+    ],
+    ostrzezenia: [
+      "Pompa gruntowa wymaga wcześniejszego badania geotechnicznego działki",
+      "Montaż PV: ocena zacienienia dachu przed zakupem instalacji",
     ],
   },
   {
     slug: "wykonczenia-pod-klucz",
     segment: "B2C",
     title: "Wykończenia pod klucz",
-    icon: <PenTool className="w-7 h-7 text-[#f81828]" />,
-    badge: "Wnętrza · Pod klucz · B2C",
+    icon: <Hammer className="w-7 h-7 text-[#f81828]" />,
+    badge: "Wnętrza · Stan deweloperski → do życia",
     krotkiOpis:
-      "Kompleksowe wykończenie wnętrz — tynki, posadzki, glazura, malowanie, zabudowy G-K, łazienki. Materiały z własnego składu, jeden wykonawca od ściany do listwy.",
-    frazySEO: ["wykończenie wnętrz lublin", "wykończenie pod klucz lublin", "remont mieszkania lublin"],
+      "Bierzemy Twój stan surowy lub deweloperski i oddajemy gotowy dom do życia. Tynki, podłogi, glazura, malowanie, łazienki, kuchnia — jedna ekipa, jeden kosztorys, bez chaosu.",
+    frazySEO: ["wykończenie wnętrz lublin", "wykończenie pod klucz lublin", "stan deweloperski lublin"],
     parametry: [
       "Zakres: tynki maszynowe, posadzki, glazura, malowanie, zabudowy G-K",
-      "Łazienki i kuchnie: kompleksowy montaż instalacji + wykończenie",
-      "Materiały: Knauf, Mapei, Atlas, Bosch — z własnego składu",
-      "Termin: zależny od metrażu, orientacyjnie 4–8 tyg. / 100 m²",
+      "Łazienki i kuchnie: instalacje + glazura + armatura w jednym",
+      "Materiały: Knauf, Mapei, Atlas — z magazynu MediaBud lub własne",
+      "Czas: ok. 4–8 tygodni na 100 m² w zależności od standardu",
     ],
     zastosowanie: [
-      "Nowe domy po stanie surowym",
-      "Mieszkania deweloperskie",
-      "Remonty generalne istniejących nieruchomości",
+      "Nowe domy po stanie surowym i zamkniętym",
+      "Mieszkania deweloperskie do wykończenia",
+      "Generalne remonty starszych nieruchomości",
     ],
     zalety: [
-      "Jeden wykonawca — zero problemów koordynacyjnych",
-      "Materiały z magazynu — brak opóźnień dostaw",
-      "Projekt wykończenia uwzględniony w kosztorysie",
+      "Jeden wykonawca od pierwszej do ostatniej ściany — zero chaosu koordynacyjnego",
+      "Materiały z naszego magazynu — bez opóźnień, bo mamy je na stanie",
+      "Projekt wykończenia z wizualizacją w cenie usługi",
     ],
     korzysci: [
-      "Gotowe wnętrze bez stresu właściciela",
-      "Gwarancja 2 lata na roboty wykończeniowe",
-      "Możliwość wyboru standardu: ekonomiczny, premium, luksus",
+      "Dom gotowy do zamieszkania bez Twojego codziennego nadzoru na budowie",
+      "2 lata gwarancji na wszystkie roboty wykończeniowe",
+      "Trzy standardy do wyboru: ekonomiczny, standard, premium",
     ],
   },
   {
@@ -163,30 +229,30 @@ const services: ServiceDetail[] = [
     segment: "B2C",
     title: "Małe domy i domki",
     icon: <Home className="w-7 h-7 text-[#f81828]" />,
-    badge: "Do 35 m² · 70 m² · Letniskowe",
+    badge: "Do 35 m² bez pozwolenia · Szybka realizacja",
     krotkiOpis:
-      "Domy do 35 m² (bez pozwolenia) i mniejsze budynki rekreacyjne. Szybki montaż, systemowe rozwiązania, cena pod kontrolą.",
+      "Dom do 35 m² budujesz bez pozwolenia, w 6–10 tygodni, za ułamek ceny tradycyjnej budowy. Rewelacyjny wybór na działkę rekreacyjną, starter dla młodych lub domek letniskowy.",
     frazySEO: ["mały dom lublin", "dom do 35m2 bez pozwolenia", "domek letniskowy lublin"],
     parametry: [
-      "Domki do 35 m² — budowa bez pozwolenia (zgłoszenie)",
-      "Domki do 70 m² — uproszczona procedura",
-      "Systemy: szkielet drewniany, moduły prefabrykowane",
-      "Czas realizacji: 4–10 tygodni",
+      "Do 35 m²: budowa na zgłoszenie, bez pozwolenia na budowę",
+      "Do 70 m²: uproszczona procedura administracyjna",
+      "Technologia: szkielet drewniany lub moduły prefabrykowane",
+      "Czas realizacji: 4–10 tygodni od decyzji",
     ],
     zastosowanie: [
-      "Działki rekreacyjne i ogrodowe",
-      "Dodatkowe zaplecze gospodarcze",
-      "Starter home dla młodych inwestorów",
+      "Działki rekreacyjne i ogrodnicze",
+      "Starter home — własny kąt bez wieloletnich kredytów",
+      "Dodatkowy domek na wynajem krótkoterminowy (AirBnB)",
     ],
     zalety: [
-      "Niska cena całości dzięki prefabrykacji",
-      "Możliwość realizacji w trybie ekspresowym",
-      "Pełne wykończenie lub stan surowy — do wyboru",
+      "Niska cena całości dzięki prefabrykacji i standarda­zacji",
+      "Ekspresowy montaż — nie czekasz lat na własne M",
+      "Do wyboru: stan surowy lub gotowy do zamieszkania",
     ],
     korzysci: [
-      "Brak konieczności uzyskania pozwolenia na budowę (do 35 m²)",
-      "Niskie koszty eksploatacji",
-      "Prosta rozbudowa w przyszłości",
+      "Zero formalności z pozwoleniem przy domku do 35 m²",
+      "Niskie koszty eksploatacji — małe powierzchnie to małe rachunki",
+      "Możliwość rozbudowy w przyszłości bez burzenia całości",
     ],
   },
   {
@@ -194,28 +260,28 @@ const services: ServiceDetail[] = [
     segment: "B2C",
     title: "Adaptacja poddaszy",
     icon: <Layers className="w-7 h-7 text-[#f81828]" />,
-    badge: "Poddasze użytkowe · B2C",
+    badge: "Nowe metry bez rozbudowy · B2C",
     krotkiOpis:
-      "Pełna adaptacja nieużytkowego poddasza na przestrzeń mieszkalną — projekt, izolacja, ościeżnice dachowe, G-K, wykończenie.",
+      "Masz puste poddasze nad głową? Zamieniamy je w pełnowartościową sypialnię, gabinet lub pokój dla dzieci. Bez kosztownej rozbudowy — zyskujesz metry, które już masz.",
     frazySEO: ["adaptacja poddasza lublin", "poddasze użytkowe lublin", "remont poddasza lublin"],
     parametry: [
-      "Izolacja dachu: wełna mineralna 20–25 cm",
-      "Okna dachowe: Velux, Fakro — montaż i obróbka",
-      "Zabudowy G-K: ściany, sufit, skosy",
-      "Pozwolenie na zmianę sposobu użytkowania (w razie potrzeby)",
+      "Izolacja termiczna dachu: wełna mineralna 20–25 cm",
+      "Okna dachowe: Velux lub Fakro — montaż z pełną obróbką",
+      "Zabudowy G-K: ściany, sufit podwieszany, wykończenie skosów",
+      "Formalności: w razie potrzeby obsługujemy zmianę sposobu użytkowania",
     ],
     zastosowanie: [
-      "Domy jednorodzinne z dachem dwu- lub czterospadowym",
-      "Stare budownictwo z niepełnowymiarową więźbą dachową",
+      "Domy jednorodzinne z dachem dwu- lub wielospadowym",
+      "Starsze budynki z nieużytkową przestrzenią na strychu",
     ],
     zalety: [
-      "Zwiększenie powierzchni użytkowej bez rozbudowy",
-      "Kompletny projekt wnętrza poddasza w cenie usługi",
-      "Możliwość połączenia z termomodernizacją dachu",
+      "Nowe metry kwadratowe bez kosztów rozbudowy bocznej ani nadbudowy",
+      "Projekt wnętrza poddasza z wizualizacją w cenie usługi",
+      "Możliwość połączenia z termomodernizacją dachu — jedno rusztowanie, niższy koszt",
     ],
     korzysci: [
-      "Wzrost wartości nieruchomości o 15–25%",
-      "Nowe pomieszczenia bez kosztów rozbudowy poziomej",
+      "Dom wart 15–25% więcej po adaptacji poddasza",
+      "Nowy pokój dla rodziny bez konieczności przeprowadzki lub dokupowania mieszkania",
     ],
   },
   /* ---- Oba ---- */
@@ -224,34 +290,34 @@ const services: ServiceDetail[] = [
     segment: "Oba",
     title: "Dachy",
     icon: <Layers className="w-7 h-7 text-[#ff6b35]" />,
-    badge: "Budowa · Remont · B2C i B2B",
+    badge: "Nowe dachy · Naprawy · 5 lat gwarancji",
     krotkiOpis:
-      "Budowa nowych dachów i remonty pokryć dachowych — dachówka ceramiczna, blachodachówka, papa termozgrzewalna, blacha płaska. Dla domów i obiektów.",
-    frazySEO: ["pokrycia dachowe lublin", "dekarstwo lublin", "remont dachu lublin"],
+      "Nowy dach lub naprawa przecieku? Działamy w całym woj. lubelskim — dachówka ceramiczna, blacha, papa termozgrzewalna. Robimy dachy dla domów i dużych obiektów. Gwarancja 5 lat na szczelność.",
+    frazySEO: ["pokrycia dachowe lublin", "remont dachu lublin", "dekarstwo lublin woj lubelskie"],
     parametry: [
       "Pokrycia: dachówka ceramiczna i betonowa, blachodachówka, blacha płaska",
-      "Papa termozgrzewalna: dwuwarstwowa na stropodachach płaskich",
-      "Orynnowanie: PVC, tytan-cynk, ocynk",
-      "Izolacja: wełna mineralna, folia paroizolacyjna, membrana",
+      "Stropodachy: papa termozgrzewalna dwuwarstwowa",
+      "Orynnowanie: PVC, tytan-cynk, ocynk — pełna obróbka blacharska",
+      "Izolacja: wełna mineralna, membrana dachowa, folia paroizolacyjna",
     ],
     zastosowanie: [
-      "Domy jednorodzinne (nowe + remont)",
-      "Hale produkcyjne i magazyny",
-      "Szkoły, urzędy, obiekty użyteczności publicznej",
+      "Domy jednorodzinne — nowy dach lub wymiana starego pokrycia",
+      "Hale, magazyny i obiekty przemysłowe",
+      "Szkoły, urzędy i inne budynki użyteczności publicznej",
     ],
     zalety: [
-      "Ekipa własna, bez podwykonawców na etapie dekarskim",
-      "Materiały z własnego składu (Creaton, Ruukki, Fakro)",
-      "Gwarancja szczelności 5 lat",
+      "Własna ekipa dekarska — nie oddajemy roboty przypadkowym podwykonawcom",
+      "Materiały renomowanych marek z naszego magazynu (Creaton, Ruukki, Fakro)",
+      "5 lat gwarancji na szczelność — na piśmie",
     ],
     korzysci: [
-      "Kompleksowość: dachy + obróbki + orynnowanie w jednym kontrakcie",
-      "Szybka diagnoza i naprawa przecieków",
-      "Realizacje dla B2C i B2B w tym samym standardzie",
+      "Jeden kontrakt: pokrycie + obróbki blacharskie + orynnowanie",
+      "Szybka diagnoza i naprawa aktywnych przecieków — działamy bez zbędnych formalności",
+      "Ten sam standard dla domu i dużego obiektu",
     ],
     ostrzezenia: [
-      "Prace dachowe: wyłącznie przy temp. powyżej +5°C",
-      "Papa termozgrzewalna: nie stosować przy silnym wietrze",
+      "Prace dachowe wyłącznie w temperaturach powyżej +5°C",
+      "Papa zgrzewalna: nie stosować przy silnym wietrze powyżej 10 m/s",
     ],
   },
   {
@@ -259,63 +325,63 @@ const services: ServiceDetail[] = [
     segment: "Oba",
     title: "Elewacje",
     icon: <Building2 className="w-7 h-7 text-[#ff6b35]" />,
-    badge: "Tynk · Klinkier · B2C i B2B",
+    badge: "Tynk · Klinkier · Ocieplenie ETICS",
     krotkiOpis:
-      "Elewacje tynkowane (cienkowarstwowy, mozaikowy), klinkierowe i wentylowane. Ocieplenie w systemie ETICS jako element elewacyjny.",
-    frazySEO: ["elewacja budynku lublin", "tynk elewacyjny lublin", "ocieplenie elewacji lublin"],
+      "Dom ocieplamy i wykańczamy wizualnie w jednym projekcie — tynk cienkowarstwowy, klinkier lub elewacja wentylowana. Efekt estetyczny na 20 lat, możliwa dotacja z Czystego Powietrza.",
+    frazySEO: ["elewacja budynku lublin", "tynk elewacyjny lublin", "ocieplenie elewacji lublin etics"],
     parametry: [
-      "Systemy: ETICS (styropian + tynk), elewacja wentylowana",
-      "Tynki: akrylowy, silikonowy, silikatowy, mozaikowy",
+      "Systemy: ETICS ze styropianem lub wełną + tynk cienkowarstwowy",
+      "Tynki: akrylowy, silikonowy, silikatowy, mozaikowy (Ceresit, Caparol, Weber)",
       "Elewacja klinkierowa: płytki klinkierowe na siatce zbrojonej",
-      "Malowanie elewacji: farby fasadowe Caparol, Ceresit",
+      "Elewacja wentylowana: okładziny ceramiczne, kompozytowe, HPL",
     ],
     zastosowanie: [
-      "Nowe budynki — elewacja w trakcie budowy",
-      "Renowacja starych elewacji (odpryski, zacieki, grzyb)",
+      "Nowe budynki — elewacja podczas trwania budowy",
+      "Renowacja zniszczonych elewacji (pęknięcia, odpryski, grzyb, zacieki)",
       "Obiekty komercyjne i usługowe",
     ],
     zalety: [
-      "Kompleksowość: ocieplenie + elewacja + cokół w jednym kontrakcie",
-      "Dobór systemu do strefy klimatycznej budynku",
-      "Trwałość powłok: 15–20 lat w systemach silikonowych",
+      "Ocieplenie + wykończenie wizualne + cokół w jednym kontrakcie — taniej i szybciej",
+      "Dobieramy system do orientacji budynku i lokalnego klimatu",
+      "Powłoki silikonowe i silikatowe trzymają efekt nawet 20 lat",
     ],
     korzysci: [
-      "Estetyka + izolacja termiczna w jednym",
-      "Możliwość dofinansowania w ramach Czystego Powietrza",
-      "Łatwe czyszczenie i konserwacja po realizacji",
+      "Lepsza izolacja termiczna + nowy wygląd domu w jednej inwestycji",
+      "Możliwość dofinansowania z programu Czyste Powietrze",
+      "Elewacja samooczyszczająca — brud spływa z deszczem, dom wygląda świeżo",
     ],
   },
   /* ---- B2B ---- */
   {
     slug: "remonty-b2b",
     segment: "B2B",
-    title: "Remonty B2B",
-    icon: <Hammer className="w-7 h-7 text-[#ff6b35]" />,
-    badge: "Obiekty · Instytucje · B2B",
+    title: "Remonty dla firm",
+    icon: <Building2 className="w-7 h-7 text-[#ff6b35]" />,
+    badge: "Firmy · Instytucje · Bez przestojów",
     krotkiOpis:
-      "Remonty i modernizacje dla firm i instytucji — galerie handlowe, szkoły, urzędy, lokale usługowe, hale i magazyny. Realizacje w terminach uzgodnionych z klientem biznesowym.",
-    frazySEO: ["remont obiektu lublin", "remonty dla firm lublin", "modernizacja budynku lublin b2b"],
+      "Prowadzisz firmę lub instytucję? Remontujemy sklepy, szkoły, biura i hale — w godzinach Twojej działalności lub nocą i w weekendy. Minimum przestojów dla Ciebie, pełna dokumentacja dla księgowości.",
+    frazySEO: ["remont obiektu lublin", "remonty dla firm lublin", "modernizacja budynku firma lublin"],
     parametry: [
       "Zakres: posadzki przemysłowe, ściany, sufity podwieszane, instalacje",
-      "Koordynacja prac z harmonogramem działalności klienta",
-      "Przetargi publiczne: doświadczenie w postępowaniach PZP",
-      "Obszar: Lublin i województwo lubelskie",
+      "Harmonogram: dopasowany do godzin pracy lub działalności klienta",
+      "Przetargi: doświadczenie w postępowaniach PZP i zamówieniach publicznych",
+      "Obszar: Lublin i woj. lubelskie",
     ],
     zastosowanie: [
-      "Galerie handlowe i lokale usługowe",
+      "Sklepy, galerie handlowe i lokale usługowe",
       "Szkoły, przedszkola i obiekty oświatowe",
-      "Urzędy i instytucje publiczne",
-      "Hale produkcyjne i magazyny",
+      "Urzędy, biura i instytucje publiczne",
+      "Hale produkcyjne, magazyny i zakłady przemysłowe",
     ],
     zalety: [
-      "Doświadczenie w realizacjach w trybie nocnym i weekendowym",
-      "Pełna dokumentacja powykonawcza i gwarancyjna",
-      "Rozliczenia FV z 30-dniowym terminem płatności",
+      "Robimy w nocy i w weekendy — Twoja firma nie traci ani jednego dnia pracy",
+      "Pełna dokumentacja powykonawcza i gwarancyjna dla działu technicznego",
+      "Faktura z 30-dniowym terminem płatności — standard, bez negocjacji",
     ],
     korzysci: [
-      "Minimalizacja przerw w działalności klienta",
-      "Jeden wykonawca dla wielu zakresów — brak ryzyka koordynacyjnego",
-      "Referencje i doświadczenie z obiektami użyteczności publicznej",
+      "Twoja firma działa normalnie, my remontujemy w tle",
+      "Jeden wykonawca na wiele zakresów — mniej umów, mniej problemów",
+      "Mamy referencje z obiektów publicznych — audyt nie będzie problemem",
     ],
   },
 ];
@@ -587,11 +653,11 @@ export default function ServicesPage() {
         <div className="relative container mx-auto px-4 pl-9 py-12 md:py-16">
           <div className="max-w-5xl grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-4">Industrial Pulse · usługi wykonawcze</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-4">Media Bud · Lublin i woj. lubelskie</p>
               <h1 className="font-display font-black uppercase text-white leading-[0.9] break-words mb-5" style={{ fontSize: "clamp(2.4rem,6vw,4.5rem)", overflowWrap: "anywhere" }}>
-                Usługi wykonawcze MediaBud
+                Budujesz lub remontujesz?
               </h1>
-              <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-3xl">MediaBud rozwija ofertę dla klientów indywidualnych i biznesowych: budowa domu, termomodernizacja, wykończenia pod klucz, dachy, elewacje, adaptacje poddaszy oraz remonty B2B dla galerii, szkół i obiektów użyteczności publicznej w Lublinie i województwie lubelskim.</p>
+              <p className="text-base md:text-lg leading-relaxed text-[#d7d7d7] max-w-3xl">Masz projekt, pomysł lub problem budowlany — my mamy materiały, ekipę i doświadczenie. Media Bud to skład budowlany i firma wykonawcza w jednym: kupujesz i budujesz u jednego sprawdzonego partnera w Lublinie.</p>
             </div>
             <div className="rounded-2xl p-6" style={{ background: "#0f0f0f", border: "1px solid #1f1f1f", boxShadow: "0 20px 44px rgba(0,0,0,0.35)" }}>
               <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#888] mb-3">Media Bud w liczbach</p>
@@ -642,10 +708,10 @@ export default function ServicesPage() {
         <section className="space-y-5">
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">B2C</p>
-              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Usługi dla inwestorów indywidualnych</h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f81828] mb-2">Dla Ciebie · B2C</p>
+              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Budujesz lub remontujesz prywatnie?</h2>
             </div>
-            <p className="text-sm text-[#888] max-w-2xl">Budowa domu, termomodernizacja, wykończenie, małe domy i adaptacje poddaszy — wszystko w modelu lokalnym Lublin / woj. lubelskie.</p>
+            <p className="text-sm text-[#888] max-w-2xl">Dom od zera, remont łazienki, pompa ciepła, małe domy, adaptacja poddasza — wszystko w Lublinie i woj. lubelskim z materiałami z własnego składu.</p>
           </div>
           <div className="grid xl:grid-cols-2 gap-5">
             {b2cServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
@@ -655,10 +721,10 @@ export default function ServicesPage() {
         <section className="space-y-5">
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#ff6b35] mb-2">B2C / B2B</p>
-              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Usługi wspólne dla domów i obiektów</h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#ff6b35] mb-2">Domy i obiekty · B2C / B2B</p>
+              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Dach i elewacja — dla domu i firmy</h2>
             </div>
-            <p className="text-sm text-[#888] max-w-2xl">Dachy i elewacje, które naturalnie łączą inwestycje prywatne oraz mniejsze realizacje firmowe.</p>
+            <p className="text-sm text-[#888] max-w-2xl">Dachy i elewacje to roboty, które robimy zarówno dla prywatnych inwestorów, jak i dla firm, szkół czy obiektów komercyjnych. Jeden standard jakości, niezależnie od skali.</p>
           </div>
           <div className="grid xl:grid-cols-2 gap-5">
             {mixedServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}
@@ -668,10 +734,10 @@ export default function ServicesPage() {
         <section className="space-y-5">
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#ff6b35] mb-2">B2B</p>
-              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Usługi dla firm i instytucji</h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[#ff6b35] mb-2">Dla Twojej firmy · B2B</p>
+              <h2 className="font-display text-[clamp(1.8rem,3.5vw,3rem)] font-black uppercase text-white break-words" style={{ overflowWrap: "anywhere" }}>Twoja firma potrzebuje remontu?</h2>
             </div>
-            <p className="text-sm text-[#888] max-w-2xl">Remonty i modernizacje dla galerii, szkół, lokali usługowych i obiektów użyteczności publicznej.</p>
+            <p className="text-sm text-[#888] max-w-2xl">Robimy remonty sklepów, biur, hal i szkół — w nocy i w weekendy, żebyś nie stracił ani jednego dnia pracy. Pełna dokumentacja, FV z 30-dniowym terminem.</p>
           </div>
           <div className="grid xl:grid-cols-2 gap-5">
             {b2bServices.map((svc) => <ServiceTile key={svc.slug} svc={svc} />)}

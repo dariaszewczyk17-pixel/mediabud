@@ -213,26 +213,7 @@ export function ProductCard({ product, showBrand = true, priority = false }: Pro
                 NOWOŚĆ
               </span>
             )}
-            {product.isFeatured && (
-              <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider"
-                style={{ background: "#f81828", boxShadow: "0 0 8px rgba(248,24,40,0.5)" }}>
-                POLECANY
-              </span>
-            )}
-            {inStock && (
-              <span
-                className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider"
-                style={{
-                  background: "rgba(16,185,129,0.15)",
-                  border: "1px solid rgba(16,185,129,0.6)",
-                  color: "#4ade80",
-                  boxShadow: "0 0 10px rgba(16,185,129,0.5), 0 0 3px rgba(16,185,129,0.8)",
-                  textShadow: "0 0 6px rgba(16,185,129,0.8)",
-                }}
-              >
-                ● DOSTĘPNY OD RĘKI
-              </span>
-            )}
+
           </div>
 
         </Link>

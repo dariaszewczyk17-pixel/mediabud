@@ -808,11 +808,11 @@ export default function Home() {
               background: linear-gradient(180deg, #ffffff 0%, #f8f6f6 100%) !important;
             }
             .brand-card img {
-              filter: grayscale(1) brightness(0.9) contrast(1.05);
+              filter: brightness(1) contrast(1);
               transition: filter 0.5s cubic-bezier(.22,1,.36,1), transform 0.45s cubic-bezier(.22,1,.36,1);
             }
             .brand-card:hover img {
-              filter: grayscale(0) brightness(1) contrast(1);
+              filter: brightness(1);
               transform: scale(1.04);
             }
             .brand-card-glow {
@@ -1317,14 +1317,6 @@ export default function Home() {
                   <div>
                     <div className="mb-2 text-sm font-semibold text-[#f4f4f4]">{r.title}</div>
                     <div className="text-xs font-medium uppercase tracking-[0.14em] text-gray-400">{r.client}</div>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
-                    <div className="mb-2 flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-[#f81828]">
-                      <span className="text-base">🔧</span>
-                      Zakres prac
-                    </div>
-                    <p className="text-sm leading-relaxed text-gray-300">{r.scope}</p>
                   </div>
 
                   {r.value && (

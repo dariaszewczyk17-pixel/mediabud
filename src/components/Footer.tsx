@@ -173,17 +173,29 @@ export default function Footer() {
               </a>
               <p>Lublin, ul. Chemiczna 8d</p>
             </div>
-            {/* Mapka OpenStreetMap */}
-            <div className="rounded-xl overflow-hidden mb-5" style={{ border: "1px solid #2a2a2a" }}>
+            {/* Mapka OpenStreetMap — klikalna, otwiera Google Maps */}
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=51.2375,22.6016"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-xl overflow-hidden mb-5 relative"
+              style={{ border: "1px solid #2a2a2a" }}
+              title="Otwórz w Google Maps"
+            >
               <iframe
                 title="Media Bud — lokalizacja"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=22.5966%2C51.2345%2C22.6066%2C51.2405&layer=mapnik&marker=51.2375%2C22.6016"
                 width="100%"
                 height="150"
-                style={{ display: "block", filter: "grayscale(1) brightness(0.65) contrast(1.1)", border: 0 }}
+                style={{ display: "block", filter: "grayscale(1) brightness(0.65) contrast(1.1)", border: 0, pointerEvents: "none" }}
                 loading="lazy"
               />
-            </div>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: "6px", background: "transparent" }}>
+                <span style={{ fontSize: "9px", fontWeight: 900, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(248,24,40,0.9)", background: "rgba(0,0,0,0.7)", padding: "2px 8px", borderRadius: "4px" }}>
+                  OTWÓRZ W MAPACH →
+                </span>
+              </div>
+            </a>
             {sent ? (
               <div className="rounded-lg px-4 py-3 text-sm font-semibold flex items-center gap-2"
                 style={{ background: "rgba(248,24,40,0.12)", border: "1px solid rgba(248,24,40,0.25)", color: "#fff" }}>

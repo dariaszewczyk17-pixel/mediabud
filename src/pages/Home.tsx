@@ -349,211 +349,168 @@ export default function Home() {
       })}} />
 
       {/* ═══════════════════════════════════════════════════════
-          HERO SLIDER
+          HERO — COMMAND CENTER
       ═══════════════════════════════════════════════════════ */}
       {/* ── Hero Section ── */}
-      <section className="relative min-h-[48vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
-        {/* ── Wideo tło — Industrial Pulse Hero (Seedance 2.0) ── */}
-        <div className="absolute inset-0" style={{ zIndex: 1 }}>
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.70) saturate(0.88)" }}
-          >
-            <source
-              src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/image2video-d8jkhjv80j2drgd1t820.mp4"
-              type="video/mp4"
-            />
-          </video>
-          {/* Laser line — czerwona linia jak na kategoriach */}
-          <div
-            className="absolute left-0 right-0 pointer-events-none z-10"
-            style={{
-              top: "50%",
-              height: "2px",
-              background: "linear-gradient(90deg, transparent 0%, #f81828 20%, #ff6b6b 50%, #f81828 80%, transparent 100%)",
-              boxShadow: "0 0 12px 3px rgba(248,24,40,0.7), 0 0 24px 6px rgba(248,24,40,0.35)",
-              opacity: 0.85,
-            }}
-          />
-        </div>
-
-        {/* Warstwa 1: Siatka techniczna CSS — gęstsza */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: "linear-gradient(rgba(248,24,40,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.07) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-          opacity: 0.55,
-          zIndex: 2,
-        }} />
-        {/* Warstwa 2: Vignette */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(248,24,40,0.18), transparent)",
-          zIndex: 2,
-        }} />
-        {/* Warstwa 3: Gradient dolny */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{
-          background: "linear-gradient(to top, #000, transparent)",
-          zIndex: 2,
-        }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 42%, rgba(0,0,0,0.35) 72%, rgba(0,0,0,0.15) 100%)", zIndex: 2 }} />
-        {/* Linia górna + lewa krawędź */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] z-20" style={{ background: "linear-gradient(90deg, #f81828, #ff6b35 50%, #f81828)" }} />
-        <div className="absolute left-0 top-0 bottom-0 w-[2px] z-20 bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.45)" }} />
-
-        {/* ── HUD Corners ── */}
+      <section className="relative min-h-[58vh] md:min-h-[65vh] flex flex-col justify-center overflow-hidden" style={{ background: "#000" }}>
+        {/* CSS animations */}
         <style>{`
-          @keyframes hud-scan { 0%{top:0%;opacity:.6} 80%{opacity:.2} 100%{top:100%;opacity:0} }
-          @keyframes hud-pulse { 0%,100%{opacity:.6} 50%{opacity:1} }
+          @keyframes hud-scan { 0%{top:0%;opacity:.7} 80%{opacity:.2} 100%{top:100%;opacity:0} }
+          @keyframes hud-pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
           @keyframes hud-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
-          .hud-scan-v { position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(248,24,40,0.4),transparent); animation:hud-scan 4s linear infinite; pointer-events:none; z-index:5; }
+          @keyframes cf-a { 0%,42%{opacity:1} 50%,92%{opacity:0} 100%{opacity:1} }
+          @keyframes cf-b { 0%,42%{opacity:0} 50%,92%{opacity:1} 100%{opacity:0} }
+          .hud-scan-v { position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(248,24,40,0.5),transparent); animation:hud-scan 4s linear infinite; pointer-events:none; z-index:5; }
         `}</style>
-        {/* Pionowy scan */}
+
+        {/* Wideo A — Industrial Command */}
+        <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1, animation: "cf-a 30s linear infinite" }}>
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover" style={{ filter: "brightness(0.60) saturate(0.75)" }}>
+            <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k06h780j2drgd1u0r0.mp4" type="video/mp4" />
+          </video>
+        </div>
+        {/* Wideo B — Material Intelligence */}
+        <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1, animation: "cf-b 30s linear infinite" }}>
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover" style={{ filter: "brightness(0.60) saturate(0.75)" }}>
+            <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k06k780j2drgd1u0rg.mp4" type="video/mp4" />
+          </video>
+        </div>
+        {/* Mobile fallback */}
+        <div className="absolute inset-0 block md:hidden" style={{ zIndex: 1, backgroundImage: "url('/images/hero-materialy_2.png')", backgroundSize: "cover", backgroundPosition: "center", filter: "brightness(0.50)" }} />
+
+        {/* HUD Grid */}
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.055) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.055) 1px,transparent 1px)", backgroundSize: "32px 32px", zIndex: 2 }} />
+        {/* Vignette */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 90% 70% at 35% 50%, transparent 25%, rgba(0,0,0,0.75) 100%)", zIndex: 2 }} />
+        {/* Gradient dolny */}
+        <div className="absolute bottom-0 left-0 right-0 h-52 pointer-events-none" style={{ background: "linear-gradient(to top, #050505, transparent)", zIndex: 2 }} />
+        {/* Gradient lewy */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.15) 100%)", zIndex: 2 }} />
+
+        {/* HUD border */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] z-20" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.35) 60%,transparent)" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-[2px] z-20 bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.55)" }} />
         <div className="hud-scan-v" />
-        {/* Narożnik lewy-górny */}
-        <div className="absolute top-4 left-4 z-10 pointer-events-none" style={{ width: 28, height: 28, borderTop: "2px solid #f81828", borderLeft: "2px solid #f81828" }} />
-        {/* Narożnik prawy-górny */}
-        <div className="absolute top-4 right-4 z-10 pointer-events-none" style={{ width: 28, height: 28, borderTop: "2px solid rgba(248,24,40,0.5)", borderRight: "2px solid rgba(248,24,40,0.5)" }} />
-        {/* Narożnik lewy-dolny */}
-        <div className="absolute bottom-4 left-4 z-10 pointer-events-none" style={{ width: 28, height: 28, borderBottom: "2px solid rgba(248,24,40,0.5)", borderLeft: "2px solid rgba(248,24,40,0.5)" }} />
-        {/* Narożnik prawy-dolny */}
-        <div className="absolute bottom-4 right-4 z-10 pointer-events-none" style={{ width: 28, height: 28, borderBottom: "2px solid rgba(248,24,40,0.3)", borderRight: "2px solid rgba(248,24,40,0.3)" }} />
-        {/* Współrzędne prawy-dolny */}
-        <div className="absolute bottom-6 right-6 z-10 pointer-events-none hidden md:block" style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.5)", letterSpacing: "0.1em", lineHeight: 1.6 }}>
+
+        {/* HUD corners */}
+        <div className="absolute top-4 left-4 z-10 pointer-events-none" style={{ width: 32, height: 32, borderTop: "2px solid #f81828", borderLeft: "2px solid #f81828" }} />
+        <div className="absolute top-4 right-4 z-10 pointer-events-none" style={{ width: 22, height: 22, borderTop: "1px solid rgba(248,24,40,0.45)", borderRight: "1px solid rgba(248,24,40,0.45)" }} />
+        <div className="absolute bottom-4 left-4 z-10 pointer-events-none" style={{ width: 22, height: 22, borderBottom: "1px solid rgba(248,24,40,0.45)", borderLeft: "1px solid rgba(248,24,40,0.45)" }} />
+        <div className="absolute bottom-4 right-4 z-10 pointer-events-none" style={{ width: 14, height: 14, borderBottom: "1px solid rgba(248,24,40,0.2)", borderRight: "1px solid rgba(248,24,40,0.2)" }} />
+
+        {/* GPS coords */}
+        <div className="absolute bottom-6 right-8 z-10 pointer-events-none hidden lg:block" style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.45)", letterSpacing: "0.1em", lineHeight: 1.8, textAlign: "right" }}>
           <div>51.2465°N / 22.5684°E</div>
           <div>LUBLIN // PL-06</div>
           <div style={{ animation: "hud-pulse 2s ease-in-out infinite" }}>● SYS_ACTIVE</div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 py-8">
-          <div className="max-w-3xl">
-            {/* Eyebrow badge — HUD style */}
-            <div
-              key={`label-${slide}`}
-              className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 animate-fade-up"
-              style={{ border: "1px solid rgba(248,24,40,0.5)", color: "#f81828", fontFamily: "monospace", fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", background: "rgba(248,24,40,0.06)" }}
-            >
-              <span className="w-1.5 h-1.5 bg-[#f81828]" style={{ animation: "hud-blink 1s step-end infinite" }} />
-              [ {current.label} // LUBLIN ]
+        {/* MAIN CONTENT */}
+        <div className="relative z-10 container mx-auto px-4 py-10 md:py-14">
+          <div className="grid grid-cols-1 lg:grid-cols-[58fr_42fr] gap-6 lg:gap-10 items-start">
+
+            {/* Left: Copy */}
+            <div>
+              {/* Terminal eyebrow */}
+              <div className="inline-flex flex-col gap-0.5 mb-5" style={{ border: "1px solid rgba(248,24,40,0.42)", background: "rgba(248,24,40,0.05)", padding: "6px 12px" }}>
+                <div style={{ fontFamily: "monospace", fontSize: 9, color: "#f81828", letterSpacing: "0.2em", display: "flex", alignItems: "center", gap: 7 }}>
+                  <span style={{ animation: "hud-blink 1s step-end infinite" }}>&#9632;</span>
+                  &#9658; SYSTEM_READY :: LUBLIN_OPERATIONAL_BASE
+                </div>
+                <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.5)", letterSpacing: "0.14em" }}>
+                  51.2465°N / 22.5684°E // PL-06 // AKTYWNY
+                </div>
+              </div>
+
+              {/* H1 */}
+              <h1 className="font-black uppercase leading-[1.0] tracking-tight mb-5" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
+                <span className="block text-white" style={{ fontSize: "clamp(1.9rem, 5vw, 4.5rem)", letterSpacing: "-0.01em" }}>SKŁAD BUDOWLANY</span>
+                <span className="block" style={{ fontSize: "clamp(2.3rem, 6vw, 5.5rem)", letterSpacing: "-0.02em", background: "linear-gradient(135deg,#f81828 20%,#ff6b35 80%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>MATERIAŁY + EKIPA</span>
+                <span className="block text-white/60" style={{ fontSize: "clamp(1.3rem, 3.2vw, 3rem)", fontWeight: 700, letterSpacing: "0.02em" }}>LUBLIN &amp; REGION</span>
+              </h1>
+
+              {/* Subtitle */}
+              <p className="mb-7 max-w-lg leading-relaxed" style={{ color: "#777", fontFamily: "Inter,sans-serif", fontSize: "clamp(0.875rem,1.4vw,1rem)" }}>
+                Jeden sprawdzony partner od materiałów po realizację. 15&nbsp;000+ produktów w magazynie i ekipa wykonawcza pod klucz.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-3 mb-7">
+                <Link
+                  to="/produkty"
+                  className="inline-flex items-center gap-2 font-black uppercase tracking-wider text-white relative overflow-hidden group"
+                  style={{ background: "#f81828", fontSize: "0.8rem", letterSpacing: "0.12em", padding: "13px 26px", boxShadow: "0 10px 28px rgba(248,24,40,0.30), inset 0 1px 0 rgba(255,255,255,0.1)" }}
+                >
+                  <span className="relative z-10">Przeglądaj ofertę →</span>
+                  <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(135deg,rgba(255,255,255,0.18),transparent)" }} />
+                </Link>
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 font-bold uppercase tracking-wider text-white"
+                  style={{ border: "1px solid rgba(248,24,40,0.5)", fontSize: "0.8rem", letterSpacing: "0.12em", padding: "13px 26px", background: "rgba(248,24,40,0.05)" }}
+                  onClick={() => setQuoteOpen(true)}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = "#f81828"; e.currentTarget.style.background = "rgba(248,24,40,0.12)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(248,24,40,0.5)"; e.currentTarget.style.background = "rgba(248,24,40,0.05)"; }}
+                >
+                  <span style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.7)", marginRight: 3 }}>[B2B]</span>
+                  Zapytaj o wycenę
+                </button>
+              </div>
+
+              {/* Trust */}
+              <div className="flex flex-wrap items-center gap-5">
+                {["Ponad 15 900 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map((t) => (
+                  <span key={t} style={{ fontFamily: "monospace", fontSize: 9, color: "#555", letterSpacing: "0.14em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 6 }}>
+                    <span style={{ color: "#f81828" }}>&#9672;</span> {t}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            {/* Główny tytuł */}
-            <h1
-              key={`title-${slide}`}
-              className="font-black uppercase leading-[1.05] tracking-tight mb-4 text-white animate-fade-up delay-100 break-words max-w-full"
-              style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", letterSpacing: "-0.02em", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", overflowWrap: "anywhere", hyphens: "auto" }}
-            >
-              {current.title.split("\n").map((line, i) => (
-                <span key={i} className="block">
-                  {i === 1 ? (
-                    <span style={{ background: "linear-gradient(135deg, #f81828, #ff6b35)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                      {line}
-                    </span>
-                  ) : (
-                    line
-                  )}
-                </span>
-              ))}
-            </h1>
-
-            {/* Podtytuł */}
-            <p
-              key={`sub-${slide}`}
-              className="text-lg mb-8 max-w-xl leading-relaxed animate-fade-up delay-200"
-              style={{ color: "#888", fontFamily: "Inter,sans-serif" }}
-            >
-              {current.subtitle}
-            </p>
-
-            {/* CTA buttons */}
-            <div key={`cta-${slide}`} className="flex flex-wrap gap-4 mb-10 animate-fade-up delay-300">
-              <Link
-                to={current.ctaLink}
-                className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-wider text-white rounded-lg relative overflow-hidden group"
-                style={{ background: "#f81828", fontSize: "0.875rem", letterSpacing: "0.1em", boxShadow: "0 16px 36px rgba(248,24,40,0.22)" }}
-              >
-                <span className="relative z-10">{current.cta} →</span>
-                <span
-                  className="absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"
-                  style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)", transform: "skewX(-12deg)" }}
-                />
-              </Link>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 px-8 py-4 font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-white hover:text-white"
-                style={{ border: "1px solid rgba(255,255,255,0.2)", fontSize: "0.875rem", letterSpacing: "0.1em" }}
-                onClick={() => setQuoteOpen(true)}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(248,24,40,0.6)")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)")}
-              >
-                Zapytaj o wycenę B2B
-              </button>
+            {/* Right: STATUS PANEL */}
+            <div className="hidden lg:block" style={{ paddingTop: 4 }}>
+              <div style={{ background: "rgba(4,4,4,0.78)", backdropFilter: "blur(22px)", border: "1px solid rgba(248,24,40,0.2)", position: "relative" }}>
+                <div style={{ position: "absolute", top: -1, left: -1, width: 18, height: 18, borderTop: "2px solid #f81828", borderLeft: "2px solid #f81828" }} />
+                <div style={{ position: "absolute", bottom: -1, right: -1, width: 14, height: 14, borderBottom: "1px solid rgba(248,24,40,0.35)", borderRight: "1px solid rgba(248,24,40,0.35)" }} />
+                <div style={{ borderBottom: "1px solid rgba(248,24,40,0.18)", background: "rgba(248,24,40,0.05)", padding: "8px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.75)", letterSpacing: "0.18em", display: "flex", alignItems: "center", gap: 7 }}>
+                    <span style={{ animation: "hud-blink 1.3s step-end infinite", color: "#f81828" }}>&#9632;</span> SYSTEM STATUS
+                  </div>
+                  <div style={{ fontFamily: "monospace", fontSize: 8, color: "#f81828", animation: "hud-pulse 2s ease-in-out infinite", letterSpacing: "0.12em" }}>&#9679; ONLINE</div>
+                </div>
+                <div style={{ padding: "14px 16px 10px", display: "flex", flexDirection: "column", gap: 11 }}>
+                  {[
+                    { code: "INV", val: `${productCount.toLocaleString("pl-PL")}+`, label: "Produktów w ofercie", pct: 95 },
+                    { code: "EXP", val: "15 lat", label: "Doświadczenia", pct: 75 },
+                    { code: "CLI", val: "500+", label: "Firm klientów B2B", pct: 80 },
+                    { code: "ETA", val: "<24h", label: "Realizacja zamówień", pct: 92 },
+                  ].map((m) => (
+                    <div key={m.code}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 3 }}>
+                        <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.45)", letterSpacing: "0.14em" }}>[{m.code}] {m.label}</div>
+                        <div style={{ fontFamily: "monospace", fontSize: 14, color: "#f81828", fontWeight: 900, textShadow: "0 0 10px rgba(248,24,40,0.65)" }}>{m.val}</div>
+                      </div>
+                      <div style={{ height: 1.5, background: "rgba(248,24,40,0.09)", overflow: "hidden" }}>
+                        <div style={{ height: "100%", width: `${m.pct}%`, background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.25))", boxShadow: "0 0 4px rgba(248,24,40,0.5)" }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ borderTop: "1px solid rgba(248,24,40,0.1)", padding: "10px 16px" }}>
+                  <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.38)", letterSpacing: "0.12em", marginBottom: 6 }}>// AKTYWNE USŁUGI</div>
+                  {["Ocieplenia & elewacje", "Dachy", "Wykończenia pod klucz", "Deweloperzy B2B"].map((s) => (
+                    <div key={s} style={{ fontFamily: "monospace", fontSize: 8, color: "#4a4a4a", letterSpacing: "0.1em", display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                      <span style={{ color: "#f81828", fontSize: 6 }}>&#9685;</span> {s.toUpperCase()}
+                    </div>
+                  ))}
+                </div>
+                <div style={{ borderTop: "1px solid rgba(248,24,40,0.08)", padding: "7px 16px" }}>
+                  <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.28)", letterSpacing: "0.1em" }}>51.2465°N / 22.5684°E // LUBLIN // PL-06</div>
+                </div>
+              </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 animate-fade-up delay-400">
-              {["Ponad 15 900 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map((t) => (
-                <span key={t} className="flex items-center gap-1.5 text-xs uppercase tracking-[0.18em] font-bold" style={{ color: "#888" }}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />
-                  {t}
-                </span>
-              ))}
-            </div>
           </div>
-        </div>
-
-        {/* Prev/next */}
-        <button
-          type="button"
-          aria-label="Poprzedni slajd"
-          onClick={() => goTo((slide - 1 + heroSlides.length) % heroSlides.length)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-11 h-11 rounded-full border border-white/15 bg-black/55 items-center justify-center text-white transition-all duration-200"
-          onMouseEnter={e => {
-            e.currentTarget.style.background = "#f81828";
-            e.currentTarget.style.boxShadow = "0 0 18px rgba(248,24,40,0.25)";
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.background = "rgba(0,0,0,0.55)";
-            e.currentTarget.style.boxShadow = "none";
-          }}
-        >
-          <ChevronLeft className="w-5 h-5" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          aria-label="Następny slajd"
-          onClick={() => goTo((slide + 1) % heroSlides.length)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-11 h-11 rounded-full border border-white/15 bg-black/55 items-center justify-center text-white transition-all duration-200"
-          onMouseEnter={e => {
-            e.currentTarget.style.background = "#f81828";
-            e.currentTarget.style.boxShadow = "0 0 18px rgba(248,24,40,0.25)";
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.background = "rgba(0,0,0,0.55)";
-            e.currentTarget.style.boxShadow = "none";
-          }}
-        >
-          <ChevronRight className="w-5 h-5" aria-hidden="true" />
-        </button>
-
-        {/* Dots — touch area min 44×44px (WCAG 2.5.8), wizualny wskaźnik w <span> */}
-        <div className="absolute bottom-4 right-4 z-30 flex items-center" role="group" aria-label="Nawigacja slajdów">
-          {heroSlides.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              aria-label={`Slajd ${i + 1}`}
-              aria-current={i === slide ? "true" : undefined}
-              onClick={() => goTo(i)}
-              className="flex items-center justify-center w-11 h-11 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 rounded-full"
-            >
-              <span className={`block transition-all duration-300 rounded-full ${i === slide ? "w-8 h-2 bg-[#f81828]" : "w-2 h-2 bg-white/30 hover:bg-white/60"}`} />
-            </button>
-          ))}
-        </div>
-        <div className="absolute bottom-6 left-6 z-30 text-xs font-black uppercase tracking-[0.25em]" style={{ color: "#888", fontFamily: "'Share Tech Mono',monospace" }}>
-          <span className="text-white">{String(slide + 1).padStart(2, "0")}</span> / {String(heroSlides.length).padStart(2, "0")}
         </div>
       </section>
 

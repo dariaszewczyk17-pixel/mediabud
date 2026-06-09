@@ -1,0 +1,342 @@
+[
+  {
+    "sku": "P-0024856",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0037924",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0039225",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0039707",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0041419",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0042822",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0043146",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0058529",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0060708",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0077526",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0078704",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0078593",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0088109",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0088097",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0095941",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0100111",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0114155",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0114710",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0115975",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0125867",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0160217",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0160199",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0161117",
+    "status": "error:HTTPSConnectionPool(host='www.bechcicki.pl', port=443): Read"
+  },
+  {
+    "sku": "P-0161209",
+    "status": "error:HTTPSConnectionPool(host='www.bechcicki.pl', port=443): Read"
+  },
+  {
+    "sku": "P-0171453",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0173257",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0184342",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0191512",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0192304",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0193056",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0197711",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0200215",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0204486",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0207476",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0207644",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0211359",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0224739",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0229979",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0229983",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0231903",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0234930",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0235528",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0243841",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0249232",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0253787",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0254100",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0254007",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0258925",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0258924",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0259478",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0260221",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0260631",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0260584",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0261304",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0261404",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0265114",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0272001",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0272795",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0279761",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0291542",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0293153",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0296639",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0297181",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0298191",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0298199",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0299009",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0300018",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0300016",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0300350",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0300845",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0302253",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0304455",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0305207",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0314292",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0319799",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0320807",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0321701",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0321967",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0365619",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0365818",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0365817",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0375756",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0397075",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0404180",
+    "status": "http_503"
+  },
+  {
+    "sku": "P-0405485",
+    "status": "http_503"
+  }
+]

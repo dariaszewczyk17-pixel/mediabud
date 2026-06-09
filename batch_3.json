@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "product-p089",
+    "name": "Nat Rozpuszczalnikowy Do Drewna Remmers Holzschutz Grund 20 L",
+    "sku": "REM-WB-ECO-10"
+  },
+  {
+    "_id": "product-p090",
+    "name": "Emalia akrylowa Śnieżka Profi 5 litrów",
+    "sku": "SNZ-PROFI-AKR-5"
+  },
+  {
+    "_id": "product-p091",
+    "name": "Emalia Olejno Ftalowa Sniezka Supermal Seledynowa 0 8 L",
+    "sku": "SNZ-ENAMEL-FTL-5"
+  },
+  {
+    "_id": "product-p092",
+    "name": "Emalia Sniezka Supermal Nitro Braz 1 L",
+    "sku": "SNZ-NITRO-1"
+  },
+  {
+    "_id": "product-p093",
+    "name": "Plyta Gipsowo Kartonowa Knauf 1200X2600 Mm",
+    "sku": "KNF-GKB-1250"
+  },
+  {
+    "_id": "product-p094",
+    "name": "Plyta Gipsowo Kartonowa Rigips Point 80 600X600X8 Mm",
+    "sku": "RGP-RH-1250"
+  },
+  {
+    "_id": "product-p095",
+    "name": "Plyta Gipsowo   Wloknowa Fermacell 2540X1250X15 Mm 1",
+    "sku": "FRM-GW-1250"
+  },
+  {
+    "_id": "product-p098",
+    "name": "Profil Sufitowy Cd 60 27 Knauf 3000 Mm",
+    "sku": "KNF-CD60-300"
+  },
+  {
+    "_id": "product-p099",
+    "name": "Taśma zbrojąca papierowa Knauf 50mm / 75m",
+    "sku": "KNF-TASMA-50-75"
+  },
+  {
+    "_id": "product-p100",
+    "name": "Narożnik aluminiowy Knauf 25x25 mm 2,5 mb",
+    "sku": "KNF-NAR-ALU-25"
+  },
+  {
+    "_id": "product-p101",
+    "name": "Dachowka Ceramiczna Braas Opal Kalenicowa Angoby Miedziany",
+    "sku": "BRA-FRANK-1SZT"
+  },
+  {
+    "_id": "product-p102",
+    "name": "Dachówka betonowa Creaton Titania szara",
+    "sku": "CRE-TIT-SZ-1SZT"
+  },
+  {
+    "_id": "product-p103",
+    "name": "Blachodachówka modułowa Ruukki Classic 0,5 mm",
+    "sku": "RUU-CLASSIC-05"
+  },
+  {
+    "_id": "product-p104",
+    "name": "Gont bitumiczny Icopal Standard Plus",
+    "sku": "ICP-STDPL-3M2"
+  },
+  {
+    "_id": "product-p105",
+    "name": "Papa termozgrzewalna wierzchnia Icopal Mineral 5,2 kg/m²",
+    "sku": "ICP-MIN-VW-10"
+  },
+  {
+    "_id": "product-p106",
+    "name": "Okno Dachowe Velux Ggl Mk06 3070 78X118 2 Szybowe Drewniane",
+    "sku": "VEL-GGL-M06"
+  },
+  {
+    "_id": "product-p107",
+    "name": "Rynna stalowa Ruukki 125mm antracyt 3mb",
+    "sku": "RUU-RYN-125-ANT-3"
+  },
+  {
+    "_id": "product-p108",
+    "name": "Rynna PVC Gamrat 125mm brązowa 3mb",
+    "sku": "GAM-RYN-PVC-125-BRZ-3"
+  },
+  {
+    "_id": "product-p109",
+    "name": "Membrana dachowa Fakro AMV 200 75 mb",
+    "sku": "FAK-AMV200-75"
+  },
+  {
+    "_id": "product-p110",
+    "name": "Podbitka dachowa PVC Gamrat 200 mm biała 3 m",
+    "sku": "GAM-POD-PVC-200-3"
+  },
+  {
+    "_id": "product-p111",
+    "name": "Bloczek Betonowy Komorkowy Komorkowy Ytong Pp4 0 6 10 Cm",
+    "sku": "YTG-PP2-24"
+  },
+  {
+    "_id": "product-p113",
+    "name": "Pustak Ceramiczny Porotherm 31503395 Lk 1 373X240Mm",
+    "sku": "PTH-MAX25-PW"
+  },
+  {
+    "_id": "product-p114",
+    "name": "Belka Betonowa Stropowa Betard Teriva 150X12X17 5 Cm",
+    "sku": "WIE-BM14-600"
+  },
+  {
+    "_id": "product-p115",
+    "name": "Nadproże betonowe Atlas NP 120 120x12 cm",
+    "sku": "ATL-NP120-12"
+  },
+  {
+    "_id": "product-p116",
+    "name": "Cegła pełna Wienerberger DOMINO 250x120x65 mm",
+    "sku": "WIE-CEGLA-PELNA"
+  },
+  {
+    "_id": "product-p118",
+    "name": "System kominowy Schiedel UNI 18x18 cm ceramiczny",
+    "sku": "SCH-UNI-1818"
+  }
+]

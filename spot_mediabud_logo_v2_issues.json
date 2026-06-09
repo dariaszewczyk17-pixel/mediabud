@@ -1,0 +1,12 @@
+{
+  "source": "/data/workspace/919fac5a-210e-47ca-8b62-27ddea343c50/mediabud/spot_mediabud_logo_v2.mp4",
+  "probe": {
+    "duration": 15.104,
+    "fps": 24.0,
+    "has_audio": true,
+    "width": 1280,
+    "height": 720
+  },
+  "stats": {},
+  "events": []
+}

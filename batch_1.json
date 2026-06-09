@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "product-p028",
+    "name": "Kołek rozporowy Fischer UX 8x60mm z wkrętem 100szt",
+    "sku": "FCH-UX860-100"
+  },
+  {
+    "_id": "product-p029",
+    "name": "Membrana dachowa paroprzepuszczalna Dörken DELTA-VENT N 1,5x50mb 150g",
+    "sku": "DRK-DVN-150"
+  },
+  {
+    "_id": "product-p030",
+    "name": "Gont bitumiczny Katepal Jazzy 3,0mm 3m²",
+    "sku": "KTP-JZY-3"
+  },
+  {
+    "_id": "product-p031",
+    "name": "Kostka Brukowa Brukbet Holland Gr 6 Cm Szary N",
+    "sku": "BBT-HOL-6-SZ"
+  },
+  {
+    "_id": "product-p032",
+    "name": "Masa Samopoziomujaca Knauf N 430 25 Kg",
+    "sku": "KNF-BD25-25"
+  },
+  {
+    "_id": "product-p034",
+    "name": "Tynk Cementowo Wapienny Baumit Gladki 30 Kg",
+    "sku": "BAU-MPI25-25"
+  },
+  {
+    "_id": "product-p035",
+    "name": "wełna szklana Isover Akustik 50mm m²",
+    "sku": "ISV-AKU-50"
+  },
+  {
+    "_id": "product-p036",
+    "name": "Rynna PVC Gamrat 125mm 3m Szara",
+    "sku": "GAM-R125-3-SZ"
+  },
+  {
+    "_id": "product-p037",
+    "name": "Papa hydroizolacyjna Icopal V60 S40 Wentylacyjna 10 m²",
+    "sku": "ICP-V60S40-10"
+  },
+  {
+    "_id": "product-p038",
+    "name": "płytka elewacyjna Lode Jula Czerwona m²",
+    "sku": "LDE-JUL-CZW"
+  },
+  {
+    "_id": "product-p039",
+    "name": "Bloczek Silikatowy Silka E24 33 3 X 24 X 19 9 Cm Klasa 15",
+    "sku": "XEL-SLK-E24-240"
+  },
+  {
+    "_id": "product-p040",
+    "name": "Szlifierka kątowa Makita DGA 504Z 18V 125mm",
+    "sku": "MAK-DGA504Z"
+  },
+  {
+    "_id": "product-p042",
+    "name": "Taśma uszczelniająca Ceresit CL 82 10mb",
+    "sku": "CRS-CL82-10"
+  },
+  {
+    "_id": "product-p043",
+    "name": "An Podlogowy Swisspor Dach Podloga Eps 100 036 Gr 3 Cm 0 3 M3",
+    "sku": "SWS-EPS100-5-POD"
+  },
+  {
+    "_id": "product-p044",
+    "name": "Folia paroizolacyjna Strotex PE 200 mikronów 75 m²",
+    "sku": "STR-PE200-75"
+  },
+  {
+    "_id": "product-p045",
+    "name": "Profil Sufitowy Knauf Knaufixy Gk30",
+    "sku": "KNF-UW75-3"
+  },
+  {
+    "_id": "product-p046",
+    "name": "Bloczek ceramiczny Wienerberger Porotherm 25 P+W",
+    "sku": "WNB-PTH25-PW"
+  },
+  {
+    "_id": "product-p047",
+    "name": "Tynk Silikonowy Weber Pas Modelino C La43 25 Kg",
+    "sku": "WEB-AR3-15"
+  },
+  {
+    "_id": "product-p048",
+    "name": "Farba Silikatowa Elewacyjna Atlas Salta S Baza Biala 10 L",
+    "sku": "CAP-CSL-10"
+  },
+  {
+    "_id": "product-p050",
+    "name": "Zaprawa Wyrownujaca Atlas Zw 330 Pod Plytki 25 Kg",
+    "sku": "ATL-UNI-25"
+  },
+  {
+    "_id": "product-p051",
+    "name": "Tynk Silikatowy Atlas Sahn 150 Baza Biala 25 Kg",
+    "sku": "CAP-AMPH-SIL-15"
+  },
+  {
+    "_id": "product-p052",
+    "name": "Tynk Mozaikowy Weber Pas Mosaic Mozaika Op80 15 Kg",
+    "sku": "WEB-SID-15"
+  },
+  {
+    "_id": "product-p053",
+    "name": "Tynk Mineralny Atlas Cermit Wn Efekt Drewna 25 Kg",
+    "sku": "ATL-CERMIT-N-25"
+  },
+  {
+    "_id": "product-p055",
+    "name": "Tynk cementowo-wapienny Atlas SM 25 kg",
+    "sku": "ATL-SM-25"
+  },
+  {
+    "_id": "product-p056",
+    "name": "Klej Montazowy Tytan Professional Fix Do Luster 290 Ml",
+    "sku": "TYT-EVO-290"
+  },
+  {
+    "_id": "product-p057",
+    "name": "Klej Uelastyczniony Atlas Ok Do Plytek 25 Kg",
+    "sku": "ATL-CERPLAST-25"
+  }
+]

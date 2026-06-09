@@ -1,0 +1,266 @@
+{
+  "remapped_products": 2768,
+  "fixed_slugs": 11,
+  "errors": [],
+  "details": [
+    {
+      "name": "Łączniki do izolacji fasadowych",
+      "old_slug": "aczniki-do-izolacji-fasadowych",
+      "new_slug": "laczniki-do-izolacji-fasadowych",
+      "total": 295,
+      "patched": 295
+    },
+    {
+      "name": "Farby wewnętrzne białe",
+      "old_slug": "farby-wewnetrzne-biae",
+      "new_slug": "farby-wewnetrzne-biale",
+      "total": 264,
+      "patched": 264
+    },
+    {
+      "name": "Kołki i wkręty uniwersalne",
+      "old_slug": "koki-i-wkrety-uniwersalne",
+      "new_slug": "kolki-i-wkrety-uniwersalne",
+      "total": 264,
+      "patched": 264
+    },
+    {
+      "name": "Styropian dach podłoga EPS",
+      "old_slug": "styropian-dach-podoga-eps",
+      "new_slug": "styropian-dach-podloga-eps",
+      "total": 262,
+      "patched": 262
+    },
+    {
+      "name": "Płytki ścienne",
+      "old_slug": "pytki-scienne",
+      "new_slug": "plytki-scienne",
+      "total": 206,
+      "patched": 206
+    },
+    {
+      "name": "Płytki tarasowe",
+      "old_slug": "pytki-tarasowe",
+      "new_slug": "plytki-tarasowe",
+      "total": 189,
+      "patched": 189
+    },
+    {
+      "name": "Wełny do poddaszy",
+      "old_slug": "weny-do-poddaszy",
+      "new_slug": "welny-do-poddaszy",
+      "total": 142,
+      "patched": 142
+    },
+    {
+      "name": "Łączniki do profili",
+      "old_slug": "aczniki-do-profili",
+      "new_slug": "laczniki-do-profili",
+      "total": 131,
+      "patched": 131
+    },
+    {
+      "name": "Płyty XPS",
+      "old_slug": "pyty-xps",
+      "new_slug": "plyty-xps",
+      "total": 128,
+      "patched": 128
+    },
+    {
+      "name": "Gładzie masy gotowe",
+      "old_slug": "gadzie-masy-gotowe",
+      "new_slug": "gladzie-masy-gotowe",
+      "total": 122,
+      "patched": 122
+    },
+    {
+      "name": "Płytki elewacyjne",
+      "old_slug": "pytki-elewacyjne",
+      "new_slug": "plytki-elewacyjne",
+      "total": 112,
+      "patched": 112
+    },
+    {
+      "name": "Płyty gipsowo-kartonowe",
+      "old_slug": "pyty-gipsowo-kartonowe",
+      "new_slug": "plyty-gipsowo-kartonowe",
+      "total": 102,
+      "patched": 102
+    },
+    {
+      "name": "Wałki malarskie",
+      "old_slug": "waki-malarskie",
+      "new_slug": "walki-malarskie",
+      "total": 75,
+      "patched": 75
+    },
+    {
+      "name": "Gładzie gipsowe w proszku",
+      "old_slug": "gadzie-gipsowe-w-proszku",
+      "new_slug": "gladzie-gipsowe-w-proszku",
+      "total": 65,
+      "patched": 65
+    },
+    {
+      "name": "Wełny do dachów płaskich",
+      "old_slug": "weny-do-dachow-paskich",
+      "new_slug": "welny-do-dachow-plaskich",
+      "total": 57,
+      "patched": 57
+    },
+    {
+      "name": "Powłoki epoksydowe",
+      "old_slug": "powoki-epoksydowe",
+      "new_slug": "powloki-epoksydowe",
+      "total": 43,
+      "patched": 43
+    },
+    {
+      "name": "Wełny fasadowe",
+      "old_slug": "weny-fasadowe",
+      "new_slug": "welny-fasadowe",
+      "total": 40,
+      "patched": 40
+    },
+    {
+      "name": "Listwy przypodłogowe",
+      "old_slug": "listwy-przypodogowe",
+      "new_slug": "listwy-przypodlogowe",
+      "total": 38,
+      "patched": 38
+    },
+    {
+      "name": "Młotki budowlane",
+      "old_slug": "motki-budowlane",
+      "new_slug": "mlotki-budowlane",
+      "total": 27,
+      "patched": 27
+    },
+    {
+      "name": "Izolacje stropów i podłóg",
+      "old_slug": "izolacje-stropow-i-podog",
+      "new_slug": "izolacje-stropow-i-podlog",
+      "total": 25,
+      "patched": 25
+    },
+    {
+      "name": "Mieszadła",
+      "old_slug": "mieszada",
+      "new_slug": "mieszadla",
+      "total": 24,
+      "patched": 24
+    },
+    {
+      "name": "Farby przemysłowe",
+      "old_slug": "farby-przemysowe",
+      "new_slug": "farby-przemyslowe",
+      "total": 21,
+      "patched": 21
+    },
+    {
+      "name": "Artykuły ścierne",
+      "old_slug": "artykuy-scierne",
+      "new_slug": "artykuly-scierne",
+      "total": 20,
+      "patched": 20
+    },
+    {
+      "name": "Płyty cementowe",
+      "old_slug": "pyty-cementowe",
+      "new_slug": "plyty-cementowe",
+      "total": 19,
+      "patched": 19
+    },
+    {
+      "name": "Podkłady wypełniające",
+      "old_slug": "podkady-wypeniajace",
+      "new_slug": "podklady-wypelniajace",
+      "total": 18,
+      "patched": 18
+    },
+    {
+      "name": "Kleje do wełen",
+      "old_slug": "kleje-do-ween",
+      "new_slug": "kleje-do-welen",
+      "total": 18,
+      "patched": 18
+    },
+    {
+      "name": "Artykuły ścierne do suchej zabudowy",
+      "old_slug": "artykuy-scierne-do-suchej-zabudowy",
+      "new_slug": "artykuly-scierne-do-suchej-zabudowy",
+      "total": 12,
+      "patched": 12
+    },
+    {
+      "name": "Izolacje przemysłowe",
+      "old_slug": "izolacje-przemysowe",
+      "new_slug": "izolacje-przemyslowe",
+      "total": 15,
+      "patched": 15
+    },
+    {
+      "name": "Płotki przeciwśniegowe",
+      "old_slug": "potki-przeciwsniegowe",
+      "new_slug": "plotki-przeciwsniegowe",
+      "total": 10,
+      "patched": 10
+    },
+    {
+      "name": "Ołówki,kredy i markery",
+      "old_slug": "oowkikredy-i-markery",
+      "new_slug": "olowki-kredy-i-markery",
+      "total": 8,
+      "patched": 8
+    },
+    {
+      "name": "Taśmy i folie pozostałe",
+      "old_slug": "tasmy-i-folie-pozostae",
+      "new_slug": "tasmy-i-folie-pozostale",
+      "total": 6,
+      "patched": 6
+    },
+    {
+      "name": "Spoiny zwykłe",
+      "old_slug": "spoiny-zwyke",
+      "new_slug": "spoiny-zwykle",
+      "total": 4,
+      "patched": 4
+    },
+    {
+      "name": "Izolacje dachów płaskich",
+      "old_slug": "izolacje-dachow-paskich",
+      "new_slug": "izolacje-dachow-plaskich",
+      "total": 2,
+      "patched": 2
+    },
+    {
+      "name": "Wsporniki płotków przeciwśniegowych",
+      "old_slug": "wsporniki-potkow-przeciwsniegowych",
+      "new_slug": "wsporniki-plotkow-przeciwsniegowych",
+      "total": 1,
+      "patched": 1
+    },
+    {
+      "name": "Akcesoria do płotków przeciwśniegowe",
+      "old_slug": "akcesoria-do-potkow-przeciwsniegowe",
+      "new_slug": "akcesoria-do-plotkow-przeciwsniegowe",
+      "total": 1,
+      "patched": 1
+    },
+    {
+      "name": "Farby pozostałe",
+      "old_slug": "farby-pozostae",
+      "new_slug": "farby-pozostale",
+      "total": 1,
+      "patched": 1
+    },
+    {
+      "name": "Okładziny z włókna szklanego",
+      "old_slug": "okadziny-z-wokna-szklanego",
+      "new_slug": "okladziny-z-wlokna-szklanego",
+      "total": 1,
+      "patched": 1
+    }
+  ]
+}

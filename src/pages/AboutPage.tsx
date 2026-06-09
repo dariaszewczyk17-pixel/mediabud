@@ -194,20 +194,30 @@ export default function AboutPage() {
 
       {/* ══ HERO ══ */}
       <div className="relative overflow-hidden" style={{ background: "linear-gradient(160deg,#0a0a0a 0%,#080808 50%,#050505 100%)", minHeight: "520px" }}>
+        {/* Hero video background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.22, zIndex: 0 }}
+          src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-09/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/hero_about_afc26861af544880b0796d59046a352e.mp4"
+        />
         {/* Grid bg */}
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1, backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
         {/* Scan-lines */}
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,0.008) 3px,rgba(255,255,255,0.008) 4px)" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1, backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,0.008) 3px,rgba(255,255,255,0.008) 4px)" }} />
         {/* Red accent left */}
-        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 20px rgba(248,24,40,0.5)" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" style={{ zIndex: 2, boxShadow: "2px 0 20px rgba(248,24,40,0.5)" }} />
         {/* Top gradient line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.3) 50%,transparent)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ zIndex: 2, background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.3) 50%,transparent)" }} />
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24" style={{ background: "linear-gradient(to top,#050505,transparent)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-24" style={{ zIndex: 2, background: "linear-gradient(to top,#050505,transparent)" }} />
         {/* Radial glow */}
-        <div className="absolute right-0 top-0 w-[600px] h-[600px] pointer-events-none" style={{ background: "radial-gradient(ellipse at 80% 20%,rgba(248,24,40,0.07) 0%,transparent 65%)" }} />
+        <div className="absolute right-0 top-0 w-[600px] h-[600px] pointer-events-none" style={{ zIndex: 1, background: "radial-gradient(ellipse at 80% 20%,rgba(248,24,40,0.07) 0%,transparent 65%)" }} />
 
-        <div className="relative container mx-auto px-4 pl-10 py-20 md:py-28">
+        <div className="relative container mx-auto px-4 pl-10 py-20 md:py-28" style={{ zIndex: 3 }}>
           <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-12 items-center max-w-6xl">
             <div>
               <div className="flex items-center gap-3 mb-5">

@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "product-p119",
+    "name": "płytka ścienna Tubądzin Domino 25x40 cm biała",
+    "sku": "TUB-DOM-25-40-W"
+  },
+  {
+    "_id": "product-p120",
+    "name": "płytka podłogowa Opoczno Stark 60x60 cm szara",
+    "sku": "OPO-STARK-60-SZ"
+  },
+  {
+    "_id": "product-p121",
+    "name": "Płytka tarasowa Cerrad Torstone Graphite 60x60 cm",
+    "sku": "CER-TORS-60-GR"
+  },
+  {
+    "_id": "product-p122",
+    "name": "płytka elewacyjna CERRAD Loft Brick 30x60 cm",
+    "sku": "CER-LOFTBR-30-60"
+  },
+  {
+    "_id": "product-p123",
+    "name": "Stopnica Paradyż Carrara Bianco 30x120 cm",
+    "sku": "PAR-CARR-30-120"
+  },
+  {
+    "_id": "product-p124",
+    "name": "Mozaika szklana Dunin Vetro White 30x30 cm",
+    "sku": "DUN-VETRO-W-30"
+  },
+  {
+    "_id": "product-p125",
+    "name": "Listwa przejściowa Schlüter aluminiowa 25x8 mm 2,5 mb",
+    "sku": "SCH-RENO-25-250"
+  },
+  {
+    "_id": "product-p126",
+    "name": "Panel lamelowy Orac Decor 3D MDF biały 30x120 cm",
+    "sku": "ORAC-LAM-3D-W-120"
+  },
+  {
+    "_id": "product-p127",
+    "name": "Kołki rozporowe z wkrętem Würth SX Plus 6x40 mm 100 szt.",
+    "sku": "WUR-SX-6-40-100"
+  },
+  {
+    "_id": "product-p128",
+    "name": "Kołki talerzowe Hilti X-IE 10cm 50 sztuk",
+    "sku": "HLT-XIE-10-50"
+  },
+  {
+    "_id": "product-p129",
+    "name": "Wkręty do drewna Würth ASSY 4x70mm 200 szt.",
+    "sku": "WUR-ASSY-4-70-200"
+  },
+  {
+    "_id": "product-p130",
+    "name": "Wałek malarski Marolex Profi 18 cm",
+    "sku": "MAR-WAL-18-PROFI"
+  },
+  {
+    "_id": "product-p131",
+    "name": "Pędzel malarski płaski Wooster Pro 100 mm",
+    "sku": "WOO-PRO-100"
+  },
+  {
+    "_id": "product-p132",
+    "name": "Szpachla malarska Stalco stalowa 150 mm",
+    "sku": "STA-SZPACH-150"
+  },
+  {
+    "_id": "product-p133",
+    "name": "Kielnia murarska Stalco 200 mm",
+    "sku": "STA-KIEL-200"
+  },
+  {
+    "_id": "product-p134",
+    "name": "Wiertarko-wkrętarka Bosch GSR 18V-55 (bez akumulatora)",
+    "sku": "BSH-GSR18V55"
+  },
+  {
+    "_id": "product-p135",
+    "name": "Poziomnica aluminiowa Stabila 80 cm",
+    "sku": "STB-POZ-80"
+  },
+  {
+    "_id": "product-p136",
+    "name": "Taśma malarska Tesa Professional 38mm x 50mb",
+    "sku": "TES-PRO-38-50"
+  },
+  {
+    "_id": "product-p139",
+    "name": "Płyta sufitowa Knauf Cleaneo 625x625 mm",
+    "sku": "KNF-CLEAN-625"
+  },
+  {
+    "_id": "product-p140",
+    "name": "Profil Glowny Kcs Prelude 24 Peakform 3600 Mm",
+    "sku": "ARM-T24-GN-360"
+  },
+  {
+    "_id": "product-p141",
+    "name": "Profil Poprzeczny Armstrong Prelude 24 Nt 0 6 M",
+    "sku": "ARM-T24-PP-60"
+  },
+  {
+    "_id": "product-p142",
+    "name": "Profil przyścienny kątowy Armstrong T24 3000 mm",
+    "sku": "ARM-T24-KATOW-300"
+  },
+  {
+    "_id": "product-p143",
+    "name": "Wieszak dwuhakowy AMF do sufitów 25 szt.",
+    "sku": "AMF-WIS-2H-25"
+  },
+  {
+    "_id": "product-p145",
+    "name": "Okno Dachowe Fakro Ftl V 66X118",
+    "sku": "FAK-FTPV-U4-78118"
+  },
+  {
+    "_id": "product-p146",
+    "name": "Chowy Velux Gvt 103 0059Z 54X83 Szyba Hartowana Poliuretanowy",
+    "sku": "VEL-GVT-0059Z-5483"
+  },
+  {
+    "_id": "product-p147",
+    "name": "Rynna Galeco Sr Pvc Upvc 110 Mm 300 Cm Grafit Ral 7021",
+    "sku": "GAL-R135-4-GRA"
+  }
+]

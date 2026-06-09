@@ -1,0 +1,27 @@
+[15:21:15] Produkty 'ok' z pass1 do ponownego sprawdzenia: 7619
+[15:21:16] JSONL: 15654 produktów
+[15:21:16] Próg deep_intrusion: 4% pikseli wewnętrznych
+[15:22:38] [500/7619] 7% | ✅ok=485 ⚠️damaged=15 ↩️reverted=15 ❌err=0 | 83s
+[15:23:55] [1000/7619] 13% | ✅ok=968 ⚠️damaged=32 ↩️reverted=32 ❌err=0 | 160s
+[15:25:15] [1500/7619] 20% | ✅ok=1456 ⚠️damaged=44 ↩️reverted=44 ❌err=0 | 239s
+[15:26:34] [2000/7619] 26% | ✅ok=1946 ⚠️damaged=54 ↩️reverted=54 ❌err=0 | 318s
+[15:27:52] [2500/7619] 33% | ✅ok=2435 ⚠️damaged=65 ↩️reverted=65 ❌err=0 | 397s
+[15:29:11] [3000/7619] 39% | ✅ok=2928 ⚠️damaged=72 ↩️reverted=72 ❌err=0 | 476s
+[15:30:31] [3500/7619] 46% | ✅ok=3419 ⚠️damaged=81 ↩️reverted=78 ❌err=3 | 556s
+[15:31:49] [4000/7619] 53% | ✅ok=3911 ⚠️damaged=89 ↩️reverted=84 ❌err=5 | 634s
+[15:33:08] [4500/7619] 59% | ✅ok=4394 ⚠️damaged=106 ↩️reverted=96 ❌err=10 | 713s
+[15:34:26] [5000/7619] 66% | ✅ok=4889 ⚠️damaged=113 ↩️reverted=100 ❌err=11 | 791s
+[15:35:45] [5500/7619] 72% | ✅ok=5382 ⚠️damaged=120 ↩️reverted=100 ❌err=18 | 869s
+[15:37:04] [6000/7619] 79% | ✅ok=5870 ⚠️damaged=130 ↩️reverted=106 ❌err=24 | 948s
+[15:38:19] [6500/7619] 85% | ✅ok=6370 ⚠️damaged=130 ↩️reverted=106 ❌err=24 | 1024s
+[15:39:35] [7000/7619] 92% | ✅ok=6868 ⚠️damaged=132 ↩️reverted=108 ❌err=24 | 1100s
+[15:40:51] [7500/7619] 98% | ✅ok=7368 ⚠️damaged=132 ↩️reverted=108 ❌err=24 | 1176s
+[15:41:08] ============================================================
+[15:41:08] ZAKOŃCZONO w 1193s (19.9min)
+[15:41:08]   Sprawdzono:  7619
+[15:41:08]   OK:          7487
+[15:41:08]   Uszkodzone:  132
+[15:41:08]   Przywrócone: 108
+[15:41:08]   Błędy:       24
+[15:41:08] ============================================================
+[15:41:08] Log: /data/workspace/919fac5a-210e-47ca-8b62-27ddea343c50/mediabud/revert_log_pass2.json

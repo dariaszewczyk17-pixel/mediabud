@@ -1,0 +1,10 @@
+{
+  "next_start": 15565,
+  "done": 15546,
+  "errors": 19,
+  "batches_done": 52,
+  "mode_stats": {
+    "summarize": 6,
+    "generate": 15559
+  }
+}

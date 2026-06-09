@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "product-p058",
+    "name": "Klej Do Styropianu Ceresit Ct 83 25 Kg",
+    "sku": "CER-CT84-25"
+  },
+  {
+    "_id": "product-p059",
+    "name": "Klej Do Welny Mineralnej Ceresit Ct 190 25 Kg",
+    "sku": "ALP-AG609-25"
+  },
+  {
+    "_id": "product-p060",
+    "name": "Fuga Ceramiczna Atlas 1 20 Mm 211 Cementowy Folia 5 Kg",
+    "sku": "ATL-MS-5-SZ"
+  },
+  {
+    "_id": "product-p061",
+    "name": "Kotwa chemiczna Hilti HIT-RE 500 330 ml",
+    "sku": "HLT-HIT-RE500-330"
+  },
+  {
+    "_id": "product-p062",
+    "name": "Środek grzybobójczy Bolix MF 5 litrów",
+    "sku": "BOL-MF-5"
+  },
+  {
+    "_id": "product-p066",
+    "name": "Styropian fasadowy Swisspor EPS 70-031 15 cm",
+    "sku": "SWS-EPS70-031-15"
+  },
+  {
+    "_id": "product-p067",
+    "name": "Styropian Fasadowy Styropoz Super Lambda 033 Gr 12 Cm 0 30 M3",
+    "sku": "STY-GREY-031-15"
+  },
+  {
+    "_id": "product-p069",
+    "name": "Styropian fundamentowy Styropmin EPS 036 10 cm",
+    "sku": "STY-FND-036-10"
+  },
+  {
+    "_id": "product-p070",
+    "name": "Płyta XPS Fibran GF I 300 5cm",
+    "sku": "FIB-GF300-5"
+  },
+  {
+    "_id": "product-p071",
+    "name": "wełna fasadowa Rockwool Frontrock MAX E 15 cm",
+    "sku": "ROC-FRONTMAX-15"
+  },
+  {
+    "_id": "product-p072",
+    "name": "Welna Szklana Isover Panel Plyta 034 1200 600 150 Mm",
+    "sku": "ISV-TFPROFI-15"
+  },
+  {
+    "_id": "product-p073",
+    "name": "Wełna akustyczna Rockwool ACOUSTIC 5 cm",
+    "sku": "ROC-ACOUSTIC-5"
+  },
+  {
+    "_id": "product-p074",
+    "name": "Wełna stropowa Isover Aku-Plate 10 cm",
+    "sku": "ISV-AKUPLATE-10"
+  },
+  {
+    "_id": "product-p075",
+    "name": "Wełna do poddaszy Isover Uni-Mata 20 cm",
+    "sku": "ISV-UNIMATA-20"
+  },
+  {
+    "_id": "product-p076",
+    "name": "Masa hydroizolacyjna Botament M 21 20 kg",
+    "sku": "BOT-M21-20"
+  },
+  {
+    "_id": "product-p077",
+    "name": "Folia W Plynie Sopro Fdf 525 Uszczelniajaca 5 L",
+    "sku": "SPR-FDF522-5"
+  },
+  {
+    "_id": "product-p078",
+    "name": "Papa podkładowa termozgrzewalna Icopal Base EV 40",
+    "sku": "ICP-BASE-EV40"
+  },
+  {
+    "_id": "product-p079",
+    "name": "Folia Paroprzepuszczalna Fakro Eurotop L2",
+    "sku": "FAK-AMV200-50"
+  },
+  {
+    "_id": "product-p080",
+    "name": "folia paroizolacyjna Foliarex Strotex AL 50 m kwadratowych",
+    "sku": "FOL-STROTEX-AL-50"
+  },
+  {
+    "_id": "product-p081",
+    "name": "Farba Lateksowa Caparol Samtex 12 B1 10 L",
+    "sku": "CAP-AMPHIBOLIN-10"
+  },
+  {
+    "_id": "product-p083",
+    "name": "Farba Silikonowa Elewacyjna Atlas Salta Sah0391 10 L",
+    "sku": "CAP-AMPH-SIL-FAR-10"
+  },
+  {
+    "_id": "product-p084",
+    "name": "Farba elewacyjna emulsyjna Atlas Fasada EKO 10 litrów",
+    "sku": "ATL-FASADA-EKO-10"
+  },
+  {
+    "_id": "product-p085",
+    "name": "Farba Akrylowa Elewacyjna Atlas Salta E Baza Biala 10 L",
+    "sku": "BOL-A-10"
+  },
+  {
+    "_id": "product-p086",
+    "name": "Farba Silikatowa Elewacyjna Atlas Salta S Baza Biala 10 L",
+    "sku": "CAP-MURESKO-10"
+  },
+  {
+    "_id": "product-p087",
+    "name": "Lakier Do Drewna Vidaron Zewnetrzny Bezbarwny 0 2 L",
+    "sku": "SAD-CLASSIC-5"
+  },
+  {
+    "_id": "product-p088",
+    "name": "Lakierobejca Sikkens Cetol HLS+ 5 l",
+    "sku": "SIK-CETOL-HLS-5"
+  }
+]

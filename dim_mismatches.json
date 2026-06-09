@@ -1,0 +1,687 @@
+[
+  {
+    "_id": "product-p0006426",
+    "name": "Welna Mineralna Szklana Ursa Homewall 100 Mm",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "100"
+    ],
+    "spec_dims": [
+      "180"
+    ]
+  },
+  {
+    "_id": "product-p0006529",
+    "name": "Szlifierka Oscylacyjna Modeco Expert 230 Mm 300 W",
+    "catSlug": "szlifierki",
+    "name_dims": [
+      "230"
+    ],
+    "spec_dims": [
+      "115"
+    ]
+  },
+  {
+    "_id": "product-p0006768",
+    "name": "Welna Mineralna Isover Uni Mata 039 2X80 5500 1200 Mm Mps",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "180"
+    ]
+  },
+  {
+    "_id": "product-p0009175",
+    "name": "Alna Rockwool Ventirock Plus 034 050 01000 0600 Mm Opak 4 8 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "0600"
+    ],
+    "spec_dims": [
+      "50"
+    ]
+  },
+  {
+    "_id": "product-p0009176",
+    "name": "Welna Mineralna Szklana Ursa Homewall 100 Mm",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "100"
+    ],
+    "spec_dims": [
+      "80"
+    ]
+  },
+  {
+    "_id": "product-p0009411",
+    "name": "Miara Zwijana Modeco Expert Friendly Grip 2 M X 16 Mm",
+    "catSlug": "narzedzia-pomiarowe",
+    "name_dims": [
+      "16"
+    ],
+    "spec_dims": [
+      "19"
+    ]
+  },
+  {
+    "_id": "product-p0009436",
+    "name": "Miara Zwijana Modeco Expert Friendly Grip 2 M X 16 Mm",
+    "catSlug": "narzedzia-pomiarowe",
+    "name_dims": [
+      "16"
+    ],
+    "spec_dims": [
+      "25"
+    ]
+  },
+  {
+    "_id": "product-p0012991",
+    "name": "Skalna Rockwool Ventirock F L035 180 01000 0600 Mm Opak 1 8 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "0600"
+    ],
+    "spec_dims": [
+      "180"
+    ]
+  },
+  {
+    "_id": "product-p0016658",
+    "name": "Poziomnica Anodowana Pro 600 Srebrna 100 Cm",
+    "catSlug": "narzedzia-pomiarowe",
+    "name_dims": [
+      "100"
+    ],
+    "spec_dims": [
+      "150"
+    ]
+  },
+  {
+    "_id": "product-p0017690",
+    "name": "Welna Mineralna Ursa Pureone 31 200 1200 3000 Mm Opak 3 6 M",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "3000"
+    ],
+    "spec_dims": [
+      "200"
+    ]
+  },
+  {
+    "_id": "product-p0022648",
+    "name": "Lna Rockwool Ventirock Plus L034 160 01000 0600 Mm Opak 1 8 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "0600"
+    ],
+    "spec_dims": [
+      "160"
+    ]
+  },
+  {
+    "_id": "product-p0025685",
+    "name": "Welna Mineralna Isover Uni Mata 039 2X80 5500 1200 Mm Mps",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "50"
+    ]
+  },
+  {
+    "_id": "product-p0025685",
+    "name": "Welna Mineralna Isover Uni Mata 039 2X80 5500 1200 Mm Mps",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "50"
+    ]
+  },
+  {
+    "_id": "product-p0028628",
+    "name": "Welna Mineralna Isover Polterm Max 101547605 038 50 Mm",
+    "catSlug": "welny-do-dachow-plaskich",
+    "name_dims": [
+      "50"
+    ],
+    "spec_dims": [
+      "120"
+    ]
+  },
+  {
+    "_id": "product-p0036821",
+    "name": "Elna Skalna Isover Fasoterm 35 035 1000 600 150 Mm Opak 1 2 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "150"
+    ],
+    "spec_dims": [
+      "140"
+    ]
+  },
+  {
+    "_id": "product-p0036834",
+    "name": "Yjna Z Welny Szklanej Ursa Vento 34 100 1250 600 Mm Szt 4 5 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "600"
+    ],
+    "spec_dims": [
+      "80"
+    ]
+  },
+  {
+    "_id": "product-p0037333",
+    "name": "Kolek Do Styropianu Klimas Wkret Met 300 Mm",
+    "catSlug": "laczniki-do-izolacji-fasadowych",
+    "name_dims": [
+      "300"
+    ],
+    "spec_dims": [
+      "260"
+    ]
+  },
+  {
+    "_id": "product-p0039463",
+    "name": "Profil Scienny Rigpis Ultrastil Cw 50 X 2600 Mm",
+    "catSlug": "profile-do-suchej-zabudowy",
+    "name_dims": [
+      "2600"
+    ],
+    "spec_dims": [
+      "50"
+    ]
+  },
+  {
+    "_id": "product-p0040548",
+    "name": "Bloczek Silikatowy Silka Tempo 24 8 X 24 X 60 Cm Klasa 20",
+    "catSlug": "bloczki",
+    "name_dims": [
+      "60"
+    ],
+    "spec_dims": [
+      "18",
+      "24"
+    ]
+  },
+  {
+    "_id": "product-p0041629",
+    "name": "Na Mineralna Rockwool Klimamata L039 80 3000 1000 Mm Opak 3 M",
+    "catSlug": "izolacje-hvac",
+    "name_dims": [
+      "1000"
+    ],
+    "spec_dims": [
+      "50"
+    ]
+  },
+  {
+    "_id": "product-p0043062",
+    "name": "Mata Izolacyjna Z Welny Szklanej Ursa Platinum 32 100 1250 4000 Mm Opak 5 M",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "4000"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0043071",
+    "name": "Welna Mineralna Szklana Ursa Homewall 100 Mm",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "100"
+    ],
+    "spec_dims": [
+      "50"
+    ]
+  },
+  {
+    "_id": "product-p0044424",
+    "name": "Profil Oscieznicowy Siniat Nida Ua 100X 3000 Mm",
+    "catSlug": "profile-do-suchej-zabudowy",
+    "name_dims": [
+      "3000"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0045845",
+    "name": "Welna Skalna Rockwool Fasrock Ll L041 1200 200 80 Mm",
+    "catSlug": "welny-do-dachow-plaskich",
+    "name_dims": [
+      "80"
+    ],
+    "spec_dims": [
+      "100",
+      "1220",
+      "2020"
+    ]
+  },
+  {
+    "_id": "product-p0045847",
+    "name": "Skalna Rockwool Frontrock Plus L035 080 1000 0600 Mm Opak 3 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "0600"
+    ],
+    "spec_dims": [
+      "60"
+    ]
+  },
+  {
+    "_id": "product-p0045857",
+    "name": "Skalna Rockwool Ventirock F L035 120 01000 0600 Mm Opak 2 4 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "0600"
+    ],
+    "spec_dims": [
+      "120"
+    ]
+  },
+  {
+    "_id": "product-p0045878",
+    "name": "Skalna Rockwool Ventirock F L035 120 01000 0600 Mm Opak 2 4 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "0600"
+    ],
+    "spec_dims": [
+      "120"
+    ]
+  },
+  {
+    "_id": "product-p0045906",
+    "name": "Z Welny Szklanej Ursa Optimum 37 180 1250 3250 Mm Szt 4 06 M",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "3250"
+    ],
+    "spec_dims": [
+      "180"
+    ]
+  },
+  {
+    "_id": "product-p0046573",
+    "name": "Welna Mineralna Ursa Pureone 31 100 1200 4000 Mm Opak 4 8 M",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "4000"
+    ],
+    "spec_dims": [
+      "160"
+    ]
+  },
+  {
+    "_id": "product-p0049456",
+    "name": "Kolek Do Styropianu Klimas Wkret Met 300 Mm",
+    "catSlug": "laczniki-do-izolacji-fasadowych",
+    "name_dims": [
+      "300"
+    ],
+    "spec_dims": [
+      "90"
+    ]
+  },
+  {
+    "_id": "product-p0049738",
+    "name": "Welna Mineralna Isover Uni Mata 039 2X80 5500 1200 Mm Mps",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0049738",
+    "name": "Welna Mineralna Isover Uni Mata 039 2X80 5500 1200 Mm Mps",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0051103",
+    "name": "Kalna Rockwool Monrock Max E 038 050 2020 1220 Mm Szt 2 464 M",
+    "catSlug": "welny-do-dachow-plaskich",
+    "name_dims": [
+      "1220"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0053194",
+    "name": "Onowo Gipsowych Klimas Wkret Met Do Drewna 4 2 X 90 Mm 50 Szt",
+    "catSlug": "wkrety-do-suchej-zabudowy",
+    "name_dims": [
+      "90"
+    ],
+    "spec_dims": [
+      "70"
+    ]
+  },
+  {
+    "_id": "product-p0053200",
+    "name": "Kolek Do Styropianu Klimas Wkret Met 300 Mm",
+    "catSlug": "laczniki-do-izolacji-fasadowych",
+    "name_dims": [
+      "300"
+    ],
+    "spec_dims": [
+      "180"
+    ]
+  },
+  {
+    "_id": "product-p0053227",
+    "name": "Kolek Do Styropianu Klimas Wkret Met 300 Mm",
+    "catSlug": "laczniki-do-izolacji-fasadowych",
+    "name_dims": [
+      "300"
+    ],
+    "spec_dims": [
+      "160"
+    ]
+  },
+  {
+    "_id": "product-p0059435",
+    "name": "Kolek Do Styropianu Klimas Wkret Met 300 Mm",
+    "catSlug": "laczniki-do-izolacji-fasadowych",
+    "name_dims": [
+      "300"
+    ],
+    "spec_dims": [
+      "220"
+    ]
+  },
+  {
+    "_id": "product-p0063062",
+    "name": "Kalna Rockwool Frontrock Plus 035 200 1000 0600 Mm Opak 1 2 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "0600"
+    ],
+    "spec_dims": [
+      "200"
+    ]
+  },
+  {
+    "_id": "product-p0063075",
+    "name": "Elna Mineralna Isover Polterm Max Plus 035 50 600 1200 Mm Mps",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "180"
+    ]
+  },
+  {
+    "_id": "product-p0063078",
+    "name": "Alna Rockwool Frontrock Plus L035 050 1000 0600 Mm Opak 3 6 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "0600"
+    ],
+    "spec_dims": [
+      "220"
+    ]
+  },
+  {
+    "_id": "product-p0063406",
+    "name": "Welna Mineralna Rockwool Stroprock G L037 150 01000 0200 Mm",
+    "catSlug": "welny-do-dachow-plaskich",
+    "name_dims": [
+      "0200"
+    ],
+    "spec_dims": [
+      "150"
+    ]
+  },
+  {
+    "_id": "product-p0064463",
+    "name": "Yjna Z Welny Szklanej Ursa Vento 34 100 1250 600 Mm Szt 4 5 M",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "600"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0066375",
+    "name": "Welna Mineralna Isover Polterm Max 101547605 038 50 Mm",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "50"
+    ],
+    "spec_dims": [
+      "70"
+    ]
+  },
+  {
+    "_id": "product-p0066781",
+    "name": "Welna Mineralna Isover Uni Mata 039 2X80 5500 1200 Mm Mps",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0073060",
+    "name": "Welna Mineralna Isover Fasoterm 035 80 1000 600 Mm 3 M2 Mps",
+    "catSlug": "welny-fasadowe",
+    "name_dims": [
+      "600"
+    ],
+    "spec_dims": [
+      "140"
+    ]
+  },
+  {
+    "_id": "product-p0075071",
+    "name": "Welna Mineralna Ursa Pureone 31 100 1200 4000 Mm Opak 4 8 M",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "4000"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0076750",
+    "name": "Kolek Do Styropianu Klimas Wkret Met 300 Mm",
+    "catSlug": "laczniki-do-izolacji-fasadowych",
+    "name_dims": [
+      "300"
+    ],
+    "spec_dims": [
+      "260"
+    ]
+  },
+  {
+    "_id": "product-p0076990",
+    "name": "Bloczek Silikatowy Silka Tempo 24 8 X 24 X 60 Cm Klasa 20",
+    "catSlug": "bloczki",
+    "name_dims": [
+      "60"
+    ],
+    "spec_dims": [
+      "24"
+    ]
+  },
+  {
+    "_id": "product-p0077562",
+    "name": "Plyta Mineralna Multipor M4 Ocieplenie Od Wewnatrz 60 X 8 X 39 Cm",
+    "catSlug": "bloczki",
+    "name_dims": [
+      "39"
+    ],
+    "spec_dims": [
+      "10"
+    ]
+  },
+  {
+    "_id": "product-p0078114",
+    "name": "Miara Zwijana Modeco Expert Silver Line 10 M X 25 Mm",
+    "catSlug": "narzedzia-pomiarowe",
+    "name_dims": [
+      "25"
+    ],
+    "spec_dims": [
+      "13"
+    ]
+  },
+  {
+    "_id": "product-p0079461",
+    "name": "Pedzel Katowy Anza Elite 50 Mm",
+    "catSlug": "pedzle",
+    "name_dims": [
+      "50"
+    ],
+    "spec_dims": [
+      "35"
+    ]
+  },
+  {
+    "_id": "product-p0079855",
+    "name": "Welna Mineralna Isover Uni Mata 039 2X80 5500 1200 Mm Mps",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "200"
+    ]
+  },
+  {
+    "_id": "product-p0080588",
+    "name": "Profil Scienny Rigpis Ultrastil Uw 100 X 3000 Mm",
+    "catSlug": "profile-do-suchej-zabudowy",
+    "name_dims": [
+      "3000"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0082981",
+    "name": "Miara Zwijana Modeco Expert Friendly Grip 2 M X 16 Mm",
+    "catSlug": "narzedzia-pomiarowe",
+    "name_dims": [
+      "16"
+    ],
+    "spec_dims": [
+      "19"
+    ]
+  },
+  {
+    "_id": "product-p0084181",
+    "name": "Listwa do boni Fiberglass BP11 H2 20/20mm 3mb Op.20szt",
+    "catSlug": "akcesoria-do-izolacji",
+    "name_dims": [
+      "20"
+    ],
+    "spec_dims": [
+      "300"
+    ]
+  },
+  {
+    "_id": "product-p0084323",
+    "name": "Profil Uw Knauf 100 4000 Mm",
+    "catSlug": "profile-do-suchej-zabudowy",
+    "name_dims": [
+      "4000"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  },
+  {
+    "_id": "product-p0085129",
+    "name": "Pedzel Angielski Blue Dolphin 100 Mm",
+    "catSlug": "pedzle",
+    "name_dims": [
+      "100"
+    ],
+    "spec_dims": [
+      "25"
+    ]
+  },
+  {
+    "_id": "product-p0085193",
+    "name": "L Malarski Profesjonalny Blue Dolphin Ninja 330 Angular 50 Mm",
+    "catSlug": "pedzle",
+    "name_dims": [
+      "50"
+    ],
+    "spec_dims": [
+      "140"
+    ]
+  },
+  {
+    "_id": "product-p0085200",
+    "name": "Pedzel Okragly Blue Dolphin Emalia 25 Mm",
+    "catSlug": "pedzle",
+    "name_dims": [
+      "25"
+    ],
+    "spec_dims": [
+      "40"
+    ]
+  },
+  {
+    "_id": "product-p0085365",
+    "name": "Plyta Izolacyjna Termo Organika Pir Etx 30 600 1200 Mm",
+    "catSlug": "izolacje-fasadowe",
+    "name_dims": [
+      "1200"
+    ],
+    "spec_dims": [
+      "80"
+    ]
+  },
+  {
+    "_id": "product-p0092353",
+    "name": "Kolek Do Styropianu Klimas Wkret Met 300 Mm",
+    "catSlug": "laczniki-do-izolacji-fasadowych",
+    "name_dims": [
+      "300"
+    ],
+    "spec_dims": [
+      "200"
+    ]
+  },
+  {
+    "_id": "product-p0092419",
+    "name": "Welna Mineralna Ursa Pureone 31 100 1200 4000 Mm Opak 4 8 M",
+    "catSlug": "welny-do-poddaszy",
+    "name_dims": [
+      "4000"
+    ],
+    "spec_dims": [
+      "100"
+    ]
+  }
+]

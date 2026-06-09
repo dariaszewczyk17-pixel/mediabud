@@ -1,0 +1,353 @@
+{
+  "remap": {
+    "cat-aczniki-do-izolacji-fasadowych": {
+      "new_id": "cat-l3-laczniki-do-izolacji-fasadow",
+      "old_slug": "aczniki-do-izolacji-fasadowych",
+      "new_slug": "laczniki-do-izolacji-fasadowych",
+      "name": "Łączniki do izolacji fasadowych",
+      "prod_count": 295
+    },
+    "cat-farby-wewnetrzne-biae": {
+      "new_id": "cat-l3-farby-wewnetrzne-biale",
+      "old_slug": "farby-wewnetrzne-biae",
+      "new_slug": "farby-wewnetrzne-biale",
+      "name": "Farby wewnętrzne białe",
+      "prod_count": 264
+    },
+    "cat-koki-i-wkrety-uniwersalne": {
+      "new_id": "cat-l3-kolki-i-wkrety-uniwersalne",
+      "old_slug": "koki-i-wkrety-uniwersalne",
+      "new_slug": "kolki-i-wkrety-uniwersalne",
+      "name": "Kołki i wkręty uniwersalne",
+      "prod_count": 264
+    },
+    "cat-styropian-dach-podoga-eps": {
+      "new_id": "cat-l3-styropian-dach-podloga-eps",
+      "old_slug": "styropian-dach-podoga-eps",
+      "new_slug": "styropian-dach-podloga-eps",
+      "name": "Styropian dach podłoga EPS",
+      "prod_count": 262
+    },
+    "cat-pytki-scienne": {
+      "new_id": "category-plytki-scienne",
+      "old_slug": "pytki-scienne",
+      "new_slug": "plytki-scienne",
+      "name": "Płytki ścienne",
+      "prod_count": 206
+    },
+    "cat-pytki-tarasowe": {
+      "new_id": "category-plytki-tarasowe",
+      "old_slug": "pytki-tarasowe",
+      "new_slug": "plytki-tarasowe",
+      "name": "Płytki tarasowe",
+      "prod_count": 189
+    },
+    "cat-weny-do-poddaszy": {
+      "new_id": "cat-l3-welny-do-poddaszy",
+      "old_slug": "weny-do-poddaszy",
+      "new_slug": "welny-do-poddaszy",
+      "name": "Wełny do poddaszy",
+      "prod_count": 142
+    },
+    "cat-aczniki-do-profili": {
+      "new_id": "cat-l3-laczniki-do-profili",
+      "old_slug": "aczniki-do-profili",
+      "new_slug": "laczniki-do-profili",
+      "name": "Łączniki do profili",
+      "prod_count": 131
+    },
+    "cat-pyty-xps": {
+      "new_id": "category-plyty-xps",
+      "old_slug": "pyty-xps",
+      "new_slug": "plyty-xps",
+      "name": "Płyty XPS",
+      "prod_count": 128
+    },
+    "cat-gadzie-masy-gotowe": {
+      "new_id": "cat-l3-gladzie-masy-gotowe",
+      "old_slug": "gadzie-masy-gotowe",
+      "new_slug": "gladzie-masy-gotowe",
+      "name": "Gładzie masy gotowe",
+      "prod_count": 122
+    },
+    "cat-pytki-elewacyjne": {
+      "new_id": "category-plytki-elewacyjne",
+      "old_slug": "pytki-elewacyjne",
+      "new_slug": "plytki-elewacyjne",
+      "name": "Płytki elewacyjne",
+      "prod_count": 112
+    },
+    "cat-pyty-gipsowo-kartonowe": {
+      "new_id": "category-plyty-gipsowo-kartonowe",
+      "old_slug": "pyty-gipsowo-kartonowe",
+      "new_slug": "plyty-gipsowo-kartonowe",
+      "name": "Płyty gipsowo-kartonowe",
+      "prod_count": 102
+    },
+    "cat-waki-malarskie": {
+      "new_id": "category-walki-malarskie",
+      "old_slug": "waki-malarskie",
+      "new_slug": "walki-malarskie",
+      "name": "Wałki malarskie",
+      "prod_count": 75
+    },
+    "cat-gadzie-gipsowe-w-proszku": {
+      "new_id": "cat-l3-gladzie-gipsowe-w-proszku",
+      "old_slug": "gadzie-gipsowe-w-proszku",
+      "new_slug": "gladzie-gipsowe-w-proszku",
+      "name": "Gładzie gipsowe w proszku",
+      "prod_count": 65
+    },
+    "cat-weny-do-dachow-paskich": {
+      "new_id": "cat-l3-welny-do-dachow-plaskich",
+      "old_slug": "weny-do-dachow-paskich",
+      "new_slug": "welny-do-dachow-plaskich",
+      "name": "Wełny do dachów płaskich",
+      "prod_count": 57
+    },
+    "cat-powoki-epoksydowe": {
+      "new_id": "cat-l2-powloki-epoksydowe",
+      "old_slug": "powoki-epoksydowe",
+      "new_slug": "powloki-epoksydowe",
+      "name": "Powłoki epoksydowe",
+      "prod_count": 43
+    },
+    "cat-weny-fasadowe": {
+      "new_id": "cat-l3-welny-fasadowe",
+      "old_slug": "weny-fasadowe",
+      "new_slug": "welny-fasadowe",
+      "name": "Wełny fasadowe",
+      "prod_count": 40
+    },
+    "cat-listwy-przypodogowe": {
+      "new_id": "cat-l3-listwy-przypodlogowe",
+      "old_slug": "listwy-przypodogowe",
+      "new_slug": "listwy-przypodlogowe",
+      "name": "Listwy przypodłogowe",
+      "prod_count": 38
+    },
+    "cat-motki-budowlane": {
+      "new_id": "cat-l3-mlotki-budowlane",
+      "old_slug": "motki-budowlane",
+      "new_slug": "mlotki-budowlane",
+      "name": "Młotki budowlane",
+      "prod_count": 27
+    },
+    "cat-izolacje-stropow-i-podog": {
+      "new_id": "cat-l3-izolacje-stropow-i-podlog",
+      "old_slug": "izolacje-stropow-i-podog",
+      "new_slug": "izolacje-stropow-i-podlog",
+      "name": "Izolacje stropów i podłóg",
+      "prod_count": 25
+    },
+    "cat-mieszada": {
+      "new_id": "cat-mieszadla",
+      "old_slug": "mieszada",
+      "new_slug": "mieszadla",
+      "name": "Mieszadła",
+      "prod_count": 24
+    },
+    "cat-farby-przemysowe": {
+      "new_id": "cat-l3-farby-przemyslowe",
+      "old_slug": "farby-przemysowe",
+      "new_slug": "farby-przemyslowe",
+      "name": "Farby przemysłowe",
+      "prod_count": 21
+    },
+    "cat-artykuy-scierne": {
+      "new_id": "cat-l2-artykuly-scierne",
+      "old_slug": "artykuy-scierne",
+      "new_slug": "artykuly-scierne",
+      "name": "Artykuły ścierne",
+      "prod_count": 20
+    },
+    "cat-pyty-cementowe": {
+      "new_id": "category-plyty-cementowe",
+      "old_slug": "pyty-cementowe",
+      "new_slug": "plyty-cementowe",
+      "name": "Płyty cementowe",
+      "prod_count": 19
+    },
+    "cat-podkady-wypeniajace": {
+      "new_id": "cat-l3-podklady-wypelniajace",
+      "old_slug": "podkady-wypeniajace",
+      "new_slug": "podklady-wypelniajace",
+      "name": "Podkłady wypełniające",
+      "prod_count": 18
+    },
+    "cat-kleje-do-ween": {
+      "new_id": "cat-l3-kleje-do-welen",
+      "old_slug": "kleje-do-ween",
+      "new_slug": "kleje-do-welen",
+      "name": "Kleje do wełen",
+      "prod_count": 18
+    },
+    "cat-artykuy-scierne-do-suchej-zabudowy": {
+      "new_id": "cat-artykuly-scierne-do-suchej-zabudowy",
+      "old_slug": "artykuy-scierne-do-suchej-zabudowy",
+      "new_slug": "artykuly-scierne-do-suchej-zabudowy",
+      "name": "Artykuły ścierne do suchej zabudowy",
+      "prod_count": 12
+    },
+    "cat-izolacje-przemysowe": {
+      "new_id": "cat-l3-izolacje-przemyslowe",
+      "old_slug": "izolacje-przemysowe",
+      "new_slug": "izolacje-przemyslowe",
+      "name": "Izolacje przemysłowe",
+      "prod_count": 10
+    },
+    "cat-potki-przeciwsniegowe": {
+      "new_id": "cat-l3-plotki-przeciwsniegowe",
+      "old_slug": "potki-przeciwsniegowe",
+      "new_slug": "plotki-przeciwsniegowe",
+      "name": "Płotki przeciwśniegowe",
+      "prod_count": 10
+    },
+    "cat-oowkikredy-i-markery": {
+      "new_id": "cat-olowki-kredy-i-markery",
+      "old_slug": "oowkikredy-i-markery",
+      "new_slug": "olowki-kredy-i-markery",
+      "name": "Ołówki,kredy i markery",
+      "prod_count": 8
+    },
+    "cat-tasmy-i-folie-pozostae": {
+      "new_id": "cat-tasmy-i-folie-pozostale",
+      "old_slug": "tasmy-i-folie-pozostae",
+      "new_slug": "tasmy-i-folie-pozostale",
+      "name": "Taśmy i folie pozostałe",
+      "prod_count": 6
+    },
+    "cat-spoiny-zwyke": {
+      "new_id": "cat-l3-spoiny-zwykle",
+      "old_slug": "spoiny-zwyke",
+      "new_slug": "spoiny-zwykle",
+      "name": "Spoiny zwykłe",
+      "prod_count": 4
+    },
+    "cat-izolacje-dachow-paskich": {
+      "new_id": "cat-l3-izolacje-dachow-plaskich",
+      "old_slug": "izolacje-dachow-paskich",
+      "new_slug": "izolacje-dachow-plaskich",
+      "name": "Izolacje dachów płaskich",
+      "prod_count": 2
+    },
+    "cat-wsporniki-potkow-przeciwsniegowych": {
+      "new_id": "cat-l3-wsporniki-plotkow-przeciwsni",
+      "old_slug": "wsporniki-potkow-przeciwsniegowych",
+      "new_slug": "wsporniki-plotkow-przeciwsniegowych",
+      "name": "Wsporniki płotków przeciwśniegowych",
+      "prod_count": 1
+    },
+    "cat-akcesoria-do-potkow-przeciwsniegowe": {
+      "new_id": "cat-akcesoria-do-plotkow-przeciwsniegowe",
+      "old_slug": "akcesoria-do-potkow-przeciwsniegowe",
+      "new_slug": "akcesoria-do-plotkow-przeciwsniegowe",
+      "name": "Akcesoria do płotków przeciwśniegowe",
+      "prod_count": 1
+    },
+    "cat-farby-pozostae": {
+      "new_id": "cat-plyty-gk",
+      "old_slug": "farby-pozostae",
+      "new_slug": "farby-pozostale",
+      "name": "Farby pozostałe",
+      "prod_count": 1
+    },
+    "cat-okadziny-z-wokna-szklanego": {
+      "new_id": "cat-l3-okladziny-z-wlokna-szklanego",
+      "old_slug": "okadziny-z-wokna-szklanego",
+      "new_slug": "okladziny-z-wlokna-szklanego",
+      "name": "Okładziny z włókna szklanego",
+      "prod_count": 1
+    }
+  },
+  "no_match": [
+    {
+      "old_id": "cat-konierze-i-produkty-instalacyjne",
+      "old_slug": "konierze-i-produkty-instalacyjne",
+      "expected_slug": "kolnierze-i-produkty-instalacyjne",
+      "name": "Kołnierze i produkty instalacyjne",
+      "new_id": null,
+      "prod_count": 269
+    },
+    {
+      "old_id": "cat-pyty-elewacyjne-pir",
+      "old_slug": "pyty-elewacyjne-pir",
+      "expected_slug": "plyty-elewacyjne-pir",
+      "name": "Płyty elewacyjne PIR",
+      "new_id": null,
+      "prod_count": 127
+    },
+    {
+      "old_id": "cat-weny-do-izolacji-fasad-niewentylowanych",
+      "old_slug": "weny-do-izolacji-fasad-niewentylowanych",
+      "expected_slug": "welny-do-izolacji-fasad-niewentylowanych",
+      "name": "Wełny do izolacji fasad niewentylowanych",
+      "new_id": null,
+      "prod_count": 86
+    },
+    {
+      "old_id": "cat-weny-do-izolacji-fasad-wentylowanych",
+      "old_slug": "weny-do-izolacji-fasad-wentylowanych",
+      "expected_slug": "welny-do-izolacji-fasad-wentylowanych",
+      "name": "Wełny do izolacji fasad wentylowanych",
+      "new_id": null,
+      "prod_count": 71
+    },
+    {
+      "old_id": "cat-akcesoria-do-farb-przemysowych",
+      "old_slug": "akcesoria-do-farb-przemysowych",
+      "expected_slug": "akcesoria-do-farb-przemyslowych",
+      "name": "Akcesoria do farb przemysłowych",
+      "new_id": null,
+      "prod_count": 22
+    },
+    {
+      "old_id": "cat-pyty-elewacyjne-pur",
+      "old_slug": "pyty-elewacyjne-pur",
+      "expected_slug": "plyty-elewacyjne-pur",
+      "name": "Płyty elewacyjne PUR",
+      "new_id": null,
+      "prod_count": 8
+    },
+    {
+      "old_id": "cat-lakiery-pozostae",
+      "old_slug": "lakiery-pozostae",
+      "expected_slug": "lakiery-pozostale",
+      "name": "Lakiery pozostałe",
+      "new_id": null,
+      "prod_count": 2
+    },
+    {
+      "old_id": "cat-farby-elewacyjne-pozostae",
+      "old_slug": "farby-elewacyjne-pozostae",
+      "expected_slug": "farby-elewacyjne-pozostale",
+      "name": "Farby elewacyjne pozostałe",
+      "new_id": null,
+      "prod_count": 2
+    },
+    {
+      "old_id": "cat-folie-w-pynie",
+      "old_slug": "folie-w-pynie",
+      "expected_slug": "folie-w-plynie",
+      "name": "Folie w płynie",
+      "new_id": null,
+      "prod_count": 1
+    },
+    {
+      "old_id": "cat-pozostae-narzedzia-reczne",
+      "old_slug": "pozostae-narzedzia-reczne",
+      "expected_slug": "pozostale-narzedzia-reczne",
+      "name": "Pozostałe narzędzia ręczne",
+      "new_id": null,
+      "prod_count": 1
+    },
+    {
+      "old_id": "cat-pyty-dachowe-pir",
+      "old_slug": "pyty-dachowe-pir",
+      "expected_slug": "plyty-dachowe-pir",
+      "name": "Płyty dachowe PIR",
+      "new_id": null,
+      "prod_count": 1
+    }
+  ]
+}

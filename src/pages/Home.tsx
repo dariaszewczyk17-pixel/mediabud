@@ -497,23 +497,24 @@ export default function Home() {
               </div>
 
               <div className="mb-10 max-w-4xl">
-                <div className="premium-fade-soft mb-6 text-[11px] font-black uppercase tracking-[0.34em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>15 lat na budowach Lubelszczyzny</div>
+                <div className="premium-fade-soft mb-6 text-[11px] font-black uppercase tracking-[0.34em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>Materiały budowlane najwyższej jakości · Lublin</div>
                 <h1 className="text-white mb-7" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.045em", fontSize: "clamp(3rem, 6.6vw, 6.8rem)" }}>
                   <span className="block overflow-hidden">
-                    <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Budujesz</span>
-                    <span className="premium-editorial-word ml-[0.22em]" style={{ animationDelay: "260ms" }}>raz.</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Budujesz.</span>
                   </span>
                   <span className="block overflow-hidden mt-1">
-                    <span className="premium-editorial-word" style={{ animationDelay: "340ms" }}>Wybierasz</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "260ms" }}>Remontujesz.</span>
                   </span>
                   <span className="block overflow-hidden mt-1">
-                    <span className="premium-editorial-word" style={{ animationDelay: "420ms", background: "linear-gradient(135deg,#ffffff 0%, #ffd7db 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>partnera</span>
-                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "500ms" }}>do</span>
-                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "580ms" }}>całości.</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "340ms", background: "linear-gradient(135deg,#ffffff 0%, #ffd7db 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Wszystko</span>
+                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "420ms" }}>w jednym</span>
+                  </span>
+                  <span className="block overflow-hidden mt-1">
+                    <span className="premium-editorial-word" style={{ animationDelay: "500ms" }}>miejscu.</span>
                   </span>
                 </h1>
                 <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.78)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1.02rem, 1.36vw, 1.18rem)", lineHeight: 1.92 }}>
-                  Koniec z gonieniem za materiałami, ekipą i terminami. U nas dostajesz wszystko w jednym miejscu — materiały, doradztwo, wycenę i sprawdzoną ekipę — a Twoja inwestycja ma <span className="text-white font-semibold">jednego partnera odpowiedzialnego za efekt</span>: termin, koszt i jakość.
+                  Znajdziesz u nas wszystko, czego potrzebujesz do budowy i remontu — tynki, systemy ociepleń, styropiany, wełnę i akcesoria od <span className="text-white font-semibold">renomowanych producentów</span>. Sprawdzona trwałość, efektywność energetyczna i terminowa dostawa, a nasi specjaliści pomogą dobrać rozwiązania do Twoich potrzeb.
                 </p>
               </div>
 

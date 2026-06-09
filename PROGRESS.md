@@ -408,3 +408,4 @@
 [2026-06-09 15:32] Usunięto 7 grid-overlay (kratki) z Home.tsx we wszystkich sekcjach: hero, stat bar, brands, categories, featured products, Dlaczego MB, CTA.
 [2026-06-09 15:36] Ulepszono warstwę hero: eyebrow z kropką akcentu, badge '15 lat', mocniejszy paragraf z 'jedną odpowiedzialnością', dopracowane 3 karty, panel inwestora (live ping, 'Twoja budowa', '15 lat doświadczenia').
 [2026-06-09 15:41] Zmieniono akapit hero na bardziej zachęcający/sprzedażowy ('Koniec z gonieniem za materiałami...').
+[2026-06-09 15:59] Hero: badge -> 'Materiały budowlane najwyższej jakości · Lublin'; nagłówek -> 'Budujesz. Remontujesz. Wszystko w jednym miejscu.' (czerwień na 'Wszystko'); akapit przepisany wg oficjalnego opisu firmy (tynki, ocieplenia, styropiany, wełna, renomowani producenci, doradztwo, terminowa dostawa).

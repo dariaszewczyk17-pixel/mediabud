@@ -677,12 +677,9 @@ export default function Header() {
                     <div className="absolute inset-0 opacity-0 transition-opacity group-hover/icon:opacity-100" style={{ background: "rgba(248,24,40,0.07)" }} />
                     <div className={`absolute top-0 left-0 right-0 h-[2px] origin-left bg-[#f81828] transition-transform duration-200 ${activeMenu === cat.id ? "scale-x-100" : "scale-x-0 group-hover/icon:scale-x-100"}`} />
 
-                    <span className="relative z-10 line-clamp-2 text-[9px] font-bold uppercase leading-tight tracking-[0.05em] text-center">
+                    <span className="relative z-10 line-clamp-2 text-[10px] font-bold uppercase leading-tight tracking-[0.05em] text-center">
                       {cat.name}
                     </span>
-                    {cat.children && (
-                      <ChevronDown className={`relative z-10 -mt-0.5 h-2.5 w-2.5 transition-transform duration-200 ${activeMenu === cat.id ? "rotate-180" : ""}`} />
-                    )}
                   </Link>
 
                   {/* ── Mega dropdown 2-poziomowy ── */}

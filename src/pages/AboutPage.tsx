@@ -278,37 +278,66 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ══ TIMELINE ══ */}
-      <section className="py-20" style={{ background: "#050505", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-        <div className="container mx-auto px-4">
-          <FadeIn className="text-center mb-14">
-            <p className="text-[10px] font-black text-[#f81828] tracking-[0.4em] uppercase mb-3">— Historia firmy —</p>
-            <h2 className="font-display text-2xl md:text-4xl font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
-              15 lat na rynku
+      {/* ══ MEDIA BUD W AKCJI — VIDEO ══ */}
+      <section className="py-20 relative overflow-hidden" style={{ background: "#050505", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+        {/* Grid tło */}
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+        {/* Neon glow */}
+        <div className="absolute pointer-events-none" style={{ left: "50%", top: "30%", transform: "translate(-50%,-50%)", width: 600, height: 600, background: "radial-gradient(circle, rgba(248,24,40,0.07) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(60px)" }} />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <FadeIn className="text-center mb-12">
+            <p className="text-[10px] font-black text-[#f81828] tracking-[0.4em] uppercase mb-3">— Media Bud w akcji —</p>
+            <h2 className="font-display text-2xl md:text-4xl font-black text-white mb-4" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
+              15 lat budujemy Lublin
             </h2>
+            <p className="text-gray-500 text-sm max-w-2xl mx-auto leading-relaxed">
+              Skład budowlany, doradztwo techniczne i ekipy wykonawcze — wszystko w jednym miejscu, od 2008 roku.
+            </p>
           </FadeIn>
 
-          <div className="max-w-4xl mx-auto relative">
-            {/* Vertical line */}
-            <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[1px] md:-translate-x-px" style={{ background: "linear-gradient(to bottom,#f81828,rgba(248,24,40,0.15))" }} />
+          <FadeIn delay={200}>
+            <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden relative" style={{ border: "1px solid rgba(248,24,40,0.25)", boxShadow: "0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(248,24,40,0.08)" }}>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full aspect-video"
+                style={{ display: "block", background: "#050505" }}
+                src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k5liv80j2drgd1uh10.mp4"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(to top, rgba(5,5,5,0.92), transparent)" }} />
+              <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-full" style={{ background: "rgba(248,24,40,0.15)", border: "1px solid rgba(248,24,40,0.4)", backdropFilter: "blur(8px)" }}>
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping" style={{ background: "#f81828" }} />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: "#f81828" }} />
+                </span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">Live showreel</span>
+              </div>
+            </div>
+          </FadeIn>
 
-            {timelineItems.map((item, i) => (
-              <FadeIn key={i} delay={i * 80} className={`relative flex md:items-center gap-6 mb-10 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} pl-12 md:pl-0`}>
-                {/* Dot */}
-                <div className="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full border-2 border-[#f81828] z-10 flex-shrink-0" style={{ background: "#050505", boxShadow: "0 0 12px rgba(248,24,40,0.5)", marginTop: "2px" }} />
-
-                {/* Content */}
-                <div className={`md:w-5/12 rounded-xl p-5 group ${i % 2 === 0 ? "md:mr-auto md:text-right" : "md:ml-auto md:text-left"}`}
-                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", backdropFilter: "blur(8px)", transition: "border-color 0.3s, box-shadow 0.3s" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.3)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(248,24,40,0.1)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-                  <div className="font-mono text-[#f81828] text-sm font-black mb-1">{item.year}</div>
-                  <div className="font-display font-black text-white text-base mb-1" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>{item.title}</div>
-                  <div className="text-xs text-gray-500 leading-relaxed">{item.desc}</div>
+          <FadeIn delay={400}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 max-w-4xl mx-auto">
+              {[
+                { value: "2008", label: "Rok założenia" },
+                { value: "15+", label: "Lat na rynku" },
+                { value: "500+", label: "Projektów" },
+                { value: "268", label: "Marek w ofercie" },
+              ].map((item, i) => (
+                <div key={i} className="rounded-xl p-5 text-center group transition-all duration-300"
+                  style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(248,24,40,0.18)", backdropFilter: "blur(8px)" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.5)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 28px rgba(248,24,40,0.12)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.18)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+                >
+                  <div className="font-display font-black text-2xl md:text-3xl mb-1" style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", textShadow: "0 0 20px rgba(248,24,40,0.4)" }}>{item.value}</div>
+                  <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>{item.label}</div>
                 </div>
-              </FadeIn>
-            ))}
-          </div>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -406,7 +435,6 @@ export default function AboutPage() {
                     <div className="text-xs text-gray-600 mb-3 flex items-center gap-1">
                       <MapPin className="w-3 h-3 shrink-0 text-[#f81828]" /> {r.location}
                     </div>
-                    <p className="text-sm text-gray-400 leading-relaxed flex-1">{r.scope}</p>
                     {r.url && (
                       <a href={r.url} target="_blank" rel="noopener noreferrer"
                         className="mt-4 inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#f81828] hover:underline">

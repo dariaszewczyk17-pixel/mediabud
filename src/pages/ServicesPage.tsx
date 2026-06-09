@@ -272,7 +272,6 @@ function ServiceTile({ svc }: { svc: ServiceDetail }) {
             style={{ border: "1px solid rgba(248,24,40,0.3)", background: "rgba(248,24,40,0.07)" }}>
             {svc.icon}
           </div>
-          <span className="text-[9px] font-black uppercase tracking-wider text-[#555] mt-1">{svc.segment}</span>
         </div>
         <p className="text-[10px] font-bold uppercase tracking-wider text-[#555] mb-2">{svc.badge}</p>
         <h2 className="font-display text-xl font-black text-white mb-3 group-hover:text-[#f81828] transition-colors duration-200" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>

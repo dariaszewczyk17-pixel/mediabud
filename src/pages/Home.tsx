@@ -1197,8 +1197,8 @@ export default function Home() {
                     { to: 500,   suffix: "+", label: "klientów" },
                     { to: 15,    suffix: " lat", label: "doświadczenia" },
                   ].map((st, idx) => (
-                    <div key={idx} className="text-center">
-                      <div>
+                    <div key={idx} className="text-center min-w-0 overflow-hidden">
+                      <div className="min-w-0">
                         <CountUp to={st.to} suffix={st.suffix} neon duration={1600 + idx * 250} />
                       </div>
                       <div className="mt-1 text-[10px] font-black uppercase tracking-[0.16em]" style={{ color: "rgba(255,255,255,0.52)" }}>{st.label}</div>
@@ -1327,16 +1327,7 @@ export default function Home() {
                   </div>
                   )}
 
-                  <div className="flex flex-wrap gap-2">
-                    {r.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-gray-300"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+
                 </div>
               </article>
             );
@@ -1667,14 +1658,23 @@ export default function Home() {
             MediaBud łączy skład budowlany, doradztwo techniczne i usługi wykonawcze dla klientów indywidualnych oraz biznesowych w Lublinie i województwie lubelskim.
           </p>
 
-          <div className="rounded-2xl p-6 md:p-7 mb-8" style={{ background: "#0f0f0f", border: "1px solid #2d2d2d", boxShadow: "0 16px 40px rgba(0,0,0,0.28)" }}>
-            <h3 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-black uppercase text-white leading-[0.95] break-words mb-3" style={{ overflowWrap: "anywhere" }}>
+          <Link
+            to="/uslugi/galerie-obiekty"
+            className="block rounded-2xl p-6 md:p-7 mb-8 group transition-all duration-300"
+            style={{ background: "#0f0f0f", border: "1px solid #2d2d2d", boxShadow: "0 16px 40px rgba(0,0,0,0.28)" }}
+            onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = "rgba(248,24,40,0.45)"; el.style.boxShadow = "0 20px 50px rgba(248,24,40,0.12)"; }}
+            onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = "#2d2d2d"; el.style.boxShadow = "0 16px 40px rgba(0,0,0,0.28)"; }}
+          >
+            <h3 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-black uppercase text-white leading-[0.95] break-words mb-3 group-hover:text-[#f81828] transition-colors duration-200" style={{ overflowWrap: "anywhere" }}>
               Galerie, szkoły i obiekty użytkowe
             </h3>
             <p className="text-sm leading-relaxed" style={{ color: "#888" }}>
               Realizujemy remonty i modernizacje dla firm oraz instytucji — usługi dekarskie i elewacyjne obsługują zarówno inwestycje prywatne, jak i obiektowe.
             </p>
-          </div>
+            <div className="mt-4 flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{ color: "#f81828" }}>
+              Dowiedz się więcej <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+            </div>
+          </Link>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {serviceCards.map((service, i) => {

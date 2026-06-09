@@ -55,7 +55,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <Link to="/" className="inline-block mb-4">
-              <div style={{ background: "rgba(255,255,255,0.96)", padding: "4px 10px", borderRadius: "3px", lineHeight: 0, border: "1px solid rgba(248,24,40,0.15)", display: "inline-block" }}>
+              <div style={{ background: "rgba(255,255,255,0.96)", padding: "3px 8px", borderRadius: "10px", lineHeight: 0, border: "1px solid rgba(248,24,40,0.15)", display: "inline-block" }}>
                 <img
                   src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-03/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/7435729631584985088_95351505e7074b448f31c489e4513303.png"
                   alt="Media Bud – Skład Budowlany"
@@ -119,7 +119,7 @@ export default function Footer() {
               Informacje
             </p>
             <ul className="space-y-3 mb-6">
-              {QUICK_LINKS.slice(0, 6).map((l) => (
+              {QUICK_LINKS.slice(0, 7).map((l) => (
                 <li key={l.label}>
                   <Link
                     to={l.to}

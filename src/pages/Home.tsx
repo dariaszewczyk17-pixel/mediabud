@@ -349,273 +349,107 @@ export default function Home() {
       })}} />
 
       {/* ═══════════════════════════════════════════════════════
-          HERO — COMMAND CENTER
+          HERO — INDUSTRIAL PREMIUM
       ═══════════════════════════════════════════════════════ */}
       {/* ── Hero Section ── */}
-      <section className="relative min-h-[58vh] md:min-h-[65vh] flex flex-col justify-center overflow-hidden" style={{ background: "#000" }}>
-        {/* CSS animations */}
-        <style>{`
-          @keyframes hud-scan { 0%{top:0%;opacity:.7} 80%{opacity:.2} 100%{top:100%;opacity:0} }
-          @keyframes hud-pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
-          @keyframes hud-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
-          @keyframes cf-a { 0%,42%{opacity:1} 50%,92%{opacity:0} 100%{opacity:1} }
-          @keyframes cf-b { 0%,42%{opacity:0} 50%,92%{opacity:1} 100%{opacity:0} }
-          .hud-scan-v { position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(248,24,40,0.5),transparent); animation:hud-scan 4s linear infinite; pointer-events:none; z-index:5; }
-        `}</style>
-
-        {/* Wideo A — Industrial Command */}
-        <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1, animation: "cf-a 30s linear infinite" }}>
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover" style={{ filter: "brightness(0.60) saturate(0.75)" }}>
+      <section className="relative min-h-[62vh] md:min-h-[72vh] overflow-hidden" style={{ background: "#050505" }}>
+        {/* Wideo tło — subtelne cinematic */}
+        <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1 }}>
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover" style={{ filter: "brightness(0.42) saturate(0.78) contrast(1.05)" }}>
             <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k06h780j2drgd1u0r0.mp4" type="video/mp4" />
           </video>
         </div>
-        {/* Wideo B — Material Intelligence */}
-        <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1, animation: "cf-b 30s linear infinite" }}>
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover" style={{ filter: "brightness(0.60) saturate(0.75)" }}>
-            <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k06k780j2drgd1u0rg.mp4" type="video/mp4" />
-          </video>
-        </div>
-        {/* Mobile fallback */}
-        <div className="absolute inset-0 block md:hidden" style={{ zIndex: 1, backgroundImage: "url('/images/hero-materialy_2.png')", backgroundSize: "cover", backgroundPosition: "center", filter: "brightness(0.50)" }} />
+        <div className="absolute inset-0 block md:hidden" style={{ zIndex: 1, backgroundImage: "url('/images/hero-materialy_2.png')", backgroundSize: "cover", backgroundPosition: "center", filter: "brightness(0.42)" }} />
 
-        {/* HUD Grid */}
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.055) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.055) 1px,transparent 1px)", backgroundSize: "32px 32px", zIndex: 2 }} />
-        {/* Vignette */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 90% 70% at 35% 50%, transparent 25%, rgba(0,0,0,0.75) 100%)", zIndex: 2 }} />
-        {/* Gradient dolny */}
-        <div className="absolute bottom-0 left-0 right-0 h-52 pointer-events-none" style={{ background: "linear-gradient(to top, #050505, transparent)", zIndex: 2 }} />
-        {/* Gradient lewy */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.15) 100%)", zIndex: 2 }} />
+        {/* Overlays premium */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(5,5,5,0.94) 0%, rgba(5,5,5,0.78) 38%, rgba(5,5,5,0.35) 68%, rgba(5,5,5,0.55) 100%)", zIndex: 2 }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 70% 55% at 20% 50%, rgba(248,24,40,0.08), transparent 70%)", zIndex: 2 }} />
+        <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to top, #050505, transparent)", zIndex: 2 }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px] z-20" style={{ background: "linear-gradient(90deg, #f81828 0%, rgba(248,24,40,0.15) 35%, transparent 100%)" }} />
 
-        {/* HUD border */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] z-20" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.35) 60%,transparent)" }} />
-        <div className="absolute left-0 top-0 bottom-0 w-[2px] z-20 bg-[#f81828]" style={{ boxShadow: "2px 0 18px rgba(248,24,40,0.55)" }} />
-        <div className="hud-scan-v" />
-
-        {/* HUD corners */}
-        <div className="absolute top-4 left-4 z-10 pointer-events-none" style={{ width: 32, height: 32, borderTop: "2px solid #f81828", borderLeft: "2px solid #f81828" }} />
-        <div className="absolute top-4 right-4 z-10 pointer-events-none" style={{ width: 22, height: 22, borderTop: "1px solid rgba(248,24,40,0.45)", borderRight: "1px solid rgba(248,24,40,0.45)" }} />
-        <div className="absolute bottom-4 left-4 z-10 pointer-events-none" style={{ width: 22, height: 22, borderBottom: "1px solid rgba(248,24,40,0.45)", borderLeft: "1px solid rgba(248,24,40,0.45)" }} />
-        <div className="absolute bottom-4 right-4 z-10 pointer-events-none" style={{ width: 14, height: 14, borderBottom: "1px solid rgba(248,24,40,0.2)", borderRight: "1px solid rgba(248,24,40,0.2)" }} />
-
-        {/* GPS coords */}
-        <div className="absolute bottom-6 right-8 z-10 pointer-events-none hidden lg:block" style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.45)", letterSpacing: "0.1em", lineHeight: 1.8, textAlign: "right" }}>
-          <div>51.2465°N / 22.5684°E</div>
-          <div>LUBLIN // PL-06</div>
-          <div style={{ animation: "hud-pulse 2s ease-in-out infinite" }}>● SYS_ACTIVE</div>
-        </div>
-
-        {/* MAIN CONTENT */}
-        <div className="relative z-10 container mx-auto px-4 py-10 md:py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-[58fr_42fr] gap-6 lg:gap-10 items-start">
-
-            {/* Left: Copy */}
-            <div>
-              {/* Terminal eyebrow */}
-              <div className="inline-flex flex-col gap-0.5 mb-5" style={{ border: "1px solid rgba(248,24,40,0.42)", background: "rgba(248,24,40,0.05)", padding: "6px 12px" }}>
-                <div style={{ fontFamily: "monospace", fontSize: 9, color: "#f81828", letterSpacing: "0.2em", display: "flex", alignItems: "center", gap: 7 }}>
-                  <span style={{ animation: "hud-blink 1s step-end infinite" }}>&#9632;</span>
-                  &#9658; SYSTEM_READY :: LUBLIN_OPERATIONAL_BASE
-                </div>
-                <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.5)", letterSpacing: "0.14em" }}>
-                  51.2465°N / 22.5684°E // PL-06 // AKTYWNY
-                </div>
-              </div>
-
-              {/* H1 */}
-              <h1 className="font-black uppercase leading-[1.0] tracking-tight mb-5" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
-                <span className="block text-white" style={{ fontSize: "clamp(1.9rem, 5vw, 4.5rem)", letterSpacing: "-0.01em" }}>SKŁAD BUDOWLANY</span>
-                <span className="block" style={{ fontSize: "clamp(2.3rem, 6vw, 5.5rem)", letterSpacing: "-0.02em", background: "linear-gradient(135deg,#f81828 20%,#ff6b35 80%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>MATERIAŁY + EKIPA</span>
-                <span className="block text-white/60" style={{ fontSize: "clamp(1.3rem, 3.2vw, 3rem)", fontWeight: 700, letterSpacing: "0.02em" }}>LUBLIN &amp; REGION</span>
-              </h1>
-
-              {/* Subtitle */}
-              <p className="mb-7 max-w-lg leading-relaxed" style={{ color: "#777", fontFamily: "Inter,sans-serif", fontSize: "clamp(0.875rem,1.4vw,1rem)" }}>
-                Jeden sprawdzony partner od materiałów po realizację. 15&nbsp;000+ produktów w magazynie i ekipa wykonawcza pod klucz.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-3 mb-7">
-                <Link
-                  to="/produkty"
-                  className="inline-flex items-center gap-2 font-black uppercase tracking-wider text-white relative overflow-hidden group"
-                  style={{ background: "#f81828", fontSize: "0.8rem", letterSpacing: "0.12em", padding: "13px 26px", boxShadow: "0 10px 28px rgba(248,24,40,0.30), inset 0 1px 0 rgba(255,255,255,0.1)" }}
-                >
-                  <span className="relative z-10">Przeglądaj ofertę →</span>
-                  <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(135deg,rgba(255,255,255,0.18),transparent)" }} />
-                </Link>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-2 font-bold uppercase tracking-wider text-white"
-                  style={{ border: "1px solid rgba(248,24,40,0.5)", fontSize: "0.8rem", letterSpacing: "0.12em", padding: "13px 26px", background: "rgba(248,24,40,0.05)" }}
-                  onClick={() => setQuoteOpen(true)}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = "#f81828"; e.currentTarget.style.background = "rgba(248,24,40,0.12)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(248,24,40,0.5)"; e.currentTarget.style.background = "rgba(248,24,40,0.05)"; }}
-                >
-                  <span style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.7)", marginRight: 3 }}>[B2B]</span>
-                  Zapytaj o wycenę
-                </button>
-              </div>
-
-              {/* Trust */}
-              <div className="flex flex-wrap items-center gap-5">
-                {["Ponad 15 900 produktów", "Bezpłatne doradztwo", "Dostawa Lublin"].map((t) => (
-                  <span key={t} style={{ fontFamily: "monospace", fontSize: 9, color: "#555", letterSpacing: "0.14em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 6 }}>
-                    <span style={{ color: "#f81828" }}>&#9672;</span> {t}
-                  </span>
-                ))}
-              </div>
+        <div className="relative z-10 container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-3 mb-6 px-4 py-2" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(10px)", borderRadius: "999px" }}>
+              <span className="w-2 h-2 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 12px rgba(248,24,40,0.6)" }} />
+              <span style={{ fontFamily: "Inter,sans-serif", fontSize: "11px", letterSpacing: "0.22em", textTransform: "uppercase", color: "#cfcfcf", fontWeight: 700 }}>
+                Skład budowlany i wykonawstwo premium
+              </span>
             </div>
 
-            {/* Right: STATUS PANEL */}
-            <div className="hidden lg:block" style={{ paddingTop: 4 }}>
-              <div style={{ background: "rgba(4,4,4,0.78)", backdropFilter: "blur(22px)", border: "1px solid rgba(248,24,40,0.2)", position: "relative" }}>
-                <div style={{ position: "absolute", top: -1, left: -1, width: 18, height: 18, borderTop: "2px solid #f81828", borderLeft: "2px solid #f81828" }} />
-                <div style={{ position: "absolute", bottom: -1, right: -1, width: 14, height: 14, borderBottom: "1px solid rgba(248,24,40,0.35)", borderRight: "1px solid rgba(248,24,40,0.35)" }} />
-                <div style={{ borderBottom: "1px solid rgba(248,24,40,0.18)", background: "rgba(248,24,40,0.05)", padding: "8px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <div style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.75)", letterSpacing: "0.18em", display: "flex", alignItems: "center", gap: 7 }}>
-                    <span style={{ animation: "hud-blink 1.3s step-end infinite", color: "#f81828" }}>&#9632;</span> SYSTEM STATUS
-                  </div>
-                  <div style={{ fontFamily: "monospace", fontSize: 8, color: "#f81828", animation: "hud-pulse 2s ease-in-out infinite", letterSpacing: "0.12em" }}>&#9679; ONLINE</div>
-                </div>
-                <div style={{ padding: "14px 16px 10px", display: "flex", flexDirection: "column", gap: 11 }}>
-                  {[
-                    { code: "INV", val: `${productCount.toLocaleString("pl-PL")}+`, label: "Produktów w ofercie", pct: 95 },
-                    { code: "EXP", val: "15 lat", label: "Doświadczenia", pct: 75 },
-                    { code: "CLI", val: "500+", label: "Firm klientów B2B", pct: 80 },
-                    { code: "ETA", val: "<24h", label: "Realizacja zamówień", pct: 92 },
-                  ].map((m) => (
-                    <div key={m.code}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 3 }}>
-                        <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.45)", letterSpacing: "0.14em" }}>[{m.code}] {m.label}</div>
-                        <div style={{ fontFamily: "monospace", fontSize: 14, color: "#f81828", fontWeight: 900, textShadow: "0 0 10px rgba(248,24,40,0.65)" }}>{m.val}</div>
-                      </div>
-                      <div style={{ height: 1.5, background: "rgba(248,24,40,0.09)", overflow: "hidden" }}>
-                        <div style={{ height: "100%", width: `${m.pct}%`, background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.25))", boxShadow: "0 0 4px rgba(248,24,40,0.5)" }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ borderTop: "1px solid rgba(248,24,40,0.1)", padding: "10px 16px" }}>
-                  <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.38)", letterSpacing: "0.12em", marginBottom: 6 }}>// AKTYWNE USŁUGI</div>
-                  {["Ocieplenia & elewacje", "Dachy", "Wykończenia pod klucz", "Deweloperzy B2B"].map((s) => (
-                    <div key={s} style={{ fontFamily: "monospace", fontSize: 8, color: "#4a4a4a", letterSpacing: "0.1em", display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-                      <span style={{ color: "#f81828", fontSize: 6 }}>&#9685;</span> {s.toUpperCase()}
-                    </div>
-                  ))}
-                </div>
-                <div style={{ borderTop: "1px solid rgba(248,24,40,0.08)", padding: "7px 16px" }}>
-                  <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.28)", letterSpacing: "0.1em" }}>51.2465°N / 22.5684°E // LUBLIN // PL-06</div>
-                </div>
-              </div>
+            {/* H1 */}
+            <h1 className="mb-6 text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.03em", fontSize: "clamp(2.5rem, 6vw, 5.8rem)" }}>
+              <span className="block">Materiały budowlane</span>
+              <span className="block" style={{ background: "linear-gradient(135deg,#ffffff 0%, #f3b0b5 30%, #f81828 85%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>i ekipa w jednym miejscu</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="max-w-2xl mb-8" style={{ color: "rgba(255,255,255,0.72)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1rem, 1.45vw, 1.15rem)", lineHeight: 1.7 }}>
+              Media Bud łączy profesjonalny skład budowlany z wykonawstwem. Kupujesz materiały, zamawiasz ekipę i realizujesz inwestycję z jednym sprawdzonym partnerem w Lublinie.
+            </p>
+
+            {/* CTA */}
+            <div className="flex flex-wrap gap-4 mb-10">
+              <Link
+                to="/produkty"
+                className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] text-white rounded-full transition-all duration-300"
+                style={{ background: "#f81828", boxShadow: "0 14px 34px rgba(248,24,40,0.28)", fontSize: "0.82rem" }}
+              >
+                Zobacz ofertę <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] rounded-full transition-all duration-300 text-white"
+                style={{ border: "1px solid rgba(255,255,255,0.18)", background: "rgba(255,255,255,0.04)", fontSize: "0.82rem", backdropFilter: "blur(8px)" }}
+                onClick={() => setQuoteOpen(true)}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(248,24,40,0.55)"; e.currentTarget.style.background = "rgba(248,24,40,0.10)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
+              >
+                Bezpłatna wycena
+              </button>
             </div>
 
+            {/* Value line */}
+            <div className="flex flex-wrap gap-x-8 gap-y-3">
+              {[
+                "Ponad 15 900 produktów",
+                "15 lat doświadczenia",
+                "Obsługa B2B i inwestorów prywatnych",
+              ].map((t) => (
+                <div key={t} className="flex items-center gap-3" style={{ color: "rgba(255,255,255,0.62)", fontSize: "0.85rem", fontWeight: 600 }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#f81828]" />
+                  <span>{t}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ StatBar — SYSTEM DATA TERMINAL ═══ */}
+      {/* ═══ PREMIUM TRUST BAR ═══ */}
       <div
         ref={r3.ref as React.RefObject<HTMLDivElement>}
-        className="relative overflow-hidden"
-        style={{ background: "#050505", borderTop: "2px solid #f81828", borderBottom: "1px solid rgba(248,24,40,0.15)" }}
+        className="relative"
+        style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
       >
-        {/* BG grid */}
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(248,24,40,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.025) 1px,transparent 1px)", backgroundSize: "24px 24px", pointerEvents: "none" }} />
-        {/* red glow top */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 60, background: "linear-gradient(to bottom,rgba(248,24,40,0.08),transparent)", pointerEvents: "none" }} />
-
-        {/* ─── Terminal header bar ─── */}
-        <div style={{ borderBottom: "1px solid rgba(248,24,40,0.2)", background: "rgba(248,24,40,0.04)", padding: "6px 0" }}>
-          <div className="container mx-auto px-4 flex items-center justify-between">
-            <div style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(248,24,40,0.7)", letterSpacing: "0.15em", display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ color: "#f81828" }}>▶</span>
-              <span>SYS_STATUS</span>
-              <span style={{ color: "rgba(248,24,40,0.3)" }}>::</span>
-              <span>MEDIA_BUD_LUBLIN</span>
-              <span style={{ color: "rgba(248,24,40,0.3)" }}>::</span>
-              <span style={{ color: "#f81828", animation: "hud-pulse 2s ease-in-out infinite" }}>● ONLINE</span>
-            </div>
-            <div style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.3)", letterSpacing: "0.1em", display: "flex", gap: 12 }}>
-              <span>VER 2025.06</span>
-              <span style={{ color: "rgba(248,24,40,0.15)" }}>|</span>
-              <span>LUBLIN // PL</span>
-            </div>
-          </div>
-        </div>
-
-        {/* ─── Stats grid ─── */}
-        <div className="container mx-auto px-4 relative">
-          <div className="grid grid-cols-2 md:grid-cols-4">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
             {[
-              { code: "INV_COUNT", num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, "\u00a0")}+`, label: "Produktów w ofercie", bar: 95 },
-              { code: "EXP_YEARS", num: "15 lat",  label: "Doświadczenia",        bar: 75 },
-              { code: "CLI_TOTAL", num: "500+",    label: "Firm klientów",         bar: 80 },
-              { code: "ETA_HOURS", num: "<24h",    label: "Czas realizacji",       bar: 90 },
+              { num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, "\u00a0")}+`, label: "Produktów w ofercie" },
+              { num: "15 lat", label: "Doświadczenia" },
+              { num: "500+", label: "Firm klientów" },
+              { num: "<24h", label: "Czas realizacji" },
             ].map((s, i) => (
               <div
                 key={i}
-                className={`relative group cursor-default transition-all duration-300 hover:bg-[#f81828]/[0.04]
-                  ${i % 2 === 0 ? "border-r border-[#f81828]/10" : "border-r-0 md:border-r md:border-[#f81828]/10"}
-                  ${i >= 2 ? "border-t border-[#f81828]/10 md:border-t-0" : ""}
-                  ${i === 3 ? "md:border-r-0" : ""}`}
-                style={{ padding: "20px 24px 18px 20px" }}
+                className={`px-5 md:px-7 py-6 md:py-7 ${i % 2 === 0 ? "border-r border-white/6" : "border-r-0 md:border-r md:border-white/6"} ${i >= 2 ? "border-t border-white/6 md:border-t-0" : ""} ${i === 3 ? "md:border-r-0" : ""}`}
               >
-                {/* left red accent bar */}
-                <div style={{ position: "absolute", left: 0, top: "20%", bottom: "20%", width: 2, background: "linear-gradient(to bottom,transparent,#f81828,transparent)", opacity: 0.6 }} />
-
-                {/* top-left corner bracket */}
-                <div style={{ position: "absolute", top: 8, left: 8, width: 12, height: 12, borderTop: "1px solid rgba(248,24,40,0.6)", borderLeft: "1px solid rgba(248,24,40,0.6)" }} />
-                {/* bottom-right corner bracket */}
-                <div style={{ position: "absolute", bottom: 8, right: 8, width: 8, height: 8, borderBottom: "1px solid rgba(248,24,40,0.25)", borderRight: "1px solid rgba(248,24,40,0.25)" }} />
-
-                {/* code identifier */}
-                <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.45)", letterSpacing: "0.2em", marginBottom: 6 }}>
-                  {`// ${s.code}`}
-                </div>
-
-                {/* big number */}
-                <div
-                  className="font-black leading-none mb-1"
-                  style={{
-                    fontFamily: "'Share Tech Mono',monospace",
-                    fontSize: "clamp(28px,3.5vw,44px)",
-                    color: "#f81828",
-                    textShadow: "0 0 20px rgba(248,24,40,0.8), 0 0 40px rgba(248,24,40,0.3), 0 0 60px rgba(248,24,40,0.1)",
-                    letterSpacing: "-0.01em",
-                  }}
-                >
+                <div style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(1.8rem,3vw,2.8rem)", fontWeight: 900, lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 8 }}>
                   {s.num}
                 </div>
-
-                {/* label */}
-                <div style={{ fontFamily: "monospace", fontSize: 9, color: "#555", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 10 }}>
+                <div style={{ color: "rgba(255,255,255,0.58)", fontSize: "0.76rem", textTransform: "uppercase", letterSpacing: "0.16em", fontWeight: 700 }}>
                   {s.label}
                 </div>
-
-                {/* progress bar */}
-                <div style={{ height: 2, background: "rgba(248,24,40,0.1)", borderRadius: 1, overflow: "hidden" }}>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: `${s.bar}%`,
-                      background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.4))",
-                      boxShadow: "0 0 6px rgba(248,24,40,0.6)",
-                      borderRadius: 1,
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* bottom status bar */}
-        <div style={{ borderTop: "1px solid rgba(248,24,40,0.08)", padding: "5px 0" }}>
-          <div className="container mx-auto px-4 flex items-center gap-6">
-            {["MAGAZYN: AKTYWNY", "DOSTAWA: LUBLIN + REGION", "DORADZTWO: GRATIS"].map((t, i) => (
-              <div key={i} style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.35)", letterSpacing: "0.12em", display: "flex", alignItems: "center", gap: 5 }}>
-                <span style={{ color: "rgba(248,24,40,0.5)" }}>●</span> {t}
               </div>
             ))}
           </div>

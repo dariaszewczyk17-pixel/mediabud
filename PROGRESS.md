@@ -362,3 +362,23 @@
 [2026-06-08 19:02] Start wdrożenia: kompleksowy rewrite ServicesPage (services[], JSX copy, 2 nowe usługi) + hero HomePage
 [2026-06-08 19:12] DONE: ServicesPage full rewrite (services[] 11 usług, 2 nowe: remont-lazienki + pompa-ciepla-PV, nagłówki sekcji). HomePage hero slides + features + serviceCards rewrite. Build OK, commity: 7d80bb5, ae8b9c2
 [2026-06-08 19:15] DONE: storyboard wideo zapisany i opublikowany (storyboard_design.md)
+[2026-06-08 19:29] DONE: Spot wideo 15s wygenerowany i opublikowany — spot_mediabud.mp4. Auto-check: no issues. Model: seedance-2.0-fast. Commity sesji: 6270368, a8b3bb9, 7d80bb5, ae8b9c2
+[2026-06-08 19:29] Sesja zakończona: full copywriting rewrite ServicesPage + HomePage, 2 nowe usługi, spot wideo 15s opublikowany
+[2026-06-08 20:15] Identyfikacja sekcji 'Dlaczego Media Bud?' w Home.tsx (linie 927-965) — start przeprojektowania na futurystyczną wersję z video bg
+[2026-06-08 20:23] feat(home): sekcja 'Dlaczego MB' przeprojektowana — video bg (seedance-2.0-fast 8s industrial noir), glassmorphism karty, neon hover, scanline overlay. Commit a7b03f4
+[2026-06-08 20:43] fix(uslugi): crash podstron naprawiony (service.cta + service.dlugiOpis), uproszczono do 7 usług, usunięto pompa-ciepla-fotowoltaika z serviceCards. Commit 5bb9c71
+[2026-06-08 20:56] Start przeprojektowania sekcji DOM OD PODSTAW — wideo 8s budowlane + etapy programu + slogan. Commit d9e4bbf (gwarancje) gotowy.
+[2026-06-08 21:04] feat(home): Dom od Podstaw — wideo t2v 8s (etapy budowy industrial noir) + 5 kroków realizacji + slogan 'Jeden opiekun. Jeden dom. Od fundamentów do kluczy.' Commit c81e458
+[2026-06-08 22:00] DONE: 3 wideo hero wygenerowane i osadzone w ServicesPage.tsx
+[2026-06-08 22:49] Nowe zadanie: zmiana topbar, hasło hero, redesign hero z wideo
+[2026-06-08 22:51] topbar: białe tło + #f81828 napisy (Header.tsx); hero hasło zmienione na 'Ocieplenie i elewacja. Materiały + ekipa w jednym.' (Home.tsx); commit a5ede0e
+[2026-06-08 23:02] hero: wideo tło Industrial Pulse osadzone w Home.tsx; commit 5706f9e → main → Cloudflare Pages deploy
+[2026-06-08 23:02] Wszystkie 3 zadania ukończone: topbar biały/#f81828, nowe hasło hero, wideo Industrial Pulse wdrożone na main
+[2026-06-09 10:11] Start: logo -20%, hero futurystyczny, header futurystyczny
+[2026-06-09 11:18] Diagnoza: logo czarne na ciemnym tle, hero za wysokie, stats do redesignu
+[2026-06-09 11:19] commit a9938d4: logo white-pill fix, hero min-h 60vh->48vh, statbar HUD redesign
+[2026-06-09 11:57] Rozpoczęto analizę wejścia dla kompletnego redesignu hero sekcji z research rynkowym i nowymi materiałami kreatywnymi
+[2026-06-09 12:25] commit 92ec98b: hero COMMAND CENTER, wideo A+B crossfade 30s, STATUS PANEL glassmorphic
+[2026-06-09 12:25] commit 92ec98b: hero COMMAND CENTER wdrożony — filmy A+B crossfade CSS, glassmorphic STATUS PANEL, terminal badge, H1 3-line, dual CTA B2B/B2C
+[2026-06-09 12:43] Użytkownik wybrał kierunek Industrial Premium zamiast stylu technicznego; rozpoczynam przebudowę hero
+[2026-06-09 13:11] Wdrożono pełny rebuild hero i trust bar w stylu Industrial Premium w src/pages/Home.tsx; desktop video subtelne, mobile statyczne tło, usunięto HUD/terminalowy charakter.

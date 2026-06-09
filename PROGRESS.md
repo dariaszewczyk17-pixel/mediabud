@@ -438,3 +438,6 @@
 [2026-06-09 21:12] MOBILE FIXES – commit 70c3770: Home hero title clamp 3rem→2rem + padding pt-10/sm:pt-16/md:pt-24; ServicesPage hero px-4 md:pl-9 + stats clamp 2.4→1.8rem; AllCategoriesPage hero px-4 md:pl-10 + CTA flex-wrap; AboutPage hero px-4 md:pl-10 + title clamp 2.8→2rem + brands grid-cols-3. Build clean, pushed main.
 [2026-06-09 21:12] Mobile fixes ukończone i wgrane – commit 70c3770 na main. Build clean. Czekam na dalsze instrukcje.
 [2026-06-09 21:38] Rozbudowa Sanity Studio – plan: nowe schematy realizacja+testimonial, ulepszenia product/blogPost/siteSettings/category, nowa struktura menu bocznego
+[2026-06-09 21:41] Studio CMS – commit fb323b7: nowe schematy realizacja+testimonial, ulepszenia product/blogPost/siteSettings/category, nowe menu sanity.config. Build clean, pushed main.
+[2026-06-09 21:41] Rozbudowa Sanity Studio ukończona – commit fb323b7. Nowe schematy: realizacja, testimonial. Ulepszone: product (isNew/isBestseller), blogPost (author/featured), siteSettings (poprawny telefon/godziny), category (SEO fields). Nowe menu boczne. Build studio+main clean.
+[2026-06-09 22:04] Rozpoczęto budowę kompletnego AdminPanel.tsx – Shopify-like, wszystkie sekcje

@@ -110,7 +110,7 @@ Skontaktuj się z naszymi doradcami w Media Bud – przeprowadzimy bezpłatną a
     author: "Zespół Media Bud",
     date: "2026-02-28",
     readTime: 12,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&q=80",
     tags: ["błędy", "ocieplenie", "montaż", "etics", "poradnik"],
     content: `## Dlaczego poprawny montaż jest tak ważny?
 
@@ -241,7 +241,7 @@ Skontaktuj się z naszym doradcą, który dobierze tynk optymalny dla Twojego pr
     author: "Zespół Media Bud",
     date: "2025-11-18",
     readTime: 6,
-    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1565071559227-20ab25b7685e?w=800&q=80",
     tags: ["deweloper", "optymalizacja kosztów", "hurtownia", "materiały budowlane"],
     content: `## Specyfika zakupów deweloperskich
 
@@ -285,7 +285,7 @@ Zapraszamy deweloperów do kontaktu. Przygotujemy indywidualną ofertę dla Twoj
     author: "Zespół Media Bud",
     date: "2026-05-10",
     readTime: 9,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1590496793929-36417d3117de?w=800&q=80",
     tags: ["wełna mineralna", "styropian", "ocieplenie", "etics", "izolacja termiczna"],
     content: `## Wełna mineralna i styropian — podstawowe różnice
 
@@ -337,7 +337,7 @@ W naszym składzie w Lublinie dostępne są styropiany Swisspor, Styropmin, Term
     author: "Zespół Media Bud",
     date: "2026-05-20",
     readTime: 8,
-    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80",
     tags: ["Czyste Powietrze", "dofinansowanie", "termomodernizacja", "ocieplenie", "Lublin"],
     content: `## Czyste Powietrze — czym jest program?
 
@@ -468,7 +468,7 @@ W Media Bud oferujemy systemy Knauf, Rigips, wełnę Rockwool i Ursa. Skład prz
     author: "Zespół Media Bud",
     date: "2026-05-05",
     readTime: 6,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1534237710431-e2fc698436d0?w=800&q=80",
     tags: ["skład budowlany Lublin", "materiały budowlane Lublin", "hurtownia budowlana"],
     content: `## Skład budowlany a market — kluczowe różnice
 
@@ -574,7 +574,7 @@ Wyliczymy ilości materiału — zadzwoń: **+48 533 553 344** lub odwiedź skł
     author: "Zespół Media Bud",
     date: "2026-06-03",
     readTime: 11,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
     tags: ["koszt ocieplenia domu", "ocieplenie 150m2", "ETICS", "czyste powietrze", "termomodernizacja", "ceny 2026"],
     content: `## Koszt ocieplenia domu 150 m² — co wchodzi w cenę?
 
@@ -701,7 +701,7 @@ W Media Bud dostępne są płyty i profile Knauf oraz Rigips. Wyliczymy materia�
     author: "Zespół Media Bud",
     date: "2026-06-06",
     readTime: 6,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80",
     tags: ["klej do styropianu", "ocieplenie", "EPS", "XPS", "ETICS"],
     content: `## Rodzaje kleju do styropianu
 
@@ -739,7 +739,7 @@ W Media Bud mamy kompletne systemy Weber, Ceresit, Atlas — **+48 533 553 344**
     author: "Zespół Media Bud",
     date: "2026-06-06",
     readTime: 5,
-    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1534237886190-bbe17184f66d?w=800&q=80",
     tags: ["gładź szpachlowa", "gładź wyrównująca", "szpachlowanie", "wykończenie ścian"],
     content: `## Gładź wyrównująca (grubowarstwowa)
 
@@ -776,7 +776,7 @@ Kalkulacja materiałów bezpłatnie — **+48 533 553 344** | ul. Chemiczna 8d, 
     author: "Zespół Media Bud",
     date: "2026-06-06",
     readTime: 7,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=800&q=80",
     tags: ["tynk elewacyjny", "kalkulator tynku", "ile tynku", "elewacja 2026"],
     content: `## Jak obliczyć ilość tynku?
 
@@ -815,7 +815,7 @@ Wyliczymy dla Twojego budynku — **+48 533 553 344** | ul. Chemiczna 8d, Lublin
     author: "Zespół Media Bud",
     date: "2026-06-06",
     readTime: 6,
-    image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1521477716071-a4105c9a8669?w=800&q=80",
     tags: ["OSB", "sklejka", "płyty OSB", "deskowanie"],
     content: `## Porównanie: OSB vs sklejka
 
@@ -854,7 +854,7 @@ Sprawdź dostępność — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
     author: "Zespół Media Bud",
     date: "2026-06-06",
     readTime: 8,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=800&q=80",
     tags: ["ceny izolacji 2026", "styropian cena", "wełna mineralna cena", "XPS cena", "termomodernizacja"],
     content: `## Cennik materiałów izolacyjnych — Lublin 2026
 
@@ -908,7 +908,7 @@ Zamów z dostawą do Lublina — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
     author: "Zespół Media Bud",
     date: "2026-06-07",
     readTime: 6,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1563298723-dcfebaa392e3?w=800&q=80",
     tags: ["zaprawa murarska", "cienkowarstwowa", "bloczki", "beton komórkowy"],
     content: `## Zaprawa tradycyjna vs cienkowarstwowa
 
@@ -953,7 +953,7 @@ Dobór zaprawy do Twojego muru — **+48 533 553 344** | ul. Chemiczna 8d, Lubli
     author: "Zespół Media Bud",
     date: "2026-06-07",
     readTime: 8,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1564182842519-8a3b2af3e228?w=800&q=80",
     tags: ["ETICS", "system ociepleń", "Weber", "Atlas", "Ceresit", "Baumit"],
     content: `## Porównanie systemów ETICS 2026
 
@@ -1020,7 +1020,7 @@ Dobierzemy klej i fugę — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
     author: "Zespół Media Bud",
     date: "2026-06-07",
     readTime: 7,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
     tags: ["papa termozgrzewalna", "SBS", "APP", "dach płaski"],
     content: `## SBS vs APP
 
@@ -1055,7 +1055,7 @@ Dobierzemy system do Twojego dachu — **+48 533 553 344** | ul. Chemiczna 8d, L
     author: "Zespół Media Bud",
     date: "2026-06-07",
     readTime: 6,
-    image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
     tags: ["styropian podłogowy", "EPS 100", "EPS 200", "WT 2021"],
     content: `## Wymagania WT 2021
 
@@ -1091,7 +1091,7 @@ Wyliczymy ilości materiałów — **+48 533 553 344** | ul. Chemiczna 8d, Lubli
     author: "Zespół Media Bud",
     date: "2026-06-07",
     readTime: 4,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1507149833265-60c372daea22?w=800&q=80",
     tags: ["hurtownia Lublin", "materiały budowlane Lublin", "skład budowlany", "ceny hurtowe"],
     content: `## Skład budowlany vs market
 
@@ -1129,7 +1129,7 @@ Zadzwoń — **+48 533 553 344** | sprzedaz@mediabud.pl`
     author: 'Zespół Media Bud',
     date: '2026-05-10',
     readTime: 11,
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1558002038-1055e2dae1d7?w=800&q=80',
     tags: ['szkielet', 'dom drewniany', 'CLS', 'OSB', 'budowa szkieletowa', 'płyty'],
     faq: [
       { q: 'Ile kosztuje budowa domu szkieletowego 100 m² w 2026?', a: 'Koszt stanu surowego zamkniętego domu szkieletowego 100 m² to 150 000–220 000 zł (stan surowy zamknięty, bez wykończenia). Stan deweloperski to 280 000–380 000 zł. Technologia jest o 15–25% tańsza od murowanej przy porównywalnym standardzie energetycznym.' },
@@ -1332,7 +1332,7 @@ Potrzebujesz doboru farby do konkretnej elewacji? Zadzwoń: **+48 533 553 344** 
     author: 'Zespół Media Bud',
     date: '2026-05-25',
     readTime: 8,
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=800&q=80',
     tags: ['klej do płytek', 'C1', 'C2', 'C2TE', 'norma EN 12004', 'płytki', 'gres'],
     faq: [
       { q: 'Co oznacza klasa C1 i C2 przy kleju do płytek?', a: 'C1 i C2 to klasy wytrzymałości na rozciąganie wg normy EN 12004. C1 — wytrzymałość ≥ 0,5 N/mm² (klej podstawowy do ceramiki wewnątrz). C2 — wytrzymałość ≥ 1,0 N/mm² (klej ulepszony do gresu, formatów > 30x30, podłoży trudnych). Różnica: C2 ma dwukrotnie wyższą przyczepność.' },
@@ -1462,7 +1462,7 @@ W Media Bud oferujemy kompletny asortyment EPS i XPS: Swisspor, Styropmin, Ravat
     author: 'Zespół Media Bud',
     date: '2026-06-05',
     readTime: 12,
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&q=80',
     tags: ['fundamenty', 'ława fundamentowa', 'izolacja fundamentów', 'hydroizolacja', 'wylewka', 'zbrojenie'],
     faq: [
       { q: 'Ile kosztują fundamenty domu 100 m² w 2026?', a: 'Koszt fundamentów (ławy fundamentowe + ściany fundamentowe + izolacja + wylewka) dla domu 100 m² to 20 000–45 000 zł w zależności od gruntu i standardu. Sam beton i zbrojenie to 8 000–15 000 zł, izolacja (XPS + papa + grunt) 4 000–8 000 zł, wylewka posadzki 5 000–12 000 zł. Robocizna: 15 000–25 000 zł.' },
@@ -1536,7 +1536,7 @@ W Media Bud oferujemy wszystkie materiały do izolacji fundamentów: primer bitu
     author: "Zespół Media Bud",
     date: "2026-06-10",
     readTime: 10,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1604357209793-fca5dca89f97?w=800&q=80",
     tags: ["ogrzewanie podłogowe", "UFH", "wodne", "elektryczne", "jastrich", "wylewka"],
     faq: [
       { q: "Czy ogrzewanie podłogowe nadaje się do remontu bez zrywania podłogi?", a: "Tak — systemy suche (maty grzewcze elektryczne lub maty wodne slim 12–20 mm) instaluje się bez wylewki. Mata elektryczna pod płytki: grubość 3–4 mm. System wodny suchy ok. 20 mm. Idealny do renowacji bez podnoszenia poziomu podłogi o więcej niż 2 cm." },
@@ -1594,7 +1594,7 @@ Pełny asortyment: rury Rehau RAUTHERM, panele systemowe, izolacja EPS 100, anhy
     author: "Zespół Media Bud",
     date: "2026-06-12",
     readTime: 11,
-    image: "https://images.unsplash.com/photo-1523413307857-ef24c53571ae?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
     tags: ["łazienka", "remont łazienki", "płytki", "hydroizolacja", "wykończenia", "materiały"],
     faq: [
       { q: "Ile kosztuje remont łazienki 6 m² w 2026 roku?", a: "Remont łazienki 6 m² (standard): materiały 8 000–18 000 zł + robocizna 8 000–15 000 zł = 16 000–33 000 zł. Premium: do 50 000 zł. Ekonomiczny: 10 000–16 000 zł." },
@@ -1649,7 +1649,7 @@ W Media Bud: hydroizolacje, kleje, fugi, płytki — kompletne zestawienie do ł
     author: "Zespół Media Bud",
     date: "2026-06-14",
     readTime: 9,
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1567684014761-b65e2e59b9eb?w=800&q=80",
     tags: ["tynk maszynowy", "tynk ręczny", "gipsowy", "cementowo-wapienny", "tynkowanie"],
     faq: [
       { q: "Czym różni się tynk maszynowy od ręcznego?", a: "To ten sam materiał, ale aplikowany agregatem tynkarskim. Wydajność: 100–200 m²/dzień maszynowo vs 20–40 m²/dzień ręcznie. Jakość powierzchni identyczna lub lepsza." },
@@ -1700,7 +1700,7 @@ W Media Bud: Knauf MP 75, Atlas Neoterm, Atlas Ceram, Baumit. Zadzwoń: **+48 53
     author: "Zespół Media Bud",
     date: "2026-06-16",
     readTime: 10,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80",
     tags: ["dach", "blachodachówka", "dachówka ceramiczna", "pokrycie dachowe", "papa", "dach skośny"],
     faq: [
       { q: "Co jest trwalsze — dachówka ceramiczna czy blachodachówka?", a: "Dachówka ceramiczna: trwałość 80–120 lat, odporna na UV, mróz. Blachodachówka stalowa: 30–50 lat (Purex/PurMat). Ceramika trwalsza, ale cięższa (40–55 kg/m²) i droższa. Blachodachówka: 6–9 kg/m², szybszy montaż." },
@@ -1755,7 +1755,7 @@ W Media Bud: papy (Icopal, Sopro, Sika), membrany (Fakro, Dorken), folie paroizo
     author: "Zespół Media Bud",
     date: "2026-06-18",
     readTime: 9,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&q=80",
     tags: ["płyty GK", "gipsowo-kartonowe", "Knauf", "Rigips", "sucha zabudowa", "ścianki działowe"],
     faq: [
       { q: "Jaka płyta GK do łazienki i kuchni?", a: "Stosuj płyty GKBI impregnowane (zielone — Knauf Grünband, Rigips RBI). Odporne na wilgoć, ale nie wodoodporne — w strefach mokrych obowiązkowa dodatkowa hydroizolacja." },
@@ -1809,7 +1809,7 @@ W Media Bud: płyty Knauf i Rigips (GKB, GKBI, GKF), profile UW/CW/UD/CD, wkręt
     author: "Zespół Media Bud",
     date: "2026-06-20",
     readTime: 12,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
     tags: ["remont", "stary budynek", "kamienica", "termomodernizacja", "tynk renowacyjny", "wilgoć"],
     faq: [
       { q: "Od czego zacząć remont starej kamienicy?", a: "Kolejność: 1. Ekspertyza budowlana, 2. Izolacja fundamentów i osuszenie, 3. Naprawa więźby i wymiana pokrycia, 4. Wymiana instalacji (przed tynkowaniem), 5. Tynkowanie, 6. ETICS, 7. Wykończenia wnętrz." },
@@ -1862,7 +1862,7 @@ Media Bud: tynki renowacyjne WTA, systemy iniekcji, ETICS, materiały wykończen
     author: "Zespół Media Bud",
     date: "2026-06-07",
     readTime: 9,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1503152915413-2c6e5c4c7451?w=800&q=80",
     tags: ["materiały budowlane Lublin", "skład budowlany Lublin", "hurtownia Lublin", "styropian Lublin", "tynk elewacyjny Lublin"],
     content: `## Gdzie kupić materiały budowlane w Lublinie?
 

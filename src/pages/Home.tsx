@@ -145,7 +145,8 @@ const serviceCards = [
   { segment: "B2B", tag: "DEWELOPERZY", title: "Współpraca z deweloperami", desc: "Realizujesz osiedle lub inwestycję wielorodzinną? Jeden partner — materiały i wykonawstwo w jednym kontrakcie.", href: "/uslugi/kompleksowa-wspolpraca-z-deweloperami" },
   { segment: "Oba", tag: "DACHY", title: "Dachy", desc: "Nowy dach lub przeciek? Własna ekipa dekarska, szybka diagnoza i naprawa. Dachówka, blacha, papa.", href: "/uslugi/dachy" },
   { segment: "Oba", tag: "ELEWACJE", title: "Elewacje", desc: "Ocieplamy i wykańczamy dom w jednym projekcie. Tynk, klinkier lub elewacja wentylowana. Efekt na 20 lat.", href: "/uslugi/elewacje" },
-  { segment: "B2B", tag: "FIRMY", title: "Remonty dla firm", desc: "Remont sklepu, biura lub hali w nocy i w weekendy. Twoja firma działa normalnie, my remontujemy w tle.", href: "/uslugi/remonty-b2b" },
+  { segment: "B2B", tag: "FIRMY", title: "Remonty dla firm", desc: "Remont sklepu, biura lub hali w nocy i w weekendy. Twoja firma działa normalnie, my remontujemy w tle.", href: "/uslugi/galerie-obiekty" },
+  { segment: "B2B", tag: "B2B", title: "Galerie i obiekty", desc: "Modernizacje galerii, szkół i instytucji — w nocy i w weekendy, bez zakłócania działalności.", href: "/uslugi/galerie-obiekty" },
   { segment: "B2C", tag: "POD KLUCZ", title: "Wykończenia pod klucz", desc: "Stan surowy → gotowy dom do życia. Tynki, podłogi, glazura, łazienki. Jedna ekipa, jeden kosztorys.", href: "/uslugi/wykonczenia-pod-klucz" },
 ];
 

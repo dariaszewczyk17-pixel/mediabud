@@ -189,7 +189,7 @@ const services: ServiceDetail[] = [
     ],
   },
   {
-    slug: "remonty-b2b",
+    slug: "galerie-obiekty",
     segment: "B2B",
     title: "Galerie, szkoły i obiekty użytkowe",
     icon: <IconBuilding size={28} style={{ color: "#f81828" }} />,
@@ -226,7 +226,7 @@ const services: ServiceDetail[] = [
 /* ─── VIDEO map ─────────────────────────────────────────────────── */
 const SERVICE_VIDEOS: Record<string, string> = {
   "dom-od-podstaw":                        "https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jjkp780j2drgd1t600.mp4",
-  "remonty-b2b":                           "https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jjkrv80j2drgd1t60g.mp4",
+  "galerie-obiekty":                       "https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jjkrv80j2drgd1t60g.mp4",
   "kompleksowa-wspolpraca-z-deweloperami": "https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jjkun80j2drgd1t610.mp4",
 };
 

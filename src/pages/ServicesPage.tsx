@@ -2,12 +2,14 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_CONTACT_POINT, NAP_SAME_AS } from "@/lib/localBusiness";
 import { ChevronRight, ArrowRight, Phone, Check, Mail } from "lucide-react";
+import { IconHouse, IconDeveloper, IconFinish, IconRoof, IconFacade, IconBuilding } from "@/components/FuturisticIcons";
 
 /* ─── Types ─────────────────────────────────────────────────────── */
 type ServiceDetail = {
   slug: string;
   segment: "B2C" | "B2B" | "Oba";
   title: string;
+  icon: ReactNode;
   code: string;
   badge: string;
   krotkiOpis: string;
@@ -46,6 +48,7 @@ const services: ServiceDetail[] = [
     slug: "dom-od-podstaw",
     segment: "B2C",
     title: "Dom od podstaw",
+    icon: <IconHouse size={28} style={{ color: "#f81828" }} />,
     code: "01",
     badge: "Program kompleksowy · Od projektu po klucze · Lublin i woj. lubelskie",
     krotkiOpis: "Budujesz pierwszy dom i nie wiesz, od czego zacząć? Media Bud to jedyny partner, którego potrzebujesz — jeden opiekun, jeden kosztorys, materiały z własnego składu. Prowadzimy Cię przez każdy etap budowy bez zbędnych formalności i niespodzianek w rachunku.",
@@ -77,6 +80,7 @@ const services: ServiceDetail[] = [
     slug: "kompleksowa-wspolpraca-z-deweloperami",
     segment: "B2B",
     title: "Kompleksowa współpraca z deweloperami",
+    icon: <IconDeveloper size={28} style={{ color: "#f81828" }} />,
     code: "02",
     badge: "Deweloperzy · Inwestorzy · Wielolokalowe realizacje",
     krotkiOpis: "Realizujesz osiedle, blok lub inwestycję wielorodzinną? Media Bud to partner wykonawczy i dostawca materiałów w jednym — stały opiekun B2B, rabaty wolumenowe, harmonogram dopasowany do Twoich etapów. Jeden kontrakt zamiast dziesięciu umów z podwykonawcami.",
@@ -109,6 +113,7 @@ const services: ServiceDetail[] = [
     slug: "wykonczenia-pod-klucz",
     segment: "B2C",
     title: "Wykończenia pod klucz",
+    icon: <IconFinish size={28} style={{ color: "#f81828" }} />,
     code: "03",
     badge: "Stan deweloperski → gotowy dom do życia",
     krotkiOpis: "Masz stan surowy lub deweloperski i chcesz się wprowadzić? Oddajemy gotowy dom — tynki, podłogi, glazura, łazienki, kuchnia. Jedna ekipa, jeden kosztorys, bez chaosu.",
@@ -133,6 +138,7 @@ const services: ServiceDetail[] = [
     slug: "dachy",
     segment: "Oba",
     title: "Dachy",
+    icon: <IconRoof size={28} style={{ color: "#f81828" }} />,
     code: "04",
     badge: "Nowe dachy · Naprawy · Własna ekipa dekarska",
     krotkiOpis: "Nowy dach lub aktywny przeciek? Własna ekipa dekarska, materiały z magazynu. Działamy dla domów, hal i obiektów użyteczności publicznej.",
@@ -161,6 +167,7 @@ const services: ServiceDetail[] = [
     slug: "elewacje",
     segment: "Oba",
     title: "Elewacje",
+    icon: <IconFacade size={28} style={{ color: "#f81828" }} />,
     code: "05",
     badge: "Tynk · Klinkier · Ocieplenie ETICS",
     krotkiOpis: "Ocieplamy i wykańczamy wizualnie w jednym projekcie — tynk cienkowarstwowy, klinkier lub elewacja wentylowana. Efekt estetyczny na 20 lat, możliwa dotacja z Czystego Powietrza.",
@@ -185,6 +192,7 @@ const services: ServiceDetail[] = [
     slug: "remonty-b2b",
     segment: "B2B",
     title: "Galerie, szkoły i obiekty użytkowe",
+    icon: <IconBuilding size={28} style={{ color: "#f81828" }} />,
     code: "06",
     badge: "Obiekty publiczne · Galerie handlowe · Szkoły · Instytucje",
     krotkiOpis: "Remontujemy galerie handlowe, szkoły, urzędy i obiekty przemysłowe — w nocy i w weekendy, bez zakłócania działalności. Media Bud to wykonawca z doświadczeniem w obiektach użyteczności publicznej: pełna dokumentacja powykonawcza, faktura VAT, obsługa przetargów PZP.",
@@ -260,13 +268,9 @@ function ServiceTile({ svc }: { svc: ServiceDetail }) {
 
         <div className="relative z-10 flex flex-col h-full">
         <div className="flex items-start gap-4 mb-4">
-          <div className="relative flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:shadow-[0_0_24px_rgba(248,24,40,0.4)]"
-            style={{ width:44, height:44, border:"1px solid rgba(248,24,40,0.4)", background:"rgba(248,24,40,0.06)" }}>
-            <span style={{ position:"absolute", top:3, left:3, width:7, height:7, borderTop:"1.5px solid #f81828", borderLeft:"1.5px solid #f81828", display:"block" }} />
-            <span style={{ position:"absolute", top:3, right:3, width:7, height:7, borderTop:"1.5px solid #f81828", borderRight:"1.5px solid #f81828", display:"block" }} />
-            <span style={{ position:"absolute", bottom:3, left:3, width:7, height:7, borderBottom:"1.5px solid #f81828", borderLeft:"1.5px solid #f81828", display:"block" }} />
-            <span style={{ position:"absolute", bottom:3, right:3, width:7, height:7, borderBottom:"1.5px solid #f81828", borderRight:"1.5px solid #f81828", display:"block" }} />
-            <span style={{ fontFamily:"'Rajdhani','Barlow Condensed',monospace", fontSize:"13px", fontWeight:900, color:"#f81828", letterSpacing:"0.1em" }}>{svc.code}</span>
+          <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(248,24,40,0.25)]"
+            style={{ border: "1px solid rgba(248,24,40,0.3)", background: "rgba(248,24,40,0.07)" }}>
+            {svc.icon}
           </div>
           <span className="text-[9px] font-black uppercase tracking-wider text-[#555] mt-1">{svc.segment}</span>
         </div>

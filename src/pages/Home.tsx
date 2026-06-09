@@ -12,6 +12,7 @@ import { BESTSELLER_SLUGS } from "@/lib/bestsellers";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useSEO } from "@/hooks/useSEO";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { IconTarget, IconStack, IconRoute, IconGem, IconShield, IconNetwork, IconPrecision, IconChain, IconLogistics, IconPartnership } from "@/components/FuturisticIcons";
 
 /* ─── Reveal hook ─────────────────────────────────────────────── */
 function useReveal(threshold = 0.05) {
@@ -131,12 +132,12 @@ const stats = [
 ];
 
 const features = [
-  { code: "01", title: "Doradztwo gratis",       desc: "Nie wiesz jakich materiałów potrzebujesz? Nasi eksperci dobiorą system i policzą ilości — bez opłat i zobowiązań." },
-  { code: "02", title: "Od materiałów po klucze", desc: "Możesz kupić same materiały albo zamówić kompleksową usługę. Wszystko u jednego partnera, bez szukania ekip po całym mieście." },
-  { code: "03", title: "Dostawa na plac budowy",  desc: "Dowozimy materiały na teren Lublina i całego woj. lubelskiego. Prosto na budowę, we wskazanym terminie." },
-  { code: "04", title: "Tylko renomowane marki",  desc: "Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor — oryginalne produkty renomowanych marek, bez podróbek." },
-  { code: "05", title: "Certyfikaty i atesty",    desc: "Każdy produkt posiada pełną dokumentację techniczną, deklaracje właściwości użytkowych i certyfikaty zgodności." },
-  { code: "06", title: "Deweloperzy i firmy B2B", desc: "Indywidualne ceny, dedykowany opiekun, faktury zbiorcze i rabaty dla firm budowlanych oraz deweloperów." },
+  { Icon: IconTarget,  code: "01", title: "Doradztwo gratis",       desc: "Nie wiesz jakich materiałów potrzebujesz? Nasi eksperci dobiorą system i policzą ilości — bez opłat i zobowiązań." },
+  { Icon: IconStack,   code: "02", title: "Od materiałów po klucze", desc: "Możesz kupić same materiały albo zamówić kompleksową usługę. Wszystko u jednego partnera, bez szukania ekip po całym mieście." },
+  { Icon: IconRoute,   code: "03", title: "Dostawa na plac budowy",  desc: "Dowozimy materiały na teren Lublina i całego woj. lubelskiego. Prosto na budowę, we wskazanym terminie." },
+  { Icon: IconGem,     code: "04", title: "Tylko renomowane marki",  desc: "Weber, Ceresit, Atlas, Knauf, Rockwool, Swisspor — oryginalne produkty renomowanych marek, bez podróbek." },
+  { Icon: IconShield,  code: "05", title: "Certyfikaty i atesty",    desc: "Każdy produkt posiada pełną dokumentację techniczną, deklaracje właściwości użytkowych i certyfikaty zgodności." },
+  { Icon: IconNetwork, code: "06", title: "Deweloperzy i firmy B2B", desc: "Indywidualne ceny, dedykowany opiekun, faktury zbiorcze i rabaty dla firm budowlanych oraz deweloperów." },
 ];
 
 const serviceCards = [
@@ -1208,12 +1209,13 @@ export default function Home() {
 
             <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
               {[
-                { title: "Doradztwo techniczne", text: "Dobieramy systemy i rozwiązania do zakresu prac, budżetu i harmonogramu inwestycji.", icon: "⚙️" },
-                { title: "Kompleksowa obsługa", text: "Możesz zamówić same materiały albo połączyć zakupy z wykonawstwem w jednym procesie.", icon: "🏗️" },
-                { title: "Sprawdzona logistyka", text: "Dostarczamy materiały na budowę i porządkujemy proces zakupowy tak, by ograniczyć przestoje.", icon: "🚛" },
-                { title: "Partner dla B2B i klientów prywatnych", text: "Obsługujemy zarówno firmy i deweloperów, jak i inwestorów budujących własny dom.", icon: "🤝" },
+                { title: "Doradztwo techniczne", text: "Dobieramy systemy i rozwiązania do zakresu prac, budżetu i harmonogramu inwestycji.", icon: <IconPrecision size={22} style={{ color:"#f81828" }} /> },
+                { title: "Kompleksowa obsługa", text: "Możesz zamówić same materiały albo połączyć zakupy z wykonawstwem w jednym procesie.", icon: <IconChain size={22} style={{ color:"#f81828" }} /> },
+                { title: "Sprawdzona logistyka", text: "Dostarczamy materiały na budowę i porządkujemy proces zakupowy tak, by ograniczyć przestoje.", icon: <IconLogistics size={22} style={{ color:"#f81828" }} /> },
+                { title: "Partner dla B2B i klientów prywatnych", text: "Obsługujemy zarówno firmy i deweloperów, jak i inwestorów budujących własny dom.", icon: <IconPartnership size={22} style={{ color:"#f81828" }} /> },
               ].map((item, idx) => (
                 <div key={item.title} className="feature-card-glass rounded-[24px] p-5 md:p-6" style={{ transitionDelay: `${idx * 50}ms` }}>
+                  <div className="mb-3">{item.icon}</div>
                   <div className="mb-1 text-[9px] font-mono font-black uppercase tracking-[0.22em]" style={{ color: "rgba(248,100,100,0.65)" }}>MOD_{String(idx + 1).padStart(2, "0")}</div>
                   <div className="mb-3 text-[1.02rem] font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em", lineHeight: 1.1 }}>{item.title}</div>
                   <p className="text-sm leading-7" style={{ color: "rgba(255,255,255,0.60)" }}>{item.text}</p>
@@ -1225,6 +1227,7 @@ export default function Home() {
           {/* Feature cards grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {features.map((f, i) => {
+              const Icon = f.Icon;
               return (
                 <div
                   key={i}
@@ -1239,13 +1242,9 @@ export default function Home() {
                   <div className="absolute inset-x-0 top-0 h-[2px] opacity-80" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0), rgba(248,24,40,0.8), rgba(248,24,40,0))" }} />
                   <span className="absolute top-5 right-5 text-[10px] font-mono font-black tracking-[0.22em] uppercase" style={{ color: "rgba(248,24,40,0.48)" }}>{f.code}</span>
 
-                  <div className="relative flex items-center justify-center flex-shrink-0 mb-5 transition-all duration-300 group-hover:shadow-[0_0_24px_rgba(248,24,40,0.4)]"
+                  <div className="feature-icon-wrap relative flex items-center justify-center flex-shrink-0 mb-5 transition-all duration-300 group-hover:shadow-[0_0_24px_rgba(248,24,40,0.4)]"
                     style={{ width:44, height:44, border:"1px solid rgba(248,24,40,0.4)", background:"rgba(248,24,40,0.06)" }}>
-                    <span style={{ position:"absolute", top:3, left:3, width:7, height:7, borderTop:"1.5px solid #f81828", borderLeft:"1.5px solid #f81828", display:"block" }} />
-                    <span style={{ position:"absolute", top:3, right:3, width:7, height:7, borderTop:"1.5px solid #f81828", borderRight:"1.5px solid #f81828", display:"block" }} />
-                    <span style={{ position:"absolute", bottom:3, left:3, width:7, height:7, borderBottom:"1.5px solid #f81828", borderLeft:"1.5px solid #f81828", display:"block" }} />
-                    <span style={{ position:"absolute", bottom:3, right:3, width:7, height:7, borderBottom:"1.5px solid #f81828", borderRight:"1.5px solid #f81828", display:"block" }} />
-                    <span style={{ fontFamily:"'Rajdhani','Barlow Condensed',monospace", fontSize:"13px", fontWeight:900, color:"#f81828", letterSpacing:"0.1em" }}>{f.code}</span>
+                    <Icon className="w-5 h-5" style={{ color:"#f81828" }} />
                   </div>
 
                   <h3 className="mb-3 text-xl font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em" }}>{f.title}</h3>

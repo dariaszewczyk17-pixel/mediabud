@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
 import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_SAME_AS, NAP_LOGO, NAP_AMENITIES, NAP_CONTACT_POINT } from "@/lib/localBusiness";
 import { Phone, ArrowRight, ExternalLink, MapPin } from "lucide-react";
+import { IconOnePartner, IconRuler, IconScaffold, IconCompass, IconScale, IconPin } from "@/components/FuturisticIcons";
 
 /* ─── Animated Counter Hook ──────────────────────────────────────── */
 function useAnimatedCounter(target: number, duration = 1800, start = false) {
@@ -166,12 +167,12 @@ export default function AboutPage() {
   ];
 
   const values = [
-    { icon: "🤝", title: "Jeden partner", desc: "Materiały, doradztwo i koordynacja wykonawców — wszystko w jednym miejscu. Budujesz z jednym punktem kontaktu, nie z dziesiątką podwykonawców." },
-    { icon: "📐", title: "Konkretna wycena", desc: "Nie operujemy ogólnikami. Przygotowujemy wycenę opartą na Twoim projekcie, wybranej technologii i harmonogramie — bez ukrytych kosztów." },
-    { icon: "🏗️", title: "Sprawdzone ekipy", desc: "Współpracujemy z tynkarzami, murarzami, dekarzami i specjalistami wykończenia, których znamy z realizacji. Polecamy sprawdzonych, nie losowych." },
-    { icon: "🔧", title: "Doradztwo techniczne", desc: "Mamy materiały wiodących marek: Weber, Ceresit, Atlas, Knauf, Rockwool i innych. Doradzamy, który system sprawdzi się w Twoich warunkach." },
-    { icon: "🏢", title: "Duże i małe projekty", desc: "Obsługujemy zarówno domy jednorodzinne, jak i galerie handlowe, szkoły i budynki użyteczności publicznej. Dostosowujemy logistykę do skali inwestycji." },
-    { icon: "📍", title: "Lublin i region", desc: "Działamy w Lublinie i województwie lubelskim. Znamy lokalny rynek, ceny materiałów i realia budowy w naszym regionie." },
+    { icon: <IconOnePartner size={24} style={{ color:"#f81828" }} />, title: "Jeden partner", desc: "Materiały, doradztwo i koordynacja wykonawców — wszystko w jednym miejscu. Budujesz z jednym punktem kontaktu, nie z dziesiątką podwykonawców." },
+    { icon: <IconRuler size={24} style={{ color:"#f81828" }} />, title: "Konkretna wycena", desc: "Nie operujemy ogólnikami. Przygotowujemy wycenę opartą na Twoim projekcie, wybranej technologii i harmonogramie — bez ukrytych kosztów." },
+    { icon: <IconScaffold size={24} style={{ color:"#f81828" }} />, title: "Sprawdzone ekipy", desc: "Współpracujemy z tynkarzami, murarzami, dekarzami i specjalistami wykończenia, których znamy z realizacji. Polecamy sprawdzonych, nie losowych." },
+    { icon: <IconCompass size={24} style={{ color:"#f81828" }} />, title: "Doradztwo techniczne", desc: "Mamy materiały wiodących marek: Weber, Ceresit, Atlas, Knauf, Rockwool i innych. Doradzamy, który system sprawdzi się w Twoich warunkach." },
+    { icon: <IconScale size={24} style={{ color:"#f81828" }} />, title: "Duże i małe projekty", desc: "Obsługujemy zarówno domy jednorodzinne, jak i galerie handlowe, szkoły i budynki użyteczności publicznej. Dostosowujemy logistykę do skali inwestycji." },
+    { icon: <IconPin size={24} style={{ color:"#f81828" }} />, title: "Lublin i region", desc: "Działamy w Lublinie i województwie lubelskim. Znamy lokalny rynek, ceny materiałów i realia budowy w naszym regionie." },
   ];
 
   const brands = [
@@ -334,13 +335,9 @@ export default function AboutPage() {
                   <div className="absolute top-0 left-0 right-0 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(90deg,transparent,rgba(248,24,40,0.5),transparent)" }} />
 
                   <div className="relative z-10">
-                    <div className="mb-4 relative flex items-center justify-center"
-                      style={{ width:40, height:40, border:"1px solid rgba(248,24,40,0.4)", background:"rgba(248,24,40,0.06)", flexShrink:0 }}>
-                      <span style={{ position:"absolute", top:2, left:2, width:6, height:6, borderTop:"1.5px solid #f81828", borderLeft:"1.5px solid #f81828", display:"block" }} />
-                      <span style={{ position:"absolute", top:2, right:2, width:6, height:6, borderTop:"1.5px solid #f81828", borderRight:"1.5px solid #f81828", display:"block" }} />
-                      <span style={{ position:"absolute", bottom:2, left:2, width:6, height:6, borderBottom:"1.5px solid #f81828", borderLeft:"1.5px solid #f81828", display:"block" }} />
-                      <span style={{ position:"absolute", bottom:2, right:2, width:6, height:6, borderBottom:"1.5px solid #f81828", borderRight:"1.5px solid #f81828", display:"block" }} />
-                      <span style={{ fontFamily:"monospace", fontSize:"11px", fontWeight:900, color:"#f81828", letterSpacing:"0.1em" }}>{String(i + 1).padStart(2, "0")}</span>
+                    <div className="mb-4 w-10 h-10 flex items-center justify-center"
+                      style={{ border: "1px solid rgba(248,24,40,0.3)", background: "rgba(248,24,40,0.07)" }}>
+                      {item.icon}
                     </div>
                     <h3 className="font-black text-white text-sm uppercase tracking-widest mb-3" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>{item.title}</h3>
                     <p className="text-sm leading-relaxed text-gray-500">{item.desc}</p>

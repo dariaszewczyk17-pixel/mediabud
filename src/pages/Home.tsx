@@ -557,44 +557,108 @@ export default function Home() {
         </div>
       </section>
 
-      {/* StatBar HUD */}
+      {/* ═══ StatBar — SYSTEM DATA TERMINAL ═══ */}
       <div
         ref={r3.ref as React.RefObject<HTMLDivElement>}
         className="relative overflow-hidden"
-        style={{ background: "#060606", borderTop: "1px solid rgba(248,24,40,0.3)", borderBottom: "1px solid rgba(248,24,40,0.12)" }}
+        style={{ background: "#050505", borderTop: "2px solid #f81828", borderBottom: "1px solid rgba(248,24,40,0.15)" }}
       >
-        {/* top scan line */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg,transparent,rgba(248,24,40,0.7) 30%,rgba(248,24,40,0.3) 70%,transparent)", pointerEvents: "none" }} />
-        {/* subtle grid */}
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(248,24,40,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.03) 1px,transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none" }} />
-        <div className="container mx-auto relative">
+        {/* BG grid */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(248,24,40,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.025) 1px,transparent 1px)", backgroundSize: "24px 24px", pointerEvents: "none" }} />
+        {/* red glow top */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 60, background: "linear-gradient(to bottom,rgba(248,24,40,0.08),transparent)", pointerEvents: "none" }} />
+
+        {/* ─── Terminal header bar ─── */}
+        <div style={{ borderBottom: "1px solid rgba(248,24,40,0.2)", background: "rgba(248,24,40,0.04)", padding: "6px 0" }}>
+          <div className="container mx-auto px-4 flex items-center justify-between">
+            <div style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(248,24,40,0.7)", letterSpacing: "0.15em", display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ color: "#f81828" }}>▶</span>
+              <span>SYS_STATUS</span>
+              <span style={{ color: "rgba(248,24,40,0.3)" }}>::</span>
+              <span>MEDIA_BUD_LUBLIN</span>
+              <span style={{ color: "rgba(248,24,40,0.3)" }}>::</span>
+              <span style={{ color: "#f81828", animation: "hud-pulse 2s ease-in-out infinite" }}>● ONLINE</span>
+            </div>
+            <div style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.3)", letterSpacing: "0.1em", display: "flex", gap: 12 }}>
+              <span>VER 2025.06</span>
+              <span style={{ color: "rgba(248,24,40,0.15)" }}>|</span>
+              <span>LUBLIN // PL</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Stats grid ─── */}
+        <div className="container mx-auto px-4 relative">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { code: "INV", num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, "\u00a0")}+`, label: "Produktów w ofercie" },
-              { code: "EXP", num: "15 lat", label: "Doświadczenia" },
-              { code: "CLI", num: "500+", label: "Firm klientów" },
-              { code: "ETA", num: "<24h", label: "Czas realizacji" },
+              { code: "INV_COUNT", num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, "\u00a0")}+`, label: "Produktów w ofercie", bar: 95 },
+              { code: "EXP_YEARS", num: "15 lat",  label: "Doświadczenia",        bar: 75 },
+              { code: "CLI_TOTAL", num: "500+",    label: "Firm klientów",         bar: 80 },
+              { code: "ETA_HOURS", num: "<24h",    label: "Czas realizacji",       bar: 90 },
             ].map((s, i) => (
               <div
                 key={i}
-                className={`relative px-4 md:px-8 py-5 md:py-6 group cursor-default transition-colors duration-200 hover:bg-[#f81828]/5
+                className={`relative group cursor-default transition-all duration-300 hover:bg-[#f81828]/[0.04]
                   ${i % 2 === 0 ? "border-r border-[#f81828]/10" : "border-r-0 md:border-r md:border-[#f81828]/10"}
                   ${i >= 2 ? "border-t border-[#f81828]/10 md:border-t-0" : ""}
                   ${i === 3 ? "md:border-r-0" : ""}`}
+                style={{ padding: "20px 24px 18px 20px" }}
               >
-                {/* HUD corner left-top */}
-                <div style={{ position: "absolute", top: 6, left: 6, width: 10, height: 10, borderTop: "1px solid rgba(248,24,40,0.5)", borderLeft: "1px solid rgba(248,24,40,0.5)" }} />
-                {/* data code label */}
-                <div style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.5)", letterSpacing: "0.18em", marginBottom: 4 }}>[ {s.code} ]</div>
+                {/* left red accent bar */}
+                <div style={{ position: "absolute", left: 0, top: "20%", bottom: "20%", width: 2, background: "linear-gradient(to bottom,transparent,#f81828,transparent)", opacity: 0.6 }} />
+
+                {/* top-left corner bracket */}
+                <div style={{ position: "absolute", top: 8, left: 8, width: 12, height: 12, borderTop: "1px solid rgba(248,24,40,0.6)", borderLeft: "1px solid rgba(248,24,40,0.6)" }} />
+                {/* bottom-right corner bracket */}
+                <div style={{ position: "absolute", bottom: 8, right: 8, width: 8, height: 8, borderBottom: "1px solid rgba(248,24,40,0.25)", borderRight: "1px solid rgba(248,24,40,0.25)" }} />
+
+                {/* code identifier */}
+                <div style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.45)", letterSpacing: "0.2em", marginBottom: 6 }}>
+                  {`// ${s.code}`}
+                </div>
+
                 {/* big number */}
                 <div
-                  className="font-black text-2xl md:text-3xl text-[#f81828] leading-none mb-2"
-                  style={{ fontFamily: "'Share Tech Mono',monospace", textShadow: "0 0 12px rgba(248,24,40,0.7), 0 0 28px rgba(248,24,40,0.25)" }}
+                  className="font-black leading-none mb-1"
+                  style={{
+                    fontFamily: "'Share Tech Mono',monospace",
+                    fontSize: "clamp(28px,3.5vw,44px)",
+                    color: "#f81828",
+                    textShadow: "0 0 20px rgba(248,24,40,0.8), 0 0 40px rgba(248,24,40,0.3), 0 0 60px rgba(248,24,40,0.1)",
+                    letterSpacing: "-0.01em",
+                  }}
                 >
                   {s.num}
                 </div>
+
                 {/* label */}
-                <div style={{ fontFamily: "monospace", fontSize: 9, color: "#666", letterSpacing: "0.14em", textTransform: "uppercase" }}>// {s.label}</div>
+                <div style={{ fontFamily: "monospace", fontSize: 9, color: "#555", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 10 }}>
+                  {s.label}
+                </div>
+
+                {/* progress bar */}
+                <div style={{ height: 2, background: "rgba(248,24,40,0.1)", borderRadius: 1, overflow: "hidden" }}>
+                  <div
+                    style={{
+                      height: "100%",
+                      width: `${s.bar}%`,
+                      background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.4))",
+                      boxShadow: "0 0 6px rgba(248,24,40,0.6)",
+                      borderRadius: 1,
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* bottom status bar */}
+        <div style={{ borderTop: "1px solid rgba(248,24,40,0.08)", padding: "5px 0" }}>
+          <div className="container mx-auto px-4 flex items-center gap-6">
+            {["MAGAZYN: AKTYWNY", "DOSTAWA: LUBLIN + REGION", "DORADZTWO: GRATIS"].map((t, i) => (
+              <div key={i} style={{ fontFamily: "monospace", fontSize: 8, color: "rgba(248,24,40,0.35)", letterSpacing: "0.12em", display: "flex", alignItems: "center", gap: 5 }}>
+                <span style={{ color: "rgba(248,24,40,0.5)" }}>●</span> {t}
               </div>
             ))}
           </div>

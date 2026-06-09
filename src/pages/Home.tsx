@@ -489,14 +489,15 @@ export default function Home() {
         <div className="relative z-10 container mx-auto px-4 pt-16 pb-14 md:pt-24 md:pb-20">
           <div className="grid lg:grid-cols-[minmax(0,1.15fr)_360px] gap-12 xl:gap-16 items-end">
             <div className="max-w-[980px]">
-              <div className="premium-fade-soft premium-editorial-rule mb-8" style={{ animationDelay: "40ms" }}>
-                <span style={{ fontFamily: "Inter,sans-serif", fontSize: "11px", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(255,255,255,0.76)", fontWeight: 800 }}>
-                  Lublin · skład budowlany · wykonawstwo premium
+              <div className="premium-fade-soft premium-editorial-rule mb-8 flex items-center gap-3" style={{ animationDelay: "40ms" }}>
+                <span className="inline-flex h-1.5 w-1.5 rounded-full" style={{ background: "#f81828", boxShadow: "0 0 12px rgba(248,24,40,0.8)" }} />
+                <span style={{ fontFamily: "Inter,sans-serif", fontSize: "11px", letterSpacing: "0.26em", textTransform: "uppercase", color: "rgba(255,255,255,0.82)", fontWeight: 800 }}>
+                  Lublin · skład budowlany &amp; wykonawstwo
                 </span>
               </div>
 
               <div className="mb-10 max-w-4xl">
-                <div className="premium-fade-soft mb-6 text-[11px] font-black uppercase tracking-[0.34em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>Editorial Luxury</div>
+                <div className="premium-fade-soft mb-6 text-[11px] font-black uppercase tracking-[0.34em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>15 lat na budowach Lubelszczyzny</div>
                 <h1 className="text-white mb-7" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.045em", fontSize: "clamp(3rem, 6.6vw, 6.8rem)" }}>
                   <span className="block overflow-hidden">
                     <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Budujesz</span>
@@ -511,8 +512,8 @@ export default function Home() {
                     <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "580ms" }}>całości.</span>
                   </span>
                 </h1>
-                <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.74)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1rem, 1.32vw, 1.13rem)", lineHeight: 1.92 }}>
-                  Media Bud łączy profesjonalny skład budowlany z wykonawstwem. Materiały, doradztwo techniczne, wycena i ekipa — w jednym miejscu, z jedną odpowiedzialnością za efekt i jakość realizacji.
+                <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.78)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1.02rem, 1.36vw, 1.18rem)", lineHeight: 1.92 }}>
+                  Skład budowlany i własne ekipy wykonawcze w jednej firmie. Materiały, doradztwo techniczne, wycena i realizacja — prowadzone od pierwszej rozmowy po odbiór, z <span className="text-white font-semibold">jedną odpowiedzialnością</span> za termin, koszt i jakość.
                 </p>
               </div>
 
@@ -539,9 +540,9 @@ export default function Home() {
 
               <div className="grid sm:grid-cols-3 gap-4 max-w-4xl">
                 {[
-                  { over: "Obsługa inwestycji", title: "Materiały i wykonanie", text: "Jedno miejsce, jeden partner i mniej ryzyka organizacyjnego na budowie." },
-                  { over: "Doradztwo techniczne", title: "Dobór systemów", text: "Pomagamy dobrać rozwiązania do budżetu, zakresu prac i realnych terminów." },
-                  { over: "Dla B2B i klientów prywatnych", title: "Skala i elastyczność", text: "Obsługujemy deweloperów, wykonawców i inwestorów budujących własny dom." },
+                  { over: "Obsługa inwestycji", title: "Materiały i wykonanie", text: "Zakup, logistyka i ekipa pod jednym dachem — mniej ryzyka organizacyjnego na budowie." },
+                  { over: "Doradztwo techniczne", title: "Dobór systemów", text: "Dobieramy sprawdzone rozwiązania do budżetu, zakresu prac i realnych terminów." },
+                  { over: "B2B i klienci prywatni", title: "Skala i elastyczność", text: "Od pojedynczego domu po inwestycje deweloperskie — jeden standard obsługi." },
                 ].map((item, idx) => (
                   <div key={item.title} className="premium-fade-soft premium-card-soft rounded-[24px] p-5 md:p-6" style={{ animationDelay: `${880 + idx * 90}ms`, background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 18px 34px rgba(0,0,0,0.24)" }}>
                     <div className="mb-3 text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">{item.over}</div>
@@ -558,18 +559,21 @@ export default function Home() {
               <div className="premium-fade-soft premium-card-soft rounded-[30px] p-7" style={{ animationDelay: "1080ms", background: "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(16px)", boxShadow: "0 24px 70px rgba(0,0,0,0.32)" }}>
                 <div className="mb-7 flex items-center justify-between">
                   <div>
-                    <div className="text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">Media Bud</div>
-                    <div className="mt-2 text-[2rem] font-black text-white leading-none" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>Investment Desk</div>
+                    <div className="text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">Media Bud · panel inwestora</div>
+                    <div className="mt-2 text-[2rem] font-black text-white leading-none" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>Twoja budowa</div>
                   </div>
                   <div className="h-11 w-11 rounded-full border border-[#f81828]/35 flex items-center justify-center" style={{ background: "rgba(248,24,40,0.08)" }}>
-                    <span className="text-[#f81828] text-lg">●</span>
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="absolute inline-flex h-full w-full rounded-full opacity-60 animate-ping" style={{ background: "#f81828" }} />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ background: "#f81828" }} />
+                    </span>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   {[
                     ["Ponad 15 000 produktów", "Stała dostępność materiałów z wielu kategorii i sprawdzonych systemów."],
-                    ["Doświadczenie w realizacjach", "Obsługa domów, inwestycji i klientów biznesowych w jednym standardzie."],
+                    ["15 lat doświadczenia", "Domy, inwestycje i klienci biznesowi obsługiwani w jednym standardzie."],
                     ["Wycena i kontakt do 24h", "Szybki start rozmowy o inwestycji, zakupach i logistyce dostaw."],
                   ].map(([title, desc], idx) => (
                     <div key={title} className="premium-card-soft rounded-[22px] p-4" style={{ transitionDelay: `${idx * 40}ms`, background: "rgba(0,0,0,0.24)", border: "1px solid rgba(255,255,255,0.08)" }}>

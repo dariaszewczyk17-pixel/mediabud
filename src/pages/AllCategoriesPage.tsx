@@ -47,7 +47,7 @@ function CatalogSection() {
               {visible.map((p) => (
                 <Link
                   key={p.id}
-                  to={`/produkt/${p.slug}`}
+                  to={`/produkty/${p.slug}`}
                   className="group rounded-xl overflow-hidden transition-all duration-200"
                   style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
                   onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.4)"; el.style.transform = "translateY(-2px)"; el.style.boxShadow = "0 8px 24px rgba(248,24,40,0.1)"; }}

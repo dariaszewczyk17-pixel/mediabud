@@ -887,47 +887,49 @@ export default function Home() {
       )}
 
       {/* ═══════════════════════════════════════════════════════
-          FEATURED PRODUCTS  (z tabami)
+          FEATURED PRODUCTS — EDITORIAL LUXURY
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r2.ref as React.RefObject<HTMLElement>}
-        className="py-14"
-        style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)" }}
+        className={`py-20 md:py-24 relative overflow-hidden ${r2.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
+        style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)", animationDelay: "340ms" }}
       >
-        <div className="container mx-auto px-4">
-          {/* Header + tabs */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-            <div>
-              <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-1.5 flex items-center gap-2">
-                <span className="w-4 h-0.5 bg-[#f81828]" />Oferta
-              </p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-white">
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "180px 180px" }} />
+        <div className="container mx-auto px-4 relative z-[2]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-12 gap-6">
+            <div className="max-w-2xl">
+              <div className="premium-editorial-rule mb-4">
+                <span className="text-[10px] font-black tracking-[0.25em] uppercase text-[#f3b0b5]">Oferta</span>
+              </div>
+              <h2 className="text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(2.15rem, 4.8vw, 4.8rem)", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.04em" }}>
                 {activeTab === "bestsellery"
                   ? "Bestsellery budowlane 2025"
                   : activeTab === "nowosci"
                   ? "Nowości w ofercie"
                   : "Katalog produktów"}
               </h2>
-              <p className="text-gray-400 mt-1 text-sm">
+              <p className="mt-4 text-sm md:text-[15px] max-w-xl" style={{ color: "rgba(255,255,255,0.62)", lineHeight: 1.85 }}>
                 {activeTab === "bestsellery"
-                  ? "Najchętniej wybierane materiały budowlane w Lublinie"
+                  ? "Najchętniej wybierane materiały budowlane w Lublinie, uporządkowane w bardziej premium i czytelnej prezentacji." 
                   : activeTab === "nowosci"
-                  ? "Najnowsze produkty w naszej ofercie"
-                  : "Bestsellery i nowości w naszej ofercie"}
+                  ? "Najnowsze produkty w naszej ofercie — wybrane tak, by szybciej znaleźć świeże i ważne pozycje." 
+                  : "Bestsellery i nowości w naszej ofercie, pokazane w spokojniejszym, bardziej editorialowym układzie."}
               </p>
             </div>
-            {/* Tabs */}
-            <div className="flex items-center gap-1 rounded-xl p-1 self-start md:self-auto"
-              style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <div
+              className="flex items-center gap-1.5 rounded-full p-1.5 self-start md:self-auto"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}
+            >
               {PRODUCT_TABS.map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-all duration-200 ${
+                  className={`px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.14em] transition-all duration-300 ${
                     activeTab === tab.id
-                      ? "bg-[#f81828] text-white"
+                      ? "text-white"
                       : "text-gray-500 hover:text-white"
                   }`}
+                  style={activeTab === tab.id ? { background: "linear-gradient(135deg, #f81828 0%, #d10f1e 100%)", boxShadow: "0 12px 28px rgba(248,24,40,0.22)" } : undefined}
                 >
                   {tab.label}
                 </button>
@@ -935,26 +937,28 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
             {featured.map((p, i) => (
               <div
                 key={p.id}
-                className={`transition-[opacity,transform] duration-500 ${r2.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 80}ms`, willChange: r2.visible ? "auto" : "transform, opacity" }}
+                className={`${r2.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{ transition: "opacity 0.8s cubic-bezier(.22,1,.36,1), transform 0.8s cubic-bezier(.22,1,.36,1)", transitionDelay: `${i * 90}ms`, willChange: r2.visible ? "auto" : "transform, opacity" }}
               >
-                <ProductCard product={p} />
+                <div className="premium-card-soft rounded-[26px] overflow-hidden" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 18px 40px rgba(0,0,0,0.22)" }}>
+                  <ProductCard product={p} />
+                </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
             <Link to="/produkty">
-              <Button className="bg-[#f81828] hover:bg-[#c8000f] font-bold px-8">
+              <Button className="bg-[#f81828] hover:bg-[#c8000f] font-bold px-8 rounded-full shadow-[0_14px_30px_rgba(248,24,40,0.22)]">
                 Zobacz pełny katalog <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <Link to="/kontakt">
-              <Button variant="outline" className="border-gray-300 text-gray-700 font-semibold px-8 hover:border-[#f81828] hover:text-[#f81828]">
+              <Button variant="outline" className="rounded-full border-white/20 bg-white/5 text-white font-semibold px-8 hover:border-[#f81828] hover:text-white hover:bg-[#f81828]/10">
                 Zapytaj o produkt
               </Button>
             </Link>
@@ -967,7 +971,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r4.ref as React.RefObject<HTMLElement>}
-        className={`py-24 relative overflow-hidden ${r4.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
+        className={`py-24 md:py-28 relative overflow-hidden ${r4.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
         style={{ background: "#050505", animationDelay: "180ms" }}
       >
         <video

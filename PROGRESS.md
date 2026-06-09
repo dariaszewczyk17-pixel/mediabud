@@ -395,3 +395,6 @@
 [2026-06-09 13:50] Rozpoczęto etap Editorial Luxury v3: analiza Brands Bar, Categories Grid i pacingu scrolla na homepage.
 [2026-06-09 13:51] Wdrożono Editorial Luxury v3 w Brands Bar i Categories Grid oraz rozszerzono pacing wejścia sekcji na scrollu.
 [2026-06-09 13:51] Build po wdrożeniu Editorial Luxury v3 przeszedł pomyślnie; finalizuję commit i push zmian homepage.
+[2026-06-09 13:55] Rozpoczęto kolejny etap luxury: analiza Featured Products, globalnego rytmu sekcji i ultra-premium motion system na homepage.
+[2026-06-09 13:55] Wdrożono redesign Featured Products do Editorial Luxury oraz dopracowano globalny rytm i spacing kolejnych sekcji homepage.
+[2026-06-09 13:56] Build po redesignie Featured Products i dopracowaniu globalnego rytmu sekcji przeszedł pomyślnie; finalizuję commit i push zmian.

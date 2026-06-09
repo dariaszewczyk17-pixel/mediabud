@@ -544,26 +544,24 @@ export default function ServicesPage() {
 
       {/* ══ SPOT VIDEO ══ */}
       <div style={{ background: "#050505", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-        <div className="container mx-auto px-4 py-12 md:py-16">
-          <div className="max-w-4xl mx-auto">
-            <FadeIn className="flex items-center gap-3 mb-6">
-              <span className="w-[3px] h-8 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 12px rgba(248,24,40,0.4)" }} />
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">Spot brandowy · Media Bud</p>
-                <h2 className="font-display text-2xl font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>Budujesz. Remontujesz. Media Bud.</h2>
-              </div>
-            </FadeIn>
-            <FadeIn delay={100}>
-              <div className="rounded-2xl overflow-hidden relative" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
-                <video
-                  src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-09/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/spot_mediabud_0029d1ffab6547489b85ca6540e5215a.mp4"
-                  autoPlay muted loop playsInline preload="metadata"
-                  className="w-full aspect-video"
-                  style={{ display: "block", background: "#050505" }}
-                />
-              </div>
-            </FadeIn>
-          </div>
+        <div className="container mx-auto px-4 py-10 md:py-14">
+          <FadeIn className="flex items-center gap-3 mb-6">
+            <span className="w-[3px] h-8 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 12px rgba(248,24,40,0.4)" }} />
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">Spot brandowy · Media Bud</p>
+              <h2 className="font-display text-2xl font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>Budujesz. Remontujesz. Media Bud.</h2>
+            </div>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div className="rounded-2xl overflow-hidden relative w-full" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}>
+              <video
+                src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-09/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/spot_mediabud_0029d1ffab6547489b85ca6540e5215a.mp4"
+                autoPlay muted loop playsInline preload="metadata"
+                className="w-full aspect-video"
+                style={{ display: "block", background: "#050505" }}
+              />
+            </div>
+          </FadeIn>
         </div>
       </div>
 

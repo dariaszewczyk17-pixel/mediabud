@@ -494,7 +494,7 @@ export default function ServicesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ══ HERO ══ */}
-      <div className="relative overflow-hidden" style={{ background: "linear-gradient(160deg,#0a0a0a 0%,#080808 50%,#050505 100%)", minHeight: "500px" }}>
+      <div className="relative overflow-hidden" style={{ background: "linear-gradient(160deg,#0a0a0a 0%,#080808 50%,#050505 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "56px 56px" }} />
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,0.007) 3px,rgba(255,255,255,0.007) 4px)" }} />
         <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.25) 55%,transparent)" }} />
@@ -502,8 +502,8 @@ export default function ServicesPage() {
         <div className="absolute bottom-0 left-0 right-0 h-24" style={{ background: "linear-gradient(to top,#050505,transparent)" }} />
         <div className="absolute right-0 top-0 w-[700px] h-[700px] pointer-events-none" style={{ background: "radial-gradient(ellipse at 80% 10%,rgba(248,24,40,0.07) 0%,transparent 60%)" }} />
 
-        <div className="relative container mx-auto px-4 pl-9 py-20 md:py-28">
-          <div className="max-w-5xl grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
+        <div className="relative container mx-auto px-4 pl-9 py-16 md:py-24">
+          <div className="max-w-5xl grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-[1px] w-8 bg-[#f81828]" />
@@ -525,14 +525,14 @@ export default function ServicesPage() {
               <p className="text-[10px] font-black uppercase tracking-widest text-[#555] mb-4">Media Bud w liczbach</p>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { value: "15+",     label: "lat na rynku",          accent: "#f81828" },
-                  { value: "500+",    label: "projektów wykonanych",   accent: "#f81828" },
-                  { value: "50+",     label: "marek w ofercie",        accent: "#ff6b35" },
-                  { value: "16 000+", label: "produktów w magazynie",  accent: "#ff6b35" },
+                  { value: "15+",     label: "lat na rynku" },
+                  { value: "500+",    label: "projektów wykonanych" },
+                  { value: "50+",     label: "marek w ofercie" },
+                  { value: "16 000+", label: "produktów w magazynie" },
                 ].map((item) => (
                   <div key={item.label} className="rounded-xl p-4 relative overflow-hidden"
-                    style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)", borderLeft: `2px solid ${item.accent}` }}>
-                    <div className="font-display font-black mb-0.5 text-2xl" style={{ color: item.accent, fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", textShadow: `0 0 16px ${item.accent}44` }}>{item.value}</div>
+                    style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)", borderLeft: "2px solid #f81828" }}>
+                    <div className="font-display font-black mb-0.5 text-2xl" style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", textShadow: "0 0 16px rgba(248,24,40,0.3)" }}>{item.value}</div>
                     <div className="text-[11px] uppercase tracking-wider text-[#666]">{item.label}</div>
                   </div>
                 ))}

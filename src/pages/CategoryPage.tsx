@@ -157,6 +157,7 @@ export default function CategoryPage() {
   const [view, setView] = useState<"grid" | "list">("grid");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [mobileCatsOpen, setMobileCatsOpen] = useState(false);
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   const { data: sanityCategory } = useCategoryBySlug(slug ?? '');
   const { data: sanityTopCats }  = useAllCategories();
@@ -418,10 +419,10 @@ export default function CategoryPage() {
   /* ── SEO meta tagi ── */
   useSEO({
     title: cat
-      ? `${cat.name} – Media Bud | Materiały Budowlane Lublin`
+      ? `${cat.name} Lublin – Ceny, Dostawa 24h | Media Bud Skład Budowlany`
       : "Kategoria | Media Bud",
     description: cat
-      ? ((cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin, dostawa 24h.`).slice(0, 160)
+      ? `Kup ${cat.name.toLowerCase()} w Lublinie. ${cat.description ? cat.description.slice(0, 100) + '...' : ''} Dostawa na plac budowy, doradztwo techniczne gratis. Media Bud – ul. Chemiczna 8d Lublin.`
       : undefined,
     canonical: slug ? `/kategoria/${slug}` : undefined,
   });
@@ -618,17 +619,23 @@ export default function CategoryPage() {
         })}} />
       )}
 
-      {/* ── Breadcrumb ── */}
-      <div style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="container mx-auto px-4 py-3">
+      {/* ── Glassmorphism Breadcrumb bar ── */}
+      <div style={{
+        background: "rgba(10,10,10,0.85)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        borderBottom: "1px solid rgba(248,24,40,0.12)",
+      }}>
+        <div className="container mx-auto px-4 py-2.5">
           <nav className="flex items-center gap-1 text-xs text-gray-600 flex-wrap">
-            <Link to="/" className="hover:text-[#f81828] transition-colors">Strona główna</Link>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] mr-1" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
+            <Link to="/" className="hover:text-[#f81828] transition-colors font-mono tracking-wide">ROOT</Link>
             {breadcrumbs.map((bc, i) => (
               <span key={bc.id} className="flex items-center gap-1">
-                <ChevronRight className="w-3 h-3" />
+                <ChevronRight className="w-3 h-3 text-[#f81828]/40" />
                 {i === breadcrumbs.length - 1
-                  ? <span className="text-gray-300 font-medium">{bc.name}</span>
-                  : <Link to={`/kategoria/${bc.slug}`} className="hover:text-[#f81828] transition-colors">{bc.name}</Link>
+                  ? <span className="text-gray-200 font-bold tracking-wide font-mono">{bc.name.toUpperCase()}</span>
+                  : <Link to={`/kategoria/${bc.slug}`} className="hover:text-[#f81828] transition-colors font-mono">{bc.name.toUpperCase()}</Link>
                 }
               </span>
             ))}
@@ -640,8 +647,20 @@ export default function CategoryPage() {
       <div
         ref={heroReveal.ref}
         className="relative overflow-hidden"
-        style={{ minHeight: "200px", background: "#0a0a0a" }}
+        style={{
+          minHeight: "280px",
+          background: "#0a0a0a",
+        }}
       >
+        {/* Noise texture overlay */}
+        <div className="absolute inset-0 pointer-events-none z-[1]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "128px 128px",
+          opacity: 0.03,
+          mixBlendMode: "overlay",
+        }} />
+
         {/* Category image bg */}
         {catImages[cat.slug] && (
           <div className="absolute inset-0">
@@ -655,20 +674,25 @@ export default function CategoryPage() {
         )}
 
         {/* Gradient left-to-right */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.5) 100%)" }} />
+        <div className="absolute inset-0 z-[2]" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.97) 35%, rgba(0,0,0,0.55) 100%)" }} />
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, #080808, transparent)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-20 z-[2]" style={{ background: "linear-gradient(to top, #080808, transparent)" }} />
         {/* Left red accent */}
-        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.4)" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828] z-[3]" style={{ boxShadow: "2px 0 16px rgba(248,24,40,0.6)" }} />
         {/* Top line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #f81828, rgba(248,24,40,0.2) 60%, transparent)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px] z-[3]" style={{ background: "linear-gradient(90deg, #f81828, rgba(248,24,40,0.2) 60%, transparent)" }} />
+        {/* Cyberpunk scan line */}
+        <div className="absolute left-0 right-0 h-[1px] z-[3]" style={{
+          top: "50%",
+          background: "linear-gradient(90deg, transparent 0%, rgba(248,24,40,0.15) 30%, rgba(248,24,40,0.4) 50%, rgba(248,24,40,0.15) 70%, transparent 100%)",
+        }} />
 
-        <div className={`relative container mx-auto px-6 py-12 pl-10 transition-all duration-700 ease-out ${heroReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`relative z-[4] container mx-auto px-6 py-12 pl-10 transition-all duration-700 ease-out ${heroReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] font-black text-[#f81828] tracking-widest uppercase">Kategoria</span>
-                <span className="h-px flex-1 max-w-12" style={{ background: "rgba(248,24,40,0.4)" }} />
+                <span className="text-[9px] font-black text-[#f81828] tracking-[0.25em] uppercase font-mono">// KATEGORIA</span>
+                <span className="h-px flex-1 max-w-16" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.6), transparent)" }} />
               </div>
               <h1 className="font-display text-3xl md:text-4xl font-black leading-tight tracking-tight text-white mb-3">
                 {cat.metaTitle ? cat.metaTitle.split("|")[0].trim() : cat.name}
@@ -677,11 +701,39 @@ export default function CategoryPage() {
                 <p className="text-gray-400 max-w-2xl text-sm leading-relaxed">{cat.description}</p>
               )}
             </div>
+            {/* Animated product counter */}
             <div className="hidden md:flex flex-col items-end gap-1 flex-shrink-0">
-              <span className="font-display font-black text-[#f81828]/15 leading-none select-none" style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}>
-                {String(catProducts.length).padStart(3, "0")}
-              </span>
-              <span className="text-xs text-gray-600 uppercase tracking-widest">produktów</span>
+              <div className="relative">
+                <span
+                  className="font-display font-black leading-none select-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(3rem, 6vw, 5.5rem)",
+                    color: "transparent",
+                    WebkitTextStroke: "1px rgba(248,24,40,0.25)",
+                    letterSpacing: "-0.03em",
+                  }}
+                >
+                  {String(catProducts.length).padStart(3, "0")}
+                </span>
+                {/* Glowing copy behind */}
+                <span
+                  className="absolute inset-0 font-display font-black leading-none select-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(3rem, 6vw, 5.5rem)",
+                    color: "rgba(248,24,40,0.07)",
+                    filter: "blur(8px)",
+                    letterSpacing: "-0.03em",
+                  }}
+                  aria-hidden
+                >
+                  {String(catProducts.length).padStart(3, "0")}
+                </span>
+              </div>
+              <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">PRODUKTÓW</span>
+              <div className="flex items-center gap-1 mt-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
+                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{isLoadingProducts ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -852,88 +904,184 @@ export default function CategoryPage() {
               </div>
             )}
 
-            {/* Toolbar */}
+            {/* ── Futurystyczny Sticky Toolbar NAD gridem ── */}
             <div
-              className="flex items-center justify-between mb-4 gap-3 flex-wrap rounded-xl px-4 py-3"
-              style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
+              className="sticky z-20 rounded-xl mb-4"
+              style={{
+                top: "calc(var(--header-h, 80px) + 8px)",
+                background: "rgba(8,8,8,0.9)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                border: "1px solid rgba(248,24,40,0.18)",
+                boxShadow: "0 4px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(248,24,40,0.05) inset",
+              }}
             >
-              <div className="flex items-center gap-3">
-                <h2 className="text-sm font-bold text-white">Produkty</h2>
-                <span
-                  className="text-[11px] font-bold px-2 py-0.5 rounded-full"
-                  style={{ background: "#1e0304", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.35)" }}
-                >
-                  {isLoadingProducts
-                    ? "Ładowanie…"
-                    : filtered.length > 0 ? `${filtered.length} szt.` : "Zapytaj o ofertę"}
-                </span>
-                {hasActiveFilters && (
-                  <button onClick={clearFilters} className="flex items-center gap-1 text-xs text-[#f81828] font-medium hover:underline">
-                    <X className="w-3 h-3" /> wyczyść
-                  </button>
-                )}
-              </div>
-              <div className="flex items-center gap-2">
-                {/* Mobile filter toggle */}
-                <button
-                  className="lg:hidden flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors text-gray-400 hover:text-white"
-                  style={{ border: "1px solid rgba(255,255,255,0.1)" }}
-                  onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
-                >
-                  <SlidersHorizontal className="w-3.5 h-3.5" /> Filtry
-                  {hasActiveFilters && <span className="w-2 h-2 bg-[#f81828] rounded-full" />}
-                </button>
-                {/* Mobile categories toggle */}
-                <button
-                  className="lg:hidden flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
-                  style={{
-                    border: mobileCatsOpen ? "1px solid rgba(248,24,40,0.5)" : "1px solid rgba(255,255,255,0.1)",
-                    color: mobileCatsOpen ? "#f81828" : "#9ca3af",
-                  }}
-                  onClick={() => setMobileCatsOpen(!mobileCatsOpen)}
-                >
-                  <Filter className="w-3.5 h-3.5" /> Kategorie
-                </button>
-                {/* Sort */}
-                <select
-                  value={sortBy}
-                  onChange={e => updateParam("sort", e.target.value)}
-                  className="text-xs font-medium px-3 py-1.5 rounded-lg transition-all text-gray-400 focus:outline-none focus:border-[#f81828] appearance-none cursor-pointer"
-                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}
-                >
-                  <option value="default">Sortuj: domyślne</option>
-                  <option value="name-asc">Nazwa A–Z</option>
-                  <option value="name-desc">Nazwa Z–A</option>
-                  <option value="brand">Marka A–Z</option>
-                  <option value="new">Nowości</option>
-                </select>
-                {/* View toggle */}
-                <div className="flex rounded-lg overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
-                  <button
-                    onClick={() => setView("grid")}
-                    className={`p-2 transition-colors ${view === "grid" ? "bg-[#f81828] text-white" : "text-gray-500 hover:text-white"}`}
-                    style={{ background: view === "grid" ? "#f81828" : "transparent" }}
+              {/* Top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-[1px] rounded-t-xl"
+                style={{ background: "linear-gradient(90deg, #f81828, rgba(248,24,40,0.3) 50%, transparent)" }} />
+
+              <div className="flex items-center justify-between px-4 py-2.5 gap-3 flex-wrap">
+                {/* Lewa: licznik + label */}
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1 h-4 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 6px rgba(248,24,40,0.8)" }} />
+                    <span className="text-xs font-black text-white uppercase tracking-widest font-mono">Produkty</span>
+                  </div>
+                  <span
+                    className="text-[11px] font-black px-2.5 py-0.5 rounded-full font-mono tabular-nums"
+                    style={{
+                      background: "rgba(248,24,40,0.12)",
+                      border: "1px solid rgba(248,24,40,0.35)",
+                      color: "#ff9aa3",
+                      boxShadow: "0 0 8px rgba(248,24,40,0.15)",
+                    }}
                   >
-                    <Grid className="w-4 h-4" />
-                  </button>
+                    {isLoadingProducts ? "…" : `${filtered.length}`}
+                  </span>
+                  {hasActiveFilters && (
+                    <button onClick={clearFilters} className="flex items-center gap-1 text-[10px] text-[#f81828] font-bold hover:underline font-mono uppercase tracking-wide">
+                      <X className="w-2.5 h-2.5" /> reset
+                    </button>
+                  )}
+                </div>
+
+                {/* Prawa: mobile filtry + sort + view toggle */}
+                <div className="flex items-center gap-2">
+                  {/* Mobile: przycisk Filtry — otwiera drawer */}
                   <button
-                    onClick={() => setView("list")}
-                    className={`p-2 transition-colors ${view === "list" ? "bg-[#f81828] text-white" : "text-gray-500 hover:text-white"}`}
-                    style={{ background: view === "list" ? "#f81828" : "transparent" }}
+                    className="lg:hidden flex items-center gap-1.5 text-[11px] font-black px-3 py-1.5 rounded-lg transition-all uppercase tracking-wide font-mono"
+                    style={mobileFilterOpen
+                      ? { background: "rgba(248,24,40,0.15)", border: "1px solid rgba(248,24,40,0.5)", color: "#f81828" }
+                      : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", color: "#9ca3af" }
+                    }
+                    onClick={() => setMobileFilterOpen(true)}
                   >
-                    <List className="w-4 h-4" />
+                    <SlidersHorizontal className="w-3.5 h-3.5" />
+                    Filtry
+                    {hasActiveFilters && <span className="w-1.5 h-1.5 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />}
                   </button>
+
+                  {/* Dropdown sortowania */}
+                  <select
+                    value={sortBy}
+                    onChange={e => updateParam("sort", e.target.value)}
+                    className="text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all focus:outline-none appearance-none cursor-pointer font-mono"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      color: sortBy !== "default" ? "#f81828" : "#6b7280",
+                    }}
+                  >
+                    <option value="default">SORTUJ ▾</option>
+                    <option value="inStock">Dostępne od ręki</option>
+                    <option value="featured">Polecane</option>
+                    <option value="name-asc">Nazwa A–Z</option>
+                    <option value="name-desc">Nazwa Z–A</option>
+                    <option value="brand">Marka A–Z</option>
+                    <option value="new">Nowości</option>
+                  </select>
+
+                  {/* Grid / List toggle */}
+                  <div className="flex rounded-lg overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <button
+                      onClick={() => setView("grid")}
+                      className="p-1.5 transition-colors"
+                      style={{ background: view === "grid" ? "#f81828" : "transparent", color: view === "grid" ? "#fff" : "#6b7280" }}
+                      title="Widok siatki"
+                    >
+                      <Grid className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => setView("list")}
+                      className="p-1.5 transition-colors"
+                      style={{ background: view === "list" ? "#f81828" : "transparent", color: view === "list" ? "#fff" : "#6b7280" }}
+                      title="Widok listy"
+                    >
+                      <List className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Mobile filter panel */}
+            {/* ── Stary toolbar (zachowany dla breakpointów lg: mobilne kategorie) ── */}
+            <div
+              className="hidden"
+              aria-hidden="true"
+            />
+
+            {/* Mobile filter panel (stary, zachowany dla kompatybilności) */}
             {mobileFiltersOpen && (
               <div
                 className="lg:hidden rounded-xl p-4 mb-4"
                 style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}
               >
                 <FilterPanel />
+              </div>
+            )}
+
+            {/* ── Mobile Filter Drawer (nowy — wysuwa z lewej) ── */}
+            {mobileFilterOpen && (
+              <div className="lg:hidden fixed inset-0 z-50">
+                {/* Backdrop */}
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
+                  onClick={() => setMobileFilterOpen(false)}
+                />
+                {/* Drawer panel */}
+                <div
+                  className="absolute left-0 top-0 h-full w-[85vw] max-w-[320px] flex flex-col overflow-hidden"
+                  style={{
+                    background: "#0d0d0d",
+                    borderRight: "1px solid rgba(248,24,40,0.2)",
+                    boxShadow: "4px 0 32px rgba(0,0,0,0.7), 0 0 60px rgba(248,24,40,0.05)",
+                    animation: "slideInLeft 0.3s cubic-bezier(0.22,1,0.36,1)",
+                  }}
+                >
+                  {/* Drawer header */}
+                  <div
+                    className="flex items-center justify-between px-4 py-3 flex-shrink-0 relative"
+                    style={{ background: "#080808", borderBottom: "1px solid rgba(248,24,40,0.15)" }}
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-[2px]"
+                      style={{ background: "linear-gradient(90deg, #f81828, transparent)" }} />
+                    <div className="flex items-center gap-2">
+                      <SlidersHorizontal className="w-4 h-4 text-[#f81828]" />
+                      <span className="font-black text-sm text-white tracking-widest font-mono uppercase">Filtry</span>
+                      {hasActiveFilters && (
+                        <span className="w-2 h-2 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 6px rgba(248,24,40,0.8)" }} />
+                      )}
+                    </div>
+                    <button
+                      onClick={() => setMobileFilterOpen(false)}
+                      className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:text-white transition-colors"
+                      style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Drawer content */}
+                  <div className="flex-1 overflow-y-auto p-4" style={{ scrollbarWidth: "none" }}>
+                    <FilterPanel />
+                  </div>
+
+                  {/* Drawer footer */}
+                  <div className="p-4 flex-shrink-0" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#080808" }}>
+                    <button
+                      onClick={() => setMobileFilterOpen(false)}
+                      className="w-full h-10 rounded-xl text-sm font-black text-white transition-all"
+                      style={{
+                        background: "linear-gradient(135deg, #f81828, #c8000f)",
+                        boxShadow: "0 0 16px rgba(248,24,40,0.3)",
+                      }}
+                    >
+                      Pokaż {filtered.length} produktów
+                    </button>
+                  </div>
+                </div>
+                <style>{`@keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }`}</style>
               </div>
             )}
 
@@ -1012,23 +1160,37 @@ export default function CategoryPage() {
 
             {/* Product grid */}
             {isLoadingProducts ? (
-              /* Skeleton — 12 kart zastępują pusty stan podczas ładowania */
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {Array.from({ length: 12 }).map((_, i) => (
+              /* ── Skeleton — 8 ciemnych pulse kart ── */
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {Array.from({ length: 8 }).map((_, i) => (
                   <div
                     key={i}
-                    className="rounded-xl overflow-hidden animate-pulse"
-                    style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
+                    className="rounded-xl overflow-hidden"
+                    style={{
+                      background: "#0f0f0f",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      animation: `pulse 1.8s ease-in-out ${i * 0.1}s infinite`,
+                    }}
                   >
-                    <div className="aspect-[4/3] w-full" style={{ background: "#1a1a1a" }} />
-                    <div className="p-4 space-y-2">
-                      <div className="h-2.5 w-1/3 rounded" style={{ background: "#1e1e1e" }} />
-                      <div className="h-4 w-4/5 rounded" style={{ background: "#1e1e1e" }} />
-                      <div className="h-3 w-2/3 rounded" style={{ background: "#1e1e1e" }} />
-                      <div className="h-9 w-full rounded-lg mt-3" style={{ background: "#1e1e1e" }} />
+                    <div className="aspect-[4/3] w-full relative overflow-hidden" style={{ background: "#141414" }}>
+                      {/* Skeleton shimmer */}
+                      <div className="absolute inset-0 -translate-x-full animate-shimmer"
+                        style={{
+                          background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.04), transparent)",
+                          animation: "shimmer 2s infinite",
+                        }}
+                      />
+                    </div>
+                    <div className="p-4 space-y-2.5">
+                      <div className="h-2 w-1/4 rounded" style={{ background: "rgba(248,24,40,0.08)" }} />
+                      <div className="h-4 w-5/6 rounded" style={{ background: "#1a1a1a" }} />
+                      <div className="h-3 w-3/4 rounded" style={{ background: "#161616" }} />
+                      <div className="h-3 w-1/2 rounded" style={{ background: "#161616" }} />
+                      <div className="h-11 w-full rounded-lg mt-3" style={{ background: "rgba(248,24,40,0.07)", border: "1px solid rgba(248,24,40,0.12)" }} />
                     </div>
                   </div>
                 ))}
+                <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }`}</style>
               </div>
             ) : productsError ? (
               /* Error state */
@@ -1048,16 +1210,16 @@ export default function CategoryPage() {
                 <div
                   ref={gridReveal.ref}
                   className={view === "grid"
-                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                    ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
                     : "space-y-3"}
                 >
                   {paginated.map((p, i) => (
                     <div
                       key={p.id}
                       className={`transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                      style={{ transitionDelay: `${(i % 6) * 65}ms` }}
+                      style={{ transitionDelay: `${(i % 8) * 55}ms` }}
                     >
-                      <ProductCard product={p} />
+                      <ProductCard product={p} priority={i < 4} />
                     </div>
                   ))}
                 </div>

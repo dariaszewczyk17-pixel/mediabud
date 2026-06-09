@@ -131,10 +131,10 @@ export default function ProductDetail() {
   /* ── SEO meta tagi ── */
   useSEO({
     title: product
-      ? `${product.name}${product.brand ? ` – ${product.brand}` : ""} | Media Bud`
+      ? `${product.name} – ${product.brand || ''} | Lublin Skład Budowlany Media Bud`
       : "Produkt | Media Bud",
     description: product
-      ? (product.shortDescription || product.description || "").slice(0, 160)
+      ? `${product.shortDescription || product.name} Dostępne w składzie Media Bud Lublin. ${product.brand ? 'Marka: ' + product.brand + '.' : ''} Dostawa 24h, doradztwo techniczne. Tel. 533 553 344.`
       : undefined,
     canonical: slug ? `/produkt/${slug}` : undefined,
     ogType: "product",

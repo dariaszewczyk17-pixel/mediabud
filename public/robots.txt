@@ -1,6 +1,11 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /wycena/
+Allow: /
+Allow: /kategoria/
+Allow: /produkt/
+Allow: /blog/
+Allow: /marki/
 Allow: /szukaj
 
 User-agent: Googlebot

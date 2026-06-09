@@ -10,6 +10,7 @@ import { sanityCategoryToLegacy, sanityProductToLegacy } from "@/lib/adapters";
 import { sanityFetch } from "@/lib/sanity";
 import { BESTSELLER_SLUGS } from "@/lib/bestsellers";
 import { ProductCard, QuoteModal } from "@/components/Commerce";
+import { useSEO } from "@/hooks/useSEO";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 /* ─── Reveal hook ─────────────────────────────────────────────── */
@@ -33,9 +34,9 @@ function useReveal(threshold = 0.05) {
 }
 
 /* ─── Counter animation ───────────────────────────────────────── */
-function CountUp({ to, suffix = "", duration = 1600 }: { to: number; suffix?: string; duration?: number }) {
+function CountUp({ to, suffix = "", prefix = "", duration = 1800, neon = false }: { to: number; suffix?: string; prefix?: string; duration?: number; neon?: boolean }) {
   const [val, setVal] = useState(0);
-  const { ref, visible } = useReveal(0.3);
+  const { ref, visible } = useReveal(0.25);
   const started = useRef(false);
   useEffect(() => {
     if (!visible || started.current) return;
@@ -44,15 +45,33 @@ function CountUp({ to, suffix = "", duration = 1600 }: { to: number; suffix?: st
     const step = (ts: number) => {
       if (!start) start = ts;
       const progress = Math.min((ts - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = 1 - Math.pow(1 - progress, 4);
       setVal(Math.floor(eased * to));
       if (progress < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
   }, [visible, to, duration]);
+  const formatted = val >= 1000 ? val.toLocaleString("pl-PL") : String(val);
   return (
-    <span ref={ref as React.RefObject<HTMLSpanElement>} className="stat-number text-4xl md:text-5xl font-black text-white font-display">
-      {val}{suffix}
+    <span
+      ref={ref as React.RefObject<HTMLSpanElement>}
+      className="stat-number font-black font-display"
+      style={neon ? {
+        color: "#f81828",
+        textShadow: "0 0 18px rgba(248,24,40,0.75), 0 0 38px rgba(248,24,40,0.45), 0 0 60px rgba(248,24,40,0.22)",
+        fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif",
+        letterSpacing: "-0.045em",
+        fontSize: "clamp(2.4rem,3.6vw,3.8rem)",
+        lineHeight: 0.9,
+      } : {
+        color: "#ffffff",
+        fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif",
+        fontSize: "clamp(2.4rem,3.6vw,3.8rem)",
+        lineHeight: 0.9,
+        letterSpacing: "-0.045em",
+      }}
+    >
+      {prefix}{formatted}{suffix}
     </span>
   );
 }
@@ -331,6 +350,13 @@ export default function Home() {
     }
   };
 
+  /* ── SEO meta tagi ── */
+  useSEO({
+    title: "Skład Budowlany Lublin – Materiały Budowlane, Dostawa 24h | Media Bud",
+    description: "Media Bud – profesjonalny skład budowlany w Lublinie (ul. Chemiczna 8d). Ponad 15 000 materiałów: tynki, styropian, wełna, chemia budowlana, dachy. Dostawa na teren woj. lubelskiego. Bezpłatna wycena.",
+    canonical: "/",
+  });
+
   return (
     <>
       {/* Schema.org JSON-LD */}
@@ -589,46 +615,141 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ PREMIUM TRUST BAR / STAT BAR ═══ */}
+      {/* ═══ STAT BAR — NEON COUNTERS ═══ */}
       <div
         ref={r3.ref as React.RefObject<HTMLDivElement>}
         className={`relative overflow-hidden ${r3.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
-        style={{ background: "linear-gradient(180deg, #090909 0%, #060606 100%)", borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)", animationDelay: "120ms" }}
+        style={{
+          background: "linear-gradient(180deg, #05050a 0%, #08080e 50%, #050508 100%)",
+          borderTop: "1px solid rgba(248,24,40,0.18)",
+          borderBottom: "1px solid rgba(248,24,40,0.12)",
+          animationDelay: "120ms",
+        }}
       >
-        <div className="absolute top-0 left-0 right-0 h-[1px] premium-line-reveal" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.65), transparent)" }} />
-        <div className="container mx-auto px-4 py-6 md:py-7">
-          <div className="mb-5 flex items-center gap-4">
-            <div className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f3b0b5]">Media Bud w liczbach</div>
-            <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.34), transparent)" }} />
+        {/* Cyberpunk scan line top */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] premium-line-reveal" style={{ background: "linear-gradient(90deg, transparent 0%, #f81828 30%, rgba(255,80,100,0.8) 50%, #f81828 70%, transparent 100%)", boxShadow: "0 0 16px rgba(248,24,40,0.55)" }} />
+        {/* Neon background glow blobs */}
+        <div className="absolute pointer-events-none" style={{ left: "10%", top: "-40%", width: 320, height: 320, background: "radial-gradient(circle, rgba(248,24,40,0.08) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(40px)" }} />
+        <div className="absolute pointer-events-none" style={{ right: "8%", bottom: "-40%", width: 280, height: 280, background: "radial-gradient(circle, rgba(248,24,40,0.06) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(40px)" }} />
+
+        <style>{`
+          @keyframes neonPulse {
+            0%, 100% { box-shadow: 0 0 6px rgba(248,24,40,0.25), inset 0 0 6px rgba(248,24,40,0.06); }
+            50% { box-shadow: 0 0 18px rgba(248,24,40,0.40), inset 0 0 10px rgba(248,24,40,0.10); }
+          }
+          @keyframes scanLine {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(300%); opacity: 0; }
+          }
+          .neon-stat-card {
+            position: relative;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.35s cubic-bezier(.22,1,.36,1);
+          }
+          .neon-stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(248,24,40,0.45) !important;
+            box-shadow: 0 20px 50px rgba(248,24,40,0.15), 0 0 0 1px rgba(248,24,40,0.12) !important;
+          }
+          .neon-stat-sep {
+            width: 1px;
+            background: linear-gradient(180deg, transparent 0%, rgba(248,24,40,0.35) 30%, rgba(248,24,40,0.55) 50%, rgba(248,24,40,0.35) 70%, transparent 100%);
+          }
+          .neon-stat-card::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(248,24,40,0.6), transparent);
+            opacity: 0;
+            animation: scanLine 4s ease-in-out infinite;
+          }
+          .neon-stat-card:hover::after { opacity: 1; }
+          @keyframes cornerGlow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+          }
+          .neon-corner {
+            animation: cornerGlow 2.5s ease-in-out infinite;
+          }
+        `}</style>
+
+        <div className="container mx-auto px-4 py-8 md:py-10">
+          <div className="mb-6 flex items-center gap-4">
+            <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: "#f81828", boxShadow: "0 0 12px rgba(248,24,40,0.9)" }} />
+            <div className="text-[10px] font-black uppercase tracking-[0.32em]" style={{ color: "rgba(248,100,100,0.9)", letterSpacing: "0.32em" }}>Media Bud w liczbach</div>
+            <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.4), rgba(248,24,40,0.1), transparent)" }} />
+            <div className="text-[9px] font-mono uppercase tracking-[0.28em]" style={{ color: "rgba(255,255,255,0.22)" }}>LIVE DATA</div>
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping" style={{ background: "#f81828" }} />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: "#f81828" }} />
+            </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+
+          {/* Desktop: horizontal row with separators */}
+          <div className="hidden xl:flex items-stretch gap-0 rounded-[28px] overflow-hidden" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)", border: "1px solid rgba(255,255,255,0.07)" }}>
             {[
-              { num: "15 000+", label: "Produktów w ofercie", note: "szeroki asortyment dostępny od ręki i na zamówienie" },
-              { num: "15 lat", label: "Doświadczenia", note: "praktyka w obsłudze inwestycji i codziennych zakupów" },
-              { num: "500+", label: "Firm klientów", note: "partner dla wykonawców, ekip i inwestycji deweloperskich" },
-              { num: "<24h", label: "Pierwsza odpowiedź", note: "szybki kontakt w sprawie wyceny i doboru materiałów" },
+              { to: 15000, suffix: "+", label: "Produktów w ofercie",   note: "szeroki asortyment od ręki" },
+              { to: 15,    suffix: " lat", label: "Doświadczenia",     note: "w obsłudze inwestycji" },
+              { to: 500,   suffix: "+", label: "Firm klientów",         note: "deweloperzy i wykonawcy" },
+              { to: 24,    suffix: "h", prefix: "<", label: "Czas odpowiedzi",  note: "pierwsza wycena" },
+            ].map((s, i) => (
+              <div key={i} className="flex items-stretch flex-1">
+                {i > 0 && <div className="neon-stat-sep flex-shrink-0 my-6" />}
+                <div
+                  className="neon-stat-card flex-1 px-8 py-7 overflow-hidden"
+                  style={{ background: "transparent" }}
+                >
+                  {/* Corner accent */}
+                  <div className="absolute top-0 left-0 w-4 h-4 pointer-events-none neon-corner" style={{ borderTop: "1px solid rgba(248,24,40,0.7)", borderLeft: "1px solid rgba(248,24,40,0.7)" }} />
+                  <div className="absolute bottom-0 right-0 w-4 h-4 pointer-events-none neon-corner" style={{ borderBottom: "1px solid rgba(248,24,40,0.4)", borderRight: "1px solid rgba(248,24,40,0.4)", animationDelay: "1.2s" }} />
+
+                  <div className="mb-1 text-[9px] font-black uppercase tracking-[0.28em]" style={{ color: "rgba(248,100,100,0.65)", fontFamily: "'Share Tech Mono',monospace" }}>SYS_{String(i + 1).padStart(2, "0")}</div>
+                  <div className="mb-3">
+                    <CountUp to={s.to} suffix={s.suffix} prefix={s.prefix ?? ""} neon duration={1800 + i * 200} />
+                  </div>
+                  <div className="mb-3 text-[11px] font-black uppercase tracking-[0.2em] text-white">{s.label}</div>
+                  <div className="mb-3 h-px w-8 transition-all duration-700 group-hover:w-16" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.85), rgba(248,24,40,0.15))" }} />
+                  <p className="text-xs leading-6" style={{ color: "rgba(255,255,255,0.48)" }}>{s.note}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile / tablet: 2×2 grid */}
+          <div className="xl:hidden grid grid-cols-2 gap-3">
+            {[
+              { to: 15000, suffix: "+",    label: "Produktów w ofercie",   note: "szeroki asortyment od ręki" },
+              { to: 15,    suffix: " lat", label: "Doświadczenia",          note: "w obsłudze inwestycji" },
+              { to: 500,   suffix: "+",    label: "Firm klientów",          note: "deweloperzy i wykonawcy" },
+              { to: 24,    suffix: "h", prefix: "<", label: "Czas odpowiedzi",    note: "pierwsza wycena" },
             ].map((s, i) => (
               <div
                 key={i}
-                className="premium-stat-card premium-shimmer premium-card-soft group relative overflow-hidden rounded-[24px] px-5 py-6 md:px-6 md:py-7"
-                style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 14px 34px rgba(0,0,0,0.18)", transitionDelay: `${i * 60}ms` }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.28)"; el.style.boxShadow = "0 16px 38px rgba(248,24,40,0.10)"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.09)"; el.style.boxShadow = "0 14px 34px rgba(0,0,0,0.18)"; }}
+                className="neon-stat-card group relative overflow-hidden rounded-[20px] px-5 py-6"
+                style={{
+                  background: "linear-gradient(145deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 100%)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  boxShadow: "0 12px 32px rgba(0,0,0,0.25)",
+                  transitionDelay: `${i * 60}ms`,
+                }}
               >
-                <div className="absolute inset-x-0 top-0 h-[2px] opacity-80" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.0), rgba(248,24,40,0.85), rgba(248,24,40,0.0))" }} />
-                <div className="mb-4 text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">Standard współpracy</div>
-                <div className="premium-stat-value" style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(2.1rem,3vw,3.2rem)", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.045em", marginBottom: 12 }}>
-                  {s.num}
+                <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0), rgba(248,24,40,0.9), rgba(248,24,40,0))" }} />
+                <div className="absolute top-0 left-0 w-3 h-3 neon-corner" style={{ borderTop: "1px solid rgba(248,24,40,0.7)", borderLeft: "1px solid rgba(248,24,40,0.7)" }} />
+                <div className="mb-1 text-[9px] font-mono font-black uppercase tracking-[0.22em]" style={{ color: "rgba(248,100,100,0.6)" }}>SYS_{String(i + 1).padStart(2, "0")}</div>
+                <div className="mb-2">
+                  <CountUp to={s.to} suffix={s.suffix} prefix={s.prefix ?? ""} neon duration={1800 + i * 200} />
                 </div>
-                <div style={{ color: "#ffffff", fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.16em", fontWeight: 800, marginBottom: 12 }}>
-                  {s.label}
-                </div>
-                <div className="mb-4 h-px w-12 transition-all duration-500 group-hover:w-20" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.75), transparent)" }} />
-                <p className="text-sm leading-7" style={{ color: "rgba(255,255,255,0.58)" }}>{s.note}</p>
+                <div className="text-[11px] font-black uppercase tracking-[0.18em] text-white mb-2">{s.label}</div>
+                <div className="h-px w-8" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.85), transparent)" }} />
+                <p className="mt-2 text-xs leading-5" style={{ color: "rgba(255,255,255,0.45)" }}>{s.note}</p>
               </div>
             ))}
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.3), transparent)" }} />
       </div>
 
       {/* ═══════════════════════════════════════════════════════
@@ -657,24 +778,53 @@ export default function Home() {
           <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #0a0a0a, transparent)" }} />
           <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #0a0a0a, transparent)" }} />
 
-          <style>{`
+        <style>{`
             @keyframes brand-scroll {
               0% { transform: translateX(0); }
               100% { transform: translateX(-50%); }
             }
-            .brand-track { animation: brand-scroll 30s linear infinite; }
+            .brand-track { animation: brand-scroll 32s linear infinite; }
             .brand-track:hover { animation-play-state: paused; }
             .brand-card {
-              transition: border-color 0.38s cubic-bezier(.22,1,.36,1), box-shadow 0.38s cubic-bezier(.22,1,.36,1), transform 0.38s cubic-bezier(.22,1,.36,1), background 0.38s cubic-bezier(.22,1,.36,1);
+              transition: border-color 0.42s cubic-bezier(.22,1,.36,1), box-shadow 0.42s cubic-bezier(.22,1,.36,1), transform 0.42s cubic-bezier(.22,1,.36,1), background 0.42s cubic-bezier(.22,1,.36,1);
+              position: relative;
+              overflow: hidden;
             }
+            .brand-card::after {
+              content: '';
+              position: absolute;
+              inset: 0;
+              background: linear-gradient(135deg, rgba(248,24,40,0.08) 0%, transparent 60%);
+              opacity: 0;
+              transition: opacity 0.42s ease;
+              pointer-events: none;
+            }
+            .brand-card:hover::after { opacity: 1; }
             .brand-card:hover {
-              border-color: rgba(248,24,40,0.45) !important;
-              box-shadow: 0 14px 34px rgba(248,24,40,0.10);
-              transform: translateY(-3px);
+              border-color: rgba(248,24,40,0.5) !important;
+              box-shadow: 0 12px 32px rgba(248,24,40,0.14), 0 0 0 1px rgba(248,24,40,0.10);
+              transform: translateY(-4px) scale(1.02);
               background: linear-gradient(180deg, #ffffff 0%, #f8f6f6 100%) !important;
             }
-            .brand-card img { opacity: 1; transition: opacity 0.3s ease, transform 0.38s cubic-bezier(.22,1,.36,1); }
-            .brand-card:hover img { opacity: 0.88; transform: scale(1.02); }
+            .brand-card img {
+              filter: grayscale(1) brightness(0.9) contrast(1.05);
+              transition: filter 0.5s cubic-bezier(.22,1,.36,1), transform 0.45s cubic-bezier(.22,1,.36,1);
+            }
+            .brand-card:hover img {
+              filter: grayscale(0) brightness(1) contrast(1);
+              transform: scale(1.04);
+            }
+            .brand-card-glow {
+              position: absolute;
+              inset: -2px;
+              border-radius: inherit;
+              background: linear-gradient(135deg, rgba(248,24,40,0.35), transparent 60%);
+              opacity: 0;
+              transition: opacity 0.4s ease;
+              pointer-events: none;
+              z-index: -1;
+            }
+            .brand-card:hover .brand-card-glow { opacity: 1; }
           `}</style>
 
           <div className="brand-track flex items-center gap-8 whitespace-nowrap" style={{ width: "max-content" }}>
@@ -967,7 +1117,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          WHY MEDIABUD — EDITORIAL LUXURY
+          WHY MEDIABUD — GLASSMORPHISM + NEON COUNTERS
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r4.ref as React.RefObject<HTMLElement>}
@@ -980,13 +1130,47 @@ export default function Home() {
           muted
           playsInline
           className="absolute inset-0 hidden md:block w-full h-full object-cover pointer-events-none"
-          style={{ opacity: 0.12, filter: "brightness(0.48) saturate(0.68)" }}
+          style={{ opacity: 0.15, filter: "brightness(0.42) saturate(0.62) hue-rotate(-5deg)" }}
           src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8ji72v80j2drgd1t2kg.mp4"
         />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.965) 0%, rgba(5,5,5,0.90) 45%, rgba(5,5,5,0.98) 100%)" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.97) 0%, rgba(5,5,8,0.88) 45%, rgba(5,5,5,0.98) 100%)" }} />
         <div className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.5), transparent)" }} />
 
+        {/* Cyberpunk grid pattern */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.025]" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.8) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+
+        <style>{`
+          @keyframes iconPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(248,24,40,0.4); }
+            50% { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(248,24,40,0); }
+          }
+          .feature-card-glass {
+            background: linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(18px) saturate(1.2);
+            -webkit-backdrop-filter: blur(18px) saturate(1.2);
+            border: 1px solid rgba(255,255,255,0.09);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.38s cubic-bezier(.22,1,.36,1);
+          }
+          .feature-card-glass:hover {
+            border-color: rgba(248,24,40,0.35) !important;
+            box-shadow: 0 24px 52px rgba(248,24,40,0.12), 0 0 0 1px rgba(248,24,40,0.08) !important;
+            transform: translateY(-4px) !important;
+          }
+          .feature-card-glass:hover .feature-icon-wrap {
+            animation: iconPulse 1.2s ease-in-out infinite;
+            border-color: rgba(248,24,40,0.5) !important;
+            background: rgba(248,24,40,0.18) !important;
+          }
+          .why-stat-row {
+            background: linear-gradient(135deg, rgba(248,24,40,0.08) 0%, rgba(255,255,255,0.04) 100%);
+            border: 1px solid rgba(248,24,40,0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+          }
+        `}</style>
+
         <div className="container mx-auto px-4 relative" style={{ zIndex: 3 }}>
+          {/* Header */}
           <div className="grid lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] gap-12 xl:gap-16 items-start mb-14">
             <div>
               <div className="premium-editorial-rule mb-5">
@@ -998,58 +1182,66 @@ export default function Home() {
                   Obsługa, która dowozi.
                 </span>
               </h2>
-              <p className="max-w-xl text-sm md:text-[15px] leading-8" style={{ color: "rgba(255,255,255,0.70)" }}>
+              <p className="max-w-xl text-sm md:text-[15px] leading-8 mb-8" style={{ color: "rgba(255,255,255,0.70)" }}>
                 Łączymy wiedzę materiałową, doświadczenie wykonawcze i realne tempo działania. Dzięki temu inwestor nie kupuje tylko produktów — kupuje spokój, przewidywalność i partnera, który rozumie budowę od praktycznej strony.
               </p>
+
+              {/* ── Animowane liczniki stat row ── */}
+              <div className="why-stat-row rounded-[24px] p-5 md:p-6">
+                <div className="text-[9px] font-mono font-black uppercase tracking-[0.28em] mb-5" style={{ color: "rgba(248,100,100,0.7)" }}>// Nasze osiągnięcia</div>
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { to: 15000, suffix: "+", label: "produktów" },
+                    { to: 500,   suffix: "+", label: "klientów" },
+                    { to: 15,    suffix: " lat", label: "doświadczenia" },
+                  ].map((st, idx) => (
+                    <div key={idx} className="text-center">
+                      <div>
+                        <CountUp to={st.to} suffix={st.suffix} neon duration={1600 + idx * 250} />
+                      </div>
+                      <div className="mt-1 text-[10px] font-black uppercase tracking-[0.16em]" style={{ color: "rgba(255,255,255,0.52)" }}>{st.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
               {[
-                { title: "Doradztwo techniczne", text: "Dobieramy systemy i rozwiązania do zakresu prac, budżetu i harmonogramu inwestycji." },
-                { title: "Kompleksowa obsługa", text: "Możesz zamówić same materiały albo połączyć zakupy z wykonawstwem w jednym procesie." },
-                { title: "Sprawdzona logistyka", text: "Dostarczamy materiały na budowę i porządkujemy proces zakupowy tak, by ograniczyć przestoje." },
-                { title: "Partner dla B2B i klientów prywatnych", text: "Obsługujemy zarówno firmy i deweloperów, jak i inwestorów budujących własny dom." },
+                { title: "Doradztwo techniczne", text: "Dobieramy systemy i rozwiązania do zakresu prac, budżetu i harmonogramu inwestycji.", icon: "⚙️" },
+                { title: "Kompleksowa obsługa", text: "Możesz zamówić same materiały albo połączyć zakupy z wykonawstwem w jednym procesie.", icon: "🏗️" },
+                { title: "Sprawdzona logistyka", text: "Dostarczamy materiały na budowę i porządkujemy proces zakupowy tak, by ograniczyć przestoje.", icon: "🚛" },
+                { title: "Partner dla B2B i klientów prywatnych", text: "Obsługujemy zarówno firmy i deweloperów, jak i inwestorów budujących własny dom.", icon: "🤝" },
               ].map((item, idx) => (
-                <div key={item.title} className="premium-card-soft rounded-[24px] p-5 md:p-6" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 18px 34px rgba(0,0,0,0.20)", transitionDelay: `${idx * 50}ms` }}>
-                  <div className="mb-3 text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">Standard współpracy</div>
-                  <div className="mb-3 text-[1.08rem] font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em", lineHeight: 1 }}>{item.title}</div>
+                <div key={item.title} className="feature-card-glass rounded-[24px] p-5 md:p-6" style={{ transitionDelay: `${idx * 50}ms` }}>
+                  <div className="text-xl mb-3 leading-none select-none">{item.icon}</div>
+                  <div className="mb-1 text-[9px] font-mono font-black uppercase tracking-[0.22em]" style={{ color: "rgba(248,100,100,0.65)" }}>MOD_{String(idx + 1).padStart(2, "0")}</div>
+                  <div className="mb-3 text-[1.02rem] font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em", lineHeight: 1.1 }}>{item.title}</div>
                   <p className="text-sm leading-7" style={{ color: "rgba(255,255,255,0.60)" }}>{item.text}</p>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Feature cards grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {features.map((f, i) => {
               const Icon = f.Icon;
               return (
                 <div
                   key={i}
-                  className={`group relative overflow-hidden rounded-[26px] p-6 md:p-7 transition-all duration-300 cursor-default ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                  className={`feature-card-glass group relative overflow-hidden rounded-[26px] p-6 md:p-7 cursor-default ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                   style={{
-                    background: "linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025))",
-                    border: "1px solid rgba(255,255,255,0.10)",
                     boxShadow: "0 18px 42px rgba(0,0,0,0.22)",
                     transitionDelay: `${Math.min(i * 80, 320)}ms`,
                     willChange: r4.visible ? "auto" : "transform, opacity",
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "rgba(248,24,40,0.30)";
-                    el.style.boxShadow = "0 20px 46px rgba(248,24,40,0.10)";
-                    el.style.transform = "translateY(-3px)";
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "rgba(255,255,255,0.10)";
-                    el.style.boxShadow = "0 18px 42px rgba(0,0,0,0.22)";
-                    el.style.transform = "translateY(0)";
+                    transition: "opacity 0.8s cubic-bezier(.22,1,.36,1), transform 0.8s cubic-bezier(.22,1,.36,1), border-color 0.4s ease, box-shadow 0.4s ease",
                   }}
                 >
                   <div className="absolute inset-x-0 top-0 h-[2px] opacity-80" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0), rgba(248,24,40,0.8), rgba(248,24,40,0))" }} />
-                  <span className="absolute top-5 right-5 text-[10px] font-black tracking-[0.22em] uppercase" style={{ color: "rgba(248,24,40,0.48)" }}>{f.code}</span>
+                  <span className="absolute top-5 right-5 text-[10px] font-mono font-black tracking-[0.22em] uppercase" style={{ color: "rgba(248,24,40,0.48)" }}>{f.code}</span>
 
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "rgba(248,24,40,0.10)", border: "1px solid rgba(248,24,40,0.22)" }}>
+                  <div className="feature-icon-wrap w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "rgba(248,24,40,0.10)", border: "1px solid rgba(248,24,40,0.22)", transition: "all 0.3s ease" }}>
                     <Icon className="w-5 h-5 text-[#f81828]" />
                   </div>
 

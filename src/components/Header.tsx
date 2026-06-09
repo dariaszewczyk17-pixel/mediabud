@@ -292,7 +292,7 @@ export default function Header() {
             .info-track { animation: info-scroll 22s linear infinite; white-space: nowrap; display: inline-flex; align-items: center; }
           `}</style>
           {/* Podwojony content — seamless infinite loop (0 → -50%) */}
-          <div className="promo-track items-center gap-10 text-[#f81828]">
+          <div className="promo-track items-center gap-10 text-black text-sm md:text-[15px] font-semibold">
             {[...Array(2)].map((_, copy) =>
               ["Dostawa na teren Lublina i woj. lubelskiego",
                "Bezpłatna wycena każdego projektu",
@@ -301,7 +301,6 @@ export default function Header() {
               ].map((msg, i) => (
                 <span key={`${copy}-${i}`} className="flex items-center gap-10 px-5">
                   {msg}
-                  <span className="text-[#f81828]/50">◆</span>
                 </span>
               ))
             )}

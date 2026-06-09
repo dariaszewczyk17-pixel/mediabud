@@ -402,7 +402,7 @@ export default function Header() {
           ROW 2 — Main bar: Logo + Search + CTAs
       ════════════════════════════════════════════════ */}
       <div
-        className={`relative border-b border-[#e5e5e5] bg-white ${scrolled && !isMobile ? "overflow-hidden" : "overflow-visible"}`}
+        className={`relative border-b border-[#f81828]/20 bg-[#0a0a0a] ${scrolled && !isMobile ? "overflow-hidden" : "overflow-visible"}`}
         style={{ maxHeight: (scrolled && !isMobile) ? "0" : "120px", transition: "max-height 0.3s ease" }}
       >
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
@@ -415,8 +415,8 @@ export default function Header() {
               width="300"
               height="68"
               fetchPriority="high"
-              className="h-[42px] sm:h-12 md:h-[68px] w-auto object-contain transition-opacity duration-200 hover:opacity-80"
-              style={{ maxWidth: "clamp(130px, 36vw, 300px)" }}
+              className="h-[34px] sm:h-[38px] md:h-[54px] w-auto object-contain transition-opacity duration-200 hover:opacity-80"
+              style={{ maxWidth: "clamp(104px, 29vw, 240px)" }}
             />
           </Link>
 
@@ -424,7 +424,7 @@ export default function Header() {
           <div className="relative flex-1" ref={searchRef}>
             <div className="flex">
               <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666]" />
+                <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#555]" />
                 <Input
                   ref={searchInputRef}
                   id="header-search"
@@ -433,7 +433,7 @@ export default function Header() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
                   placeholder="Szukaj produktów, marek, kategorii..."
-                  className="h-11 rounded-r-none border border-[#ddd] border-r-0 bg-[#f5f5f5] pl-10 text-sm font-bold uppercase tracking-[0.08em] text-[#111] placeholder:text-[#555] transition-all focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.2)] focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                  className="h-11 rounded-r-none border border-[#2d2d2d] border-r-0 bg-[#141414] pl-10 text-sm font-bold uppercase tracking-[0.08em] text-white placeholder:text-[#444] transition-all focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.15)] focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && searchQuery) {
                       submitSearch(searchQuery);
@@ -604,14 +604,14 @@ export default function Header() {
             {/* Phone — ghost red button */}
             <a
               href="tel:+48533553344"
-              className="hidden h-11 flex-shrink-0 items-center gap-2 rounded-lg border border-[#ddd] px-5 text-sm font-bold uppercase tracking-[0.1em] text-[#666] transition-all duration-200 hover:border-[#f81828]/60 hover:text-[#111] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:flex"
+              className="hidden h-11 flex-shrink-0 items-center gap-2 rounded-lg border border-[#2d2d2d] px-5 text-sm font-bold uppercase tracking-[0.1em] text-[#888] transition-all duration-200 hover:border-[#f81828]/60 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:flex"
             >
-              <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#f0f0f0]">
+              <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#1a1a1a]">
                 <Phone className="h-3 w-3 text-[#f81828]" />
               </div>
               <div className="text-left leading-none">
-                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#666]">Zadzwoń teraz</div>
-                <div className="text-xs font-black text-[#111]">533 553 344</div>
+                <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#555]">Zadzwoń teraz</div>
+                <div className="text-xs font-black text-white">533 553 344</div>
               </div>
             </a>
 

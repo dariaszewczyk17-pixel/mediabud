@@ -381,34 +381,62 @@ export default function Home() {
           />
         </div>
 
-        {/* Warstwa 1: Siatka techniczna CSS */}
+        {/* Warstwa 1: Siatka techniczna CSS — gęstsza */}
         <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: "linear-gradient(rgba(248,24,40,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.06) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          opacity: 0.4,
+          backgroundImage: "linear-gradient(rgba(248,24,40,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.07) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+          opacity: 0.55,
+          zIndex: 2,
         }} />
         {/* Warstwa 2: Vignette */}
         <div className="absolute inset-0 pointer-events-none" style={{
-          background: "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(248,24,40,0.15), transparent)",
+          background: "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(248,24,40,0.18), transparent)",
+          zIndex: 2,
         }} />
         {/* Warstwa 3: Gradient dolny */}
         <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{
           background: "linear-gradient(to top, #000, transparent)",
+          zIndex: 2,
         }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.68) 42%, rgba(0,0,0,0.35) 72%, rgba(0,0,0,0.2) 100%)" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 42%, rgba(0,0,0,0.35) 72%, rgba(0,0,0,0.15) 100%)", zIndex: 2 }} />
+        {/* Linia górna + lewa krawędź */}
         <div className="absolute top-0 left-0 right-0 h-[2px] z-20" style={{ background: "linear-gradient(90deg, #f81828, #ff6b35 50%, #f81828)" }} />
         <div className="absolute left-0 top-0 bottom-0 w-[2px] z-20 bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.45)" }} />
 
+        {/* ── HUD Corners ── */}
+        <style>{`
+          @keyframes hud-scan { 0%{top:0%;opacity:.6} 80%{opacity:.2} 100%{top:100%;opacity:0} }
+          @keyframes hud-pulse { 0%,100%{opacity:.6} 50%{opacity:1} }
+          @keyframes hud-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+          .hud-scan-v { position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(248,24,40,0.4),transparent); animation:hud-scan 4s linear infinite; pointer-events:none; z-index:5; }
+        `}</style>
+        {/* Pionowy scan */}
+        <div className="hud-scan-v" />
+        {/* Narożnik lewy-górny */}
+        <div className="absolute top-4 left-4 z-10 pointer-events-none" style={{ width: 28, height: 28, borderTop: "2px solid #f81828", borderLeft: "2px solid #f81828" }} />
+        {/* Narożnik prawy-górny */}
+        <div className="absolute top-4 right-4 z-10 pointer-events-none" style={{ width: 28, height: 28, borderTop: "2px solid rgba(248,24,40,0.5)", borderRight: "2px solid rgba(248,24,40,0.5)" }} />
+        {/* Narożnik lewy-dolny */}
+        <div className="absolute bottom-4 left-4 z-10 pointer-events-none" style={{ width: 28, height: 28, borderBottom: "2px solid rgba(248,24,40,0.5)", borderLeft: "2px solid rgba(248,24,40,0.5)" }} />
+        {/* Narożnik prawy-dolny */}
+        <div className="absolute bottom-4 right-4 z-10 pointer-events-none" style={{ width: 28, height: 28, borderBottom: "2px solid rgba(248,24,40,0.3)", borderRight: "2px solid rgba(248,24,40,0.3)" }} />
+        {/* Współrzędne prawy-dolny */}
+        <div className="absolute bottom-6 right-6 z-10 pointer-events-none hidden md:block" style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.5)", letterSpacing: "0.1em", lineHeight: 1.6 }}>
+          <div>51.2465°N / 22.5684°E</div>
+          <div>LUBLIN // PL-06</div>
+          <div style={{ animation: "hud-pulse 2s ease-in-out infinite" }}>● SYS_ACTIVE</div>
+        </div>
+
         <div className="relative z-10 container mx-auto px-4 py-14">
           <div className="max-w-3xl">
-            {/* Eyebrow badge */}
+            {/* Eyebrow badge — HUD style */}
             <div
               key={`label-${slide}`}
-              className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full text-xs font-bold uppercase tracking-widest animate-fade-up"
-              style={{ border: "1px solid rgba(248,24,40,0.4)", color: "#f81828" }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 animate-fade-up"
+              style={{ border: "1px solid rgba(248,24,40,0.5)", color: "#f81828", fontFamily: "monospace", fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", background: "rgba(248,24,40,0.06)" }}
             >
-              <span className="w-2 h-2 rounded-full bg-[#f81828] animate-pulse" />
-              {current.label} — Lublin
+              <span className="w-1.5 h-1.5 bg-[#f81828]" style={{ animation: "hud-blink 1s step-end infinite" }} />
+              [ {current.label} // LUBLIN ]
             </div>
 
             {/* Główny tytuł */}

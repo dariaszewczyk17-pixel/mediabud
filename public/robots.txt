@@ -1,12 +1,12 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /wycena/
-Disallow: /szukaj
+Allow: /szukaj
 
 User-agent: Googlebot
-Disallow: /szukaj
+Allow: /szukaj
 
 User-agent: Bingbot
-Disallow: /szukaj
+Allow: /szukaj
 
-Sitemap: https://mediabud.pages.dev/sitemap.xml
+Sitemap: https://mediabud.pl/sitemap.xml

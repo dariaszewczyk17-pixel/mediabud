@@ -413,3 +413,4 @@
 [2026-06-09 16:06] Ticker promocyjny (Header.tsx): tekst zmieniony z czerwieni na czarny + nieco większy (text-sm md:text-[15px] font-semibold); usunięto romby/kropki separatory (◆).
 [2026-06-09 16:18] START: Wielofazowy redesign + perf + SEO + routing. Faza 1: fix wydajności CategoryPage.
 [2026-06-09 16:22] PERF: query limit 500→200, PRODUCTS_PER_PAGE 12→24, grid overlay removed from CategoryPage, sort: inStock+featured added, contain:layout style
+[2026-06-09 16:25] SEO: robots.txt fixed (sitemap→mediabud.pl, /szukaj allowed), og-image.jpg created (1200x630 branded)

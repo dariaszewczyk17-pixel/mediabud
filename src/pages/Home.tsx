@@ -629,57 +629,63 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          BRANDS BAR
+          BRANDS BAR — EDITORIAL LUXURY
       ═══════════════════════════════════════════════════════ */}
       {/* ── Nasi producenci — Brand Logo Scroller ── */}
       <section
         ref={r7.ref as React.RefObject<HTMLElement>}
-        className="py-10 overflow-hidden relative"
-        style={{ background: "#0a0a0a", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
+        className={`py-14 overflow-hidden relative ${r7.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
+        style={{ background: "#0a0a0a", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a", animationDelay: "220ms" }}
       >
-        {/* górna linia akcentu */}
         <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,transparent,#f81828 30%,rgba(248,24,40,0.3) 70%,transparent)" }} />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.035]" style={{ backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.85) 1px, transparent 1px)", backgroundSize: "220px 220px" }} />
 
-        <div className="container mx-auto px-4 mb-6 flex items-center gap-4">
-          <span className="w-[3px] h-5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
-            Nasi producenci
-          </p>
-          <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg,rgba(248,24,40,0.25),transparent)" }} />
+        <div className="container mx-auto px-4 mb-8 md:mb-10 flex items-end gap-4">
+          <div>
+            <div className="premium-editorial-rule mb-3">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Nasi producenci</span>
+            </div>
+            <p className="text-sm md:text-[15px] max-w-xl" style={{ color: "rgba(255,255,255,0.58)", lineHeight: 1.8 }}>
+              Pracujemy na markach, które budują jakość, przewidywalność i trwałość całego procesu realizacji.
+            </p>
+          </div>
         </div>
 
         <div className="relative overflow-hidden">
-          {/* fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, #0a0a0a, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, #0a0a0a, transparent)" }} />
+          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #0a0a0a, transparent)" }} />
+          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #0a0a0a, transparent)" }} />
 
           <style>{`
             @keyframes brand-scroll {
               0% { transform: translateX(0); }
               100% { transform: translateX(-50%); }
             }
-            .brand-track { animation: brand-scroll 28s linear infinite; }
+            .brand-track { animation: brand-scroll 30s linear infinite; }
             .brand-track:hover { animation-play-state: paused; }
-            .brand-card { transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
-            .brand-card:hover { border-color: rgba(248,24,40,0.6) !important; box-shadow: 0 4px 20px rgba(248,24,40,0.18); transform: translateY(-2px); }
-            .brand-card img { opacity: 1; transition: opacity 0.3s; }
-            .brand-card:hover img { opacity: 0.85; }
+            .brand-card {
+              transition: border-color 0.38s cubic-bezier(.22,1,.36,1), box-shadow 0.38s cubic-bezier(.22,1,.36,1), transform 0.38s cubic-bezier(.22,1,.36,1), background 0.38s cubic-bezier(.22,1,.36,1);
+            }
+            .brand-card:hover {
+              border-color: rgba(248,24,40,0.45) !important;
+              box-shadow: 0 14px 34px rgba(248,24,40,0.10);
+              transform: translateY(-3px);
+              background: linear-gradient(180deg, #ffffff 0%, #f8f6f6 100%) !important;
+            }
+            .brand-card img { opacity: 1; transition: opacity 0.3s ease, transform 0.38s cubic-bezier(.22,1,.36,1); }
+            .brand-card:hover img { opacity: 0.88; transform: scale(1.02); }
           `}</style>
 
           <div className="brand-track flex items-center gap-8 whitespace-nowrap" style={{ width: "max-content" }}>
             {[...brandLogos, ...brandLogos].map((brand, i) => (
               <div key={`${brand.name}-${i}`} className="inline-flex items-center justify-center flex-shrink-0">
                 <div
-                  className="brand-card flex items-center justify-center"
+                  className="brand-card flex items-center justify-center rounded-[18px] px-7 py-4"
                   style={{
-                    background: "#ffffff",
+                    background: "linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%)",
                     border: "1px solid rgba(255,255,255,0.15)",
-                    borderRadius: "10px",
-                    padding: "14px 24px",
-                    minWidth: "130px",
-                    minHeight: "64px",
+                    minWidth: "146px",
+                    minHeight: "72px",
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
                   }}
                 >
                   <img
@@ -687,7 +693,7 @@ export default function Home() {
                     alt={brand.name}
                     loading="lazy"
                     className="h-9 w-auto object-contain"
-                    style={{ maxWidth: "120px" }}
+                    style={{ maxWidth: "124px" }}
                   />
                 </div>
               </div>
@@ -697,160 +703,131 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          CATEGORIES GRID — Industrial Pulse
+          CATEGORIES GRID — EDITORIAL LUXURY
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r1.ref as React.RefObject<HTMLElement>}
-        className="py-16"
-        style={{ background: "#050505", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
+        className={`py-20 md:py-24 relative overflow-hidden ${r1.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
+        style={{ background: "#050505", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a", animationDelay: "280ms" }}
       >
         <style>{`
-          @keyframes cat-scan { 0%{top:0%;opacity:.75} 75%{opacity:.35} 100%{top:100%;opacity:0} }
-          .cat-card:hover .cat-scan-line { animation: cat-scan 0.9s ease-in forwards; }
-          .cat-card img { filter: brightness(0.38) saturate(0.5); transition: filter 0.5s; }
-          .cat-card:hover img { filter: brightness(0.55) saturate(0.85); }
+          @keyframes cat-scan { 0%{top:0%;opacity:.78} 75%{opacity:.34} 100%{top:100%;opacity:0} }
+          .cat-card:hover .cat-scan-line { animation: cat-scan 0.95s ease-in forwards; }
+          .cat-card img { filter: brightness(0.34) saturate(0.46); transition: filter 0.55s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1); }
+          .cat-card:hover img { filter: brightness(0.56) saturate(0.84); transform: scale(1.05); }
+          .cat-card-title,
+          .cat-card-kicker,
+          .cat-card-cta { transition: transform 0.38s cubic-bezier(.22,1,.36,1), opacity 0.38s cubic-bezier(.22,1,.36,1), color 0.38s cubic-bezier(.22,1,.36,1); }
+          .cat-card:hover .cat-card-title { transform: translateY(-2px); }
+          .cat-card:hover .cat-card-kicker { opacity: 0.75; }
+          .cat-card:hover .cat-card-cta { opacity: 1; transform: translateY(0); }
         `}</style>
+        <div className="absolute inset-0 pointer-events-none opacity-[0.035]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "160px 160px" }} />
 
-        <div className="container mx-auto px-4">
-
-          {/* ── Header ── */}
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <div className="flex items-center gap-2.5 mb-3">
-                <span
-                  className="text-[10px] font-black tracking-[0.3em] uppercase text-[#f81828]"
-                  style={{ fontFamily: "'Share Tech Mono',monospace" }}
-                >01 /</span>
-                <span className="h-px w-8 bg-[#f81828]" />
-                <span className="text-[10px] font-black tracking-[0.25em] uppercase text-[#f81828]">Asortyment</span>
+        <div className="container mx-auto px-4 relative z-[2]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-14 gap-6">
+            <div className="max-w-2xl">
+              <div className="premium-editorial-rule mb-4">
+                <span className="text-[10px] font-black tracking-[0.25em] uppercase text-[#f3b0b5]">Asortyment</span>
               </div>
               <h2
-                className="font-black text-white uppercase break-words max-w-full"
+                className="font-black text-white break-words max-w-full"
                 style={{
                   fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif",
-                  fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
-                  letterSpacing: "-0.01em",
-                  lineHeight: 1.05,
+                  fontSize: "clamp(2.1rem, 4.7vw, 4.8rem)",
+                  letterSpacing: "-0.035em",
+                  lineHeight: 0.92,
                   overflowWrap: "anywhere",
                 }}
               >
-                Nasze<br />
-                <span style={{ color: "#f81828" }}>kategorie</span>
+                Nasze
+                <span className="block" style={{ background: "linear-gradient(135deg,#ffffff 0%, #ffd9dd 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  kategorie
+                </span>
               </h2>
-              <p className="text-sm mt-2" style={{ color: "#999999" }}>
-                Kompleksowy asortyment materiałów dla każdej budowy
+              <p className="text-sm md:text-[15px] mt-4 max-w-xl" style={{ color: "rgba(255,255,255,0.62)", lineHeight: 1.85 }}>
+                Kompleksowy asortyment materiałów dla każdej budowy — od systemów elewacyjnych po chemię, izolacje i rozwiązania wykończeniowe.
               </p>
             </div>
             <Link
               to="/produkty"
-              className="hidden md:flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-colors hover:text-white"
+              className="hidden md:flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 hover:text-white hover:-translate-y-[2px]"
               style={{ color: "#f81828", letterSpacing: "0.15em" }}
             >
               Pełny katalog <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* ── Bento Grid ── */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {categories.map((cat, i) => {
               const isWide = i < 2;
               return (
                 <Link
                   key={cat.id}
                   to={`/kategoria/${cat.slug}`}
-                  className={`cat-card group relative overflow-hidden rounded-xl ${isWide ? "col-span-2 aspect-[21/6] lg:aspect-[21/5]" : "col-span-1 aspect-[4/3] lg:aspect-[4/3]"}`}
+                  className={`cat-card group relative overflow-hidden rounded-[20px] md:rounded-[24px] ${isWide ? "col-span-2 aspect-[21/7] lg:aspect-[21/5.4]" : "col-span-1 aspect-[4/3] lg:aspect-[4/3.2]"} ${r1.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                   style={{
                     background: "#0f0f0f",
-                    border: "1px solid #1a1a1a",
-                    transition: "border-color 0.28s, box-shadow 0.28s",
-                    transitionDelay: `${i * 35}ms`,
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    transition: "border-color 0.38s cubic-bezier(.22,1,.36,1), box-shadow 0.38s cubic-bezier(.22,1,.36,1), transform 0.38s cubic-bezier(.22,1,.36,1), opacity 0.8s cubic-bezier(.22,1,.36,1)",
+                    transitionDelay: `${i * 55}ms`,
+                    boxShadow: "0 16px 34px rgba(0,0,0,0.22)",
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.55)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(248,24,40,0.13), inset 0 0 0 1px rgba(248,24,40,0.12)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.42)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 18px 40px rgba(248,24,40,0.10), inset 0 0 0 1px rgba(248,24,40,0.08)";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
                   }}
                   onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "#1a1a1a";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 34px rgba(0,0,0,0.22)";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
                   }}
                 >
-                  {/* Scan line */}
-                  <div
-                    className="cat-scan-line absolute left-0 right-0 h-px z-20 pointer-events-none"
-                    style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.85), transparent)", top: 0 }}
-                  />
+                  <div className="cat-scan-line absolute left-0 right-0 h-px z-20 pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.85), transparent)", top: 0 }} />
 
-                  {/* Image */}
                   {catImages[cat.slug] ? (
                     <img
                       src={catImages[cat.slug]}
                       alt={cat.name}
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   ) : (
                     <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,#111,#0a0a0a)" }} />
                   )}
 
-                  {/* Gradient overlay */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.08) 100%)" }}
-                  />
+                  <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.58) 46%, rgba(0,0,0,0.12) 100%)" }} />
 
-                  {/* Top accent */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 pointer-events-none"
-                    style={{ background: "#f81828", boxShadow: "0 0 8px rgba(248,24,40,0.7)" }}
-                  />
+                  <div className="absolute top-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.9), rgba(248,24,40,0.18), transparent)", boxShadow: "0 0 10px rgba(248,24,40,0.55)" }} />
 
-                  {/* Corner L-brackets */}
-                  <div className="absolute top-2.5 left-2.5 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M0 10 L0 0 L10 0" stroke="#f81828" strokeWidth="1.5"/>
-                    </svg>
-                  </div>
-                  <div className="absolute bottom-2.5 right-2.5 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M10 0 L10 10 L0 10" stroke="#f81828" strokeWidth="1.5"/>
-                    </svg>
-                  </div>
-
-                  {/* Content */}
-                  <div className="absolute inset-0 flex flex-col justify-between p-4">
-                    {/* Top row: index + subcats badge */}
+                  <div className="absolute inset-0 flex flex-col justify-between p-4 md:p-5">
                     <div className="flex items-start justify-between">
-                      <span
-                        className="text-[9px] font-black text-white/25 group-hover:text-white/55 transition-colors"
-                        style={{ fontFamily: "'Share Tech Mono',monospace" }}
-                      >
+                      <span className="cat-card-kicker text-[9px] font-black text-white/30 group-hover:text-white/55" style={{ fontFamily: "'Share Tech Mono',monospace", letterSpacing: "0.2em" }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {cat.children && cat.children.length > 0 && (
-                        <span
-                          className="text-[9px] font-bold px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                          style={{ background: "#1e0304", border: "1px solid rgba(248,24,40,0.35)", color: "#ff9aa3" }}
-                        >
+                        <span className="cat-card-kicker text-[9px] font-bold px-2 py-1 rounded-full opacity-80 group-hover:opacity-100" style={{ background: "rgba(30,3,4,0.88)", border: "1px solid rgba(248,24,40,0.28)", color: "#ffb5bc" }}>
                           {cat.children.length} kat.
                         </span>
                       )}
                     </div>
 
-                    {/* Bottom: name + CTA */}
                     <div>
                       <h3
-                        className="font-black text-white uppercase leading-tight mb-2"
+                        className="cat-card-title font-black text-white leading-[0.98] mb-2"
                         style={{
                           fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif",
-                          fontSize: isWide ? "clamp(1rem, 2.2vw, 1.4rem)" : "clamp(0.8rem, 1.5vw, 1rem)",
-                          letterSpacing: "0.02em",
+                          fontSize: isWide ? "clamp(1.15rem, 2.3vw, 1.65rem)" : "clamp(0.88rem, 1.6vw, 1.05rem)",
+                          letterSpacing: "-0.01em",
+                          textTransform: "uppercase",
                         }}
                       >
                         {cat.name}
                       </h3>
-                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#f81828]">Przeglądaj</span>
-                        <ChevronRight className="w-3 h-3 text-[#f81828]" />
+                      <div className="cat-card-cta flex items-center gap-1 opacity-0 translate-y-1">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f3b0b5]">Przeglądaj</span>
+                        <ChevronRight className="w-3 h-3 text-[#f3b0b5]" />
                       </div>
                     </div>
                   </div>
@@ -859,12 +836,11 @@ export default function Home() {
             })}
           </div>
 
-          {/* Mobile CTA */}
-          <div className="mt-6 flex md:hidden justify-center">
+          <div className="mt-8 flex md:hidden justify-center">
             <Link
               to="/produkty"
-              className="inline-flex items-center gap-2 px-6 py-3 text-xs font-black uppercase tracking-widest text-white rounded-lg"
-              style={{ background: "#f81828", letterSpacing: "0.12em" }}
+              className="inline-flex items-center gap-2 px-6 py-3 text-xs font-black uppercase tracking-widest text-white rounded-full"
+              style={{ background: "linear-gradient(135deg, #f81828 0%, #d10f1e 100%)", letterSpacing: "0.12em", boxShadow: "0 14px 30px rgba(248,24,40,0.24)" }}
             >
               Pełny katalog <ArrowRight className="w-3.5 h-3.5" />
             </Link>

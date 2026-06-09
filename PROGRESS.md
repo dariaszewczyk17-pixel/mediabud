@@ -392,3 +392,6 @@
 [2026-06-09 13:44] Rozpoczęto etap Editorial Luxury v2: typografia, choreografia sekcji i większy oddech kompozycji w Home.tsx.
 [2026-06-09 13:48] Wdrożono Editorial Luxury v2 w hero, stat barze i sekcji Dlaczego Media Bud: spokojniejsza choreografia sekcji, editorial reveals i większy rytm premium.
 [2026-06-09 13:49] Build po wdrożeniu Editorial Luxury v2 przeszedł pomyślnie; rozpoczynam commit i push zmian do main.
+[2026-06-09 13:50] Rozpoczęto etap Editorial Luxury v3: analiza Brands Bar, Categories Grid i pacingu scrolla na homepage.
+[2026-06-09 13:51] Wdrożono Editorial Luxury v3 w Brands Bar i Categories Grid oraz rozszerzono pacing wejścia sekcji na scrollu.
+[2026-06-09 13:51] Build po wdrożeniu Editorial Luxury v3 przeszedł pomyślnie; finalizuję commit i push zmian homepage.

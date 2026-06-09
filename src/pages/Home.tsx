@@ -483,7 +483,6 @@ export default function Home() {
 
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(94deg, rgba(5,5,5,0.93) 0%, rgba(5,5,5,0.84) 26%, rgba(5,5,5,0.52) 56%, rgba(5,5,5,0.80) 100%)", zIndex: 2 }} />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 18% 42%, rgba(248,24,40,0.13), transparent 42%), radial-gradient(circle at 82% 18%, rgba(255,255,255,0.07), transparent 28%), radial-gradient(circle at 70% 55%, rgba(255,255,255,0.05), transparent 22%)", zIndex: 2 }} />
-        <div className="absolute inset-0 pointer-events-none opacity-[0.035]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "140px 140px", zIndex: 2 }} />
         <div className="absolute top-0 left-0 right-0 h-[2px] z-20 premium-line-reveal" style={{ background: "linear-gradient(90deg, #f81828 0%, rgba(248,24,40,0.22) 28%, rgba(255,255,255,0.08) 62%, transparent 100%)" }} />
         <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to top, #050505, transparent)", zIndex: 2 }} />
 
@@ -591,7 +590,6 @@ export default function Home() {
         className={`relative overflow-hidden ${r3.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
         style={{ background: "linear-gradient(180deg, #090909 0%, #060606 100%)", borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)", animationDelay: "120ms" }}
       >
-        <div className="absolute inset-0 pointer-events-none opacity-[0.045]" style={{ backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "240px 240px" }} />
         <div className="absolute top-0 left-0 right-0 h-[1px] premium-line-reveal" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.65), transparent)" }} />
         <div className="container mx-auto px-4 py-6 md:py-7">
           <div className="mb-5 flex items-center gap-4">
@@ -638,7 +636,6 @@ export default function Home() {
         style={{ background: "#0a0a0a", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a", animationDelay: "220ms" }}
       >
         <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,transparent,#f81828 30%,rgba(248,24,40,0.3) 70%,transparent)" }} />
-        <div className="absolute inset-0 pointer-events-none opacity-[0.035]" style={{ backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.85) 1px, transparent 1px)", backgroundSize: "220px 220px" }} />
 
         <div className="container mx-auto px-4 mb-8 md:mb-10 flex items-end gap-4">
           <div>
@@ -722,7 +719,6 @@ export default function Home() {
           .cat-card:hover .cat-card-kicker { opacity: 0.75; }
           .cat-card:hover .cat-card-cta { opacity: 1; transform: translateY(0); }
         `}</style>
-        <div className="absolute inset-0 pointer-events-none opacity-[0.035]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "160px 160px" }} />
 
         <div className="container mx-auto px-4 relative z-[2]">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-14 gap-6">
@@ -894,7 +890,6 @@ export default function Home() {
         className={`py-20 md:py-24 relative overflow-hidden ${r2.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
         style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)", animationDelay: "340ms" }}
       >
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "180px 180px" }} />
         <div className="container mx-auto px-4 relative z-[2]">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-12 gap-6">
             <div className="max-w-2xl">
@@ -984,7 +979,6 @@ export default function Home() {
           src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8ji72v80j2drgd1t2kg.mp4"
         />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.965) 0%, rgba(5,5,5,0.90) 45%, rgba(5,5,5,0.98) 100%)" }} />
-        <div className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "160px 160px" }} />
         <div className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.5), transparent)" }} />
 
         <div className="container mx-auto px-4 relative" style={{ zIndex: 3 }}>
@@ -1223,10 +1217,6 @@ export default function Home() {
 
       {/* ── Dom od podstaw ── */}
       <section id="dom-od-podstaw" className="py-14 md:py-20 relative overflow-hidden" style={{ background: "#000" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.04) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }} />
         <div className="relative z-10 container mx-auto px-4">
 
           {/* ── Nagłówek ── */}

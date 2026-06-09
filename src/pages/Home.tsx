@@ -352,8 +352,76 @@ export default function Home() {
           HERO — INDUSTRIAL PREMIUM / EDITORIAL
       ═══════════════════════════════════════════════════════ */}
       <section className="relative min-h-[72vh] md:min-h-[84vh] overflow-hidden" style={{ background: "#050505" }}>
+        <style>{`
+          @keyframes premiumFloat {
+            0%,100% { transform: translate3d(0,0,0) scale(1); }
+            50% { transform: translate3d(0,-10px,0) scale(1.01); }
+          }
+          @keyframes premiumShimmer {
+            0% { transform: translateX(-130%); opacity: 0; }
+            18% { opacity: .28; }
+            55% { opacity: .18; }
+            100% { transform: translateX(130%); opacity: 0; }
+          }
+          @keyframes premiumFadeUp {
+            from { opacity: 0; transform: translate3d(0, 18px, 0); filter: blur(10px); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+          }
+          @keyframes premiumLineReveal {
+            from { transform: scaleX(0.15); opacity: 0; }
+            to { transform: scaleX(1); opacity: 1; }
+          }
+          .premium-fade-up {
+            opacity: 0;
+            animation: premiumFadeUp 0.9s cubic-bezier(.22,1,.36,1) forwards;
+          }
+          .premium-hero-video {
+            transform-origin: center center;
+            animation: premiumFloat 18s ease-in-out infinite;
+            will-change: transform;
+          }
+          .premium-shimmer::after {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(110deg, transparent 0%, transparent 38%, rgba(255,255,255,0.16) 49%, transparent 58%, transparent 100%);
+            transform: translateX(-130%);
+            pointer-events: none;
+          }
+          .premium-shimmer:hover::after {
+            animation: premiumShimmer 1.45s cubic-bezier(.22,1,.36,1) 1;
+          }
+          .premium-line-reveal {
+            transform-origin: left center;
+            animation: premiumLineReveal 0.95s cubic-bezier(.22,1,.36,1) forwards;
+          }
+          .premium-card-soft {
+            transition: transform 420ms cubic-bezier(.22,1,.36,1), box-shadow 420ms cubic-bezier(.22,1,.36,1), border-color 420ms cubic-bezier(.22,1,.36,1), background 420ms cubic-bezier(.22,1,.36,1);
+          }
+          .premium-card-soft:hover {
+            transform: translate3d(0,-4px,0);
+          }
+          .premium-stat-value {
+            transition: transform 360ms cubic-bezier(.22,1,.36,1), text-shadow 360ms cubic-bezier(.22,1,.36,1), color 360ms cubic-bezier(.22,1,.36,1);
+          }
+          .premium-stat-card:hover .premium-stat-value {
+            transform: translate3d(0,-2px,0);
+            text-shadow: 0 0 24px rgba(248,24,40,0.18);
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .premium-fade-up,
+            .premium-hero-video,
+            .premium-shimmer:hover::after,
+            .premium-line-reveal,
+            .premium-card-soft,
+            .premium-stat-value {
+              animation: none !important;
+              transition: none !important;
+            }
+          }
+        `}</style>
         <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1 }}>
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover" style={{ filter: "brightness(0.34) saturate(0.68) contrast(1.08)" }}>
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover premium-hero-video" style={{ filter: "brightness(0.34) saturate(0.68) contrast(1.08)" }}>
             <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k06h780j2drgd1u0r0.mp4" type="video/mp4" />
           </video>
         </div>
@@ -371,13 +439,13 @@ export default function Home() {
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(92deg, rgba(5,5,5,0.97) 0%, rgba(5,5,5,0.92) 30%, rgba(5,5,5,0.62) 58%, rgba(5,5,5,0.82) 100%)", zIndex: 2 }} />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 18% 42%, rgba(248,24,40,0.10), transparent 38%), radial-gradient(circle at 82% 18%, rgba(255,255,255,0.05), transparent 22%)", zIndex: 2 }} />
         <div className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "120px 120px", zIndex: 2 }} />
-        <div className="absolute top-0 left-0 right-0 h-[2px] z-20" style={{ background: "linear-gradient(90deg, #f81828 0%, rgba(248,24,40,0.22) 28%, rgba(255,255,255,0.08) 62%, transparent 100%)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px] z-20 premium-line-reveal" style={{ background: "linear-gradient(90deg, #f81828 0%, rgba(248,24,40,0.22) 28%, rgba(255,255,255,0.08) 62%, transparent 100%)" }} />
         <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to top, #050505, transparent)", zIndex: 2 }} />
 
         <div className="relative z-10 container mx-auto px-4 py-14 md:py-24">
           <div className="grid lg:grid-cols-[minmax(0,1.2fr)_340px] gap-10 items-end">
             <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-3 mb-7 px-4 py-2 rounded-full" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(14px)" }}>
+              <div className="premium-fade-up inline-flex items-center gap-3 mb-7 px-4 py-2 rounded-full" style={{ animationDelay: "40ms", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(14px)" }}>
                 <span className="w-2 h-2 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 14px rgba(248,24,40,0.65)" }} />
                 <span style={{ fontFamily: "Inter,sans-serif", fontSize: "11px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.76)", fontWeight: 800 }}>
                   Lublin · skład budowlany · wykonawstwo premium
@@ -385,36 +453,36 @@ export default function Home() {
               </div>
 
               <div className="mb-8 max-w-3xl">
-                <div className="mb-5 text-[11px] font-black uppercase tracking-[0.32em] text-[#f3b0b5]">Industrial Premium</div>
+                <div className="premium-fade-up mb-5 text-[11px] font-black uppercase tracking-[0.32em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>Industrial Premium</div>
                 <h1 className="text-white mb-6" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.04em", fontSize: "clamp(2.8rem, 6.4vw, 6.3rem)" }}>
-                  <span className="block">Budujesz raz.</span>
-                  <span className="block">Wybierasz</span>
-                  <span className="block" style={{ background: "linear-gradient(135deg,#ffffff 0%, #ffd7db 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  <span className="premium-fade-up block" style={{ animationDelay: "190ms" }}>Budujesz raz.</span>
+                  <span className="premium-fade-up block" style={{ animationDelay: "270ms" }}>Wybierasz</span>
+                  <span className="premium-fade-up block" style={{ animationDelay: "350ms", background: "linear-gradient(135deg,#ffffff 0%, #ffd7db 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                     partnera do całości.
                   </span>
                 </h1>
-                <p className="max-w-2xl" style={{ color: "rgba(255,255,255,0.72)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1rem, 1.35vw, 1.12rem)", lineHeight: 1.8 }}>
+                <p className="premium-fade-up max-w-2xl" style={{ animationDelay: "430ms", color: "rgba(255,255,255,0.72)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1rem, 1.35vw, 1.12rem)", lineHeight: 1.8 }}>
                   Media Bud łączy profesjonalny skład budowlany z wykonawstwem. Materiały, doradztwo techniczne, wycena i ekipa — w jednym miejscu, z jedną odpowiedzialnością za efekt.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4 mb-10">
+              <div className="premium-fade-up flex flex-wrap gap-4 mb-10" style={{ animationDelay: "520ms" }}>
                 <Link
                   to="/produkty"
-                  className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] text-white rounded-full transition-all duration-300"
+                  className="premium-shimmer relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] text-white rounded-full transition-all duration-500 hover:-translate-y-[2px]"
                   style={{ background: "linear-gradient(135deg, #f81828 0%, #d10f1e 100%)", boxShadow: "0 16px 40px rgba(248,24,40,0.30)", fontSize: "0.82rem" }}
                 >
-                  Zobacz ofertę <ArrowRight className="w-4 h-4" />
+                  <span className="relative z-10">Zobacz ofertę</span> <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" />
                 </Link>
                 <button
                   type="button"
-                  className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] rounded-full transition-all duration-300 text-white"
+                  className="premium-shimmer relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] rounded-full transition-all duration-500 text-white hover:-translate-y-[2px]"
                   style={{ border: "1px solid rgba(255,255,255,0.18)", background: "rgba(255,255,255,0.05)", fontSize: "0.82rem", backdropFilter: "blur(10px)" }}
                   onClick={() => setQuoteOpen(true)}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(248,24,40,0.55)"; e.currentTarget.style.background = "rgba(248,24,40,0.10)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(248,24,40,0.10)"; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.boxShadow = "none"; }}
                 >
-                  Bezpłatna wycena
+                  <span className="relative z-10">Bezpłatna wycena</span>
                 </button>
               </div>
 
@@ -423,8 +491,8 @@ export default function Home() {
                   { over: "Obsługa inwestycji", title: "Materiały i wykonanie", text: "Jedno miejsce, jeden partner, mniej ryzyka organizacyjnego." },
                   { over: "Doradztwo techniczne", title: "Dobór systemów", text: "Pomagamy dobrać rozwiązania do budowy, budżetu i terminów." },
                   { over: "Dla B2B i klientów prywatnych", title: "Skala i elastyczność", text: "Obsługujemy deweloperów, firmy wykonawcze i budowy indywidualne." },
-                ].map((item) => (
-                  <div key={item.title} className="rounded-[22px] p-5" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 18px 34px rgba(0,0,0,0.24)" }}>
+                ].map((item, idx) => (
+                  <div key={item.title} className="premium-fade-up premium-card-soft rounded-[22px] p-5" style={{ animationDelay: `${620 + idx * 90}ms`, background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 18px 34px rgba(0,0,0,0.24)" }}>
                     <div className="mb-2 text-[10px] font-black uppercase tracking-[0.22em] text-[#f3b0b5]">{item.over}</div>
                     <div className="mb-2 text-lg font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em" }}>{item.title}</div>
                     <p className="text-sm leading-6" style={{ color: "rgba(255,255,255,0.62)" }}>{item.text}</p>
@@ -434,7 +502,7 @@ export default function Home() {
             </div>
 
             <div className="hidden lg:block">
-              <div className="rounded-[28px] p-6" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(16px)", boxShadow: "0 24px 70px rgba(0,0,0,0.32)" }}>
+              <div className="premium-fade-up premium-card-soft rounded-[28px] p-6" style={{ animationDelay: "740ms", background: "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(16px)", boxShadow: "0 24px 70px rgba(0,0,0,0.32)" }}>
                 <div className="mb-6 flex items-center justify-between">
                   <div>
                     <div className="text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">Media Bud</div>
@@ -450,8 +518,8 @@ export default function Home() {
                     ["Ponad 15 000 produktów", "Stała dostępność materiałów z wielu kategorii."],
                     ["Doświadczenie w realizacjach", "Obsługa domów, inwestycji i klientów biznesowych."],
                     ["Wycena i kontakt do 24h", "Szybki start rozmowy o inwestycji i zakupach."],
-                  ].map(([title, desc]) => (
-                    <div key={title} className="rounded-2xl p-4" style={{ background: "rgba(0,0,0,0.24)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  ].map(([title, desc], idx) => (
+                    <div key={title} className="premium-card-soft rounded-2xl p-4" style={{ transitionDelay: `${idx * 40}ms`, background: "rgba(0,0,0,0.24)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div className="mb-1 text-sm font-black text-white">{title}</div>
                       <div className="text-sm leading-6" style={{ color: "rgba(255,255,255,0.62)" }}>{desc}</div>
                     </div>
@@ -470,7 +538,7 @@ export default function Home() {
         style={{ background: "linear-gradient(180deg, #090909 0%, #060606 100%)", borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}
       >
         <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "220px 220px" }} />
-        <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.65), transparent)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[1px] premium-line-reveal" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.65), transparent)" }} />
         <div className="container mx-auto px-4 py-4 md:py-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
             {[
@@ -481,19 +549,20 @@ export default function Home() {
             ].map((s, i) => (
               <div
                 key={i}
-                className="group relative overflow-hidden rounded-[22px] px-5 py-5 md:px-6 md:py-6 transition-all duration-300"
+                className="premium-stat-card premium-shimmer premium-card-soft group relative overflow-hidden rounded-[22px] px-5 py-5 md:px-6 md:py-6"
                 style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 14px 34px rgba(0,0,0,0.18)" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.28)"; el.style.transform = "translateY(-2px)"; el.style.boxShadow = "0 16px 38px rgba(248,24,40,0.10)"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.09)"; el.style.transform = "translateY(0)"; el.style.boxShadow = "0 14px 34px rgba(0,0,0,0.18)"; }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.28)"; el.style.boxShadow = "0 16px 38px rgba(248,24,40,0.10)"; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.09)"; el.style.boxShadow = "0 14px 34px rgba(0,0,0,0.18)"; }}
               >
                 <div className="absolute inset-x-0 top-0 h-[2px] opacity-80" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.0), rgba(248,24,40,0.85), rgba(248,24,40,0.0))" }} />
                 <div className="mb-3 text-[10px] font-black uppercase tracking-[0.22em] text-[#f3b0b5]">Media Bud Standard</div>
-                <div style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(2rem,3vw,3rem)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", marginBottom: 10 }}>
+                <div className="premium-stat-value" style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(2rem,3vw,3rem)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", marginBottom: 10 }}>
                   {s.num}
                 </div>
                 <div style={{ color: "#ffffff", fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.16em", fontWeight: 800, marginBottom: 10 }}>
                   {s.label}
                 </div>
+                <div className="mb-3 h-px w-12 transition-all duration-500 group-hover:w-20" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.75), transparent)" }} />
                 <p className="text-sm leading-6" style={{ color: "rgba(255,255,255,0.56)" }}>{s.note}</p>
               </div>
             ))}

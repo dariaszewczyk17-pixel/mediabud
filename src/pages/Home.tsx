@@ -467,7 +467,7 @@ export default function Home() {
         `}</style>
         <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1 }}>
           <video autoPlay muted loop playsInline className="w-full h-full object-cover premium-hero-video" style={{ filter: "brightness(0.44) saturate(0.78) contrast(1.1)" }}>
-            <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k06h780j2drgd1u0r0.mp4" type="video/mp4" />
+            <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k2ve780j2drgd1u7pg.mp4" type="video/mp4" />
           </video>
         </div>
         <div

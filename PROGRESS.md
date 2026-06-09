@@ -404,3 +404,4 @@
 [2026-06-09 15:07] Rozpoczęto szybki lift widoczności hero video: plan rozjaśnienia ekspozycji i osłabienia overlayów bez utraty czytelności treści.
 [2026-06-09 15:08] Zwiększono widoczność hero video: jaśniejsze grading, lżejszy overlay i mocniejsze akcenty świetlne przy zachowaniu czytelności contentu.
 [2026-06-09 15:09] Build po poprawie widoczności hero video przeszedł pomyślnie; finalizuję commit i push zmian.
+[2026-06-09 15:26] Nowe hero video (Editorial Luxury t2v seedance-2.0-fast, 15s): text2video-d8k2ve780j2drgd1u7pg. Zastąpiło stary URL w Home.tsx. Build OK.

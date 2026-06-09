@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState, useMemo, useCallback, useEffect } from "react";
 
-const PRODUCTS_PER_PAGE = 12;
+const PRODUCTS_PER_PAGE = 24;
 
 /* Callback-ref reveal — działa nawet gdy element pojawia się po załadowaniu danych */
 function useReveal() {
@@ -366,6 +366,8 @@ export default function CategoryPage() {
       });
     }
     switch (sortBy) {
+      case "inStock":    result.sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0)); break;
+      case "featured":   result.sort((a, b) => (b.featured || (b as any).isFeatured ? 1 : 0) - (a.featured || (a as any).isFeatured ? 1 : 0)); break;
       case "name-asc":  result.sort((a, b) => a.name.localeCompare(b.name, "pl")); break;
       case "name-desc": result.sort((a, b) => b.name.localeCompare(a.name, "pl")); break;
       case "brand":     result.sort((a, b) => a.brand.localeCompare(b.brand, "pl")); break;
@@ -529,6 +531,8 @@ export default function CategoryPage() {
         <div className="space-y-0.5">
           {[
             ["default",   "Domyślne"],
+            ["inStock",   "Dostępne od ręki"],
+            ["featured",  "Polecane"],
             ["name-asc",  "Nazwa A–Z"],
             ["name-desc", "Nazwa Z–A"],
             ["brand",     "Marka A–Z"],
@@ -649,14 +653,7 @@ export default function CategoryPage() {
             />
           </div>
         )}
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "linear-gradient(rgba(248,24,40,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.07) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
+
         {/* Gradient left-to-right */}
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.5) 100%)" }} />
         {/* Bottom fade */}
@@ -814,7 +811,7 @@ export default function CategoryPage() {
           </aside>
 
           {/* ── Main content ── */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0" style={{ contain: "layout style" }}>
 
             {/* Subcategories */}
             {cat.children && cat.children.length > 0 && (

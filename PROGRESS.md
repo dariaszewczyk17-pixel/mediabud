@@ -398,3 +398,9 @@
 [2026-06-09 13:55] Rozpoczęto kolejny etap luxury: analiza Featured Products, globalnego rytmu sekcji i ultra-premium motion system na homepage.
 [2026-06-09 13:55] Wdrożono redesign Featured Products do Editorial Luxury oraz dopracowano globalny rytm i spacing kolejnych sekcji homepage.
 [2026-06-09 13:56] Build po redesignie Featured Products i dopracowaniu globalnego rytmu sekcji przeszedł pomyślnie; finalizuję commit i push zmian.
+[2026-06-09 13:58] Rozpoczęto benchmark porównawczy poziomu Editorial Luxury Media Bud względem luksusowych stron budowlanych i pokrewnych.
+[2026-06-09 14:14] Zebrano benchmarki luxury z branży budowlanej i pokrewnej; rozpoczynam końcowe porównanie poziomu Editorial Luxury Media Bud.
+[2026-06-09 15:02] Rozpoczęto analizę poprawy hero video na stronie głównej z użyciem AI Wideo E-commerce oraz aktualnego kodu Home.tsx.
+[2026-06-09 15:07] Rozpoczęto szybki lift widoczności hero video: plan rozjaśnienia ekspozycji i osłabienia overlayów bez utraty czytelności treści.
+[2026-06-09 15:08] Zwiększono widoczność hero video: jaśniejsze grading, lżejszy overlay i mocniejsze akcenty świetlne przy zachowaniu czytelności contentu.
+[2026-06-09 15:09] Build po poprawie widoczności hero video przeszedł pomyślnie; finalizuję commit i push zmian.

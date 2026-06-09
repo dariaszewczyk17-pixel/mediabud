@@ -466,7 +466,7 @@ export default function Home() {
           }
         `}</style>
         <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1 }}>
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover premium-hero-video" style={{ filter: "brightness(0.32) saturate(0.6) contrast(1.08)" }}>
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover premium-hero-video" style={{ filter: "brightness(0.44) saturate(0.78) contrast(1.1)" }}>
             <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k06h780j2drgd1u0r0.mp4" type="video/mp4" />
           </video>
         </div>
@@ -477,13 +477,13 @@ export default function Home() {
             backgroundImage: "url('/images/hero-materialy_2.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "brightness(0.34) saturate(0.7)",
+            filter: "brightness(0.4) saturate(0.8)",
           }}
         />
 
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(94deg, rgba(5,5,5,0.985) 0%, rgba(5,5,5,0.94) 28%, rgba(5,5,5,0.72) 56%, rgba(5,5,5,0.90) 100%)", zIndex: 2 }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 18% 42%, rgba(248,24,40,0.11), transparent 40%), radial-gradient(circle at 82% 18%, rgba(255,255,255,0.035), transparent 24%)", zIndex: 2 }} />
-        <div className="absolute inset-0 pointer-events-none opacity-[0.045]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "140px 140px", zIndex: 2 }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(94deg, rgba(5,5,5,0.93) 0%, rgba(5,5,5,0.84) 26%, rgba(5,5,5,0.52) 56%, rgba(5,5,5,0.80) 100%)", zIndex: 2 }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 18% 42%, rgba(248,24,40,0.13), transparent 42%), radial-gradient(circle at 82% 18%, rgba(255,255,255,0.07), transparent 28%), radial-gradient(circle at 70% 55%, rgba(255,255,255,0.05), transparent 22%)", zIndex: 2 }} />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.035]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "140px 140px", zIndex: 2 }} />
         <div className="absolute top-0 left-0 right-0 h-[2px] z-20 premium-line-reveal" style={{ background: "linear-gradient(90deg, #f81828 0%, rgba(248,24,40,0.22) 28%, rgba(255,255,255,0.08) 62%, transparent 100%)" }} />
         <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to top, #050505, transparent)", zIndex: 2 }} />
 

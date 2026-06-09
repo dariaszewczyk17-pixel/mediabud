@@ -403,6 +403,18 @@ export default function AboutPage() {
               </FadeIn>
             ))}
           </div>
+          <div className="mt-8 flex items-center justify-between gap-4 flex-wrap">
+            <p className="text-sm text-gray-600">
+              Ponad <span className="text-white font-bold">268 marek</span> w naszej ofercie — od renomowanych producentów materiałów budowlanych.
+            </p>
+            <Link
+              to="/marki"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-black uppercase tracking-wider text-white flex-shrink-0 transition-all hover:brightness-110"
+              style={{ background: "#f81828", boxShadow: "0 6px 20px rgba(248,24,40,0.25)" }}
+            >
+              Wszystkie marki <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
 

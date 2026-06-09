@@ -959,11 +959,6 @@ export default function Home() {
                       <span className="cat-card-kicker text-[9px] font-black text-white/30 group-hover:text-white/55" style={{ fontFamily: "'Share Tech Mono',monospace", letterSpacing: "0.2em" }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      {cat.children && cat.children.length > 0 && (
-                        <span className="cat-card-kicker text-[9px] font-bold px-2 py-1 rounded-full opacity-80 group-hover:opacity-100" style={{ background: "rgba(30,3,4,0.88)", border: "1px solid rgba(248,24,40,0.28)", color: "#ffb5bc" }}>
-                          {cat.children.length} kat.
-                        </span>
-                      )}
                     </div>
 
                     <div>

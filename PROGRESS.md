@@ -430,3 +430,6 @@
 [2026-06-09 18:22] Analiza 7 screenshotów — start wdrażania poprawek: tagi realizacji, stat bar overlap, logo w stopce, scope texty /o-firmie, historia firmy→video, B2B badge, galerie link, kalkulator w stopce
 [2026-06-09 18:26] Analiza wszystkich plików zakończona — start: video t2v + patche kodu (Home, Footer, About, Services)
 [2026-06-09 18:29] Video t2v wygenerowany: text2video-d8k5liv80j2drgd1uh10.mp4 — start patchy kodu: Home.tsx tags/stat/galerie, Footer logo+kalkulator, About scope+timeline→video, Services B2B badge
+[2026-06-09 18:32] Commit 591cac9 — wszystkie 8 poprawek wdrożone: tagi realizacji usunięte, stat bar fixed, galerie Link klikalny, logo footer borderRadius 10px, Kalkulatory w INFORMACJE, scope texty /o-firmie usunięte, timeline→video+stats, B2B badge usunięty
+[2026-06-09 18:33] Commit 591cac9 — wszystkie 8 poprawek z 7 screenshotów wdrożone i zpushowane na main. Build 1942 modules OK.
+[2026-06-09 18:35] Start: /produkty pełny katalog + usuń liczniki KAT. + zmień zdjęcia kategorii + marki CTA + CategoryPage performance

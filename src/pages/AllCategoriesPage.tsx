@@ -1,23 +1,116 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/hooks/useSEO";
-import { ChevronRight, ArrowRight, Phone, Grid3x3, Layers } from "lucide-react";
+import { ChevronRight, ArrowRight, Phone, Grid3x3 } from "lucide-react";
 import { categories } from "@/data/categories";
+import { products as allProducts } from "@/data/products";
 
 const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;
 const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] transition-all duration-300";
 
+const PAGE_SIZE = 24;
+
+function CatalogSection() {
+  const [page, setPage] = useState(1);
+  const [loaded, setLoaded] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Lazy load — zainiciuj dopiero gdy sekcja jest widoczna
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setLoaded(true); obs.disconnect(); } }, { rootMargin: "200px" });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const visible = allProducts.slice(0, page * PAGE_SIZE);
+
+  return (
+    <section ref={sectionRef} className="py-14" style={{ background: "#050505", borderTop: "1px solid #111" }}>
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
+          <div>
+            <p className="text-[10px] font-black text-[#f81828] tracking-[0.4em] uppercase mb-1">Pełny katalog</p>
+            <h2 className="font-display text-2xl font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
+              {allProducts.length.toLocaleString("pl-PL")}+ produktów
+            </h2>
+          </div>
+          <Link to="/produkty" className="text-xs font-black uppercase tracking-widest text-[#f81828] hover:underline flex items-center gap-1">
+            Filtruj według kategorii <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {loaded ? (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+              {visible.map((p) => (
+                <Link
+                  key={p.id}
+                  to={`/produkt/${p.slug}`}
+                  className="group rounded-xl overflow-hidden transition-all duration-200"
+                  style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.4)"; el.style.transform = "translateY(-2px)"; el.style.boxShadow = "0 8px 24px rgba(248,24,40,0.1)"; }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.06)"; el.style.transform = ""; el.style.boxShadow = "none"; }}
+                >
+                  {p.images?.[0] ? (
+                    <div className="h-28 overflow-hidden bg-white flex items-center justify-center p-2">
+                      <img src={p.images[0]} alt={p.name} loading="lazy" className="max-h-full max-w-full object-contain" />
+                    </div>
+                  ) : (
+                    <div className="h-28 flex items-center justify-center" style={{ background: "#1a1a1a" }}>
+                      <span className="text-2xl font-black text-[#333]">{p.name.charAt(0)}</span>
+                    </div>
+                  )}
+                  <div className="p-2.5">
+                    <p className="text-[10px] font-black uppercase tracking-wider text-[#f81828] mb-0.5 truncate">{p.brand}</p>
+                    <p className="text-xs text-white font-semibold line-clamp-2 leading-tight" style={{ minHeight: "2.4em" }}>{p.name}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            {page * PAGE_SIZE < allProducts.length && (
+              <div className="mt-10 flex justify-center">
+                <button
+                  onClick={() => setPage(p => p + 1)}
+                  className="px-8 py-3 rounded-xl text-sm font-black uppercase tracking-wider text-white transition-all hover:brightness-110"
+                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}
+                >
+                  Załaduj więcej ({Math.min(PAGE_SIZE, allProducts.length - page * PAGE_SIZE)} kolejnych)
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div key={i} className="rounded-xl overflow-hidden animate-pulse" style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.04)" }}>
+                <div className="h-28" style={{ background: "#1a1a1a" }} />
+                <div className="p-2.5 space-y-1.5">
+                  <div className="h-2 rounded w-1/2" style={{ background: "#222" }} />
+                  <div className="h-3 rounded w-4/5" style={{ background: "#222" }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 
 export default function AllCategoriesPage() {
   const catImages: Record<string, string> = {
-    "chemia-budowlana":       "https://images.unsplash.com/photo-1612428177037-c6f2d48ce357?auto=format&fit=crop&w=800&q=80",
-    "dachy":                  "https://images.unsplash.com/photo-1726589004565-bedfba94d3a2?auto=format&fit=crop&w=800&q=80",
-    "farby-i-rozpuszczalniki":"https://images.unsplash.com/photo-1525909002-1b05e0c869d8?auto=format&fit=crop&w=800&q=80",
-    "izolacje":               "https://images.unsplash.com/photo-1625577815636-d7a61b583799?auto=format&fit=crop&w=800&q=80",
-    "narzedzia-i-mocowania":  "https://images.unsplash.com/photo-1683115098516-9b8d5c643b5b?auto=format&fit=crop&w=800&q=80",
-    "plytki":                 "https://images.unsplash.com/photo-1523413307857-ef24c53571ae?auto=format&fit=crop&w=800&q=80",
-    "stropy-i-sciany":        "https://images.unsplash.com/photo-1701850009190-2859ba2aeea6?auto=format&fit=crop&w=800&q=80",
-    "sucha-zabudowa":         "https://images.unsplash.com/photo-1763593125291-a46ef2b784e5?auto=format&fit=crop&w=800&q=80",
-    "sufity-podwieszane":     "https://images.unsplash.com/photo-1769008302212-816b6a07e10c?auto=format&fit=crop&w=800&q=80",
+    "chemia-budowlana":       "/images/cat-chemia_2.png",
+    "dachy":                  "/images/cat-dachy_2.png",
+    "farby-i-rozpuszczalniki":"/images/cat-farby_2.png",
+    "izolacje":               "/images/cat-ocieplenia_2.png",
+    "narzedzia-i-mocowania":  "/images/cat-narzedzia_2.png",
+    "plytki":                 "/images/cat-plytki_2.png",
+    "stropy-i-sciany":        "/images/cat-sciany_2.png",
+    "sucha-zabudowa":         "/images/cat-sucha-zabudowa_2.png",
+    "sufity-podwieszane":     "/images/cat-sufity_2.png",
     "pozostale":              "https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/pozostale_kategoria_2_8a82cc38d2a44d9b884d891b1745b7b2.png",
   };
 
@@ -134,12 +227,6 @@ export default function AllCategoriesPage() {
           <h2 className="font-display font-black text-white text-lg uppercase tracking-widest">
             Przeglądaj według kategorii
           </h2>
-          <span
-            className="ml-2 text-[10px] font-black px-2.5 py-0.5 rounded-full"
-            style={{ background: "rgba(248,24,40,0.12)", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.3)" }}
-          >
-            {categories.length} kategorii
-          </span>
         </div>
         <p className="text-xs text-gray-600 pl-4">Kliknij kategorię aby zobaczyć wszystkie produkty</p>
       </section>
@@ -223,15 +310,6 @@ export default function AllCategoriesPage() {
                     >
                       {num}
                     </span>
-                    {cat.children && (
-                      <span
-                        className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wide"
-                        style={{ background: "#1e0304", border: "1px solid rgba(248,24,40,0.35)", color: "#ff9aa3" }}
-                      >
-                        <Layers className="w-2.5 h-2.5 mr-1" />
-                        {cat.children.length} kat.
-                      </span>
-                    )}
                   </div>
 
                   {/* Bottom: name + desc + CTA z animowaną strzałką */}
@@ -323,6 +401,23 @@ export default function AllCategoriesPage() {
           </div>
         </div>
       </section>
+
+      {/* ── WIĘCEJ MAREK CTA ── */}
+      <div className="container mx-auto px-4 py-6 flex items-center justify-between gap-4" style={{ borderBottom: "1px solid #111" }}>
+        <p className="text-sm text-gray-500">
+          Współpracujemy z <span className="text-white font-bold">268+ markami</span> producentów materiałów budowlanych.
+        </p>
+        <Link
+          to="/marki"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-black uppercase tracking-wider text-white flex-shrink-0 transition-all hover:brightness-110"
+          style={{ background: "#f81828", boxShadow: "0 6px 20px rgba(248,24,40,0.3)" }}
+        >
+          Wszystkie marki <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+
+      {/* ── PEŁNY KATALOG PRODUKTÓW (lazy) ── */}
+      <CatalogSection />
 
       {/* ── SEO TEXT ── */}
       <section className="py-14" style={{ background: "#080808" }}>

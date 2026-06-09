@@ -603,7 +603,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
             {[
-              { num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, "\u00a0")}+`, label: "Produktów w ofercie", note: "szeroki asortyment dostępny od ręki i na zamówienie" },
+              { num: "15 000+", label: "Produktów w ofercie", note: "szeroki asortyment dostępny od ręki i na zamówienie" },
               { num: "15 lat", label: "Doświadczenia", note: "praktyka w obsłudze inwestycji i codziennych zakupów" },
               { num: "500+", label: "Firm klientów", note: "partner dla wykonawców, ekip i inwestycji deweloperskich" },
               { num: "<24h", label: "Pierwsza odpowiedź", note: "szybki kontakt w sprawie wyceny i doboru materiałów" },

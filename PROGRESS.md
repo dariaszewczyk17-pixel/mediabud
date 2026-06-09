@@ -411,3 +411,4 @@
 [2026-06-09 15:59] Hero: badge -> 'Materiały budowlane najwyższej jakości · Lublin'; nagłówek -> 'Budujesz. Remontujesz. Wszystko w jednym miejscu.' (czerwień na 'Wszystko'); akapit przepisany wg oficjalnego opisu firmy (tynki, ocieplenia, styropiany, wełna, renomowani producenci, doradztwo, terminowa dostawa).
 [2026-06-09 16:03] Sekcja STANDARD WSPÓŁPRACY: liczba produktów zmieniona z dynamicznej (15 682+) na stałą '15 000+'.
 [2026-06-09 16:06] Ticker promocyjny (Header.tsx): tekst zmieniony z czerwieni na czarny + nieco większy (text-sm md:text-[15px] font-semibold); usunięto romby/kropki separatory (◆).
+[2026-06-09 16:18] START: Wielofazowy redesign + perf + SEO + routing. Faza 1: fix wydajności CategoryPage.

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Wygenerowano: 2026-05-31T11:56:58.492Z | Łącznie URL: 13540 | Wykluczone: 0 -->
+  <!-- Wygenerowano: 2026-06-09T16:20:42.665Z | Łącznie URL: 16150 | Wykluczone: 0 -->
 
-  <sitemap><loc>https://mediabud.pl/sitemap-core.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
-  <sitemap><loc>https://mediabud.pl/sitemap-categories.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
-  <sitemap><loc>https://mediabud.pl/sitemap-products-full.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
-  <sitemap><loc>https://mediabud.pl/sitemap-products-partial.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
+  <sitemap><loc>https://mediabud.pl/sitemap-core.xml</loc><lastmod>2026-06-09</lastmod></sitemap>
+  <sitemap><loc>https://mediabud.pl/sitemap-categories.xml</loc><lastmod>2026-06-09</lastmod></sitemap>
+  <sitemap><loc>https://mediabud.pl/sitemap-products-full.xml</loc><lastmod>2026-06-09</lastmod></sitemap>
+  <sitemap><loc>https://mediabud.pl/sitemap-products-partial.xml</loc><lastmod>2026-06-09</lastmod></sitemap>
 
 </sitemapindex>

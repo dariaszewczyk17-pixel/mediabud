@@ -276,7 +276,7 @@ export default function Header() {
         className="overflow-hidden"
         style={{ maxHeight: promoVisible ? "36px" : "0", transition: "max-height 0.3s ease" }}
       >
-        <div className="relative flex h-9 items-center justify-center overflow-hidden px-10 text-[11px] font-bold uppercase tracking-[0.14em]"
+        <div className="relative flex h-9 items-center justify-center overflow-hidden px-10 text-[12px] font-bold uppercase tracking-[0.14em]"
           style={{ background: "#ffffff", borderBottom: "1px solid rgba(248,24,40,0.30)" }}>
           {/* Ticker */}
           <style>{`
@@ -294,10 +294,10 @@ export default function Header() {
           {/* Podwojony content — seamless infinite loop (0 → -50%) */}
           <div className="promo-track items-center gap-10 text-[#f81828]">
             {[...Array(2)].map((_, copy) =>
-              ["🚚  Dostawa na teren Lublina i woj. lubelskiego",
-               "📦  Bezpłatna wycena każdego projektu",
-               "⚡  Ponad 15 000 produktów w magazynie",
-               "🏗️  Obsługa inwestycji B2B i B2C",
+              ["Dostawa na teren Lublina i woj. lubelskiego",
+               "Bezpłatna wycena każdego projektu",
+               "Ponad 15 000 produktów w magazynie",
+               "Obsługa inwestycji B2B i B2C",
               ].map((msg, i) => (
                 <span key={`${copy}-${i}`} className="flex items-center gap-10 px-5">
                   {msg}
@@ -677,9 +677,12 @@ export default function Header() {
                     <div className="absolute inset-0 opacity-0 transition-opacity group-hover/icon:opacity-100" style={{ background: "rgba(248,24,40,0.07)" }} />
                     <div className={`absolute top-0 left-0 right-0 h-[2px] origin-left bg-[#f81828] transition-transform duration-200 ${activeMenu === cat.id ? "scale-x-100" : "scale-x-0 group-hover/icon:scale-x-100"}`} />
 
-                    <span className="relative z-10 line-clamp-2 text-[10px] font-bold uppercase leading-tight tracking-[0.05em] text-center">
+                    <span className="relative z-10 line-clamp-2 text-[9px] font-bold uppercase leading-tight tracking-[0.05em] text-center">
                       {cat.name}
                     </span>
+                    {cat.children && (
+                      <ChevronDown className={`relative z-10 -mt-0.5 h-2.5 w-2.5 transition-transform duration-200 ${activeMenu === cat.id ? "rotate-180" : ""}`} />
+                    )}
                   </Link>
 
                   {/* ── Mega dropdown 2-poziomowy ── */}

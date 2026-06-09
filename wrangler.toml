@@ -4,6 +4,6 @@ pages_build_output_dir = "dist"
 compatibility_date = "2024-01-01"
 
 [env.production]
-# Zmienne środowiskowe ustawione automatycznie przez Cloudflare Pages:
-# VITE_SANITY_PROJECT_ID = "jsd4qbs1"
-# VITE_SANITY_DATASET = "production"
+# Zmienne środowiskowe wymagane w ustawieniach Cloudflare Pages → Environment variables:
+# VITE_SANITY_PROJECT_ID = "nzcwegq7"
+# VITE_SANITY_DATASET    = "production"

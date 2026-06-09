@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
-import { ChevronRight, ArrowRight, Phone } from "lucide-react";
+import { ChevronRight, ArrowRight, Phone, Grid3x3, Layers } from "lucide-react";
 import { categories } from "@/data/categories";
 
 const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;
@@ -28,22 +28,15 @@ export default function AllCategoriesPage() {
     schema: {
       "@context": "https://schema.org",
       "@graph": [
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
-            { "@type": "ListItem", "position": 2, "name": "Katalog produktów", "item": "https://mediabud.pl/produkty" }
-          ]
-        },
-        {
-          "@type": "ItemList",
-          "name": "Katalog kategorii materiałów budowlanych – Media Bud Lublin",
+        { "@type": "BreadcrumbList", "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
+          { "@type": "ListItem", "position": 2, "name": "Katalog produktów", "item": "https://mediabud.pl/produkty" }
+        ]},
+        { "@type": "ItemList", "name": "Katalog kategorii materiałów budowlanych – Media Bud Lublin",
           "description": "Wszystkie kategorie materiałów budowlanych dostępnych w składzie Media Bud w Lublinie",
           "numberOfItems": categories.length,
           "itemListElement": categories.map((cat, idx) => ({
-            "@type": "ListItem",
-            "position": idx + 1,
-            "name": cat.name,
+            "@type": "ListItem", "position": idx + 1, "name": cat.name,
             "url": `https://mediabud.pl/kategoria/${cat.slug}`
           }))
         }
@@ -52,31 +45,73 @@ export default function AllCategoriesPage() {
   });
 
   return (
-    <div className="min-h-screen" style={{ background: "#080808" }}>
+    <div className="min-h-screen" style={{ background: "#050505" }}>
 
       {/* ── HERO ── */}
-      <div className="relative overflow-hidden" style={{ background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
-        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]" style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.4)" }} />
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.2) 60%,transparent)" }} />
-        <div className="relative container mx-auto px-4 pl-10 py-14">
+      <div
+        className="relative overflow-hidden"
+        style={{ background: "#08080a", borderBottom: "1px solid rgba(248,24,40,0.15)" }}
+      >
+        {/* Siatka animowana */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(248,24,40,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.06) 1px,transparent 1px)",
+          backgroundSize: "44px 44px",
+          animation: "gridScroll 24s linear infinite",
+        }} />
+
+        {/* Glowy tła */}
+        <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle,rgba(248,24,40,0.1) 0%,transparent 70%)" }} />
+        <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle,rgba(248,24,40,0.06) 0%,transparent 70%)" }} />
+
+        {/* Belka lewa */}
+        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828]"
+          style={{ boxShadow: "2px 0 16px rgba(248,24,40,0.55)" }} />
+        {/* Linia górna */}
+        <div className="absolute top-0 left-0 right-0 h-[2px]"
+          style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.18) 55%,transparent)" }} />
+        {/* Linia dolna fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-12"
+          style={{ background: "linear-gradient(to top,#050505,transparent)" }} />
+
+        <div className="relative container mx-auto px-4 pl-10 py-16">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 mb-4 text-[11px] text-gray-600">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 mb-5 text-[11px] text-gray-600">
             <Link to="/" className="hover:text-[#f81828] transition-colors font-medium">Strona główna</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-gray-400 font-medium">Produkty</span>
           </nav>
-          <p className="text-[10px] font-black text-[#f81828] tracking-widest uppercase mb-2">— Katalog produktów —</p>
-          <h1 className="font-display text-3xl md:text-5xl font-black text-white mb-3 leading-tight">
-            Materiały budowlane Lublin<br />
-            <span style={{ color: "#f81828" }}>pełny katalog</span>
+
+          {/* Eyebrow */}
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center"
+              style={{ background: "rgba(248,24,40,0.15)", border: "1px solid rgba(248,24,40,0.4)" }}>
+              <Grid3x3 className="w-3.5 h-3.5 text-[#f81828]" />
+            </div>
+            <span className="text-[10px] font-black text-[#f81828] tracking-[0.3em] uppercase">
+              Katalog produktów
+            </span>
+            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(248,24,40,0.35)" }} />
+          </div>
+
+          <h1
+            className="font-display font-black text-white leading-none mb-4 uppercase"
+            style={{ fontSize: "clamp(2.2rem,6vw,4rem)", letterSpacing: "-0.02em" }}
+          >
+            WSZYSTKIE{" "}
+            <span style={{ color: "#f81828", textShadow: "0 0 40px rgba(248,24,40,0.35)" }}>
+              KATEGORIE
+            </span>
           </h1>
-          <p className="text-gray-400 text-sm max-w-xl leading-relaxed">
+
+          <p className="text-gray-400 text-sm max-w-xl leading-relaxed mb-6">
             Ponad 15&nbsp;000 produktów od czołowych producentów — Weber, Ceresit, Atlas, Knauf, Rockwool i wielu innych.
             Wszystko w jednym miejscu, z doradztwem technicznym i dostawą w Lublinie.
           </p>
+
           {/* Stats bar */}
-          <div className="flex flex-wrap gap-8 mt-6 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+          <div className="flex flex-wrap gap-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
             {[
               { val: `${categories.length}`, label: "kategorii" },
               { val: "60+",      label: "podkategorii" },
@@ -92,27 +127,51 @@ export default function AllCategoriesPage() {
         </div>
       </div>
 
+      {/* ── Podtytuł sekcji ── */}
+      <section className="container mx-auto px-4 pt-10 pb-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-[3px] h-6 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
+          <h2 className="font-display font-black text-white text-lg uppercase tracking-widest">
+            Przeglądaj według kategorii
+          </h2>
+          <span
+            className="ml-2 text-[10px] font-black px-2.5 py-0.5 rounded-full"
+            style={{ background: "rgba(248,24,40,0.12)", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.3)" }}
+          >
+            {categories.length} kategorii
+          </span>
+        </div>
+        <p className="text-xs text-gray-600 pl-4">Kliknij kategorię aby zobaczyć wszystkie produkty</p>
+      </section>
+
       {/* ── CATEGORY GRID ── */}
-      <section className="container mx-auto px-4 py-10">
+      <section className="container mx-auto px-4 pb-10">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {categories.map((cat, idx) => {
             const img = catImages[cat.slug];
             const num = String(idx + 1).padStart(2, "0");
+
             return (
               <Link
                 key={cat.id}
                 to={`/kategoria/${cat.slug}`}
-                className="group relative overflow-hidden rounded-xl transition-all duration-300"
-                style={{ minHeight: 220, background: "#0c0c0c", border: "1px solid rgba(255,255,255,0.08)" }}
+                className="group relative overflow-hidden rounded-2xl transition-all duration-400"
+                style={{
+                  minHeight: 230,
+                  background: "#0f0f0f",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "#f81828";
-                  el.style.boxShadow = "0 0 0 1px #f81828, 0 12px 40px rgba(248,24,40,0.18)";
+                  el.style.borderColor = "rgba(248,24,40,0.5)";
+                  el.style.boxShadow = "0 0 0 1px rgba(248,24,40,0.2), 0 16px 48px rgba(248,24,40,0.2)";
+                  el.style.transform = "translateY(-4px)";
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "rgba(255,255,255,0.08)";
+                  el.style.borderColor = "rgba(255,255,255,0.06)";
                   el.style.boxShadow = "none";
+                  el.style.transform = "";
                 }}
               >
                 {/* Background photo + overlay */}
@@ -122,39 +181,88 @@ export default function AllCategoriesPage() {
                       src={img}
                       alt={`${cat.name} – materiały budowlane Lublin`}
                       loading="lazy"
-                      className="w-full h-full object-cover"
-                      style={{ filter: "grayscale(0.3) brightness(0.55)" }}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+                      style={{ filter: "grayscale(0.3) brightness(0.5)" }}
                     />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(8,8,8,0.25) 0%,rgba(8,8,8,0.82) 65%,rgba(8,8,8,0.97) 100%)" }} />
+                    <div className="absolute inset-0"
+                      style={{ background: "linear-gradient(180deg,rgba(6,6,6,0.2) 0%,rgba(6,6,6,0.75) 55%,rgba(6,6,6,0.97) 100%)" }} />
+                    {/* Czerwony overlay na hover */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+                      style={{ background: "linear-gradient(135deg,rgba(248,24,40,0.07) 0%,transparent 60%)" }} />
                   </div>
                 )}
-                {/* Red left bar (hover) */}
-                <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ boxShadow: "2px 0 8px rgba(248,24,40,0.5)" }} />
+
+                {/* Animowana lewa belka czerwona */}
+                <div
+                  className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-all duration-300"
+                  style={{ boxShadow: "2px 0 12px rgba(248,24,40,0.6)", transformOrigin: "top" }}
+                />
+
+                {/* Górna krawędź — pojawia się na hover */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.3))", boxShadow: "0 0 10px rgba(248,24,40,0.5)" }}
+                />
+
+                {/* Glassmorphism overlay at bottom */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-28 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+                  style={{
+                    background: "linear-gradient(to top,rgba(248,24,40,0.06) 0%,transparent 100%)",
+                    backdropFilter: "blur(1px)",
+                  }}
+                />
 
                 {/* Content */}
-                <div className="relative z-10 p-5 flex flex-col" style={{ minHeight: 220 }}>
-                  {/* Top: number + badge */}
+                <div className="relative z-10 p-5 flex flex-col" style={{ minHeight: 230 }}>
+                  {/* Top: numer + badge */}
                   <div className="flex items-start justify-between mb-auto">
-                    <span className="font-mono text-[11px] font-bold text-gray-700 group-hover:text-[#f81828]/50 transition-colors">{num}</span>
+                    <span
+                      className="font-mono text-[11px] font-bold transition-colors duration-200"
+                      style={{ color: "rgba(255,255,255,0.2)" }}
+                    >
+                      {num}
+                    </span>
                     {cat.children && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide"
-                        style={{ background: "#1e0304", border: "1px solid rgba(248,24,40,0.35)", color: "#ff9aa3" }}>
+                      <span
+                        className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wide"
+                        style={{ background: "#1e0304", border: "1px solid rgba(248,24,40,0.35)", color: "#ff9aa3" }}
+                      >
+                        <Layers className="w-2.5 h-2.5 mr-1" />
                         {cat.children.length} kat.
                       </span>
                     )}
                   </div>
-                  {/* Bottom: name + desc + CTA */}
+
+                  {/* Bottom: name + desc + CTA z animowaną strzałką */}
                   <div className="mt-10">
-                    <h2 className="font-display font-black text-white text-lg uppercase tracking-wide leading-tight mb-1 group-hover:text-[#f81828] transition-colors duration-200">
+                    <h2
+                      className="font-display font-black text-white text-lg uppercase tracking-wide leading-tight mb-1 group-hover:text-[#ff9aa3] transition-colors duration-200"
+                    >
                       {cat.name}
                     </h2>
+
                     {cat.description && (
                       <p className="text-[11px] text-gray-600 line-clamp-2 leading-relaxed mb-2 group-hover:text-gray-500 transition-colors">
                         {cat.description}
                       </p>
                     )}
-                    <div className="flex items-center gap-1 text-[11px] font-black uppercase tracking-[0.15em] text-[#f81828] opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">
-                      Przeglądaj <ArrowRight className="w-3 h-3" />
+
+                    {/* Animowana strzałka CTA */}
+                    <div
+                      className="flex items-center gap-1 text-[11px] font-black uppercase tracking-[0.2em] text-[#f81828] opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      style={{ transform: "translateX(-8px)" }}
+                      ref={el => {
+                        if (!el) return;
+                        el.addEventListener("transitionend", () => {});
+                      }}
+                    >
+                      <span
+                        className="group-hover:translate-x-2 transition-transform duration-300"
+                        style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                      >
+                        Przeglądaj <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -165,9 +273,13 @@ export default function AllCategoriesPage() {
       </section>
 
       {/* ── BRANDS STRIP ── */}
-      <section className="py-10" style={{ background: "#050505", borderTop: "1px solid #141414", borderBottom: "1px solid #141414" }}>
+      <section className="py-10" style={{ background: "#050505", borderTop: "1px solid #111", borderBottom: "1px solid #111" }}>
         <div className="container mx-auto px-4">
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-center mb-6 text-[#f81828]">— Nasze marki —</p>
+          <div className="flex items-center gap-3 justify-center mb-6">
+            <div className="h-px flex-1 max-w-20" style={{ background: "rgba(248,24,40,0.25)" }} />
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#f81828]">Nasze marki</p>
+            <div className="h-px flex-1 max-w-20" style={{ background: "rgba(248,24,40,0.25)" }} />
+          </div>
           <div className="flex flex-wrap justify-center gap-3">
             {[
               { name: "Weber",    url: "https://static.www.bechcicki.pl/cms/1c6a19bca34f4da99131e0736ea4af9d-weber.png" },
@@ -183,11 +295,22 @@ export default function AllCategoriesPage() {
               { name: "Velux",    url: "https://static.www.bechcicki.pl/cms/f6736747f0f74f23bcf4900e60598c9d-velux.png" },
               { name: "Fakro",    url: "https://static.www.bechcicki.pl/cms/34b06a260cdd46d295f0be4e762a2580-fakro.png" },
             ].map(brand => (
-              <div key={brand.name}
-                className="flex flex-col items-center rounded-lg overflow-hidden transition-all duration-200"
-                style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.4)"; el.style.transform = "translateY(-1px)"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.08)"; el.style.transform = "translateY(0)"; }}
+              <div
+                key={brand.name}
+                className="flex flex-col items-center rounded-xl overflow-hidden transition-all duration-200"
+                style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.borderColor = "rgba(248,24,40,0.4)";
+                  el.style.transform = "translateY(-2px)";
+                  el.style.boxShadow = "0 6px 20px rgba(248,24,40,0.12)";
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.borderColor = "rgba(255,255,255,0.07)";
+                  el.style.transform = "translateY(0)";
+                  el.style.boxShadow = "none";
+                }}
               >
                 <div className="flex items-center justify-center px-4 py-3" style={{ background: "#fff", minHeight: "56px", minWidth: "100px" }}>
                   <img src={brand.url} alt={`Logo ${brand.name}`} loading="lazy"
@@ -226,28 +349,47 @@ export default function AllCategoriesPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-12" style={{ background: "#050505", borderTop: "1px solid #141414" }}>
+      <section className="py-12" style={{ background: "#050505", borderTop: "1px solid #111" }}>
         <div className="container mx-auto px-4 max-w-2xl text-center">
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 text-[#f81828]">— Potrzebujesz pomocy? —</p>
+          <div className="flex items-center gap-3 justify-center mb-3">
+            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(248,24,40,0.25)" }} />
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#f81828]">Potrzebujesz pomocy?</p>
+            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(248,24,40,0.25)" }} />
+          </div>
           <h3 className="font-display text-2xl font-black text-white mb-3">Doradzimy i wycenimy projekt</h3>
           <p className="text-sm text-gray-500 mb-6">
             Zadzwoń lub napisz — nasi specjaliści dobiorą właściwe materiały i przygotują szczegółową wycenę.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a href="tel:+48533553344">
-              <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#f81828] text-white text-sm font-bold hover:bg-[#c8000f] transition-all hover:shadow-[0_0_20px_rgba(248,24,40,0.4)]">
+              <button
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#f81828] text-white text-sm font-bold hover:bg-[#c8000f] transition-all"
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(248,24,40,0.5)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+              >
                 <Phone className="w-4 h-4" /> +48 533 553 344
               </button>
             </a>
             <Link to="/kontakt">
-              <button className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-gray-300 hover:text-white transition-colors"
-                style={{ border: "1px solid rgba(255,255,255,0.15)" }}>
+              <button
+                className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-gray-300 hover:text-white transition-colors"
+                style={{ border: "1px solid rgba(255,255,255,0.15)" }}
+              >
                 Formularz kontaktowy
               </button>
             </Link>
           </div>
         </div>
       </section>
+
+      <style>{`
+        @keyframes gridScroll {
+          0% { background-position: 0 0; }
+          100% { background-position: 44px 44px; }
+        }
+        .group-hover\\:scale-108:hover { transform: scale(1.08); }
+        .duration-400 { transition-duration: 400ms; }
+      `}</style>
     </div>
   );
 }

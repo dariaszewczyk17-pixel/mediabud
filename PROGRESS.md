@@ -407,3 +407,4 @@
 [2026-06-09 15:26] Nowe hero video (Editorial Luxury t2v seedance-2.0-fast, 15s): text2video-d8k2ve780j2drgd1u7pg. Zastąpiło stary URL w Home.tsx. Build OK.
 [2026-06-09 15:32] Usunięto 7 grid-overlay (kratki) z Home.tsx we wszystkich sekcjach: hero, stat bar, brands, categories, featured products, Dlaczego MB, CTA.
 [2026-06-09 15:36] Ulepszono warstwę hero: eyebrow z kropką akcentu, badge '15 lat', mocniejszy paragraf z 'jedną odpowiedzialnością', dopracowane 3 karty, panel inwestora (live ping, 'Twoja budowa', '15 lat doświadczenia').
+[2026-06-09 15:41] Zmieniono akapit hero na bardziej zachęcający/sprzedażowy ('Koniec z gonieniem za materiałami...').

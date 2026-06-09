@@ -513,7 +513,7 @@ export default function Home() {
                   </span>
                 </h1>
                 <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.78)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1.02rem, 1.36vw, 1.18rem)", lineHeight: 1.92 }}>
-                  Skład budowlany i własne ekipy wykonawcze w jednej firmie. Materiały, doradztwo techniczne, wycena i realizacja — prowadzone od pierwszej rozmowy po odbiór, z <span className="text-white font-semibold">jedną odpowiedzialnością</span> za termin, koszt i jakość.
+                  Koniec z gonieniem za materiałami, ekipą i terminami. U nas dostajesz wszystko w jednym miejscu — materiały, doradztwo, wycenę i sprawdzoną ekipę — a Twoja inwestycja ma <span className="text-white font-semibold">jednego partnera odpowiedzialnego za efekt</span>: termin, koszt i jakość.
                 </p>
               </div>
 

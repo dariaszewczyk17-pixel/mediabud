@@ -349,9 +349,9 @@ export default function Home() {
       })}} />
 
       {/* ═══════════════════════════════════════════════════════
-          HERO — INDUSTRIAL PREMIUM / EDITORIAL
+          HERO — INDUSTRIAL PREMIUM / EDITORIAL LUXURY
       ═══════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[72vh] md:min-h-[84vh] overflow-hidden" style={{ background: "#050505" }}>
+      <section className="relative min-h-[76vh] md:min-h-[88vh] overflow-hidden" style={{ background: "#050505" }}>
         <style>{`
           @keyframes premiumFloat {
             0%,100% { transform: translate3d(0,0,0) scale(1); }
@@ -371,9 +371,34 @@ export default function Home() {
             from { transform: scaleX(0.15); opacity: 0; }
             to { transform: scaleX(1); opacity: 1; }
           }
+          @keyframes premiumFadeSoft {
+            from { opacity: 0; transform: translate3d(0, 26px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+          }
+          @keyframes premiumWordLift {
+            from { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(12px); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+          }
+          @keyframes premiumSectionRise {
+            from { opacity: 0; transform: translate3d(0, 42px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+          }
           .premium-fade-up {
             opacity: 0;
             animation: premiumFadeUp 0.9s cubic-bezier(.22,1,.36,1) forwards;
+          }
+          .premium-fade-soft {
+            opacity: 0;
+            animation: premiumFadeSoft 1.05s cubic-bezier(.22,1,.36,1) forwards;
+          }
+          .premium-editorial-word {
+            opacity: 0;
+            display: inline-block;
+            animation: premiumWordLift 1s cubic-bezier(.22,1,.36,1) forwards;
+          }
+          .premium-section-rise {
+            opacity: 0;
+            animation: premiumSectionRise 1.05s cubic-bezier(.22,1,.36,1) forwards;
           }
           .premium-hero-video {
             transform-origin: center center;
@@ -408,8 +433,28 @@ export default function Home() {
             transform: translate3d(0,-2px,0);
             text-shadow: 0 0 24px rgba(248,24,40,0.18);
           }
+          .premium-editorial-rule {
+            position: relative;
+          }
+          .premium-editorial-rule::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 64px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(248,24,40,0.75), rgba(248,24,40,0));
+            transform: translateY(-50%);
+          }
+          .premium-editorial-rule span {
+            display: inline-block;
+            padding-left: 84px;
+          }
           @media (prefers-reduced-motion: reduce) {
             .premium-fade-up,
+            .premium-fade-soft,
+            .premium-editorial-word,
+            .premium-section-rise,
             .premium-hero-video,
             .premium-shimmer:hover::after,
             .premium-line-reveal,
@@ -421,7 +466,7 @@ export default function Home() {
           }
         `}</style>
         <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1 }}>
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover premium-hero-video" style={{ filter: "brightness(0.34) saturate(0.68) contrast(1.08)" }}>
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover premium-hero-video" style={{ filter: "brightness(0.32) saturate(0.6) contrast(1.08)" }}>
             <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k06h780j2drgd1u0r0.mp4" type="video/mp4" />
           </video>
         </div>
@@ -432,47 +477,54 @@ export default function Home() {
             backgroundImage: "url('/images/hero-materialy_2.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "brightness(0.36) saturate(0.74)",
+            filter: "brightness(0.34) saturate(0.7)",
           }}
         />
 
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(92deg, rgba(5,5,5,0.97) 0%, rgba(5,5,5,0.92) 30%, rgba(5,5,5,0.62) 58%, rgba(5,5,5,0.82) 100%)", zIndex: 2 }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 18% 42%, rgba(248,24,40,0.10), transparent 38%), radial-gradient(circle at 82% 18%, rgba(255,255,255,0.05), transparent 22%)", zIndex: 2 }} />
-        <div className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "120px 120px", zIndex: 2 }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(94deg, rgba(5,5,5,0.985) 0%, rgba(5,5,5,0.94) 28%, rgba(5,5,5,0.72) 56%, rgba(5,5,5,0.90) 100%)", zIndex: 2 }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 18% 42%, rgba(248,24,40,0.11), transparent 40%), radial-gradient(circle at 82% 18%, rgba(255,255,255,0.035), transparent 24%)", zIndex: 2 }} />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.045]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "140px 140px", zIndex: 2 }} />
         <div className="absolute top-0 left-0 right-0 h-[2px] z-20 premium-line-reveal" style={{ background: "linear-gradient(90deg, #f81828 0%, rgba(248,24,40,0.22) 28%, rgba(255,255,255,0.08) 62%, transparent 100%)" }} />
         <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to top, #050505, transparent)", zIndex: 2 }} />
 
-        <div className="relative z-10 container mx-auto px-4 py-14 md:py-24">
-          <div className="grid lg:grid-cols-[minmax(0,1.2fr)_340px] gap-10 items-end">
-            <div className="max-w-4xl">
-              <div className="premium-fade-up inline-flex items-center gap-3 mb-7 px-4 py-2 rounded-full" style={{ animationDelay: "40ms", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(14px)" }}>
-                <span className="w-2 h-2 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 14px rgba(248,24,40,0.65)" }} />
-                <span style={{ fontFamily: "Inter,sans-serif", fontSize: "11px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.76)", fontWeight: 800 }}>
+        <div className="relative z-10 container mx-auto px-4 pt-16 pb-14 md:pt-24 md:pb-20">
+          <div className="grid lg:grid-cols-[minmax(0,1.15fr)_360px] gap-12 xl:gap-16 items-end">
+            <div className="max-w-[980px]">
+              <div className="premium-fade-soft premium-editorial-rule mb-8" style={{ animationDelay: "40ms" }}>
+                <span style={{ fontFamily: "Inter,sans-serif", fontSize: "11px", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(255,255,255,0.76)", fontWeight: 800 }}>
                   Lublin · skład budowlany · wykonawstwo premium
                 </span>
               </div>
 
-              <div className="mb-8 max-w-3xl">
-                <div className="premium-fade-up mb-5 text-[11px] font-black uppercase tracking-[0.32em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>Industrial Premium</div>
-                <h1 className="text-white mb-6" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.04em", fontSize: "clamp(2.8rem, 6.4vw, 6.3rem)" }}>
-                  <span className="premium-fade-up block" style={{ animationDelay: "190ms" }}>Budujesz raz.</span>
-                  <span className="premium-fade-up block" style={{ animationDelay: "270ms" }}>Wybierasz</span>
-                  <span className="premium-fade-up block" style={{ animationDelay: "350ms", background: "linear-gradient(135deg,#ffffff 0%, #ffd7db 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                    partnera do całości.
+              <div className="mb-10 max-w-4xl">
+                <div className="premium-fade-soft mb-6 text-[11px] font-black uppercase tracking-[0.34em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>Editorial Luxury</div>
+                <h1 className="text-white mb-7" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.045em", fontSize: "clamp(3rem, 6.6vw, 6.8rem)" }}>
+                  <span className="block overflow-hidden">
+                    <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Budujesz</span>
+                    <span className="premium-editorial-word ml-[0.22em]" style={{ animationDelay: "260ms" }}>raz.</span>
+                  </span>
+                  <span className="block overflow-hidden mt-1">
+                    <span className="premium-editorial-word" style={{ animationDelay: "340ms" }}>Wybierasz</span>
+                  </span>
+                  <span className="block overflow-hidden mt-1">
+                    <span className="premium-editorial-word" style={{ animationDelay: "420ms", background: "linear-gradient(135deg,#ffffff 0%, #ffd7db 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>partnera</span>
+                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "500ms" }}>do</span>
+                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "580ms" }}>całości.</span>
                   </span>
                 </h1>
-                <p className="premium-fade-up max-w-2xl" style={{ animationDelay: "430ms", color: "rgba(255,255,255,0.72)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1rem, 1.35vw, 1.12rem)", lineHeight: 1.8 }}>
-                  Media Bud łączy profesjonalny skład budowlany z wykonawstwem. Materiały, doradztwo techniczne, wycena i ekipa — w jednym miejscu, z jedną odpowiedzialnością za efekt.
+                <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.74)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1rem, 1.32vw, 1.13rem)", lineHeight: 1.92 }}>
+                  Media Bud łączy profesjonalny skład budowlany z wykonawstwem. Materiały, doradztwo techniczne, wycena i ekipa — w jednym miejscu, z jedną odpowiedzialnością za efekt i jakość realizacji.
                 </p>
               </div>
 
-              <div className="premium-fade-up flex flex-wrap gap-4 mb-10" style={{ animationDelay: "520ms" }}>
+              <div className="premium-fade-soft flex flex-wrap gap-4 mb-12" style={{ animationDelay: "760ms" }}>
                 <Link
                   to="/produkty"
                   className="premium-shimmer relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] text-white rounded-full transition-all duration-500 hover:-translate-y-[2px]"
                   style={{ background: "linear-gradient(135deg, #f81828 0%, #d10f1e 100%)", boxShadow: "0 16px 40px rgba(248,24,40,0.30)", fontSize: "0.82rem" }}
                 >
-                  <span className="relative z-10">Zobacz ofertę</span> <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" />
+                  <span className="relative z-10">Zobacz ofertę</span>
+                  <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" />
                 </Link>
                 <button
                   type="button"
@@ -486,27 +538,29 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="grid sm:grid-cols-3 gap-4 max-w-3xl">
+              <div className="grid sm:grid-cols-3 gap-4 max-w-4xl">
                 {[
-                  { over: "Obsługa inwestycji", title: "Materiały i wykonanie", text: "Jedno miejsce, jeden partner, mniej ryzyka organizacyjnego." },
-                  { over: "Doradztwo techniczne", title: "Dobór systemów", text: "Pomagamy dobrać rozwiązania do budowy, budżetu i terminów." },
-                  { over: "Dla B2B i klientów prywatnych", title: "Skala i elastyczność", text: "Obsługujemy deweloperów, firmy wykonawcze i budowy indywidualne." },
+                  { over: "Obsługa inwestycji", title: "Materiały i wykonanie", text: "Jedno miejsce, jeden partner i mniej ryzyka organizacyjnego na budowie." },
+                  { over: "Doradztwo techniczne", title: "Dobór systemów", text: "Pomagamy dobrać rozwiązania do budżetu, zakresu prac i realnych terminów." },
+                  { over: "Dla B2B i klientów prywatnych", title: "Skala i elastyczność", text: "Obsługujemy deweloperów, wykonawców i inwestorów budujących własny dom." },
                 ].map((item, idx) => (
-                  <div key={item.title} className="premium-fade-up premium-card-soft rounded-[22px] p-5" style={{ animationDelay: `${620 + idx * 90}ms`, background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 18px 34px rgba(0,0,0,0.24)" }}>
-                    <div className="mb-2 text-[10px] font-black uppercase tracking-[0.22em] text-[#f3b0b5]">{item.over}</div>
-                    <div className="mb-2 text-lg font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em" }}>{item.title}</div>
-                    <p className="text-sm leading-6" style={{ color: "rgba(255,255,255,0.62)" }}>{item.text}</p>
+                  <div key={item.title} className="premium-fade-soft premium-card-soft rounded-[24px] p-5 md:p-6" style={{ animationDelay: `${880 + idx * 90}ms`, background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 18px 34px rgba(0,0,0,0.24)" }}>
+                    <div className="mb-3 text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">{item.over}</div>
+                    <div className="mb-3 text-[1.08rem] font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em", lineHeight: 1 }}>
+                      {item.title}
+                    </div>
+                    <p className="text-sm leading-7" style={{ color: "rgba(255,255,255,0.62)" }}>{item.text}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="hidden lg:block">
-              <div className="premium-fade-up premium-card-soft rounded-[28px] p-6" style={{ animationDelay: "740ms", background: "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(16px)", boxShadow: "0 24px 70px rgba(0,0,0,0.32)" }}>
-                <div className="mb-6 flex items-center justify-between">
+              <div className="premium-fade-soft premium-card-soft rounded-[30px] p-7" style={{ animationDelay: "1080ms", background: "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(16px)", boxShadow: "0 24px 70px rgba(0,0,0,0.32)" }}>
+                <div className="mb-7 flex items-center justify-between">
                   <div>
                     <div className="text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">Media Bud</div>
-                    <div className="mt-1 text-2xl font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>Investment Desk</div>
+                    <div className="mt-2 text-[2rem] font-black text-white leading-none" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>Investment Desk</div>
                   </div>
                   <div className="h-11 w-11 rounded-full border border-[#f81828]/35 flex items-center justify-center" style={{ background: "rgba(248,24,40,0.08)" }}>
                     <span className="text-[#f81828] text-lg">●</span>
@@ -515,11 +569,11 @@ export default function Home() {
 
                 <div className="space-y-4">
                   {[
-                    ["Ponad 15 000 produktów", "Stała dostępność materiałów z wielu kategorii."],
-                    ["Doświadczenie w realizacjach", "Obsługa domów, inwestycji i klientów biznesowych."],
-                    ["Wycena i kontakt do 24h", "Szybki start rozmowy o inwestycji i zakupach."],
+                    ["Ponad 15 000 produktów", "Stała dostępność materiałów z wielu kategorii i sprawdzonych systemów."],
+                    ["Doświadczenie w realizacjach", "Obsługa domów, inwestycji i klientów biznesowych w jednym standardzie."],
+                    ["Wycena i kontakt do 24h", "Szybki start rozmowy o inwestycji, zakupach i logistyce dostaw."],
                   ].map(([title, desc], idx) => (
-                    <div key={title} className="premium-card-soft rounded-2xl p-4" style={{ transitionDelay: `${idx * 40}ms`, background: "rgba(0,0,0,0.24)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                    <div key={title} className="premium-card-soft rounded-[22px] p-4" style={{ transitionDelay: `${idx * 40}ms`, background: "rgba(0,0,0,0.24)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div className="mb-1 text-sm font-black text-white">{title}</div>
                       <div className="text-sm leading-6" style={{ color: "rgba(255,255,255,0.62)" }}>{desc}</div>
                     </div>
@@ -534,12 +588,16 @@ export default function Home() {
       {/* ═══ PREMIUM TRUST BAR / STAT BAR ═══ */}
       <div
         ref={r3.ref as React.RefObject<HTMLDivElement>}
-        className="relative overflow-hidden"
-        style={{ background: "linear-gradient(180deg, #090909 0%, #060606 100%)", borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}
+        className={`relative overflow-hidden ${r3.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
+        style={{ background: "linear-gradient(180deg, #090909 0%, #060606 100%)", borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)", animationDelay: "120ms" }}
       >
-        <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "220px 220px" }} />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.045]" style={{ backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "240px 240px" }} />
         <div className="absolute top-0 left-0 right-0 h-[1px] premium-line-reveal" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.65), transparent)" }} />
-        <div className="container mx-auto px-4 py-4 md:py-5">
+        <div className="container mx-auto px-4 py-6 md:py-7">
+          <div className="mb-5 flex items-center gap-4">
+            <div className="text-[10px] font-black uppercase tracking-[0.28em] text-[#f3b0b5]">Media Bud w liczbach</div>
+            <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.34), transparent)" }} />
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
             {[
               { num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, "\u00a0")}+`, label: "Produktów w ofercie", note: "szeroki asortyment dostępny od ręki i na zamówienie" },
@@ -549,21 +607,21 @@ export default function Home() {
             ].map((s, i) => (
               <div
                 key={i}
-                className="premium-stat-card premium-shimmer premium-card-soft group relative overflow-hidden rounded-[22px] px-5 py-5 md:px-6 md:py-6"
-                style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 14px 34px rgba(0,0,0,0.18)" }}
+                className="premium-stat-card premium-shimmer premium-card-soft group relative overflow-hidden rounded-[24px] px-5 py-6 md:px-6 md:py-7"
+                style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 14px 34px rgba(0,0,0,0.18)", transitionDelay: `${i * 60}ms` }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.28)"; el.style.boxShadow = "0 16px 38px rgba(248,24,40,0.10)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.09)"; el.style.boxShadow = "0 14px 34px rgba(0,0,0,0.18)"; }}
               >
                 <div className="absolute inset-x-0 top-0 h-[2px] opacity-80" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.0), rgba(248,24,40,0.85), rgba(248,24,40,0.0))" }} />
-                <div className="mb-3 text-[10px] font-black uppercase tracking-[0.22em] text-[#f3b0b5]">Media Bud Standard</div>
-                <div className="premium-stat-value" style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(2rem,3vw,3rem)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", marginBottom: 10 }}>
+                <div className="mb-4 text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">Standard współpracy</div>
+                <div className="premium-stat-value" style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(2.1rem,3vw,3.2rem)", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.045em", marginBottom: 12 }}>
                   {s.num}
                 </div>
-                <div style={{ color: "#ffffff", fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.16em", fontWeight: 800, marginBottom: 10 }}>
+                <div style={{ color: "#ffffff", fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.16em", fontWeight: 800, marginBottom: 12 }}>
                   {s.label}
                 </div>
-                <div className="mb-3 h-px w-12 transition-all duration-500 group-hover:w-20" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.75), transparent)" }} />
-                <p className="text-sm leading-6" style={{ color: "rgba(255,255,255,0.56)" }}>{s.note}</p>
+                <div className="mb-4 h-px w-12 transition-all duration-500 group-hover:w-20" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.75), transparent)" }} />
+                <p className="text-sm leading-7" style={{ color: "rgba(255,255,255,0.58)" }}>{s.note}</p>
               </div>
             ))}
           </div>
@@ -929,12 +987,12 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          WHY MEDIABUD — INDUSTRIAL PREMIUM
+          WHY MEDIABUD — EDITORIAL LUXURY
       ═══════════════════════════════════════════════════════ */}
       <section
         ref={r4.ref as React.RefObject<HTMLElement>}
-        className="py-20 relative overflow-hidden"
-        style={{ background: "#050505" }}
+        className={`py-24 relative overflow-hidden ${r4.visible ? "premium-section-rise" : "opacity-0 translate-y-10"}`}
+        style={{ background: "#050505", animationDelay: "180ms" }}
       >
         <video
           autoPlay
@@ -942,51 +1000,53 @@ export default function Home() {
           muted
           playsInline
           className="absolute inset-0 hidden md:block w-full h-full object-cover pointer-events-none"
-          style={{ opacity: 0.14, filter: "brightness(0.52) saturate(0.72)" }}
+          style={{ opacity: 0.12, filter: "brightness(0.48) saturate(0.68)" }}
           src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8ji72v80j2drgd1t2kg.mp4"
         />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.88) 45%, rgba(5,5,5,0.97) 100%)" }} />
-        <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "140px 140px" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.965) 0%, rgba(5,5,5,0.90) 45%, rgba(5,5,5,0.98) 100%)" }} />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "160px 160px" }} />
         <div className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.5), transparent)" }} />
 
         <div className="container mx-auto px-4 relative" style={{ zIndex: 3 }}>
-          <div className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-10 items-start mb-12">
+          <div className="grid lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] gap-12 xl:gap-16 items-start mb-14">
             <div>
-              <div className="mb-4 text-[11px] font-black uppercase tracking-[0.28em] text-[#f3b0b5]">Dlaczego Media Bud</div>
-              <h2 className="text-white mb-5" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(2.1rem, 4.6vw, 4.4rem)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.035em" }}>
+              <div className="premium-editorial-rule mb-5">
+                <span className="text-[11px] font-black uppercase tracking-[0.28em] text-[#f3b0b5]">Dlaczego Media Bud</span>
+              </div>
+              <h2 className="text-white mb-6" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(2.25rem, 4.8vw, 4.8rem)", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.04em" }}>
                 Know-how techniczne.
                 <span className="block" style={{ background: "linear-gradient(135deg,#ffffff 0%, #ffd9dd 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                   Obsługa, która dowozi.
                 </span>
               </h2>
-              <p className="max-w-xl text-sm md:text-[15px] leading-7" style={{ color: "rgba(255,255,255,0.68)" }}>
+              <p className="max-w-xl text-sm md:text-[15px] leading-8" style={{ color: "rgba(255,255,255,0.70)" }}>
                 Łączymy wiedzę materiałową, doświadczenie wykonawcze i realne tempo działania. Dzięki temu inwestor nie kupuje tylko produktów — kupuje spokój, przewidywalność i partnera, który rozumie budowę od praktycznej strony.
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
               {[
                 { title: "Doradztwo techniczne", text: "Dobieramy systemy i rozwiązania do zakresu prac, budżetu i harmonogramu inwestycji." },
                 { title: "Kompleksowa obsługa", text: "Możesz zamówić same materiały albo połączyć zakupy z wykonawstwem w jednym procesie." },
                 { title: "Sprawdzona logistyka", text: "Dostarczamy materiały na budowę i porządkujemy proces zakupowy tak, by ograniczyć przestoje." },
                 { title: "Partner dla B2B i klientów prywatnych", text: "Obsługujemy zarówno firmy i deweloperów, jak i inwestorów budujących własny dom." },
-              ].map((item) => (
-                <div key={item.title} className="rounded-[22px] p-5" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 18px 34px rgba(0,0,0,0.20)" }}>
-                  <div className="mb-2 text-[10px] font-black uppercase tracking-[0.22em] text-[#f3b0b5]">Standard współpracy</div>
-                  <div className="mb-2 text-lg font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em" }}>{item.title}</div>
-                  <p className="text-sm leading-6" style={{ color: "rgba(255,255,255,0.60)" }}>{item.text}</p>
+              ].map((item, idx) => (
+                <div key={item.title} className="premium-card-soft rounded-[24px] p-5 md:p-6" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 18px 34px rgba(0,0,0,0.20)", transitionDelay: `${idx * 50}ms` }}>
+                  <div className="mb-3 text-[10px] font-black uppercase tracking-[0.24em] text-[#f3b0b5]">Standard współpracy</div>
+                  <div className="mb-3 text-[1.08rem] font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em", lineHeight: 1 }}>{item.title}</div>
+                  <p className="text-sm leading-7" style={{ color: "rgba(255,255,255,0.60)" }}>{item.text}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {features.map((f, i) => {
               const Icon = f.Icon;
               return (
                 <div
                   key={i}
-                  className={`group relative overflow-hidden rounded-[24px] p-6 transition-all duration-300 cursor-default ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                  className={`group relative overflow-hidden rounded-[26px] p-6 md:p-7 transition-all duration-300 cursor-default ${r4.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                   style={{
                     background: "linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025))",
                     border: "1px solid rgba(255,255,255,0.10)",

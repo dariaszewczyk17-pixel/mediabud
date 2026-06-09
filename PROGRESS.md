@@ -389,3 +389,6 @@
 [2026-06-09 13:33] Rozpoczęto wdrożenie subtelnych mikrointerakcji premium i motion polish dla Home.tsx.
 [2026-06-09 13:35] Wdrożono subtelny motion system premium, shimmer CTA, miękkie reveal oraz mikrointerakcje dla stat bara i kart sekcji premium.
 [2026-06-09 13:35] Build po wdrożeniu mikrointerakcji premium przeszedł; finalizuję commit i push zmian Home.tsx.
+[2026-06-09 13:44] Rozpoczęto etap Editorial Luxury v2: typografia, choreografia sekcji i większy oddech kompozycji w Home.tsx.
+[2026-06-09 13:48] Wdrożono Editorial Luxury v2 w hero, stat barze i sekcji Dlaczego Media Bud: spokojniejsza choreografia sekcji, editorial reveals i większy rytm premium.
+[2026-06-09 13:49] Build po wdrożeniu Editorial Luxury v2 przeszedł pomyślnie; rozpoczynam commit i push zmian do main.

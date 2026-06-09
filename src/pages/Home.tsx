@@ -1192,7 +1192,9 @@ export default function Home() {
             <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.55)" }}>
               <video
                 src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jir6n80j2drgd1t400.mp4"
-                controls
+                autoPlay
+                muted
+                loop
                 playsInline
                 preload="metadata"
                 className="w-full aspect-video"

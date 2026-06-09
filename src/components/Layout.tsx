@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import BottomNav from "./BottomNav";
+import CookieBanner from "./CookieBanner";
 import { Toaster } from "sonner";
 import { LOCAL_BUSINESS_JSONLD } from "@/lib/localBusiness";
 
@@ -43,6 +44,7 @@ export default function Layout() {
       <Suspense fallback={null}><WycenaDrawer /></Suspense>
       <BottomNav />
       <Toaster position="bottom-right" richColors />
+      <CookieBanner />
     </div>
   );
 }

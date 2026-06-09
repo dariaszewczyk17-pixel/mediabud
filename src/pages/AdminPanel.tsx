@@ -80,6 +80,7 @@ const SectionHeader = ({ title, count, onAdd, addLabel="Dodaj nowy" }: { title:s
 export default function AdminPanel() {
   const [tab, setTab]           = useState<Tab>("dashboard");
   const [sidebar, setSidebar]   = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginForm, setLoginForm] = useState({ user:"", pass:"" });
   const [loginErr, setLoginErr]   = useState("");
@@ -163,10 +164,24 @@ export default function AdminPanel() {
   return (
     <div className="min-h-screen flex" style={{background:"#060606",fontFamily:"Inter,sans-serif"}}>
 
+      {/* ── MOBILE OVERLAY BACKDROP ── */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 md:hidden"
+          style={{background:"rgba(0,0,0,0.65)",backdropFilter:"blur(3px)"}}
+          onClick={()=>setMobileOpen(false)}
+        />
+      )}
+
       {/* ── SIDEBAR ── */}
       <aside
-        className={`flex-shrink-0 flex flex-col transition-all duration-200 ${sidebar?"w-56":"w-14"}`}
-        style={{background:"#0a0a0a",borderRight:"1px solid rgba(255,255,255,0.07)",position:"sticky",top:0,height:"100vh"}}
+        className={`flex-shrink-0 flex flex-col transition-all duration-200
+          md:static md:translate-x-0
+          fixed inset-y-0 left-0 z-50
+          ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+          ${sidebar ? "w-56" : "w-56 md:w-14"}
+        `}
+        style={{background:"#0a0a0a",borderRight:"1px solid rgba(255,255,255,0.07)",height:"100vh",overflowY:"auto"}}
       >
         {/* Logo */}
         <div className="flex items-center gap-2.5 px-4 py-4" style={{borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
@@ -189,7 +204,7 @@ export default function AdminPanel() {
             const it = item as {id:Tab;icon:React.ReactNode;label:string;badge:number|null};
             const active = tab === it.id;
             return (
-              <button key={it.id} onClick={()=>setTab(it.id)}
+              <button key={it.id} onClick={()=>{setTab(it.id);setMobileOpen(false);}}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all relative ${active?"bg-[#f81828] text-white shadow-[0_0_14px_rgba(248,24,40,0.3)]":"text-gray-500 hover:text-white hover:bg-white/5"}`}
               >
                 <span className="flex-shrink-0">{it.icon}</span>
@@ -223,7 +238,15 @@ export default function AdminPanel() {
       {/* ── MAIN ── */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="flex items-center gap-4 px-6 py-3.5 flex-shrink-0" style={{background:"#0a0a0a",borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
+        <header className="flex items-center gap-3 px-4 md:px-6 py-3.5 flex-shrink-0" style={{background:"#0a0a0a",borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
+          {/* Hamburger — tylko mobile */}
+          <button
+            className="md:hidden flex-shrink-0 text-gray-500 hover:text-white transition-colors"
+            onClick={()=>setMobileOpen(s=>!s)}
+            aria-label="Menu"
+          >
+            <Menu className="w-5 h-5"/>
+          </button>
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-600 pointer-events-none"/>
             <input value={search} onChange={e=>{setSearch(e.target.value);if(tab!=="products")setTab("products");}}

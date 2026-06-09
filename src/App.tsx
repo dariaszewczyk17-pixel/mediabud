@@ -1,8 +1,11 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import Layout from "@/components/Layout";
 import NotFoundPage from "@/pages/NotFoundPage";
+import SplashScreen from "@/components/SplashScreen";
+
+const SPLASH_KEY = "mb_splash_shown";
 
 /* ─── Lazy-loaded pages ─────────────────────────────────
    Każda strona ładuje się osobnym chunk-em — Vite rozbija
@@ -27,8 +30,19 @@ const AdminPanel        = lazy(() => import("@/pages/AdminPanel"));
 const PolicyPage        = lazy(() => import("@/pages/PolicyPage"));
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState<boolean>(() => {
+    try { return !sessionStorage.getItem(SPLASH_KEY); }
+    catch { return false; }
+  });
+  const handleSplashDone = useCallback(() => {
+    try { sessionStorage.setItem(SPLASH_KEY, "1"); } catch { /* ignore */ }
+    setShowSplash(false);
+  }, []);
+
   return (
-    <BrowserRouter>
+    <>
+      {showSplash && <SplashScreen onDone={handleSplashDone} />}
+      <BrowserRouter>
       <ScrollToTop />
       {/* Outer Suspense: fallback=null — spinner obsługiwany przez Layout/Suspense wewnątrz main */}
       <Suspense fallback={null}>
@@ -62,5 +76,6 @@ export default function App() {
         </Routes>
       </Suspense>
     </BrowserRouter>
+    </>
   );
 }

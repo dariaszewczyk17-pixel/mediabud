@@ -16,21 +16,73 @@ const PRODUCT_PLACEHOLDER = "/placeholder.svg";
 const getProductImage = (product: Pick<Product, "images">) => product.images?.[0] || PRODUCT_PLACEHOLDER;
 
 /* ================================================================
-   PRODUCT CARD  – dark industrial
+   GLOBAL CSS — przenoszone poza komponent, by nie re-kreować przy renderze
+================================================================ */
+const _cardStylesEl = (() => {
+  if (typeof document === "undefined") return null;
+  const id = "__commerce_card_styles__";
+  if (document.getElementById(id)) return null;
+  const el = document.createElement("style");
+  el.id = id;
+  el.textContent = `
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .img-shimmer { animation: shimmer 1.8s infinite; }
+    @keyframes spark-tl {
+      0%   { transform: translate(0,0) scale(1.3); opacity: 0.95; }
+      100% { transform: translate(-8px,-11px) scale(0); opacity: 0; }
+    }
+    @keyframes spark-tr {
+      0%   { transform: translate(0,0) scale(1.3); opacity: 0.95; }
+      100% { transform: translate(8px,-11px) scale(0); opacity: 0; }
+    }
+    @keyframes spark-bl {
+      0%   { transform: translate(0,0) scale(1); opacity: 0.7; }
+      100% { transform: translate(-6px,8px) scale(0); opacity: 0; }
+    }
+    .group:hover .card-spark-tl { animation: spark-tl 0.45s ease-out; }
+    .group:hover .card-spark-tr { animation: spark-tr 0.45s ease-out 0.08s; }
+    .group:hover .card-spark-bl { animation: spark-bl 0.4s ease-out 0.16s; }
+    @keyframes scanline {
+      0%   { top: 0%; opacity: 0.85; }
+      80%  { opacity: 0.85; }
+      100% { top: 100%; opacity: 0; }
+    }
+    .card-scanline {
+      animation: scanline 3s ease-in-out infinite;
+    }
+    @keyframes corner-pulse {
+      0%,100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+    .card-corner { animation: corner-pulse 2s ease-in-out infinite; }
+  `;
+  document.head.appendChild(el);
+  return el;
+})();
+void _cardStylesEl;
+
+/* ================================================================
+   PRODUCT CARD  – dark industrial cyberpunk
 ================================================================ */
 interface ProductCardProps {
   product: Product;
   showBrand?: boolean;
+  priority?: boolean;
 }
 
-export function ProductCard({ product, showBrand = true }: ProductCardProps) {
+export function ProductCard({ product, showBrand = true, priority = false }: ProductCardProps) {
   const { addItem } = useWycena();
   const [added, setAdded]     = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const mainImage = getProductImage(product);
   const topSpecs = product.technicalSpec.slice(0, 4);
   const topTags = product.tags.slice(0, 3);
+  const inStock = product.inStock !== false;
 
   /* 3-D tilt */
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -49,14 +101,15 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
     el.style.transform = "translateY(0)";
     el.style.boxShadow = "none";
     el.style.borderColor = "#2d2d2d";
+    setHovered(false);
   };
-
   const handleMouseEnter = () => {
     const el = cardRef.current;
     if (!el) return;
     el.style.transform = "translateY(-4px)";
     el.style.boxShadow = "0 0 20px rgba(248,24,40,0.3), 0 12px 40px rgba(0,0,0,0.5)";
     el.style.borderColor = "rgba(248,24,40,0.5)";
+    setHovered(true);
   };
 
   const handleAdd = () => {
@@ -65,6 +118,25 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
     toast.success(`${product.name} dodano do wyceny`);
     setTimeout(() => setAdded(false), 2200);
   };
+
+  /* Glowing corner bracket divs */
+  const cornerStyle = (pos: { top?: 0|"auto"; bottom?: 0|"auto"; left?: 0|"auto"; right?: 0|"auto" }) => ({
+    position: "absolute" as const,
+    width: 14, height: 14,
+    borderColor: "#f81828",
+    borderStyle: "solid",
+    borderWidth: 0,
+    borderTopWidth:    pos.top    === 0 ? 2 : 0,
+    borderBottomWidth: pos.bottom === 0 ? 2 : 0,
+    borderLeftWidth:   pos.left   === 0 ? 2 : 0,
+    borderRightWidth:  pos.right  === 0 ? 2 : 0,
+    ...pos,
+    opacity: hovered ? 1 : 0,
+    transition: "opacity 0.25s",
+    boxShadow: "0 0 6px rgba(248,24,40,0.7)",
+    zIndex: 10,
+    pointerEvents: "none" as const,
+  });
 
   return (
     <>
@@ -81,11 +153,30 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           overflow: "hidden",
           transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
           willChange: "transform",
+          position: "relative",
         }}
       >
+        {/* ── Glowing corner brackets ── */}
+        <div style={cornerStyle({ top: 0, left: 0 })} />
+        <div style={cornerStyle({ top: 0, right: 0 })} />
+        <div style={cornerStyle({ bottom: 0, left: 0 })} />
+        <div style={cornerStyle({ bottom: 0, right: 0 })} />
+
         {/* ── Image area ── */}
         <Link to={`/produkt/${product.slug}`} className="block relative overflow-hidden"
           style={{ background: "#141414", aspectRatio: "4/3" }}>
+
+          {/* Scan-line effect */}
+          <div
+            className="card-scanline absolute left-0 right-0 h-[2px] pointer-events-none z-20"
+            style={{
+              background: "linear-gradient(90deg, transparent 0%, #f81828 40%, rgba(255,100,100,0.9) 50%, #f81828 60%, transparent 100%)",
+              boxShadow: "0 0 8px rgba(248,24,40,0.7), 0 0 2px rgba(248,24,40,0.5)",
+              opacity: hovered ? undefined : 0,
+              animation: hovered ? undefined : "none",
+            }}
+          />
+
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
 
@@ -100,42 +191,21 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
           <div className="absolute inset-0" style={{ background: "#141414" }}>
             {/* Shimmer skeleton */}
             <div className="absolute inset-0 overflow-hidden">
-              <style>{`
-                @keyframes shimmer {
-                  0% { transform: translateX(-100%); }
-                  100% { transform: translateX(100%); }
-                }
-                .img-shimmer { animation: shimmer 1.8s infinite; }
-                @keyframes spark-tl {
-                  0%   { transform: translate(0,0) scale(1.3); opacity: 0.95; }
-                  100% { transform: translate(-8px,-11px) scale(0); opacity: 0; }
-                }
-                @keyframes spark-tr {
-                  0%   { transform: translate(0,0) scale(1.3); opacity: 0.95; }
-                  100% { transform: translate(8px,-11px) scale(0); opacity: 0; }
-                }
-                @keyframes spark-bl {
-                  0%   { transform: translate(0,0) scale(1); opacity: 0.7; }
-                  100% { transform: translate(-6px,8px) scale(0); opacity: 0; }
-                }
-                .group:hover .card-spark-tl { animation: spark-tl 0.45s ease-out; }
-                .group:hover .card-spark-tr { animation: spark-tr 0.45s ease-out 0.08s; }
-                .group:hover .card-spark-bl { animation: spark-bl 0.4s ease-out 0.16s; }
-              `}</style>
               <div className="img-shimmer absolute inset-0"
                 style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)" }} />
             </div>
             <img
               src={mainImage}
               alt={product.name}
-              loading="lazy"
+              loading={priority ? "eager" : "lazy"}
+              fetchPriority={priority ? "high" : "auto"}
               decoding="async"
               className="relative z-[1] w-full h-full object-contain p-4 transition-all duration-500 group-hover:scale-105"
               onError={e => { (e.target as HTMLImageElement).src = PRODUCT_PLACEHOLDER; }}
             />
           </div>
 
-          {/* Badges — NEW / FEATURED */}
+          {/* Badges — NEW / FEATURED / IN-STOCK */}
           <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-[2]">
             {product.isNew && (
               <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider"
@@ -147,6 +217,20 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
               <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider"
                 style={{ background: "#f81828", boxShadow: "0 0 8px rgba(248,24,40,0.5)" }}>
                 POLECANY
+              </span>
+            )}
+            {inStock && (
+              <span
+                className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider"
+                style={{
+                  background: "rgba(16,185,129,0.15)",
+                  border: "1px solid rgba(16,185,129,0.6)",
+                  color: "#4ade80",
+                  boxShadow: "0 0 10px rgba(16,185,129,0.5), 0 0 3px rgba(16,185,129,0.8)",
+                  textShadow: "0 0 6px rgba(16,185,129,0.8)",
+                }}
+              >
+                ● DOSTĘPNY OD RĘKI
               </span>
             )}
           </div>
@@ -202,14 +286,20 @@ export function ProductCard({ product, showBrand = true }: ProductCardProps) {
 
           {/* Action buttons */}
           <div className="flex flex-col gap-2">
+            {/* Primary CTA — glowing red, większy */}
             <button
-              className="w-full h-9 text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200"
-              style={{ background: "#f81828" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 16px rgba(248,24,40,0.4)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+              className="w-full h-11 text-white text-[13px] font-black rounded-lg flex items-center justify-center gap-2 transition-all duration-200 tracking-wide uppercase"
+              style={{
+                background: "linear-gradient(135deg, #f81828 0%, #c8000f 100%)",
+                boxShadow: hovered ? "0 0 20px rgba(248,24,40,0.55), 0 4px 16px rgba(248,24,40,0.3)" : "0 0 10px rgba(248,24,40,0.2)",
+                border: "1px solid rgba(248,24,40,0.5)",
+                letterSpacing: "0.06em",
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #ff2a3a 0%, #e0000e 100%)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(248,24,40,0.6), 0 4px 20px rgba(248,24,40,0.4)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #f81828 0%, #c8000f 100%)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 10px rgba(248,24,40,0.2)"; }}
               onClick={() => setQuoteOpen(true)}
             >
-              <Mail className="w-3.5 h-3.5" /> Zapytaj o ofertę
+              <Mail className="w-4 h-4" /> Zapytaj o ofertę
             </button>
 
             <button

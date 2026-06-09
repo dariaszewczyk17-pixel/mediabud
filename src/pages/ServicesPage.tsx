@@ -518,25 +518,32 @@ export default function ServicesPage() {
               </p>
             </div>
 
-            {/* Stats */}
-            <div className="rounded-2xl p-6 relative overflow-hidden"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(16px)" }}>
-              <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg,#f81828,transparent)" }} />
-              <p className="text-[10px] font-black uppercase tracking-widest text-[#555] mb-4">Media Bud w liczbach</p>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { value: "15+",     label: "lat na rynku" },
-                  { value: "500+",    label: "projektów wykonanych" },
-                  { value: "50+",     label: "marek w ofercie" },
-                  { value: "16 000+", label: "produktów w magazynie" },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-xl p-4 relative overflow-hidden"
-                    style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)", borderLeft: "2px solid #f81828" }}>
-                    <div className="font-display font-black mb-0.5 text-2xl" style={{ color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", textShadow: "0 0 16px rgba(248,24,40,0.3)" }}>{item.value}</div>
-                    <div className="text-[11px] uppercase tracking-wider text-[#666]">{item.label}</div>
+            {/* Stats – editorial style */}
+            <div className="flex flex-col justify-center gap-0">
+              {[
+                { value: "15+",     label: "lat na rynku",           sub: "od 2008 roku" },
+                { value: "500+",    label: "projektów wykonanych",    sub: "Lublin i region" },
+                { value: "50+",     label: "marek w ofercie",         sub: "czołowi producenci" },
+                { value: "16 000+", label: "produktów w magazynie",   sub: "dostawa 24h" },
+              ].map((item, i) => (
+                <div key={item.label}>
+                  {i > 0 && (
+                    <div style={{ height: "1px", background: "linear-gradient(90deg,rgba(248,24,40,0.35),rgba(248,24,40,0.05) 70%,transparent)" }} className="my-4" />
+                  )}
+                  <div className="flex items-center justify-between gap-4">
+                    <div
+                      className="font-display font-black leading-none tabular-nums"
+                      style={{ fontSize: "clamp(2.4rem,4.5vw,3.2rem)", color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", textShadow: "0 0 32px rgba(248,24,40,0.22)", letterSpacing: "-0.02em" }}
+                    >
+                      {item.value}
+                    </div>
+                    <div className="text-right">
+                      <div className="font-black text-[11px] uppercase tracking-widest text-white leading-tight">{item.label}</div>
+                      <div className="text-[10px] text-[#444] uppercase tracking-wider mt-0.5">{item.sub}</div>
+                    </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

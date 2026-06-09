@@ -49,6 +49,12 @@ export const NAP_HOURS = [
   },
 ];
 
+/** String format openingHours dla LocalBusiness (Google oczekuje tego formatu) */
+export const NAP_HOURS_STRING = [
+  "Mo-Fr 07:00-16:00",
+  "Sa 07:00-13:00",
+];
+
 export const NAP_AREA_SERVED = [
   {
     "@type": "City",
@@ -77,6 +83,9 @@ export const NAP_LOGO = {
   "width": 180,
   "height": 60,
 };
+
+/** OG image — absolutny URL dla meta og:image */
+export const NAP_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 
 export const NAP_AMENITIES = [
   { "@type": "LocationFeatureSpecification", "name": "Parking bezpłatny",              "value": true },
@@ -127,7 +136,7 @@ export const LOCAL_BUSINESS_JSONLD = {
       "alternateName": ["MediaBud", "Media Bud Lublin"],
       "url": BASE_URL,
       "logo": NAP_LOGO,
-      "image": `${BASE_URL}/images/hero-materialy_2.png`,
+      "image": NAP_OG_IMAGE,
       "telephone": "+48533553344",
       "email": "sprzedaz@mediabud.pl",
       "taxID": "9462743421",
@@ -159,6 +168,9 @@ export const LOCAL_BUSINESS_JSONLD = {
       "geo": NAP_GEO,
       "hasMap": "https://maps.google.com/maps?q=ul.+Chemiczna+8d,+20-329+Lublin",
 
+      /* openingHours jako string (dla Google Rich Results) */
+      "openingHours": NAP_HOURS_STRING,
+      /* openingHoursSpecification dla pełnej specyfikacji schema.org */
       "openingHoursSpecification": NAP_HOURS,
 
       "priceRange": "$$",

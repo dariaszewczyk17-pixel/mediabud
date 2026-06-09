@@ -1413,81 +1413,164 @@ export default function Home() {
       </section>
 
       {/* ── Dom od podstaw ── */}
-      <section id="dom-od-podstaw" className="py-14 md:py-20 relative overflow-hidden" style={{ background: "#000" }}>
+      <section id="dom-od-podstaw" className="py-14 md:py-24 relative overflow-hidden" style={{ background: "#000" }}>
+        {/* Cyberpunk grid bg */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(248,24,40,0.6) 1px, transparent 1px)", backgroundSize: "48px 48px" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.6), rgba(255,80,100,0.5), rgba(248,24,40,0.6), transparent)" }} />
+        {/* Red glow bottom-right */}
+        <div className="absolute pointer-events-none" style={{ right: "-10%", bottom: "-20%", width: 500, height: 500, background: "radial-gradient(circle, rgba(248,24,40,0.09) 0%, transparent 65%)", borderRadius: "50%", filter: "blur(60px)" }} />
+
+        <style>{`
+          @keyframes pulseCTA {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(248,24,40,0.6), 0 16px 36px rgba(248,24,40,0.28); }
+            50% { box-shadow: 0 0 0 14px rgba(248,24,40,0), 0 20px 48px rgba(248,24,40,0.42); }
+          }
+          .cta-pulse {
+            animation: pulseCTA 2.4s ease-in-out infinite;
+          }
+          .cta-pulse:hover { animation-duration: 0.8s; }
+          @keyframes stepReveal {
+            from { opacity: 0; transform: translateX(-16px); }
+            to { opacity: 1; transform: translateX(0); }
+          }
+          .step-item {
+            opacity: 0;
+            animation: stepReveal 0.7s cubic-bezier(.22,1,.36,1) forwards;
+          }
+          .step-num-line {
+            position: relative;
+          }
+          .step-num-line::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(248,24,40,0.35), transparent);
+            transform: translateX(-50%);
+          }
+          .step-item:last-child .step-num-line::after { display: none; }
+        `}</style>
+
         <div className="relative z-10 container mx-auto px-4">
+          {/* ── Split layout: nagłówek + lista po lewej, CTA box po prawej ── */}
+          <div className="grid lg:grid-cols-[1fr_420px] gap-10 xl:gap-16 items-start mb-10">
 
-          {/* ── Nagłówek ── */}
-          <div className="mb-8">
-            <p className="text-xs font-black uppercase tracking-widest text-[#f81828] mb-3 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#f81828]" />PROGRAM SPECJALNY
-            </p>
-            <h2 className="font-display text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
-              Dom od <span className="text-[#f81828]">Podstaw</span>
-            </h2>
-            <p className="text-gray-400 max-w-2xl leading-relaxed text-sm">
-              Kompleksowe wsparcie dla tych, którzy budują dom po raz pierwszy. Od projektu do odbioru — jeden opiekun, jeden kosztorys, zero chaosu.
-            </p>
-          </div>
-
-          {/* ── Wideo + Etapy ── */}
-          <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-8 mb-12">
-            {/* Wideo */}
-            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(248,24,40,0.22)", boxShadow: "0 24px 60px rgba(0,0,0,0.55)" }}>
-              <video
-                src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jir6n80j2drgd1t400.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                className="w-full aspect-video"
-                style={{ display: "block", background: "#050505" }}
-              />
-            </div>
-
-            {/* Etapy programu */}
-            <div className="flex flex-col justify-center space-y-5">
-              <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828] mb-1 flex items-center gap-2">
-                <span className="w-3 h-0.5 bg-[#f81828]" />5 etapów realizacji
+            {/* LEWA KOLUMNA: nagłówek + etapy */}
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 flex items-center gap-3" style={{ color: "#f81828" }}>
+                <span className="w-8 h-px" style={{ background: "linear-gradient(90deg, #f81828, rgba(248,24,40,0.2))" }} />
+                PROGRAM SPECJALNY
+                <span className="relative flex h-1.5 w-1.5 ml-1">
+                  <span className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping" style={{ background: "#f81828" }} />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: "#f81828" }} />
+                </span>
               </p>
-              {[
-                { num: "01", title: "Projekt i pozwolenie",  desc: "Analizujemy projekt, dobieramy materiały, pomagamy w formalnościach." },
-                { num: "02", title: "Stan surowy",           desc: "Fundamenty, ściany, strop, dach — własna ekipa i materiały z magazynu." },
-                { num: "03", title: "Instalacje",            desc: "Elektryka, wod-kan, ogrzewanie — zaplanowane i wykonane razem." },
-                { num: "04", title: "Wykończenia",           desc: "Tynki, podłogi, łazienki, kuchnia — jeden kosztorys, jeden wykonawca." },
-                { num: "05", title: "Odbiór i klucze",       desc: "Odbierasz gotowy dom z dokumentacją. Jeden telefon był początkiem." },
-              ].map((step, i) => (
-                <div key={i} className="flex items-start gap-4 group">
-                  <span className="text-lg font-mono font-black flex-shrink-0 w-9 transition-colors duration-200" style={{ color: "rgba(248,24,40,0.45)" }}>{step.num}</span>
-                  <div className="border-l border-[#2a2a2a] pl-4 group-hover:border-[#f81828]/30 transition-colors duration-200">
-                    <h3 className="font-black text-white text-sm mb-0.5">{step.title}</h3>
-                    <p className="text-xs text-[#777] leading-relaxed">{step.desc}</p>
+              <h2 style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.04em", fontSize: "clamp(2.6rem,5.2vw,5.5rem)" }}>
+                <span className="text-white block">Dom od</span>
+                <span className="block" style={{ background: "linear-gradient(135deg, #ffffff 0%, #ffd9dd 28%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Podstaw</span>
+              </h2>
+              <p className="mt-5 mb-10 max-w-lg text-sm md:text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                Kompleksowe wsparcie dla tych, którzy budują dom po raz pierwszy. Od projektu do odbioru — jeden opiekun, jeden kosztorys, zero chaosu.
+              </p>
+
+              {/* Etapy — pionowa lista */}
+              <div className="space-y-0">
+                {[
+                  { num: "01", title: "Projekt i pozwolenie",  desc: "Analizujemy projekt, dobieramy materiały, pomagamy w formalnościach." },
+                  { num: "02", title: "Stan surowy",           desc: "Fundamenty, ściany, strop, dach — własna ekipa i materiały z magazynu." },
+                  { num: "03", title: "Instalacje",            desc: "Elektryka, wod-kan, ogrzewanie — zaplanowane i wykonane razem." },
+                  { num: "04", title: "Wykończenia",           desc: "Tynki, podłogi, łazienki, kuchnia — jeden kosztorys, jeden wykonawca." },
+                  { num: "05", title: "Odbiór i klucze",       desc: "Odbierasz gotowy dom z dokumentacją. Jeden telefon był początkiem." },
+                ].map((step, i) => (
+                  <div
+                    key={i}
+                    className="step-item flex items-start gap-5 py-5 group"
+                    style={{ animationDelay: `${i * 100 + 200}ms`, borderBottom: i < 4 ? "1px solid rgba(255,255,255,0.06)" : "none" }}
+                  >
+                    <div className="step-num-line flex-shrink-0 w-9 flex flex-col items-center pt-0.5">
+                      <span
+                        className="text-[11px] font-mono font-black w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                        style={{ background: "rgba(248,24,40,0.10)", border: "1px solid rgba(248,24,40,0.32)", color: "#f81828" }}
+                      >
+                        {step.num}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-black text-white text-sm mb-1 group-hover:text-[#ff4d5d] transition-colors duration-200" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.01em" }}>{step.title}</h3>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.52)" }}>{step.desc}</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 mt-0.5" style={{ color: "#f81828" }} />
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* PRAWA KOLUMNA: wideo + CTA box */}
+            <div className="flex flex-col gap-6">
+              {/* Wideo */}
+              <div className="rounded-[24px] overflow-hidden" style={{ border: "1px solid rgba(248,24,40,0.25)", boxShadow: "0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(248,24,40,0.06)" }}>
+                <video
+                  src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/text2video-d8jir6n80j2drgd1t400.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="w-full aspect-video"
+                  style={{ display: "block", background: "#050505" }}
+                />
+              </div>
+
+              {/* CTA Premium Card */}
+              <div
+                className="rounded-[24px] p-6 md:p-8 relative overflow-hidden"
+                style={{
+                  background: "linear-gradient(135deg, rgba(248,24,40,0.12) 0%, rgba(10,0,2,0.95) 60%, rgba(5,0,1,0.98) 100%)",
+                  border: "1px solid rgba(248,24,40,0.28)",
+                  boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+                }}
+              >
+                {/* Top accent line */}
+                <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0), #f81828 30%, rgba(255,80,100,0.8) 50%, #f81828 70%, rgba(248,24,40,0))" }} />
+
+                <div className="text-[9px] font-mono font-black uppercase tracking-[0.32em] mb-4" style={{ color: "rgba(248,100,100,0.75)" }}>// JEDEN OPIEKUN. JEDEN DOM.</div>
+                <p className="text-white font-black mb-2" style={{ fontSize: "clamp(1.25rem, 2vw, 1.5rem)", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+                  Od fundamentów
+                </p>
+                <p className="mb-6" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontSize: "clamp(1.25rem, 2vw, 1.5rem)", fontWeight: 900, background: "linear-gradient(135deg, #f81828, #ff6b6b)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+                  do kluczy.
+                </p>
+
+                <ul className="space-y-2.5 mb-7">
+                  {[
+                    "Jeden opiekun przez cały projekt",
+                    "Materiały z naszego magazynu",
+                    "Własna ekipa wykonawcza",
+                    "Jeden kosztorys — zero niespodzianek",
+                  ].map((pt, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-sm" style={{ color: "rgba(255,255,255,0.75)" }}>
+                      <span className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style={{ background: "rgba(248,24,40,0.18)", border: "1px solid rgba(248,24,40,0.4)" }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#f81828" }} />
+                      </span>
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  to="/uslugi/dom-od-podstaw"
+                  className="cta-pulse inline-flex items-center gap-3 w-full justify-center px-6 py-4 font-black uppercase tracking-[0.16em] text-white rounded-[16px] transition-all duration-300 hover:brightness-110 hover:scale-[1.02]"
+                  style={{ background: "linear-gradient(135deg, #f81828 0%, #c50018 100%)", fontSize: "0.82rem" }}
+                >
+                  Zapytaj o wycenę
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <p className="mt-3 text-center text-[10px]" style={{ color: "rgba(255,255,255,0.38)" }}>Bezpłatna wycena · Odpowiedź do 24h</p>
+              </div>
             </div>
           </div>
-
-          {/* ── Slogan ── */}
-          <div className="text-center py-8 mb-8" style={{ borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}>
-            <p className="font-display text-2xl md:text-4xl font-black text-white tracking-tight leading-tight">
-              Jeden opiekun. Jeden dom.
-            </p>
-            <p className="font-display text-2xl md:text-4xl font-black tracking-tight leading-tight mt-1" style={{ color: "#f81828" }}>
-              Od fundamentów do kluczy.
-            </p>
-          </div>
-
-          {/* ── CTA ── */}
-          <div className="text-center">
-            <Link to="/uslugi/dom-od-podstaw"
-              className="inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-wider text-white rounded-lg transition-all duration-200 hover:brightness-110 hover:scale-[1.02]"
-              style={{ background: "#f81828", fontSize: "0.875rem", letterSpacing: "0.1em", boxShadow: "0 16px 36px rgba(248,24,40,0.22)" }}
-            >
-              Zapytaj o wycenę <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
         </div>
       </section>
 

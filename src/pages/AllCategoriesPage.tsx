@@ -123,7 +123,7 @@ export default function AllCategoriesPage() {
                       alt={`${cat.name} – materiały budowlane Lublin`}
                       loading="lazy"
                       className="w-full h-full object-cover"
-                      style={{ filter: "grayscale(0.65) brightness(0.3)" }}
+                      style={{ filter: "grayscale(0.3) brightness(0.55)" }}
                     />
                     <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(8,8,8,0.25) 0%,rgba(8,8,8,0.82) 65%,rgba(8,8,8,0.97) 100%)" }} />
                   </div>

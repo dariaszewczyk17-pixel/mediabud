@@ -101,6 +101,7 @@ const catImages: Record<string, string> = {
   "stropy-i-sciany": "/images/cat-sciany_2.png",
   "sucha-zabudowa": "/images/cat-sucha-zabudowa_2.png",
   "sufity-podwieszane": "/images/cat-sufity_2.png",
+  "pozostale": "https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/pozostale_kategoria_2_8a82cc38d2a44d9b884d891b1745b7b2.png",
 };
 
 const stats = [
@@ -360,7 +361,7 @@ export default function Home() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.52) saturate(0.88)" }}
+            style={{ filter: "brightness(0.70) saturate(0.88)" }}
           >
             <source
               src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260608/image2video-d8jkhjv80j2drgd1t820.mp4"
@@ -639,8 +640,8 @@ export default function Home() {
         <style>{`
           @keyframes cat-scan { 0%{top:0%;opacity:.75} 75%{opacity:.35} 100%{top:100%;opacity:0} }
           .cat-card:hover .cat-scan-line { animation: cat-scan 0.9s ease-in forwards; }
-          .cat-card img { filter: brightness(0.22) saturate(0.5); transition: filter 0.5s; }
-          .cat-card:hover img { filter: brightness(0.38) saturate(0.85); }
+          .cat-card img { filter: brightness(0.38) saturate(0.5); transition: filter 0.5s; }
+          .cat-card:hover img { filter: brightness(0.55) saturate(0.85); }
         `}</style>
 
         <div className="container mx-auto px-4">
@@ -1048,7 +1049,7 @@ export default function Home() {
                     src={r.image}
                     alt={r.projectName}
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    style={{ filter: "brightness(0.45) saturate(0.82)" }}
+                    style={{ filter: "brightness(0.62) saturate(0.82)" }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
                   <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: "linear-gradient(90deg, transparent, #f81828, #ff6b6b, #f81828, transparent)", boxShadow: "0 0 14px rgba(248,24,40,0.45)" }} />
@@ -1515,7 +1516,7 @@ export default function Home() {
             backgroundImage: `url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=60')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "brightness(0.2) saturate(0.6)",
+            filter: "brightness(0.38) saturate(0.6)",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#f81828]/90 via-[#c8000f]/80 to-[#0a0a0a]/90" />

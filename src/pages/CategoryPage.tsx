@@ -441,12 +441,16 @@ export default function CategoryPage() {
     );
   }
 
-  /* ── Filter panel component ── */
-  const FilterPanel = () => (
+  /* ── Liczba aktywnych filtrów (bez sortowania) ── */
+  const activeFilterCount = [selectedBrand, selectedUnit, selectedTag].filter(Boolean).length + selectedSpecs.length;
+
+  /* ── Mobile Filter Panel — sekcje z checkboxowymi przyciskami ── */
+  const MobileFilterPanel = () => (
     <div className="space-y-6">
+      {/* MARKA */}
       {availableBrands.length > 0 && (
         <div>
-          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
+          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-3">
             <Tag className="w-3 h-3 text-[#f81828]" /> Marka
           </h3>
           <div className="space-y-0.5">
@@ -456,27 +460,31 @@ export default function CategoryPage() {
             </button>
             {availableBrands.map(brand => (
               <button key={brand} onClick={() => updateParam("brand", brand === selectedBrand ? "" : brand)}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${selectedBrand === brand ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
-                {brand}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-between ${selectedBrand === brand ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
+                <span>{brand}</span>
+                {selectedBrand === brand && <span className="text-[10px] font-black opacity-70">✓</span>}
               </button>
             ))}
           </div>
         </div>
       )}
 
+      {/* JEDNOSTKA (zamiast "TYP PRODUKTU") */}
       {availableUnits.length > 1 && (
         <div>
-          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
-            <Zap className="w-3 h-3 text-[#f81828]" /> Pojemność / gramatura
+          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-3">
+            <Zap className="w-3 h-3 text-[#f81828]" /> Jednostka / pojemność
           </h3>
           <div className="flex flex-wrap gap-1.5">
             <button onClick={() => updateParam("unit", "")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${!selectedUnit ? "bg-[#f81828] text-white" : "text-gray-500 border border-white/10 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}>
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${!selectedUnit ? "bg-[#f81828] text-white" : "text-gray-500 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}
+              style={!selectedUnit ? {} : { border: "1px solid rgba(255,255,255,0.12)" }}>
               Wszystkie
             </button>
             {availableUnits.map(u => (
               <button key={u} onClick={() => updateParam("unit", u === selectedUnit ? "" : u)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${selectedUnit === u ? "bg-[#f81828] text-white" : "text-gray-500 border border-white/10 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}>
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedUnit === u ? "bg-[#f81828] text-white" : "text-gray-500 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}
+                style={selectedUnit === u ? {} : { border: "1px solid rgba(255,255,255,0.12)" }}>
                 {u}
               </button>
             ))}
@@ -484,20 +492,22 @@ export default function CategoryPage() {
         </div>
       )}
 
+      {/* TAGI */}
       {availableTags.length > 0 && (
         <div>
-          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
-            <Tag className="w-3 h-3 text-[#f81828]" /> Typ produktu
+          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-3">
+            <Tag className="w-3 h-3 text-[#f81828]" /> Kategoria produktu
           </h3>
           <div className="space-y-0.5">
             <button onClick={() => updateParam("tag", "")}
               className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${!selectedTag ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
-              Wszystkie typy
+              Wszystkie
             </button>
             {availableTags.map(tag => (
               <button key={tag} onClick={() => updateParam("tag", tag === selectedTag ? "" : tag)}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all capitalize ${selectedTag === tag ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
-                {tag.replace(/-/g, " ")}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all capitalize flex items-center justify-between ${selectedTag === tag ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
+                <span>{tag.replace(/-/g, " ")}</span>
+                {selectedTag === tag && <span className="text-[10px] font-black opacity-70">✓</span>}
               </button>
             ))}
           </div>
@@ -507,7 +517,7 @@ export default function CategoryPage() {
       {/* ── Filtry techSpec — dynamiczne per-kategoria ── */}
       {availableSpecFilters.map(({ label, values }) => (
         <div key={label}>
-          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
+          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-3">
             <Zap className="w-3 h-3 text-[#f81828]" /> {label}
           </h3>
           <div className="flex flex-wrap gap-1.5">
@@ -516,7 +526,8 @@ export default function CategoryPage() {
               const active = selectedSpecs.includes(key);
               return (
                 <button key={key} onClick={() => toggleSpec(key)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${active ? "bg-[#f81828] text-white" : "text-gray-500 border border-white/10 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}>
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${active ? "bg-[#f81828] text-white" : "text-gray-500 hover:border-[#f81828]/50 hover:text-[#f81828]"}`}
+                  style={active ? {} : { border: "1px solid rgba(255,255,255,0.12)" }}>
                   {val}
                 </button>
               );
@@ -525,8 +536,9 @@ export default function CategoryPage() {
         </div>
       ))}
 
+      {/* SORTOWANIE */}
       <div>
-        <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-600 uppercase tracking-widest mb-3">
+        <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-3">
           <Zap className="w-3 h-3 text-[#f81828]" /> Sortowanie
         </h3>
         <div className="space-y-0.5">
@@ -540,22 +552,27 @@ export default function CategoryPage() {
             ["new",       "Nowości najpierw"],
           ].map(([val, label]) => (
             <button key={val} onClick={() => updateParam("sort", val)}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${sortBy === val ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
-              {label}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-between ${sortBy === val ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
+              <span>{label}</span>
+              {sortBy === val && val !== "default" && <span className="text-[10px] font-black opacity-70">✓</span>}
             </button>
           ))}
         </div>
       </div>
 
+      {/* WYCZYŚĆ */}
       {hasActiveFilters && (
         <button onClick={clearFilters}
-          className="w-full flex items-center justify-center gap-2 text-xs text-[#f81828] font-semibold py-2 rounded-lg transition-all hover:bg-[#f81828]/10"
-          style={{ border: "1px solid rgba(248,24,40,0.25)" }}>
-          <X className="w-3 h-3" /> Wyczyść filtry
+          className="w-full flex items-center justify-center gap-2 text-xs text-[#f81828] font-bold py-2.5 rounded-lg transition-all hover:bg-[#f81828]/10"
+          style={{ border: "1px solid rgba(248,24,40,0.3)" }}>
+          <X className="w-3 h-3" /> Wyczyść wszystkie filtry
         </button>
       )}
     </div>
   );
+
+  /* ── Desktop Filter Panel (sidebar) — zachowany dla kompatybilności ── */
+  const FilterPanel = MobileFilterPanel;
 
   const pageNums = (() => {
     if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -921,14 +938,14 @@ export default function CategoryPage() {
                 style={{ background: "linear-gradient(90deg, #f81828, rgba(248,24,40,0.3) 50%, transparent)" }} />
 
               <div className="flex items-center justify-between px-4 py-2.5 gap-3 flex-wrap">
-                {/* Lewa: licznik + label */}
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5">
+                {/* Lewa: licznik + label + DESKTOP inline filtry */}
+                <div className="flex items-center gap-3 flex-wrap flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
                     <span className="w-1 h-4 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 6px rgba(248,24,40,0.8)" }} />
                     <span className="text-xs font-black text-white uppercase tracking-widest font-mono">Produkty</span>
                   </div>
                   <span
-                    className="text-[11px] font-black px-2.5 py-0.5 rounded-full font-mono tabular-nums"
+                    className="text-[11px] font-black px-2.5 py-0.5 rounded-full font-mono tabular-nums flex-shrink-0"
                     style={{
                       background: "rgba(248,24,40,0.12)",
                       border: "1px solid rgba(248,24,40,0.35)",
@@ -938,16 +955,71 @@ export default function CategoryPage() {
                   >
                     {isLoadingProducts ? "…" : `${filtered.length}`}
                   </span>
-                  {hasActiveFilters && (
-                    <button onClick={clearFilters} className="flex items-center gap-1 text-[10px] text-[#f81828] font-bold hover:underline font-mono uppercase tracking-wide">
-                      <X className="w-2.5 h-2.5" /> reset
+
+                  {/* ── Desktop inline filter dropdowns (lg:) ── */}
+                  {availableBrands.length > 0 && (
+                    <select
+                      value={selectedBrand}
+                      onChange={e => updateParam("brand", e.target.value)}
+                      className="hidden lg:block text-[11px] font-bold px-3 py-1.5 rounded-lg focus:outline-none appearance-none cursor-pointer font-mono"
+                      style={{
+                        background: selectedBrand ? "rgba(248,24,40,0.18)" : "rgba(255,255,255,0.04)",
+                        border: selectedBrand ? "1px solid rgba(248,24,40,0.55)" : "1px solid rgba(255,255,255,0.1)",
+                        color: selectedBrand ? "#f81828" : "#6b7280",
+                      }}
+                    >
+                      <option value="">MARKA ▾</option>
+                      {availableBrands.map(b => <option key={b} value={b}>{b}</option>)}
+                    </select>
+                  )}
+
+                  {availableUnits.length > 1 && (
+                    <select
+                      value={selectedUnit}
+                      onChange={e => updateParam("unit", e.target.value)}
+                      className="hidden lg:block text-[11px] font-bold px-3 py-1.5 rounded-lg focus:outline-none appearance-none cursor-pointer font-mono"
+                      style={{
+                        background: selectedUnit ? "rgba(248,24,40,0.18)" : "rgba(255,255,255,0.04)",
+                        border: selectedUnit ? "1px solid rgba(248,24,40,0.55)" : "1px solid rgba(255,255,255,0.1)",
+                        color: selectedUnit ? "#f81828" : "#6b7280",
+                      }}
+                    >
+                      <option value="">JEDNOSTKA ▾</option>
+                      {availableUnits.map(u => <option key={u} value={u}>{u}</option>)}
+                    </select>
+                  )}
+
+                  {availableTags.length > 0 && (
+                    <select
+                      value={selectedTag}
+                      onChange={e => updateParam("tag", e.target.value)}
+                      className="hidden lg:block text-[11px] font-bold px-3 py-1.5 rounded-lg focus:outline-none appearance-none cursor-pointer font-mono"
+                      style={{
+                        background: selectedTag ? "rgba(248,24,40,0.18)" : "rgba(255,255,255,0.04)",
+                        border: selectedTag ? "1px solid rgba(248,24,40,0.55)" : "1px solid rgba(255,255,255,0.1)",
+                        color: selectedTag ? "#f81828" : "#6b7280",
+                      }}
+                    >
+                      <option value="">TAGI ▾</option>
+                      {availableTags.map(t => <option key={t} value={t}>{t.replace(/-/g, " ")}</option>)}
+                    </select>
+                  )}
+
+                  {/* Wyczyść — desktop, widoczny tylko gdy aktywny filtr */}
+                  {(selectedBrand || selectedUnit || selectedTag || selectedSpecs.length > 0) && (
+                    <button
+                      onClick={clearFilters}
+                      className="hidden lg:flex items-center gap-1 text-[10px] text-[#f81828] font-black px-2.5 py-1.5 rounded-lg transition-all hover:bg-[#f81828]/10 font-mono uppercase tracking-wide"
+                      style={{ border: "1px solid rgba(248,24,40,0.3)" }}
+                    >
+                      <X className="w-2.5 h-2.5" /> Wyczyść
                     </button>
                   )}
                 </div>
 
                 {/* Prawa: mobile filtry + sort + view toggle */}
-                <div className="flex items-center gap-2">
-                  {/* Mobile: przycisk Filtry — otwiera drawer */}
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  {/* Mobile: przycisk Filtry z licznikiem aktywnych filtrów — otwiera drawer */}
                   <button
                     className="lg:hidden flex items-center gap-1.5 text-[11px] font-black px-3 py-1.5 rounded-lg transition-all uppercase tracking-wide font-mono"
                     style={mobileFilterOpen
@@ -957,8 +1029,10 @@ export default function CategoryPage() {
                     onClick={() => setMobileFilterOpen(true)}
                   >
                     <SlidersHorizontal className="w-3.5 h-3.5" />
-                    Filtry
-                    {hasActiveFilters && <span className="w-1.5 h-1.5 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />}
+                    {activeFilterCount > 0 ? `Filtry (${activeFilterCount})` : "Filtry"}
+                    {activeFilterCount > 0 && (
+                      <span className="w-1.5 h-1.5 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
+                    )}
                   </button>
 
                   {/* Dropdown sortowania */}

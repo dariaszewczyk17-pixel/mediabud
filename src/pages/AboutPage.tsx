@@ -334,7 +334,14 @@ export default function AboutPage() {
                   <div className="absolute top-0 left-0 right-0 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(90deg,transparent,rgba(248,24,40,0.5),transparent)" }} />
 
                   <div className="relative z-10">
-                    <div className="text-3xl mb-4">{item.icon}</div>
+                    <div className="mb-4 relative flex items-center justify-center"
+                      style={{ width:40, height:40, border:"1px solid rgba(248,24,40,0.4)", background:"rgba(248,24,40,0.06)", flexShrink:0 }}>
+                      <span style={{ position:"absolute", top:2, left:2, width:6, height:6, borderTop:"1.5px solid #f81828", borderLeft:"1.5px solid #f81828", display:"block" }} />
+                      <span style={{ position:"absolute", top:2, right:2, width:6, height:6, borderTop:"1.5px solid #f81828", borderRight:"1.5px solid #f81828", display:"block" }} />
+                      <span style={{ position:"absolute", bottom:2, left:2, width:6, height:6, borderBottom:"1.5px solid #f81828", borderLeft:"1.5px solid #f81828", display:"block" }} />
+                      <span style={{ position:"absolute", bottom:2, right:2, width:6, height:6, borderBottom:"1.5px solid #f81828", borderRight:"1.5px solid #f81828", display:"block" }} />
+                      <span style={{ fontFamily:"monospace", fontSize:"11px", fontWeight:900, color:"#f81828", letterSpacing:"0.1em" }}>{String(i + 1).padStart(2, "0")}</span>
+                    </div>
                     <h3 className="font-black text-white text-sm uppercase tracking-widest mb-3" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>{item.title}</h3>
                     <p className="text-sm leading-relaxed text-gray-500">{item.desc}</p>
                   </div>

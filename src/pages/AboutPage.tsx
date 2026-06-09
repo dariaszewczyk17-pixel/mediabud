@@ -218,14 +218,14 @@ export default function AboutPage() {
         {/* Radial glow */}
         <div className="absolute right-0 top-0 w-[600px] h-[600px] pointer-events-none" style={{ zIndex: 1, background: "radial-gradient(ellipse at 80% 20%,rgba(248,24,40,0.07) 0%,transparent 65%)" }} />
 
-        <div className="relative container mx-auto px-4 pl-10 py-20 md:py-28" style={{ zIndex: 3 }}>
+        <div className="relative container mx-auto px-4 md:pl-10 py-14 md:py-28" style={{ zIndex: 3 }}>
           <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-12 items-center max-w-6xl">
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="h-[1px] w-8 bg-[#f81828]" />
                 <p className="text-[10px] font-black text-[#f81828] tracking-[0.4em] uppercase">O firmie · Media Bud</p>
               </div>
-              <h1 className="font-display font-black text-white leading-[0.92] mb-6" style={{ fontSize: "clamp(2.8rem,7vw,5.5rem)", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
+              <h1 className="font-display font-black text-white leading-[0.92] mb-6" style={{ fontSize: "clamp(2rem,7vw,5.5rem)", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
                 Skład budowlany<br />
                 <span style={{ color: "#f81828", textShadow: "0 0 32px rgba(248,24,40,0.35)" }}>Lublin</span><br />
                 od 2008 roku
@@ -387,7 +387,7 @@ export default function AboutPage() {
             <p className="text-gray-600 text-sm">Współpracujemy z wiodącymi producentami materiałów budowlanych, gwarantując oryginalność i jakość każdego produktu.</p>
           </FadeIn>
 
-          <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-8 gap-3">
             {brands.map((brand, i) => (
               <FadeIn key={brand.name} delay={i * 40}>
                 <div className="flex flex-col items-center rounded-xl overflow-hidden group"

@@ -514,7 +514,7 @@ export default function Home() {
         <div className="absolute top-0 left-0 right-0 h-[2px] z-20 premium-line-reveal" style={{ background: "linear-gradient(90deg, #f81828 0%, rgba(248,24,40,0.22) 28%, rgba(255,255,255,0.08) 62%, transparent 100%)" }} />
         <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to top, #050505, transparent)", zIndex: 2 }} />
 
-        <div className="relative z-10 container mx-auto px-4 pt-16 pb-14 md:pt-24 md:pb-20">
+        <div className="relative z-10 container mx-auto px-4 pt-10 pb-8 sm:pt-16 sm:pb-14 md:pt-24 md:pb-20">
           <div className="grid lg:grid-cols-[minmax(0,1.15fr)_360px] gap-12 xl:gap-16 items-end">
             <div className="max-w-[980px]">
               <div className="premium-fade-soft premium-editorial-rule mb-8 flex items-center gap-3" style={{ animationDelay: "40ms" }}>
@@ -526,7 +526,7 @@ export default function Home() {
 
               <div className="mb-10 max-w-4xl">
                 <div className="premium-fade-soft mb-6 text-[11px] font-black uppercase tracking-[0.34em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>Materiały budowlane najwyższej jakości · Lublin</div>
-                <h1 className="text-white mb-7" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.045em", fontSize: "clamp(3rem, 6.6vw, 6.8rem)" }}>
+                <h1 className="text-white mb-7" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.045em", fontSize: "clamp(2rem, 6.6vw, 6.8rem)" }}>
                   <span className="block overflow-hidden">
                     <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Budujesz.</span>
                   </span>

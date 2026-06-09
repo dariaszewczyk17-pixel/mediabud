@@ -433,3 +433,5 @@
 [2026-06-09 18:32] Commit 591cac9 — wszystkie 8 poprawek wdrożone: tagi realizacji usunięte, stat bar fixed, galerie Link klikalny, logo footer borderRadius 10px, Kalkulatory w INFORMACJE, scope texty /o-firmie usunięte, timeline→video+stats, B2B badge usunięty
 [2026-06-09 18:33] Commit 591cac9 — wszystkie 8 poprawek z 7 screenshotów wdrożone i zpushowane na main. Build 1942 modules OK.
 [2026-06-09 18:35] Start: /produkty pełny katalog + usuń liczniki KAT. + zmień zdjęcia kategorii + marki CTA + CategoryPage performance
+[2026-06-09 20:50] Zadania Tury 3 (uslugi): spot video full-width (d86e318), HERO minHeight+items-center+kolory kart (c4a7e87), stats panel editorial styl (f3dffbc). Start: mobile responsiveness całej strony.
+[2026-06-09 21:09] Rozpoczęto audyt mobilny – analiza Header, Footer, Home, ServicesPage, AllCategoriesPage; identyfikacja problemów: hero title za duży na mobile (clamp 3rem→2rem), hero padding za duży na mobile, ServicesPage pl-9 uneven, AllCategoriesPage pl-10 uneven + CTA bar overflow

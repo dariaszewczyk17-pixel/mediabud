@@ -168,7 +168,7 @@ export default function AllCategoriesPage() {
         <div className="absolute bottom-0 left-0 right-0 h-12"
           style={{ background: "linear-gradient(to top,#050505,transparent)" }} />
 
-        <div className="relative container mx-auto px-4 pl-10 py-16">
+        <div className="relative container mx-auto px-4 md:pl-10 py-16">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 mb-5 text-[11px] text-gray-600">
             <Link to="/" className="hover:text-[#f81828] transition-colors font-medium">Strona główna</Link>
@@ -403,7 +403,7 @@ export default function AllCategoriesPage() {
       </section>
 
       {/* ── WIĘCEJ MAREK CTA ── */}
-      <div className="container mx-auto px-4 py-6 flex items-center justify-between gap-4" style={{ borderBottom: "1px solid #111" }}>
+      <div className="container mx-auto px-4 py-6 flex flex-wrap items-center justify-between gap-4" style={{ borderBottom: "1px solid #111" }}>
         <p className="text-sm text-gray-500">
           Współpracujemy z <span className="text-white font-bold">268+ markami</span> producentów materiałów budowlanych.
         </p>

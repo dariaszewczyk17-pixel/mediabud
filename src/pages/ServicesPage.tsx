@@ -502,7 +502,7 @@ export default function ServicesPage() {
         <div className="absolute bottom-0 left-0 right-0 h-24" style={{ background: "linear-gradient(to top,#050505,transparent)" }} />
         <div className="absolute right-0 top-0 w-[700px] h-[700px] pointer-events-none" style={{ background: "radial-gradient(ellipse at 80% 10%,rgba(248,24,40,0.07) 0%,transparent 60%)" }} />
 
-        <div className="relative container mx-auto px-4 pl-9 py-16 md:py-24">
+        <div className="relative container mx-auto px-4 md:pl-9 py-12 md:py-24">
           <div className="max-w-5xl grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
             <div>
               <div className="flex items-center gap-3 mb-4">
@@ -533,7 +533,7 @@ export default function ServicesPage() {
                   <div className="flex items-center justify-between gap-4">
                     <div
                       className="font-display font-black leading-none tabular-nums"
-                      style={{ fontSize: "clamp(2.4rem,4.5vw,3.2rem)", color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", textShadow: "0 0 32px rgba(248,24,40,0.22)", letterSpacing: "-0.02em" }}
+                      style={{ fontSize: "clamp(1.8rem,4.5vw,3.2rem)", color: "#f81828", fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", textShadow: "0 0 32px rgba(248,24,40,0.22)", letterSpacing: "-0.02em" }}
                     >
                       {item.value}
                     </div>

@@ -409,15 +409,17 @@ export default function Header() {
         <div className="container mx-auto flex items-center gap-4 px-4 py-4">
           {/* Logo */}
           <Link to="/" className="-ml-2 flex-shrink-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
-            <img
-              src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-03/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/7435729631584985088_95351505e7074b448f31c489e4513303.png"
-              alt="Media Bud – Skład Budowlany"
-              width="300"
-              height="68"
-              fetchPriority="high"
-              className="h-[34px] sm:h-[38px] md:h-[54px] w-auto object-contain transition-opacity duration-200 hover:opacity-80"
-              style={{ maxWidth: "clamp(104px, 29vw, 240px)" }}
-            />
+            <div style={{ background: "rgba(255,255,255,0.96)", padding: "4px 10px", borderRadius: "3px", lineHeight: 0, border: "1px solid rgba(248,24,40,0.15)" }}>
+              <img
+                src="https://skyagent-artifacts.skywork.ai/router/agent/2026-06-03/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/7435729631584985088_95351505e7074b448f31c489e4513303.png"
+                alt="Media Bud – Skład Budowlany"
+                width="300"
+                height="68"
+                fetchPriority="high"
+                className="h-[28px] sm:h-[32px] md:h-[46px] w-auto object-contain transition-opacity duration-200 hover:opacity-80"
+                style={{ maxWidth: "clamp(90px, 26vw, 210px)" }}
+              />
+            </div>
           </Link>
 
           {/* Search bar — centered, full width */}

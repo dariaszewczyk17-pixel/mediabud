@@ -352,7 +352,7 @@ export default function Home() {
           HERO SLIDER
       ═══════════════════════════════════════════════════════ */}
       {/* ── Hero Section ── */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
+      <section className="relative min-h-[48vh] flex items-center overflow-hidden" style={{ background: "#000" }}>
         {/* ── Wideo tło — Industrial Pulse Hero (Seedance 2.0) ── */}
         <div className="absolute inset-0" style={{ zIndex: 1 }}>
           <video
@@ -427,7 +427,7 @@ export default function Home() {
           <div style={{ animation: "hud-pulse 2s ease-in-out infinite" }}>● SYS_ACTIVE</div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 py-14">
+        <div className="relative z-10 container mx-auto px-4 py-8">
           <div className="max-w-3xl">
             {/* Eyebrow badge — HUD style */}
             <div
@@ -557,32 +557,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* StatBar LED */}
+      {/* StatBar HUD */}
       <div
         ref={r3.ref as React.RefObject<HTMLDivElement>}
-        className=""
-        style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+        className="relative overflow-hidden"
+        style={{ background: "#060606", borderTop: "1px solid rgba(248,24,40,0.3)", borderBottom: "1px solid rgba(248,24,40,0.12)" }}
       >
-        <div className="container mx-auto">
+        {/* top scan line */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg,transparent,rgba(248,24,40,0.7) 30%,rgba(248,24,40,0.3) 70%,transparent)", pointerEvents: "none" }} />
+        {/* subtle grid */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(248,24,40,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.03) 1px,transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none" }} />
+        <div className="container mx-auto relative">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, " ")}+`, label: "Produktów w ofercie" },
-              { num: "15 lat", label: "Doświadczenia" },
-              { num: "500+", label: "Firm klientów" },
-              { num: "<24h", label: "Czas realizacji" },
+              { code: "INV", num: `${productCount.toLocaleString("pl-PL").replace(/\s/g, "\u00a0")}+`, label: "Produktów w ofercie" },
+              { code: "EXP", num: "15 lat", label: "Doświadczenia" },
+              { code: "CLI", num: "500+", label: "Firm klientów" },
+              { code: "ETA", num: "<24h", label: "Czas realizacji" },
             ].map((s, i) => (
               <div
                 key={i}
-                className={`px-4 md:px-6 py-4 md:py-5 text-center group cursor-default transition-colors duration-200 hover:bg-[#f81828]/5 ${i % 2 === 0 ? "border-r border-white/5" : "border-r-0 md:border-r md:border-white/5"} ${i >= 2 ? "border-t border-white/5 md:border-t-0" : ""} ${i === 3 ? "md:border-r-0" : ""}`}
-                style={{}}
+                className={`relative px-4 md:px-8 py-5 md:py-6 group cursor-default transition-colors duration-200 hover:bg-[#f81828]/5
+                  ${i % 2 === 0 ? "border-r border-[#f81828]/10" : "border-r-0 md:border-r md:border-[#f81828]/10"}
+                  ${i >= 2 ? "border-t border-[#f81828]/10 md:border-t-0" : ""}
+                  ${i === 3 ? "md:border-r-0" : ""}`}
               >
+                {/* HUD corner left-top */}
+                <div style={{ position: "absolute", top: 6, left: 6, width: 10, height: 10, borderTop: "1px solid rgba(248,24,40,0.5)", borderLeft: "1px solid rgba(248,24,40,0.5)" }} />
+                {/* data code label */}
+                <div style={{ fontFamily: "monospace", fontSize: 9, color: "rgba(248,24,40,0.5)", letterSpacing: "0.18em", marginBottom: 4 }}>[ {s.code} ]</div>
+                {/* big number */}
                 <div
-                  className="font-black text-2xl text-[#f81828] mb-1"
-                  style={{ fontFamily: "'Share Tech Mono',monospace", textShadow: "0 0 7px rgba(248,24,40,0.6), 0 0 15px rgba(248,24,40,0.3)" }}
+                  className="font-black text-2xl md:text-3xl text-[#f81828] leading-none mb-2"
+                  style={{ fontFamily: "'Share Tech Mono',monospace", textShadow: "0 0 12px rgba(248,24,40,0.7), 0 0 28px rgba(248,24,40,0.25)" }}
                 >
                   {s.num}
                 </div>
-                <div className="text-xs uppercase tracking-widest font-bold" style={{ color: "#888" }}>{s.label}</div>
+                {/* label */}
+                <div style={{ fontFamily: "monospace", fontSize: 9, color: "#666", letterSpacing: "0.14em", textTransform: "uppercase" }}>// {s.label}</div>
               </div>
             ))}
           </div>

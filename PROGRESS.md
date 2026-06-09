@@ -435,3 +435,6 @@
 [2026-06-09 18:35] Start: /produkty pełny katalog + usuń liczniki KAT. + zmień zdjęcia kategorii + marki CTA + CategoryPage performance
 [2026-06-09 20:50] Zadania Tury 3 (uslugi): spot video full-width (d86e318), HERO minHeight+items-center+kolory kart (c4a7e87), stats panel editorial styl (f3dffbc). Start: mobile responsiveness całej strony.
 [2026-06-09 21:09] Rozpoczęto audyt mobilny – analiza Header, Footer, Home, ServicesPage, AllCategoriesPage; identyfikacja problemów: hero title za duży na mobile (clamp 3rem→2rem), hero padding za duży na mobile, ServicesPage pl-9 uneven, AllCategoriesPage pl-10 uneven + CTA bar overflow
+[2026-06-09 21:12] MOBILE FIXES – commit 70c3770: Home hero title clamp 3rem→2rem + padding pt-10/sm:pt-16/md:pt-24; ServicesPage hero px-4 md:pl-9 + stats clamp 2.4→1.8rem; AllCategoriesPage hero px-4 md:pl-10 + CTA flex-wrap; AboutPage hero px-4 md:pl-10 + title clamp 2.8→2rem + brands grid-cols-3. Build clean, pushed main.
+[2026-06-09 21:12] Mobile fixes ukończone i wgrane – commit 70c3770 na main. Build clean. Czekam na dalsze instrukcje.
+[2026-06-09 21:38] Rozbudowa Sanity Studio – plan: nowe schematy realizacja+testimonial, ulepszenia product/blogPost/siteSettings/category, nowa struktura menu bocznego

@@ -242,7 +242,13 @@ export default function CategoryPage() {
   const { data: sanityMeta, loading: productsLoading, error: productsError } = useProductMetaByCategorySlugs(allSubSlugs);
 
   // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
-  const isLoadingProducts = false; // static products zawsze dostępne natychmiast
+  // Pokazuj skeleton TYLKO gdy kategoria nie ma żadnych danych statycznych.
+  // Gdy static ma produkty → pokaż od razu; gdy brak → czekaj na Sanity.
+  const hasStaticFallback = (() => {
+    const slugSet = new Set(allSubSlugs);
+    return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
+  })();
+  const isLoadingProducts = productsLoading && !sanityMeta && !hasStaticFallback;
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz

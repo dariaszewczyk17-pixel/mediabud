@@ -242,7 +242,7 @@ export default function CategoryPage() {
   const { data: sanityMeta, loading: productsLoading, error: productsError } = useProductMetaByCategorySlugs(allSubSlugs);
 
   // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
-  const isLoadingProducts = productsLoading && !sanityMeta;
+  const isLoadingProducts = false; // static products zawsze dostępne natychmiast
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
@@ -1265,19 +1265,6 @@ export default function CategoryPage() {
                   </div>
                 ))}
                 <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }`}</style>
-              </div>
-            ) : productsError ? (
-              /* Error state */
-              <div className="rounded-2xl p-12 text-center" style={{ background: "#0f0f0f", border: "1px solid rgba(248,24,40,0.15)" }}>
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl"
-                  style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.2)" }}>⚠️</div>
-                <h3 className="font-bold text-white mb-2">Nie udało się załadować produktów</h3>
-                <p className="text-gray-500 text-sm mb-5">Sprawdź połączenie z internetem i spróbuj ponownie.</p>
-                <button onClick={() => window.location.reload()}
-                  className="px-5 py-2 rounded-lg text-sm font-bold text-white transition-all hover:shadow-[0_0_16px_rgba(248,24,40,0.4)]"
-                  style={{ background: "#f81828" }}>
-                  Spróbuj ponownie
-                </button>
               </div>
             ) : paginated.length > 0 ? (
               <>

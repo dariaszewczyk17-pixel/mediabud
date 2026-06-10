@@ -65,7 +65,7 @@ export const ALL_CATEGORIES_QUERY =
   `*[_type == "category" && !defined(parent)] | order(order asc, name asc) ${CATEGORY_FIELDS}`
 
 export const ALL_PRODUCTS_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER}] | order(name asc) [0...500] ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && ${NO_PLACEHOLDER}] | order(name asc) [0...10000] ${PRODUCT_CARD_FIELDS}`
 
 export const FEATURED_PRODUCTS_QUERY =
   `*[_type == "product" && featured == true && ${NO_PLACEHOLDER}][0...12] ${PRODUCT_CARD_FIELDS}`

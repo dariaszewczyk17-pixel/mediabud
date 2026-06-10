@@ -79,7 +79,7 @@ export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
 // ⚡ Query A — metadane + pierwsze zdjęcie + shortDescription produktów
 // Pełne pola (opisy, galeria) ładowane dopiero w ProductDetail przez PRODUCT_BY_SLUG_QUERY.
 export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...2000] {
+  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...10000] {
   _id,
   "slug": slug.current,
   name,

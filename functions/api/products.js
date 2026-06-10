@@ -38,16 +38,18 @@ async function handleGet(request, env) {
 
   /* Budujemy filtr GROQ */
   let filter = `_type == "product"`;
-  if (search) filter += ` && (name match "*${search}*" || brand match "*${search}*")`;
+  if (search) filter += ` && (name match "*${search}*" || brand->name match "*${search}*")`;
   if (cat)    filter += ` && category->slug.current == "${cat}"`;
 
   const countQuery   = encodeURIComponent(`count(*[${filter}])`);
   const listQuery    = encodeURIComponent(
     `*[${filter}] | order(name asc) [${offset}...${offset + limit}] {
-      _id, name, slug, brand,
+      _id, name, slug,
+      "brand": brand->name,
       "category": category->{ name, "slug": slug.current },
       description, shortDescription,
-      images, ean, unit
+      "images": images[0..0][].asset->url,
+      ean, unit
     }`
   );
 

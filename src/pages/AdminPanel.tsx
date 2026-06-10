@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import {
   BarChart2, Package, Tag, Settings, LogOut, Menu, X, Plus, Pencil,
   Trash2, Mail, Search, Bell, ChevronRight, Star, Eye, Image,
@@ -101,6 +101,62 @@ export default function AdminPanel() {
 
   /* ── Inquiries filter (also before early return) ── */
   const filteredInq = inqFilter==="Wszystkie" ? INQUIRIES : INQUIRIES.filter(i=>i.status===inqFilter);
+
+  /* ── Sanity products (real data) ── */
+  const [sanityProds,    setSanityProds]    = useState<any[]>([]);
+  const [sanityTotal,    setSanityTotal]    = useState(0);
+  const [sanityPages,    setSanityPages]    = useState(1);
+  const [sanityLoading,  setSanityLoading]  = useState(false);
+  const [sanityError,    setSanityError]    = useState("");
+
+  /* ── Edit modal ── */
+  const [editProd,   setEditProd]   = useState<any>(null);
+  const [editFields, setEditFields] = useState({ name:"", brand:"", unit:"", ean:"", shortDescription:"", description:"" });
+  const [editSaving, setEditSaving] = useState(false);
+  const [editMsg,    setEditMsg]    = useState<{type:"ok"|"err"; text:string}|null>(null);
+
+  /* ── Ładuj produkty z Sanity gdy tab=products ── */
+  useEffect(() => {
+    if (!loggedIn || tab !== "products") return;
+    setSanityLoading(true);
+    setSanityError("");
+    const params = new URLSearchParams({ page: String(prodPage), limit:"25", search: search.trim() });
+    fetch(`/api/products?${params}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.error) { setSanityError(data.error); return; }
+        setSanityProds(data.products  ?? []);
+        setSanityTotal(data.pagination?.total ?? 0);
+        setSanityPages(data.pagination?.pages ?? 1);
+      })
+      .catch(e => setSanityError("Błąd połączenia: " + e.message))
+      .finally(() => setSanityLoading(false));
+  }, [loggedIn, tab, prodPage, search]);
+
+  /* ── Zapisz edytowany produkt do Sanity ── */
+  const saveProduct = useCallback(async () => {
+    if (!editProd) return;
+    setEditSaving(true);
+    setEditMsg(null);
+    try {
+      const res  = await fetch(`/api/product/${editProd._id}`, {
+        method:"PATCH",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(editFields),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setEditMsg({ type:"ok", text:"✅ Zapisano pomyślnie w Sanity!" });
+        setSanityProds(prev => prev.map(p => p._id===editProd._id ? {...p, ...editFields} : p));
+        setTimeout(() => { setEditProd(null); setEditMsg(null); }, 1800);
+      } else {
+        setEditMsg({ type:"err", text: data.error || "Błąd zapisu" });
+      }
+    } catch(e:any) {
+      setEditMsg({ type:"err", text:"Błąd sieci: " + e.message });
+    }
+    setEditSaving(false);
+  }, [editProd, editFields]);
 
   /* ── Login ── */
   if (!loggedIn) return (
@@ -456,7 +512,7 @@ export default function AdminPanel() {
           {/* ════ PRODUKTY ════ */}
           {tab==="products" && (
             <div>
-              <SectionHeader title="Produkty" count={filteredProds.length} addLabel="Dodaj produkt" onAdd={()=>window.open("https://mediabud-studio.pages.dev","_blank")}/>
+              <SectionHeader title="Produkty" count={sanityTotal} addLabel="Dodaj w Sanity" onAdd={()=>window.open("https://mediabud-studio.pages.dev","_blank")}/>
               <div className="flex gap-3 mb-4 flex-wrap">
                 <div className="relative flex-1 min-w-[200px] max-w-xs">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-600 pointer-events-none"/>
@@ -469,54 +525,152 @@ export default function AdminPanel() {
                   />
                 </div>
                 <div className="text-xs text-gray-500 flex items-center gap-1 font-bold px-3 py-2 rounded-lg" style={{border:"1px solid rgba(255,255,255,0.08)"}}>
-                  <Filter className="w-3.5 h-3.5"/> Strona {prodPage}/{totalPages}
+                  <Filter className="w-3.5 h-3.5"/>
+                  {sanityLoading ? "Ładowanie…" : `Strona ${prodPage}/${sanityPages}`}
                 </div>
               </div>
+
+              {/* Error */}
+              {sanityError && (
+                <div className="mb-4 px-4 py-3 rounded-xl text-xs font-bold text-[#f81828]" style={{background:"rgba(248,24,40,0.08)",border:"1px solid rgba(248,24,40,0.2)"}}>
+                  ⚠️ {sanityError}
+                </div>
+              )}
+
               <Card className="overflow-hidden">
                 <table className="w-full text-sm">
                   <thead>
                     <tr style={{background:"rgba(255,255,255,0.02)",borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
-                      {["Produkt","Marka","Jednostka","SKU","Akcje"].map(h=>(
+                      {["Produkt","Marka","Kategoria","Jednostka","Akcje"].map(h=>(
                         <th key={h} className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody className="divide-y" style={{borderColor:"rgba(255,255,255,0.04)"}}>
-                    {pagedProds.map(p=>(
-                      <tr key={p.id} className="hover:bg-white/2 transition-colors">
+                    {sanityLoading && Array.from({length:8}).map((_,i)=>(
+                      <tr key={i}>
+                        {[200,80,100,50,60].map((w,j)=>(
+                          <td key={j} className="px-4 py-3">
+                            <div className="h-3 rounded animate-pulse" style={{width:`${w}px`,background:"rgba(255,255,255,0.06)"}}/>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                    {!sanityLoading && sanityProds.map(p=>(
+                      <tr key={p._id} className="hover:bg-white/[0.02] transition-colors">
                         <td className="px-4 py-2.5">
                           <div className="flex items-center gap-3">
                             <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center flex-shrink-0 overflow-hidden" style={{border:"1px solid rgba(255,255,255,0.1)"}}>
-                              {p.images?.[0] ? <img src={p.images[0]} alt={p.name} className="w-full h-full object-contain p-0.5" onError={e=>{(e.currentTarget as HTMLImageElement).style.display="none";}} loading="lazy"/> : <Package className="w-4 h-4 text-gray-400"/>}
+                              {p.images?.[0]
+                                ? <img src={p.images[0]} alt={p.name} className="w-full h-full object-contain p-0.5" onError={e=>{(e.currentTarget as HTMLImageElement).style.display="none";}} loading="lazy"/>
+                                : <Package className="w-4 h-4 text-gray-400"/>}
                             </div>
-                            <span className="text-xs font-bold text-gray-300 line-clamp-1 max-w-[200px]">{p.name}</span>
+                            <span className="text-xs font-bold text-gray-300 line-clamp-2 max-w-[200px]">{p.name}</span>
                           </div>
                         </td>
                         <td className="px-4 py-2.5 text-xs text-gray-500">{p.brand || "—"}</td>
+                        <td className="px-4 py-2.5 text-xs text-gray-500">{p.category?.name || "—"}</td>
                         <td className="px-4 py-2.5 text-xs text-gray-500">{p.unit || "—"}</td>
-                        <td className="px-4 py-2.5 text-xs text-gray-600 font-mono">{p.sku || "—"}</td>
                         <td className="px-4 py-2.5">
                           <div className="flex gap-1">
-                            <button className="w-7 h-7 flex items-center justify-center rounded text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/10 transition-colors" title="Edytuj w Sanity">
+                            <button
+                              onClick={()=>{ setEditProd(p); setEditFields({ name:p.name||"", brand:p.brand||"", unit:p.unit||"", ean:p.ean||"", shortDescription:p.shortDescription||"", description:p.description||"" }); setEditMsg(null); }}
+                              className="w-7 h-7 flex items-center justify-center rounded text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/10 transition-colors" title="Edytuj">
                               <Pencil className="w-3.5 h-3.5"/>
                             </button>
-                            <a href={`/produkty/${p.slug}`} target="_blank" rel="noreferrer" className="w-7 h-7 flex items-center justify-center rounded text-gray-500 hover:text-blue-400 hover:bg-blue-400/10 transition-colors" title="Podgląd">
+                            <a href={`/produkt/${p.slug?.current||p.slug}`} target="_blank" rel="noreferrer"
+                              className="w-7 h-7 flex items-center justify-center rounded text-gray-500 hover:text-blue-400 hover:bg-blue-400/10 transition-colors" title="Podgląd">
                               <Eye className="w-3.5 h-3.5"/>
                             </a>
                           </div>
                         </td>
                       </tr>
                     ))}
+                    {!sanityLoading && sanityProds.length===0 && !sanityError && (
+                      <tr><td colSpan={5} className="px-4 py-10 text-center text-xs text-gray-600">Brak produktów</td></tr>
+                    )}
                   </tbody>
                 </table>
                 <div className="flex items-center justify-between px-5 py-3" style={{borderTop:"1px solid rgba(255,255,255,0.06)"}}>
-                  <span className="text-xs text-gray-600">Wyświetlono {((prodPage-1)*PROD_PAGE)+1}–{Math.min(prodPage*PROD_PAGE, filteredProds.length)} z {filteredProds.length.toLocaleString("pl-PL")}</span>
+                  <span className="text-xs text-gray-600">
+                    {sanityTotal > 0 ? `Wyświetlono ${((prodPage-1)*25)+1}–${Math.min(prodPage*25, sanityTotal)} z ${sanityTotal.toLocaleString("pl-PL")}` : ""}
+                  </span>
                   <div className="flex gap-1">
-                    <button disabled={prodPage<=1} onClick={()=>setProdPage(p=>p-1)} className="px-3 py-1.5 rounded-lg text-xs font-bold disabled:opacity-30 text-gray-400 hover:text-white hover:bg-white/5 transition-colors">← Poprzednia</button>
-                    <button disabled={prodPage>=totalPages} onClick={()=>setProdPage(p=>p+1)} className="px-3 py-1.5 rounded-lg text-xs font-bold disabled:opacity-30 text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Następna →</button>
+                    <button disabled={prodPage<=1||sanityLoading} onClick={()=>setProdPage(p=>p-1)} className="px-3 py-1.5 rounded-lg text-xs font-bold disabled:opacity-30 text-gray-400 hover:text-white hover:bg-white/5 transition-colors">← Poprzednia</button>
+                    <button disabled={prodPage>=sanityPages||sanityLoading} onClick={()=>setProdPage(p=>p+1)} className="px-3 py-1.5 rounded-lg text-xs font-bold disabled:opacity-30 text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Następna →</button>
                   </div>
                 </div>
               </Card>
+
+              {/* ── MODAL EDYCJI PRODUKTU ── */}
+              {editProd && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{background:"rgba(0,0,0,0.75)"}}>
+                  <div className="w-full max-w-lg rounded-2xl overflow-hidden flex flex-col" style={{background:"#0f0f0f",border:"1px solid rgba(255,255,255,0.1)",maxHeight:"90vh"}}>
+                    {/* Header */}
+                    <div className="flex items-center justify-between px-6 py-4 flex-shrink-0" style={{borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
+                      <div>
+                        <h2 className="text-sm font-black text-white" style={{fontFamily:"'Rajdhani',sans-serif"}}>EDYTUJ PRODUKT</h2>
+                        <p className="text-[11px] text-gray-500 mt-0.5 line-clamp-1">{editProd.name}</p>
+                      </div>
+                      <button onClick={()=>setEditProd(null)} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:text-white hover:bg-white/5 transition-colors"><X className="w-4 h-4"/></button>
+                    </div>
+                    {/* Body */}
+                    <div className="p-6 space-y-4 overflow-y-auto flex-1">
+                      {([
+                        ["Nazwa produktu", "name",  "text",  1],
+                        ["Marka",          "brand", "text",  1],
+                        ["Jednostka (szt / kg / mb / m²)", "unit", "text", 1],
+                        ["EAN / kod kreskowy", "ean", "text", 1],
+                      ] as const).map(([label, field, type])=>(
+                        <div key={field}>
+                          <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">{label}</label>
+                          <input type={type} value={(editFields as any)[field]}
+                            onChange={e=>setEditFields(f=>({...f,[field]:e.target.value}))}
+                            className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all"
+                            style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                            onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
+                            onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
+                          />
+                        </div>
+                      ))}
+                      <div>
+                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Krótki opis</label>
+                        <textarea value={editFields.shortDescription} rows={2}
+                          onChange={e=>setEditFields(f=>({...f,shortDescription:e.target.value}))}
+                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all resize-none"
+                          style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                          onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
+                          onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Długi opis</label>
+                        <textarea value={editFields.description} rows={6}
+                          onChange={e=>setEditFields(f=>({...f,description:e.target.value}))}
+                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all resize-none"
+                          style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                          onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
+                          onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
+                        />
+                      </div>
+                      {editMsg && (
+                        <div className={`px-4 py-2.5 rounded-lg text-xs font-bold ${editMsg.type==="ok" ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20" : "bg-[#f81828]/10 text-[#f81828] border border-[#f81828]/20"}`}>
+                          {editMsg.text}
+                        </div>
+                      )}
+                    </div>
+                    {/* Footer */}
+                    <div className="flex gap-3 px-6 py-4 justify-end flex-shrink-0" style={{borderTop:"1px solid rgba(255,255,255,0.07)"}}>
+                      <button onClick={()=>setEditProd(null)} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-500 hover:text-white hover:bg-white/5 transition-colors">Anuluj</button>
+                      <button onClick={saveProduct} disabled={editSaving}
+                        className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] disabled:opacity-50 transition-colors">
+                        {editSaving ? <RefreshCw className="w-3.5 h-3.5 animate-spin"/> : <CheckCircle2 className="w-3.5 h-3.5"/>}
+                        {editSaving ? "Zapisuję…" : "Zapisz w Sanity"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

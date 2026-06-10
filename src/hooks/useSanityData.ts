@@ -1,160 +1,149 @@
 import { useState, useEffect } from 'react'
 import { sanityFetch } from '@/lib/sanity'
 import {
-  ALL_CATEGORIES_QUERY,
-  ALL_PRODUCTS_QUERY,
-  PRODUCTS_BY_CATEGORY_QUERY,
-  PRODUCTS_BY_CATEGORY_SLUGS_QUERY,
-  PRODUCT_META_BY_CATEGORY_SLUGS_QUERY,
-  PRODUCT_BY_SLUG_QUERY,
-  CATEGORY_BY_SLUG_QUERY,
-  FEATURED_PRODUCTS_QUERY,
-  RELATED_PRODUCTS_QUERY,
-  ALL_BLOG_POSTS_QUERY,
-  BLOG_POST_BY_SLUG_QUERY,
-  SITE_SETTINGS_QUERY,
-  ALL_BRANDS_QUERY,
+ALL_CATEGORIES_QUERY,
+ALL_PRODUCTS_QUERY,
+PRODUCTS_BY_CATEGORY_QUERY,
+PRODUCTS_BY_CATEGORY_SLUGS_QUERY,
+PRODUCT_META_BY_CATEGORY_SLUGS_QUERY,
+PRODUCT_META_BY_ROOT_CAT_QUERY,
+PRODUCT_BY_SLUG_QUERY,
+CATEGORY_BY_SLUG_QUERY,
+FEATURED_PRODUCTS_QUERY,
+RELATED_PRODUCTS_QUERY,
+ALL_BLOG_POSTS_QUERY,
+BLOG_POST_BY_SLUG_QUERY,
+SITE_SETTINGS_QUERY,
+ALL_BRANDS_QUERY,
 } from '@/lib/queries'
-
-// ─── Bazowy hook ──────────────────────────────────────────────────────────────
-
 function useSanityQuery<T>(query: string, params?: Record<string, any>) {
-  const [data, setData] = useState<T | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  const paramsKey = JSON.stringify(params)
-
-  useEffect(() => {
-    if (!query) { setData(null); setLoading(false); return }
-    let cancelled = false
-    setData(null)      // ← czyść stare dane natychmiast przy zmianie zapytania
-    setLoading(true)
-    sanityFetch<T>(query, params)
-      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
-      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
-    return () => { cancelled = true }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, paramsKey])
-
-  return { data, loading, error }
+const [data, setData] = useState<T | null>(null)
+const [loading, setLoading] = useState(true)
+const [error, setError] = useState<Error | null>(null)
+const paramsKey = JSON.stringify(params)
+useEffect(() => {
+if (!query) { setData(null); setLoading(false); return }
+let cancelled = false
+setData(null)      // ← czyść stare dane natychmiast przy zmianie zapytania
+setLoading(true)
+sanityFetch<T>(query, params)
+.then(res => { if (!cancelled) { setData(res); setLoading(false) } })
+.catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
+return () => { cancelled = true }
+}, [query, paramsKey])
+return { data, loading, error }
 }
-
-// ─── Eksportowane hooki ───────────────────────────────────────────────────────
-
 /** Wszystkie kategorie top-level z dziećmi */
 export const useAllCategories = () =>
-  useSanityQuery(ALL_CATEGORIES_QUERY)
-
+useSanityQuery(ALL_CATEGORIES_QUERY)
 /** Wszystkie produkty */
 export const useAllProducts = () =>
-  useSanityQuery(ALL_PRODUCTS_QUERY)
-
+useSanityQuery(ALL_PRODUCTS_QUERY)
 /** Produkty polecane (featured: true) */
 export const useFeaturedProducts = () =>
-  useSanityQuery(FEATURED_PRODUCTS_QUERY)
-
+useSanityQuery(FEATURED_PRODUCTS_QUERY)
 /** Produkty dla jednej kategorii (slug) */
 export const useProductsByCategory = (slug: string) =>
-  useSanityQuery(PRODUCTS_BY_CATEGORY_QUERY, { slug })
-
+useSanityQuery(PRODUCTS_BY_CATEGORY_QUERY, { slug })
 /**
- * Produkty dla wielu kategorii naraz (slug + wszystkie podkategorie).
- * Przekaż wynik collectAllSlugs(sanityCategory).
- * Hook jest wyłączony (skip) gdy slugs jest pustą tablicą.
- */
+* Produkty dla wielu kategorii naraz (slug + wszystkie podkategorie).
+* Przekaż wynik collectAllSlugs(sanityCategory).
+* Hook jest wyłączony (skip) gdy slugs jest pustą tablicą.
+*/
 export function useProductsByCategorySlugs(slugs: string[]) {
-  const [data, setData] = useState<any[] | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  const slugsKey = slugs.join(',')
-
-  useEffect(() => {
-    if (!slugs.length) { setData(null); setLoading(false); return }
-    let cancelled = false
-    setData(null)      // ← czyść stare dane natychmiast przy zmianie kategorii
-    setLoading(true)
-    sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs, limit: 2000 })
-      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
-      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
-    return () => { cancelled = true }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slugsKey])
-
-  return { data, loading, error }
+const [data, setData] = useState<any[] | null>(null)
+const [loading, setLoading] = useState(true)
+const [error, setError] = useState<Error | null>(null)
+const slugsKey = slugs.join(',')
+useEffect(() => {
+if (!slugs.length) { setData(null); setLoading(false); return }
+let cancelled = false
+setData(null)      // ← czyść stare dane natychmiast przy zmianie kategorii
+setLoading(true)
+sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs, limit: 2000 })
+.then(res => { if (!cancelled) { setData(res); setLoading(false) } })
+.catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
+return () => { cancelled = true }
+}, [slugsKey])
+return { data, loading, error }
 }
-
 /** Jeden produkt po slug */
 export const useProductBySlug = (slug: string) =>
-  useSanityQuery(PRODUCT_BY_SLUG_QUERY, { slug })
-
+useSanityQuery(PRODUCT_BY_SLUG_QUERY, { slug })
 /** Jedna kategoria po slug (z łańcuchem rodziców + dziećmi) */
 export const useCategoryBySlug = (slug: string) =>
-  useSanityQuery(CATEGORY_BY_SLUG_QUERY, { slug })
-
+useSanityQuery(CATEGORY_BY_SLUG_QUERY, { slug })
 /** Produkty powiązane z tej samej kategorii */
 export const useRelatedProducts = (categorySlug: string, currentSlug: string) =>
-  useSanityQuery(
-    categorySlug ? RELATED_PRODUCTS_QUERY : '',
-    categorySlug ? { categorySlug, currentSlug } : undefined,
-  )
-
+useSanityQuery(
+categorySlug ? RELATED_PRODUCTS_QUERY : '',
+categorySlug ? { categorySlug, currentSlug } : undefined,
+)
 /** Wszystkie posty bloga */
 export const useAllBlogPosts = () =>
-  useSanityQuery(ALL_BLOG_POSTS_QUERY)
-
+useSanityQuery(ALL_BLOG_POSTS_QUERY)
 /** Jeden post bloga po slug */
 export const useBlogPostBySlug = (slug: string) =>
-  useSanityQuery(BLOG_POST_BY_SLUG_QUERY, { slug })
-
+useSanityQuery(BLOG_POST_BY_SLUG_QUERY, { slug })
 /** Ustawienia witryny */
 export const useSiteSettings = () =>
-  useSanityQuery(SITE_SETTINGS_QUERY)
-
+useSanityQuery(SITE_SETTINGS_QUERY)
 /** Wszystkie marki */
 export const useAllBrands = () =>
-  useSanityQuery(ALL_BRANDS_QUERY)
-
-// ─── Typ metadanych produktu (Query A) ───────────────────────────────────────
-
+useSanityQuery(ALL_BRANDS_QUERY)
 export interface ProductMeta {
-  _id: string
-  slug: string
-  name: string
-  shortDescription?: string
-  images?: string[]
-  categorySlug: string
-  brand: string
-  unit: string
-  tags: string[]
-  featured: boolean
-  inStock: boolean
+_id: string
+slug: string
+name: string
+shortDescription?: string
+images?: string[]
+categorySlug: string
+brand: string
+unit: string
+tags: string[]
+featured: boolean
+inStock: boolean
 }
-
 /**
- * ⚡ Query A — metadane produktów + pierwsze zdjęcie + shortDescription.
- * Używany do kart produktów w CategoryPage (limit 500).
- * Pełna galeria i długi opis ładowane dopiero w ProductDetail.
- */
+* ⚡ Query B — metadane produktów przez jeden $catSlug (GROQ traversal 4 poziomów).
+* Zastępuje useProductMetaByCategorySlugs — brak problemu z długim URL na CDN.
+* Używaj tego hooka na stronach kategorii zamiast wersji z tablicą slugów.
+*/
+export function useProductMetaByCatSlug(catSlug: string | undefined) {
+const [data, setData] = useState<ProductMeta[] | null>(null)
+const [loading, setLoading] = useState(true)
+const [error, setError] = useState<Error | null>(null)
+useEffect(() => {
+if (!catSlug) { setData(null); setLoading(false); return }
+let cancelled = false
+setData(null)
+setLoading(true)
+sanityFetch<ProductMeta[]>(PRODUCT_META_BY_ROOT_CAT_QUERY, { catSlug })
+.then(res => { if (!cancelled) { setData(res); setLoading(false) } })
+.catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
+return () => { cancelled = true }
+}, [catSlug])
+return { data, loading, error }
+}
+/**
+* ⚡ Query A — metadane produktów + pierwsze zdjęcie + shortDescription.
+* Używany do kart produktów w CategoryPage (limit 500).
+* Pełna galeria i długi opis ładowane dopiero w ProductDetail.
+*/
 export function useProductMetaByCategorySlugs(slugs: string[]) {
-  const [data, setData] = useState<ProductMeta[] | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  const slugsKey = slugs.join(',')
-
-  useEffect(() => {
-    if (!slugs.length) { setData(null); setLoading(false); return }
-    let cancelled = false
-    setData(null)      // ← czyść stare dane natychmiast przy zmianie kategorii
-    setLoading(true)
-    sanityFetch<ProductMeta[]>(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs })
-      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
-      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
-    return () => { cancelled = true }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slugsKey])
-
-  return { data, loading, error }
+const [data, setData] = useState<ProductMeta[] | null>(null)
+const [loading, setLoading] = useState(true)
+const [error, setError] = useState<Error | null>(null)
+const slugsKey = slugs.join(',')
+useEffect(() => {
+if (!slugs.length) { setData(null); setLoading(false); return }
+let cancelled = false
+setData(null)      // ← czyść stare dane natychmiast przy zmianie kategorii
+setLoading(true)
+sanityFetch<ProductMeta[]>(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs })
+.then(res => { if (!cancelled) { setData(res); setLoading(false) } })
+.catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
+return () => { cancelled = true }
+}, [slugsKey])
+return { data, loading, error }
 }

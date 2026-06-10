@@ -90,6 +90,18 @@ export default function AdminPanel() {
   const [selectedInq, setSelectedInq] = useState<typeof INQUIRIES[0]|null>(null);
   const PROD_PAGE = 25;
 
+  /* ── Products filter (hook must be before early return) ── */
+  const filteredProds = useMemo(()=>
+    search.trim().length>1
+      ? products.filter(p=>p.name.toLowerCase().includes(search.toLowerCase())||p.brand?.toLowerCase().includes(search.toLowerCase()))
+      : products
+  ,[search]);
+  const totalPages = Math.ceil(filteredProds.length/PROD_PAGE);
+  const pagedProds = filteredProds.slice((prodPage-1)*PROD_PAGE, prodPage*PROD_PAGE);
+
+  /* ── Inquiries filter (also before early return) ── */
+  const filteredInq = inqFilter==="Wszystkie" ? INQUIRIES : INQUIRIES.filter(i=>i.status===inqFilter);
+
   /* ── Login ── */
   if (!loggedIn) return (
     <div className="min-h-screen flex items-center justify-center p-4" style={{background:"#060606"}}>
@@ -148,18 +160,6 @@ export default function AdminPanel() {
     { id:"pracownicy",  icon:<Users className="w-4 h-4"/>,       label:"Pracownicy",   badge: null },
     { id:"settings",    icon:<Settings className="w-4 h-4"/>,    label:"Ustawienia",   badge: null },
   ];
-
-  /* ── Products filter ── */
-  const filteredProds = useMemo(()=>
-    search.trim().length>1
-      ? products.filter(p=>p.name.toLowerCase().includes(search.toLowerCase())||p.brand?.toLowerCase().includes(search.toLowerCase()))
-      : products
-  ,[search]);
-  const totalPages = Math.ceil(filteredProds.length/PROD_PAGE);
-  const pagedProds = filteredProds.slice((prodPage-1)*PROD_PAGE, prodPage*PROD_PAGE);
-
-  /* ── Inquiries filter ── */
-  const filteredInq = inqFilter==="Wszystkie" ? INQUIRIES : INQUIRIES.filter(i=>i.status===inqFilter);
 
   return (
     <div className="min-h-screen flex" style={{background:"#060606",fontFamily:"Inter,sans-serif"}}>

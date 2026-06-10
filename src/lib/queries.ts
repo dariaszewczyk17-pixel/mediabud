@@ -12,7 +12,6 @@ const CATEGORY_CHAIN = `{
 }`
 
 // Odchudzone pola karty produktu — bez categoryChain i technicalSpec
-// To eliminuje dziesiątki tysięcy dodatkowych joinów przy dużych listach
 const PRODUCT_CARD_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
@@ -70,16 +69,34 @@ export const ALL_PRODUCTS_QUERY =
 export const FEATURED_PRODUCTS_QUERY =
   `*[_type == "product" && featured == true && ${NO_PLACEHOLDER}][0...12] ${PRODUCT_CARD_FIELDS}`
 
-// ⚡ Kluczowa optymalizacja: jeden join zamiast czterech poziomów parent->
-// collectAllSlugs() po stronie frontu dostarcza już WSZYSTKIE podkategorie,
-// więc wystarczy sprawdzić bezpośredni slug kategorii produktu.
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
   `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...$limit] ${PRODUCT_CARD_FIELDS}`
 
-// ⚡ Query A — metadane + pierwsze zdjęcie + shortDescription produktów
-// Pełne pola (opisy, galeria) ładowane dopiero w ProductDetail przez PRODUCT_BY_SLUG_QUERY.
+// ⚡ Query A — stara wersja z tablicą $slugs (zachowana dla kompatybilności)
 export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
   `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...10000] {
+  _id,
+  "slug": slug.current,
+  name,
+  shortDescription,
+  "categorySlug": category->slug.current,
+  "brand": brand->name,
+  unit,
+  tags,
+  featured,
+  inStock,
+  "images": images[0..0].asset->url
+}`
+
+// ⚡ Query B — jeden $catSlug, GROQ przechodzi hierarchię 4 poziomów.
+// Rozwiązuje problem za długiego URL gdy $slugs ma 100+ elementów.
+export const PRODUCT_META_BY_ROOT_CAT_QUERY =
+  `*[_type == "product" && ${NO_PLACEHOLDER} && (
+    category->slug.current                         == $catSlug ||
+    category->parent->slug.current                 == $catSlug ||
+    category->parent->parent->slug.current         == $catSlug ||
+    category->parent->parent->parent->slug.current == $catSlug
+  )] | order(name asc) [0...10000] {
   _id,
   "slug": slug.current,
   name,

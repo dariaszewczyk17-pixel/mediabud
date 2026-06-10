@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/hooks/useSEO";
 import { ChevronRight, ArrowRight, Phone, Grid3x3 } from "lucide-react";
 import { categories } from "@/data/categories";
-import { products as allProducts } from "@/data/products";
+import { useAllProducts } from "@/hooks/useSanityData";
 
 const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;
 const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] transition-all duration-300";
@@ -12,18 +12,20 @@ const PAGE_SIZE = 24;
 
 function CatalogSection() {
   const [page, setPage] = useState(1);
-  const [loaded, setLoaded] = useState(false);
+  const [visible_trigger, setVisibleTrigger] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   // Lazy load — zainiciuj dopiero gdy sekcja jest widoczna
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setLoaded(true); obs.disconnect(); } }, { rootMargin: "200px" });
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisibleTrigger(true); obs.disconnect(); } }, { rootMargin: "200px" });
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
+  const { data: sanityProducts, loading } = useAllProducts();
+  const allProducts = (sanityProducts as any[]) ?? [];
   const visible = allProducts.slice(0, page * PAGE_SIZE);
 
   return (
@@ -33,7 +35,7 @@ function CatalogSection() {
           <div>
             <p className="text-[10px] font-black text-[#f81828] tracking-[0.4em] uppercase mb-1">Pełny katalog</p>
             <h2 className="font-display text-2xl font-black text-white" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>
-              {allProducts.length.toLocaleString("pl-PL")}+ produktów
+              {loading ? "Ładowanie…" : `${allProducts.length.toLocaleString("pl-PL")}+ produktów`}
             </h2>
           </div>
           <Link to="/produkty" className="text-xs font-black uppercase tracking-widest text-[#f81828] hover:underline flex items-center gap-1">
@@ -41,12 +43,24 @@ function CatalogSection() {
           </Link>
         </div>
 
-        {loaded ? (
+        {loading ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div key={i} className="rounded-xl overflow-hidden animate-pulse" style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.04)" }}>
+                <div className="h-28" style={{ background: "#1a1a1a" }} />
+                <div className="p-2.5 space-y-1.5">
+                  <div className="h-2 rounded w-1/2" style={{ background: "#222" }} />
+                  <div className="h-3 rounded w-4/5" style={{ background: "#222" }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
           <>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
-              {visible.map((p) => (
+              {visible.map((p: any) => (
                 <Link
-                  key={p.id}
+                  key={p._id ?? p.id}
                   to={`/produkty/${p.slug}`}
                   className="group rounded-xl overflow-hidden transition-all duration-200"
                   style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
@@ -59,7 +73,7 @@ function CatalogSection() {
                     </div>
                   ) : (
                     <div className="h-28 flex items-center justify-center" style={{ background: "#1a1a1a" }}>
-                      <span className="text-2xl font-black text-[#333]">{p.name.charAt(0)}</span>
+                      <span className="text-2xl font-black text-[#333]">{p.name?.charAt(0)}</span>
                     </div>
                   )}
                   <div className="p-2.5">
@@ -81,18 +95,6 @@ function CatalogSection() {
               </div>
             )}
           </>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="rounded-xl overflow-hidden animate-pulse" style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.04)" }}>
-                <div className="h-28" style={{ background: "#1a1a1a" }} />
-                <div className="p-2.5 space-y-1.5">
-                  <div className="h-2 rounded w-1/2" style={{ background: "#222" }} />
-                  <div className="h-3 rounded w-4/5" style={{ background: "#222" }} />
-                </div>
-              </div>
-            ))}
-          </div>
         )}
       </div>
     </section>
@@ -488,5 +490,3 @@ export default function AllCategoriesPage() {
     </div>
   );
 }
-
-// ─── POLICY PAGE ──────────────────────────────────────────────────

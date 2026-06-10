@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
-import { useCategoryBySlug, useAllCategories, useProductMetaByCategorySlugs, type ProductMeta } from "@/hooks/useSanityData";
+import { useCategoryBySlug, useAllCategories, useProductMetaByCatSlug, type ProductMeta } from "@/hooks/useSanityData";
 import { useSEO } from "@/hooks/useSEO";
 import {
   sanityCategoryToLegacy,
@@ -239,7 +239,7 @@ export default function CategoryPage() {
     [sanitySubSlugs, staticSubSlugs],
   );
 
-  const { data: sanityMeta, loading: productsLoading, error: productsError } = useProductMetaByCategorySlugs(allSubSlugs);
+  const { data: sanityMeta, loading: productsLoading, error: productsError } = useProductMetaByCatSlug(slug);
 
   // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
   // Pokazuj skeleton TYLKO gdy kategoria nie ma żadnych danych statycznych.

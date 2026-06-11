@@ -161,10 +161,15 @@ async function pingGoogle(_sitemapUrl) {
 const STATIC_PAGES = [
   { path: '/',          changefreq: 'weekly',  priority: '1.0' },
   { path: '/produkty',  changefreq: 'weekly',  priority: '0.9' },
-  { path: '/kategoria', changefreq: 'weekly',  priority: '0.9' },
-  { path: '/o-nas',     changefreq: 'monthly', priority: '0.7' },
+  { path: '/o-firmie',  changefreq: 'monthly', priority: '0.7' },
   { path: '/kontakt',   changefreq: 'monthly', priority: '0.7' },
   { path: '/blog',      changefreq: 'weekly',  priority: '0.8' },
+  { path: '/marki',     changefreq: 'weekly',  priority: '0.8' },
+];
+
+const CALCULATORS = [
+  'tynk-elewacyjny', 'farba-elewacyjna', 'styropian-welna', 
+  'klej-do-plytek', 'plytki-ceramiczne', 'izolacja-fundamentow'
 ];
 
 // ─── Main ────────────────────────────────────────────────────────────────────
@@ -177,10 +182,20 @@ async function main() {
   console.log('\n📂 Pobieranie kategorii...');
   let categories = [];
   try {
-    categories = await fetchAllPaginated(
+    const rawCats = await fetchAllPaginated(
       `*[_type=="category" && defined(slug.current)]{slug, _updatedAt, depth}`
     );
-    console.log(`  ✓ ${categories.length} kategorii`);
+    // Deduplikacja i filtrowanie błędnych slugów (np. "aczniki" zamiast "laczniki")
+    const catMap = new Map();
+    for (const c of rawCats) {
+      const s = c.slug?.current;
+      if (!s || (s.includes('acznik') && !s.includes('lacznik'))) continue;
+      if (!catMap.has(s) || new Date(c._updatedAt) > new Date(catMap.get(s)._updatedAt)) {
+        catMap.set(s, c);
+      }
+    }
+    categories = Array.from(catMap.values());
+    console.log(`  ✓ ${categories.length} unikalnych kategorii (z ${rawCats.length} pobranych)`);
   } catch (e) {
     console.warn(`  ⚠ Błąd kategorii: ${e.message}`);
   }
@@ -190,7 +205,7 @@ async function main() {
   let rawProducts = [];
   try {
     // Mechanizm 1: GROQ zwraca flagi jakości — bez dodatkowych requestów
-    rawProducts = await fetchAllPaginated(
+    const rawProds = await fetchAllPaginated(
       `*[_type=="product" && defined(slug.current) && !(name match "P-*")]{
         slug,
         _updatedAt,
@@ -202,9 +217,39 @@ async function main() {
         "hasCategory":    defined(category)
       }`
     );
-    console.log(`  ✓ ${rawProducts.length} produktów pobrano`);
+    // Deduplikacja produktów
+    const prodMap = new Map();
+    for (const p of rawProds) {
+      const s = p.slug?.current;
+      if (!s) continue;
+      if (!prodMap.has(s) || new Date(p._updatedAt) > new Date(prodMap.get(s)._updatedAt)) {
+        prodMap.set(s, p);
+      }
+    }
+    rawProducts = Array.from(prodMap.values());
+    console.log(`  ✓ ${rawProducts.length} unikalnych produktów (z ${rawProds.length} pobranych)`);
   } catch (e) {
     console.warn(`  ⚠ Błąd produktów: ${e.message}`);
+  }
+
+  // ── Pobierz Marki i Blog z plików lokalnych ───────────────────────────────
+  console.log('\n📝 Pobieranie lokalnych danych (Marki, Blog)...');
+  let brands = [];
+  let blogPosts = [];
+  try {
+    // Importujemy pliki .ts używając esbuild (ponieważ to TS)
+    const { execSync } = await import('child_process');
+    execSync('npx esbuild src/data/brands.ts --bundle --format=esm --outfile=dist/temp-brands.mjs');
+    execSync('npx esbuild src/data/blog.ts --bundle --format=esm --outfile=dist/temp-blog.mjs');
+    
+    const brandsModule = await import(path.join(ROOT, 'dist/temp-brands.mjs'));
+    const blogModule = await import(path.join(ROOT, 'dist/temp-blog.mjs'));
+    
+    brands = brandsModule.BRANDS || [];
+    blogPosts = blogModule.blogPosts || [];
+    console.log(`  ✓ ${brands.length} marek, ${blogPosts.length} artykułów bloga`);
+  } catch (e) {
+    console.warn(`  ⚠ Błąd lokalnych danych: ${e.message}`);
   }
 
   // ── Klasyfikacja produktów wg score ───────────────────────────────────────
@@ -236,13 +281,33 @@ async function main() {
   // ── Buduj pliki XML ────────────────────────────────────────────────────────
   console.log('\n✍️  Generowanie plików XML...');
 
-  // 1. sitemap-core.xml — strony statyczne
-  const coreEntries = STATIC_PAGES.map(p => urlEntry({
-    loc:        `${BASE_URL}${p.path}`,
-    lastmod:    today,
-    changefreq: p.changefreq,
-    priority:   p.priority,
-  }));
+  // 1. sitemap-core.xml — strony statyczne, marki, blog, kalkulatory
+  const coreEntries = [
+    ...STATIC_PAGES.map(p => urlEntry({
+      loc:        `${BASE_URL}${p.path}`,
+      lastmod:    today,
+      changefreq: p.changefreq,
+      priority:   p.priority,
+    })),
+    ...CALCULATORS.map(calc => urlEntry({
+      loc:        `${BASE_URL}/kalkulator/${calc}`,
+      lastmod:    today,
+      changefreq: 'monthly',
+      priority:   '0.8',
+    })),
+    ...brands.map(b => urlEntry({
+      loc:        `${BASE_URL}/marki/${escapeXml(b.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''))}`,
+      lastmod:    today,
+      changefreq: 'weekly',
+      priority:   '0.7',
+    })),
+    ...blogPosts.map(post => urlEntry({
+      loc:        `${BASE_URL}/blog/${escapeXml(post.id)}`,
+      lastmod:    post.date || today,
+      changefreq: 'monthly',
+      priority:   '0.7',
+    }))
+  ];
   await writeXml('sitemap-core.xml', buildUrlset(coreEntries));
 
   // 2. sitemap-categories.xml — wszystkie kategorie

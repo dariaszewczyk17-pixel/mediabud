@@ -510,6 +510,8 @@ Przy ul. Chemicznej 8d (Lublin, Pon–Pt 7:00–16:00) oferujemy ponad 15 000 pr
     tags: ["tynk silikonowy", "tynk akrylowy", "elewacja", "weber", "ceresit", "baumit"],
     content: `## Tynk silikonowy vs akrylowy — podstawowe różnice
 
+Wybór odpowiedniego tynku elewacyjnego to jedna z najważniejszych decyzji. Zanim zaczniesz, sprawdź nasz [kalkulator tynku elewacyjnego](/kalkulator/tynk-elewacyjny), aby dokładnie oszacować potrzebną ilość materiału.
+
 Wybór tynku elewacyjnego to decyzja na 15–20 lat. Tynk silikonowy i akrylowy to dwa najpopularniejsze rodzaje — różnią się właściwościami, ceną i przeznaczeniem.
 
 ## Czym jest tynk silikonowy?
@@ -578,7 +580,7 @@ Wyliczymy ilości materiału — zadzwoń: **+48 533 553 344** lub odwiedź skł
     tags: ["koszt ocieplenia domu", "ocieplenie 150m2", "ETICS", "czyste powietrze", "termomodernizacja", "ceny 2026"],
     content: `## Koszt ocieplenia domu 150 m² — co wchodzi w cenę?
 
-Ocieplenie domu to inwestycja obniżająca rachunki za ogrzewanie o 30–60% rocznie. Ile kosztuje termomodernizacja domu 150 m² w 2026 roku?
+Ocieplenie domu to inwestycja obniżająca rachunki za ogrzewanie o 30–60% rocznie. Aby precyzyjnie wyliczyć zapotrzebowanie na materiał, skorzystaj z naszego [kalkulatora styropianu i wełny](/kalkulator/styropian-welna). Ile kosztuje termomodernizacja domu 150 m² w 2026 roku?
 
 ## Założenia kalkulacji
 
@@ -647,6 +649,8 @@ Wyliczymy dokładne zestawienie materiałów po podaniu rzutu budynku — **+48 
     tags: ["knauf", "rigips", "płyta GK", "sucha zabudowa", "gipsowo-kartonowe", "ścianka działowa"],
     content: `## Knauf vs Rigips — dwie marki, jeden standard EN 520
 
+Wybór odpowiedniego systemu suchej zabudowy to klucz do sukcesu. Zobacz pełną ofertę w kategorii [Sucha zabudowa](/kategoria/sucha-zabudowa).
+
 Na polskim rynku suchej zabudowy dominują Knauf i Rigips (Saint-Gobain). Obie marki produkują płyty zgodnie z normą EN 520 i mają porównywalną jakość. Która wybrać?
 
 ## Porównanie asortymentu płyt
@@ -704,6 +708,8 @@ W Media Bud dostępne są płyty i profile Knauf oraz Rigips. Wyliczymy materia�
     image: "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80",
     tags: ["klej do styropianu", "ocieplenie", "EPS", "XPS", "ETICS"],
     content: `## Rodzaje kleju do styropianu
+
+Wybór odpowiedniego kleju do styropianu to fundament trwałego ocieplenia. Sprawdź dostępne produkty w kategorii [Kleje do styropianu](/kategoria/kleje-styropian).
 
 Dobór kleju to kluczowa decyzja w systemie ETICS.
 
@@ -779,6 +785,8 @@ Kalkulacja materiałów bezpłatnie — **+48 533 553 344** | ul. Chemiczna 8d, 
     image: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=800&q=80",
     tags: ["tynk elewacyjny", "kalkulator tynku", "ile tynku", "elewacja 2026"],
     content: `## Jak obliczyć ilość tynku?
+
+Najszybszym sposobem na obliczenie ilości materiału jest użycie naszego [kalkulatora tynku elewacyjnego](/kalkulator/tynk-elewacyjny), który uwzględnia normy zużycia dla różnych granulacji.
 
 **Wzór**: Pow. netto = (obwód × wys.) − Σ otworów
 
@@ -857,6 +865,8 @@ Sprawdź dostępność — **+48 533 553 344** | ul. Chemiczna 8d, Lublin`
     image: "https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=800&q=80",
     tags: ["ceny izolacji 2026", "styropian cena", "wełna mineralna cena", "XPS cena", "termomodernizacja"],
     content: `## Cennik materiałów izolacyjnych — Lublin 2026
+
+Aby sprawdzić aktualne ceny i dostępność, odwiedź kategorię [Izolacje](/kategoria/izolacje) lub skorzystaj z [kalkulatora izolacji](/kalkulator/styropian-welna).
 
 ### Styropian EPS elewacyjny
 

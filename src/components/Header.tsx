@@ -136,7 +136,15 @@ export default function Header() {
     setSearchFocused(false);
   };
 
-  /* ── Mierz wysokość headera → ustaw --header-h + scroll-padding-top ── */
+  /* ── Mierz wysokość headera → ustaw --header-h + scroll-padding-top ──
+   * WAŻNE: zależność to [] (montowanie), NIE [scrolled].
+   * Gdy scrolled zmienia się i uruchamia CSS transition maxHeight 0→120px,
+   * wywołanie offsetHeight NATYCHMIAST (przed pierwszą klatką animacji) zwraca
+   * już KOŃCOWĄ wartość layoutu (np. 44px), przez co --header-h teleportuje się
+   * zanim animacja zdąży wystartować → mega-menu skacze na środek headera.
+   * ResizeObserver reaguje na każdą klatkę animacji i aktualizuje --header-h
+   * płynnie razem z przejściem CSS — bez żadnych skoków.
+   * ── */
   useEffect(() => {
     const updateHeaderHeight = () => {
       if (!headerRef.current) return;
@@ -149,7 +157,8 @@ export default function Header() {
     const ro = new ResizeObserver(updateHeaderHeight);
     if (headerRef.current) ro.observe(headerRef.current);
     return () => ro.disconnect();
-  }, [scrolled]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50);

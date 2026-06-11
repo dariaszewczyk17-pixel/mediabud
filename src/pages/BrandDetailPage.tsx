@@ -15,7 +15,8 @@ export default function BrandDetailPage() {
   const { slug = "" } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const brand = getBrandBySlug(slug);
-  const { data: sanityProducts } = useAllProducts();
+  const { data: sanityProducts, loading: sanityLoading } = useAllProducts();
+  const isLoading = sanityLoading && !sanityProducts;
 
   const mergedProducts = useMemo(() => {
     const legacy = ((sanityProducts as SanityProduct[] | undefined) ?? []).map(sanityProductToLegacy);
@@ -33,7 +34,7 @@ export default function BrandDetailPage() {
       ? `${brand.name} — materiały budowlane | Media Bud Lublin`
       : "Marka nieznaleziona | Media Bud",
     description: brand
-      ? `Pełny katalog produktów ${brand.name} dostępnych w składzie Media Bud Lublin. ${brandProducts.length ? `${brandProducts.length} produktów w stock.` : ""} Doradztwo, dostawa, faktura VAT.`
+      ? `Pełny katalog produktów ${brand.name} dostępnych w składzie Media Bud Lublin. ${!isLoading && brandProducts.length ? `${brandProducts.length} produktów w stock.` : ""} Doradztwo, dostawa, faktura VAT.`
       : "Nie znaleziono takiej marki w katalogu Media Bud.",
     canonical: `/marki/${slug}`,
     noIndex: false,
@@ -135,10 +136,10 @@ export default function BrandDetailPage() {
                 </div>
               )}
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                {brandProducts.length > 0 && (
+                {(isLoading || brandProducts.length > 0) && (
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
                     <Package className="w-3.5 h-3.5 text-[#f81828]" />
-                    {brandProducts.length} {brandProducts.length === 1 ? "produkt" : brandProducts.length < 5 ? "produkty" : "produktów"} w katalogu
+                    {isLoading ? "···" : `${brandProducts.length} ${brandProducts.length === 1 ? "produkt" : brandProducts.length < 5 ? "produkty" : "produktów"} w katalogu`}
                   </span>
                 )}
                 {brand.website && (
@@ -170,14 +171,21 @@ export default function BrandDetailPage() {
             <h2 className="font-display text-xl font-black text-white">
               Produkty {brand.name}
             </h2>
-            {brandProducts.length > 0 && (
+            {(isLoading || brandProducts.length > 0) && (
               <span className="text-xs font-bold text-gray-500 ml-auto">
-                {brandProducts.length} pozycji
+                {isLoading ? "···" : `${brandProducts.length} pozycji`}
               </span>
             )}
           </div>
 
-          {brandProducts.length === 0 ? (
+          {isLoading ? (
+            /* Skeleton podczas ładowania — nie pokazuje "brak produktów" */
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="rounded-xl bg-[#111] border border-white/5 animate-pulse" style={{ aspectRatio: "3/4" }} />
+              ))}
+            </div>
+          ) : brandProducts.length === 0 ? (
             <div className="rounded-2xl p-12 flex flex-col items-center gap-4 text-center"
               style={{ background: "#0d0d0d", border: "1px solid #1a1a1a" }}>
               <Package className="w-12 h-12 text-gray-700" />

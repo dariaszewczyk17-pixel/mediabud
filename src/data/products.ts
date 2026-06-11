@@ -30,9 +30,9 @@ export const products: Product[] = [
     id: "p001", slug: "tynk-silikonowy-weber-pas-dr1",
     name: "Tynk silikonowy weber.pas DR1 15kg",
     categorySlug: "tynki-silikonowe", brand: "Weber", sku: "WEB-SIL-DR1-15", unit: "worek 15kg",
-    shortDescription: "Gotowy tynk elewacyjny silikonowy o strukturze drapany/kornik, odporny na zabrudzenia.",
-    description: "Weber.pas DR1 to gotowy do użycia tynk silikonowy do elewacji. Charakteryzuje się wysoką odpornością na zabrudzenia dzięki właściwościom hydrofobowym oraz elastycznością zapewniającą odporność na mikropęknięcia. Doskonały do systemów ociepleniowych ETICS. Dostępny w szerokiej gamie kolorów z mieszalnika.",
-    application: "Elewacje budynków mieszkalnych i komercyjnych. Stosowany jako warstwa wykończeniowa w systemach ociepleń ETICS na styropianie i wełnie mineralnej.",
+    shortDescription: "Gotowy tynk elewacyjny silikonowy o strukturze drapany/kornik, odporny na zabrudzenia i warunki atmosferyczne.",
+    description: "Weber.pas DR1 to najwyższej jakości, gotowy do użycia tynk silikonowy przeznaczony do wykonywania cienkowarstwowych wypraw tynkarskich. Dzięki zaawansowanej formule opartej na żywicach silikonowych, produkt charakteryzuje się wyjątkową odpornością na zabrudzenia (efekt samoczyszczenia) oraz wysoką elastycznością, która chroni elewację przed mikropęknięciami. Idealnie sprawdza się w systemach ociepleń ETICS, zarówno na styropianie, jak i wełnie mineralnej. Tynk jest wysoce paroprzepuszczalny, co pozwala ścianom \"oddychać\", a zawarte w nim biocydy skutecznie chronią przed rozwojem alg i grzybów.",
+    application: "Wykonywanie barwnych, cienkowarstwowych wypraw tynkarskich na systemach ociepleń opartych na styropianie (EPS) oraz wełnie mineralnej. Może być również stosowany na tradycyjnych tynkach cementowych, cementowo-wapiennych oraz na podłożach betonowych. Przeznaczony do aplikacji ręcznej lub maszynowej.",
     technicalSpec: [
       { label: "Zużycie", value: "2,5–3,5 kg/m² (ziarno 1,5mm)" },
       { label: "Granulacja", value: "1,5 mm lub 2,0 mm" },
@@ -44,14 +44,19 @@ export const products: Product[] = [
     tags: ["tynk silikonowy", "elewacja", "etics", "weber", "kornik", "drapany"],
     related: ["p002", "p003", "p010"],
     isFeatured: true,
+  
+    seoDescription: "Szukasz trwałego i estetycznego wykończenia elewacji? Tynk silikonowy Weber.pas DR1 to rozwiązanie, które łączy w sobie odporność na warunki atmosferyczne z łatwością aplikacji. W hurtowni Media Bud w Lublinie oferujemy ten produkt w szerokiej gamie kolorystycznej z mieszalnika. Wybierając tynk silikonowy Weber, inwestujesz w elewację, która przez lata zachowa swój pierwotny wygląd, nie ulegając zabrudzeniom ani blaknięciu. Sprawdź również nasze [kalkulatory materiałowe](/kalkulator/tynk-elewacyjny), aby dokładnie obliczyć zapotrzebowanie na tynk dla Twojego projektu. Oferujemy szybką dostawę na terenie Lublina i okolic.",
+    advantages: ["Efekt samoczyszczenia – wysoka odporność na zabrudzenia","Wysoka elastyczność – odporność na mikropęknięcia i naprężenia termiczne","Doskonała paroprzepuszczalność – pozwala ścianom oddychać","Zabezpieczenie przed algami i grzybami (zawiera biocydy powłokowe)","Trwałość kolorów i odporność na promieniowanie UV"],
+    warnings: ["Nie stosować w temperaturach poniżej +5°C oraz powyżej +25°C","Chronić przed bezpośrednim nasłonecznieniem, wiatrem i deszczem podczas aplikacji i wiązania","Przed nałożeniem tynku podłoże musi być zagruntowane odpowiednim płynem gruntującym (np. weber.prim compact)","Nie aplikować na mokre lub zmrożone podłoża"],
+    faq: [{"q":"Czy tynk Weber.pas DR1 można nakładać maszynowo?","a":"Tak, tynk ten jest przystosowany zarówno do aplikacji ręcznej (pacą ze stali nierdzewnej), jak i maszynowej przy użyciu odpowiednich agregatów tynkarskich."},{"q":"Jak przygotować podłoże przed nałożeniem tynku?","a":"Podłoże musi być nośne, suche, czyste i wolne od substancji zmniejszających przyczepność. Należy je bezwzględnie zagruntować płynem gruntującym pod tynki silikonowe, najlepiej w kolorze zbliżonym do koloru tynku."},{"q":"Ile schnie tynk silikonowy?","a":"Czas schnięcia zależy od warunków atmosferycznych (temperatura, wilgotność). W optymalnych warunkach (+20°C, 65% wilgotności) tynk jest odporny na deszcz po około 24 godzinach, a pełne utwardzenie następuje po kilku dniach."}],
   },
   {
     id: "p011", slug: "tynk-gipsowy-knauf-goldband-25kg",
     name: "Tynk gipsowy Knauf Goldband 25kg",
     categorySlug: "tynki-gipsowe", brand: "Knauf", sku: "KNF-GB-25", unit: "worek 25kg",
-    shortDescription: "Tynk gipsowy maszynowy i ręczny do wnętrz na mury i sufity. Wysoka biała powierzchnia.",
-    description: "Knauf Goldband to tynk gipsowy przeznaczony do ręcznego i maszynowego wykonywania wypraw tynkarskich na ścianach i sufitach wewnątrz budynków. Produkt charakteryzuje się bardzo dobrą przyczepnością do podłoży mineralnych, łatwością obróbki i doskonałą białością powierzchni. Możliwość przykrycia bardzo dużych nierówności podłoża.",
-    application: "Tynkowanie ścian i sufitów wewnątrz budynków. Podłoże: cegła, beton, bloczki silikatowe i z betonu komórkowego. Grubość warstwy 8–50mm.",
+    shortDescription: "Wysokiej jakości tynk gipsowy Knauf Goldband do ręcznego nakładania wewnątrz pomieszczeń. Zapewnia gładkie powierzchnie.",
+    description: "Knauf Goldband to fabrycznie przygotowana, sucha zaprawa gipsowa przeznaczona do ręcznego wykonywania jednowarstwowych tynków wewnątrz budynków. Produkt ten jest idealny do tynkowania wszelkiego rodzaju podłoży szorstkich, takich jak cegła, beton komórkowy, pustaki ceramiczne czy beton. Dzięki specjalnym dodatkom, tynk Goldband charakteryzuje się doskonałą przyczepnością, plastycznością i łatwością obróbki. Pozwala na uzyskanie gładkich, równych powierzchni, gotowych do malowania lub tapetowania. Reguluje mikroklimat w pomieszczeniach, pochłaniając nadmiar wilgoci i oddając ją, gdy powietrze staje się zbyt suche.",
+    application: "Ręczne tynkowanie ścian i sufitów wewnątrz pomieszczeń o standardowej wilgotności powietrza (w tym kuchnie i łazienki domowe). Stosowany na podłożach z cegły, betonu komórkowego, pustaków ceramicznych, silikatów oraz na szorstkim betonie. Grubość warstwy od 8 mm do 50 mm.",
     technicalSpec: [
       { label: "Zużycie", value: "8,5 kg/m² (przy 10 mm)" },
       { label: "Czas schnięcia", value: "ok. 2 h (w zależności od grubości)" },
@@ -63,14 +68,19 @@ export const products: Product[] = [
     tags: ["tynk gipsowy", "knauf", "goldband", "wnętrze", "maszynowy", "ręczny"],
     related: ["p006", "p005", "p022"],
     isFeatured: true,
+  
+    seoDescription: "Tynk gipsowy Knauf Goldband to sprawdzony wybór dla profesjonalistów i majsterkowiczów. W Media Bud Lublin znajdziesz ten produkt zawsze w najlepszej cenie. Goldband to gwarancja gładkich ścian i zdrowego mikroklimatu w Twoim domu. Idealnie nadaje się do remontów i wykończeń wnętrz. Zobacz pełną ofertę produktów marki [Knauf](/marki/knauf) w naszym sklepie. Zapewniamy fachowe doradztwo i transport materiałów budowlanych prosto na Twoją budowę w regionie lubelskim.",
+    advantages: ["Tworzy gładkie, równe powierzchnie gotowe do wykończenia","Reguluje wilgotność w pomieszczeniu (oddychający)","Wysoka wydajność i łatwość obróbki","Możliwość nakładania grubych warstw (do 50 mm) w jednym cyklu","Odporny na uderzenia i wbijanie gwoździ"],
+    warnings: ["Tylko do stosowania wewnątrz budynków","Nie stosować w pomieszczeniach o stale podwyższonej wilgotności (np. baseny, łaźnie publiczne)","Podłoża silnie chłonne (np. beton komórkowy) wymagają wcześniejszego zagruntowania środkiem Knauf Grundiermittel","Podłoża betonowe gładkie wymagają gruntu Knauf Betokontakt"],
+    faq: [{"q":"Czy Knauf Goldband można nakładać maszynowo?","a":"Nie, Goldband jest tynkiem przeznaczonym wyłącznie do nakładania ręcznego. Do aplikacji maszynowej polecamy tynk Knauf MP 75."},{"q":"Jaka jest minimalna grubość warstwy tynku Goldband?","a":"Minimalna grubość warstwy to 8 mm. W przypadku konieczności nałożenia cieńszej warstwy, należy użyć gładzi gipsowej."},{"q":"Czy na tynk Goldband można kłaść płytki ceramiczne?","a":"Tak, pod warunkiem, że tynk został nałożony jednowarstwowo, ma grubość minimum 10 mm i nie został zatarty na gładko (powierzchnia musi być szorstka). Przed klejeniem płytek tynk należy zagruntować."}],
   },
   {
     id: "p012", slug: "tynk-mineralny-weber-pas-ma-25kg",
     name: "Tynk mineralny weber.pas MA 25kg",
     categorySlug: "tynki-mineralne", brand: "Weber", sku: "WEB-MA-25", unit: "worek 25kg",
-    shortDescription: "Mineralny tynk elewacyjny do elewacji w systemach ETICS i na podłożach mineralnych.",
-    description: "Weber.pas MA to suchy, mineralny tynk elewacyjny do stosowania jako warstwa dekoracyjno-ochronna w systemach ociepleń ETICS oraz bezpośrednio na podłożach mineralnych. Po nałożeniu i zatarciu uzyskuje strukturę mozaikową lub drapany. Produkt odznacza się wysoką paroprzepuszczalnością i odpornością na czynniki atmosferyczne.",
-    application: "Elewacje w systemach ETICS na styropianie i wełnie mineralnej. Bezpośrednie tynkowanie podłoży mineralnych (beton, cegła, bloczki). Tynkowanie ręczne.",
+    shortDescription: "Mineralny tynk elewacyjny weber.pas MA o strukturze baranka/kornika, wysoce paroprzepuszczalny.",
+    description: "Weber.pas MA to sucha mieszanka mineralna przeznaczona do wykonywania cienkowarstwowych wypraw tynkarskich na zewnątrz i wewnątrz budynków. Tynk ten charakteryzuje się bardzo wysoką paroprzepuszczalnością, co czyni go idealnym rozwiązaniem do systemów ociepleń opartych na wełnie mineralnej, a także do renowacji starych, zabytkowych elewacji. Po zarobieniu z wodą tworzy plastyczną masę, łatwą w aplikacji i fakturowaniu. Dostępny w kolorze białym, przeznaczony do późniejszego malowania farbami elewacyjnymi (np. silikonowymi lub silikatowymi).",
+    application: "Wykonywanie cienkowarstwowych wypraw tynkarskich w systemach ociepleń ETICS (na styropianie i wełnie mineralnej) oraz na tradycyjnych tynkach podkładowych. Do stosowania na zewnątrz i wewnątrz budynków. Wymaga pomalowania farbą elewacyjną w celu zabezpieczenia przed wilgocią i nadania ostatecznego koloru.",
     technicalSpec: [
       { label: "Zużycie", value: "2,8–4,5 kg/m²" },
       { label: "Granulacja", value: "1,5 mm lub 2,0 mm" },
@@ -81,6 +91,11 @@ export const products: Product[] = [
     images: ["/images/products/p012-tynk-mineralny_2.jpg"],
     tags: ["tynk mineralny", "elewacja", "etics", "weber", "paroprzepuszczalny"],
     related: ["p001", "p005", "p002"],
+  
+    seoDescription: "Tynk mineralny weber.pas MA to klasyczne, sprawdzone i ekonomiczne rozwiązanie do wykończenia elewacji. W hurtowni Media Bud Lublin znajdziesz ten produkt w stałej ofercie. Dzięki wysokiej paroprzepuszczalności, tynk ten jest idealny na ocieplenia z wełny mineralnej. Pamiętaj, że tynk mineralny wymaga pomalowania farbą elewacyjną – sprawdź naszą ofertę w kategorii [Farby i rozpuszczalniki](/kategoria/farby-i-rozpuszczalniki). Oblicz zapotrzebowanie za pomocą [kalkulatora tynku](/kalkulator/tynk-elewacyjny) i zamów z dostawą na budowę.",
+    advantages: ["Bardzo wysoka paroprzepuszczalność (idealny na wełnę mineralną)","Naturalna odporność na rozwój grzybów i pleśni (wysokie pH)","Materiał niepalny (klasa A1)","Wysoka trwałość i odporność na warunki atmosferyczne","Ekonomiczne rozwiązanie w porównaniu do tynków gotowych"],
+    warnings: ["Wymaga dokładnego wymieszania z wodą w odpowiednich proporcjach","Tynk mineralny jest nasiąkliwy – bezwzględnie wymaga pomalowania farbą elewacyjną (np. silikonową, silikatową)","Chronić przed szybkim wysychaniem (słońce, wiatr) podczas wiązania","Aplikować w temperaturach od +5°C do +25°C"],
+    faq: [{"q":"Czy tynk mineralny weber.pas MA jest barwiony w masie?","a":"Nie, tynk ten jest produkowany w kolorze białym lub szarym. Ostateczny kolor elewacji uzyskuje się poprzez pomalowanie tynku odpowiednią farbą elewacyjną."},{"q":"Jaką farbą pomalować tynk mineralny?","a":"Aby zachować wysoką paroprzepuszczalność tynku, zaleca się stosowanie farb silikonowych, silikatowych lub silikonowo-silikatowych."},{"q":"Czy tynk mineralny można stosować na styropian?","a":"Tak, tynk mineralny weber.pas MA może być stosowany w systemach ociepleń opartych zarówno na wełnie mineralnej, jak i na styropianie."}],
   },
 
   // ─── KLEJE ─────────────────────────────────────────────────────────────────
@@ -107,9 +122,9 @@ export const products: Product[] = [
     id: "p015", slug: "klej-do-plytek-ceresit-cm11-25kg",
     name: "Klej do płytek Ceresit CM 11 25kg",
     categorySlug: "kleje-glazura", brand: "Ceresit", sku: "CRS-CM11-25", unit: "worek 25kg",
-    shortDescription: "Standardowy klej cementowy do płytek ceramicznych na ściany i podłogi wewnątrz i na zewnątrz.",
-    description: "Ceresit CM 11 to standardowy klej cementowy przeznaczony do przyklejania płytek ceramicznych na podłożach mineralnych wewnątrz i na zewnątrz budynków. Produkt wyróżnia się dobrą przyczepnością do podłoża i płytek, łatwością mieszania oraz długim czasem otwartym. Certyfikowany wg EN 12004.",
-    application: "Przyklejanie płytek ceramicznych, gresu i kamienia naturalnego do podłoża betonowego, cementowego, gipsowego i GK wewnątrz budynków. Zastosowanie zewnętrzne na elewacjach.",
+    shortDescription: "Klej do płytek Ceresit CM 11 Plus to elastyczna zaprawa klejąca do gresu i ceramiki, wzbogacona włóknami.",
+    description: "Ceresit CM 11 Plus to ulepszona, elastyczna zaprawa klejąca przeznaczona do mocowania płytek gresowych, ceramicznych (glazura, terakota) oraz z kamienia naturalnego (niewrażliwego na przebarwienia). Dzięki formule wzbogaconej specjalnymi włóknami, klej charakteryzuje się zwiększoną przyczepnością i elastycznością (klasa C1TE). Doskonale sprawdza się na podłożach odkształcalnych, takich jak płyty gipsowo-kartonowe, hydroizolacje, a także na ogrzewaniu podłogowym. Zapewnia stabilne mocowanie płytek o formacie do 60x60 cm, zarówno wewnątrz, jak i na zewnątrz budynków.",
+    application: "Mocowanie płytek ceramicznych (glazura, terakota, gres) oraz kamiennych na podłożach odkształcalnych i nieodkształcalnych. Do stosowania wewnątrz i na zewnątrz budynków. Odpowiedni na ogrzewanie podłogowe, płyty g-k, OSB, powłoki hydroizolacyjne (np. Ceresit CR 65, CL 51). Maksymalny format płytek: 60x60 cm.",
     technicalSpec: [
       { label: "Zużycie", value: "ok. 3–4 kg/m² (przy zębach 6mm)" },
       { label: "Czas otwarty", value: "ok. 20 min" },
@@ -121,6 +136,11 @@ export const products: Product[] = [
     tags: ["klej do płytek", "ceramika", "ceresit", "cm11", "glazura", "gres"],
     related: ["p016", "p024", "p025"],
     isFeatured: true,
+  
+    seoDescription: "Wybierz sprawdzony klej do płytek Ceresit CM 11 Plus dostępny w hurtowni Media Bud Lublin. To idealne rozwiązanie do łazienek, kuchni, na balkony i tarasy. Formuła z włóknami gwarantuje trwałość i bezpieczeństwo montażu nawet na trudnych podłożach. Szukasz innych produktów chemii budowlanej? Sprawdź naszą pełną ofertę w kategorii [Chemia budowlana](/kategoria/chemia-budowlana) oraz produkty marki [Ceresit](/marki/ceresit). Skorzystaj z naszego [kalkulatora kleju do płytek](/kalkulator/klej-do-plytek), aby precyzyjnie oszacować potrzebną ilość materiału na Twój remont.",
+    advantages: ["Wzmocniony włóknami – wyższa elastyczność i przyczepność","Klasa C1TE – zmniejszony spływ, wydłużony czas otwarty","Idealny na ogrzewanie podłogowe i płyty g-k","Do gresu i ceramiki (format do 60x60 cm)","Wysoka odporność na wilgoć i mróz"],
+    warnings: ["Nie stosować do płytek marmurowych wrażliwych na przebarwienia (użyć kleju białego)","Na podłożach krytycznych (np. stare płytki, OSB) zaleca się dodanie emulsji elastycznej Ceresit CC 83","Przed klejeniem podłoże musi być odpowiednio zagruntowane (np. Ceresit CT 17)","Przestrzegać proporcji mieszania z wodą podanych na opakowaniu"],
+    faq: [{"q":"Czy Ceresit CM 11 Plus nadaje się na ogrzewanie podłogowe?","a":"Tak, dzięki elastycznej formule wzmocnionej włóknami, klej ten doskonale sprawdza się na jastrychach z ogrzewaniem podłogowym."},{"q":"Jaki jest maksymalny format płytek dla tego kleju?","a":"Klej CM 11 Plus jest przeznaczony do mocowania płytek o maksymalnym wymiarze 60x60 cm."},{"q":"Czy mogę użyć tego kleju na zewnątrz, np. na tarasie?","a":"Tak, klej jest mrozoodporny i wodoodporny, nadaje się do stosowania na zewnątrz, jednak na tarasach i balkonach zaleca się stosowanie metody podwójnego smarowania (klej na podłoże i na płytkę)."}],
   },
 
   // ─── GIPSY I GŁADZIE ──────────────────────────────────────────────────────
@@ -128,9 +148,9 @@ export const products: Product[] = [
     id: "p006", slug: "gladz-gipsowa-knauf-multifinish-20kg",
     name: "Gładź gipsowa Knauf Multifinish 20kg",
     categorySlug: "gladzie-proszek", brand: "Knauf", sku: "KNF-MUL-20", unit: "worek 20kg",
-    shortDescription: "Gładź gipsowa do wewnętrznych prac szpachlarskich, doskonale biała.",
-    description: "Knauf Multifinish to wysokiej jakości gładź gipsowa do wykonywania cienkich warstw wygładzających na tynkach gipsowych, cementowych i gipsowo-kartonowych. Gwarantuje doskonale gładką, białą powierzchnię gotową do malowania.",
-    application: "Wygładzanie i szpachlowanie powierzchni wewnętrznych: ścian i sufitów. Wypełnianie nierówności na tynkach gipsowych, cementowych i płytach GK.",
+    shortDescription: "Gładź gipsowa Knauf Multifinish do cienkowarstwowego szpachlowania powierzchni wewnątrz budynków.",
+    description: "Knauf Multifinish to uniwersalna, sypka gładź gipsowa wzbogacona polimerami, przeznaczona do cienkowarstwowego szpachlowania powierzchni wewnątrz budynków. Idealnie nadaje się do wygładzania nierówności na tynkach cementowo-wapiennych, gipsowych, a także na podłożach betonowych i płytach gipsowo-kartonowych. Dzięki specjalnej formule, gładź charakteryzuje się wysoką przyczepnością, elastycznością i łatwością obróbki. Pozwala na uzyskanie idealnie gładkich powierzchni (standard Q4), gotowych do malowania lub tapetowania. Może być nakładana ręcznie lub maszynowo.",
+    application: "Cienkowarstwowe szpachlowanie (wygładzanie) powierzchni ścian i sufitów wewnątrz pomieszczeń. Stosowana na tynkach gipsowych, cementowo-wapiennych, betonie oraz płytach g-k. Służy również do wypełniania drobnych ubytków i rys. Grubość warstwy od 0 do 5 mm.",
     technicalSpec: [
       { label: "Zużycie", value: "1,2–1,8 kg/m²/mm" },
       { label: "Grubość warstwy", value: "0,5–3 mm" },
@@ -141,6 +161,11 @@ export const products: Product[] = [
     images: ["/images/products/p006-gladz_2.jpg"],
     tags: ["gładź gipsowa", "knauf", "multifinish", "szpachlowanie", "wykończenie"],
     related: ["p007", "p008", "p005"],
+  
+    seoDescription: "Szukasz idealnie gładkich ścian? Gładź gipsowa Knauf Multifinish to produkt, który spełni oczekiwania nawet najbardziej wymagających wykonawców. W Media Bud oferujemy ten produkt z szybką dostawą w Lublinie. Multifinish to gwarancja doskonałego wykończenia i łatwej pracy. Sprawdź również inne produkty z kategorii [Sucha zabudowa](/kategoria/sucha-zabudowa) oraz pełną ofertę marki [Knauf](/marki/knauf). Z nami wykończenie wnętrz staje się prostsze i bardziej efektywne.",
+    advantages: ["Możliwość uzyskania powierzchni o standardzie Q4 (najwyższa gładkość)","Wysoka elastyczność i przyczepność dzięki dodatkom polimerowym","Łatwa w nakładaniu i szlifowaniu","Możliwość nakładania warstw od 0 mm (szpachlowanie \"na zero\")","Uniwersalne zastosowanie na różnych podłożach mineralnych"],
+    warnings: ["Tylko do stosowania wewnątrz budynków w suchych pomieszczeniach","Podłoże musi być suche, nośne i wolne od pyłu","Silnie chłonne podłoża należy wcześniej zagruntować","Nie stosować w temperaturach poniżej +5°C"],
+    faq: [{"q":"Czy Knauf Multifinish można nakładać na stare powłoki malarskie?","a":"Zaleca się usunięcie starych, łuszczących się powłok malarskich. Stabilne powłoki należy zmatowić i zagruntować przed nałożeniem gładzi."},{"q":"Jaką maksymalną grubość warstwy można nałożyć jednorazowo?","a":"Maksymalna grubość jednej warstwy to 5 mm. W przypadku większych nierówności zaleca się nałożenie kilku cieńszych warstw."},{"q":"Czy gładź Multifinish trzeba szlifować?","a":"Tak, po wyschnięciu gładź należy przeszlifować drobnym papierem ściernym lub siatką, aby uzyskać idealnie gładką powierzchnię przed malowaniem."}],
   },
 
   // ─── GRUNTY ────────────────────────────────────────────────────────────────
@@ -225,9 +250,9 @@ export const products: Product[] = [
     id: "p004", slug: "welna-fasadowa-rockwool-frontrock-max-e",
     name: "Wełna fasadowa Rockwool Frontrock MAX E 15cm m²",
     categorySlug: "welna-fasadowa", brand: "Rockwool", sku: "RCK-FRE-15", unit: "m²",
-    shortDescription: "Wełna mineralna do izolacji fasad w systemach ETICS. Klasa reakcji na ogień A1.",
-    description: "Rockwool Frontrock MAX E to wełna mineralna skalna do izolacji elewacji w systemach ETICS. Dwuwarstwowa budowa ułatwia montaż. Klasa A1 gwarantuje najwyższe bezpieczeństwo pożarowe.",
-    application: "Izolacja termiczna i akustyczna elewacji w systemach ETICS. Szczególnie dla budynków o podwyższonych wymaganiach pożarowych.",
+    shortDescription: "Dwugęstościowa wełna fasadowa Rockwool Frontrock MAX E do izolacji termicznej i akustycznej ścian zewnętrznych.",
+    description: "Rockwool Frontrock MAX E to innowacyjne, dwugęstościowe płyty z wełny skalnej przeznaczone do izolacji termicznej, akustycznej i przeciwpożarowej ścian zewnętrznych w bezspoinowych systemach ociepleń (ETICS). Unikalna struktura płyty składa się z twardej warstwy wierzchniej, która zapewnia doskonałą bazę pod warstwę zbrojoną i tynk, oraz elastycznej warstwy spodniej, która idealnie dopasowuje się do nierówności muru. Wełna skalna jest materiałem niepalnym (klasa A1), paroprzepuszczalnym i odpornym na wilgoć, co gwarantuje trwałość i bezpieczeństwo ocieplenia na lata.",
+    application: "Izolacja termiczna, akustyczna i przeciwpożarowa ścian zewnętrznych murowanych, monolitycznych i prefabrykowanych w systemach ociepleń ETICS (metoda lekka mokra). Stosowana pod tynki mineralne, silikonowe, silikatowe i akrylowe.",
     technicalSpec: [
       { label: "Lambda (λ)", value: "0,036 W/(m·K)" },
       { label: "Grubość", value: "15 cm (dostępne: 8-25 cm)" },
@@ -239,14 +264,19 @@ export const products: Product[] = [
     tags: ["wełna fasadowa", "rockwool", "frontrock", "etics", "a1", "izolacja"],
     related: ["p002", "p003", "p005"],
     isFeatured: true,
+  
+    seoDescription: "Zadbaj o ciepło i bezpieczeństwo swojego domu z wełną fasadową Rockwool Frontrock MAX E. W Media Bud oferujemy kompleksowe systemy ociepleń z dostawą w Lublinie i regionie. Wełna skalna to nie tylko doskonała izolacja termiczna, ale też najwyższa ochrona przeciwpożarowa i komfort akustyczny. Oblicz potrzebną ilość materiału za pomocą naszego [kalkulatora izolacji](/kalkulator/styropian-welna) i sprawdź inne produkty w kategorii [Izolacje](/kategoria/izolacje). Wybierając markę [Rockwool](/marki/rockwool), inwestujesz w jakość bez kompromisów.",
+    advantages: ["Dwugęstościowa struktura – twarda powierzchnia pod tynk, elastyczny spód","Najwyższa klasa reakcji na ogień (A1) – materiał niepalny","Doskonała izolacyjność termiczna (niski współczynnik lambda)","Wysoka paroprzepuszczalność – zapobiega kondensacji wilgoci w ścianach","Świetna izolacja akustyczna – tłumi hałas z zewnątrz"],
+    warnings: ["Płyty należy chronić przed zamoczeniem podczas składowania i montażu","Do klejenia i szpachlowania wełny należy używać wyłącznie dedykowanych zapraw klejących do wełny mineralnej","Wymagane jest kołkowanie płyt łącznikami mechanicznymi z trzpieniem stalowym","Podczas cięcia i montażu zaleca się stosowanie odzieży ochronnej, rękawic i maseczek przeciwpyłowych"],
+    faq: [{"q":"Czym różni się wełna dwugęstościowa od zwykłej?","a":"Wełna dwugęstościowa (jak Frontrock MAX E) ma twardszą warstwę zewnętrzną, która jest bardziej odporna na uszkodzenia mechaniczne i ułatwia nakładanie kleju oraz tynku, podczas gdy miększa warstwa wewnętrzna lepiej przylega do nierówności ściany."},{"q":"Czy wełnę fasadową trzeba kołkować?","a":"Tak, w systemach ETICS płyty z wełny mineralnej zawsze wymagają dodatkowego mocowania mechanicznego (kołkowania) łącznikami z trzpieniem stalowym, niezależnie od wysokości budynku."},{"q":"Jaki tynk najlepiej zastosować na ocieplenie z wełny?","a":"Na wełnę mineralną należy stosować tynki o wysokiej paroprzepuszczalności, takie jak tynki silikonowe, silikatowe lub mineralne. Należy unikać tynków akrylowych, które mogą blokować dyfuzję pary wodnej."}],
   },
   {
     id: "p007", slug: "hydroizolacja-bitumiczna-ceresit-cr-65",
     name: "Hydroizolacja mineralna Ceresit CR 65 25kg",
     categorySlug: "hydroizolacje-mineralne", brand: "Ceresit", sku: "CRS-CR65-25", unit: "worek 25kg",
-    shortDescription: "Sztywna uszczelniająca zaprawa mineralna do hydroizolacji fundamentów i piwnic.",
-    description: "Ceresit CR 65 to mineralna sztywna zaprawa uszczelniająca do hydroizolacji podziemnych części budynków. Zapewnia skuteczną ochronę przed wodą pod ciśnieniem i agresywną wodą gruntową.",
-    application: "Uszczelnianie fundamentów, ścian piwnic, zbiorników na wodę, basenów. Ochrona przed wodą pod ciśnieniem hydrostatycznym.",
+    shortDescription: "Sztywna powłoka hydroizolacyjna Ceresit CR 65 do uszczelniania budowli przed wilgocią i wodą.",
+    description: "Ceresit CR 65 to jednoskładnikowa, mineralna zaprawa uszczelniająca przeznaczona do wykonywania sztywnych powłok hydroizolacyjnych. Skutecznie chroni przed wilgocią gruntową, wodą bez ciśnienia oraz wodą pod ciśnieniem. Produkt jest paroprzepuszczalny i mrozoodporny, co pozwala na jego stosowanie zarówno wewnątrz, jak i na zewnątrz budynków. Idealnie nadaje się do uszczelniania fundamentów, piwnic, cokołów, a także zbiorników na wodę (w tym wodę pitną) i basenów o głębokości do 5 metrów.",
+    application: "Wykonywanie powłok przeciwwilgociowych i przeciwwodnych na nieodkształcalnych podłożach mineralnych (beton, mury z cegły pełnej, tynki cementowe). Stosowana do uszczelniania fundamentów, ścian piwnic od wewnątrz i zewnątrz, cokołów, szybów wind, a także zbiorników na wodę pitną i basenów.",
     technicalSpec: [
       { label: "Zużycie", value: "2–4 kg/m² (na 2 warstwy)" },
       { label: "Ciśnienie wody", value: "do 1,5 bar (z pozytywnej strony)" },
@@ -257,6 +287,11 @@ export const products: Product[] = [
     images: ["/images/products/p007-hydroizolacja_2.jpg"],
     tags: ["hydroizolacja", "ceresit", "cr65", "fundament", "piwnica", "uszczelnienie"],
     related: ["p005", "p013", "p003"],
+  
+    seoDescription: "Zabezpiecz swoje fundamenty i piwnice przed wodą z niezawodną hydroizolacją Ceresit CR 65. W Media Bud Lublin oferujemy ten sprawdzony produkt w atrakcyjnych cenach. Sztywna powłoka CR 65 to gwarancja suchych murów i ochrony przed wilgocią na lata. Sprawdź również inne rozwiązania w kategorii [Izolacje](/kategoria/izolacje) oraz pełną gamę produktów [Ceresit](/marki/ceresit). Skorzystaj z naszego [kalkulatora izolacji fundamentów](/kalkulator/izolacja-fundamentow), aby zaplanować kompleksowe zabezpieczenie budynku.",
+    advantages: ["Skuteczna ochrona przed wodą pod ciśnieniem (do 5m słupa wody)","Wysoka paroprzepuszczalność – pozwala na wysychanie wilgotnych murów","Mrozoodporna i odporna na starzenie","Dopuszczona do kontaktu z wodą pitną","Możliwość aplikacji pędzlem, pacą lub natryskiem"],
+    warnings: ["Tworzy powłokę sztywną – nie stosować na podłożach odkształcalnych i narażonych na pęknięcia (w takich przypadkach użyć elastycznej powłoki np. CR 166)","Podłoże musi być równe, nośne i wolne od substancji antyadhezyjnych","Przed aplikacją podłoże należy obficie zwilżyć wodą (do stanu matowo-wilgotnego)","Chronić świeżą powłokę przed zbyt szybkim wysychaniem, słońcem i mrozem"],
+    faq: [{"q":"Czy na powłokę Ceresit CR 65 można przyklejać płytki?","a":"Tak, po całkowitym wyschnięciu powłoki (zazwyczaj po 3 dniach) można bezpośrednio na nią przyklejać płytki ceramiczne przy użyciu elastycznych klejów (np. Ceresit CM 16, CM 17)."},{"q":"Ile warstw hydroizolacji należy nałożyć?","a":"Wymagane jest nałożenie minimum dwóch warstw. W przypadku izolacji przeciwwodnej (woda pod ciśnieniem) zaleca się nałożenie trzech warstw."},{"q":"Czy CR 65 nadaje się na taras?","a":"Nie, na tarasy i balkony, które są narażone na duże odkształcenia termiczne, należy stosować elastyczne powłoki hydroizolacyjne, takie jak Ceresit CR 166."}],
   },
   {
     id: "p010", slug: "siatka-elewacyjna-vertex-r131",
@@ -320,9 +355,9 @@ export const products: Product[] = [
     id: "p017", slug: "farba-wewnetrzna-biala-dulux-10l",
     name: "Farba wewnętrzna biała Dulux Jedwabisty Matt 10L",
     categorySlug: "farby-biale", brand: "Dulux", sku: "DLX-JM-10W", unit: "wiadro 10L",
-    shortDescription: "Biała farba emulsyjna wewnętrzna o jedwabistym macie. Odporna na szorowanie.",
-    description: "Dulux Jedwabisty Matt to wysokiej jakości farba emulsyjna do ścian i sufitów wewnątrz pomieszczeń. Tworzy przyjemną w dotyku, jedwabistą matową powierzchnię odporną na szorowanie. Doskonale kryje – wystarczą 2 warstwy. Zawiera technologię Stain Block chroniącą przed przenikaniem plam.",
-    application: "Malowanie ścian i sufitów w salonach, sypialniach, korytarzach i kuchniach. Podłoże: tynk, beton, GK, cegła. Temperatura aplikacji min. +8°C.",
+    shortDescription: "Wysokiej jakości biała farba wewnętrzna Dulux o jedwabistym, matowym wykończeniu. Odporna na zmywanie.",
+    description: "Dulux Jedwabisty Matt to najwyższej jakości emulsyjna farba lateksowa do wnętrz, przeznaczona do dekoracyjnego i ochronnego malowania ścian i sufitów. Tworzy trwałe, jedwabisto-matowe powłoki, które charakteryzują się wysoką odpornością na zmywanie i szorowanie na mokro. Dzięki mikroporowatej strukturze, farba pozwala ścianom \"oddychać\". Doskonale kryje i jest łatwa w aplikacji, nie chlapie podczas malowania. Idealna do salonów, sypialni, korytarzy oraz pomieszczeń biurowych.",
+    application: "Malowanie ścian i sufitów wewnątrz pomieszczeń mieszkalnych, biurowych i użyteczności publicznej. Może być stosowana na tynki cementowo-wapienne, gipsowe, płyty gipsowo-kartonowe, tapety papierowe i z włókna szklanego.",
     technicalSpec: [
       { label: "Zużycie", value: "ok. 100–130 ml/m²" },
       { label: "Wydajność 10L", value: "75–100 m²" },
@@ -334,6 +369,11 @@ export const products: Product[] = [
     tags: ["farba biała", "dulux", "emulsyjna", "wnętrze", "jedwabisty mat"],
     related: ["p018", "p006", "p005"],
     isNew: true,
+  
+    seoDescription: "Odśwież swoje wnętrza z farbą Dulux Jedwabisty Matt. W hurtowni Media Bud w Lublinie znajdziesz tę farbę w dużych, ekonomicznych opakowaniach 10L. Zapewnia ona doskonałe krycie, eleganckie matowe wykończenie i odporność na zabrudzenia. Szukasz innych kolorów lub farb specjalistycznych? Odwiedź kategorię [Farby i rozpuszczalniki](/kategoria/farby-i-rozpuszczalniki) i poznaj pełną ofertę marki [Dulux](/marki/dulux). Z nami malowanie to czysta przyjemność.",
+    advantages: ["Wysoka odporność na zmywanie i szorowanie","Doskonałe krycie – często wystarcza jedna lub dwie warstwy","Eleganckie, jedwabisto-matowe wykończenie","Mikroporowata struktura pozwalająca ścianom oddychać","Niski poziom zapachu podczas malowania"],
+    warnings: ["Przed malowaniem podłoże musi być suche, czyste i odpylone","Świeże tynki można malować dopiero po ich całkowitym wysezonowaniu (zwykle 3-4 tygodnie)","Podłoża silnie chłonne lub pyliste należy wcześniej zagruntować odpowiednim preparatem","Nie malować w temperaturach poniżej +10°C"],
+    faq: [{"q":"Czy farbę Dulux Jedwabisty Matt można zmywać na mokro?","a":"Tak, farba ta tworzy powłokę odporną na delikatne zmywanie wodą z dodatkiem łagodnych detergentów, co ułatwia utrzymanie ścian w czystości."},{"q":"Ile warstw farby należy nałożyć?","a":"Dla uzyskania optymalnego efektu i pełnego krycia zaleca się nałożenie 2 warstw farby."},{"q":"Czy farbę można rozcieńczać wodą?","a":"Farba jest gotowa do użycia. W przypadku malowania bardzo chłonnych podłoży, pierwszą warstwę można rozcieńczyć dodatkiem maksymalnie 10% czystej wody."}],
   },
   {
     id: "p018", slug: "farba-lateksowa-caparol-amphibolin-10l",
@@ -415,9 +455,9 @@ export const products: Product[] = [
     id: "p022", slug: "profil-cd-60-knauf-3m",
     name: "Profil CD 60/27 Knauf 3m",
     categorySlug: "profile-sufit", brand: "Knauf", sku: "KNF-CD60-3", unit: "szt. 3m",
-    shortDescription: "Profil sufitowy CD 60/27 ocynkowany do budowy rusztu sufitów podwieszanych.",
-    description: "Profil CD 60/27 Knauf to ocynkowany profil stalowy przeznaczony do budowy rusztów sufitów podwieszanych oraz ścian działowych. Wykonany z ocynkowanej blachy stalowej o grubości 0,6 mm. Zapewnia stabilną i trwałą konstrukcję nośną dla płyt GK.",
-    application: "Ruszt sufitów podwieszanych. Szkielet ścian działowych z płyt GK. Okładziny ścian. Montaż przy użyciu wieszaków bezpośrednich lub z noniuszem.",
+    shortDescription: "Profil główny CD 60/27 Knauf do budowy sufitów podwieszanych i okładzin ściennych z płyt g-k.",
+    description: "Profil CD 60/27 Knauf to podstawowy element konstrukcyjny przeznaczony do budowy rusztów pod sufity podwieszane, okładziny ścienne oraz zabudowy poddaszy w systemach suchej zabudowy. Wykonany z wysokiej jakości blachy stalowej ocynkowanej, charakteryzuje się dużą sztywnością i odpornością na korozję. Specjalne ryflowanie powierzchni profilu zwiększa jego wytrzymałość i ułatwia wkręcanie wkrętów. Profil CD współpracuje z profilami przyściennymi UD 27 oraz szeroką gamą akcesoriów montażowych (wieszaki, łączniki).",
+    application: "Wykonywanie konstrukcji nośnych (rusztów) pod sufity podwieszane, okładziny sufitowe, okładziny ścienne oraz zabudowy poddaszy z płyt gipsowo-kartonowych. Stosowany wewnątrz budynków.",
     technicalSpec: [
       { label: "Wymiary profilu", value: "60 x 27 mm" },
       { label: "Długość", value: "3 m (dostępne: 2,6; 3,0; 4,0 m)" },
@@ -428,6 +468,11 @@ export const products: Product[] = [
     images: ["/images/products/p022-profil-cd_2.jpg"],
     tags: ["profil CD", "sucha zabudowa", "knauf", "sufity", "ruszt", "ocynkowany"],
     related: ["p021", "p011"],
+  
+    seoDescription: "Solidna konstrukcja to podstawa każdego sufitu podwieszanego. Wybierz oryginalne profile CD 60/27 marki Knauf, dostępne od ręki w hurtowni Media Bud Lublin. Gwarantują one bezpieczeństwo, stabilność i łatwość montażu płyt gipsowo-kartonowych. Skompletuj cały system suchej zabudowy – sprawdź naszą ofertę w kategorii [Sucha zabudowa](/kategoria/sucha-zabudowa) oraz inne produkty [Knauf](/marki/knauf). Zapewniamy transport dłużycowy na terenie całego województwa lubelskiego.",
+    advantages: ["Wysoka sztywność i nośność konstrukcji","Zabezpieczenie antykorozyjne (powłoka cynkowa)","Ryflowana powierzchnia ułatwiająca montaż wkrętów","Kompatybilność z pełnym systemem akcesoriów Knauf","Gwarancja bezpieczeństwa systemu suchej zabudowy"],
+    warnings: ["Profile należy ciąć nożycami do blachy (nie używać szlifierek kątowych, które niszczą powłokę cynkową)","Przechowywać w suchych warunkach, chronić przed wilgocią przed zamontowaniem","Rozstaw profili musi być zgodny z wytycznymi systemu suchej zabudowy (zazwyczaj co 40 cm lub 60 cm)"],
+    faq: [{"q":"Czym ciąć profile do suchej zabudowy?","a":"Profile stalowe należy ciąć wyłącznie ręcznymi lub elektrycznymi nożycami do blachy. Użycie szlifierki kątowej (tzw. gumówki) powoduje spalenie warstwy ocynku i prowadzi do korozji."},{"q":"Jaki jest standardowy rozstaw profili CD na suficie?","a":"W standardowych sufitach podwieszanych jednowarstwowych, profile główne CD rozstawia się co 100-120 cm, a profile nośne (do których kręci się płyty) co 40 cm."},{"q":"Czy profil CD można stosować na zewnątrz?","a":"Nie, standardowe profile ocynkowane są przeznaczone wyłącznie do stosowania wewnątrz budynków w środowiskach o kategorii korozyjności C1 i C2."}],
   },
 
   // ─── STROPY I ŚCIANY ───────────────────────────────────────────────────────
@@ -454,9 +499,9 @@ export const products: Product[] = [
     id: "p013", slug: "zaprawa-murarska-baumit-manu2-25kg",
     name: "Zaprawa murarska Baumit MG 5 25kg",
     categorySlug: "zaprawy-murarskie", brand: "Baumit", sku: "BAU-MG5-25", unit: "worek 25kg",
-    shortDescription: "Zaprawa murarska cementowo-wapienna MG 5 do murowania ścian z ceramiki i silikatów.",
-    description: "Baumit MG 5 to zaprawa murarska cementowo-wapienna przeznaczona do murowania ścian z cegły ceramicznej, bloczków silikatowych i bloczków z betonu komórkowego. Produkt charakteryzuje się bardzo dobrą plastycznością i tiksotropią, ułatwiającą nakładanie.",
-    application: "Murowanie ścian z ceramiki pełnej i kratówki. Murowanie bloczków silikatowych i z betonu komórkowego. Uzupełnianie spoin i naprawy.",
+    shortDescription: "Gotowa zaprawa murarska Baumit MG 5 do wznoszenia murów z cegieł, pustaków i bloczków.",
+    description: "Baumit MG 5 to fabrycznie przygotowana, sucha mieszanka cementowo-wapienna przeznaczona do tradycyjnego murowania. Charakteryzuje się wytrzymałością na ściskanie klasy M5. Jest to uniwersalna zaprawa, która doskonale sprawdza się przy wznoszeniu ścian nośnych, działowych oraz osłonowych z różnego rodzaju elementów murowych: cegieł pełnych i dziurawek, pustaków ceramicznych, bloczków betonowych i silikatowych. Zapewnia wysoką przyczepność, plastyczność i wygodę pracy.",
+    application: "Murowanie ścian nośnych, działowych, osłonowych i fundamentowych z cegieł, pustaków ceramicznych, bloczków betonowych, silikatowych i z betonu komórkowego. Do stosowania wewnątrz i na zewnątrz budynków.",
     technicalSpec: [
       { label: "Klasa wytrzymałości", value: "M5" },
       { label: "Zużycie", value: "ok. 5 kg/m² (przy spoinie 1cm)" },
@@ -467,6 +512,11 @@ export const products: Product[] = [
     images: ["/images/products/p013-zaprawa-murarska_2.jpg"],
     tags: ["zaprawa murarska", "baumit", "mg5", "cegła", "mur", "ceramika"],
     related: ["p014", "p023", "p005"],
+  
+    seoDescription: "Trwałe mury wymagają solidnej zaprawy. Baumit MG 5 to uniwersalna zaprawa murarska, która sprawdzi się na każdej budowie. W Media Bud Lublin oferujemy ten produkt w konkurencyjnych cenach z możliwością dostawy HDS. Niezależnie od tego, czy murujesz z ceramiki, czy silikatów, zaprawa Baumit zapewni odpowiednią wytrzymałość. Sprawdź również inne produkty w kategorii [Stropy i ściany](/kategoria/stropy-i-sciany) oraz pełną ofertę marki [Baumit](/marki/baumit).",
+    advantages: ["Wytrzymałość na ściskanie klasy M5","Wysoka plastyczność i łatwość obróbki","Dobra przyczepność do elementów murowych","Uniwersalne zastosowanie (do różnych materiałów)","Mrozoodporna i wodoodporna po związaniu"],
+    warnings: ["Nie stosować do murowania na cienką spoinę (do tego służą zaprawy cienkowarstwowe)","Elementy murowe przed murowaniem powinny być czyste i wolne od kurzu","Wyschnięte i mocno chłonne elementy (np. beton komórkowy) zaleca się zwilżyć wodą przed murowaniem","Prace prowadzić w temperaturze od +5°C do +30°C"],
+    faq: [{"q":"Jaka jest wydajność zaprawy Baumit MG 5?","a":"Z jednego worka 25 kg uzyskuje się około 16 litrów gotowej zaprawy. Zużycie zależy od grubości muru i rodzaju elementów murowych."},{"q":"Czy zaprawę MG 5 można stosować do klinkieru?","a":"Do murowania cegieł klinkierowych zaleca się stosowanie specjalnych zapraw do klinkieru (z dodatkiem trasu), które minimalizują ryzyko powstawania wykwitów."},{"q":"Czy zaprawa nadaje się do tynkowania?","a":"Nie, zaprawa murarska ma inny skład i uziarnienie niż tynk. Do tynkowania należy używać dedykowanych zapraw tynkarskich."}],
   },
   {
     id: "p014", slug: "cement-portlandzki-cem-i-425r-25kg",
@@ -493,9 +543,9 @@ export const products: Product[] = [
     id: "p024", slug: "plytka-scienna-ceramiczna-biala-25x40",
     name: "Płytka ścienna ceramiczna Biała Połysk 25x40cm",
     categorySlug: "plytki-scienne", brand: "Opoczno", sku: "OPO-SC-B2540", unit: "m² (8 szt.)",
-    shortDescription: "Białe płytki ceramiczne ścienne 25x40cm w połysku do łazienek i kuchni.",
-    description: "Klasyczne białe płytki ceramiczne ścienne 25x40cm w połysku. Idealne do łazienek, kuchni i toalet. Wysoka jakość powierzchni, doskonała biel i trwałość. Kompatybilne ze standardowymi fugami i klejami cementowymi. Klasa I jakości.",
-    application: "Okładanie ścian w łazienkach, kuchniach, toaletach i innych pomieszczeniach o podwyższonej wilgotności. Aplikacja na klej cementowy.",
+    shortDescription: "Klasyczna, biała płytka ścienna o błyszczącym wykończeniu. Format 25x40 cm, idealna do łazienek i kuchni.",
+    description: "Płytka ścienna ceramiczna Biała Połysk to uniwersalne i ponadczasowe rozwiązanie do wykończenia wnętrz. Jej gładka, błyszcząca powierzchnia doskonale odbija światło, optycznie powiększając i rozjaśniając pomieszczenie. Format 25x40 cm jest łatwy w montażu i świetnie sprawdza się zarówno w małych, jak i dużych łazienkach oraz kuchniach. Płytka jest łatwa do utrzymania w czystości i odporna na działanie domowych środków chemicznych. Stanowi doskonałą bazę do łączenia z dekorami, mozaikami lub płytkami drewnopodobnymi.",
+    application: "Wykładanie ścian wewnątrz pomieszczeń: łazienki, toalety, kuchnie, pralnie, pomieszczenia gospodarcze.",
     technicalSpec: [
       { label: "Wymiary", value: "25 x 40 cm" },
       { label: "Grubość", value: "6,5 mm" },
@@ -506,6 +556,11 @@ export const products: Product[] = [
     images: ["/images/products/p024-plytka-scienna_2.jpg"],
     tags: ["płytka ścienna", "ceramika", "biała", "połysk", "łazienka", "kuchnia"],
     related: ["p015", "p016", "p025"],
+  
+    seoDescription: "Białe płytki to klasyka, która nigdy nie wychodzi z mody. Płytka ścienna Biała Połysk 25x40 cm to idealny wybór do jasnej i przestronnej łazienki lub kuchni. W Media Bud Lublin oferujemy szeroki wybór ceramiki w najlepszych cenach. Pamiętaj o dobraniu odpowiedniej chemii – sprawdź nasz [kalkulator kleju do płytek](/kalkulator/klej-do-plytek) oraz ofertę w kategorii [Płytki](/kategoria/plytki). Zapewniamy bezpieczny transport materiałów delikatnych.",
+    advantages: ["Optycznie powiększa i rozjaśnia wnętrze","Łatwa do utrzymania w czystości (gładka powierzchnia)","Uniwersalny design pasujący do każdego stylu","Odporna na plamy i domowe środki czystości","Łatwa w obróbce i cięciu"],
+    warnings: ["Płytka przeznaczona wyłącznie na ściany (nie stosować na podłogi)","Tylko do użytku wewnętrznego (nie jest mrozoodporna)","Do montażu używać odpowiednich klejów do płytek ceramicznych (np. klasy C1T lub C2T)"],
+    faq: [{"q":"Czy płytki ścienne można kłaść na podłogę?","a":"Nie, płytki ścienne mają niższą wytrzymałość na ścieranie i obciążenia mechaniczne, a ich szkliwo może być śliskie. Na podłogi należy stosować gres lub terakotę."},{"q":"Jaką fugę zastosować do białych płytek?","a":"Wybór zależy od efektu: biała fuga stworzy jednolitą powierzchnię, natomiast szara lub czarna podkreśli format płytek i będzie łatwiejsza w utrzymaniu czystości."},{"q":"Czy płytki błyszczące są trudne w czyszczeniu?","a":"Wręcz przeciwnie, gładkie, błyszczące szkliwo jest bardzo łatwe do umycia, ponieważ brud nie wnika w pory materiału."}],
   },
   {
     id: "p025", slug: "plytka-gres-podlogowy-jasny-60x60",
@@ -783,9 +838,9 @@ const newProducts: Product[] = [
     id: "p039", slug: "bloczek-silikatowy-silka-e24-240mm",
     name: "Bloczek silikatowy Silka E24 240mm",
     categorySlug: "bloczki-silikatowe", brand: "Xella", sku: "XEL-SLK-E24-240", unit: "szt.",
-    shortDescription: "Bloczek silikatowy klasy 20/0,9 do murowania ścian konstrukcyjnych z wysoką izolacją akustyczną.",
-    description: "Silka E24 to bloczek silikatowy klasy wytrzymałości 20 do budowy ścian zewnętrznych i wewnętrznych. Charakteryzuje się wysoką izolacyjnością akustyczną (Rw = 54 dB dla ściany 24 cm), doskonałą nośnością i równymi krawędziami umożliwiającymi murowanie na spoiny cienkowarstwowe.",
-    application: "Ściany zewnętrzne i nośne wewnętrzne. Ściany wymagające wysokiej izolacji akustycznej. Budynki mieszkalne i komercyjne.",
+    shortDescription: "Bloczek silikatowy Silka E24 o wysokiej wytrzymałości i izolacyjności akustycznej do wznoszenia ścian nośnych.",
+    description: "Silka E24 to wapienno-piaskowy bloczek murowy przeznaczony do wznoszenia ścian nośnych, zarówno zewnętrznych (wymagających ocieplenia), jak i wewnętrznych. Silikaty charakteryzują się bardzo dużą gęstością, co przekłada się na ich wyjątkową wytrzymałość na ściskanie oraz doskonałą izolacyjność akustyczną. Ściany z bloków Silka E24 świetnie tłumią hałas i akumulują ciepło, stabilizując temperaturę wewnątrz budynku. Bloczki posiadają profilowanie na pióro i wpust oraz uchwyty montażowe, co przyspiesza prace murarskie.",
+    application: "Wznoszenie ścian nośnych zewnętrznych (z ociepleniem) i wewnętrznych, ścian akustycznych oraz ścian oddzielenia pożarowego w budownictwie mieszkaniowym, użyteczności publicznej i przemysłowym.",
     technicalSpec: [
       { label: "Klasa wytrzymałości", value: "20 (20 N/mm²)" },
       { label: "Gęstość pozorna", value: "0,9 g/cm³" },
@@ -797,6 +852,11 @@ const newProducts: Product[] = [
     tags: ["bloczek silikatowy", "silka", "xella", "akustyka", "ściana nośna", "24cm"],
     related: ["p013", "p023", "p014"],
     isFeatured: true,
+  
+    seoDescription: "Budujesz dom i zależy Ci na ciszy oraz solidnej konstrukcji? Bloczki silikatowe Silka E24 to materiał, który spełni Twoje oczekiwania. W hurtowni Media Bud w Lublinie oferujemy pełny system budowlany Silka z dostawą HDS prosto na plac budowy. Silikaty to gwarancja doskonałej akustyki i wytrzymałości. Sprawdź naszą ofertę w kategorii [Stropy i ściany](/kategoria/stropy-i-sciany) oraz inne produkty marki [Xella](/marki/xella).",
+    advantages: ["Doskonała izolacyjność akustyczna (tłumienie hałasu)","Bardzo wysoka wytrzymałość na ściskanie","Wysoka zdolność akumulacji ciepła (stabilny mikroklimat)","Najwyższa klasa reakcji na ogień (A1) – materiał niepalny","Szybki montaż dzięki profilowaniu pióro-wpust"],
+    warnings: ["Bloczki są ciężkie – wymagają odpowiedniej organizacji pracy na budowie","Murowanie na cienką spoinę wymaga bardzo równego ułożenia pierwszej warstwy","Ściany zewnętrzne z silikatów bezwzględnie wymagają ocieplenia (np. styropianem lub wełną)"],
+    faq: [{"q":"Czym murować bloczki Silka?","a":"Bloczki Silka E24 z profilowaniem pióro-wpust muruje się na cienką spoinę (1-3 mm) przy użyciu dedykowanej zaprawy klejącej do silikatów. Spoin pionowych zazwyczaj się nie wypełnia."},{"q":"Czy ściany z silikatów trzeba ocieplać?","a":"Tak, silikaty mają słabą izolacyjność termiczną. Ściany zewnętrzne z bloków Silka E24 muszą być ocieplone warstwą izolacji (np. 15-20 cm styropianu), aby spełnić normy cieplne."},{"q":"Dlaczego silikaty są dobre pod względem akustyki?","a":"Zgodnie z prawem masy, im cięższa przegroda, tym lepiej tłumi dźwięki. Silikaty mają bardzo dużą gęstość (ok. 1400-1800 kg/m³), co czyni je jednym z najlepszych materiałów akustycznych."}],
   },
 
   // SZLIFIERKA KĄTOWA
@@ -804,9 +864,9 @@ const newProducts: Product[] = [
     id: "p040", slug: "szlifierka-katowa-makita-dga-504-z-18v",
     name: "Szlifierka kątowa Makita DGA 504Z 18V 125mm",
     categorySlug: "szlifierki-katowe", brand: "Makita", sku: "MAK-DGA504Z", unit: "szt. (bez akum.)",
-    shortDescription: "Akumulatorowa szlifierka kątowa 18V 125mm. Bezszczotkowa, 8500 obr/min. Bez akumulatora.",
-    description: "Makita DGA 504Z to akumulatorowa szlifierka kątowa 125mm z silnikiem bezszczotkowym BL™ systemu LXT® 18V. Silnik bezszczotkowy zapewnia o 50% dłuższą żywotność narzędzia i większą wydajność od typowych modeli. Idealna do cięcia i szlifowania metalu, betonu i ceramiki.",
-    application: "Cięcie i szlifowanie metalu, betonu, kamienia i ceramiki. Profesjonalne prace budowlane i wykończeniowe. System Makita LXT 18V.",
+    shortDescription: "Akumulatorowa szlifierka kątowa Makita DGA 504Z 18V z silnikiem bezszczotkowym (wersja bez akumulatora).",
+    description: "Makita DGA 504Z to profesjonalna, akumulatorowa szlifierka kątowa 125 mm zasilana bateriami 18V LXT. Wyposażona w wydajny silnik bezszczotkowy (BLDC), który zapewnia dłuższą pracę na jednym ładowaniu i większą odporność na obciążenia. Szlifierka posiada funkcję anty-restart zabezpieczającą przed przypadkowym uruchomieniem po zamontowaniu akumulatora oraz technologię XPT (podwyższona odporność na pył i wilgoć). Automatyczna kontrola prędkości obrotowej dostosowuje parametry pracy do rodzaju wykonywanego zadania. Wersja 'Z' dostarczana jest bez akumulatorów i ładowarki.",
+    application: "Cięcie, szlifowanie i szczotkowanie materiałów metalowych i kamiennych bez użycia wody. Idealna do prac budowlanych, instalacyjnych, dekarskich oraz w warsztatach, gdzie wymagana jest mobilność i brak kabla zasilającego.",
     technicalSpec: [
       { label: "Napięcie", value: "18 V LXT" },
       { label: "Tarcza", value: "125 mm" },
@@ -818,6 +878,11 @@ const newProducts: Product[] = [
     tags: ["szlifierka kątowa", "makita", "18v", "bezszczotkowa", "125mm", "lxt"],
     related: ["p026", "p028"],
     isNew: true,
+  
+    seoDescription: "Niezawodna szlifierka kątowa Makita DGA 504Z to niezbędne narzędzie dla każdego profesjonalisty. W Media Bud Lublin oferujemy szeroki wybór elektronarzędzi w atrakcyjnych cenach. Silnik bezszczotkowy i zasilanie akumulatorowe 18V LXT zapewniają mobilność i moc potrzebną do najcięższych prac. Sprawdź naszą ofertę w kategorii [Narzędzia i mocowania](/kategoria/narzedzia-i-mocowania) oraz inne produkty marki [Makita](/marki/makita). Pamiętaj, że wersja Z nie zawiera akumulatora – dobierz odpowiednie baterie z naszej oferty.",
+    advantages: ["Wydajny i bezawaryjny silnik bezszczotkowy (BLDC)","Technologia XPT – podwyższona odporność na pył i wilgoć","Funkcja anty-restart (zabezpieczenie przed przypadkowym uruchomieniem)","Automatyczna kontrola prędkości obrotowej w zależności od obciążenia","Wąska obudowa silnika zapewniająca pewny i wygodny chwyt"],
+    warnings: ["Wersja Z – dostarczana bez akumulatorów, ładowarki i walizki","Zawsze używaj odpowiednich osłon tarczy i okularów ochronnych","Nie stosować do cięcia materiałów zawierających azbest","Przed wymianą tarczy upewnij się, że akumulator jest odłączony"],
+    faq: [{"q":"Jakie akumulatory pasują do szlifierki Makita DGA 504Z?","a":"Szlifierka jest kompatybilna ze wszystkimi akumulatorami Makita z serii 18V LXT (np. BL1830, BL1840, BL1850, BL1860)."},{"q":"Co oznacza silnik bezszczotkowy (BLDC)?","a":"Silnik bezszczotkowy nie posiada szczotek węglowych, co eliminuje tarcie i iskrzenie. Dzięki temu silnik jest bardziej wydajny, mniej się nagrzewa i pozwala na dłuższą pracę na jednym ładowaniu akumulatora."},{"q":"Czy szlifierka ma regulację obrotów?","a":"Model DGA 504 posiada automatyczną kontrolę prędkości obrotowej (Automatic Speed Control), która sama dostosowuje prędkość i moment obrotowy podczas pracy, ale nie posiada ręcznego pokrętła do ustawiania stałych obrotów."}],
   },
 
   // WYLEWKA CEMENTOWA
@@ -946,9 +1011,9 @@ const newProducts: Product[] = [
     id: "p047", slug: "tynk-akrylowy-weber-pas-ar3-15kg",
     name: "Tynk akrylowy weber.pas AR3 15kg",
     categorySlug: "tynki-akrylowe", brand: "Weber", sku: "WEB-AR3-15", unit: "wiadro 15kg",
-    shortDescription: "Akrylowy tynk elewacyjny gotowy do użycia, struktura drapana 1,5 mm lub 2 mm.",
-    description: "Weber.pas AR3 to gotowy tynk akrylowy do elewacji o strukturze drapanej lub kornikowej. Produkt łatwy w aplikacji ręcznej, gotowy do użycia po rozmieszaniu. Charakteryzuje się elastycznością i odpornością na zabrudzenia. Dostępny w gamie kolorów z mieszalnika Weber Color.",
-    application: "Zewnętrzne wykończenie elewacji budynków w systemach ETICS lub na podłożach mineralnych. Renowacja i nowe budowy.",
+    shortDescription: "Gotowy do użycia tynk akrylowy weber.pas AR3 o strukturze baranka, odporny na uszkodzenia mechaniczne.",
+    description: "Weber.pas AR3 to cienkowarstwowy, gotowy do użycia tynk akrylowy w formie pasty. Przeznaczony jest do wykonywania dekoracyjnych wypraw tynkarskich na zewnątrz budynków. Dzięki spoiwu na bazie żywic akrylowych, tynk charakteryzuje się bardzo wysoką elastycznością, odpornością na uszkodzenia mechaniczne oraz intensywnymi, trwałymi kolorami. Jest to doskonały wybór do systemów ociepleń opartych na styropianie (EPS). Produkt zawiera powłokowe zabezpieczenie przed rozwojem mikroorganizmów (alg i grzybów).",
+    application: "Wykonywanie barwnych, cienkowarstwowych wypraw tynkarskich w systemach ociepleń ETICS opartych wyłącznie na styropianie (EPS). Może być również stosowany na tradycyjnych tynkach cementowych i podłożach betonowych. Aplikacja ręczna lub maszynowa.",
     technicalSpec: [
       { label: "Granulacja", value: "1,5 mm lub 2,0 mm" },
       { label: "Zużycie", value: "2,5–3,5 kg/m²" },
@@ -960,6 +1025,11 @@ const newProducts: Product[] = [
     tags: ["tynk akrylowy", "weber", "elewacja", "drapany", "gotowy", "etics"],
     related: ["p001", "p005", "p008"],
     isNew: true,
+  
+    seoDescription: "Szukasz trwałego tynku w intensywnym kolorze? Tynk akrylowy weber.pas AR3 to doskonały wybór na elewacje ocieplane styropianem. W hurtowni Media Bud w Lublinie oferujemy mieszanie tynków Weber od ręki, w setkach kolorów. Tynk akrylowy to gwarancja wysokiej odporności na uderzenia i zmywanie. Oblicz potrzebną ilość materiału w naszym [kalkulatorze tynku](/kalkulator/tynk-elewacyjny) i sprawdź pełną ofertę w kategorii [Tynki i elewacje](/kategoria/tynki-i-elewacje).",
+    advantages: ["Wysoka odporność na uszkodzenia mechaniczne i uderzenia","Bardzo duża elastyczność powłoki","Możliwość uzyskania bardzo intensywnych i ciemnych kolorów","Zabezpieczenie przed rozwojem alg i grzybów","Gotowy do użycia (wystarczy przemieszać)"],
+    warnings: ["Niska paroprzepuszczalność – NIE STOSOWAĆ na ociepleniach z wełny mineralnej","Nie stosować na zawilgocone podłoża","Chronić przed bezpośrednim nasłonecznieniem i deszczem podczas aplikacji","Przed nałożeniem tynku podłoże musi być zagruntowane płynem weber.prim compact"],
+    faq: [{"q":"Czy tynk akrylowy można położyć na wełnę mineralną?","a":"Nie, tynki akrylowe mają bardzo niską paroprzepuszczalność i zablokowałyby oddychanie wełny mineralnej, co mogłoby prowadzić do kondensacji wilgoci. Na wełnę należy stosować tynki silikonowe, silikatowe lub mineralne."},{"q":"Czy tynk akrylowy można myć myjką ciśnieniową?","a":"Tak, tynki akrylowe są bardzo odporne na zmywanie i uszkodzenia mechaniczne, dlatego można je ostrożnie myć myjką ciśnieniową (z zachowaniem odpowiedniej odległości i ciśnienia)."},{"q":"Czym różni się tynk akrylowy od silikonowego?","a":"Tynk akrylowy jest bardziej elastyczny i odporny na uderzenia, pozwala też na uzyskanie ciemniejszych kolorów. Tynk silikonowy jest z kolei paroprzepuszczalny i posiada właściwości samoczyszczące (odporność na brud)."}],
   },
 
   // FARBA SILIKATOWA

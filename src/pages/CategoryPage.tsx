@@ -1,7 +1,8 @@
-import { useParams, Link, useSearchParams } from "react-router-dom";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import {
   ChevronRight, Grid, List, Filter, SlidersHorizontal, X,
-  ChevronLeft, ChevronRight as ChevronNext, Tag, Zap, ArrowRight, Phone, Mail
+  ChevronLeft, ChevronRight as ChevronNext, Tag, Zap, ArrowRight, Phone, Mail, ChevronDown
 } from "lucide-react";
 import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
@@ -108,6 +109,55 @@ function useReveal() {
   }, [vis]);
   return { ref, vis };
 }
+
+/* ── Opisy SEO per kategoria ────────────────────────────────────────────────── */
+const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNode }> = {
+  "chemia-budowlana": {
+    title: "Chemia budowlana Lublin — kleje, grunty, zaprawy",
+    content: (
+      <>
+        <p className="mb-3">Wybór odpowiedniej chemii budowlanej to fundament trwałości każdego remontu i budowy. W hurtowni <strong>Media Bud Lublin</strong> oferujemy pełen przekrój profesjonalnych produktów: od gruntów głęboko penetrujących, przez elastyczne kleje do płytek (klasy C2TE, C2TES1), aż po specjalistyczne zaprawy naprawcze i hydroizolacje.</p>
+        <p>Współpracujemy z wiodącymi producentami takimi jak <strong>Ceresit, Weber, Mapei czy Atlas</strong>. Niezależnie czy planujesz układanie gresu wielkoformatowego, ocieplenie elewacji, czy wylewkę samopoziomującą — nasi doradcy pomogą dobrać system chemii dopasowany do Twojego podłoża i warunków eksploatacji. Zapewniamy dostępność od ręki i szybką dostawę na terenie województwa lubelskiego.</p>
+      </>
+    )
+  },
+  "izolacje": {
+    title: "Materiały izolacyjne — styropian, wełna, XPS",
+    content: (
+      <>
+        <p className="mb-3">Skuteczna termoizolacja to klucz do niższych rachunków za ogrzewanie i komfortu cieplnego. W naszej ofercie znajdziesz kompletne systemy ociepleń (ETICS): <strong>styropian fasadowy (EPS), styrodur (XPS) na fundamenty, wełnę mineralną i szklaną</strong> do poddaszy oraz piany poliuretanowe (PIR).</p>
+        <p>Oferujemy materiały o najlepszych współczynnikach przewodzenia ciepła (lambda λ) od sprawdzonych marek: <strong>Swisspor, Termo Organika, Rockwool, Isover</strong>. Szukasz styropianu grafitowego na elewację w Lublinie? Potrzebujesz wyliczyć zapotrzebowanie? Skorzystaj z naszego <a href="/kalkulator/styropian-welna" className="text-[#f81828] hover:underline">kalkulatora izolacji</a> lub skontaktuj się z naszym działem sprzedaży B2B.</p>
+      </>
+    )
+  },
+  "farby-i-rozpuszczalniki": {
+    title: "Farby elewacyjne i wewnętrzne — mieszalnia farb Lublin",
+    content: (
+      <>
+        <p className="mb-3">Szukasz trwałej farby na lata? W Media Bud znajdziesz szeroki wybór <strong>farb elewacyjnych (silikonowych, silikatowych, akrylowych)</strong> oraz farb do wnętrz (lateksowych, ceramicznych). Posiadamy własną mieszalnię farb i tynków, co pozwala nam uzyskać tysiące kolorów od ręki, zgodnie ze wzornikami NCS, RAL czy paletami producentów.</p>
+        <p>Polecamy produkty odporne na zabrudzenia, promieniowanie UV i rozwój grzybów od marek takich jak <strong>Caparol, Weber, Ceresit czy Kabe</strong>. Dobierzemy odpowiedni grunt i farbę do Twojego podłoża. Sprawdź nasz <a href="/kalkulator/farba-elewacyjna" className="text-[#f81828] hover:underline">kalkulator farb</a>, aby dokładnie oszacować potrzebną ilość materiału.</p>
+      </>
+    )
+  },
+  "sucha-zabudowa": {
+    title: "Sucha zabudowa — płyty G-K, profile, akcesoria",
+    content: (
+      <>
+        <p className="mb-3">Systemy suchej zabudowy to najszybszy sposób na aranżację wnętrz, budowę ścianek działowych i sufitów podwieszanych. W naszym składzie w Lublinie kupisz <strong>płyty gipsowo-kartonowe (zwykłe, wodoodporne, ogniochronne, akustyczne)</strong>, profile stalowe (CD, UD, CW, UW) oraz pełen asortyment akcesoriów montażowych.</p>
+        <p>Dostarczamy kompletne systemy od liderów rynku: <strong>Rigips, Knauf, Siniat, Nida</strong>. Oferujemy również masy szpachlowe, taśmy zbrojące i wkręty. Dzięki własnej flocie transportowej, bezpiecznie dostarczymy wielkogabarytowe płyty G-K bezpośrednio na Twój plac budowy.</p>
+      </>
+    )
+  },
+  "plytki": {
+    title: "Płytki ceramiczne, gres i chemia do glazury",
+    content: (
+      <>
+        <p className="mb-3">Oferujemy szeroki wybór płytek ceramicznych, gresu technicznego i szkliwionego, idealnych do łazienek, kuchni, na tarasy i do obiektów komercyjnych. W Media Bud znajdziesz płytki w różnych formatach, od klasycznych po wielkoformatowe slaby, imitujące drewno, beton czy marmur.</p>
+        <p>Pamiętaj, że trwałość posadzki zależy od chemii. Dlatego do płytek od razu dobierzesz u nas <strong>elastyczne kleje (C2TE S1), fugi (cementowe i epoksydowe), hydroizolacje podpłytkowe (folie w płynie) oraz listwy wykończeniowe</strong>. Skorzystaj z <a href="/kalkulator/plytki-ceramiczne" className="text-[#f81828] hover:underline">kalkulatora płytek</a> i <a href="/kalkulator/klej-do-plytek" className="text-[#f81828] hover:underline">kalkulatora kleju</a>, aby zoptymalizować zakupy.</p>
+      </>
+    )
+  }
+};
 
 /* ── FAQ per kategoria (JSON-LD FAQPage + widoczna sekcja) ─────────────────── */
 const CATEGORY_FAQS: Record<string, { q: string; a: string }[]> = {
@@ -218,6 +268,34 @@ function FaqAccordion({ items, catName }: { items: { q: string; a: string }[]; c
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+/* ── Komponent FAQAccordion ─────────────────────────────────────────────────── */
+function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  return (
+    <div className="space-y-2">
+      {items.map((item, idx) => (
+        <div key={idx} className="rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+          <button
+            onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+            className="w-full flex items-center justify-between p-4 text-left transition-colors hover:bg-[rgba(255,255,255,0.05)]"
+          >
+            <span className="font-bold text-white text-sm pr-4">{item.q}</span>
+            <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 flex-shrink-0 ${openIndex === idx ? "rotate-180" : ""}`} />
+          </button>
+          <div
+            className="overflow-hidden transition-all duration-300 ease-in-out"
+            style={{ maxHeight: openIndex === idx ? "500px" : "0", opacity: openIndex === idx ? 1 : 0 }}
+          >
+            <div className="p-4 pt-0 text-sm text-gray-400 leading-relaxed border-t border-white/5 mt-2">
+              {item.a}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -1520,6 +1598,57 @@ export default function CategoryPage() {
                         </Link>
                       </>
                   }
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── Sekcja SEO i FAQ (na dole strony) ── */}
+        {((slug && CATEGORY_SEO_TEXTS[slug]) || (faqItems && faqItems.length > 0)) && (
+          <div className="mt-16 pt-12 border-t border-white/5">
+            <div className="grid lg:grid-cols-2 gap-12">
+              {/* Lewa kolumna: Tekst SEO */}
+              <div>
+                {slug && CATEGORY_SEO_TEXTS[slug] ? (
+                  <>
+                    <h2 className="text-2xl font-black text-white font-display mb-6">
+                      {CATEGORY_SEO_TEXTS[slug].title}
+                    </h2>
+                    <div className="text-gray-400 text-sm leading-relaxed">
+                      {CATEGORY_SEO_TEXTS[slug].content}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="text-2xl font-black text-white font-display mb-6">
+                      {cat?.name} — materiały budowlane Lublin
+                    </h2>
+                    <div className="text-gray-400 text-sm leading-relaxed">
+                      <p className="mb-3">Wybierając materiały z kategorii <strong>{cat?.name}</strong> w hurtowni Media Bud, zyskujesz gwarancję najwyższej jakości i profesjonalnego doradztwa. Oferujemy szeroki asortyment produktów od sprawdzonych producentów, dostępnych od ręki w naszym magazynie w Lublinie.</p>
+                      <p>Zapewniamy konkurencyjne ceny dla wykonawców i inwestorów indywidualnych oraz szybką dostawę na terenie całego województwa lubelskiego. Skontaktuj się z naszym działem handlowym, aby uzyskać indywidualną wycenę.</p>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Prawa kolumna: FAQ */}
+              {faqItems && faqItems.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-black text-white font-display mb-6 flex items-center gap-3">
+                    <span className="w-8 h-8 rounded-full bg-[#f81828]/10 flex items-center justify-center text-[#f81828] text-sm">?</span>
+                    Często zadawane pytania
+                  </h2>
+                  <FAQAccordion items={faqItems} />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
                 </div>
               </div>
             )}

@@ -7,7 +7,7 @@ import requests, re, json, time, os, sys, traceback
 from urllib.parse import quote
 from datetime import datetime
 
-SANITY_TOKEN = "skZFMehj3STc5EGpVcQPUP5PQRmE4kWEQps0Zso4Rl5Ri3QUfmKRViMkpQ6lkHXZTrnHn0kuQgj6y6x7b6Y0Uz0z1jXPmYCKXVbAvYeZcSFOD7mk6uTEeE3MRSLTanEaUjtrPVEO6DkRdKAt6MOHv0zU4NgWek5XVMcahI6TvYOzLqORIR9J"
+SANITY_TOKEN = "sk_REMOVED_FOR_SECURITY"
 PROJECT = "nzcwegq7"
 BASE = f"https://{PROJECT}.api.sanity.io/v2024-01-01"
 LOG_FILE = "/data/workspace/919fac5a-210e-47ca-8b62-27ddea343c50/mediabud/img_pipeline_log.json"

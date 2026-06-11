@@ -24,7 +24,7 @@ from bs4 import BeautifulSoup
 # ──────────────────────────────────────────────
 SANITY_PROJECT = "nzcwegq7"
 SANITY_DATASET = "production"
-SANITY_TOKEN   = "skZFMehj3STc5EGpVcQPUP5PQRmE4kWEQps0Zso4Rl5Ri3QUfmKRViMkpQ6lkHXZTrnHn0kuQgj6y6x7b6Y0Uz0z1jXPmYCKXVbAvYeZcSFOD7mk6uTEeE3MRSLTanEaUjtrPVEO6DkRdKAt6MOHv0zU4NgWek5XVMcahI6TvYOzLqORIR9J"
+SANITY_TOKEN   = "sk_REMOVED_FOR_SECURITY"
 
 SANITY_QUERY_URL  = f"https://{SANITY_PROJECT}.api.sanity.io/v2024-01-01/data/query/{SANITY_DATASET}"
 SANITY_MUTATE_URL = f"https://{SANITY_PROJECT}.api.sanity.io/v2024-01-01/data/mutate/{SANITY_DATASET}"

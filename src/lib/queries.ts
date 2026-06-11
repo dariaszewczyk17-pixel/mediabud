@@ -97,14 +97,12 @@ export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
 // â¡ Query B (FAST FIRST PAGE) â tylko pierwsze 48 produktÃ³w dla natychmiastowego wyÅwietlenia.
 // UÅ¼ywa `in` subquery: lista ID kategorii obliczana RAZ, potem O(1) per produkt (zamiast O(4Ãn)).
 export const PRODUCT_META_BY_CAT_FIRST_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} &&
-    category._ref in *[_type == "category" && (
-      slug.current                         == $catSlug ||
-      parent->slug.current                 == $catSlug ||
-      parent->parent->slug.current         == $catSlug ||
-      parent->parent->parent->slug.current == $catSlug
-    )]._id
-  ] | order(featured desc) [0...48] {
+  `*[_type == "product" && ${NO_PLACEHOLDER} && (
+    category->slug.current                                == $catSlug ||
+    category->parent->slug.current                        == $catSlug ||
+    category->parent->parent->slug.current                == $catSlug ||
+    category->parent->parent->parent->slug.current        == $catSlug
+  )] | order(featured desc) [0...48] {
   _id,
   "slug": slug.current,
   name,
@@ -122,14 +120,12 @@ export const PRODUCT_META_BY_CAT_FIRST_QUERY =
 // `in` subquery: O(m) obliczenie listy ID kategorii (mâ100), potem O(n) porÃ³wnanie ID per produkt.
 // Bez ORDER BY â sortowanie po stronie klienta w CategoryPage (szybsze niÅ¼ server-side na 5000 wierszach).
 export const PRODUCT_META_BY_ROOT_CAT_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} &&
-    category._ref in *[_type == "category" && (
-      slug.current                         == $catSlug ||
-      parent->slug.current                 == $catSlug ||
-      parent->parent->slug.current         == $catSlug ||
-      parent->parent->parent->slug.current == $catSlug
-    )]._id
-  ] [0...10000] {
+  `*[_type == "product" && ${NO_PLACEHOLDER} && (
+    category->slug.current                                == $catSlug ||
+    category->parent->slug.current                        == $catSlug ||
+    category->parent->parent->slug.current                == $catSlug ||
+    category->parent->parent->parent->slug.current        == $catSlug
+  )] [0...10000] {
   _id,
   "slug": slug.current,
   name,

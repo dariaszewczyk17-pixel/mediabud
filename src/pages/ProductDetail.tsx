@@ -296,6 +296,10 @@ export default function ProductDetail() {
                 alt={product.name}
                 className="w-full h-full object-contain p-8"
                 style={{ transition: "transform 0.6s ease" }}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                onError={e => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; e.currentTarget.onerror = null; }}
                 onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = "scale(1.08)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = "scale(1)"; }}
               />
@@ -354,7 +358,7 @@ export default function ProductDetail() {
                       transform: activeImg === i ? "scale(1.06)" : "scale(1)",
                     }}
                   >
-                    <img src={img} alt="" className="w-full h-full object-contain p-1.5" />
+                    <img src={img} alt="" loading={i === 0 ? "eager" : "lazy"} decoding="async" className="w-full h-full object-contain p-1.5" />
                   </button>
                 ))}
               </div>

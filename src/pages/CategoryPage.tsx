@@ -605,6 +605,16 @@ export default function CategoryPage() {
     return null;
   }, [slug, breadcrumbs]);
 
+  /* ── Liczba aktywnych filtrów (bez sortowania) ── */
+  /* Liczba produktów per categorySlug — dla liczników w drzewie */
+  const subcatCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const p of catProducts) counts[p.categorySlug] = (counts[p.categorySlug] ?? 0) + 1;
+    return counts;
+  }, [catProducts]);
+
+  const activeFilterCount = [selectedBrand, selectedUnit, selectedTag, selectedSubcat].filter(Boolean).length + selectedSpecs.length;
+
   /* ── SEO meta tagi ── */
   useSEO({
     title: cat
@@ -629,16 +639,6 @@ export default function CategoryPage() {
       </div>
     );
   }
-
-  /* ── Liczba aktywnych filtrów (bez sortowania) ── */
-  /* Liczba produktów per categorySlug — dla liczników w drzewie */
-  const subcatCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    for (const p of catProducts) counts[p.categorySlug] = (counts[p.categorySlug] ?? 0) + 1;
-    return counts;
-  }, [catProducts]);
-
-  const activeFilterCount = [selectedBrand, selectedUnit, selectedTag, selectedSubcat].filter(Boolean).length + selectedSpecs.length;
 
   /* ── Mobile Filter Panel — sekcje z checkboxowymi przyciskami ── */
   const MobileFilterPanel = () => (

@@ -1,4 +1,4 @@
-// ── Fragmenty GROQ ───────────────────────────────────────────────────────────
+// ââ Fragmenty GROQ âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 const CATEGORY_CHAIN = `{
   _id, "slug": slug.current, name,
@@ -11,7 +11,8 @@ const CATEGORY_CHAIN = `{
   }
 }`
 
-// Odchudzone pola karty produktu — bez categoryChain i technicalSpec
+// Odchudzone pola karty produktu â bez categoryChain i technicalSpec
+// To eliminuje dziesiÄtki tysiÄcy dodatkowych joinÃ³w przy duÅ¼ych listach
 const PRODUCT_CARD_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
@@ -23,7 +24,7 @@ const PRODUCT_CARD_FIELDS = `{
   "images": images[0..0].asset->url
 }`
 
-// Pełne pola produktu (szczegóły) — z wszystkimi joinami
+// PeÅne pola produktu (szczegÃ³Åy) â z wszystkimi joinami
 const PRODUCT_FULL_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
@@ -58,7 +59,7 @@ const CATEGORY_FIELDS = `{
 
 const NO_PLACEHOLDER = `!(name match "P-*")`
 
-// ── Queries ──────────────────────────────────────────────────────────────────
+// ââ Queries ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export const ALL_CATEGORIES_QUERY =
   `*[_type == "category" && !defined(parent)] | order(order asc, name asc) ${CATEGORY_FIELDS}`
@@ -69,10 +70,15 @@ export const ALL_PRODUCTS_QUERY =
 export const FEATURED_PRODUCTS_QUERY =
   `*[_type == "product" && featured == true && ${NO_PLACEHOLDER}][0...12] ${PRODUCT_CARD_FIELDS}`
 
+// â¡ Kluczowa optymalizacja: jeden join zamiast czterech poziomÃ³w parent->
+// collectAllSlugs() po stronie frontu dostarcza juÅ¼ WSZYSTKIE podkategorie,
+// wiÄc wystarczy sprawdziÄ bezpoÅredni slug kategorii produktu.
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
   `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...$limit] ${PRODUCT_CARD_FIELDS}`
 
-// ⚡ Query A — stara wersja z tablicą $slugs (zachowana dla kompatybilności)
+// â¡ Query A â metadane + pierwsze zdjÄcie + shortDescription produktÃ³w
+// PeÅne pola (opisy, galeria) Åadowane dopiero w ProductDetail przez PRODUCT_BY_SLUG_QUERY.
+// STARA wersja (array $slugs) â zachowana dla kompatybilnoÅci
 export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
   `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...10000] {
   _id,
@@ -88,15 +94,42 @@ export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
   "images": images[0..0].asset->url
 }`
 
-// ⚡ Query B — jeden $catSlug, GROQ przechodzi hierarchię 4 poziomów.
-// Rozwiązuje problem za długiego URL gdy $slugs ma 100+ elementów.
+// â¡ Query B (FAST FIRST PAGE) â tylko pierwsze 48 produktÃ³w dla natychmiastowego wyÅwietlenia.
+// UÅ¼ywa `in` subquery: lista ID kategorii obliczana RAZ, potem O(1) per produkt (zamiast O(4Ãn)).
+export const PRODUCT_META_BY_CAT_FIRST_QUERY =
+  `*[_type == "product" && ${NO_PLACEHOLDER} &&
+    category._ref in *[_type == "category" && (
+      slug.current                         == $catSlug ||
+      parent->slug.current                 == $catSlug ||
+      parent->parent->slug.current         == $catSlug ||
+      parent->parent->parent->slug.current == $catSlug
+    )]._id
+  ] | order(featured desc) [0...48] {
+  _id,
+  "slug": slug.current,
+  name,
+  shortDescription,
+  "categorySlug": category->slug.current,
+  "brand": brand->name,
+  unit,
+  tags,
+  featured,
+  inStock,
+  "images": images[0..0].asset->url
+}`
+
+// â¡ Query B FULL â wszystkie produkty kategorii, Åadowane w tle po wyÅwietleniu pierwszej strony.
+// `in` subquery: O(m) obliczenie listy ID kategorii (mâ100), potem O(n) porÃ³wnanie ID per produkt.
+// Bez ORDER BY â sortowanie po stronie klienta w CategoryPage (szybsze niÅ¼ server-side na 5000 wierszach).
 export const PRODUCT_META_BY_ROOT_CAT_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} && (
-    category->slug.current                         == $catSlug ||
-    category->parent->slug.current                 == $catSlug ||
-    category->parent->parent->slug.current         == $catSlug ||
-    category->parent->parent->parent->slug.current == $catSlug
-  )] | order(name asc) [0...10000] {
+  `*[_type == "product" && ${NO_PLACEHOLDER} &&
+    category._ref in *[_type == "category" && (
+      slug.current                         == $catSlug ||
+      parent->slug.current                 == $catSlug ||
+      parent->parent->slug.current         == $catSlug ||
+      parent->parent->parent->slug.current == $catSlug
+    )]._id
+  ] [0...10000] {
   _id,
   "slug": slug.current,
   name,

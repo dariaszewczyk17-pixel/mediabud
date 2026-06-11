@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
-import { useCategoryBySlug, useAllCategories, useProductMetaByCatSlug, type ProductMeta } from "@/hooks/useSanityData";
+import { useCategoryBySlug, useAllCategories, useProductMetaByCatSlug, useProductMetaByCatSlugFast, type ProductMeta } from "@/hooks/useSanityData";
 import { useSEO } from "@/hooks/useSEO";
 import {
   sanityCategoryToLegacy,

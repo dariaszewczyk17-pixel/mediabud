@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
+import { useHeaderAwareReveal } from "@/hooks/useHeaderAwareReveal";
 import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_SAME_AS, NAP_LOGO, NAP_AMENITIES, NAP_CONTACT_POINT } from "@/lib/localBusiness";
 import { Phone, ArrowRight, ExternalLink, MapPin } from "lucide-react";
 import { IconOnePartner, IconRuler, IconScaffold, IconCompass, IconScale, IconPin } from "@/components/FuturisticIcons";
@@ -39,7 +40,7 @@ function useInView(threshold = 0.2) {
 
 /* ─── Stat Counter Card ──────────────────────────────────────────── */
 function StatCard({ value, numericValue, suffix, label, delay = 0 }: { value: string; numericValue: number; suffix: string; label: string; delay?: number }) {
-  const { ref, inView } = useInView(0.3);
+  const { ref, visible: inView } = useHeaderAwareReveal({ threshold: 0.3 });
   const [started, setStarted] = useState(false);
   useEffect(() => { if (inView) { const t = setTimeout(() => setStarted(true), delay); return () => clearTimeout(t); } }, [inView, delay]);
   const count = useAnimatedCounter(numericValue, 1600, started);
@@ -61,7 +62,7 @@ function StatCard({ value, numericValue, suffix, label, delay = 0 }: { value: st
 
 /* ─── Fade-in wrapper ────────────────────────────────────────────── */
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const { ref, inView } = useInView(0.1);
+  const { ref, visible: inView } = useHeaderAwareReveal({ threshold: 0.1 });
   return (
     <div ref={ref} className={className} style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)", transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms` }}>
       {children}

@@ -15,8 +15,7 @@ export default function BrandDetailPage() {
   const { slug = "" } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const brand = getBrandBySlug(slug);
-  const { data: sanityProducts, loading: sanityLoading } = useAllProducts();
-  const isLoading = sanityLoading && !sanityProducts;
+  const { data: sanityProducts, loading } = useAllProducts();
 
   const mergedProducts = useMemo(() => {
     const legacy = ((sanityProducts as SanityProduct[] | undefined) ?? []).map(sanityProductToLegacy);
@@ -136,10 +135,10 @@ export default function BrandDetailPage() {
                 </div>
               )}
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                {(isLoading || brandProducts.length > 0) && (
+                {brandProducts.length > 0 && (
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
                     <Package className="w-3.5 h-3.5 text-[#f81828]" />
-                    {isLoading ? "···" : `${brandProducts.length} ${brandProducts.length === 1 ? "produkt" : brandProducts.length < 5 ? "produkty" : "produktów"} w katalogu`}
+                    {loading ? "···" : brandProducts.length} {brandProducts.length === 1 ? "produkt" : brandProducts.length < 5 ? "produkty" : "produktów"} w katalogu
                   </span>
                 )}
                 {brand.website && (
@@ -171,9 +170,9 @@ export default function BrandDetailPage() {
             <h2 className="font-display text-xl font-black text-white">
               Produkty {brand.name}
             </h2>
-            {(isLoading || brandProducts.length > 0) && (
+            {brandProducts.length > 0 && (
               <span className="text-xs font-bold text-gray-500 ml-auto">
-                {isLoading ? "···" : `${brandProducts.length} pozycji`}
+                {loading ? "···" : brandProducts.length} pozycji
               </span>
             )}
           </div>

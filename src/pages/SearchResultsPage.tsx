@@ -47,8 +47,7 @@ export default function SearchResultsPage() {
   const featuredOnly = searchParams.get("featured") === "1";
   const newOnly = searchParams.get("new") === "1";
   const sortBy = (searchParams.get("sort") as SortOption) || DEFAULT_SORT;
-  const { data: sanityProducts, loading: sanityLoading } = useAllProducts();
-  const isLoading = sanityLoading && !sanityProducts;
+  const { data: sanityProducts, loading } = useAllProducts();
 
   const brandMode = !query && selectedBrand !== ALL_BRANDS;
 
@@ -275,8 +274,8 @@ export default function SearchResultsPage() {
               <h1 className="text-3xl md:text-4xl font-black text-white leading-tight font-display mb-2">{brandMode ? `Marka: ${selectedBrand}` : `Wyniki dla: „${query}"`}</h1>
               <p className="text-gray-300 text-sm md:text-base max-w-3xl">
                 {brandMode
-                  ? <><strong className="text-white">{isLoading ? "···" : filteredResults.length}</strong> produktów marki <strong className="text-white">{selectedBrand}</strong> w katalogu Media Bud Lublin.</>
-                  : <>Znaleziono <strong className="text-white">{isLoading ? "···" : results.length}</strong> dopasowań w produktach z Sanity i lokalnej bazy, a po filtrach pozostało <strong className="text-white">{isLoading ? "···" : filteredResults.length}</strong>.</>
+                  ? <><strong className="text-white">{loading ? "···" : filteredResults.length}</strong> produktów marki <strong className="text-white">{selectedBrand}</strong> w katalogu Media Bud Lublin.</>
+                  : <>Znaleziono <strong className="text-white">{loading ? "···" : results.length}</strong> dopasowań w produktach z Sanity i lokalnej bazy, a po filtrach pozostało <strong className="text-white">{loading ? "···" : filteredResults.length}</strong>.</>
                 }
               </p>
             </div>
@@ -333,9 +332,26 @@ export default function SearchResultsPage() {
                   className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <option value={ALL_BRANDS}>Wszystkie marki ({isLoading ? "···" : results.length})</option>
+                  <option value={ALL_BRANDS}>Wszystkie marki ({loading ? "···" : results.length})</option>
                   {availableBrands.map((brand) => (
                     <option key={brand} value={brand}>{brand} ({brandCounts[brand] ?? 0})</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block">
+                <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 flex items-center gap-2">
+                  <Filter className="w-3.5 h-3.5 text-[#f81828]" /> Kategoria
+                </span>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => navigate(createSearchLink({ category: e.target.value }))}
+                  className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                >
+                  <option value={ALL_CATEGORIES}>Wszystkie kategorie ({loading ? "···" : results.length})</option>
+                  {availableCategories.map((category) => (
+                    <option key={category} value={category}>{categoryLabel(category)} ({categoryCounts[category] ?? 0})</option>
                   ))}
                 </select>
               </label>
@@ -465,7 +481,7 @@ export default function SearchResultsPage() {
         ) : (
           <>
             <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-              <p className="text-sm text-gray-500">Strona <span className="text-white font-semibold">{safePage}</span> z <span className="text-white font-semibold">{totalPages}</span> · pokazuję <span className="text-white font-semibold">{paginatedResults.length}</span> produktów na tej stronie.</p>
+              <p className="text-sm text-gray-500">Strona <span className="text-white font-semibold">{safePage}</span> z <span className="text-white font-semibold">{totalPages}</span> · pokazuję <span className="text-white font-semibold">{loading ? "···" : paginatedResults.length}</span> produktów na tej stronie.</p>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

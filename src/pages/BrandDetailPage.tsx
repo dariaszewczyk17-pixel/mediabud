@@ -33,7 +33,7 @@ export default function BrandDetailPage() {
       ? `${brand.name} — materiały budowlane | Media Bud Lublin`
       : "Marka nieznaleziona | Media Bud",
     description: brand
-      ? `Pełny katalog produktów ${brand.name} dostępnych w składzie Media Bud Lublin. ${!isLoading && brandProducts.length ? `${brandProducts.length} produktów w stock.` : ""} Doradztwo, dostawa, faktura VAT.`
+      ? `Pełny katalog produktów ${brand.name} dostępnych w składzie Media Bud Lublin. ${!loading && brandProducts.length ? `${brandProducts.length} produktów w stock.` : ""} Doradztwo, dostawa, faktura VAT.`
       : "Nie znaleziono takiej marki w katalogu Media Bud.",
     canonical: `/marki/${slug}`,
     noIndex: false,
@@ -177,7 +177,7 @@ export default function BrandDetailPage() {
             )}
           </div>
 
-          {isLoading ? (
+          {loading ? (
             /* Skeleton podczas ładowania — nie pokazuje "brak produktów" */
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3">
               {Array.from({ length: 10 }).map((_, i) => (

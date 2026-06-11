@@ -580,7 +580,7 @@ Wyliczymy ilości materiału — zadzwoń: **+48 533 553 344** lub odwiedź skł
     tags: ["koszt ocieplenia domu", "ocieplenie 150m2", "ETICS", "czyste powietrze", "termomodernizacja", "ceny 2026"],
     content: `## Koszt ocieplenia domu 150 m² — co wchodzi w cenę?
 
-Ocieplenie domu to inwestycja obniżająca rachunki za ogrzewanie o 30–60% rocznie. Aby precyzyjnie wyliczyć zapotrzebowanie na materiał, skorzystaj z naszego [kalkulatora styropianu i wełny](/kalkulator/styropian-welna). Ile kosztuje termomodernizacja domu 150 m² w 2026 roku?
+Ocieplenie domu to inwestycja obniżająca rachunki za ogrzewanie o 30–60% rocznie. Aby precyzyjnie wyliczyć zapotrzebowanie na materiał, skorzystaj z naszego [kalkulatora styropianu i wełny](/kalkulator/styropian-welna). Sprawdź również naszą ofertę w kategorii [Izolacje](/kategoria/izolacje). Ile kosztuje termomodernizacja domu 150 m² w 2026 roku?
 
 ## Założenia kalkulacji
 
@@ -786,7 +786,7 @@ Kalkulacja materiałów bezpłatnie — **+48 533 553 344** | ul. Chemiczna 8d, 
     tags: ["tynk elewacyjny", "kalkulator tynku", "ile tynku", "elewacja 2026"],
     content: `## Jak obliczyć ilość tynku?
 
-Najszybszym sposobem na obliczenie ilości materiału jest użycie naszego [kalkulatora tynku elewacyjnego](/kalkulator/tynk-elewacyjny), który uwzględnia normy zużycia dla różnych granulacji.
+Najszybszym sposobem na obliczenie ilości materiału jest użycie naszego [kalkulatora tynku elewacyjnego](/kalkulator/tynk-elewacyjny), który uwzględnia normy zużycia dla różnych granulacji. Sprawdź również naszą ofertę w kategorii [Tynki elewacyjne](/kategoria/tynki-elewacyjne).
 
 **Wzór**: Pow. netto = (obwód × wys.) − Σ otworów
 

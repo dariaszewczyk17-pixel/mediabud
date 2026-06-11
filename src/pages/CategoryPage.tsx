@@ -239,13 +239,30 @@ export default function CategoryPage() {
     [sanitySubSlugs, staticSubSlugs],
   );
 
+  // ⚡ TWO-PHASE LOADING
+  // Phase 1 (fast ~200-400ms): pierwsze 48 produktów — użytkownik widzi treść natychmiast
   const { data: firstBatch, loading: firstLoading } = useProductMetaByCatSlugFast(slug);
-const { data: allMeta, loading: allLoading, error: productsError } = useProductMetaByCatSlug(slug);
-const sanityMeta = allMeta ?? firstBatch;
-const isLoadingAll = allLoading && !!firstBatch;
-const isLoadingProducts = firstLoading && !firstBatch;
+  // Phase 2 (background ~1-3s): wszystkie produkty — pełne filtry i paginacja
+  const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(slug);
+
+  // Pokaż firstBatch natychmiast; przełącz na allMeta gdy gotowe
+  const sanityMeta = allMeta ?? firstBatch;
+  const productsLoading = allMeta ? false : firstLoading;
+  const isLoadingAll = allLoading && !!firstBatch; // true gdy Phase 1 ready, Phase 2 w toku
+
+  // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
+  // Pokazuj skeleton TYLKO gdy kategoria nie ma żadnych danych statycznych.
+  // Gdy static ma produkty → pokaż od razu; gdy brak → czekaj na Sanity.
+  const hasStaticFallback = (() => {
+    const slugSet = new Set(allSubSlugs);
+    return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
+  })();
+  const isLoadingProducts = firstLoading && !firstBatch;
 
   const catProducts = useMemo(() => {
+    // Dopóki Phase 1 nie wróci — skeleton zamiast statycznego fallbacku (eliminuje flash "2 produkty")
+    if (!sanityMeta) return [] as ReturnType<typeof mergeProductCollections>;
+
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
     const staticCategoryProducts = staticProducts.filter(p => slugSet.has(p.categorySlug)); // O(n)
 
@@ -731,7 +748,7 @@ const isLoadingProducts = firstLoading && !firstBatch;
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  {String(catProducts.length).padStart(3, "0")}
+                  {isLoadingAll ? "···" : String(catProducts.length).padStart(3, "0")}
                 </span>
                 {/* Glowing copy behind */}
                 <span
@@ -744,13 +761,13 @@ const isLoadingProducts = firstLoading && !firstBatch;
                   }}
                   aria-hidden
                 >
-                  {String(catProducts.length).padStart(3, "0")}
+                  {isLoadingAll ? "···" : String(catProducts.length).padStart(3, "0")}
                 </span>
               </div>
               <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">PRODUKTÓW</span>
               <div className="flex items-center gap-1 mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
-                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{isLoadingProducts ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
+                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{(isLoadingProducts || isLoadingAll) ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
               </div>
             </div>
           </div>
@@ -763,7 +780,7 @@ const isLoadingProducts = firstLoading && !firstBatch;
 
           {/* ── Sidebar — widoczny tylko ≥ lg ── */}
           <aside
-            className="hidden lg:flex lg:flex-col lg:w-60 flex-shrink-0 gap-4 lg:sticky lg:top-[calc(var(--header-h,96px)+8px)] lg:self-start"
+            className="hidden lg:flex lg:flex-col lg:w-60 flex-shrink-0 gap-4 lg:sticky lg:top-[calc(var(--header-h,140px)+8px)] lg:self-start"
             style={{ maxHeight: "calc(100vh - 7rem)", overflowY: "auto", scrollbarWidth: "none" }}
           >
 
@@ -926,7 +943,7 @@ const isLoadingProducts = firstLoading && !firstBatch;
             <div
               className="sticky z-20 rounded-xl mb-4"
               style={{
-                top: "calc(var(--header-h, 80px) + 8px)",
+                top: "calc(var(--header-h, 140px) + 8px)",
                 background: "rgba(8,8,8,0.9)",
                 backdropFilter: "blur(16px)",
                 WebkitBackdropFilter: "blur(16px)",
@@ -954,7 +971,7 @@ const isLoadingProducts = firstLoading && !firstBatch;
                       boxShadow: "0 0 8px rgba(248,24,40,0.15)",
                     }}
                   >
-                    {isLoadingProducts ? "…" : `${filtered.length}`}
+                    {(isLoadingProducts || isLoadingAll) ? "…" : `${filtered.length}`}
                   </span>
 
                   {/* ── Desktop inline filter dropdowns (lg:) ── */}
@@ -1152,7 +1169,7 @@ const isLoadingProducts = firstLoading && !firstBatch;
                         boxShadow: "0 0 16px rgba(248,24,40,0.3)",
                       }}
                     >
-                      Pokaż {filtered.length} produktów
+                      Pokaż {isLoadingAll ? "···" : filtered.length} produktów
                     </button>
                   </div>
                 </div>
@@ -1269,14 +1286,15 @@ const isLoadingProducts = firstLoading && !firstBatch;
               </div>
             ) : paginated.length > 0 ? (
               <>
-                {/* Faza 2 */}
-{isLoadingAll && (
-<div className="col-span-full flex items-center gap-3 px-4 py-3 rounded-xl mb-2" style={{ background: "rgba(248,24,40,0.07)", border: "1px solid rgba(248,24,40,0.18)" }}>
-<span className="w-2 h-2 rounded-full bg-[#f81828] animate-pulse flex-shrink-0" style={{ boxShadow: "0 0 6px rgba(248,24,40,0.8)" }} />
-<span className="text-xs text-gray-400 font-mono">Ładowanie wszystkich produktów… filtry będą pełne za chwilę</span>
-</div>
-)}
-<div
+                {/* ⚡ Banner Two-Phase: widoczny podczas ładowania reszty produktów w tle */}
+                {isLoadingAll && (
+                  <div className="flex items-center gap-2 mb-3 px-3 py-2 rounded-lg text-xs font-mono"
+                    style={{ background: "rgba(248,24,40,0.06)", border: "1px solid rgba(248,24,40,0.18)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] animate-pulse flex-shrink-0" />
+                    <span className="text-gray-400">Ładowanie wszystkich produktów… filtry będą pełne za chwilę</span>
+                  </div>
+                )}
+                <div
                   ref={gridReveal.ref}
                   className={view === "grid"
                     ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
@@ -1331,7 +1349,7 @@ const isLoadingProducts = firstLoading && !firstBatch;
                       <ChevronNext className="w-4 h-4" />
                     </button>
                     <span className="text-xs text-gray-600 ml-2 font-mono">
-                      {safePage}/{totalPages} · {filtered.length} szt.
+                      {safePage}/{totalPages} · {isLoadingAll ? "···" : filtered.length} szt.
                     </span>
                   </div>
                 )}

@@ -22,6 +22,77 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 
 const PRODUCTS_PER_PAGE = 24;
 
+/* ── Węzeł drzewa kategorii ─────────────────────────────────────────────── */
+interface TreeNode { id: string; slug: string; name: string; children?: TreeNode[] }
+interface TreeNodeProps {
+  node: TreeNode;
+  depth: number;
+  selectedSubcat: string;
+  onSelect: (slug: string) => void;
+  counts: Record<string, number>;
+  expanded: Set<string>;
+  toggle: (id: string) => void;
+}
+function CategoryTreeNode({ node, depth, selectedSubcat, onSelect, counts, expanded, toggle }: TreeNodeProps) {
+  const hasKids = !!(node.children && node.children.length > 0);
+  const isOpen  = expanded.has(node.id);
+  const isActive = selectedSubcat === node.slug;
+  const count    = counts[node.slug] ?? 0;
+
+  return (
+    <div>
+      <div className="flex items-center gap-0.5 min-h-[28px]">
+        {/* Expand / collapse */}
+        {hasKids ? (
+          <button
+            onClick={() => toggle(node.id)}
+            className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#f81828] transition-colors rounded"
+          >
+            <ChevronRight className={`w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`} />
+          </button>
+        ) : (
+          <span className="flex-shrink-0 w-5" />
+        )}
+
+        {/* Node button */}
+        <button
+          onClick={() => onSelect(isActive ? "" : node.slug)}
+          className={`flex-1 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all flex items-center justify-between gap-1 min-w-0 ${
+            isActive
+              ? "bg-[#f81828] text-white"
+              : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"
+          }`}
+          style={{ paddingLeft: `${4 + depth * 8}px` }}
+        >
+          <span className="truncate">{node.name}</span>
+          {count > 0 && (
+            <span className={`flex-shrink-0 text-[9px] font-mono rounded px-1 ${isActive ? "bg-white/20" : "text-gray-600"}`}>
+              {count}
+            </span>
+          )}
+        </button>
+      </div>
+
+      {hasKids && isOpen && (
+        <div className="ml-2 pl-2" style={{ borderLeft: "1px solid rgba(248,24,40,0.2)" }}>
+          {node.children!.map(child => (
+            <CategoryTreeNode
+              key={child.id}
+              node={child}
+              depth={depth + 1}
+              selectedSubcat={selectedSubcat}
+              onSelect={onSelect}
+              counts={counts}
+              expanded={expanded}
+              toggle={toggle}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* Callback-ref reveal — działa nawet gdy element pojawia się po załadowaniu danych */
 function useReveal() {
   const prefersReduced = typeof window !== "undefined" &&
@@ -158,6 +229,10 @@ export default function CategoryPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [mobileCatsOpen, setMobileCatsOpen] = useState(false);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set<string>());
+  const toggleExpand = useCallback((id: string) => setExpandedNodes(prev => {
+    const next = new Set(prev); next.has(id) ? next.delete(id) : next.add(id); return next;
+  }), []);
 
   const { data: sanityCategory } = useCategoryBySlug(slug ?? '');
   const { data: sanityTopCats }  = useAllCategories();
@@ -186,6 +261,7 @@ export default function CategoryPage() {
   const selectedBrand = searchParams.get("brand") || "";
   const selectedUnit  = searchParams.get("unit")  || "";
   const selectedTag   = searchParams.get("tag")   || "";
+  const selectedSubcat = searchParams.get("subcat") || "";
   const sortBy = searchParams.get("sort") || "default";
   // techSpec filters: "Label::Value" zakodowane w URL jako spec=Label%3A%3AValue
   const selectedSpecs: string[] = useMemo(
@@ -372,6 +448,23 @@ export default function CategoryPage() {
 
   const filtered = useMemo(() => {
     let result = [...catProducts];
+    if (selectedSubcat) {
+      // Zbierz wszystkie slugi poddrzewa wybranej podkategorii
+      const collectSlugs = (nodes: TreeNode[]): string[] =>
+        nodes.flatMap(n => [n.slug, ...(n.children ? collectSlugs(n.children) : [])]);
+      const subcatTree = (cat?.children as TreeNode[] | undefined) ?? [];
+      const findNode = (nodes: TreeNode[], s: string): TreeNode | null => {
+        for (const n of nodes) {
+          if (n.slug === s) return n;
+          const found = n.children ? findNode(n.children, s) : null;
+          if (found) return found;
+        }
+        return null;
+      };
+      const node = findNode(subcatTree, selectedSubcat);
+      const slugSet = new Set(node ? collectSlugs([node]) : [selectedSubcat]);
+      result = result.filter(p => slugSet.has(p.categorySlug));
+    }
     if (selectedBrand) result = result.filter(p => p.brand === selectedBrand);
     if (selectedUnit)  result = result.filter(p => p.unit  === selectedUnit);
     if (selectedTag)   result = result.filter(p => (p.tags ?? []).includes(selectedTag));
@@ -407,7 +500,7 @@ export default function CategoryPage() {
   };
 
   const clearFilters = () => setSearchParams(new URLSearchParams());
-  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || selectedSpecs.length > 0 || sortBy !== "default");
+  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || selectedSubcat || selectedSpecs.length > 0 || sortBy !== "default");
 
   const toggleSpec = (specKey: string) => {
     const p = new URLSearchParams(searchParams);
@@ -460,7 +553,14 @@ export default function CategoryPage() {
   }
 
   /* ── Liczba aktywnych filtrów (bez sortowania) ── */
-  const activeFilterCount = [selectedBrand, selectedUnit, selectedTag].filter(Boolean).length + selectedSpecs.length;
+  /* Liczba produktów per categorySlug — dla liczników w drzewie */
+  const subcatCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const p of catProducts) counts[p.categorySlug] = (counts[p.categorySlug] ?? 0) + 1;
+    return counts;
+  }, [catProducts]);
+
+  const activeFilterCount = [selectedBrand, selectedUnit, selectedTag, selectedSubcat].filter(Boolean).length + selectedSpecs.length;
 
   /* ── Mobile Filter Panel — sekcje z checkboxowymi przyciskami ── */
   const MobileFilterPanel = () => (
@@ -510,11 +610,45 @@ export default function CategoryPage() {
         </div>
       )}
 
-      {/* TAGI */}
-      {availableTags.length > 0 && (
+      {/* PODKATEGORIE — drzewo rozwijane */}
+      {cat?.children && (cat.children as TreeNode[]).length > 0 && (
+        <div>
+          <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-2">
+            <ChevronRight className="w-3 h-3 text-[#f81828]" /> Podkategorie
+          </h3>
+          <div className="space-y-0">
+            <div className="flex items-center gap-0.5 min-h-[28px]">
+              <span className="flex-shrink-0 w-5" />
+              <button
+                onClick={() => updateParam("subcat", "")}
+                className={`flex-1 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all ${
+                  !selectedSubcat ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"
+                }`}
+              >
+                Wszystkie podkategorie
+              </button>
+            </div>
+            {(cat.children as TreeNode[]).map(child => (
+              <CategoryTreeNode
+                key={child.id}
+                node={child}
+                depth={0}
+                selectedSubcat={selectedSubcat}
+                onSelect={slug => updateParam("subcat", slug)}
+                counts={subcatCounts}
+                expanded={expandedNodes}
+                toggle={toggleExpand}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAGI — tylko gdy brak podkategorii LUB jako dodatkowy filtr */}
+      {availableTags.length > 0 && !(cat?.children && (cat.children as TreeNode[]).length > 0) && (
         <div>
           <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-3">
-            <Tag className="w-3 h-3 text-[#f81828]" /> Kategoria produktu
+            <Tag className="w-3 h-3 text-[#f81828]" /> Typ produktu
           </h3>
           <div className="space-y-0.5">
             <button onClick={() => updateParam("tag", "")}

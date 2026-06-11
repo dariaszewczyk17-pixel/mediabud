@@ -47,7 +47,8 @@ export default function SearchResultsPage() {
   const featuredOnly = searchParams.get("featured") === "1";
   const newOnly = searchParams.get("new") === "1";
   const sortBy = (searchParams.get("sort") as SortOption) || DEFAULT_SORT;
-  const { data: sanityProducts } = useAllProducts();
+  const { data: sanityProducts, loading: sanityLoading } = useAllProducts();
+  const isLoading = sanityLoading && !sanityProducts;
 
   const brandMode = !query && selectedBrand !== ALL_BRANDS;
 
@@ -69,7 +70,7 @@ export default function SearchResultsPage() {
       : query ? `Wyniki dla: "${query}" | Media Bud` : "Wyszukiwarka produktów | Media Bud",
     description: brandMode
       ? `Pełny katalog produktów ${selectedBrand} w składzie Media Bud Lublin. Materiały budowlane, doradztwo, dostawa.`
-      : query && results.length > 0
+      : query && !isLoading && results.length > 0
         ? `Znaleziono ${results.length} produktów dla zapytania "${query}". Sklep budowlany Media Bud Lublin.`
         : "Wyszukaj materiały budowlane w katalogu Media Bud.",
     noIndex: !brandMode,
@@ -274,8 +275,8 @@ export default function SearchResultsPage() {
               <h1 className="text-3xl md:text-4xl font-black text-white leading-tight font-display mb-2">{brandMode ? `Marka: ${selectedBrand}` : `Wyniki dla: „${query}"`}</h1>
               <p className="text-gray-300 text-sm md:text-base max-w-3xl">
                 {brandMode
-                  ? <><strong className="text-white">{filteredResults.length}</strong> produktów marki <strong className="text-white">{selectedBrand}</strong> w katalogu Media Bud Lublin.</>
-                  : <>Znaleziono <strong className="text-white">{results.length}</strong> dopasowań w produktach z Sanity i lokalnej bazy, a po filtrach pozostało <strong className="text-white">{filteredResults.length}</strong>.</>
+                  ? <><strong className="text-white">{isLoading ? "···" : filteredResults.length}</strong> produktów marki <strong className="text-white">{selectedBrand}</strong> w katalogu Media Bud Lublin.</>
+                  : <>Znaleziono <strong className="text-white">{isLoading ? "···" : results.length}</strong> dopasowań w produktach z Sanity i lokalnej bazy, a po filtrach pozostało <strong className="text-white">{isLoading ? "···" : filteredResults.length}</strong>.</>
                 }
               </p>
             </div>
@@ -332,7 +333,7 @@ export default function SearchResultsPage() {
                   className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <option value={ALL_BRANDS}>Wszystkie marki ({results.length})</option>
+                  <option value={ALL_BRANDS}>Wszystkie marki ({isLoading ? "···" : results.length})</option>
                   {availableBrands.map((brand) => (
                     <option key={brand} value={brand}>{brand} ({brandCounts[brand] ?? 0})</option>
                   ))}
@@ -349,7 +350,7 @@ export default function SearchResultsPage() {
                   className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <option value={ALL_CATEGORIES}>Wszystkie kategorie ({results.length})</option>
+                  <option value={ALL_CATEGORIES}>Wszystkie kategorie ({isLoading ? "···" : results.length})</option>
                   {availableCategories.map((category) => (
                     <option key={category} value={category}>{categoryLabel(category)} ({categoryCounts[category] ?? 0})</option>
                   ))}

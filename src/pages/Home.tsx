@@ -13,6 +13,7 @@ import { ProductCard, QuoteModal } from "@/components/Commerce";
 import { useSEO } from "@/hooks/useSEO";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { IconTarget, IconStack, IconRoute, IconGem, IconShield, IconNetwork, IconPrecision, IconChain, IconLogistics, IconPartnership } from "@/components/FuturisticIcons";
+import { useHeaderAwareReveal } from "@/hooks/useHeaderAwareReveal";
 
 /* ─── Reveal hook ─────────────────────────────────────────────── */
 function useReveal(threshold = 0.05) {
@@ -37,7 +38,10 @@ function useReveal(threshold = 0.05) {
 /* ─── Counter animation ───────────────────────────────────────── */
 function CountUp({ to, suffix = "", prefix = "", duration = 1800, neon = false }: { to: number; suffix?: string; prefix?: string; duration?: number; neon?: boolean }) {
   const [val, setVal] = useState(0);
-  const { ref, visible } = useReveal(0.25);
+  // useHeaderAwareReveal: trigger dopiero gdy licznik jest PONIŻEJ sticky headera
+  // (bez tego counter odpalał gdy był za headerem i użytkownik widział już
+  // gotowe liczby zamiast animacji)
+  const { ref, visible } = useHeaderAwareReveal({ threshold: 0.25 });
   const started = useRef(false);
   useEffect(() => {
     if (!visible || started.current) return;

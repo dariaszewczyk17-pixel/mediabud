@@ -220,6 +220,12 @@ export default function ProductDetail() {
         ...(product.technicalSpec?.length > 0 && {
           "additionalProperty": product.technicalSpec.map(s => ({ "@type": "PropertyValue", "name": s.label, "value": s.value })),
         }),
+        ...(related.length > 0 && {
+          "isRelatedTo": related.map(r => ({ "@type": "Product", "url": `https://mediabud.pl/produkt/${r.slug}`, "name": r.name }))
+        }),
+        ...(similarProducts.length > 0 && {
+          "isSimilarTo": similarProducts.map(s => ({ "@type": "Product", "url": `https://mediabud.pl/produkt/${s.slug}`, "name": s.name }))
+        }),
         "offers": {
           "@type": "Offer", "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition", "priceCurrency": "PLN",
@@ -523,7 +529,7 @@ export default function ProductDetail() {
           </div>
 
           <div className="p-6">
-            {activeTab === "opis" && (
+            <div className={activeTab === "opis" ? "block" : "hidden"}>
               <div className="max-w-3xl">
                 {!(product.description || product.shortDescription) && (
                   <div className="flex flex-col items-center justify-center py-12 text-center gap-3">
@@ -565,10 +571,10 @@ export default function ProductDetail() {
                   ))}
                 </div>
               </div>
-            )}
+            </div>
 
             {/* ── SPECYFIKACJA — futurystyczna tabela glowing rows ── */}
-            {activeTab === "specyfikacja" && (
+            <div className={activeTab === "specyfikacja" ? "block" : "hidden"}>
               <div className="max-w-2xl">
                 {product.technicalSpec.length > 0 ? (
                   <div>
@@ -619,9 +625,9 @@ export default function ProductDetail() {
                   </div>
                 )}
               </div>
-            )}
+            </div>
 
-            {activeTab === "zastosowanie" && (
+            <div className={activeTab === "zastosowanie" ? "block" : "hidden"}>
               <div className="max-w-3xl">
                 <p className="text-gray-400 leading-relaxed text-sm">{product.application}</p>
                 {product.seoDescription && <p className="text-gray-500 leading-relaxed text-sm mt-4">{product.seoDescription}</p>}
@@ -637,51 +643,55 @@ export default function ProductDetail() {
                   </button>
                 </div>
               </div>
-            )}
+            </div>
 
-            {activeTab === "zalety" && product.advantages && (
-              <div className="max-w-3xl space-y-4">
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {product.advantages.map((adv, i) => (
-                    <div key={i} className="flex items-start gap-3 rounded-xl p-4" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
-                      <Check className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-300">{adv}</span>
+            <div className={activeTab === "zalety" ? "block" : "hidden"}>
+              {product.advantages && (
+                <div className="max-w-3xl space-y-4">
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {product.advantages.map((adv, i) => (
+                      <div key={i} className="flex items-start gap-3 rounded-xl p-4" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                        <Check className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm text-gray-300">{adv}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {product.warnings && product.warnings.length > 0 && (
+                    <div className="rounded-xl p-4 mt-4" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.2)" }}>
+                      <div className="flex items-center gap-2 mb-3"><AlertTriangle className="w-4 h-4 text-amber-400" /><span className="text-sm font-bold text-amber-400">Ważne informacje i ostrzeżenia</span></div>
+                      <ul className="space-y-2">
+                        {product.warnings.map((w, i) => (
+                          <li key={i} className="text-sm text-gray-400 flex items-start gap-2"><span className="text-amber-500 mt-0.5 flex-shrink-0">▸</span>{w}</li>
+                        ))}
+                      </ul>
                     </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className={activeTab === "faq" ? "block" : "hidden"}>
+              {product.faq && (
+                <div className="max-w-3xl space-y-3">
+                  <p className="text-xs text-gray-600 mb-4">Najczęściej zadawane pytania dotyczące tego produktu</p>
+                  {product.faq.map((item, i) => (
+                    <details key={i} className="rounded-xl overflow-hidden group" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+                      <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none transition-colors"
+                        style={{ background: "rgba(255,255,255,0.02)" }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(248,24,40,0.05)"; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; }}
+                      >
+                        <span className="text-sm font-semibold text-gray-200 pr-4">{item.q}</span>
+                        <ChevronNext className="w-4 h-4 text-gray-500 flex-shrink-0 group-open:rotate-90 transition-transform" />
+                      </summary>
+                      <div className="px-5 py-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", background: "#080808" }}>
+                        <p className="text-sm text-gray-400 leading-relaxed">{item.a}</p>
+                      </div>
+                    </details>
                   ))}
                 </div>
-                {product.warnings && product.warnings.length > 0 && (
-                  <div className="rounded-xl p-4 mt-4" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.2)" }}>
-                    <div className="flex items-center gap-2 mb-3"><AlertTriangle className="w-4 h-4 text-amber-400" /><span className="text-sm font-bold text-amber-400">Ważne informacje i ostrzeżenia</span></div>
-                    <ul className="space-y-2">
-                      {product.warnings.map((w, i) => (
-                        <li key={i} className="text-sm text-gray-400 flex items-start gap-2"><span className="text-amber-500 mt-0.5 flex-shrink-0">▸</span>{w}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {activeTab === "faq" && product.faq && (
-              <div className="max-w-3xl space-y-3">
-                <p className="text-xs text-gray-600 mb-4">Najczęściej zadawane pytania dotyczące tego produktu</p>
-                {product.faq.map((item, i) => (
-                  <details key={i} className="rounded-xl overflow-hidden group" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
-                    <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none transition-colors"
-                      style={{ background: "rgba(255,255,255,0.02)" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(248,24,40,0.05)"; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; }}
-                    >
-                      <span className="text-sm font-semibold text-gray-200 pr-4">{item.q}</span>
-                      <ChevronNext className="w-4 h-4 text-gray-500 flex-shrink-0 group-open:rotate-90 transition-transform" />
-                    </summary>
-                    <div className="px-5 py-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", background: "#080808" }}>
-                      <p className="text-sm text-gray-400 leading-relaxed">{item.a}</p>
-                    </div>
-                  </details>
-                ))}
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
 

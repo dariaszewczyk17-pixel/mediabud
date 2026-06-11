@@ -19,6 +19,7 @@ export const productSchema = defineType({
     defineField({ group:'basic', name:'unit',     title:'Jednostka (szt, m², worek)', type:'string' }),
     defineField({ group:'basic', name:'brand',    title:'Marka',                      type:'reference', to:[{type:'brand'}] }),
     defineField({ group:'basic', name:'category', title:'Kategoria',                  type:'reference', to:[{type:'category'}], validation:R=>R.required() }),
+defineField({ group:'basic', name:'rootCategory', title:'Kategoria główna (root)', type:'reference', to:[{type:'category'}], description:'Automatycznie wypełniana przez skrypt migracji — ROOT kategorii (poziom 0). Nie edytuj ręcznie.', readOnly:false }),
     defineField({ group:'basic', name:'images',   title:'Zdjęcia produktu',           type:'array', of:[{type:'image',options:{hotspot:true}}] }),
 
     defineField({ group:'basic', name:'priceMin', title:'Cena od (PLN netto)', type:'number' }),

@@ -189,9 +189,9 @@ export default function ProductDetail() {
   }
 
   const sanityChain = (sanityProduct as any)?.categoryChain;
-  const cat         = getCategoryBySlug(product.categorySlug);
-  const breadcrumbs = sanityChain ? buildBreadcrumbs(sanityChain) : getBreadcrumbs(product.categorySlug);
-  const images     = product.images?.length ? product.images : ["/images/placeholder-product_2.png"];
+  const cat         = product ? getCategoryBySlug(product.categorySlug) : null;
+  const breadcrumbs = sanityChain ? buildBreadcrumbs(sanityChain) : (product ? getBreadcrumbs(product.categorySlug) : []);
+  const images     = product?.images?.length ? product.images : ["/images/placeholder-product_2.png"];
 
   const handleAdd = () => {
     addItem(product, qty);

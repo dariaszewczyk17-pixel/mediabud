@@ -568,7 +568,7 @@ export default function CategoryPage() {
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
-  const paginated = filtered.slice((safePage - 1) * PRODUCTS_PER_PAGE, safePage * PRODUCTS_PER_PAGE);
+  const paginated = useMemo(() => filtered.slice((safePage - 1) * PRODUCTS_PER_PAGE, safePage * PRODUCTS_PER_PAGE), [filtered, safePage]);
 
   const updateParam = (key: string, value: string) => {
     const p = new URLSearchParams(searchParams);

@@ -282,22 +282,17 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
           </h3>
         </Link>
 
-        {/* Technical specs chips */}
+        {/* Technical specs - clean grid layout */}
         {techSpecs.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-3">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-1 mb-3 py-2 px-2.5 rounded-lg"
+            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
             {techSpecs.map((spec) => (
-              <span
-                key={spec.key}
-                className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-semibold ${
-                  spec.highlight
-                    ? "bg-[#f81828]/15 text-[#ff6b6b] border border-[#f81828]/30"
-                    : "bg-white/5 text-gray-300 border border-white/10"
-                }`}
-                title={spec.label}
-              >
-                <span className="text-[9px]">{spec.icon}</span>
-                <span className="font-mono">{spec.value}</span>
-              </span>
+              <div key={spec.key} className="flex items-baseline justify-between gap-1">
+                <span className="text-[10px] text-gray-500 uppercase tracking-wide">{spec.label}</span>
+                <span className={`text-[11px] font-bold tabular-nums ${spec.highlight ? "text-[#f81828]" : "text-gray-200"}`}>
+                  {spec.value}
+                </span>
+              </div>
             ))}
           </div>
         )}

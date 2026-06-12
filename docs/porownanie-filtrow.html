@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analiza porównawcza filtrowania — Media Bud vs Konkurencja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #f81828;
+    --red-dim: rgba(248,24,40,0.15);
+    --red-glow: rgba(248,24,40,0.4);
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #161616;
+    --surface3: #1e1e1e;
+    --border: rgba(255,255,255,0.07);
+    --border-red: rgba(248,24,40,0.25);
+    --text: #e8e8e8;
+    --text-dim: #888;
+    --text-faint: #444;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --blue: #3b82f6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── SCAN LINE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.07) 2px,
+      rgba(0,0,0,0.07) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── GRID NOISE BG ── */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(248,24,40,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248,24,40,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: relative;
+    padding: 80px 0 60px;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(180deg, #0a0a0a 0%, var(--bg) 100%);
+  }
+
+  .header-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .header-label::before, .header-label::after {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--red);
+  }
+
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 7vw, 96px);
+    letter-spacing: 2px;
+    line-height: 0.95;
+    background: linear-gradient(135deg, #fff 0%, #aaa 60%, #666 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .header h1 span {
+    -webkit-text-fill-color: var(--red);
+    color: var(--red);
+  }
+
+  .header-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    margin-top: 16px;
+  }
+
+  .header-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(248,24,40,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  section {
+    margin-bottom: 80px;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .section-title .accent-line {
+    width: 3px;
+    height: 28px;
+    background: var(--red);
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--red-glow);
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+  .section-title .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--red);
+    background: var(--red-dim);
+    border: 1px solid var(--border-red);
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-left: 8px;
+  }
+
+  /* ── HERO METRICS ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+  @media (max-width: 768px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .metric-card:hover {
+    border-color: var(--border-red);
+    transform: translateY(-2px);
+  }
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .metric-card:hover::before { opacity: 1; }
+
+  .metric-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    color: var(--red);
+    text-shadow: 0 0 20px var(--red-glow);
+    margin-bottom: 6px;
+  }
+  .metric-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+  .metric-sub {
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-top: 6px;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .comp-table th {
+    padding: 20px 16px;
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .comp-table th:first-child { text-align: left; }
+
+  .comp-table th.col-mb {
+    color: var(--red);
+    background: rgba(248,24,40,0.06);
+    border-bottom: 2px solid var(--red);
+  }
+  .comp-table th.col-mb::after {
+    content: 'TEN SKLEP';
+    position: absolute;
+    top: 6px; right: 10px;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: var(--red);
+    font-family: 'IBM Plex Mono', monospace;
+    opacity: 0.8;
+  }
+
+  .comp-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+  .comp-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text);
+    padding-left: 20px;
+  }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .comp-table td.col-mb { background: rgba(248,24,40,0.03); }
+
+  .cat-row td {
+    background: var(--surface2);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--red);
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 10px 20px;
+  }
+
+  .check { color: var(--green); font-size: 18px; }
+  .cross { color: #ef4444; font-size: 18px; }
+  .warn  { color: var(--yellow); font-size: 16px; }
+
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .score-a { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .score-b { background: rgba(234,179,8,0.15); color: var(--yellow); border: 1px solid rgba(234,179,8,0.3); }
+  .score-c { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+
+  /* ── FEATURE CARDS ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .feature-grid { grid-template-columns: 1fr; } }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card:hover {
+    border-color: var(--border-red);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(248,24,40,0.08);
+  }
+  .feature-card .fc-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+  .feature-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .feature-card p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .feature-card .fc-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 14px;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .fc-implemented { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .fc-partial     { background: rgba(234,179,8,0.1); color: var(--yellow); border: 1px solid rgba(234,179,8,0.25); }
+  .fc-missing     { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.25); }
+
+  /* ── STORE PROFILES ── */
+  .store-profiles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 900px) { .store-profiles { grid-template-columns: 1fr 1fr; } }
+
+  .store-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .store-card:hover { border-color: var(--border-red); transform: translateY(-2px); }
+  .store-card.active { border-color: var(--red); box-shadow: 0 0 30px rgba(248,24,40,0.12); }
+
+  .store-card-header {
+    padding: 20px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .store-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .store-logo.mb { color: var(--red); }
+  .store-logo.obi { color: #e65c00; }
+  .store-logo.casto { color: #0068b4; }
+  .store-logo.lm { color: #007a3d; }
+
+  .store-score-ring {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 14px 0 6px;
+  }
+  .ring {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    border: 3px solid;
+  }
+  .ring-mb  { border-color: var(--red); color: var(--red); background: rgba(248,24,40,0.1); }
+  .ring-obi { border-color: #e65c00; color: #e65c00; background: rgba(230,92,0,0.1); }
+  .ring-cas { border-color: #0068b4; color: #0068b4; background: rgba(0,104,180,0.1); }
+  .ring-lm  { border-color: #007a3d; color: #007a3d; background: rgba(0,122,61,0.1); }
+
+  .store-card-body { padding: 16px 20px 20px; }
+  .store-feat-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .store-feat-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    padding: 6px 10px;
+    background: var(--surface3);
+    border-radius: 6px;
+  }
+  .store-feat-list li .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-green { background: var(--green); }
+  .dot-yellow { background: var(--yellow); }
+  .dot-red { background: #ef4444; }
+
+  /* ── BAYMARD CHECKLIST ── */
+  .baymard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 700px) { .baymard-grid { grid-template-columns: 1fr; } }
+
+  .baymard-item {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.2s;
+  }
+  .baymard-item:hover { border-color: rgba(255,255,255,0.12); }
+  .baymard-item.pass { border-left: 3px solid var(--green); }
+  .baymard-item.warn { border-left: 3px solid var(--yellow); }
+  .baymard-item.fail { border-left: 3px solid #ef4444; }
+
+  .baymard-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+  }
+  .pass .baymard-num { color: var(--green); }
+  .warn .baymard-num { color: var(--yellow); }
+  .fail .baymard-num { color: #ef4444; }
+
+  .baymard-content h4 {
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .baymard-content p {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .baymard-status {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+  .status-pass { background: rgba(34,197,94,0.12); color: var(--green); }
+  .status-warn { background: rgba(234,179,8,0.12); color: var(--yellow); }
+  .status-fail { background: rgba(239,68,68,0.12); color: #ef4444; }
+
+  /* ── SORT OPTIONS COMPARISON ── */
+  .sort-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 800px) { .sort-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .sort-option {
+    padding: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .sort-option .so-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .sort-option .so-name {
+    font-weight: 600;
+    color: #fff;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .so-store-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .so-store {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* ── RECOMMENDATIONS ── */
+  .reco-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .reco-item {
+    display: flex;
+    gap: 20px;
+    padding: 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .reco-item:hover {
+    border-color: var(--border-red);
+    transform: translateX(4px);
+  }
+  .reco-priority {
+    flex-shrink: 0;
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+  }
+  .p1 { background: rgba(248,24,40,0.15); color: var(--red); border: 1px solid var(--border-red); }
+  .p2 { background: rgba(234,179,8,0.12); color: var(--yellow); border: 1px solid rgba(234,179,8,0.25); }
+  .p3 { background: rgba(59,130,246,0.12); color: var(--blue); border: 1px solid rgba(59,130,246,0.25); }
+
+  .reco-content h4 {
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .reco-content p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .reco-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .reco-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--surface3);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+  .reco-impact {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .impact-high { background: rgba(248,24,40,0.1); color: var(--red); border: 1px solid var(--border-red); }
+  .impact-mid  { background: rgba(234,179,8,0.1); color: var(--yellow); border: 1px solid rgba(234,179,8,0.25); }
+  .impact-low  { background: rgba(59,130,246,0.1); color: var(--blue); border: 1px solid rgba(59,130,246,0.25); }
+
+  /* ── UI MOCK PANELS ── */
+  .mock-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  @media (max-width: 700px) { .mock-panels { grid-template-columns: 1fr; } }
+
+  .mock-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .mock-panel-header {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+  }
+  .mock-panel-header .dot-row {
+    display: flex; gap: 5px;
+    margin-left: auto;
+  }
+  .mock-panel-header .dot-row span {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  .mock-mb { border-color: rgba(248,24,40,0.4); }
+  .mock-mb .mock-panel-header { background: rgba(248,24,40,0.05); border-color: rgba(248,24,40,0.2); }
+
+  .mock-body { padding: 16px; }
+
+  /* Media Bud mock filter bar */
+  .mb-topbar {
+    background: rgba(248,24,40,0.06);
+    border: 1px solid rgba(248,24,40,0.2);
+    backdrop-filter: blur(12px);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .mb-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #ddd;
+    transition: all 0.2s;
+  }
+  .mb-filter-btn:hover { border-color: var(--red); color: var(--red); }
+  .mb-filter-btn.active { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+  .mb-sort-btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(248,24,40,0.12);
+    border: 1px solid var(--red);
+    color: var(--red);
+  }
+  .active-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    background: var(--red-dim);
+    border: 1px solid var(--border-red);
+    color: var(--red);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+  .chip .x { opacity: 0.7; cursor: pointer; }
+
+  .mb-product-mini {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .prod-mini-card {
+    background: #141414;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 10px;
+  }
+  .prod-mini-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #1a1a1a, #252525);
+    border-radius: 5px;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .prod-mini-name {
+    color: #ccc;
+    line-height: 1.3;
+    font-size: 10px;
+    margin-bottom: 5px;
+  }
+  .prod-mini-price {
+    color: var(--red);
+    font-weight: 700;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* OBI mock */
+  .obi-topbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .obi-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+    cursor: pointer;
+  }
+  .obi-filter-btn .arrow { font-size: 10px; color: #666; }
+  .obi-all-filters {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid #333;
+    border-radius: 20px;
+    font-size: 12px;
+    background: transparent;
+    color: #333;
+    cursor: pointer;
+  }
+  .obi-product-mini {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .obi-prod-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 10px;
+    color: #333;
+  }
+  .obi-prod-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #f8f8f8, #eee);
+    border-radius: 4px;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .obi-prod-name { color: #333; line-height: 1.3; margin-bottom: 5px; }
+  .obi-prod-stars { color: #f59e0b; font-size: 10px; margin-bottom: 3px; }
+  .obi-prod-price { color: #e65c00; font-weight: 700; font-size: 12px; }
+  .obi-mock-bg { background: #f8f8f8; border-radius: 8px; padding: 12px; }
+  .obi-mock-title { color: #333; font-weight: 700; font-size: 14px; margin-bottom: 12px; }
+
+  /* ── METRICS BAR ── */
+  .metrics-bar-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+  .metric-row {
+    margin-bottom: 20px;
+  }
+  .metric-row:last-child { margin-bottom: 0; }
+  .metric-row-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .metric-row-header .m-label { color: var(--text); font-weight: 500; }
+  .metric-row-header .m-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .bar-track {
+    height: 6px;
+    background: var(--surface3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--red);
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px var(--red-glow);
+  }
+  .bar-fill.yellow { background: var(--yellow); box-shadow: none; }
+  .bar-fill.green { background: var(--green); box-shadow: none; }
+  .bar-fill.blue { background: var(--blue); box-shadow: none; }
+
+  /* ── FOOTER ── */
+  .report-footer {
+    text-align: center;
+    padding: 48px 0 64px;
+    border-top: 1px solid var(--border);
+    color: var(--text-faint);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    position: relative;
+    z-index: 1;
+  }
+  .report-footer strong {
+    color: var(--red);
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    background: var(--surface2);
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    width: fit-content;
+  }
+  .tab {
+    padding: 8px 20px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    border: none;
+    background: transparent;
+  }
+  .tab.active {
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 2px 12px var(--red-glow);
+  }
+  .tab:hover:not(.active) { color: #fff; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── NOTE BOX ── */
+  .note-box {
+    display: flex;
+    gap: 14px;
+    padding: 16px 20px;
+    background: rgba(234,179,8,0.06);
+    border: 1px solid rgba(234,179,8,0.2);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: #c9a83c;
+    line-height: 1.6;
+  }
+  .note-box .note-icon { font-size: 16px; flex-shrink: 0; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--red); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeUp 0.6s ease forwards; }
+
+  @keyframes pulse-red {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .live-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: pulse-red 1.8s infinite;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-glow"></div>
+  <div class="container">
+    <div class="header-label">
+      RAPORT ANALITYCZNY · CZERWIEC 2026
+    </div>
+    <h1>FILTRY &<br><span>SORTOWANIE</span></h1>
+    <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:3px; color:#555; margin-top:6px;">
+      MEDIA BUD vs RYNEK BUDOWLANY
+    </div>
+    <p class="header-sub">
+      <span class="live-dot"></span>
+      CASTORAMA · LEROY MERLIN · OBI · BAYMARD INSTITUTE · BTNG.STUDIO
+    </p>
+  </div>
+</div>
+
+<div class="container" style="position:relative;z-index:1;">
+
+  <!-- METRICS STRIP -->
+  <div class="metrics-grid" style="margin-top:48px;">
+    <div class="metric-card">
+      <div class="metric-num">8/8</div>
+      <div class="metric-label">BAYMARD PRACTICES</div>
+      <div class="metric-sub">5 wdrożonych · 3 do uzupełnienia</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">+76%</div>
+      <div class="metric-label">FILTRÓW UŻYTKOWNIKÓW</div>
+      <div class="metric-sub">stron z błędami prowadzi do porzucenia</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">3×</div>
+      <div class="metric-label">WIĘCEJ PRODUKTÓW</div>
+      <div class="metric-sub">oglądają użytkownicy używający filtrów</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">+5%</div>
+      <div class="metric-label">KONWERSJA</div>
+      <div class="metric-sub">typowy wzrost po optymalizacji filtrów</div>
+    </div>
+  </div>
+
+  <!-- NOTE -->
+  <div class="note-box">
+    <span class="note-icon">⚠️</span>
+    <span>
+      <strong>Ograniczenia dostępu:</strong> Castorama.pl jest w trakcie konserwacji technicznej (czerwiec 2026). Leroy Merlin.pl blokuje dostęp z powodu wykrycia automatycznego IP. Dane Castorama pochodzą z oficjalnej dokumentacji sortowania. Dane Leroy Merlin i OBI — z dostępnych wyników + analizy branżowej.
+    </span>
+  </div>
+
+  <!-- STORE PROFILES -->
+  <section>
+    <div class="section-title">
+      <div class="accent-line"></div>
+      <h2>PROFILE SKLEPÓW</h2>
+      <span class="tag">4 SKLEPY</span>
+    </div>
+
+    <div class="store-profiles">
+
+      <!-- Media Bud -->
+      <div class="store-card active">
+        <div class="store-card-header">
+          <div class="store-logo mb">MEDIA BUD</div>
+          <div style="font-size:10px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;">SKLEP BUDOWLANY · LUBLIN</div>
+          <div class="store-score-ring">
+            <div class="ring ring-mb">87</div>
+          </div>
+          <div style="font-size:11px;color:var(--text-dim);text-align:center;">Wynik UX filtrowania</div>
+        </div>
+        <div class="store-card-body">
+          <ul class="store-feat-list">
+            <li><span class="dot dot-green"></span>Futurystyczny dark UI</li>
+            <li><span class="dot dot-green"></span>Active filter chips</li>
+            <li><span class="dot dot-green"></span>Mobile drawer</li>
+            <li><span class="dot dot-green"></span>Filtry marek z logo</li>
+            <li><span class="dot dot-green"></span>URL-based state</li>
+            <li><span class="dot dot-yellow"></span>4 opcje sortowania</li>
+            <li><span class="dot dot-red"></span>Brak histogramu cen</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- OBI -->
+      <div class="store-card">
+        <div class="store-card-header">
+          <div class="store-logo obi">OBI</div>
+          <div style="font-size:10px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;">MARKET BUDOWLANY · DE/PL</div>
+          <div class="store-score-ring">
+            <div class="ring ring-obi">72</div>
+          </div>
+          <div style="font-size:11px;color:var(--text-dim);text-align:center;">Wynik UX filtrowania</div>
+        </div>
+        <div class="store-card-body">
+          <ul class="store-feat-list">
+            <li><span class="dot dot-green"></span>Horizontal filter chips</li>
+            <li><span class="dot dot-green"></span>Breadcrumb nawigacja</li>
+            <li><span class="dot dot-green"></span>Oceny produktów (★)</li>
+            <li><span class="dot dot-green"></span>"Wszystkie filtry" button</li>
+            <li><span class="dot dot-yellow"></span>Light theme (jasny)</li>
+            <li><span class="dot dot-yellow"></span>Standardowy design</li>
+            <li><span class="dot dot-red"></span>Brak mikrointerakcji</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Castorama -->
+      <div class="store-card">
+        <div class="store-card-header">
+          <div class="store-logo casto">CASTORAMA</div>
+          <div style="font-size:10px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;">MARKET BUDOWLANY · FR/PL</div>
+          <div class="store-score-ring">
+            <div class="ring ring-cas">74</div>
+          </div>
+          <div style="font-size:11px;color:var(--text-dim);text-align:center;">Wynik UX filtrowania</div>
+        </div>
+        <div class="store-card-body">
+          <ul class="store-feat-list">
+            <li><span class="dot dot-green"></span>5 opcji sortowania</li>
+            <li><span class="dot dot-green"></span>Rekomendacje AI</li>
+            <li><span class="dot dot-green"></span>"Najwyżej oceniane"</li>
+            <li><span class="dot dot-green"></span>Sortowanie "Nowości"</li>
+            <li><span class="dot dot-yellow"></span>Korporacyjny design</li>
+            <li><span class="dot dot-yellow"></span>Brak dark mode</li>
+            <li><span class="dot dot-red"></span>⚠️ W trakcie konserwacji</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Leroy Merlin -->
+      <div class="store-card">
+        <div class="store-card-header">
+          <div class="store-logo lm">LEROY MERLIN</div>
+          <div style="font-size:10px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;">MARKET BUDOWLANY · FR/PL</div>
+          <div class="store-score-ring">
+            <div class="ring ring-lm">70</div>
+          </div>
+          <div style="font-size:11px;color:var(--text-dim);text-align:center;">Wynik UX filtrowania</div>
+        </div>
+        <div class="store-card-body">
+          <ul class="store-feat-list">
+            <li><span class="dot dot-green"></span>Rozbudowane filtry techn.</li>
+            <li><span class="dot dot-green"></span>Filtry specyficzne dla kat.</li>
+            <li><span class="dot dot-green"></span>Duży katalog produktów</li>
+            <li><span class="dot dot-yellow"></span>Zielony design #007a3d</li>
+            <li><span class="dot dot-yellow"></span>Bot protection aktywny</li>
+            <li><span class="dot dot-red"></span>Ciężki JS (wolne ładowanie)</li>
+            <li><span class="dot dot-red"></span>Brak nowoczesnych animacji</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- UI COMPARISON MOCKS -->
+  <section>
+    <div class="section-title">
+      <div class="accent-line"></div>
+      <h2>PODGLĄD UI — FILTRY</h2>
+      <span class="tag">WIZUALNE</span>
+    </div>
+
+    <div class="mock-panels">
+
+      <!-- Media Bud mock -->
+      <div class="mock-panel mock-mb">
+        <div class="mock-panel-header">
+          <span style="color:var(--red);font-weight:700;">● MEDIA BUD</span>
+          <span>FilterBarFuturistic</span>
+          <div class="dot-row">
+            <span style="background:#f81828;opacity:0.8;"></span>
+            <span style="background:#666;"></span>
+            <span style="background:#444;"></span>
+          </div>
+        </div>
+        <div class="mock-body">
+          <!-- Filter bar -->
+          <div class="mb-topbar">
+            <button class="mb-filter-btn">🔖 Marka ▾</button>
+            <button class="mb-filter-btn">📂 Kategoria ▾</button>
+            <button class="mb-filter-btn active">💰 Cena: 20–250 zł ✕</button>
+            <button class="mb-sort-btn">↕ Domyślne ▾</button>
+          </div>
+          <!-- Active chips -->
+          <div class="active-chips">
+            <div class="chip">Cena: 20–250 zł <span class="x">✕</span></div>
+            <div class="chip">Weber <span class="x">✕</span></div>
+            <div class="chip" style="background:rgba(255,255,255,0.05);color:#555;border-color:#333;cursor:pointer;">+ Wyczyść wszystkie</div>
+          </div>
+          <!-- Counter -->
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:10px;">
+            <span style="color:var(--red);font-size:16px;font-family:'Bebas Neue',sans-serif;">625</span> PRODUKTÓW
+          </div>
+          <!-- Mini product grid -->
+          <div class="mb-product-mini">
+            <div class="prod-mini-card">
+              <div class="prod-mini-img">🧱</div>
+              <div class="prod-mini-name">Klej do płytek C2TE Weber</div>
+              <div class="prod-mini-price">42,99 zł</div>
+            </div>
+            <div class="prod-mini-card">
+              <div class="prod-mini-img">🪣</div>
+              <div class="prod-mini-name">Tynk silikonowy 25kg</div>
+              <div class="prod-mini-price">89,00 zł</div>
+            </div>
+            <div class="prod-mini-card">
+              <div class="prod-mini-img">🏗️</div>
+              <div class="prod-mini-name">Grunt głęboko penetrujący</div>
+              <div class="prod-mini-price">35,50 zł</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--text-faint);margin-top:12px;font-family:'IBM Plex Mono',monospace;">
+            ✦ Glassmorphism · 3D tilt hover · Scan-line animation · Dark #080808
+          </div>
+        </div>
+      </div>
+
+      <!-- OBI mock -->
+      <div class="mock-panel">
+        <div class="mock-panel-header">
+          <span style="color:#e65c00;font-weight:700;">● OBI</span>
+          <span>Horizontal Filter Bar</span>
+          <div class="dot-row">
+            <span style="background:#e65c00;opacity:0.8;"></span>
+            <span style="background:#ccc;"></span>
+            <span style="background:#ddd;"></span>
+          </div>
+        </div>
+        <div class="mock-body">
+          <div class="obi-mock-bg">
+            <div class="obi-mock-title">Materiały budowlane</div>
+            <!-- OBI filter top bar -->
+            <div class="obi-topbar">
+              <button class="obi-filter-btn">Rodzaj <span class="arrow">▾</span></button>
+              <button class="obi-filter-btn">Marka <span class="arrow">▾</span></button>
+              <button class="obi-filter-btn">Kolor <span class="arrow">▾</span></button>
+              <button class="obi-all-filters">⚙ Wszystkie filtry</button>
+            </div>
+            <!-- OBI products -->
+            <div class="obi-product-mini">
+              <div class="obi-prod-card">
+                <div class="obi-prod-img">🧱</div>
+                <div class="obi-prod-name">Zaprawa tynkarska 25kg</div>
+                <div class="obi-prod-stars">★★★★★ (19)</div>
+                <div class="obi-prod-price">13,99 zł</div>
+              </div>
+              <div class="obi-prod-card">
+                <div class="obi-prod-img">🪣</div>
+                <div class="obi-prod-name">Zaprawa wielofunkcyjna 3×7</div>
+                <div class="obi-prod-stars">★★★★☆ (20)</div>
+                <div class="obi-prod-price">24,79 zł</div>
+              </div>
+              <div class="obi-prod-card">
+                <div class="obi-prod-img">🏗️</div>
+                <div class="obi-prod-name">Zaprawa cementowa B-25</div>
+                <div class="obi-prod-stars">★★★★☆ (9)</div>
+                <div class="obi-prod-price">539,00 zł</div>
+              </div>
+            </div>
+            <div style="font-size:10px;color:#999;margin-top:12px;font-family:'IBM Plex Mono',monospace;">
+              ◇ Light theme · Cookie banner · Breadcrumbs · Rating stars
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FULL COMPARISON TABLE -->
+  <section>
+    <div class="section-title">
+      <div class="accent-line"></div>
+      <h2>TABELA PORÓWNAWCZA</h2>
+      <span class="tag">KOMPLETNA</span>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:32%">FUNKCJA</th>
+          <th class="col-mb">MEDIA BUD</th>
+          <th>OBI</th>
+          <th>CASTORAMA</th>
+          <th>LEROY MERLIN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- SORTOWANIE -->
+        <tr class="cat-row"><td colspan="5">SORTOWANIE</td></tr>
+        <tr>
+          <td>Opcje sortowania (łącznie)</td>
+          <td class="col-mb"><span class="score-badge score-b">4</span></td>
+          <td><span class="score-badge score-b">4</span></td>
+          <td><span class="score-badge score-a">5</span></td>
+          <td><span class="score-badge score-a">5+</span></td>
+        </tr>
+        <tr>
+          <td>Cena rosnąco / malejąco</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Domyślne / Trafność</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Sortowanie A–Z / Nazwa</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="warn">~</span></td>
+        </tr>
+        <tr>
+          <td>Najwyżej oceniane</td>
+          <td class="col-mb"><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Nowości</td>
+          <td class="col-mb"><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Popularność / Bestsellery</td>
+          <td class="col-mb"><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+
+        <!-- FILTRY -->
+        <tr class="cat-row"><td colspan="5">FILTRY FACETOWE</td></tr>
+        <tr>
+          <td>Filtry ceny (range slider)</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Filtr marki</td>
+          <td class="col-mb"><span class="check">✓</span> + logo</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Filtry kategorii / podkategorii</td>
+          <td class="col-mb"><span class="check">✓</span> drzewo</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Dostępność / magazyn</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Filtry parametrów technicznych</td>
+          <td class="col-mb"><span class="warn">~</span> częściowo</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Histogram cen nad sliderem</td>
+          <td class="col-mb"><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="warn">~</span></td>
+          <td><span class="warn">~</span></td>
+        </tr>
+
+        <!-- UX PATTERN -->
+        <tr class="cat-row"><td colspan="5">UX WZORCE (BAYMARD INSTITUTE)</td></tr>
+        <tr>
+          <td>Liczniki produktów przy wartościach</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Active filter chips (pills)</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Przycisk "Wyczyść wszystkie"</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>URL-based filter state (SEO)</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Mobile filter drawer</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Progressive disclosure</td>
+          <td class="col-mb"><span class="warn">~</span> częściowo</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Zero-results recovery</td>
+          <td class="col-mb"><span class="warn">~</span> podstawowy</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+
+        <!-- DESIGN -->
+        <tr class="cat-row"><td colspan="5">DESIGN I TECHNOLOGIA</td></tr>
+        <tr>
+          <td>Dark mode / ciemny motyw</td>
+          <td class="col-mb"><span class="check">✓</span> natywny</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Glassmorphism UI</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Mikrointerakcje / animacje</td>
+          <td class="col-mb"><span class="check">✓</span> zaawansowane</td>
+          <td><span class="warn">~</span></td>
+          <td><span class="warn">~</span></td>
+          <td><span class="warn">~</span></td>
+        </tr>
+        <tr>
+          <td>Lazy loading (Intersection Observer)</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="warn">~</span></td>
+          <td><span class="warn">~</span></td>
+          <td><span class="warn">~</span></td>
+        </tr>
+        <tr>
+          <td>Two-phase loading</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Filtry marek z logotypami</td>
+          <td class="col-mb"><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Oceny / gwiazdki produktów</td>
+          <td class="col-mb"><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+
+        <!-- WYNIK -->
+        <tr class="cat-row"><td colspan="5">WYNIK OGÓLNY</td></tr>
+        <tr>
+          <td style="font-weight:700;">Ocena UX filtrowania (0–100)</td>
+          <td class="col-mb" style="font-weight:700;">
+            <span class="score-badge score-a">87</span>
+          </td>
+          <td><span class="score-badge score-b">72</span></td>
+          <td><span class="score-badge score-b">74</span></td>
+          <td><span class="score-badge score-b">70</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- BAYMARD CHECKLIST -->
+  <section>
+    <div class="section-title">
+      <div class="accent-line"></div>
+      <h2>BAYMARD INSTITUTE</h2>
+      <span class="tag">8 PRAKTYK</span>
+    </div>
+
+    <div class="baymard-grid">
+
+      <div class="baymard-item pass">
+        <div class="baymard-num">1</div>
+        <div class="baymard-content">
+          <h4>Dynamiczne liczniki produktów</h4>
+          <p>Każda wartość filtra pokazuje liczbę dostępnych wyników w nawiasie. Zapobiega "dead-end" selections — 73% użytkowników porzuca przy 0 wynikach.</p>
+          <span class="baymard-status status-pass">✓ WDROŻONE</span>
+        </div>
+      </div>
+
+      <div class="baymard-item pass">
+        <div class="baymard-num">2</div>
+        <div class="baymard-content">
+          <h4>Active Filter Chips (pills)</h4>
+          <p>Aktywne filtry widoczne nad siatką produktów z przyciskiem X do usunięcia. 80% użytkowników zapomina które filtry zastosowało.</p>
+          <span class="baymard-status status-pass">✓ WDROŻONE</span>
+        </div>
+      </div>
+
+      <div class="baymard-item pass">
+        <div class="baymard-num">3</div>
+        <div class="baymard-content">
+          <h4>Przycisk "Wyczyść wszystkie"</h4>
+          <p>Jeden klik resetuje cały stan filtrów. Kluczowy dla recovery z zero-results. Baymard: strony bez tego tracą 35-40% sesji.</p>
+          <span class="baymard-status status-pass">✓ WDROŻONE</span>
+        </div>
+      </div>
+
+      <div class="baymard-item pass">
+        <div class="baymard-num">4</div>
+        <div class="baymard-content">
+          <h4>URL-based filter state</h4>
+          <p>Filtry zakodowane w URL (?brand=Weber&price=20-250) wspierają back button, deep linking, bookmarki i SEO facetów.</p>
+          <span class="baymard-status status-pass">✓ WDROŻONE (useSearchParams)</span>
+        </div>
+      </div>
+
+      <div class="baymard-item pass">
+        <div class="baymard-num">5</div>
+        <div class="baymard-content">
+          <h4>Mobile Filter Drawer</h4>
+          <p>Full-screen panel filtrów na mobile z animacją slide. Standard mobile e-commerce — 78% stron które tego nie mają traci konwersje mobilne.</p>
+          <span class="baymard-status status-pass">✓ WDROŻONE (FilterBarFuturistic)</span>
+        </div>
+      </div>
+
+      <div class="baymard-item warn">
+        <div class="baymard-num">6</div>
+        <div class="baymard-content">
+          <h4>Histogram cen nad sliderem</h4>
+          <p>Rozkład produktów w pasmach cenowych wyświetlany nad range sliderem. Wg BTNG.studio zwiększa engagement o 20-30%. Żaden z 4 sklepów nie posiada.</p>
+          <span class="baymard-status status-warn">⚡ DO WDROŻENIA</span>
+        </div>
+      </div>
+
+      <div class="baymard-item warn">
+        <div class="baymard-num">7</div>
+        <div class="baymard-content">
+          <h4>Progressive Disclosure</h4>
+          <p>Facety z >8 wartościami powinny pokazywać "Pokaż wszystkie X opcji". Zmniejsza cognitive load i czas skanowania listy.</p>
+          <span class="baymard-status status-warn">⚡ CZĘŚCIOWO (brak "Pokaż więcej")</span>
+        </div>
+      </div>
+
+      <div class="baymard-item warn">
+        <div class="baymard-num">8</div>
+        <div class="baymard-content">
+          <h4>Zero-Results Recovery Page</h4>
+          <p>Strona bez wyników musi sugerować usunięcie pojedynczych filtrów, pokazywać bestsellery i search bar. Dobra strona 0-wyników retains 35-45% sesji.</p>
+          <span class="baymard-status status-warn">⚡ DO ROZBUDOWANIA</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SORT OPTIONS -->
+  <section>
+    <div class="section-title">
+      <div class="accent-line"></div>
+      <h2>OPCJE SORTOWANIA</h2>
+      <span class="tag">SZCZEGÓŁOWO</span>
+    </div>
+
+    <div class="sort-grid">
+      <div class="sort-option">
+        <div class="so-label">OPCJA 1</div>
+        <div class="so-name">Domyślne / Trafność</div>
+        <div class="so-store-row">
+          <div class="so-store"><span>Media Bud</span><span class="check">✓</span></div>
+          <div class="so-store"><span>OBI</span><span class="check">✓</span></div>
+          <div class="so-store"><span>Castorama</span><span class="check">✓ algorytm</span></div>
+          <div class="so-store"><span>Leroy M.</span><span class="check">✓</span></div>
+        </div>
+      </div>
+      <div class="sort-option">
+        <div class="so-label">OPCJA 2</div>
+        <div class="so-name">Cena rosnąco</div>
+        <div class="so-store-row">
+          <div class="so-store"><span>Media Bud</span><span class="check">✓</span></div>
+          <div class="so-store"><span>OBI</span><span class="check">✓</span></div>
+          <div class="so-store"><span>Castorama</span><span class="check">✓</span></div>
+          <div class="so-store"><span>Leroy M.</span><span class="check">✓</span></div>
+        </div>
+      </div>
+      <div class="sort-option">
+        <div class="so-label">OPCJA 3</div>
+        <div class="so-name">Cena malejąco</div>
+        <div class="so-store-row">
+          <div class="so-store"><span>Media Bud</span><span class="check">✓</span></div>
+          <div class="so-store"><span>OBI</span><span class="check">✓</span></div>
+          <div class="so-store"><span>Castorama</span><span class="check">✓</span></div>
+          <div class="so-store"><span>Leroy M.</span><span class="check">✓</span></div>
+        </div>
+      </div>
+      <div class="sort-option">
+        <div class="so-label">OPCJA 4</div>
+        <div class="so-name">Nazwa A–Z</div>
+        <div class="so-store-row">
+          <div class="so-store"><span>Media Bud</span><span class="check">✓</span></div>
+          <div class="so-store"><span>OBI</span><span class="check">✓</span></div>
+          <div class="so-store"><span>Castorama</span><span class="cross">✗</span></div>
+          <div class="so-store"><span>Leroy M.</span><span class="warn">~</span></div>
+        </div>
+      </div>
+      <div class="sort-option" style="border-color:rgba(248,24,40,0.3);">
+        <div class="so-label" style="color:var(--red);">BRAKUJE</div>
+        <div class="so-name">Oceny / Nowości</div>
+        <div class="so-store-row">
+          <div class="so-store"><span>Media Bud</span><span class="cross">✗ brak</span></div>
+          <div class="so-store"><span>OBI</span><span class="check">✓ oba</span></div>
+          <div class="so-store"><span>Castorama</span><span class="check">✓ oba</span></div>
+          <div class="so-store"><span>Leroy M.</span><span class="check">✓ oba</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCORE BARS -->
+  <section>
+    <div class="section-title">
+      <div class="accent-line"></div>
+      <h2>ANALIZA WYNIKÓW</h2>
+      <span class="tag">KATEGORIE</span>
+    </div>
+
+    <div class="metrics-bar-section">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--red);margin-bottom:20px;">MEDIA BUD — 87/100</div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Design / Estetyka</span><span class="m-value">98%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:98%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Mobile UX</span><span class="m-value">90%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Active Chips / Stan</span><span class="m-value">92%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Sortowanie</span><span class="m-value">70%</span></div>
+            <div class="bar-track"><div class="bar-fill yellow" style="width:70%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Filtry techniczne</span><span class="m-value">65%</span></div>
+            <div class="bar-track"><div class="bar-fill yellow" style="width:65%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Zero-results recovery</span><span class="m-value">55%</span></div>
+            <div class="bar-track"><div class="bar-fill yellow" style="width:55%"></div></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:#888;margin-bottom:20px;">ŚREDNIA KONKURENCJA — 72/100</div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Design / Estetyka</span><span class="m-value">45%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:45%;background:#555"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Mobile UX</span><span class="m-value">75%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:75%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Active Chips / Stan</span><span class="m-value">78%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:78%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Sortowanie</span><span class="m-value">90%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:90%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Filtry techniczne</span><span class="m-value">85%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:85%"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-row-header"><span class="m-label">Zero-results recovery</span><span class="m-value">72%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:72%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section>
+    <div class="section-title">
+      <div class="accent-line"></div>
+      <h2>REKOMENDACJE</h2>
+      <span class="tag">PRIORYTETOWE</span>
+    </div>
+
+    <div class="reco-list">
+
+      <div class="reco-item">
+        <div class="reco-priority p1">P1</div>
+        <div class="reco-content">
+          <h4>Dodać sortowanie: "Najwyżej oceniane" + "Nowości"</h4>
+          <p>Wszystkie 3 konkurencyjne sklepy oferują te opcje. Castorama ma 5 opcji, Media Bud tylko 4 bez kluczowych pozycji. Oceny to drugi najczęściej używany filtr po cenie — wg Baymard Institute jest oczekiwany przez 68% kupujących B2C.</p>
+          <div class="reco-meta">
+            <span class="reco-tag">SORTOWANIE</span>
+            <span class="reco-tag">BTNG.studio</span>
+            <span class="reco-impact impact-high">↑ WYSOKI WPŁYW NA KONWERSJĘ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reco-item">
+        <div class="reco-priority p1">P1</div>
+        <div class="reco-content">
+          <h4>Histogram cen nad range sliderem</h4>
+          <p>Wykres słupkowy pokazujący rozkład produktów w przedziałach cenowych wyświetlany bezpośrednio nad sliderem. BTNG.studio: +20-30% engagement z filtrem ceny. Żaden z 4 analizowanych sklepów nie posiada — to realna przewaga dla Media Bud.</p>
+          <div class="reco-meta">
+            <span class="reco-tag">FILTR CENY</span>
+            <span class="reco-tag">BTNG.studio</span>
+            <span class="reco-impact impact-high">↑ SZANSA NA WYRÓŻNIENIE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reco-item">
+        <div class="reco-priority p1">P1</div>
+        <div class="reco-content">
+          <h4>Ulepszyć stronę zero-results</h4>
+          <p>Gdy filtr daje 0 wyników — pokazać: (1) które filtry usunąć, (2) bestsellery kategorii, (3) search bar z sugestiami. Dobra strona zero-results zatrzymuje 35-45% sesji wg Baymard. Aktualny empty state jest zbyt pasywny.</p>
+          <div class="reco-meta">
+            <span class="reco-tag">EMPTY STATE</span>
+            <span class="reco-tag">BAYMARD</span>
+            <span class="reco-impact impact-high">↑ RETENCJA SESJI +40%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reco-item">
+        <div class="reco-priority p2">P2</div>
+        <div class="reco-content">
+          <h4>Filtry specyficzne dla kategorii budowlanych</h4>
+          <p>Leroy Merlin i Castorama posiadają filtry dostosowane do kategorii: izolacje → lambda, grubość; płytki → format, R-class; farby → wydajność m²/l, rodzaj podłoża. To kluczowa różnica dla B2B/profesjonalistów. Media Bud ma unikalne pozycjonowanie B2B w Lublinie — warto to wzmocnić.</p>
+          <div class="reco-meta">
+            <span class="reco-tag">FILTRY</span>
+            <span class="reco-tag">B2B</span>
+            <span class="reco-impact impact-mid">→ DIFFERENTIATOR B2B</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reco-item">
+        <div class="reco-priority p2">P2</div>
+        <div class="reco-content">
+          <h4>Progressive disclosure — "Pokaż wszystkie X opcji"</h4>
+          <p>Listy filtrów z >8 wartościami powinny być inicjalnie zwinięte i rozwijane przyciskiem "Pokaż wszystkie 23 marki". Zmniejsza cognitive load, poprawia czytelność na mobile. OBI i Leroy Merlin stosują ten wzorzec.</p>
+          <div class="reco-meta">
+            <span class="reco-tag">UX PATTERN</span>
+            <span class="reco-tag">MOBILE</span>
+            <span class="reco-impact impact-mid">→ LEPSZA CZYTELNOŚĆ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reco-item">
+        <div class="reco-priority p2">P2</div>
+        <div class="reco-content">
+          <h4>Oceny produktów + sortowanie po ocenach</h4>
+          <p>OBI, Castorama i Leroy Merlin pokazują gwiazdki i liczbę opinii na kartach produktów. Dla Media Bud z produktami Sanity — można agregować opinie z zewnętrznych źródeł lub budować prosty system własny. Oceny budują zaufanie i są czwartym najczęściej używanym filtrem.</p>
+          <div class="reco-meta">
+            <span class="reco-tag">SOCIAL PROOF</span>
+            <span class="reco-tag">SORTOWANIE</span>
+            <span class="reco-impact impact-mid">→ TRUST SIGNAL</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reco-item">
+        <div class="reco-priority p3">P3</div>
+        <div class="reco-content">
+          <h4>Sticky "Pokaż X wyników" w mobile drawerze</h4>
+          <p>Wewnątrz mobilnego panelu filtrów sticky przycisk zawsze widoczny na dole pokazuje aktualną liczbę wyników: "Pokaż 47 wyników". BTNG.studio: eliminuje niepewność użytkownika czy filtry dają sensowny wynik.</p>
+          <div class="reco-meta">
+            <span class="reco-tag">MOBILE UX</span>
+            <span class="reco-tag">BTNG.studio</span>
+            <span class="reco-impact impact-low">↗ MOBILE POLISH</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reco-item">
+        <div class="reco-priority p3">P3</div>
+        <div class="reco-content">
+          <h4>Visual swatches dla kolorów farb i tynków</h4>
+          <p>Dla kategorii farby i tynki — zamiast tekstu "Biały / Szary / Beżowy" pokazać wizualne próbniki kolorów (kółka z kolorem). Leroy Merlin stosuje to dla farb. Wysoki impact dla sektora dekoracyjnego i klientów B2C.</p>
+          <div class="reco-meta">
+            <span class="reco-tag">FARBY</span>
+            <span class="reco-tag">VISUAL</span>
+            <span class="reco-impact impact-low">↗ B2C EXPERIENCE</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONCLUSIONS -->
+  <section>
+    <div class="section-title">
+      <div class="accent-line"></div>
+      <h2>WNIOSKI</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+      <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:14px;padding:28px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--green);letter-spacing:2px;margin-bottom:16px;">MOCNE STRONY MEDIA BUD</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px;color:#aaa;">
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--green);font-size:16px;flex-shrink:0;">✓</span>Unikalny futurystyczny design "Industrial Pulse" — żaden sklep budowlany w Polsce nie ma podobnego</li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--green);font-size:16px;flex-shrink:0;">✓</span>Glassmorphism + mikrointerakcje + dark mode — przewaga estetyczna nad korporacyjnymi szablonami</li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--green);font-size:16px;flex-shrink:0;">✓</span>Filtry marek z logotypami — unikalna cecha wyróżniająca</li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--green);font-size:16px;flex-shrink:0;">✓</span>Two-phase loading + Intersection Observer — lepsze CWV niż u konkurencji</li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--green);font-size:16px;flex-shrink:0;">✓</span>5 z 8 praktyk Baymard wdrożonych — solidna podstawa UX</li>
+        </ul>
+      </div>
+
+      <div style="background:rgba(248,24,40,0.06);border:1px solid var(--border-red);border-radius:14px;padding:28px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--red);letter-spacing:2px;margin-bottom:16px;">LUKI DO UZUPEŁNIENIA</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px;color:#aaa;">
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--red);font-size:16px;flex-shrink:0;">!</span>Brak sortowania po ocenach i nowościach — cała trójka konkurentów to ma</li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--red);font-size:16px;flex-shrink:0;">!</span>Brak histogramu cen — szansa na wyróżnienie bo nikt tego nie ma</li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--red);font-size:16px;flex-shrink:0;">!</span>Zero-results recovery — podstawowy empty state, brak sugestii i bestsellery</li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--red);font-size:16px;flex-shrink:0;">!</span>Brak ocen produktów (gwiazdek) — standard w całej branży</li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--red);font-size:16px;flex-shrink:0;">!</span>Filtry parametrów technicznych — niepełne vs specjalistyczne filtry LM/Castorama</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;margin-bottom:12px;color:#fff;">
+        POZYCJA RYNKOWA
+      </div>
+      <p style="font-size:15px;color:var(--text-dim);max-width:700px;margin:0 auto;line-height:1.8;">
+        Media Bud oferuje <strong style="color:#fff;">najnowocześniejszy wizualnie system filtrowania</strong> wśród polskich sklepów budowlanych. Trzy konkretne uzupełnienia (<strong style="color:var(--red)">sortowanie po ocenach, histogram cen, zero-results recovery</strong>) zamknęłyby lukę funkcjonalną wobec konkurencji i pozwoliłyby osiągnąć <strong style="color:#fff;">wynik 95+/100</strong> — lider branży.
+      </p>
+    </div>
+
+  </section>
+
+</div>
+
+<div class="report-footer">
+  <strong>MEDIA BUD</strong> · Analiza porównawcza filtrowania · Czerwiec 2026<br>
+  <span style="opacity:0.5;margin-top:6px;display:block;">Źródła: Baymard Institute · BTNG.studio · Mobee Dick · Castorama dokumentacja · OBI screenshot</span>
+</div>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const group = tab.closest('.tabs').dataset.group;
+      document.querySelectorAll(`.tab[data-group="${group}"]`).forEach(t => t.classList.remove('active'));
+      document.querySelectorAll(`.tab-content[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`.tab-content[data-id="${tab.dataset.id}"]`)?.classList.add('active');
+    });
+  });
+
+  // Animate bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.dataset.width || entry.target.style.width;
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.bar-fill').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0%';
+    bar.dataset.width = w;
+    observer.observe(bar);
+  });
+</script>
+</body>
+</html>

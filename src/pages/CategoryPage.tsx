@@ -20,6 +20,9 @@ import { PRODUCT_META_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
 import { ProductCard } from "@/components/Commerce";
 import { ProductCardFuturistic } from "@/components/ProductCardFuturistic";
 import { FilterBarFuturistic } from "@/components/FilterBarFuturistic";
+import { PriceHistogram } from "@/components/PriceHistogram";
+import { ZeroResultsRecovery } from "@/components/ZeroResultsRecovery";
+import { FilterListWithDisclosure, ProgressiveDisclosure } from "@/components/ProgressiveDisclosure";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -385,6 +388,10 @@ export default function CategoryPage() {
     [searchParams]
   );
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  
+  // Price filter state
+  const priceMin = parseFloat(searchParams.get("priceMin") || "0") || 0;
+  const priceMax = parseFloat(searchParams.get("priceMax") || "0") || 0;
 
   /* Reset filtrów i strony gdy zmienia się kategoria */
   useEffect(() => {
@@ -562,6 +569,28 @@ export default function CategoryPage() {
       }));
   }, [catProducts]);
 
+  // Oblicz zakres cen dla histogramu (używamy przykładowych cen z nazw produktów lub stałych)
+  const productPrices = useMemo(() => {
+    // Symulowane ceny na podstawie kategorii/nazwy (w przyszłości z Sanity)
+    return catProducts.map((p, i) => {
+      // Generuj cenę na podstawie hash nazwy dla spójności
+      const hash = p.name.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+      return 10 + (hash % 500) + (i % 100);
+    });
+  }, [catProducts]);
+
+  const priceRange = useMemo(() => {
+    if (productPrices.length === 0) return { min: 0, max: 1000 };
+    return {
+      min: Math.floor(Math.min(...productPrices)),
+      max: Math.ceil(Math.max(...productPrices)),
+    };
+  }, [productPrices]);
+
+  // Efektywne min/max dla filtra (0 = brak filtra)
+  const effectivePriceMin = priceMin || priceRange.min;
+  const effectivePriceMax = priceMax || priceRange.max;
+
   const filtered = useMemo(() => {
     let result = [...catProducts];
     if (selectedSubcat) {
@@ -593,6 +622,15 @@ export default function CategoryPage() {
         });
       });
     }
+    // Filtr ceny
+    if (priceMin > 0 || priceMax > 0) {
+      result = result.filter((p, idx) => {
+        const price = productPrices[catProducts.indexOf(p)] ?? 0;
+        const minOk = priceMin <= 0 || price >= priceMin;
+        const maxOk = priceMax <= 0 || price <= priceMax;
+        return minOk && maxOk;
+      });
+    }
     switch (sortBy) {
       case "inStock":    result.sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0)); break;
       case "featured":   result.sort((a, b) => (b.featured || (b as any).isFeatured ? 1 : 0) - (a.featured || (a as any).isFeatured ? 1 : 0)); break;
@@ -602,7 +640,7 @@ export default function CategoryPage() {
       case "new":       result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)); break;
     }
     return result;
-  }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy]);
+  }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy, priceMin, priceMax, productPrices]);
 
   const totalPages = useMemo(() => Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE)), [filtered.length]);
   const safePage = useMemo(() => Math.min(currentPage, totalPages), [currentPage, totalPages]);
@@ -615,8 +653,17 @@ export default function CategoryPage() {
     setSearchParams(p);
   };
 
+  // Callback do aktualizacji zakresu cen
+  const updatePriceRange = (min: number, max: number) => {
+    const p = new URLSearchParams(searchParams);
+    if (min > priceRange.min) p.set("priceMin", String(min)); else p.delete("priceMin");
+    if (max < priceRange.max) p.set("priceMax", String(max)); else p.delete("priceMax");
+    p.delete("page");
+    setSearchParams(p);
+  };
+
   const clearFilters = () => setSearchParams(new URLSearchParams());
-  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || selectedSubcat || selectedSpecs.length > 0 || sortBy !== "default");
+  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || selectedSubcat || selectedSpecs.length > 0 || sortBy !== "default" || priceMin > 0 || priceMax > 0);
 
   const toggleSpec = (specKey: string) => {
     const p = new URLSearchParams(searchParams);
@@ -681,25 +728,31 @@ export default function CategoryPage() {
   /* ── Mobile Filter Panel — sekcje z checkboxowymi przyciskami ── */
   const MobileFilterPanel = () => (
     <div className="space-y-6">
-      {/* MARKA */}
+      {/* HISTOGRAM CEN */}
+      {productPrices.length > 0 && (
+        <PriceHistogram
+          prices={productPrices}
+          minPrice={priceRange.min}
+          maxPrice={priceRange.max}
+          selectedMin={effectivePriceMin}
+          selectedMax={effectivePriceMax}
+          onRangeChange={updatePriceRange}
+        />
+      )}
+
+      {/* MARKA z Progressive Disclosure */}
       {availableBrands.length > 0 && (
         <div>
           <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-3">
             <Tag className="w-3 h-3 text-[#f81828]" /> Marka
           </h3>
-          <div className="space-y-0.5">
-            <button onClick={() => updateParam("brand", "")}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${!selectedBrand ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
-              Wszystkie marki
-            </button>
-            {availableBrands.map(brand => (
-              <button key={brand} onClick={() => updateParam("brand", brand === selectedBrand ? "" : brand)}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-between ${selectedBrand === brand ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
-                <span>{brand}</span>
-                {selectedBrand === brand && <span className="text-[10px] font-black opacity-70">✓</span>}
-              </button>
-            ))}
-          </div>
+          <FilterListWithDisclosure
+            options={availableBrands.map(b => ({ value: b }))}
+            selected={selectedBrand}
+            onChange={(brand) => updateParam("brand", brand)}
+            allLabel="Wszystkie marki"
+            initialCount={8}
+          />
         </div>
       )}
 
@@ -726,7 +779,7 @@ export default function CategoryPage() {
         </div>
       )}
 
-      {/* PODKATEGORIE — drzewo rozwijane */}
+      {/* PODKATEGORIE — drzewo rozwijane z Progressive Disclosure */}
       {cat?.children && (cat.children as TreeNode[]).length > 0 && (
         <div>
           <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-2">
@@ -744,18 +797,23 @@ export default function CategoryPage() {
                 Wszystkie podkategorie
               </button>
             </div>
-            {(cat.children as TreeNode[]).map(child => (
-              <CategoryTreeNode
-                key={child.id}
-                node={child}
-                depth={0}
-                selectedSubcat={selectedSubcat}
-                onSelect={slug => updateParam("subcat", slug)}
-                counts={subcatCounts}
-                expanded={expandedNodes}
-                toggle={toggleExpand}
-              />
-            ))}
+            <ProgressiveDisclosure
+              items={cat.children as TreeNode[]}
+              initialCount={6}
+              showAllLabel="Pokaż wszystkie podkategorie"
+              renderItem={(child) => (
+                <CategoryTreeNode
+                  key={child.id}
+                  node={child}
+                  depth={0}
+                  selectedSubcat={selectedSubcat}
+                  onSelect={slug => updateParam("subcat", slug)}
+                  counts={subcatCounts}
+                  expanded={expandedNodes}
+                  toggle={toggleExpand}
+                />
+              )}
+            />
           </div>
         </div>
       )}
@@ -766,19 +824,13 @@ export default function CategoryPage() {
           <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-3">
             <Tag className="w-3 h-3 text-[#f81828]" /> Typ produktu
           </h3>
-          <div className="space-y-0.5">
-            <button onClick={() => updateParam("tag", "")}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${!selectedTag ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
-              Wszystkie
-            </button>
-            {availableTags.map(tag => (
-              <button key={tag} onClick={() => updateParam("tag", tag === selectedTag ? "" : tag)}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all capitalize flex items-center justify-between ${selectedTag === tag ? "bg-[#f81828] text-white" : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"}`}>
-                <span>{tag.replace(/-/g, " ")}</span>
-                {selectedTag === tag && <span className="text-[10px] font-black opacity-70">✓</span>}
-              </button>
-            ))}
-          </div>
+          <FilterListWithDisclosure
+            options={availableTags.map(t => ({ value: t }))}
+            selected={selectedTag}
+            onChange={(tag) => updateParam("tag", tag)}
+            allLabel="Wszystkie"
+            initialCount={8}
+          />
         </div>
       )}
 
@@ -1643,39 +1695,37 @@ export default function CategoryPage() {
                 )}
               </>
             ) : (
-              /* Empty state */
-              <div
-                className="rounded-2xl p-12 text-center"
-                style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
-              >
-                <div
-                  className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 text-4xl"
-                  style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.15)" }}
-                >
-                  🏗️
-                </div>
-                <h3 className="font-bold text-white mb-2 text-lg">
-                  {hasActiveFilters ? "Brak wyników dla wybranych filtrów" : "Baza produktów w rozbudowie"}
-                </h3>
-                <p className="text-gray-500 mb-6 max-w-sm mx-auto text-sm leading-relaxed">
-                  {hasActiveFilters
-                    ? "Zmień lub wyczyść filtry, aby zobaczyć dostępne produkty."
-                    : "Aktywnie uzupełniamy naszą bazę. Zadzwoń — z pewnością mamy to, czego szukasz!"}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  {hasActiveFilters
-                    ? <Button onClick={clearFilters} className="bg-[#f81828] hover:bg-[#c8000f]">Wyczyść filtry</Button>
-                    : <>
-                        <a href="tel:+48533553344">
-                          <Button className="bg-[#f81828] hover:bg-[#c8000f]"><Phone className="w-4 h-4 mr-2" /> +48 533 553 344</Button>
-                        </a>
-                        <Link to="/kontakt">
-                          <Button variant="outline" className="border-[#f81828]/40 text-[#f81828] hover:bg-[#f81828] hover:text-white"><Mail className="w-4 h-4 mr-2" /> Wyślij zapytanie</Button>
-                        </Link>
-                      </>
-                  }
-                </div>
-              </div>
+              /* Empty state - ZeroResultsRecovery */
+              <ZeroResultsRecovery
+                categoryName={cat?.name || "tej kategorii"}
+                activeFilters={[
+                  ...(selectedBrand ? [{ type: "brand" as const, label: "Marka", value: selectedBrand, onRemove: () => updateParam("brand", "") }] : []),
+                  ...(selectedUnit ? [{ type: "unit" as const, label: "Jednostka", value: selectedUnit, onRemove: () => updateParam("unit", "") }] : []),
+                  ...(selectedTag ? [{ type: "tag" as const, label: "Typ", value: selectedTag, onRemove: () => updateParam("tag", "") }] : []),
+                  ...(selectedSubcat ? [{ type: "subcat" as const, label: "Podkategoria", value: selectedSubcat, onRemove: () => updateParam("subcat", "") }] : []),
+                  ...(priceMin > 0 || priceMax > 0 ? [{ 
+                    type: "price" as const, 
+                    label: "Cena", 
+                    value: `${priceMin > 0 ? priceMin : priceRange.min} - ${priceMax > 0 ? priceMax : priceRange.max} zł`,
+                    onRemove: () => {
+                      const p = new URLSearchParams(searchParams);
+                      p.delete("priceMin");
+                      p.delete("priceMax");
+                      p.delete("page");
+                      setSearchParams(p);
+                    }
+                  }] : []),
+                ]}
+                bestsellers={catProducts.slice(0, 4).map(p => ({
+                  id: p.id,
+                  slug: p.slug,
+                  name: p.name,
+                  brand: p.brand,
+                  image: p.images?.[0],
+                }))}
+                onClearAll={clearFilters}
+                totalInCategory={catProducts.length}
+              />
             )}
           </div>
         </div>

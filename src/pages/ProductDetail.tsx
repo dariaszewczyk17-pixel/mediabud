@@ -191,7 +191,7 @@ export default function ProductDetail() {
   const sanityChain = (sanityProduct as any)?.categoryChain;
   const cat         = getCategoryBySlug(product.categorySlug);
   const breadcrumbs = sanityChain ? buildBreadcrumbs(sanityChain) : getBreadcrumbs(product.categorySlug);
-  const images     = product.images?.length ? product.images : ["/placeholder.svg"];
+  const images     = product.images?.length ? product.images : ["/images/placeholder-product_2.png"];
 
   const handleAdd = () => {
     addItem(product, qty);
@@ -305,7 +305,7 @@ export default function ProductDetail() {
                 fetchPriority="high"
                 loading="eager"
                 decoding="async"
-                onError={e => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; e.currentTarget.onerror = null; }}
+                onError={e => { (e.currentTarget as HTMLImageElement).src = "/images/placeholder-product_2.png"; e.currentTarget.onerror = null; }}
                 onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = "scale(1.08)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = "scale(1)"; }}
               />

@@ -478,7 +478,7 @@ export default function Header() {
                           onClick={() => { setSearchResults([]); setSearchQuery(""); setSearchFocused(false); }}
                         >
                           <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-[#1a1a1a]">
-                            <img src={p.images?.[0] || "/placeholder.svg"} alt={p.name} className="h-full w-full object-cover" />
+                            <img src={p.images?.[0] || "/images/placeholder-product_2.png"} alt={p.name} className="h-full w-full object-cover" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <div className="mb-1 flex flex-wrap items-center gap-2">

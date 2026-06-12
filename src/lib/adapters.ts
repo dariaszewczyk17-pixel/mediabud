@@ -83,7 +83,7 @@ export function sanityProductToLegacy(p: SanityProduct): Product {
     warnings: p.warnings ?? [],
     faq: p.faq ?? [],
     seoDescription: p.seoDescription ?? '',
-    images: images.length ? images : ['/placeholder.svg'],
+    images: images.length ? images : ['/images/placeholder-product_2.png'],
     tags: p.tags ?? [],
     related: [],
     isNew: false,

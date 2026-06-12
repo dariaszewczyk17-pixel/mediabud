@@ -11,7 +11,7 @@ import { useWycena } from "@/hooks/useWycena";
 import type { Product } from "@/data/products";
 import { toast } from "sonner";
 
-const PRODUCT_PLACEHOLDER = "/placeholder.svg";
+const PRODUCT_PLACEHOLDER = "/images/placeholder-product_2.png";
 
 const getProductImage = (product: Pick<Product, "images">) => product.images?.[0] || PRODUCT_PLACEHOLDER;
 

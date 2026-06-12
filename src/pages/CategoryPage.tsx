@@ -2,7 +2,8 @@ import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import {
   ChevronRight, Grid, List, Filter, SlidersHorizontal, X,
-  ChevronLeft, ChevronRight as ChevronNext, Tag, Zap, ArrowRight, Phone, Mail, ChevronDown
+  ChevronLeft, ChevronRight as ChevronNext, Tag, Zap, ArrowRight, Phone, Mail, ChevronDown,
+  Droplets, Layers, Home, Paintbrush, Thermometer, Wrench, Package, Building2, LayoutGrid, FlaskConical
 } from "lucide-react";
 import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
@@ -27,6 +28,33 @@ import { Badge } from "@/components/ui/badge";
 
 const PRODUCTS_PER_PAGE = 24;
 
+/* ── Ikony dla kategorii głównych ── */
+const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  "chemia-budowlana": <FlaskConical className="w-3.5 h-3.5" />,
+  "plytki": <LayoutGrid className="w-3.5 h-3.5" />,
+  "izolacje": <Thermometer className="w-3.5 h-3.5" />,
+  "farby-i-rozpuszczalniki": <Paintbrush className="w-3.5 h-3.5" />,
+  "sucha-zabudowa": <Layers className="w-3.5 h-3.5" />,
+  "dachy": <Home className="w-3.5 h-3.5" />,
+  "narzedzia-i-mocowania": <Wrench className="w-3.5 h-3.5" />,
+  "stropy-i-sciany": <Building2 className="w-3.5 h-3.5" />,
+  "sufity-podwieszane": <Layers className="w-3.5 h-3.5" />,
+  "pozostale": <Package className="w-3.5 h-3.5" />,
+};
+
+/* ── Helper: znajdź ścieżkę do kategorii w drzewie ── */
+function findPathToSlug(nodes: TreeNode[], targetSlug: string, path: string[] = []): string[] | null {
+  for (const node of nodes) {
+    const newPath = [...path, node.id];
+    if (node.slug === targetSlug) return newPath;
+    if (node.children) {
+      const found = findPathToSlug(node.children, targetSlug, newPath);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
 /* ── Węzeł drzewa kategorii ─────────────────────────────────────────────── */
 interface TreeNode { id: string; slug: string; name: string; children?: TreeNode[] }
 
@@ -37,11 +65,14 @@ interface FullTreeNodeProps {
   currentSlug: string;
   expanded: Set<string>;
   toggle: (id: string) => void;
+  pathToActive: Set<string>; // ID węzłów na ścieżce do aktywnej kategorii
 }
-function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle }: FullTreeNodeProps) {
+function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle, pathToActive }: FullTreeNodeProps) {
   const hasKids = !!(node.children && node.children.length > 0);
   const isOpen = expanded.has(node.id);
   const isActive = currentSlug === node.slug;
+  const isOnPath = pathToActive.has(node.id); // Czy węzeł jest na ścieżce do aktywnej kategorii
+  const icon = depth === 0 ? CATEGORY_ICONS[node.slug] : null;
 
   return (
     <div>
@@ -50,7 +81,9 @@ function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle }: Fu
         {hasKids ? (
           <button
             onClick={() => toggle(node.id)}
-            className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#f81828] transition-colors rounded"
+            className={`flex-shrink-0 w-5 h-5 flex items-center justify-center transition-colors rounded ${
+              isOnPath ? "text-[#f81828]" : "text-gray-500 hover:text-[#f81828]"
+            }`}
           >
             <ChevronRight className={`w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`} />
           </button>
@@ -61,19 +94,22 @@ function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle }: Fu
         {/* Link do kategorii */}
         <Link
           to={`/kategoria/${node.slug}`}
-          className={`flex-1 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all truncate ${
+          className={`flex-1 flex items-center gap-1.5 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all truncate ${
             isActive
               ? "bg-[#f81828] text-white"
-              : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"
+              : isOnPath
+                ? "text-[#f81828] bg-[#f81828]/5"
+                : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"
           }`}
           style={{ paddingLeft: `${4 + depth * 8}px` }}
         >
-          {node.name}
+          {icon && <span className="flex-shrink-0">{icon}</span>}
+          <span className="truncate">{node.name}</span>
         </Link>
       </div>
 
       {hasKids && isOpen && (
-        <div className="ml-2 pl-2" style={{ borderLeft: "1px solid rgba(248,24,40,0.2)" }}>
+        <div className="ml-2 pl-2" style={{ borderLeft: `1px solid ${isOnPath ? "rgba(248,24,40,0.4)" : "rgba(248,24,40,0.15)"}` }}>
           {node.children!.map(child => (
             <FullCategoryTreeNode
               key={child.id}
@@ -82,6 +118,7 @@ function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle }: Fu
               currentSlug={currentSlug}
               expanded={expanded}
               toggle={toggle}
+              pathToActive={pathToActive}
             />
           ))}
         </div>
@@ -412,6 +449,24 @@ export default function CategoryPage() {
   const toggleExpand = useCallback((id: string) => setExpandedNodes(prev => {
     const next = new Set(prev); next.has(id) ? next.delete(id) : next.add(id); return next;
   }), []);
+
+  // Oblicz ścieżkę do aktywnej kategorii (dla podświetlenia i auto-rozwijania)
+  const pathToActive = useMemo(() => {
+    if (!slug) return new Set<string>();
+    const path = findPathToSlug(staticCategories as TreeNode[], slug);
+    return new Set(path || []);
+  }, [slug]);
+
+  // Auto-rozwijanie drzewka do aktywnej kategorii przy zmianie slug
+  useEffect(() => {
+    if (pathToActive.size > 0) {
+      setExpandedNodes(prev => {
+        const next = new Set(prev);
+        pathToActive.forEach(id => next.add(id));
+        return next;
+      });
+    }
+  }, [pathToActive]);
 
   const { data: sanityCategory } = useCategoryBySlug(slug ?? '');
   const { data: sanityTopCats }  = useAllCategories();
@@ -758,6 +813,7 @@ export default function CategoryPage() {
               currentSlug={slug || ""}
               expanded={expandedNodes}
               toggle={toggleExpand}
+              pathToActive={pathToActive}
             />
           ))}
         </div>

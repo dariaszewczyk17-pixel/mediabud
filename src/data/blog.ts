@@ -508,6 +508,10 @@ Przy ul. Chemicznej 8d (Lublin, Pon–Pt 7:00–16:00) oferujemy ponad 15 000 pr
     readTime: 9,
     image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=800&q=80",
     tags: ["tynk silikonowy", "tynk akrylowy", "elewacja", "weber", "ceresit", "baumit"],
+    faq: [
+      { q: 'Jaki tynk jest lepszy: silikonowy czy akrylowy?', a: 'Tynk silikonowy jest znacznie lepszy. Jest paroprzepuszczalny (oddychający), wysoce elastyczny i posiada właściwości samoczyszczące (brud spływa z deszczem). Tynk akrylowy jest tańszy, ale nie oddycha i szybciej się brudzi, dlatego nie nadaje się na ocieplenie z wełny mineralnej.' },
+      { q: 'Czy tynk silikonowy można kłaść na styropian?', a: 'Tak, tynk silikonowy jest uniwersalny i doskonale sprawdza się zarówno na systemach ociepleń ze styropianem (EPS), jak i z wełną mineralną. Zapewnia najwyższą trwałość elewacji.' }
+    ],
     content: `## Tynk silikonowy vs akrylowy — podstawowe różnice
 
 Wybór odpowiedniego tynku elewacyjnego to jedna z najważniejszych decyzji. Zanim zaczniesz, sprawdź nasz [kalkulator tynku elewacyjnego](/kalkulator/tynk-elewacyjny), aby dokładnie oszacować potrzebną ilość materiału.
@@ -578,6 +582,10 @@ Wyliczymy ilości materiału — zadzwoń: **+48 533 553 344** lub odwiedź skł
     readTime: 11,
     image: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
     tags: ["koszt ocieplenia domu", "ocieplenie 150m2", "ETICS", "czyste powietrze", "termomodernizacja", "ceny 2026"],
+    faq: [
+      { q: 'Ile kosztuje ocieplenie domu 150 m² w 2026 roku?', a: 'Kompleksowe ocieplenie domu 150 m² (materiały + robocizna) kosztuje średnio od 35 000 zł do 55 000 zł. Sam materiał (styropian grafitowy 20 cm, kleje, siatka, tynk silikonowy) to koszt ok. 15 000 - 22 000 zł. Robocizna wynosi zazwyczaj od 120 do 180 zł za m².' },
+      { q: 'Jaka grubość styropianu na elewację w 2026?', a: 'Zgodnie z aktualnymi warunkami technicznymi (WT 2021), aby spełnić normy przenikania ciepła dla ścian zewnętrznych (U ≤ 0,20 W/m²K), zaleca się stosowanie styropianu grafitowego o grubości minimum 15-20 cm lub białego o grubości 20-25 cm.' }
+    ],
     content: `## Koszt ocieplenia domu 150 m² — co wchodzi w cenę?
 
 Ocieplenie domu to inwestycja obniżająca rachunki za ogrzewanie o 30–60% rocznie. Aby precyzyjnie wyliczyć zapotrzebowanie na materiał, skorzystaj z naszego [kalkulatora styropianu i wełny](/kalkulator/styropian-welna). Sprawdź również naszą ofertę w kategorii [Izolacje](/kategoria/izolacje). Ile kosztuje termomodernizacja domu 150 m² w 2026 roku?
@@ -647,6 +655,10 @@ Wyliczymy dokładne zestawienie materiałów po podaniu rzutu budynku — **+48 
     readTime: 8,
     image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
     tags: ["knauf", "rigips", "płyta GK", "sucha zabudowa", "gipsowo-kartonowe", "ścianka działowa"],
+    faq: [
+      { q: 'Co jest lepsze: Knauf czy Rigips?', a: 'Obie marki to ścisła czołówka i oferują systemy suchej zabudowy najwyższej jakości. Knauf często wygrywa dostępnością kompletnych systemów i popularnością wśród wykonawców (np. profile, masy szpachlowe Uniflott). Rigips z kolei słynie z innowacyjnych płyt (np. Habito) i świetnych profili Ultrastil. Wybór często zależy od preferencji konkretnego wykonawcy.' },
+      { q: 'Czy profile do płyt GK różnych producentów można łączyć?', a: 'Zaleca się stosowanie kompletnych systemów od jednego producenta (płyty, profile, masy, taśmy). Mieszanie elementów różnych marek może skutkować utratą gwarancji systemowej oraz problemami z idealnym dopasowaniem elementów (np. inna grubość blachy w profilach).' }
+    ],
     content: `## Knauf vs Rigips — dwie marki, jeden standard EN 520
 
 Wybór odpowiedniego systemu suchej zabudowy to klucz do sukcesu. Zobacz pełną ofertę w kategorii [Sucha zabudowa](/kategoria/sucha-zabudowa).
@@ -707,6 +719,10 @@ W Media Bud dostępne są płyty i profile Knauf oraz Rigips. Wyliczymy materia�
     readTime: 6,
     image: "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80",
     tags: ["klej do styropianu", "ocieplenie", "EPS", "XPS", "ETICS"],
+    faq: [
+      { q: 'Jaki klej do styropianu grafitowego?', a: 'Do styropianu grafitowego należy używać wyłącznie dedykowanych klejów o podwyższonej przyczepności (np. z dodatkiem włókien rozproszonych). Styropian grafitowy mocniej nagrzewa się na słońcu, co powoduje naprężenia termiczne, dlatego zwykły klej do białego styropianu może nie utrzymać płyt.' },
+      { q: 'Czy klej poliuretanowy (w pianie) jest lepszy od cementowego?', a: 'Klej w pianie (poliuretanowy) znacznie przyspiesza pracę, jest czysty, lekki i ma świetną przyczepność. Wymaga jednak równego podłoża. Klej cementowy jest tańszy i pozwala na niwelowanie większych nierówności ścian (do 1-2 cm). Często stosuje się je zamiennie w zależności od stanu budynku.' }
+    ],
     content: `## Rodzaje kleju do styropianu
 
 Wybór odpowiedniego kleju do styropianu to fundament trwałego ocieplenia. Sprawdź dostępne produkty w kategorii [Kleje do styropianu](/kategoria/kleje-styropian).
@@ -784,6 +800,10 @@ Kalkulacja materiałów bezpłatnie — **+48 533 553 344** | ul. Chemiczna 8d, 
     readTime: 7,
     image: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=800&q=80",
     tags: ["tynk elewacyjny", "kalkulator tynku", "ile tynku", "elewacja 2026"],
+    faq: [
+      { q: 'Ile tynku potrzeba na 1 m² elewacji?', a: 'Zużycie tynku zależy od jego granulacji (grubości ziarna). Dla najpopularniejszego tynku o strukturze "baranka" 1,5 mm zużycie wynosi ok. 2,3 - 2,5 kg/m². Dla ziarna 2,0 mm jest to ok. 2,9 - 3,2 kg/m². Zawsze warto doliczyć ok. 10% zapasu na straty materiałowe.' },
+      { q: 'Jak obliczyć powierzchnię elewacji do tynkowania?', a: 'Należy zmierzyć szerokość i wysokość każdej ściany, pomnożyć je przez siebie, a następnie odjąć powierzchnię okien i drzwi. Do uzyskanego wyniku warto dodać powierzchnię glifów (ościeży) okiennych i drzwiowych, które również będą tynkowane.' }
+    ],
     content: `## Jak obliczyć ilość tynku?
 
 Najszybszym sposobem na obliczenie ilości materiału jest użycie naszego [kalkulatora tynku elewacyjnego](/kalkulator/tynk-elewacyjny), który uwzględnia normy zużycia dla różnych granulacji. Sprawdź również naszą ofertę w kategorii [Tynki elewacyjne](/kategoria/tynki-elewacyjne).

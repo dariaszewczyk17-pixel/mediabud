@@ -7,6 +7,8 @@ import {
   ChevronDown, Filter, ArrowUpRight, MoreHorizontal, RefreshCw,
 } from "lucide-react";
 import { products } from "@/data/products";
+import { sanityClient } from "@/lib/sanity";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { categories } from "@/data/categories";
 import { blogPosts } from "@/data/blog";
 
@@ -14,7 +16,7 @@ import { blogPosts } from "@/data/blog";
 type Tab = "dashboard"|"inquiries"|"products"|"categories"|"blog"|"realizacje"|"opinie"|"promocje"|"pracownicy"|"settings";
 
 /* ─── Mock data ─────────────────────────────────────────────────── */
-const INQUIRIES = [
+const INITIAL_INQUIRIES = [
   { id:1, name:"Jan Kowalski",     company:"Budex Sp. z o.o.", product:"Tynk silikonowy Weber 25kg", phone:"601 234 567", date:"2026-06-09", status:"Nowe",          msg:"Proszę o wycenę 500 worków tynku silikonowego Weber DR1 na inwestycję wielorodzinną." },
   { id:2, name:"Anna Nowak",       company:"Dom prywatny",     product:"Styropian EPS 100 – 5cm",   phone:"512 345 678", date:"2026-06-08", status:"W trakcie",     msg:"Potrzebuję ok. 200m² styropianu EPS 100 5cm. Czy możliwa dostawa na Lublin?" },
   { id:3, name:"Piotr Wiśniewski", company:"Rembud s.c.",       product:"Wełna Rockwool 15cm",       phone:"698 765 432", date:"2026-06-07", status:"Odpowiedziano", msg:"Zapytanie o dostępność i cenę wełny Rockwool Frontrock MAX E 15cm." },
@@ -87,8 +89,66 @@ export default function AdminPanel() {
   const [search, setSearch]       = useState("");
   const [prodPage, setProdPage]   = useState(1);
   const [inqFilter, setInqFilter] = useState("Wszystkie");
-  const [selectedInq, setSelectedInq] = useState<typeof INQUIRIES[0]|null>(null);
+  const [selectedInq, setSelectedInq] = useState<typeof INITIAL_INQUIRIES[0]|null>(null);
+  const [inquiries, setInquiries] = useState<typeof INITIAL_INQUIRIES>(() => {
+    const saved = localStorage.getItem("mb_admin_inquiries");
+    return saved ? JSON.parse(saved) : INITIAL_INQUIRIES;
+  });
+  const [inqNotes, setInqNotes] = useState<Record<number, string>>(() => {
+    const saved = localStorage.getItem("mb_admin_inq_notes");
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  
+  useEffect(() => {
+    if (tab === "realizacje" && sanityRealizacje.length === 0) {
+      setSanityRealizacjeLoading(true);
+      sanityClient.fetch(`*[_type == "realizacja"] | order(year desc) {
+        _id, title, year, category, client, status
+      }`).then(data => {
+        setSanityRealizacje(data);
+      }).catch(err => {
+        console.error("Błąd pobierania realizacji:", err);
+      }).finally(() => {
+        setSanityRealizacjeLoading(false);
+      });
+    }
+  }, [tab]);
+
+  useEffect(() => {
+    localStorage.setItem("mb_admin_inquiries", JSON.stringify(inquiries));
+  }, [inquiries]);
+
+  useEffect(() => {
+    localStorage.setItem("mb_admin_inq_notes", JSON.stringify(inqNotes));
+  }, [inqNotes]);
+
+  const updateInqStatus = (id: number, newStatus: string) => {
+    setInquiries(prev => prev.map(i => i.id === id ? { ...i, status: newStatus } : i));
+    if (selectedInq && selectedInq.id === id) {
+      setSelectedInq(prev => prev ? { ...prev, status: newStatus } : null);
+    }
+  };
   const PROD_PAGE = 25;
+
+  const CHART_DATA = [
+    { name: "01.06", zapytania: 4, wizyty: 120 },
+    { name: "02.06", zapytania: 7, wizyty: 150 },
+    { name: "03.06", zapytania: 5, wizyty: 180 },
+    { name: "04.06", zapytania: 12, wizyty: 250 },
+    { name: "05.06", zapytania: 8, wizyty: 210 },
+    { name: "06.06", zapytania: 3, wizyty: 140 },
+    { name: "07.06", zapytania: 2, wizyty: 110 },
+    { name: "08.06", zapytania: 9, wizyty: 280 },
+    { name: "09.06", zapytania: 15, wizyty: 320 },
+  ];
+
+  const PIE_DATA = [
+    { name: "Chemia budowlana", value: 45, color: "#f81828" },
+    { name: "Izolacje", value: 30, color: "#3b82f6" },
+    { name: "Sucha zabudowa", value: 15, color: "#10b981" },
+    { name: "Narzędzia", value: 10, color: "#8b5cf6" },
+  ];
 
   /* ── Products filter (hook must be before early return) ── */
   const filteredProds = useMemo(()=>
@@ -100,7 +160,7 @@ export default function AdminPanel() {
   const pagedProds = filteredProds.slice((prodPage-1)*PROD_PAGE, prodPage*PROD_PAGE);
 
   /* ── Inquiries filter (also before early return) ── */
-  const filteredInq = inqFilter==="Wszystkie" ? INQUIRIES : INQUIRIES.filter(i=>i.status===inqFilter);
+  const filteredInq = inqFilter==="Wszystkie" ? INQUIRIES : inquiries.filter(i=>i.status===inqFilter);
 
   /* ── Sanity products (real data) ── */
   const [sanityProds,    setSanityProds]    = useState<any[]>([]);
@@ -202,7 +262,7 @@ export default function AdminPanel() {
     { section: null },
     { id:"dashboard",   icon:<BarChart2 className="w-4 h-4"/>,   label:"Dashboard",    badge: null },
     { section: "Sprzedaż" },
-    { id:"inquiries",   icon:<Mail className="w-4 h-4"/>,        label:"Zapytania",    badge: INQUIRIES.filter(i=>i.status==="Nowe").length },
+    { id:"inquiries",   icon:<Mail className="w-4 h-4"/>,        label:"Zapytania",    badge: inquiries.filter(i=>i.status==="Nowe").length },
     { section: "Asortyment" },
     { id:"products",    icon:<Package className="w-4 h-4"/>,     label:"Produkty",     badge: null },
     { id:"categories",  icon:<Tag className="w-4 h-4"/>,         label:"Kategorie",    badge: null },
@@ -341,7 +401,7 @@ export default function AdminPanel() {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 {[
                   { label:"Produkty",      value:products.length.toLocaleString("pl-PL"), icon:<Package className="w-5 h-5"/>,  color:"#3b82f6", sub:"+3 nowe" },
-                  { label:"Zapytania",     value:INQUIRIES.length,                         icon:<Mail className="w-5 h-5"/>,     color:"#f81828", sub:`${INQUIRIES.filter(i=>i.status==="Nowe").length} nowych` },
+                  { label:"Zapytania",     value:inquiries.length,                         icon:<Mail className="w-5 h-5"/>,     color:"#f81828", sub:`${inquiries.filter(i=>i.status==="Nowe").length} nowych` },
                   { label:"Artykuły",      value:blogPosts.length,                          icon:<FileText className="w-5 h-5"/>, color:"#8b5cf6", sub:"aktywne" },
                   { label:"Realizacje",    value:REALIZACJE_MOCK.length,                    icon:<HardHat className="w-5 h-5"/>,  color:"#10b981", sub:"opublikowane" },
                 ].map((s,i)=>(
@@ -361,6 +421,78 @@ export default function AdminPanel() {
                 ))}
               </div>
 
+              
+              {/* Wykresy */}
+              <div className="grid lg:grid-cols-3 gap-4 mb-6">
+                <Card className="p-5 lg:col-span-2">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-sm font-bold text-white">Ruch i zapytania (ostatnie 9 dni)</h3>
+                  </div>
+                  <div className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={CHART_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="colorWizyty" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                          </linearGradient>
+                          <linearGradient id="colorZapytania" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#f81828" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#f81828" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                        <XAxis dataKey="name" stroke="rgba(255,255,255,0.3)" fontSize={10} tickLine={false} axisLine={false} />
+                        <YAxis stroke="rgba(255,255,255,0.3)" fontSize={10} tickLine={false} axisLine={false} />
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: '#111', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px', fontSize: '12px' }}
+                          itemStyle={{ color: '#fff' }}
+                        />
+                        <Area type="monotone" dataKey="wizyty" name="Wizyty" stroke="#3b82f6" strokeWidth={2} fillOpacity={1} fill="url(#colorWizyty)" />
+                        <Area type="monotone" dataKey="zapytania" name="Zapytania" stroke="#f81828" strokeWidth={2} fillOpacity={1} fill="url(#colorZapytania)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                </Card>
+                <Card className="p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-sm font-bold text-white">Popularne kategorie</h3>
+                  </div>
+                  <div className="h-[200px] w-full flex items-center justify-center">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={PIE_DATA}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={60}
+                          outerRadius={80}
+                          paddingAngle={5}
+                          dataKey="value"
+                          stroke="none"
+                        >
+                          {PIE_DATA.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: '#111', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px', fontSize: '12px' }}
+                          itemStyle={{ color: '#fff' }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 mt-2">
+                    {PIE_DATA.map(item => (
+                      <div key={item.name} className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
+                        <span className="text-[10px] text-gray-400 truncate">{item.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              </div>
+
               <div className="grid lg:grid-cols-[1fr_340px] gap-4">
                 {/* Recent inquiries */}
                 <Card>
@@ -371,7 +503,7 @@ export default function AdminPanel() {
                     </button>
                   </div>
                   <div className="divide-y" style={{borderColor:"rgba(255,255,255,0.04)"}}>
-                    {INQUIRIES.slice(0,5).map(inq=>(
+                    {inquiries.slice(0,5).map(inq=>(
                       <div key={inq.id} className="px-5 py-3 flex items-center gap-3 hover:bg-white/2 transition-colors cursor-pointer" onClick={()=>{setSelectedInq(inq);setTab("inquiries");}}>
                         <div className="w-8 h-8 rounded-full bg-[#f81828]/15 flex items-center justify-center text-[#f81828] text-xs font-black flex-shrink-0">
                           {inq.name.charAt(0)}
@@ -428,17 +560,31 @@ export default function AdminPanel() {
           {/* ════ ZAPYTANIA ════ */}
           {tab==="inquiries" && (
             <div>
-              <SectionHeader title="Zapytania" count={INQUIRIES.length}/>
+              <SectionHeader title="Zapytania" count={inquiries.length}/>
               {/* Detail modal */}
               {selectedInq && (
                 <Card className="mb-5 p-5">
+                  
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-wider text-[#f81828] mb-1">Szczegóły zapytania #{selectedInq.id}</p>
                       <h2 className="text-lg font-black text-white">{selectedInq.name}</h2>
                       <p className="text-xs text-gray-500">{selectedInq.company} · {selectedInq.date}</p>
                     </div>
-                    <button onClick={()=>setSelectedInq(null)} className="text-gray-500 hover:text-white transition-colors"><X className="w-5 h-5"/></button>
+                    <div className="flex items-center gap-3">
+                      <select 
+                        value={selectedInq.status}
+                        onChange={(e) => updateInqStatus(selectedInq.id, e.target.value)}
+                        className="bg-[#111] text-xs font-bold text-white px-3 py-1.5 rounded-lg outline-none cursor-pointer"
+                        style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+                      >
+                        <option value="Nowe">Nowe</option>
+                        <option value="W trakcie">W trakcie</option>
+                        <option value="Odpowiedziano">Odpowiedziano</option>
+                        <option value="Zamknięte">Zamknięte</option>
+                      </select>
+                      <button onClick={()=>setSelectedInq(null)} className="text-gray-500 hover:text-white transition-colors"><X className="w-5 h-5"/></button>
+                    </div>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4 mb-4">
                     <div className="rounded-lg px-4 py-3" style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.06)"}}>
@@ -454,6 +600,18 @@ export default function AdminPanel() {
                     <p className="text-[10px] text-gray-600 font-bold uppercase mb-1">Treść wiadomości</p>
                     <p className="text-sm text-gray-300 leading-relaxed">{selectedInq.msg}</p>
                   </div>
+                  
+                  {/* Notatki wewnętrzne */}
+                  <div className="rounded-lg px-4 py-3 mb-4" style={{background:"rgba(255,255,255,0.02)",border:"1px dashed rgba(255,255,255,0.1)"}}>
+                    <p className="text-[10px] text-gray-500 font-bold uppercase mb-2 flex items-center gap-1"><Pencil className="w-3 h-3"/> Notatki wewnętrzne (tylko dla Ciebie)</p>
+                    <textarea 
+                      value={inqNotes[selectedInq.id] || ""}
+                      onChange={(e) => setInqNotes(prev => ({ ...prev, [selectedInq.id]: e.target.value }))}
+                      placeholder="Dodaj notatkę do tego zapytania..."
+                      className="w-full bg-transparent text-sm text-white outline-none resize-none min-h-[60px] placeholder-gray-700"
+                    />
+                  </div>
+
                   <div className="flex gap-2">
                     <a href={`tel:${selectedInq.phone}`} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] transition-colors">
                       <Phone className="w-3.5 h-3.5"/> Zadzwoń
@@ -471,7 +629,7 @@ export default function AdminPanel() {
                   <button key={f} onClick={()=>setInqFilter(f)}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${inqFilter===f?"bg-[#f81828] text-white":"text-gray-500 hover:text-white"}`}
                     style={inqFilter===f?{}:{border:"1px solid rgba(255,255,255,0.08)"}}>
-                    {f} {f==="Wszystkie" ? `(${INQUIRIES.length})` : `(${INQUIRIES.filter(i=>i.status===f).length})`}
+                    {f} {f==="Wszystkie" ? `(${inquiries.length})` : `(${inquiries.filter(i=>i.status===f).length})`}
                   </button>
                 ))}
               </div>
@@ -723,24 +881,51 @@ export default function AdminPanel() {
             </div>
           )}
 
+          
           {/* ════ REALIZACJE ════ */}
           {tab==="realizacje" && (
             <div>
-              <SectionHeader title="Realizacje" count={REALIZACJE_MOCK.length} addLabel="Dodaj realizację" onAdd={()=>window.open("https://mediabud-studio.pages.dev","_blank")}/>
+              <SectionHeader title="Realizacje" count={sanityRealizacje.length > 0 ? sanityRealizacje.length : REALIZACJE_MOCK.length} addLabel="Dodaj realizację" onAdd={()=>window.open("https://mediabud-studio.pages.dev","_blank")}/>
               <div className="space-y-3">
-                {REALIZACJE_MOCK.map(r=>(
-                  <Card key={r.id} className="p-5 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-[#f81828]" style={{background:"rgba(248,24,40,0.1)",border:"1px solid rgba(248,24,40,0.2)"}}>
-                      <HardHat className="w-5 h-5"/>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-bold text-white">{r.title}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{r.client} · {r.year} · <span className="capitalize">{r.category}</span></p>
-                    </div>
-                    <Badge s={r.status}/>
-                    <button className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/10 transition-colors ml-2"><Pencil className="w-3.5 h-3.5"/></button>
-                  </Card>
-                ))}
+                {sanityRealizacjeLoading ? (
+                  Array.from({length: 3}).map((_, i) => (
+                    <Card key={i} className="p-5 flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-white/5 animate-pulse flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="h-4 w-1/3 bg-white/5 rounded animate-pulse mb-2" />
+                        <div className="h-3 w-1/4 bg-white/5 rounded animate-pulse" />
+                      </div>
+                    </Card>
+                  ))
+                ) : sanityRealizacje.length > 0 ? (
+                  sanityRealizacje.map(r=>(
+                    <Card key={r._id} className="p-5 flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-[#f81828]" style={{background:"rgba(248,24,40,0.1)",border:"1px solid rgba(248,24,40,0.2)"}}>
+                        <HardHat className="w-5 h-5"/>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-white">{r.title}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{r.client || "Brak klienta"} · {r.year || "Brak roku"} · <span className="capitalize">{r.category || "Brak kategorii"}</span></p>
+                      </div>
+                      <Badge s={r.status === "published" ? "Opublikowana" : "Szkic"}/>
+                      <a href={`https://mediabud-studio.pages.dev/desk/realizacja;${r._id}`} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/10 transition-colors ml-2"><Pencil className="w-3.5 h-3.5"/></a>
+                    </Card>
+                  ))
+                ) : (
+                  REALIZACJE_MOCK.map(r=>(
+                    <Card key={r.id} className="p-5 flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-[#f81828]" style={{background:"rgba(248,24,40,0.1)",border:"1px solid rgba(248,24,40,0.2)"}}>
+                        <HardHat className="w-5 h-5"/>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-white">{r.title}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{r.client} · {r.year} · <span className="capitalize">{r.category}</span></p>
+                      </div>
+                      <Badge s={r.status}/>
+                      <button className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/10 transition-colors ml-2"><Pencil className="w-3.5 h-3.5"/></button>
+                    </Card>
+                  ))
+                )}
               </div>
               <div className="mt-4 p-4 rounded-xl text-center" style={{border:"1px dashed rgba(248,24,40,0.3)"}}>
                 <p className="text-xs text-gray-500 mb-2">Zarządzaj realizacjami w Sanity Studio</p>
@@ -750,6 +935,7 @@ export default function AdminPanel() {
               </div>
             </div>
           )}
+
 
           {/* ════ OPINIE ════ */}
           {tab==="opinie" && (

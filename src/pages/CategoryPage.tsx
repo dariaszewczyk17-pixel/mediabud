@@ -18,9 +18,10 @@ import { mergeProductCollections } from "@/lib/productMerge";
 import { prefetchSanity } from "@/lib/sanity";
 import { PRODUCT_META_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
 import { ProductCard } from "@/components/Commerce";
+import { ProductCardFuturistic } from "@/components/ProductCardFuturistic";
+import { FilterBarFuturistic } from "@/components/FilterBarFuturistic";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState, useMemo, useCallback, useEffect } from "react";
 
 const PRODUCTS_PER_PAGE = 24;
 
@@ -1584,16 +1585,16 @@ export default function CategoryPage() {
                 <div
                   ref={gridReveal.ref}
                   className={view === "grid"
-                    ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-                    : "space-y-3"}
+                    ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+                    : "space-y-4"}
                 >
                   {paginated.map((p, i) => (
                     <div
                       key={p.id}
                       className={`transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                      style={{ transitionDelay: `${(i % 8) * 55}ms` }}
+                      style={{ transitionDelay: `${(i % 8) * 40}ms` }}
                     >
-                      <ProductCard product={p} priority={i < 4} />
+                      <ProductCardFuturistic product={p} priority={i < 4} index={i} />
                     </div>
                   ))}
                 </div>

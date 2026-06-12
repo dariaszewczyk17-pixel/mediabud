@@ -307,6 +307,17 @@ export default function Home() {
       .catch(() => { /* fallback na 15921 */ });
   }, []);
 
+  /* ── Preload hero image tylko na stronie głównej ── */
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = '/images/hero-materialy_2.png';
+    link.type = 'image/png';
+    document.head.appendChild(link);
+    return () => { document.head.removeChild(link); };
+  }, []);
+
   /* ── Prefetch najczęściej odwiedzanych stron po załadowaniu Home ── */
   useEffect(() => {
     const t = setTimeout(() => {

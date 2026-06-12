@@ -566,8 +566,8 @@ export default function CategoryPage() {
     return result;
   }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
-  const safePage = Math.min(currentPage, totalPages);
+  const totalPages = useMemo(() => Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE)), [filtered.length]);
+  const safePage = useMemo(() => Math.min(currentPage, totalPages), [currentPage, totalPages]);
   const paginated = useMemo(() => filtered.slice((safePage - 1) * PRODUCTS_PER_PAGE, safePage * PRODUCTS_PER_PAGE), [filtered, safePage]);
 
   const updateParam = (key: string, value: string) => {

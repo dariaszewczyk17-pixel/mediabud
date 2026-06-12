@@ -28,7 +28,7 @@ export function mergeProductSources(
     description: secondaryProduct.description || primaryProduct.description,
     application: secondaryProduct.application || primaryProduct.application,
     technicalSpec: secondaryProduct.technicalSpec?.length ? secondaryProduct.technicalSpec : primaryProduct.technicalSpec,
-    images: (primaryProduct.images?.length && !primaryProduct.images.some(img => img.includes("placeholder"))) ? primaryProduct.images : (secondaryProduct.images?.length && !secondaryProduct.images.some(img => img.includes("placeholder")) ? secondaryProduct.images : ["/images/placeholder-product_2.png"]),
+    images: (primaryProduct.images?.length && !primaryProduct.images.some(img => img.includes("placeholder") || img.includes("3907a0b3a13f08c233374a46960c3c76d175b4af"))) ? primaryProduct.images : (secondaryProduct.images?.length && !secondaryProduct.images.some(img => img.includes("placeholder") || img.includes("3907a0b3a13f08c233374a46960c3c76d175b4af")) ? secondaryProduct.images : ["/images/placeholder-product_2.png"]),
     tags: Array.from(new Set([...(primaryProduct.tags ?? []), ...(secondaryProduct.tags ?? [])])),
     related: secondaryProduct.related?.length ? secondaryProduct.related : primaryProduct.related,
     isFeatured: primaryProduct.isFeatured ?? secondaryProduct.isFeatured,

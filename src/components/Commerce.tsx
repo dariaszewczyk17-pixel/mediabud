@@ -306,7 +306,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
       <QuoteModal open={quoteOpen} onClose={() => setQuoteOpen(false)} productName={product.name} />
     </>
   );
-}
+});
 
 /* ================================================================
    QUOTE MODAL  – dark industrial

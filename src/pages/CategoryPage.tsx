@@ -407,10 +407,10 @@ export default function CategoryPage() {
   // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
   // Pokazuj skeleton TYLKO gdy kategoria nie ma żadnych danych statycznych.
   // Gdy static ma produkty → pokaż od razu; gdy brak → czekaj na Sanity.
-  const hasStaticFallback = (() => {
+  const hasStaticFallback = useMemo(() => {
     const slugSet = new Set(allSubSlugs);
     return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
-  })();
+  }, [allSubSlugs]);
   const isLoadingProducts = firstLoading && !firstBatch;
 
   const catProducts = useMemo(() => {
@@ -804,12 +804,12 @@ export default function CategoryPage() {
   /* ── Desktop Filter Panel (sidebar) — zachowany dla kompatybilności ── */
   const FilterPanel = MobileFilterPanel;
 
-  const pageNums = (() => {
+  const pageNums = useMemo(() => {
     if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
     if (safePage <= 4) return [1,2,3,4,5,"…",totalPages];
     if (safePage >= totalPages - 3) return [1,"…",totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
     return [1,"…",safePage-1,safePage,safePage+1,"…",totalPages];
-  })();
+  }, [totalPages, safePage]);
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>

@@ -25,6 +25,8 @@ import { ZeroResultsRecovery } from "@/components/ZeroResultsRecovery";
 import { FilterListWithDisclosure, ProgressiveDisclosure } from "@/components/ProgressiveDisclosure";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { CategoryFilters, type ActiveFilters } from "@/components/CategoryFilters";
+import { getCategoryFilters } from "@/lib/categoryConfig";
 
 const PRODUCTS_PER_PAGE = 24;
 
@@ -446,6 +448,7 @@ export default function CategoryPage() {
   const [mobileCatsOpen, setMobileCatsOpen] = useState(false);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set<string>());
+  const [techFilters, setTechFilters] = useState<ActiveFilters>({});
   const toggleExpand = useCallback((id: string) => setExpandedNodes(prev => {
     const next = new Set(prev); next.has(id) ? next.delete(id) : next.add(id); return next;
   }), []);
@@ -507,6 +510,7 @@ export default function CategoryPage() {
   /* Reset filtrów i strony gdy zmienia się kategoria */
   useEffect(() => {
     setSearchParams(new URLSearchParams(), { replace: true });
+    setTechFilters({});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
@@ -711,6 +715,23 @@ export default function CategoryPage() {
         });
       });
     }
+    // Filtrowanie po techFilters (nowe filtry parametrów technicznych)
+    const techFilterKeys = Object.keys(techFilters);
+    if (techFilterKeys.length > 0) {
+      result = result.filter(p => {
+        const specs = (p as any).technicalSpec ?? [];
+        const specMap: Record<string, string> = {};
+        specs.forEach((s: any) => {
+          specMap[s.label.toLowerCase().replace(/\s+/g, '_')] = String(s.value).toLowerCase();
+        });
+        return techFilterKeys.every(key => {
+          const filterValues = techFilters[key];
+          if (!filterValues || filterValues.length === 0) return true;
+          const productValue = specMap[key] || '';
+          return filterValues.some(fv => productValue.includes(fv.toLowerCase().replace(/\s+/g, '')));
+        });
+      });
+    }
     switch (sortBy) {
       case "inStock":    result.sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0)); break;
       case "featured":   result.sort((a, b) => (b.featured || (b as any).isFeatured ? 1 : 0) - (a.featured || (a as any).isFeatured ? 1 : 0)); break;
@@ -720,7 +741,7 @@ export default function CategoryPage() {
       case "new":       result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)); break;
     }
     return result;
-  }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy]);
+  }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy, techFilters]);
 
   const totalPages = useMemo(() => Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE)), [filtered.length]);
   const safePage = useMemo(() => Math.min(currentPage, totalPages), [currentPage, totalPages]);
@@ -1229,6 +1250,18 @@ export default function CategoryPage() {
                   )}
                 </div>
                 <FilterPanel />
+                
+                {/* Nowe filtry parametrów technicznych */}
+                {slug && getCategoryFilters(slug).length > 0 && (
+                  <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                    <CategoryFilters
+                      categorySlug={slug}
+                      activeFilters={techFilters}
+                      onFiltersChange={setTechFilters}
+                      productCount={filtered.length}
+                    />
+                  </div>
+                )}
               </div>
             )}
 

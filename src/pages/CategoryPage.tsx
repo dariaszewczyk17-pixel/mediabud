@@ -117,7 +117,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Wybór odpowiedniej chemii budowlanej to fundament trwałości każdego remontu i budowy. W hurtowni <strong>Media Bud Lublin</strong> oferujemy pełen przekrój profesjonalnych produktów: od gruntów głęboko penetrujących, przez elastyczne kleje do płytek (klasy C2TE, C2TES1), aż po specjalistyczne zaprawy naprawcze i hydroizolacje.</p>
-        <p>Współpracujemy z wiodącymi producentami takimi jak <strong>Ceresit, Weber, Mapei czy Atlas</strong>. Niezależnie czy planujesz układanie gresu wielkoformatowego, ocieplenie elewacji, czy wylewkę samopoziomującą — nasi doradcy pomogą dobrać system chemii dopasowany do Twojego podłoża i warunków eksploatacji. Zapewniamy dostępność od ręki i szybką dostawę na terenie województwa lubelskiego.</p>
+        <p>Współpracujemy z wiodącymi producentami takimi jak <strong>Ceresit, Weber, Mapei czy Atlas</strong>. Niezależnie czy planujesz układanie gresu wielkoformatowego, ocieplenie elewacji, czy wylewkę samopoziomującą — nasi doradcy pomogą dobrać system chemii dopasowany do Twojego podłoża i warunków eksploatacji. Zapewniamy dostępność od ręki i szybką dostawę na terenie województwa lubelskiego. Przeczytaj również nasz poradnik: <a href="/blog/jaki-klej-do-plytek-wielkoformatowych" className="text-[#f81828] hover:underline">Jaki klej do płytek wielkoformatowych wybrać?</a></p>
       </>
     )
   },
@@ -126,7 +126,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Skuteczna termoizolacja to klucz do niższych rachunków za ogrzewanie i komfortu cieplnego. W naszej ofercie znajdziesz kompletne systemy ociepleń (ETICS): <strong>styropian fasadowy (EPS), styrodur (XPS) na fundamenty, wełnę mineralną i szklaną</strong> do poddaszy oraz piany poliuretanowe (PIR).</p>
-        <p>Oferujemy materiały o najlepszych współczynnikach przewodzenia ciepła (lambda λ) od sprawdzonych marek: <strong>Swisspor, Termo Organika, Rockwool, Isover</strong>. Szukasz styropianu grafitowego na elewację w Lublinie? Potrzebujesz wyliczyć zapotrzebowanie? Skorzystaj z naszego <a href="/kalkulator/styropian-welna" className="text-[#f81828] hover:underline">kalkulatora izolacji</a> lub skontaktuj się z naszym działem sprzedaży B2B.</p>
+        <p>Oferujemy materiały o najlepszych współczynnikach przewodzenia ciepła (lambda λ) od sprawdzonych marek: <strong>Swisspor, Termo Organika, Rockwool, Isover</strong>. Szukasz styropianu grafitowego na elewację w Lublinie? Potrzebujesz wyliczyć zapotrzebowanie? Skorzystaj z naszego <a href="/kalkulator/styropian-welna" className="text-[#f81828] hover:underline">kalkulatora izolacji</a> lub skontaktuj się z naszym działem sprzedaży B2B. Dowiedz się więcej z naszego artykułu: <a href="/blog/koszt-ocieplenia-domu-150m2" className="text-[#f81828] hover:underline">Ile kosztuje ocieplenie domu 150m2 w 2026 roku?</a></p>
       </>
     )
   },
@@ -135,7 +135,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Szukasz trwałej farby na lata? W Media Bud znajdziesz szeroki wybór <strong>farb elewacyjnych (silikonowych, silikatowych, akrylowych)</strong> oraz farb do wnętrz (lateksowych, ceramicznych). Posiadamy własną mieszalnię farb i tynków, co pozwala nam uzyskać tysiące kolorów od ręki, zgodnie ze wzornikami NCS, RAL czy paletami producentów.</p>
-        <p>Polecamy produkty odporne na zabrudzenia, promieniowanie UV i rozwój grzybów od marek takich jak <strong>Caparol, Weber, Ceresit czy Kabe</strong>. Dobierzemy odpowiedni grunt i farbę do Twojego podłoża. Sprawdź nasz <a href="/kalkulator/farba-elewacyjna" className="text-[#f81828] hover:underline">kalkulator farb</a>, aby dokładnie oszacować potrzebną ilość materiału.</p>
+        <p>Polecamy produkty odporne na zabrudzenia, promieniowanie UV i rozwój grzybów od marek takich jak <strong>Caparol, Weber, Ceresit czy Kabe</strong>. Dobierzemy odpowiedni grunt i farbę do Twojego podłoża. Sprawdź nasz <a href="/kalkulator/farba-elewacyjna" className="text-[#f81828] hover:underline">kalkulator farb</a>, aby dokładnie oszacować potrzebną ilość materiału. Zobacz także: <a href="/blog/farba-elewacyjna-silikonowa-czy-akrylowa" className="text-[#f81828] hover:underline">Farba elewacyjna – silikonowa czy akrylowa?</a></p>
       </>
     )
   },
@@ -144,7 +144,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Systemy suchej zabudowy to najszybszy sposób na aranżację wnętrz, budowę ścianek działowych i sufitów podwieszanych. W naszym składzie w Lublinie kupisz <strong>płyty gipsowo-kartonowe (zwykłe, wodoodporne, ogniochronne, akustyczne)</strong>, profile stalowe (CD, UD, CW, UW) oraz pełen asortyment akcesoriów montażowych.</p>
-        <p>Dostarczamy kompletne systemy od liderów rynku: <strong>Rigips, Knauf, Siniat, Nida</strong>. Oferujemy również masy szpachlowe, taśmy zbrojące i wkręty. Dzięki własnej flocie transportowej, bezpiecznie dostarczymy wielkogabarytowe płyty G-K bezpośrednio na Twój plac budowy.</p>
+        <p>Dostarczamy kompletne systemy od liderów rynku: <strong>Rigips, Knauf, Siniat, Nida</strong>. Oferujemy również masy szpachlowe, taśmy zbrojące i wkręty. Dzięki własnej flocie transportowej, bezpiecznie dostarczymy wielkogabarytowe płyty G-K bezpośrednio na Twój plac budowy. Sprawdź nasze porównanie: <a href="/blog/knauf-czy-rigips" className="text-[#f81828] hover:underline">Knauf czy Rigips – który system suchej zabudowy wybrać?</a></p>
       </>
     )
   },
@@ -153,7 +153,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Oferujemy szeroki wybór płytek ceramicznych, gresu technicznego i szkliwionego, idealnych do łazienek, kuchni, na tarasy i do obiektów komercyjnych. W Media Bud znajdziesz płytki w różnych formatach, od klasycznych po wielkoformatowe slaby, imitujące drewno, beton czy marmur.</p>
-        <p>Pamiętaj, że trwałość posadzki zależy od chemii. Dlatego do płytek od razu dobierzesz u nas <strong>elastyczne kleje (C2TE S1), fugi (cementowe i epoksydowe), hydroizolacje podpłytkowe (folie w płynie) oraz listwy wykończeniowe</strong>. Skorzystaj z <a href="/kalkulator/plytki-ceramiczne" className="text-[#f81828] hover:underline">kalkulatora płytek</a> i <a href="/kalkulator/klej-do-plytek" className="text-[#f81828] hover:underline">kalkulatora kleju</a>, aby zoptymalizować zakupy.</p>
+        <p>Pamiętaj, że trwałość posadzki zależy od chemii. Dlatego do płytek od razu dobierzesz u nas <strong>elastyczne kleje (C2TE S1), fugi (cementowe i epoksydowe), hydroizolacje podpłytkowe (folie w płynie) oraz listwy wykończeniowe</strong>. Skorzystaj z <a href="/kalkulator/plytki-ceramiczne" className="text-[#f81828] hover:underline">kalkulatora płytek</a> i <a href="/kalkulator/klej-do-plytek" className="text-[#f81828] hover:underline">kalkulatora kleju</a>, aby zoptymalizować zakupy. Przeczytaj nasz poradnik: <a href="/blog/jaki-klej-do-plytek-wielkoformatowych" className="text-[#f81828] hover:underline">Jaki klej do płytek wielkoformatowych?</a></p>
       </>
     )
   },
@@ -162,7 +162,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Solidny dach to bezpieczeństwo na lata. W hurtowni <strong>Media Bud Lublin</strong> oferujemy kompleksowe rozwiązania dla dachów płaskich i skośnych. Znajdziesz u nas najwyższej jakości <strong>papy termozgrzewalne, gonty bitumiczne, blachodachówki oraz dachówki ceramiczne i betonowe</strong>. Dostarczamy również membrany dachowe, rynny i okna połaciowe.</p>
-        <p>Współpracujemy z renomowanymi producentami, takimi jak <strong>Icopal, Swisspor, Fakro czy Pruszyński</strong>. Nasi eksperci pomogą w wyliczeniu zapotrzebowania na materiał i dobiorą optymalny system izolacji dachu. Zapewniamy transport HDS bezpośrednio na plac budowy w całym województwie lubelskim.</p>
+        <p>Współpracujemy z renomowanymi producentami, takimi jak <strong>Icopal, Swisspor, Fakro czy Pruszyński</strong>. Nasi eksperci pomogą w wyliczeniu zapotrzebowania na materiał i dobiorą optymalny system izolacji dachu. Zapewniamy transport HDS bezpośrednio na plac budowy w całym województwie lubelskim. Zobacz również: <a href="/blog/co-jest-trwalsze-dachowka-ceramiczna-czy-blachodachowka" className="text-[#f81828] hover:underline">Co jest trwalsze: dachówka ceramiczna czy blachodachówka?</a></p>
       </>
     )
   },
@@ -171,7 +171,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Niezawodny sprzęt to podstawa szybkiej i precyzyjnej pracy. W <strong>Media Bud</strong> zaopatrzysz się w profesjonalne <strong>narzędzia ręczne, elektronarzędzia, tarcze tnące, wiertła oraz systemy zamocowań</strong>. Oferujemy kołki rozporowe, kotwy chemiczne, wkręty do drewna i metalu oraz gwoździe niezbędne na każdym etapie budowy i remontu.</p>
-        <p>Stawiamy na sprawdzony asortyment od liderów branży, takich jak <strong>Wkręt-met, Koelner, Rawlplug czy Stanley</strong>. Niezależnie czy jesteś profesjonalnym wykonawcą, czy majsterkowiczem, w naszym składzie w Lublinie znajdziesz narzędzia i mocowania, które sprostają najtrudniejszym zadaniom.</p>
+        <p>Stawiamy na sprawdzony asortyment od liderów branży, takich jak <strong>Wkręt-met, Koelner, Rawlplug czy Stanley</strong>. Niezależnie czy jesteś profesjonalnym wykonawcą, czy majsterkowiczem, w naszym składzie w Lublinie znajdziesz narzędzia i mocowania, które sprostają najtrudniejszym zadaniom. Przeczytaj nasz poradnik: <a href="/blog/jak-obliczyc-ilosc-tynku-na-elewacje" className="text-[#f81828] hover:underline">Jak obliczyć ilość tynku na elewację?</a></p>
       </>
     )
   },
@@ -180,7 +180,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Budowa solidnych ścian i stropów wymaga materiałów najwyższej klasy. W ofercie <strong>Media Bud Lublin</strong> posiadamy szeroki wybór materiałów ściennych: <strong>beton komórkowy (gazobeton), pustaki ceramiczne, silikaty, cegły klinkierowe oraz systemy stropowe (np. Teriva)</strong>. Zapewniamy materiały do wznoszenia ścian nośnych, działowych i fundamentowych.</p>
-        <p>Dostarczamy produkty od uznanych producentów: <strong>H+H, Solbet, Wienerberger, Porotherm czy Ytong</strong>. Gwarantujemy konkurencyjne ceny hurtowe, fachowe doradztwo techniczne przy wyborze technologii murowania oraz sprawną logistykę z rozładunkiem HDS na terenie Lublina i okolic.</p>
+        <p>Dostarczamy produkty od uznanych producentów: <strong>H+H, Solbet, Wienerberger, Porotherm czy Ytong</strong>. Gwarantujemy konkurencyjne ceny hurtowe, fachowe doradztwo techniczne przy wyborze technologii murowania oraz sprawną logistykę z rozładunkiem HDS na terenie Lublina i okolic. Dowiedz się więcej: <a href="/blog/od-czego-zaczac-remont-starej-kamienicy" className="text-[#f81828] hover:underline">Od czego zacząć remont starej kamienicy?</a></p>
       </>
     )
   },
@@ -189,7 +189,7 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     content: (
       <>
         <p className="mb-3">Nowoczesne sufity podwieszane to idealne rozwiązanie do ukrycia instalacji, poprawy akustyki i estetyki wnętrz. W hurtowni <strong>Media Bud</strong> oferujemy kompletne systemy sufitowe: <strong>sufity kasetonowe (mineralne, metalowe), sufity z płyt G-K, profile nośne, wieszaki oraz wełnę akustyczną</strong>.</p>
-        <p>W naszym asortymencie znajdziesz rozwiązania wiodących marek, takich jak <strong>Rockfon, AMF, Armstrong czy Rigips</strong>. Oferujemy systemy dedykowane do biur, szkół, szpitali oraz domów prywatnych. Nasi doradcy w Lublinie pomogą skompletować cały zestaw montażowy, zapewniając szybką realizację zamówienia.</p>
+        <p>W naszym asortymencie znajdziesz rozwiązania wiodących marek, takich jak <strong>Rockfon, AMF, Armstrong czy Rigips</strong>. Oferujemy systemy dedykowane do biur, szkół, szpitali oraz domów prywatnych. Nasi doradcy w Lublinie pomogą skompletować cały zestaw montażowy, zapewniając szybką realizację zamówienia. Zobacz także: <a href="/blog/ile-warstw-gk-dla-dobrej-izolacji-akustycznej" className="text-[#f81828] hover:underline">Ile warstw płyt G-K dla dobrej izolacji akustycznej?</a></p>
       </>
     )
   },

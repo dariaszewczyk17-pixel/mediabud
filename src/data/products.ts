@@ -15,6 +15,8 @@ export interface Product {
   related: string[];
   isNew?: boolean;
   isFeatured?: boolean;
+  featured?: boolean;
+  inStock?: boolean;
   /* SEO / AI-search enrichment */
   advantages?: string[];                    // punkty "dlaczego warto"
   warnings?: string[];                      // ostrzeżenia / uwagi montażowe

@@ -302,7 +302,7 @@ export function FilterBarFuturistic({
               name="sort"
               label="Sortuj"
               icon={SlidersHorizontal}
-              options={SORT_OPTIONS.map(s => ({ value: s.value, count: undefined }))}
+              options={SORT_OPTIONS.map(s => ({ value: s.value }))}
               selected={sortBy !== "default" ? SORT_OPTIONS.find(s => s.value === sortBy)?.label || "" : ""}
               onChange={onSortChange}
             />

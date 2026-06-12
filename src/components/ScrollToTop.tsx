@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 /** Przewija do góry strony przy każdej zmianie ścieżki */
-export default function ScrollToTop() {
+export default function ScrollToTop(): null {
   const { pathname } = useLocation();
 
   useEffect(() => {

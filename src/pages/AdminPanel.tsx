@@ -18,6 +18,7 @@ import { blogPosts } from "@/data/blog";
 
 /* ─── Types ─────────────────────────────────────────────────────── */
 type Tab = "dashboard"|"inquiries"|"products"|"categories"|"blog"|"realizacje"|"opinie"|"promocje"|"pracownicy"|"settings";
+type RealizacjaSanity = { _id: string; title?: string; year?: string; category?: string; client?: string; status?: string };
 
 /* ─── Mock data ─────────────────────────────────────────────────── */
 const INITIAL_INQUIRIES = [
@@ -104,6 +105,8 @@ export default function AdminPanel() {
     const saved = localStorage.getItem("mb_admin_inq_notes");
     return saved ? JSON.parse(saved) : {};
   });
+  const [sanityRealizacje, setSanityRealizacje] = useState<RealizacjaSanity[]>([]);
+  const [sanityRealizacjeLoading, setSanityRealizacjeLoading] = useState(false);
 
   
   useEffect(() => {
@@ -953,7 +956,7 @@ export default function AdminPanel() {
                     </tr>
                   </thead>
                   <tbody className="divide-y" style={{borderColor:"rgba(255,255,255,0.04)"}}>
-                    {filteredInq.map(inq=>(
+                    {filteredInq.map((inq: typeof INITIAL_INQUIRIES[number])=>(
                       <tr key={inq.id} className="hover:bg-white/2 transition-colors">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2.5">
@@ -1749,7 +1752,7 @@ export default function AdminPanel() {
                     </Card>
                   ))
                 ) : sanityRealizacje.length > 0 ? (
-                  sanityRealizacje.map(r=>(
+                  sanityRealizacje.map((r: RealizacjaSanity)=>(
                     <Card key={r._id} className="p-5 flex items-center gap-4">
                       <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-[#f81828]" style={{background:"rgba(248,24,40,0.1)",border:"1px solid rgba(248,24,40,0.2)"}}>
                         <HardHat className="w-5 h-5"/>

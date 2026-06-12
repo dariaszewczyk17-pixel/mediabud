@@ -40,7 +40,7 @@ const RANK_BADGE = [
 ];
 
 /* ─── Produkty w rankingowej kolejności ──────────────────────── */
-const slugSet    = new Set(BESTSELLER_SLUGS);
+const slugSet    = new Set<string>(BESTSELLER_SLUGS as readonly string[]);
 const ORDERED_BESTSELLERS = (() => {
   const found = allStaticProducts.filter(p => (slugSet as Set<string>).has(p.slug));
   return (BESTSELLER_SLUGS as readonly string[])
@@ -58,7 +58,7 @@ export default function BestsellerPage() {
     if (activeCategory === "wszystkie") return ORDERED_BESTSELLERS;
     const filter = BESTSELLER_CATEGORY_FILTERS.find(f => f.id === activeCategory);
     if (!filter || !("slugs" in filter)) return ORDERED_BESTSELLERS;
-    const catSet = new Set<string>((filter as any).slugs ?? []);
+    const catSet = new Set<string>(filter.slugs as readonly string[]);
     return ORDERED_BESTSELLERS.filter(p => catSet.has(p.categorySlug));
   }, [activeCategory]);
 

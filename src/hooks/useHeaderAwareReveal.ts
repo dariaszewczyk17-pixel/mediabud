@@ -42,7 +42,7 @@ interface UseHeaderAwareRevealOptions {
 export function useHeaderAwareReveal(options?: UseHeaderAwareRevealOptions) {
   const { threshold = 0.06, bottomMargin = 0 } = options ?? {};
 
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const prefersReduced =
     typeof window !== "undefined" &&

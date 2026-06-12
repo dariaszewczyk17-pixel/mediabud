@@ -63,11 +63,12 @@ export async function onRequest(context) {
       });
     }
 
-    // 2. Przygotuj mutacje - usuń obrazy z referencją do logo bechcicki
+    // 2. Przygotuj mutacje - dla każdego produktu usuń obrazy z logo bechcicki
+    // Używamy unset z filtrem array
     const mutations = products.map(p => ({
       patch: {
         id: p._id,
-        unset: [`images[_ref=="${BECHCICKI_IMAGE_REF}"]`]
+        unset: ["images[asset._ref == \"image-b488bf43433a77a051d95d3c8bf2b703ecbb0236-933x933-webp\"]"]
       }
     }));
 

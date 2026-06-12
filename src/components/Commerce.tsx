@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Phone, Mail, Check, X, ArrowLeft, Trash2, Package, Layers3 } from "lucide-react";
@@ -73,7 +74,9 @@ interface ProductCardProps {
   priority?: boolean;
 }
 
-export function ProductCard({ product, showBrand = true, priority = false }: ProductCardProps) {
+
+
+export const ProductCard = React.memo(function ProductCardComponent({ product, showBrand = true, priority = false }: ProductCardProps) {
   const { addItem } = useWycena();
   const [added, setAdded]     = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);

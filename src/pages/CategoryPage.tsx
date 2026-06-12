@@ -60,7 +60,7 @@ function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle }: Fu
 
         {/* Link do kategorii */}
         <Link
-          to={`/produkty/${node.slug}`}
+          to={`/kategoria/${node.slug}`}
           className={`flex-1 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all truncate ${
             isActive
               ? "bg-[#f81828] text-white"

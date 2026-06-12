@@ -1252,6 +1252,7 @@ export default function CategoryPage() {
                 <FilterPanel />
                 
                 {/* Nowe filtry parametrów technicznych */}
+                {console.log('[DEBUG] CategoryFilters check:', { slug, filtersLength: slug ? getCategoryFilters(slug).length : 0, filters: slug ? getCategoryFilters(slug) : [] })}
                 {slug && getCategoryFilters(slug).length > 0 && (
                   <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                     <CategoryFilters

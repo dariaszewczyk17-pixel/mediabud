@@ -110,6 +110,11 @@ const CATEGORY_SPECS: Record<string, CategorySpecDef> = {
       { key: "typ_izolacji", label: "Typ", icon: "🏷️" },
     ],
   },
+  // Aliasy styropianu
+  "styropian-grafitowy": { specs: [] }, // fallback do "styropian"
+  "styropian-bialy": { specs: [] },
+  "styropian-fasadowy": { specs: [] },
+  "styropian-podlogowy": { specs: [] },
   
   "welna-mineralna": {
     specs: [
@@ -125,6 +130,9 @@ const CATEGORY_SPECS: Record<string, CategorySpecDef> = {
         format: (m) => `${m[1]} m²` },
     ],
   },
+  // Aliasy wełny
+  "welna-skalna": { specs: [] },
+  "welna-szklana": { specs: [] },
   
   // ═══ CHEMIA BUDOWLANA ═══
   "chemia-budowlana": {
@@ -145,6 +153,45 @@ const CATEGORY_SPECS: Record<string, CategorySpecDef> = {
       { key: "typ_tynku", label: "Typ", icon: "🏠" },
     ],
   },
+  // Aliasy tynków
+  "tynki-silikonowe": {
+    specs: [
+      { key: "granulacja", label: "Ziarno", icon: "🔬", highlight: true,
+        format: (m) => `${m[1] || m[2]} mm` },
+      { key: "waga", label: "Waga", icon: "⚖️",
+        format: (m) => `${m[1]} kg` },
+    ],
+  },
+  "tynki-akrylowe": {
+    specs: [
+      { key: "granulacja", label: "Ziarno", icon: "🔬", highlight: true,
+        format: (m) => `${m[1] || m[2]} mm` },
+      { key: "waga", label: "Waga", icon: "⚖️",
+        format: (m) => `${m[1]} kg` },
+    ],
+  },
+  "tynki-mineralne": {
+    specs: [
+      { key: "granulacja", label: "Ziarno", icon: "🔬", highlight: true,
+        format: (m) => `${m[1] || m[2]} mm` },
+      { key: "waga", label: "Waga", icon: "⚖️",
+        format: (m) => `${m[1]} kg` },
+    ],
+  },
+  "tynki-gipsowe": {
+    specs: [
+      { key: "waga", label: "Waga", icon: "⚖️", highlight: true,
+        format: (m) => `${m[1]} kg` },
+      { key: "zuzycie", label: "Zużycie", icon: "📊",
+        format: (m) => `${m[1]} kg/m²` },
+    ],
+  },
+  "tynki-mozaikowe": {
+    specs: [
+      { key: "waga", label: "Waga", icon: "⚖️", highlight: true,
+        format: (m) => `${m[1]} kg` },
+    ],
+  },
   
   "kleje-budowlane": {
     specs: [
@@ -155,6 +202,28 @@ const CATEGORY_SPECS: Record<string, CategorySpecDef> = {
         format: (m) => `${m[1]} kg/m²` },
     ],
   },
+  // Aliasy klejów
+  "kleje-styropian": {
+    specs: [
+      { key: "waga", label: "Waga", icon: "⚖️", highlight: true,
+        format: (m) => `${m[1]} kg` },
+      { key: "zuzycie", label: "Zużycie", icon: "📊",
+        format: (m) => `${m[1]} kg/m²` },
+    ],
+  },
+  "kleje-do-plytek": {
+    specs: [
+      { key: "waga", label: "Waga", icon: "⚖️", highlight: true,
+        format: (m) => `${m[1]} kg` },
+      { key: "klasa", label: "Klasa", icon: "🏆", highlight: true },
+    ],
+  },
+  "kleje-montazowe": {
+    specs: [
+      { key: "waga", label: "Waga", icon: "⚖️", highlight: true,
+        format: (m) => `${m[1]} kg` },
+    ],
+  },
   
   // ═══ FARBY ═══
   "farby-i-rozpuszczalniki": {
@@ -163,6 +232,21 @@ const CATEGORY_SPECS: Record<string, CategorySpecDef> = {
         format: (m) => `${m[1]} l` },
       { key: "wydajnosc", label: "Wydajność", icon: "📐",
         format: (m) => `${m[1]} m²/l` },
+    ],
+  },
+  // Aliasy farb
+  "farby-elewacyjne": {
+    specs: [
+      { key: "pojemnosc", label: "Poj.", icon: "🪣", highlight: true,
+        format: (m) => `${m[1]} l` },
+      { key: "wydajnosc", label: "Wydajność", icon: "📐",
+        format: (m) => `${m[1]} m²/l` },
+    ],
+  },
+  "farby-wewnetrzne": {
+    specs: [
+      { key: "pojemnosc", label: "Poj.", icon: "🪣", highlight: true,
+        format: (m) => `${m[1]} l` },
     ],
   },
   
@@ -184,6 +268,15 @@ const CATEGORY_SPECS: Record<string, CategorySpecDef> = {
       { key: "wymiary", label: "Wymiary", icon: "📐",
         format: (m) => `${m[1]}×${m[2]}` },
       { key: "typ_plyty", label: "Typ", icon: "🔲" },
+    ],
+  },
+  // Aliasy suchej zabudowy
+  "plyty-gipsowo-kartonowe": {
+    specs: [
+      { key: "grubosc", label: "Grubość", icon: "📏", highlight: true,
+        format: (m) => `${m[1]} mm` },
+      { key: "wymiary", label: "Wymiary", icon: "📐",
+        format: (m) => `${m[1]}×${m[2]}` },
     ],
   },
   
@@ -232,30 +325,31 @@ export function extractProductSpecs(
   // Znajdź konfigurację dla kategorii (z fallback)
   let specDef = CATEGORY_SPECS[categorySlug];
   
-  if (!specDef) {
-    // Fallback do parent kategorii
+  // Jeśli kategoria ma puste specs, szukaj parent
+  if (!specDef || specDef.specs.length === 0) {
+    // Fallback do parent kategorii (np. "tynki-silikonowe" → "tynki")
     const parts = categorySlug.split("-");
     for (let i = parts.length - 1; i > 0; i--) {
       const parentSlug = parts.slice(0, i).join("-");
-      if (CATEGORY_SPECS[parentSlug]) {
+      if (CATEGORY_SPECS[parentSlug] && CATEGORY_SPECS[parentSlug].specs.length > 0) {
         specDef = CATEGORY_SPECS[parentSlug];
         break;
       }
     }
   }
   
-  if (!specDef) {
-    // Fallback do głównych kategorii
-    const mainCategories = Object.keys(CATEGORY_SPECS);
+  // Jeśli nadal brak, fallback do głównych kategorii
+  if (!specDef || specDef.specs.length === 0) {
+    const mainCategories = ["izolacje", "chemia-budowlana", "farby-i-rozpuszczalniki", "plytki", "sucha-zabudowa", "dachy", "stropy-i-sciany", "narzedzia-i-mocowania"];
     for (const main of mainCategories) {
       if (categorySlug.includes(main.split("-")[0])) {
         specDef = CATEGORY_SPECS[main];
-        break;
+        if (specDef && specDef.specs.length > 0) break;
       }
     }
   }
   
-  if (!specDef) return [];
+  if (!specDef || specDef.specs.length === 0) return [];
   
   // Połącz nazwę i opis do przeszukania
   const searchText = `${productName} ${productDescription || ""}`;
@@ -293,12 +387,18 @@ export function extractProductSpecs(
 }
 
 /**
- * Pobiera slug kategorii z breadcrumbs lub category produktu
+ * Pobiera slug kategorii z produktu
  */
 export function getCategorySlugFromProduct(product: {
+  categorySlug?: string;
   category?: string | { slug?: string; name?: string };
   breadcrumbs?: Array<{ slug?: string; name?: string }>;
 }): string | undefined {
+  // Bezpośrednio z categorySlug (główne źródło w Media Bud)
+  if (product.categorySlug) {
+    return product.categorySlug;
+  }
+  
   // Z breadcrumbs (pierwszy element to główna kategoria)
   if (product.breadcrumbs && product.breadcrumbs.length > 0) {
     return product.breadcrumbs[0].slug;

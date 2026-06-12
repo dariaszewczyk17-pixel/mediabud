@@ -28,6 +28,48 @@ const SLUG_TO_ID: Record<string, CalcId> = Object.fromEntries(calcs.map(c => [c.
 
 /* ─── HowTo JSON-LD ──────────────────────────────────── */
 const HOWTO_SCHEMAS: Partial<Record<CalcId, object>> = {
+  tynk: {
+    "@context": "https://schema.org", "@type": "HowTo",
+    "name": "Jak obliczyć ilość tynku elewacyjnego",
+    "description": "Krok po kroku: oblicz ile kg tynku elewacyjnego potrzebujesz na elewację budynku.",
+    "totalTime": "PT3M",
+    "estimatedCost": { "@type": "MonetaryAmount", "currency": "PLN", "value": "0" },
+    "tool": [{ "@type": "HowToTool", "name": "Kalkulator tynku elewacyjnego Media Bud" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Zmierz powierzchnię elewacji", "text": "Oblicz m² wszystkich ścian zewnętrznych (długość × wysokość)." },
+      { "@type": "HowToStep", "position": 2, "name": "Odejmij otwory", "text": "Zsumuj powierzchnię okien i drzwi i odejmij od całości." },
+      { "@type": "HowToStep", "position": 3, "name": "Wybierz granulację tynku", "text": "1.0 mm: 2.0 kg/m². 1.5 mm: 2.5 kg/m². 2.0 mm: 3.0 kg/m². 3.0 mm: 4.0 kg/m²." },
+      { "@type": "HowToStep", "position": 4, "name": "Dodaj bufor", "text": "Zalecany bufor 10% na straty i nierówności. Kalkulator podaje kg i liczbę wiader." },
+    ],
+  },
+  styropian: {
+    "@context": "https://schema.org", "@type": "HowTo",
+    "name": "Jak obliczyć ilość styropianu lub wełny mineralnej",
+    "description": "Krok po kroku: oblicz ile m² izolacji termicznej potrzebujesz do ocieplenia budynku.",
+    "totalTime": "PT3M",
+    "estimatedCost": { "@type": "MonetaryAmount", "currency": "PLN", "value": "0" },
+    "tool": [{ "@type": "HowToTool", "name": "Kalkulator styropianu i wełny Media Bud" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Zmierz powierzchnię do ocieplenia", "text": "Oblicz m² ścian, dachu lub podłogi do izolacji." },
+      { "@type": "HowToStep", "position": 2, "name": "Odejmij otwory", "text": "Zsumuj powierzchnię okien, drzwi i innych otworów." },
+      { "@type": "HowToStep", "position": 3, "name": "Wybierz grubość i typ izolacji", "text": "EPS 031 grafitowy dla ścian, wełna skalna dla dachu, XPS dla fundamentów." },
+      { "@type": "HowToStep", "position": 4, "name": "Oblicz liczbę płyt", "text": "Kalkulator podaje m² netto, m² brutto z buforem i liczbę płyt standardowych." },
+    ],
+  },
+  plytki: {
+    "@context": "https://schema.org", "@type": "HowTo",
+    "name": "Jak obliczyć ilość płytek ceramicznych",
+    "description": "Krok po kroku: oblicz ile m² płytek ceramicznych potrzebujesz z uwzględnieniem odpadów.",
+    "totalTime": "PT3M",
+    "estimatedCost": { "@type": "MonetaryAmount", "currency": "PLN", "value": "0" },
+    "tool": [{ "@type": "HowToTool", "name": "Kalkulator płytek ceramicznych Media Bud" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Zmierz powierzchnię", "text": "Oblicz m² podłogi lub ściany (długość × szerokość)." },
+      { "@type": "HowToStep", "position": 2, "name": "Wybierz sposób układania", "text": "Prosty: +5% odpadu. Diagonalny: +10%. Jodełka: +15%." },
+      { "@type": "HowToStep", "position": 3, "name": "Uwzględnij format płytki", "text": "Większe formaty = mniej cięć, ale więcej odpadu przy skomplikowanych kształtach." },
+      { "@type": "HowToStep", "position": 4, "name": "Zamów z zapasem", "text": "Kalkulator podaje m² brutto. Zawsze zamów 1-2 kartony więcej na przyszłe naprawy." },
+    ],
+  },
   klej: {
     "@context": "https://schema.org", "@type": "HowTo",
     "name": "Jak obliczyć ilość kleju do płytek ceramicznych",

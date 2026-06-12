@@ -297,8 +297,38 @@ const processSteps = [
 ];
 
 /* ─── ServiceDetailPage ─────────────────────────────────────────── */
+/* ─── FAQ per usługa ─────────────────────────────────────────────── */
+const SERVICE_FAQS: Record<string, { q: string; a: string }[]> = {
+  "dom-od-podstaw": [
+    { q: "Ile kosztuje budowa domu pod klucz w Lublinie?", a: "Koszt zależy od metrażu, standardu wykończenia i lokalizacji. Orientacyjnie: stan surowy zamknięty to 2500-3500 zł/m², wykończenie pod klucz 4500-7000 zł/m². Przygotujemy bezpłatną wycenę po analizie projektu." },
+    { q: "Jak długo trwa budowa domu od podstaw?", a: "Standardowy dom jednorodzinny 120-150 m² budujemy w 10-14 miesięcy od fundamentów do kluczy. Czas zależy od pogody, dostępności materiałów i złożoności projektu." },
+    { q: "Czy mogę kupić tylko materiały bez usługi budowy?", a: "Tak, Media Bud to również skład budowlany. Możesz kupić same materiały z dostawą na plac budowy lub zamówić kompleksową usługę." },
+  ],
+  "kompleksowa-wspolpraca-z-deweloperami": [
+    { q: "Jakie rabaty oferujecie dla deweloperów?", a: "Rabaty zależą od wolumenu i długości współpracy. Dla stałych partnerów oferujemy indywidualne cenniki, faktury zbiorcze i terminy płatności 30-60 dni." },
+    { q: "Czy obsługujecie przetargi publiczne?", a: "Tak, mamy doświadczenie w procedurach PZP. Przygotowujemy dokumentację przetargową i realizujemy zamówienia zgodnie z wymogami zamawiającego." },
+  ],
+  "wykonczenia-pod-klucz": [
+    { q: "Ile kosztuje wykończenie mieszkania pod klucz?", a: "Wykończenie w standardzie ekonomicznym: 800-1200 zł/m². Standard: 1200-1800 zł/m². Premium: 1800-3000 zł/m². Cena obejmuje materiały i robociznę." },
+    { q: "Jak długo trwa wykończenie mieszkania 50 m²?", a: "Wykończenie mieszkania 50 m² trwa 6-10 tygodni w zależności od zakresu prac i dostępności materiałów." },
+  ],
+  "dachy": [
+    { q: "Ile kosztuje wymiana pokrycia dachowego?", a: "Koszt zależy od rodzaju pokrycia i stanu więźby. Blachodachówka: 150-250 zł/m². Dachówka ceramiczna: 200-350 zł/m². Wycena po oględzinach." },
+    { q: "Czy naprawiacie przeciekające dachy?", a: "Tak, wykonujemy naprawy awaryjne i planowe. Diagnozujemy przyczynę przecieku i proponujemy optymalne rozwiązanie." },
+  ],
+  "elewacje": [
+    { q: "Ile kosztuje ocieplenie domu styropianem?", a: "Ocieplenie metodą ETICS (styropian + tynk): 180-280 zł/m² w zależności od grubości izolacji i rodzaju tynku. Cena obejmuje materiały i robociznę." },
+    { q: "Jaka grubość styropianu spełnia normy WT2021?", a: "Dla ścian zewnętrznych zalecamy minimum 15 cm styropianu grafitowego (λ=0.031) lub 20 cm białego EPS (λ=0.040)." },
+  ],
+  "galerie-obiekty": [
+    { q: "Czy wykonujecie prace w czynnych obiektach?", a: "Tak, specjalizujemy się w remontach obiektów komercyjnych bez przerywania ich działalności. Pracujemy w nocy, weekendy i święta." },
+    { q: "Jakie obiekty komercyjne obsługujecie?", a: "Galerie handlowe, biurowce, hotele, szkoły, przedszkola, urzędy, obiekty użyteczności publicznej. Mamy doświadczenie w procedurach PZP." },
+  ],
+};
+
 function ServiceDetailPage({ service }: { service: ServiceDetail }) {
   const heroVideo = SERVICE_VIDEOS[service.slug];
+  const faqs = SERVICE_FAQS[service.slug] || [];
   return (
     <div className="min-h-screen" style={{ background: "#050505" }}>
       {/* Service Schema JSON-LD */}
@@ -326,6 +356,19 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
           "servicePhone": "+48533553344"
         }
       })}} />
+      
+      {/* FAQ Schema JSON-LD */}
+      {faqs.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(({ q, a }) => ({
+            "@type": "Question",
+            "name": q,
+            "acceptedAnswer": { "@type": "Answer", "text": a },
+          })),
+        })}} />
+      )}
       {/* Hero */}
       <div className="relative overflow-hidden" style={{ background: "linear-gradient(160deg,#0a0a0a 0%,#050505 100%)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "48px 48px" }} />

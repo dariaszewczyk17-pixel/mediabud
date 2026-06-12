@@ -228,7 +228,7 @@ export default function ProductDetail() {
         }),
         "offers": {
           "@type": "Offer", "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition", "priceCurrency": "PLN",
+          "itemCondition": "https://schema.org/NewCondition", "priceCurrency": "PLN", "price": "0.00",
           "url": `https://mediabud.pl/produkt/${slug}`,
           "areaServed": { "@type": "AdministrativeArea", "name": "Lublin i województwo lubelskie" },
           "seller": { "@type": "Organization", "@id": "https://mediabud.pl/#organization", "name": "Media Bud" },

@@ -564,7 +564,7 @@ export default function CategoryPage() {
       case "new":       result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)); break;
     }
     return result;
-  }, [catProducts, selectedBrand, selectedUnit, selectedTag, sortBy]);
+  }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);

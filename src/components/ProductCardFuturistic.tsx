@@ -1,9 +1,10 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Check, Mail, Eye, Zap, Package } from "lucide-react";
+import { ShoppingCart, Check, Mail, Eye, Zap } from "lucide-react";
 import { useWycena } from "@/hooks/useWycena";
 import type { Product } from "@/data/products";
 import { toast } from "sonner";
+import { extractProductSpecs, getCategorySlugFromProduct } from "@/lib/extractProductSpecs";
 
 const PRODUCT_PLACEHOLDER = "/images/placeholder-product.png";
 
@@ -44,6 +45,12 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
 
   const mainImage = product.images?.[0] || PRODUCT_PLACEHOLDER;
   const inStock = product.inStock !== false;
+
+  // Extract technical specs based on product category
+  const techSpecs = useMemo(() => {
+    const categorySlug = getCategorySlugFromProduct(product);
+    return extractProductSpecs(product.name, product.shortDescription, categorySlug);
+  }, [product.name, product.shortDescription, product]);
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -272,6 +279,26 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
             {product.name}
           </h3>
         </Link>
+
+        {/* Technical specs chips */}
+        {techSpecs.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {techSpecs.map((spec) => (
+              <span
+                key={spec.key}
+                className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-semibold ${
+                  spec.highlight
+                    ? "bg-[#f81828]/15 text-[#ff6b6b] border border-[#f81828]/30"
+                    : "bg-white/5 text-gray-300 border border-white/10"
+                }`}
+                title={spec.label}
+              >
+                <span className="text-[9px]">{spec.icon}</span>
+                <span className="font-mono">{spec.value}</span>
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Short description */}
         {product.shortDescription && (

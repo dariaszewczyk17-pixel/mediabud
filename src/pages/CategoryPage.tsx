@@ -1758,7 +1758,7 @@ export default function CategoryPage() {
                       className={`transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                       style={{ transitionDelay: `${(i % 8) * 40}ms` }}
                     >
-                      <ProductCardFuturistic product={p} priority={i < 4} index={i} />
+                      <ProductCardFuturistic product={p} priority={i < 4} index={i} categorySlug={slug} />
                     </div>
                   ))}
                 </div>

@@ -26,6 +26,7 @@ interface ProductCardFuturisticProps {
   priority?: boolean;
   index?: number;
   onQuickView?: (product: Product) => void;
+  categorySlug?: string; // Override category for spec extraction
 }
 
 export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
@@ -34,6 +35,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
   priority = false,
   index = 0,
   onQuickView,
+  categorySlug: categorySlugProp,
 }: ProductCardFuturisticProps) {
   const { addItem } = useWycena();
   const [added, setAdded] = useState(false);
@@ -48,9 +50,9 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
 
   // Extract technical specs based on product category
   const techSpecs = useMemo(() => {
-    const categorySlug = getCategorySlugFromProduct(product);
+    const categorySlug = categorySlugProp || getCategorySlugFromProduct(product);
     return extractProductSpecs(product.name, product.shortDescription, categorySlug);
-  }, [product.name, product.shortDescription, product]);
+  }, [product.name, product.shortDescription, product, categorySlugProp]);
 
   // Intersection Observer for lazy loading
   useEffect(() => {

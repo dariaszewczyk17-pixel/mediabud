@@ -20,7 +20,6 @@ import { PRODUCT_META_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
 import { ProductCard } from "@/components/Commerce";
 import { ProductCardFuturistic } from "@/components/ProductCardFuturistic";
 import { FilterBarFuturistic } from "@/components/FilterBarFuturistic";
-import { PriceHistogram } from "@/components/PriceHistogram";
 import { ZeroResultsRecovery } from "@/components/ZeroResultsRecovery";
 import { FilterListWithDisclosure, ProgressiveDisclosure } from "@/components/ProgressiveDisclosure";
 import { Button } from "@/components/ui/button";
@@ -30,6 +29,67 @@ const PRODUCTS_PER_PAGE = 24;
 
 /* ── Węzeł drzewa kategorii ─────────────────────────────────────────────── */
 interface TreeNode { id: string; slug: string; name: string; children?: TreeNode[] }
+
+/* ── Pełne drzewko WSZYSTKICH kategorii z linkami ── */
+interface FullTreeNodeProps {
+  node: TreeNode;
+  depth: number;
+  currentSlug: string;
+  expanded: Set<string>;
+  toggle: (id: string) => void;
+}
+function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle }: FullTreeNodeProps) {
+  const hasKids = !!(node.children && node.children.length > 0);
+  const isOpen = expanded.has(node.id);
+  const isActive = currentSlug === node.slug;
+
+  return (
+    <div>
+      <div className="flex items-center gap-0.5 min-h-[28px]">
+        {/* Expand / collapse */}
+        {hasKids ? (
+          <button
+            onClick={() => toggle(node.id)}
+            className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#f81828] transition-colors rounded"
+          >
+            <ChevronRight className={`w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`} />
+          </button>
+        ) : (
+          <span className="flex-shrink-0 w-5" />
+        )}
+
+        {/* Link do kategorii */}
+        <Link
+          to={`/produkty/${node.slug}`}
+          className={`flex-1 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all truncate ${
+            isActive
+              ? "bg-[#f81828] text-white"
+              : "text-gray-400 hover:bg-[#f81828]/10 hover:text-[#f81828]"
+          }`}
+          style={{ paddingLeft: `${4 + depth * 8}px` }}
+        >
+          {node.name}
+        </Link>
+      </div>
+
+      {hasKids && isOpen && (
+        <div className="ml-2 pl-2" style={{ borderLeft: "1px solid rgba(248,24,40,0.2)" }}>
+          {node.children!.map(child => (
+            <FullCategoryTreeNode
+              key={child.id}
+              node={child}
+              depth={depth + 1}
+              currentSlug={currentSlug}
+              expanded={expanded}
+              toggle={toggle}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 interface TreeNodeProps {
   node: TreeNode;
   depth: number;
@@ -388,10 +448,6 @@ export default function CategoryPage() {
     [searchParams]
   );
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
-  
-  // Price filter state
-  const priceMin = parseFloat(searchParams.get("priceMin") || "0") || 0;
-  const priceMax = parseFloat(searchParams.get("priceMax") || "0") || 0;
 
   /* Reset filtrów i strony gdy zmienia się kategoria */
   useEffect(() => {
@@ -569,28 +625,6 @@ export default function CategoryPage() {
       }));
   }, [catProducts]);
 
-  // Oblicz zakres cen dla histogramu (używamy przykładowych cen z nazw produktów lub stałych)
-  const productPrices = useMemo(() => {
-    // Symulowane ceny na podstawie kategorii/nazwy (w przyszłości z Sanity)
-    return catProducts.map((p, i) => {
-      // Generuj cenę na podstawie hash nazwy dla spójności
-      const hash = p.name.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-      return 10 + (hash % 500) + (i % 100);
-    });
-  }, [catProducts]);
-
-  const priceRange = useMemo(() => {
-    if (productPrices.length === 0) return { min: 0, max: 1000 };
-    return {
-      min: Math.floor(Math.min(...productPrices)),
-      max: Math.ceil(Math.max(...productPrices)),
-    };
-  }, [productPrices]);
-
-  // Efektywne min/max dla filtra (0 = brak filtra)
-  const effectivePriceMin = priceMin || priceRange.min;
-  const effectivePriceMax = priceMax || priceRange.max;
-
   const filtered = useMemo(() => {
     let result = [...catProducts];
     if (selectedSubcat) {
@@ -622,15 +656,6 @@ export default function CategoryPage() {
         });
       });
     }
-    // Filtr ceny
-    if (priceMin > 0 || priceMax > 0) {
-      result = result.filter((p, idx) => {
-        const price = productPrices[catProducts.indexOf(p)] ?? 0;
-        const minOk = priceMin <= 0 || price >= priceMin;
-        const maxOk = priceMax <= 0 || price <= priceMax;
-        return minOk && maxOk;
-      });
-    }
     switch (sortBy) {
       case "inStock":    result.sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0)); break;
       case "featured":   result.sort((a, b) => (b.featured || (b as any).isFeatured ? 1 : 0) - (a.featured || (a as any).isFeatured ? 1 : 0)); break;
@@ -640,7 +665,7 @@ export default function CategoryPage() {
       case "new":       result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)); break;
     }
     return result;
-  }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy, priceMin, priceMax, productPrices]);
+  }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy]);
 
   const totalPages = useMemo(() => Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE)), [filtered.length]);
   const safePage = useMemo(() => Math.min(currentPage, totalPages), [currentPage, totalPages]);
@@ -653,17 +678,8 @@ export default function CategoryPage() {
     setSearchParams(p);
   };
 
-  // Callback do aktualizacji zakresu cen
-  const updatePriceRange = (min: number, max: number) => {
-    const p = new URLSearchParams(searchParams);
-    if (min > priceRange.min) p.set("priceMin", String(min)); else p.delete("priceMin");
-    if (max < priceRange.max) p.set("priceMax", String(max)); else p.delete("priceMax");
-    p.delete("page");
-    setSearchParams(p);
-  };
-
   const clearFilters = () => setSearchParams(new URLSearchParams());
-  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || selectedSubcat || selectedSpecs.length > 0 || sortBy !== "default" || priceMin > 0 || priceMax > 0);
+  const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || selectedSubcat || selectedSpecs.length > 0 || sortBy !== "default");
 
   const toggleSpec = (specKey: string) => {
     const p = new URLSearchParams(searchParams);
@@ -728,17 +744,24 @@ export default function CategoryPage() {
   /* ── Mobile Filter Panel — sekcje z checkboxowymi przyciskami ── */
   const MobileFilterPanel = () => (
     <div className="space-y-6">
-      {/* HISTOGRAM CEN */}
-      {productPrices.length > 0 && (
-        <PriceHistogram
-          prices={productPrices}
-          minPrice={priceRange.min}
-          maxPrice={priceRange.max}
-          selectedMin={effectivePriceMin}
-          selectedMax={effectivePriceMax}
-          onRangeChange={updatePriceRange}
-        />
-      )}
+      {/* PEŁNE DRZEWKO KATEGORII */}
+      <div>
+        <h3 className="flex items-center gap-2 font-bold text-[10px] text-gray-500 uppercase tracking-widest mb-2">
+          <ChevronRight className="w-3 h-3 text-[#f81828]" /> Wszystkie kategorie
+        </h3>
+        <div className="space-y-0 max-h-[400px] overflow-y-auto pr-1 scrollbar-thin">
+          {staticCategories.map(rootCat => (
+            <FullCategoryTreeNode
+              key={rootCat.id}
+              node={rootCat as TreeNode}
+              depth={0}
+              currentSlug={slug || ""}
+              expanded={expandedNodes}
+              toggle={toggleExpand}
+            />
+          ))}
+        </div>
+      </div>
 
       {/* MARKA z Progressive Disclosure */}
       {availableBrands.length > 0 && (
@@ -1703,18 +1726,6 @@ export default function CategoryPage() {
                   ...(selectedUnit ? [{ type: "unit" as const, label: "Jednostka", value: selectedUnit, onRemove: () => updateParam("unit", "") }] : []),
                   ...(selectedTag ? [{ type: "tag" as const, label: "Typ", value: selectedTag, onRemove: () => updateParam("tag", "") }] : []),
                   ...(selectedSubcat ? [{ type: "subcat" as const, label: "Podkategoria", value: selectedSubcat, onRemove: () => updateParam("subcat", "") }] : []),
-                  ...(priceMin > 0 || priceMax > 0 ? [{ 
-                    type: "price" as const, 
-                    label: "Cena", 
-                    value: `${priceMin > 0 ? priceMin : priceRange.min} - ${priceMax > 0 ? priceMax : priceRange.max} zł`,
-                    onRemove: () => {
-                      const p = new URLSearchParams(searchParams);
-                      p.delete("priceMin");
-                      p.delete("priceMax");
-                      p.delete("page");
-                      setSearchParams(p);
-                    }
-                  }] : []),
                 ]}
                 bestsellers={catProducts.slice(0, 4).map(p => ({
                   id: p.id,

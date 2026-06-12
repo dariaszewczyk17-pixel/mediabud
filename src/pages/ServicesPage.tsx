@@ -301,6 +301,31 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
   const heroVideo = SERVICE_VIDEOS[service.slug];
   return (
     <div className="min-h-screen" style={{ background: "#050505" }}>
+      {/* Service Schema JSON-LD */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": service.title,
+        "description": service.krotkiOpis,
+        "url": `https://mediabud.pl/uslugi/${service.slug}`,
+        "provider": {
+          "@type": "HomeAndConstructionBusiness",
+          "@id": "https://mediabud.pl/#organization",
+          "name": "Media Bud",
+          "telephone": "+48533553344",
+          "email": "sprzedaz@mediabud.pl"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Lublin i województwo lubelskie"
+        },
+        "serviceType": service.badge.split("·")[0].trim(),
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "serviceUrl": "https://mediabud.pl/kontakt",
+          "servicePhone": "+48533553344"
+        }
+      })}} />
       {/* Hero */}
       <div className="relative overflow-hidden" style={{ background: "linear-gradient(160deg,#0a0a0a 0%,#050505 100%)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.05) 1px,transparent 1px)", backgroundSize: "48px 48px" }} />

@@ -77,7 +77,7 @@ export default function BestsellerPage() {
         "mainEntity": { "@type": "ItemList", "name": "Bestsellery materiałów budowlanych – ranking Media Bud 2026",
           "numberOfItems": ORDERED_BESTSELLERS.length,
           "itemListElement": ORDERED_BESTSELLERS.map((p, i) => ({
-            "@type": "ListItem", "position": i + 1, "url": `https://mediabud.pl/produkty/${p.slug}`, "name": p.name,
+            "@type": "ListItem", "position": i + 1, "url": `https://mediabud.pl/produkt/${p.slug}`, "name": p.name,
             "item": { "@type": "Product", "name": p.name, "sku": p.sku || undefined, "image": p.images?.[0] ? `https://mediabud.pl${p.images[0]}` : undefined,
               "brand": { "@type": "Brand", "name": p.brand }, "offers": { "@type": "Offer", "availability": p.inStock !== false ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", "priceCurrency": "PLN", "seller": { "@id": ORG_ID } } },
           })),

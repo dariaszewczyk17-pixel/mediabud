@@ -16,6 +16,8 @@ import { useWycena } from "@/hooks/useWycena";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState, useMemo, useCallback, useEffect } from "react";
+import { HeroSpecs } from "@/components/HeroSpecs";
+import { StickyCTA } from "@/components/StickyCTA";
 import { toast } from "sonner";
 
 /* ---------- tiny reveal hook ---------- */
@@ -419,6 +421,17 @@ export default function ProductDetail() {
               </p>
             )}
 
+            {/* ── Hero Specs — kluczowe parametry ── */}
+            {product.categorySlug && (
+              <HeroSpecs 
+                categorySlug={product.categorySlug} 
+                techSpecs={Object.fromEntries(
+                  product.technicalSpec.map(s => [s.label.toLowerCase().replace(/\s+/g, '_'), s.value])
+                )}
+                className="mb-5"
+              />
+            )}
+
             {product.technicalSpec.length > 0 && (
               <div className="grid grid-cols-2 gap-2 mb-5">
                 {product.technicalSpec.slice(0, 6).map((spec, i) => (
@@ -462,6 +475,7 @@ export default function ProductDetail() {
 
               {/* Primary CTA — pulsujący glow */}
               <button
+                data-main-cta="true"
                 className="w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-black text-base text-white transition-all"
                 style={{ background: "linear-gradient(135deg,#f81828 0%,#c8000f 100%)", animation: "ctaPulse 3s ease-in-out infinite" }}
                 onMouseEnter={e => {
@@ -767,6 +781,12 @@ export default function ProductDetail() {
       )}
 
       <QuoteModal open={quoteOpen} onClose={() => setQuoteOpen(false)} productName={product.name} />
+
+      {/* ── Sticky CTA mobile ── */}
+      <StickyCTA 
+        productName={product.name} 
+        onQuoteClick={() => setQuoteOpen(true)} 
+      />
 
       <style>{`
         @keyframes ctaPulse {

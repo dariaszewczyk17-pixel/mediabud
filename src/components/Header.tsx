@@ -896,20 +896,22 @@ export default function Header() {
 
               {/* Secondary nav links */}
               <div className="ml-0.5 flex flex-shrink-0 items-center gap-0">
-                {[
-                  { to: "/marki", label: "Marki" },
-                  { to: "/blog", label: "Blog" },
-                  { to: "/o-firmie", label: "O firmie" },
-                  { to: "/uslugi", label: "Usługi" },
-                ].map((link) => (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    className="whitespace-nowrap px-1.5 py-2 text-[11px] font-bold uppercase tracking-normal text-[#888888] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                <div className="hidden 2xl:flex items-center gap-0">
+                  {[
+                    { to: "/marki", label: "Marki" },
+                    { to: "/blog", label: "Blog" },
+                    { to: "/o-firmie", label: "O firmie" },
+                    { to: "/uslugi", label: "Usługi" },
+                  ].map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      className="whitespace-nowrap px-1.5 py-2 text-[11px] font-bold uppercase tracking-normal text-[#888888] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
                 <Link
                   to="/kontakt"
                   className="ml-0 flex items-center gap-0.5 rounded-md border border-[#f81828]/50 bg-[#f81828]/10 px-1.5 py-1.5 text-[11px] font-black uppercase tracking-normal text-[#f81828] transition-all hover:bg-[#f81828] hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"

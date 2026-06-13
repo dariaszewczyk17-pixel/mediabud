@@ -161,10 +161,29 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
+/*
+* Scroll hysteresis: bez tego header potrafi „tańczyć” na granicy progu.
+* Zwijanie górnych rzędów zmienia wysokość sticky headera, co może przesuwać
+* scrollY raz nad, raz pod pojedynczy próg. Oddzielne progi + RAF stabilizują stan.
+*/
+const COLLAPSE_AT = 96;
+const EXPAND_AT = 24;
+let raf = 0;
+const fn = () => {
+if (raf) return;
+raf = window.requestAnimationFrame(() => {
+raf = 0;
+const y = window.scrollY;
+setScrolled((prev) => (prev ? y > EXPAND_AT : y > COLLAPSE_AT));
+});
+};
+fn();
+window.addEventListener("scroll", fn, { passive: true });
+return () => {
+if (raf) window.cancelAnimationFrame(raf);
+window.removeEventListener("scroll", fn);
+};
+}, []);
 
   useEffect(() => {
     if (searchQuery.trim().length > 1) {

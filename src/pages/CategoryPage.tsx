@@ -571,14 +571,15 @@ export default function CategoryPage() {
     const slugSet = new Set(allSubSlugs);
     return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
   }, [allSubSlugs]);
-  const isLoadingProducts = firstLoading && !firstBatch;
+  const isLoadingProducts = firstLoading && !firstBatch && !hasStaticFallback;
 
   const catProducts = useMemo(() => {
-    // Dopóki Phase 1 nie wróci — skeleton zamiast statycznego fallbacku (eliminuje flash "2 produkty")
-    if (!sanityMeta) return [] as ReturnType<typeof mergeProductCollections>;
-
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
     const staticCategoryProducts = staticProducts.filter(p => slugSet.has(p.categorySlug)); // O(n)
+
+    // Jeśli Sanity jeszcze ładuje, pokazuj od razu statyczne produkty zamiast pustych skeletonów.
+    // Dzięki temu karty renderują parametry techniczne i placeholdery już w pierwszym widoku.
+    if (!sanityMeta) return staticCategoryProducts as ReturnType<typeof mergeProductCollections>;
 
     // ⚡ Two-query: Sanity dostarcza tylko meta (brand/unit/tags/featured/inStock),
     // pełne dane (obrazy, opisy, sku) pobierane ze staticProducts przez lookup by slug.
@@ -613,7 +614,7 @@ export default function CategoryPage() {
         shortDescription: meta.shortDescription || '',
         description: '', application: '',
         images: meta.images?.filter(Boolean) ?? [],
-        technicalSpec: [], faq: [], advantages: [], warnings: [],
+        technicalSpec: [] as { label: string; value: string }[], faq: [] as { q: string; a: string }[], advantages: [] as string[], warnings: [] as string[],
         isNew: false,
       };
     });
@@ -1749,13 +1750,13 @@ export default function CategoryPage() {
                 <div
                   ref={gridReveal.ref}
                   className={view === "grid"
-                    ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+                    ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-stretch"
                     : "space-y-4"}
                 >
                   {paginated.map((p, i) => (
                     <div
                       key={p.id}
-                      className={`transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                      className={`h-full transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                       style={{ transitionDelay: `${(i % 8) * 40}ms` }}
                     >
                       <ProductCardFuturistic product={p} priority={i < 4} index={i} categorySlug={slug} />

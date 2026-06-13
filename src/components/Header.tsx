@@ -435,8 +435,7 @@ export default function Header() {
           ROW 2 — Main bar: Logo + Search + CTAs
       ════════════════════════════════════════════════ */}
       <div
-        className={`relative border-b border-[#f81828]/20 bg-[#0a0a0a] ${scrolled && !isMobile ? "overflow-hidden" : "overflow-visible"}`}
-        style={{ maxHeight: (scrolled && !isMobile) ? "0" : "120px", transition: "max-height 0.3s ease" }}
+        className="relative overflow-visible border-b border-[#f81828]/20 bg-[#0a0a0a]"
       >
         <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f81828] transition-all duration-500 ${scrolled ? "w-full" : "w-0"}`} />
         <div className="container mx-auto flex items-center gap-4 px-4 py-4">

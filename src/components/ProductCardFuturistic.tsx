@@ -6,7 +6,7 @@ import type { Product } from "@/data/products";
 import { toast } from "sonner";
 import { extractProductSpecs, getCategorySlugFromProduct } from "@/lib/extractProductSpecs";
 
-const PRODUCT_PLACEHOLDER = "/images/placeholder-product.png";
+const PRODUCT_PLACEHOLDER = "/images/placeholder-product_2.png";
 
 /* ================================================================
    FUTURISTIC PRODUCT CARD — Industrial Pulse 2026
@@ -39,20 +39,51 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
 }: ProductCardFuturisticProps) {
   const { addItem } = useWycena();
   const [added, setAdded] = useState(false);
-  const [isVisible, setIsVisible] = useState(priority);
+  const [isVisible, setIsVisible] = useState(true);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
   const mainImage = product.images?.[0] || PRODUCT_PLACEHOLDER;
-  const inStock = product.inStock !== false;
 
-  // Extract technical specs based on product category
+  // Extract technical specs based on product category, then fall back to product data
   const techSpecs = useMemo(() => {
     const categorySlug = categorySlugProp || getCategorySlugFromProduct(product);
-    return extractProductSpecs(product.name, product.shortDescription, categorySlug);
-  }, [product.name, product.shortDescription, product, categorySlugProp]);
+    const searchableText = [
+      product.shortDescription,
+      product.description,
+      product.application,
+      product.unit,
+      ...(product.technicalSpec || []).flatMap((spec) => [spec.label, spec.value]),
+    ].filter(Boolean).join(" ");
+
+    const extracted = extractProductSpecs(product.name, searchableText, categorySlug);
+    const fromProductSpecs = (product.technicalSpec || [])
+      .filter((spec) => spec.label && spec.value)
+      .slice(0, 3)
+      .map((spec, specIndex) => ({
+        key: `product-spec-${specIndex}-${spec.label}`,
+        label: spec.label,
+        value: spec.value,
+        highlight: specIndex === 0,
+      }));
+
+    const fallbackSpecs = [
+      product.unit ? { key: "unit", label: "Opak.", value: product.unit, highlight: true } : null,
+      categorySlug ? { key: "category", label: "Kategoria", value: categorySlug.replace(/-/g, " ") } : null,
+      product.brand ? { key: "brand", label: "Marka", value: product.brand } : null,
+    ].filter(Boolean) as Array<{ key: string; label: string; value: string; highlight?: boolean }>;
+
+    const merged = [...extracted, ...fromProductSpecs, ...fallbackSpecs];
+    const seen = new Set<string>();
+    return merged.filter((spec) => {
+      const id = `${spec.label.toLowerCase()}::${spec.value.toLowerCase()}`;
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    }).slice(0, 3);
+  }, [product, categorySlugProp]);
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -134,7 +165,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer"
+      className="group relative rounded-2xl overflow-hidden cursor-pointer h-[560px] flex flex-col"
       style={{
         background: "linear-gradient(145deg, #0f0f0f 0%, #0a0a0a 100%)",
         border: hovered ? "1px solid rgba(248,24,40,0.5)" : "1px solid rgba(255,255,255,0.06)",
@@ -219,19 +250,6 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
           )}
         </div>
 
-        {/* Stock indicator */}
-        <div className="absolute top-3 right-3 z-[3]">
-          <span className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-bold ${
-            inStock
-              ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-              : "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-          }`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${inStock ? "bg-emerald-400" : "bg-amber-400"}`}
-              style={{ boxShadow: inStock ? "0 0 6px rgba(52,211,153,0.8)" : "0 0 6px rgba(251,191,36,0.8)" }} />
-            {inStock ? "Dostępny" : "Na zamówienie"}
-          </span>
-        </div>
-
         {/* Quick view button */}
         {onQuickView && (
           <button
@@ -251,7 +269,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
       </Link>
 
       {/* ── Content ── */}
-      <div className="p-4 relative">
+      <div className="p-4 relative flex-1 flex flex-col">
         {/* Subtle top border glow */}
         <div className="absolute top-0 left-4 right-4 h-[1px]"
           style={{ background: "linear-gradient(90deg, transparent, rgba(248,24,40,0.2), transparent)" }} />
@@ -274,51 +292,60 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
           </div>
         )}
 
+        {/* @section: product-card-title */}
         {/* Product name */}
         <Link to={`/produkt/${product.slug}`} className="block group/title">
-          <h3 className="text-sm font-bold text-gray-200 leading-snug mb-2 line-clamp-2 min-h-[2.6rem] transition-colors group-hover/title:text-white"
+          <h3 className="text-sm font-bold text-gray-200 leading-snug mb-3 line-clamp-3 min-h-[3.9rem] transition-colors group-hover/title:text-white"
             style={{ fontFamily: "'Rajdhani', 'Inter', sans-serif" }}>
             {product.name}
           </h3>
         </Link>
 
-        {/* Technical specs - clean grid layout */}
-        {techSpecs.length > 0 && (
-          <div className="grid grid-cols-2 gap-x-3 gap-y-1 mb-3 py-2 px-2.5 rounded-lg"
-            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
-            {techSpecs.map((spec) => (
-              <div key={spec.key} className="flex items-baseline justify-between gap-1">
-                <span className="text-[10px] text-gray-500 uppercase tracking-wide">{spec.label}</span>
-                <span className={`text-[11px] font-bold tabular-nums ${spec.highlight ? "text-[#f81828]" : "text-gray-200"}`}>
-                  {spec.value}
-                </span>
-              </div>
-            ))}
+        {/* @section: product-card-technical-specs */}
+        {/* Technical specs - czytelna tabela zamiast emoji/chipów */}
+        <div className="mb-3 min-h-[104px] rounded-xl overflow-hidden"
+          style={{
+            background: "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.015) 100%)",
+            border: "1px solid rgba(255,255,255,0.075)",
+            boxShadow: "inset 3px 0 0 rgba(248,24,40,0.75)",
+          }}>
+          <div className="flex items-center justify-between px-3 py-2 border-b border-white/[0.06]">
+            <span className="text-[9px] font-black uppercase tracking-[0.18em] text-gray-500">Parametry</span>
+            <span className="text-[9px] font-mono text-[#f81828]">TECH</span>
           </div>
-        )}
+          <div className="px-3 py-1.5">
+            {techSpecs.length > 0 ? (
+              techSpecs.slice(0, 3).map((spec) => (
+                <div key={spec.key} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3 py-1.5 border-b border-white/[0.04] last:border-b-0">
+                  <span className="text-[10px] text-gray-500 uppercase tracking-[0.08em] truncate">{spec.label}</span>
+                  <span className={`text-[12px] font-black tabular-nums text-right leading-none ${spec.highlight ? "text-[#f81828]" : "text-gray-100"}`}>
+                    {spec.value}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <div className="h-[62px] flex items-center text-[10px] leading-relaxed text-gray-600">
+                Specyfikacja i warianty dostępne w szczegółach produktu.
+              </div>
+            )}
+          </div>
+        </div>
 
+        {/* @section: product-card-short-description */}
         {/* Short description */}
-        {product.shortDescription && (
-          <p className="text-[11px] text-gray-500 mb-3 line-clamp-2 leading-relaxed min-h-[2.4rem]">
+        <div className="min-h-[2.6rem] mb-3">
+          <p className="text-[11px] text-gray-500 line-clamp-2 leading-relaxed">
             {product.shortDescription}
           </p>
-        )}
+        </div>
 
+        {/* @section: product-card-meta */}
         {/* Tags */}
-        {product.tags && product.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {product.tags.slice(0, 2).map((tag) => (
-              <span
-                key={tag}
-                className="px-2 py-0.5 rounded-md text-[9px] font-medium text-gray-400"
-                style={{ background: "rgba(248,24,40,0.06)", border: "1px solid rgba(248,24,40,0.12)" }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="mb-4 min-h-[1.15rem] text-[9px] font-medium uppercase tracking-[0.12em] text-gray-600 line-clamp-1">
+          {product.tags && product.tags.length > 0 ? product.tags.slice(0, 2).join(" / ") : ""}
+        </div>
 
+        <div className="mt-auto pt-1">
         {/* Action buttons */}
         <div className="flex gap-2">
           {/* Primary CTA */}
@@ -351,6 +378,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
           >
             {added ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
           </button>
+        </div>
         </div>
       </div>
 

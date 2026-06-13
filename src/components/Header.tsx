@@ -698,13 +698,13 @@ export default function Header() {
               {categories.map((cat) => (
                 <div
                   key={cat.id}
-                  className="group/icon relative flex-1"
+                  className="group/icon relative min-w-0 flex-1"
                   onMouseEnter={() => { menuEnter(cat.id); setMegaSearch(""); prefetchSanity(PRODUCT_META_BY_ROOT_CAT_QUERY, { catSlug: cat.slug }); }}
                   onMouseLeave={menuLeave}
                 >
                   <Link
                     to={`/kategoria/${cat.slug}`}
-                    className={`relative flex h-[52px] w-full items-center justify-center overflow-hidden px-1 text-center transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
+                    className={`relative flex min-h-[44px] min-w-0 w-full items-center justify-center overflow-hidden px-1 py-2 text-center transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
                     aria-expanded={cat.children ? activeMenu === cat.id : undefined}
                     aria-haspopup={cat.children ? "true" : undefined}
                     onClick={() => trackNav(cat.name, "desktop_L1", cat.slug)}

@@ -165,7 +165,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer h-full min-h-[540px] flex flex-col"
+      className="group relative rounded-2xl overflow-hidden cursor-pointer h-[560px] flex flex-col"
       style={{
         background: "linear-gradient(145deg, #0f0f0f 0%, #0a0a0a 100%)",
         border: hovered ? "1px solid rgba(248,24,40,0.5)" : "1px solid rgba(255,255,255,0.06)",

@@ -882,42 +882,44 @@ export default function Header() {
                 </div>
               ))}
 
-              {/* Separator */}
-              <div className="mx-0.5 h-10 w-px flex-shrink-0 bg-white/8" />
+              <div className="hidden 2xl:contents">
+                {/* Separator */}
+                <div className="mx-0.5 h-10 w-px flex-shrink-0 bg-white/8" />
 
-              {/* "Wszystkie" red CTA — like the reference */}
-              <Link
-                to="/produkty"
-                className="ml-0 flex flex-shrink-0 items-center gap-1 rounded-lg bg-[#f81828] px-2.5 py-2.5 text-sm font-bold uppercase tracking-normal text-white transition-all duration-200 hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
-              >
-                <LayoutGrid className="h-4 w-4" />
-                Wszystkie
-              </Link>
-
-              {/* Secondary nav links */}
-              <div className="ml-0.5 flex flex-shrink-0 items-center gap-0">
-                <div className="hidden 2xl:flex items-center gap-0">
-                  {[
-                    { to: "/marki", label: "Marki" },
-                    { to: "/blog", label: "Blog" },
-                    { to: "/o-firmie", label: "O firmie" },
-                    { to: "/uslugi", label: "Usługi" },
-                  ].map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      className="whitespace-nowrap px-1.5 py-2 text-[11px] font-bold uppercase tracking-normal text-[#888888] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
+                {/* "Wszystkie" red CTA — like the reference */}
                 <Link
-                  to="/kontakt"
-                  className="ml-0 flex items-center gap-0.5 rounded-md border border-[#f81828]/50 bg-[#f81828]/10 px-1.5 py-1.5 text-[11px] font-black uppercase tracking-normal text-[#f81828] transition-all hover:bg-[#f81828] hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                  to="/produkty"
+                  className="ml-0 flex flex-shrink-0 items-center gap-1 rounded-lg bg-[#f81828] px-2.5 py-2.5 text-sm font-bold uppercase tracking-normal text-white transition-all duration-200 hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                 >
-                  <Mail className="h-3 w-3" />Kontakt
+                  <LayoutGrid className="h-4 w-4" />
+                  Wszystkie
                 </Link>
+
+                {/* Secondary nav links */}
+                <div className="ml-0.5 flex flex-shrink-0 items-center gap-0">
+                  <div className="flex items-center gap-0">
+                    {[
+                      { to: "/marki", label: "Marki" },
+                      { to: "/blog", label: "Blog" },
+                      { to: "/o-firmie", label: "O firmie" },
+                      { to: "/uslugi", label: "Usługi" },
+                    ].map((link) => (
+                      <Link
+                        key={link.to}
+                        to={link.to}
+                        className="whitespace-nowrap px-1.5 py-2 text-[11px] font-bold uppercase tracking-normal text-[#888888] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                  <Link
+                    to="/kontakt"
+                    className="ml-0 flex items-center gap-0.5 rounded-md border border-[#f81828]/50 bg-[#f81828]/10 px-1.5 py-1.5 text-[11px] font-black uppercase tracking-normal text-[#f81828] transition-all hover:bg-[#f81828] hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+                  >
+                    <Mail className="h-3 w-3" />Kontakt
+                  </Link>
+                </div>
               </div>
             </div>
           </nav>

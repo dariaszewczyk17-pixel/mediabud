@@ -225,11 +225,29 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     )
   },
   "izolacje": {
-    title: "Materiały izolacyjne — styropian, wełna, XPS",
+    title: "Izolacje Lublin — styropian, wełna, XPS i hydroizolacje",
     content: (
       <>
-        <p className="mb-3">Skuteczna termoizolacja to klucz do niższych rachunków za ogrzewanie i komfortu cieplnego. W naszej ofercie znajdziesz kompletne systemy ociepleń (ETICS): <strong>styropian fasadowy (EPS), styrodur (XPS) na fundamenty, wełnę mineralną i szklaną</strong> do poddaszy oraz piany poliuretanowe (PIR).</p>
-        <p>Oferujemy materiały o najlepszych współczynnikach przewodzenia ciepła (lambda λ) od sprawdzonych marek: <strong>Swisspor, Termo Organika, Rockwool, Isover</strong>. Szukasz styropianu grafitowego na elewację w Lublinie? Potrzebujesz wyliczyć zapotrzebowanie? Skorzystaj z naszego <a href="/kalkulator/styropian-welna" className="text-[#f81828] hover:underline">kalkulatora izolacji</a> lub skontaktuj się z naszym działem sprzedaży B2B. Dowiedz się więcej z naszego artykułu: <a href="/blog/koszt-ocieplenia-domu-150m2" className="text-[#f81828] hover:underline">Ile kosztuje ocieplenie domu 150m2 w 2026 roku?</a></p>
+        <p className="mb-3"><strong>Izolacje</strong> w Media Bud to materiały do ocieplenia elewacji, fundamentów, poddaszy, stropów, podłóg i tarasów: styropian fasadowy EPS, styropian grafitowy, płyty XPS, wełna mineralna, wełna szklana, hydroizolacje oraz akcesoria systemowe do ETICS. Dobieramy rozwiązania pod realne warunki inwestycji w Lublinie i województwie lubelskim — od domu jednorodzinnego po większe realizacje wykonawcze i deweloperskie.</p>
+        <p className="mb-5">Najważniejsze kryteria wyboru to <strong>grubość izolacji</strong>, współczynnik przewodzenia ciepła <strong>lambda λ</strong>, klasa reakcji na ogień, nasiąkliwość, wytrzymałość na ściskanie, format płyty oraz miejsce zastosowania. Jeśli chcesz szybko policzyć zapotrzebowanie, użyj <Link to="/kalkulator/styropian-welna" className="text-[#f81828] hover:underline">kalkulatora styropianu i wełny</Link>. Przy izolacji fundamentów sprawdź też <Link to="/kalkulator/izolacja-fundamentow" className="text-[#f81828] hover:underline">kalkulator izolacji fundamentów XPS</Link>.</p>
+
+        <h3 className="text-white font-black text-base mt-6 mb-3">Jak wybrać materiał izolacyjny?</h3>
+        <ul className="space-y-2 mb-5 list-disc pl-5 marker:text-[#f81828]">
+          <li><strong>Elewacja ETICS:</strong> najczęściej styropian fasadowy EPS 70/EPS 80 lub wełna fasadowa, gdy ważna jest paroprzepuszczalność i odporność ogniowa.</li>
+          <li><strong>Fundamenty, tarasy i dach odwrócony:</strong> płyty XPS o niskiej nasiąkliwości i wysokiej odporności na ściskanie.</li>
+          <li><strong>Poddasze i sufity:</strong> wełna mineralna lub szklana układana warstwowo, z prawidłową paroizolacją od strony ogrzewanej.</li>
+          <li><strong>Podłoga na gruncie:</strong> EPS 100 lub XPS, szczególnie przy ogrzewaniu podłogowym i większych obciążeniach użytkowych.</li>
+        </ul>
+
+        <h3 className="text-white font-black text-base mt-6 mb-3">Kluczowe parametry w tej kategorii</h3>
+        <p className="mb-5">Przy porównywaniu produktów zwracaj uwagę na: <strong>grubość</strong>, <strong>lambda λ</strong>, klasę reakcji na ogień, zastosowanie, wymiar płyty, typ materiału, nasiąkliwość wodą, wytrzymałość na ściskanie oraz kompatybilność z klejem, siatką, kołkami i tynkiem. Te dane pomagają porównać warianty i ograniczają ryzyko zakupu materiału niedopasowanego do przegrody.</p>
+
+        <h3 className="text-white font-black text-base mt-6 mb-3">Zastosowanie i przewagi</h3>
+        <p className="mb-3">Materiały izolacyjne stosuje się do ograniczenia strat ciepła, poprawy komfortu akustycznego, ochrony fundamentów przed wilgocią oraz spełnienia wymagań energetycznych budynku. W Media Bud możesz zestawić produkty marek takich jak <Link to="/marki/swisspor" className="text-[#f81828] hover:underline">Swisspor</Link>, <Link to="/marki/rockwool" className="text-[#f81828] hover:underline">Rockwool</Link>, <Link to="/marki/isover" className="text-[#f81828] hover:underline">Isover</Link>, <Link to="/marki/ursa" className="text-[#f81828] hover:underline">URSA</Link> czy <Link to="/marki/termoorganika" className="text-[#f81828] hover:underline">Termo Organika</Link> — w zależności od dostępności w katalogu.</p>
+        <p className="mb-5">Dla pogłębienia tematu zobacz poradniki: <Link to="/blog/koszt-ocieplenia-domu-150m2-2026" className="text-[#f81828] hover:underline">koszt ocieplenia domu 150 m²</Link>, <Link to="/blog/welna-mineralna-czy-styropian-ocieplenie" className="text-[#f81828] hover:underline">wełna mineralna czy styropian</Link> oraz <Link to="/blog/10-bledow-przy-ocieplaniu-budynkow" className="text-[#f81828] hover:underline">najczęstsze błędy przy ocieplaniu domu</Link>.</p>
+
+        <h3 className="text-white font-black text-base mt-6 mb-3">Ostrzeżenia przed zakupem</h3>
+        <p>Nie dobieraj izolacji wyłącznie po cenie za paczkę. Zbyt słaba lambda, niewłaściwa grubość, brak systemowych akcesoriów, źle dobrany klej lub brak paroizolacji mogą pogorszyć parametry przegrody i podnieść koszt wykonania. Przy większych inwestycjach w Lublinie i regionie warto wysłać projekt lub zestawienie materiałów do wyceny — dobierzemy pełny system i logistykę dostawy na plac budowy.</p>
       </>
     )
   },
@@ -321,11 +339,12 @@ const CATEGORY_FAQS: Record<string, { q: string; a: string }[]> = {
     { q: "Jak prawidłowo rozcieńczyć farbę i czy zawsze trzeba to robić?", a: "Pierwsza warstwa (gruntująca) rozcieńczana jest o 10–20% wodą lub dedykowanym rozcieńczalnikiem. Kolejne warstwy kryjące stosuje się zazwyczaj bez rozcieńczania. Nadmierne rozcieńczanie obniża krycie i trwałość powłoki. Zawsze sprawdź kartę techniczną produktu." },
   ],
   "izolacje": [
-    { q: "Jaki styropian wybrać do ocieplenia ścian zewnętrznych?", a: "Do ocieplenia ścian metodą ETICS (lekka mokra) stosuje się styropian fasadowy EPS 70 lub EPS 80 (np. Swisspor Lambda, Yetico, Styropmin). Grubość minimum 15 cm dla nowych budynków zgodnie z WT 2021. Współczynnik lambda ≤ 0,036 W/(m·K) gwarantuje lepszy efekt cieplny." },
-    { q: "Wełna mineralna czy styropian — co lepsze do ocieplenia domu?", a: "Styropian EPS jest tańszy i łatwiejszy w montażu, wystarczy do większości ścian. Wełna mineralna (Rockwool, Isover, URSA) jest paroprzepuszczalna, niepalna (klasa A1/A2) i ma lepszą izolację akustyczną — polecana na ściany piwnic, stropy, dachy i budynki wyższe niż 25m (warunek p-poż)." },
-    { q: "Jak ocieplić poddasze — styropian między krokwiami czy wełna?", a: "Na poddasze użytkowe stosuje się wełnę mineralną (np. Rockwool Rockmin Plus) układaną w 2 warstwach: między krokwiami + pod krokwiami (eliminacja mostków). Łączna grubość minimum 25–30 cm. Pod wełną od strony ciepłej obowiązkowo folia paroizolacyjna." },
-    { q: "Ile cm izolacji potrzebuję na podłogę na gruncie?", a: "Zgodnie z WT 2021 izolacja podłogi na gruncie powinna mieć U ≤ 0,30 W/(m²·K). Osiąga to styropian EPS 100 o grubości minimum 12–15 cm lub XPS 10–12 cm. Pod ogrzewanie podłogowe rekomendujemy styropian o odporności na ściskanie min. CS(10)100 (EPS 100)." },
-    { q: "Co to jest XPS i kiedy stosować go zamiast EPS?", a: "XPS (polistyren ekstrudowany, np. Ravatherm, Nexler, URSA XPS) ma zamkniętą strukturę komórek — nie nasiąka wodą (chłonność < 0,3%). Stosuj XPS wszędzie tam, gdzie izolacja kontaktuje się z wilgocią: ławy fundamentowe, ściana zewnętrzna poniżej terenu, dach odwrócony, taras." },
+    { q: "Jaki styropian wybrać do ocieplenia ścian zewnętrznych?", a: "Do ocieplenia ścian metodą ETICS najczęściej wybiera się styropian fasadowy EPS 70 lub EPS 80. Kluczowe są grubość, lambda λ i zgodność z systemem klej–siatka–tynk. Dla nowych i modernizowanych budynków często stosuje się 15–20 cm izolacji, ale ostateczną grubość warto dobrać do projektu oraz oczekiwanego współczynnika U przegrody." },
+    { q: "Wełna mineralna czy styropian — co lepsze do ocieplenia domu?", a: "Styropian EPS jest lżejszy, zwykle tańszy i łatwy w montażu, dlatego dobrze sprawdza się na typowych elewacjach. Wełna mineralna jest niepalna, paroprzepuszczalna i lepiej tłumi hałas, więc warto ją rozważyć przy wyższych wymaganiach przeciwpożarowych, akustycznych lub przy przegrodach wymagających większej dyfuzyjności." },
+    { q: "Kiedy wybrać XPS zamiast EPS?", a: "XPS wybiera się tam, gdzie izolacja ma kontakt z wilgocią lub większym obciążeniem: fundamenty, ściany poniżej gruntu, tarasy, dach odwrócony, cokoły i podłogi narażone na nacisk. W porównaniu z EPS płyty XPS mają niższą nasiąkliwość i wysoką odporność na ściskanie." },
+    { q: "Jakie parametry są najważniejsze przy zakupie izolacji?", a: "Najważniejsze parametry to grubość, lambda λ, klasa reakcji na ogień, nasiąkliwość, wytrzymałość na ściskanie, wymiar płyty, typ materiału oraz miejsce zastosowania. Przy produktach systemowych należy też sprawdzić kompatybilność z klejem, kołkami, siatką zbrojącą, gruntem i tynkiem." },
+    { q: "Jak obliczyć ilość styropianu lub wełny na elewację?", a: "Najpierw policz powierzchnię ścian, odejmij większe otwory okienne i drzwiowe, a następnie dodaj zapas na docinki, zwykle około 5–10%. Do szybkiego szacunku można użyć kalkulatora styropianu i wełny Media Bud, a przy większej inwestycji przesłać projekt do wyceny materiałowej." },
+    { q: "Czy Media Bud dostarcza izolacje na budowę w Lublinie i regionie?", a: "Tak. Media Bud obsługuje inwestycje w Lublinie i województwie lubelskim, w tym dostawy izolacji, chemii systemowej i akcesoriów na plac budowy. Przy większych zamówieniach warto skontaktować się z działem sprzedaży, aby ustalić komplet materiałów, dostępność i logistykę dostawy." },
   ],
   "narzedzia-i-mocowania": [
     { q: "Jakie kołki rozporowe wybrać do styropianu EPS?", a: "Do mocowania styropianu w systemach ETICS stosuje się kołki teleskopowe z tworzywowymi talerzami lub kołki z wbijanym trzpieniem stalowym. Zalecana liczba kołków to 6 szt./m² (naroża i krawędzie 8 szt./m²). Odpowiednie kołki to np. Ejot STR, Rawplug R-TK, Fischer Etics." },
@@ -1052,24 +1071,69 @@ export default function CategoryPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "@id": `https://mediabud.pl/kategoria/${slug}`,
+          "@id": `https://mediabud.pl/kategoria/${slug}#collectionpage`,
           "name": cat.name,
-          "description": (cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin.`,
+          "headline": `${cat.name} — materiały budowlane Media Bud Lublin`,
+          "description": slug && CATEGORY_SEO_TEXTS[slug]
+            ? CATEGORY_SEO_TEXTS[slug].title
+            : ((cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin.`),
           "url": `https://mediabud.pl/kategoria/${slug}`,
+          "inLanguage": "pl-PL",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://mediabud.pl/#website",
+            "name": "Media Bud",
+            "publisher": { "@id": "https://mediabud.pl/#organization" },
+          },
+          "publisher": { "@id": "https://mediabud.pl/#organization" },
           "provider": {
             "@type": "Organization",
             "@id": "https://mediabud.pl/#organization",
             "name": "Media Bud",
           },
+          "about": [
+            { "@type": "Thing", "name": cat.name },
+            ...(slug === "izolacje" ? [
+              { "@type": "Thing", "name": "styropian EPS" },
+              { "@type": "Thing", "name": "wełna mineralna" },
+              { "@type": "Thing", "name": "płyty XPS" },
+              { "@type": "Thing", "name": "systemy ociepleń ETICS" },
+            ] : []),
+          ],
+          "areaServed": {
+            "@type": "AdministrativeArea",
+            "name": "Lublin i województwo lubelskie",
+          },
+          "seller": { "@id": "https://mediabud.pl/#localbusiness" },
           "mainEntity": {
             "@type": "ItemList",
+            "@id": `https://mediabud.pl/kategoria/${slug}#itemlist`,
             "name": `${cat.name} — lista produktów`,
             "numberOfItems": filtered.length,
+            "itemListOrder": "https://schema.org/ItemListUnordered",
             "itemListElement": paginated.slice(0, 10).map((p, i) => ({
               "@type": "ListItem",
               "position": i + 1,
               "url": `https://mediabud.pl/produkt/${p.slug}`,
               "name": p.name,
+              "item": {
+                "@type": "Product",
+                "@id": `https://mediabud.pl/produkt/${p.slug}#product`,
+                "name": p.name,
+                "url": `https://mediabud.pl/produkt/${p.slug}`,
+                ...(p.sku ? { "sku": p.sku } : {}),
+                ...(p.brand ? { "brand": { "@type": "Brand", "name": p.brand } } : {}),
+                "category": cat.name,
+                ...(p.images?.[0] ? { "image": p.images[0] } : {}),
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0.00",
+                  "priceCurrency": "PLN",
+                  "availability": p.inStock === false ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+                  "url": `https://mediabud.pl/produkt/${p.slug}`,
+                  "seller": { "@id": "https://mediabud.pl/#localbusiness" },
+                },
+              },
             })),
           },
         })}} />

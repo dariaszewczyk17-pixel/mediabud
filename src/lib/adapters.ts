@@ -54,13 +54,23 @@ export interface SanityProduct {
 
 /** Sanity category → legacy Category (dla istniejących komponentów) */
 export function sanityCategoryToLegacy(c: SanityCategory): Category {
+  const seenChildren = new Set<string>()
+  const children = (c.children ?? [])
+    .filter((child) => {
+      const key = child.slug || child._id
+      if (!key || seenChildren.has(key)) return false
+      seenChildren.add(key)
+      return true
+    })
+    .map(sanityCategoryToLegacy)
+
   return {
     id: c._id,
     slug: c.slug,
     name: c.name,
     icon: c.icon,
     description: c.description,
-    children: c.children?.map(sanityCategoryToLegacy),
+    children: children.length > 0 ? children : undefined,
   }
 }
 

@@ -698,7 +698,7 @@ window.removeEventListener("scroll", fn);
                 >
                   <Link
                     to={`/kategoria/${cat.slug}`}
-                    className={`relative flex min-h-[44px] w-full items-center justify-center overflow-hidden px-1 py-2 text-center transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
+                    className={`relative flex h-[52px] w-full items-center justify-center overflow-hidden px-1 text-center transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
                     aria-expanded={cat.children ? activeMenu === cat.id : undefined}
                     aria-haspopup={cat.children ? "true" : undefined}
                     onClick={() => trackNav(cat.name, "desktop_L1", cat.slug)}

@@ -602,14 +602,24 @@ export default function CategoryPage() {
     [searchParams]
   );
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const previousCanonicalSlugRef = useRef<string | null>(null);
 
-  /* Reset filtrów i strony gdy zmienia się kategoria */
+  /* Reset filtrów i strony tylko przy realnej zmianie kategorii, nie na pierwszym wejściu/alias redirect */
   useEffect(() => {
+    if (!canonicalSlug) return;
     if (slug && canonicalSlug && slug !== canonicalSlug) return;
+
+    if (previousCanonicalSlugRef.current === null) {
+      previousCanonicalSlugRef.current = canonicalSlug;
+      return;
+    }
+
+    if (previousCanonicalSlugRef.current === canonicalSlug) return;
+
+    previousCanonicalSlugRef.current = canonicalSlug;
     setSearchParams(new URLSearchParams(), { replace: true });
     setTechFilters({});
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug, canonicalSlug]);
+  }, [slug, canonicalSlug, setSearchParams]);
 
   /* Prefetch metadanych produktów gdy user najeżdża na link kategorii */
   const prefetchForSlug = useCallback((targetSlug: string) => {

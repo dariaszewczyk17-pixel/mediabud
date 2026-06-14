@@ -135,8 +135,10 @@ async function writeExactFallback(targetPath) {
 }
 
 async function main() {
-  const indexPaths = new Set(['/kategoria', '/blog', '/marki', '/kalkulator']);
-  const exactPaths = new Set(BASE_SPA_PATHS.filter(pathname => !indexPaths.has(pathname)));
+  // /kategoria to katalog nadrzędny dla setek fallbacków — nie może być plikiem exact.
+  // /blog /marki /kalkulator traktujemy jako exact files (ich podstrony działają przez React Router SPA).
+  const DIRECTORY_PARENTS = new Set(['/kategoria']);
+  const exactPaths = new Set(BASE_SPA_PATHS.filter(p => !DIRECTORY_PARENTS.has(p)));
 
   for (const pathFromSitemap of await readXmlPaths('sitemap-categories.xml', '/kategoria/')) {
     exactPaths.add(pathFromSitemap);
@@ -149,25 +151,24 @@ async function main() {
     exactPaths.add(`/kategoria/${slug}`);
   }
 
-  // Core sitemap zawiera blog, marki i kalkulatory — bez produktów, żeby nie generować dziesiątek tysięcy plików.
+  // Subdirectory fallbacki tylko dla tras, które nie kolidują z bazowymi exact files.
+  // /blog /marki /kalkulator są exact files, więc nie możemy wstawiać plików wewnątrz katalogów o tej samej nazwie.
   for (const pathFromSitemap of await readXmlPaths('sitemap-core.xml')) {
     if (
       pathFromSitemap.startsWith('/blog/') ||
       pathFromSitemap.startsWith('/marki/') ||
       pathFromSitemap.startsWith('/kalkulator/')
     ) {
-      exactPaths.add(pathFromSitemap);
+      // Pomijamy: /blog /marki /kalkulator są exact files, nie katalogami.
+      // Subdirectory fallbacki i tak działają w aplikacji przez React Router (SPA) bez przeładowania.
     }
   }
 
-  for (const targetPath of indexPaths) {
-    await writeIndexFallback(targetPath);
-  }
   for (const targetPath of exactPaths) {
     await writeExactFallback(targetPath);
   }
 
-  console.log(`✓ static SPA fallbacks generated in public/ (${indexPaths.size} index + ${exactPaths.size} exact)`);
+  console.log(`✓ static SPA fallbacks generated in public/ (${exactPaths.size} exact)`);
 }
 
 main().catch(err => {

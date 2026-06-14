@@ -441,3 +441,4 @@
 [2026-06-09 21:41] Studio CMS – commit fb323b7: nowe schematy realizacja+testimonial, ulepszenia product/blogPost/siteSettings/category, nowe menu sanity.config. Build clean, pushed main.
 [2026-06-09 21:41] Rozbudowa Sanity Studio ukończona – commit fb323b7. Nowe schematy: realizacja, testimonial. Ulepszone: product (isNew/isBestseller), blogPost (author/featured), siteSettings (poprawny telefon/godziny), category (SEO fields). Nowe menu boczne. Build studio+main clean.
 [2026-06-09 22:04] Rozpoczęto budowę kompletnego AdminPanel.tsx – Shopify-like, wszystkie sekcje
+[2026-06-14 16:48] Przełączam /blog /marki /kalkulator z indexPaths na exactPaths; pomijam subdirectory fallbacki aby uniknąć kolizji plik vs katalog

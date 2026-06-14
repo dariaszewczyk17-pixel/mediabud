@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function — /api/cleanup-duplicate-categories
  * POST — usuwa zduplikowane rekordy kategorii z Sanity
- * v4: fail-safe delete (1 per mutation), pomija bledy, raportuje skipped
+ * v5: bez cat-l2-* (maja dzieci), batch 25, max ~12 subrequestow
  */
 
 const PROJECT_ID = "nzcwegq7";
@@ -9,12 +9,15 @@ const DATASET    = "production";
 const API_VER    = "v2021-06-07";
 
 const SANITY_MUTATE_URL = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/mutate/${DATASET}`;
+const SANITY_QUERY_URL  = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/query/${DATASET}`;
 
+// Tylko bezpieczne leaf-node duplikaty (0 produktow, 0 dzieci)
+// cat-l2-* WYKLUCZONE — maja podkategorie-dzieci
 const DUPLICATE_IDS = [
-  "cat-akcesoria-do-izolacji","cat-l2-akcesoria-malarskie-i-tynkar",
-  "cat-l2-akcesoria-murarskie","cat-artykuy-scierne","cat-gipsy",
-  "cat-l2-elektronarzedzia","cat-farby-do-drewna","cat-farby-do-metalu",
-  "cat-farby-elewacyjne","cat-farby-pozostae","cat-l2-farby-wewnetrzne",
+  "cat-akcesoria-do-izolacji",
+  "cat-artykuy-scierne","cat-gipsy",
+  "cat-farby-do-drewna","cat-farby-do-metalu",
+  "cat-farby-elewacyjne","cat-farby-pozostae",
   "cat-l3-folie-budowlane","cat-l3-folie-fundamentowe","category-folie-paroizolacyjne",
   "cat-gipsy-i-gadzie","cat-l3-grunty-do-posadzek","cat-l3-grunty-specjalistyczne",
   "cat-l3-grunty-uniwersalne","cat-hydroizolacje","cat-izolacje-budowlane",
@@ -22,17 +25,18 @@ const DUPLICATE_IDS = [
   "cat-kleje-do-ween","cat-koki-i-wkrety-uniwersalne","cat-komunikacja-dachowa",
   "category-kotwy-chemiczne","cat-l3-kotwy-montazowe","cat-materiay-konstrukcyjne",
   "cat-mocowania-do-suchej-zabudowy","cat-narozniki-i-listwy","cat-narzedzia-malarskie",
-  "cat-l2-narzedzia-pomiarowe","cat-okna-dachowe-i-akcesoria","cat-panele-scienne-i-tapety",
+  "cat-okna-dachowe-i-akcesoria","cat-panele-scienne-i-tapety",
   "cat-piany-montazowe","cat-pytki-ceramiczne","cat-pytki-dekoracyjne",
   "cat-pokrycia-dachowe","cat-powoki-epoksydowe","cat-profile-do-suchej-zabudowy",
-  "cat-schody-i-akcesoria-strychowe","cat-l2-styropiany","cat-systemy-kominowe",
-  "cat-l2-uszczelniacze-i-silikony","cat-wieszaki-do-suchej-zabudowy",
-  "cat-l2-zabezpieczenia-przeciwsniego","cat-zaprawy","cat-listwy-przypodogowe",
+  "cat-schody-i-akcesoria-strychowe","cat-systemy-kominowe",
+  "cat-wieszaki-do-suchej-zabudowy",
+  "cat-zaprawy","cat-listwy-przypodogowe",
   "cat-l3-tynki-specjalne","cat-l3-tynki-wapienne","cat-l3-wkrety-do-metalu",
   "cat-pyty","cat-pyty-xps","category-rozpuszczalniki","category-spoiny",
   "cat-tynki-cem","cat-weny",
 ];
 
+// Produkty z tymi kategoriami wymagaja przepiecia przed usunieciem
 const REASSIGN_MAP = {
   "category-grunty-pod-tynki":           "cat-grunty-pod-tynki",
   "cat-l3-kleje-do-glazury":             "cat-kleje-do-glazury",
@@ -65,7 +69,6 @@ export async function onRequest(context) {
   if (!token) return json({ error: "Brak SANITY_TOKEN" }, 500);
   if (request.method !== "POST") return json({ error: "Tylko POST" }, 405);
 
-  const SANITY_QUERY_URL = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/query/${DATASET}`;
   const headers = { "Content-Type": "application/json", Authorization: `Bearer ${token}` };
 
   try {
@@ -80,37 +83,31 @@ export async function onRequest(context) {
         patch: { id: p._id, set: { category: { _type: "reference", _ref: newId } } }
       }));
       const mRes = await fetch(SANITY_MUTATE_URL, { method: "POST", headers, body: JSON.stringify({ mutations }) });
-      if (!mRes.ok) return json({ error: `Blad przepiecia produktow ${oldId}`, details: await mRes.json() }, 500);
+      if (!mRes.ok) return json({ error: `Blad przepiecia ${oldId}`, details: await mRes.json() }, 500);
       reassigned += prods.length;
     }
 
-    // Krok 2: Fail-safe — usuwamy kazde ID osobno, pomijamy jesli ma referencje
+    // Krok 2: Usun duplikaty w batchach po 25 (max ~3 batche = 3 subrequesty)
     const allToDelete = [...DUPLICATE_IDS, ...Object.keys(REASSIGN_MAP)];
-    let deleted = 0;
-    const skipped = [];
+    const BATCH = 25;
+    const results = [];
 
-    for (const id of allToDelete) {
-      const res = await fetch(SANITY_MUTATE_URL, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ mutations: [{ delete: { id } }] }),
-      });
-      if (res.ok) {
-        deleted++;
-      } else {
-        const err = await res.json();
-        const reason = (err?.error?.description || "unknown").slice(0, 80);
-        skipped.push({ id, reason });
-      }
+    for (let i = 0; i < allToDelete.length; i += BATCH) {
+      const batch = allToDelete.slice(i, i + BATCH);
+      const mutations = batch.map(id => ({ delete: { id } }));
+      const res = await fetch(SANITY_MUTATE_URL, { method: "POST", headers, body: JSON.stringify({ mutations }) });
+      const data = await res.json();
+      results.push({ batch: i / BATCH + 1, ok: res.ok, count: batch.length, ids: batch });
+      if (!res.ok) return json({ error: "Blad delete", details: data, results }, 500);
     }
 
     return json({
       success: true,
-      message: `Przepieto ${reassigned} prod. Usunieto ${deleted}/${allToDelete.length}. Pominieto: ${skipped.length}.`,
+      message: `Przepieto ${reassigned} produktow. Usunieto ${allToDelete.length} zduplikowanych kategorii.`,
       reassigned,
-      deleted,
-      total: allToDelete.length,
-      skipped,
+      deleted: allToDelete.length,
+      batches: results,
+      note: "cat-l2-* pominiete (maja podkategorie wymagajace odrebnej migracji dzieci)",
     });
   } catch (err) {
     return json({ error: err.message }, 500);

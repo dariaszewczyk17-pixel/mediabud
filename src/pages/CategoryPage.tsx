@@ -718,9 +718,9 @@ export default function CategoryPage() {
       .filter(p => slugSet.has(resolveCategorySlug(p.categorySlug))) // O(n)
       .map(p => ({ ...p, categorySlug: resolveCategorySlug(p.categorySlug) }));
 
-    // Jeśli Sanity jeszcze ładuje, pokazuj od razu statyczne produkty zamiast pustych skeletonów.
-    // Dzięki temu karty renderują parametry techniczne i placeholdery już w pierwszym widoku.
-    if (!sanityMeta) return staticCategoryProducts as ReturnType<typeof mergeProductCollections>;
+    // Jeśli Sanity jeszcze ładuje LUB zwróciło pustą tablicę (np. rootCategory query dla L2/L3),
+    // pokazuj od razu statyczne produkty zamiast pustych skeletonów.
+    if (!sanityMeta || (sanityMeta as any[]).length === 0) return staticCategoryProducts as ReturnType<typeof mergeProductCollections>;
 
     // ⚡ Two-query: Sanity dostarcza tylko meta (brand/unit/tags/featured/inStock),
     // pełne dane (obrazy, opisy, sku) pobierane ze staticProducts przez lookup by slug.

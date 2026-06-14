@@ -623,11 +623,26 @@ export default function CategoryPage() {
     [sanitySubSlugs, staticSubSlugs],
   );
 
+  /*
+   * Nie każda gałąź w Sanity ma poprawnie ustawione rootCategory.
+   * Dla podkategorii oraz dla historycznie niespójnej gałęzi „Gipsy i gładzie”
+   * pobieramy produkty po slugach całego poddrzewa, bo produkty są przypięte
+   * bezpośrednio do kategorii dzieci (np. gladzie-gipsowe-w-proszku).
+   */
+  const shouldUseSlugTreeProducts = useMemo(
+    () => !!slug && (breadcrumbs.length > 0 || slug === "gipsy-i-gladzie" || slug === "gipsy-gladzie"),
+    [slug, breadcrumbs.length],
+  );
+
   // ⚡ TWO-PHASE LOADING
   // Phase 1 (fast ~200-400ms): pierwsze 48 produktów — użytkownik widzi treść natychmiast
   const { data: firstBatch, loading: firstLoading } = useProductMetaByCatSlugFast(slug);
   // Phase 2 (background ~1-3s): wszystkie produkty — pełne filtry i paginacja
   const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(slug);
+  // Fallback/tryb podkategorii: produkty po bezpośrednich slugach kategorii i dzieci
+  const { data: slugTreeMeta, loading: slugTreeLoading } = useProductMetaByCategorySlugs(
+    shouldUseSlugTreeProducts ? allSubSlugs : []
+  );
 
 
   // ── Slug-tree query: pobiera produkty po category->slug in $slugs (dla L2/L3) ──

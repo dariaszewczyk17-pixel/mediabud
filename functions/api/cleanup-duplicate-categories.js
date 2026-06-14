@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function — /api/cleanup-duplicate-categories
  * POST — usuwa zduplikowane rekordy kategorii z Sanity
- * v6: usunieto cat-materiay-konstrukcyjne (ma dzieci-podkategorie)
+ * v7: auto-filter GROQ (sprawdza referencje przed usunieciem, pomija parents)
  */
 
 const PROJECT_ID = "nzcwegq7";
@@ -11,9 +11,7 @@ const API_VER    = "v2021-06-07";
 const SANITY_MUTATE_URL = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/mutate/${DATASET}`;
 const SANITY_QUERY_URL  = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/query/${DATASET}`;
 
-// Tylko bezpieczne leaf-node duplikaty (0 produktow, 0 dzieci-kategorii)
-// Wykluczone: cat-l2-*, cat-materiay-konstrukcyjne (maja podkategorie-dzieci)
-const DUPLICATE_IDS = [
+const CANDIDATE_IDS = [
   "cat-akcesoria-do-izolacji",
   "cat-artykuy-scierne","cat-gipsy",
   "cat-farby-do-drewna","cat-farby-do-metalu",
@@ -36,7 +34,6 @@ const DUPLICATE_IDS = [
   "cat-tynki-cem","cat-weny",
 ];
 
-// Produkty z tymi kategoriami wymagaja przepiecia przed usunieciem
 const REASSIGN_MAP = {
   "category-grunty-pod-tynki":           "cat-grunty-pod-tynki",
   "cat-l3-kleje-do-glazury":             "cat-kleje-do-glazury",
@@ -87,13 +84,27 @@ export async function onRequest(context) {
       reassigned += prods.length;
     }
 
-    // Krok 2: Usun duplikaty w batchach po 25
-    const allToDelete = [...DUPLICATE_IDS, ...Object.keys(REASSIGN_MAP)];
+    // Krok 2: Safety-filter — GROQ zwraca tylko IDs bez referencji (bezpieczne do usuniecia)
+    const allCandidates = [...CANDIDATE_IDS, ...Object.keys(REASSIGN_MAP)];
+    const idList = allCandidates.map(id => `"${id}"`).join(",");
+    const safetyQuery = encodeURIComponent(
+      `*[_id in [${idList}] && count(*[references(^._id)]) == 0]{_id}`
+    );
+    const safetyRes = await fetch(`${SANITY_QUERY_URL}?query=${safetyQuery}`, { headers });
+    const safetyData = await safetyRes.json();
+    const safeIds = (safetyData.result ?? []).map(d => d._id);
+    const skipped = allCandidates.filter(id => !safeIds.includes(id));
+
+    if (safeIds.length === 0) {
+      return json({ success: true, message: "Brak bezpiecznych ID do usuniecia", deleted: 0, skipped });
+    }
+
+    // Krok 3: Usun bezpieczne duplikaty w batchach po 25
     const BATCH = 25;
     const results = [];
 
-    for (let i = 0; i < allToDelete.length; i += BATCH) {
-      const batch = allToDelete.slice(i, i + BATCH);
+    for (let i = 0; i < safeIds.length; i += BATCH) {
+      const batch = safeIds.slice(i, i + BATCH);
       const mutations = batch.map(id => ({ delete: { id } }));
       const res = await fetch(SANITY_MUTATE_URL, { method: "POST", headers, body: JSON.stringify({ mutations }) });
       const data = await res.json();
@@ -103,9 +114,11 @@ export async function onRequest(context) {
 
     return json({
       success: true,
-      message: `Przepieto ${reassigned} produktow. Usunieto ${allToDelete.length} zduplikowanych kategorii.`,
+      message: `Przepieto ${reassigned} produktow. Usunieto ${safeIds.length} duplikatow. Pominieto ${skipped.length} parentow.`,
       reassigned,
-      deleted: allToDelete.length,
+      deleted: safeIds.length,
+      skipped_count: skipped.length,
+      skipped,
       batches: results,
     });
   } catch (err) {

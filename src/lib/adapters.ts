@@ -3,7 +3,7 @@
  * używanych przez istniejące komponenty (ProductCard, CategoryPage, itp.)
  */
 
-import type { Category } from '@/data/categories'
+import { resolveCategorySlug, type Category } from '@/data/categories'
 import type { Product } from '@/data/products'
 
 // ─── Typy Sanity ─────────────────────────────────────────────────────────────
@@ -62,7 +62,7 @@ const normalizeCategoryKey = (value?: string) =>
     .replace(/^-+|-+$/g, '')
 
 const categoryDedupeKey = (c: SanityCategory) =>
-  normalizeCategoryKey(c.name) || normalizeCategoryKey(c.slug) || c._id
+  normalizeCategoryKey(c.name) || normalizeCategoryKey(resolveCategorySlug(c.slug)) || c._id
 
 const pickPreferredCategory = (a: SanityCategory, b: SanityCategory) => {
   // Rekordy z kontrolowanym order zwykle pochodzą z nowszego, kanonicznego drzewa.
@@ -111,7 +111,7 @@ export function sanityCategoryToLegacy(c: SanityCategory): Category {
 
   return {
     id: c._id,
-    slug: c.slug,
+    slug: resolveCategorySlug(c.slug),
     name: c.name,
     icon: c.icon,
     description: c.description,
@@ -126,7 +126,7 @@ export function sanityProductToLegacy(p: SanityProduct): Product {
     id: p._id,
     slug: p.slug,
     name: p.name,
-    categorySlug: p.categorySlug ?? '',
+    categorySlug: p.categorySlug ? resolveCategorySlug(p.categorySlug) : '',
     brand: p.brand ?? '',
     sku: p.sku ?? p._id.slice(-8).toUpperCase(),
     unit: p.unit ?? 'szt',
@@ -161,7 +161,7 @@ export function buildBreadcrumbs(
     chain.unshift(cur)
     cur = cur.parent
   }
-  return chain.map(c => ({ id: c._id, name: c.name, slug: c.slug }))
+  return chain.map(c => ({ id: c._id, name: c.name, slug: resolveCategorySlug(c.slug) }))
 }
 
 /**
@@ -169,7 +169,7 @@ export function buildBreadcrumbs(
  * Używane do filtrowania produktów w CategoryPage.
  */
 export function collectAllSlugs(cat: SanityCategory): string[] {
-  const slugs: string[] = [cat.slug]
+  const slugs: string[] = [resolveCategorySlug(cat.slug)]
   for (const child of cat.children ?? []) {
     slugs.push(...collectAllSlugs(child))
   }

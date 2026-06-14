@@ -19,6 +19,7 @@ import { mergeProductCollections } from "@/lib/productMerge";
 import { prefetchSanity } from "@/lib/sanity";
 import { PRODUCT_META_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
 import { ProductCard } from "@/components/Commerce";
+import { ProductCardFuturistic } from "@/components/ProductCardFuturistic";
 import { FilterBarFuturistic } from "@/components/FilterBarFuturistic";
 import { ZeroResultsRecovery } from "@/components/ZeroResultsRecovery";
 import { FilterListWithDisclosure, ProgressiveDisclosure } from "@/components/ProgressiveDisclosure";
@@ -98,7 +99,7 @@ function dedupeTree<T extends TreeNode>(node: T | null): T | null {
 function findPathToSlug(nodes: TreeNode[], targetSlug: string, path: string[] = []): string[] | null {
   for (const node of dedupeTreeNodes(nodes)) {
     const newPath = [...path, node.id];
-    if (node.slug === targetSlug) return newPath;
+    if (resolveCategorySlug(node.slug) === targetSlug) return newPath;
     if (node.children) {
       const found = findPathToSlug(node.children, targetSlug, newPath);
       if (found) return found;
@@ -106,6 +107,21 @@ function findPathToSlug(nodes: TreeNode[], targetSlug: string, path: string[] = 
   }
   return null;
 }
+
+const uniqueCanonicalCategorySlugs = (slugs: string[]) =>
+  Array.from(new Set(slugs.map(resolveCategorySlug).filter(Boolean))).sort();
+
+const expandCategorySlugsForQuery = (canonicalSlugs: string[]) => {
+  const canonicalSet = new Set(canonicalSlugs.map(resolveCategorySlug).filter(Boolean));
+  const expanded = new Set(canonicalSet);
+
+  Object.entries(CATEGORY_SLUG_ALIASES).forEach(([alias, target]) => {
+    const resolvedTarget = resolveCategorySlug(target);
+    if (canonicalSet.has(resolvedTarget)) expanded.add(alias);
+  });
+
+  return Array.from(expanded).sort();
+};
 
 /* ── Pełne drzewko WSZYSTKICH kategorii z linkami ── */
 interface FullTreeNodeProps {
@@ -119,9 +135,10 @@ interface FullTreeNodeProps {
 function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle, pathToActive }: FullTreeNodeProps) {
   const hasKids = !!(node.children && node.children.length > 0);
   const isOpen = expanded.has(node.id);
-  const isActive = currentSlug === node.slug;
+  const nodeCanonicalSlug = resolveCategorySlug(node.slug);
+  const isActive = currentSlug === nodeCanonicalSlug;
   const isOnPath = pathToActive.has(node.id); // Czy węzeł jest na ścieżce do aktywnej kategorii
-  const icon = depth === 0 ? CATEGORY_ICONS[node.slug] : null;
+  const icon = depth === 0 ? CATEGORY_ICONS[nodeCanonicalSlug] : null;
 
   return (
     <div>
@@ -142,7 +159,7 @@ function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle, path
 
         {/* Link do kategorii */}
         <Link
-          to={`/kategoria/${node.slug}`}
+          to={`/kategoria/${nodeCanonicalSlug}`}
           className={`flex-1 flex items-center gap-1.5 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all truncate ${
             isActive
               ? "bg-[#f81828] text-white"
@@ -188,8 +205,9 @@ interface TreeNodeProps {
 function CategoryTreeNode({ node, depth, selectedSubcat, onSelect, counts, expanded, toggle }: TreeNodeProps) {
   const hasKids = !!(node.children && node.children.length > 0);
   const isOpen  = expanded.has(node.id);
-  const isActive = selectedSubcat === node.slug;
-  const count    = counts[node.slug] ?? 0;
+  const nodeCanonicalSlug = resolveCategorySlug(node.slug);
+  const isActive = selectedSubcat === nodeCanonicalSlug;
+  const count    = counts[nodeCanonicalSlug] ?? 0;
 
   return (
     <div>
@@ -208,7 +226,7 @@ function CategoryTreeNode({ node, depth, selectedSubcat, onSelect, counts, expan
 
         {/* Node button */}
         <button
-          onClick={() => onSelect(isActive ? "" : node.slug)}
+          onClick={() => onSelect(isActive ? "" : nodeCanonicalSlug)}
           className={`flex-1 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all flex items-center justify-between gap-1 min-w-0 ${
             isActive
               ? "bg-[#f81828] text-white"
@@ -509,6 +527,14 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const canonicalSlug = useMemo(() => resolveCategorySlug(slug ?? ""), [slug]);
+
+  useEffect(() => {
+    if (!slug || !canonicalSlug || slug === canonicalSlug) return;
+    const query = searchParams.toString();
+    navigate(`/kategoria/${canonicalSlug}${query ? `?${query}` : ""}`, { replace: true });
+  }, [slug, canonicalSlug, searchParams, navigate]);
   const [view, setView] = useState<"grid" | "list">("grid");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [mobileCatsOpen, setMobileCatsOpen] = useState(false);
@@ -521,10 +547,10 @@ export default function CategoryPage() {
 
   // Oblicz ścieżkę do aktywnej kategorii (dla podświetlenia i auto-rozwijania)
   const pathToActive = useMemo(() => {
-    if (!slug) return new Set<string>();
-    const path = findPathToSlug(staticCategories as TreeNode[], slug);
+    if (!canonicalSlug) return new Set<string>();
+    const path = findPathToSlug(staticCategories as TreeNode[], canonicalSlug);
     return new Set(path || []);
-  }, [slug]);
+  }, [canonicalSlug]);
 
   // Auto-rozwijanie drzewka do aktywnej kategorii przy zmianie slug
   useEffect(() => {
@@ -537,23 +563,23 @@ export default function CategoryPage() {
     }
   }, [pathToActive]);
 
-  const { data: sanityCategory } = useCategoryBySlug(slug ?? '');
+  const { data: sanityCategory } = useCategoryBySlug(canonicalSlug);
   const { data: sanityTopCats }  = useAllCategories();
 
   const cat = useMemo(
     () => dedupeTree(
       sanityCategory
         ? sanityCategoryToLegacy(sanityCategory as SanityCategory)
-        : (slug ? getCategoryBySlug(slug) : null)
+        : (canonicalSlug ? getCategoryBySlug(canonicalSlug) : null)
     ),
-    [sanityCategory, slug],
+    [sanityCategory, canonicalSlug],
   );
 
   const breadcrumbs = useMemo(
     () => sanityCategory
       ? buildSanityBreadcrumbs(sanityCategory as SanityCategory).slice(0, -1)
-      : (slug ? getBreadcrumbs(slug) : []),
-    [sanityCategory, slug],
+      : (canonicalSlug ? getBreadcrumbs(canonicalSlug) : []),
+    [sanityCategory, canonicalSlug],
   );
 
   const categories = useMemo(
@@ -568,7 +594,7 @@ export default function CategoryPage() {
   const selectedBrand = searchParams.get("brand") || "";
   const selectedUnit  = searchParams.get("unit")  || "";
   const selectedTag   = searchParams.get("tag")   || "";
-  const selectedSubcat = searchParams.get("subcat") || "";
+  const selectedSubcat = resolveCategorySlug(searchParams.get("subcat") || "");
   const sortBy = searchParams.get("sort") || "default";
   // techSpec filters: "Label::Value" zakodowane w URL jako spec=Label%3A%3AValue
   const selectedSpecs: string[] = useMemo(
@@ -579,40 +605,42 @@ export default function CategoryPage() {
 
   /* Reset filtrów i strony gdy zmienia się kategoria */
   useEffect(() => {
+    if (slug && canonicalSlug && slug !== canonicalSlug) return;
     setSearchParams(new URLSearchParams(), { replace: true });
     setTechFilters({});
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
+  }, [slug, canonicalSlug]);
 
   /* Prefetch metadanych produktów gdy user najeżdża na link kategorii */
   const prefetchForSlug = useCallback((targetSlug: string) => {
-    const staticCat = getCategoryBySlug(targetSlug);
+    const resolvedSlug = resolveCategorySlug(targetSlug);
+    const staticCat = getCategoryBySlug(resolvedSlug);
     if (!staticCat) return;
     const collect = (c: typeof staticCat): string[] => [
-      c.slug, ...(c.children?.flatMap(ch => collect(ch)) || []),
+      resolveCategorySlug(c.slug), ...(c.children?.flatMap(ch => collect(ch)) || []),
     ];
-    const slugs = collect(staticCat).sort();
+    const slugs = expandCategorySlugsForQuery(uniqueCanonicalCategorySlugs(collect(staticCat)));
     if (slugs.length) prefetchSanity(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs });
   }, []);
 
   // Slugi ze statycznych danych — dostępne NATYCHMIAST, bez czekania na Sanity
   const staticSubSlugs = useMemo(() => {
-    const staticCat = slug ? getCategoryBySlug(slug) : null;
+    const staticCat = canonicalSlug ? getCategoryBySlug(canonicalSlug) : null;
     if (!staticCat) return [] as string[];
     const collect = (c: typeof staticCat): string[] => [
-      c.slug, ...(c.children?.flatMap(child => collect(child)) || []),
+      resolveCategorySlug(c.slug), ...(c.children?.flatMap(child => collect(child)) || []),
     ];
-    return collect(staticCat).sort();
-  }, [slug]);
+    return uniqueCanonicalCategorySlugs(collect(staticCat));
+  }, [canonicalSlug]);
 
   // Slugi z Sanity — dokładniejsze, dostępne po ~200-400ms
   const sanitySubSlugs = useMemo(() => {
     if (!sanityCategory) return null; // null = jeszcze się ładuje
     const legacyCat = sanityCategoryToLegacy(sanityCategory as SanityCategory);
     const collect = (c: typeof legacyCat): string[] => [
-      c.slug, ...(c.children?.flatMap(child => collect(child)) || []),
+      resolveCategorySlug(c.slug), ...(c.children?.flatMap(child => collect(child)) || []),
     ];
-    return collect(legacyCat).sort();
+    return uniqueCanonicalCategorySlugs(collect(legacyCat));
   }, [sanityCategory]);
 
   // Używaj static slugs NATYCHMIAST (fetch startuje równolegle z Sanity category).
@@ -623,6 +651,11 @@ export default function CategoryPage() {
     [sanitySubSlugs, staticSubSlugs],
   );
 
+  const querySubSlugs = useMemo(
+    () => expandCategorySlugsForQuery(allSubSlugs),
+    [allSubSlugs],
+  );
+
   /*
    * Nie każda gałąź w Sanity ma poprawnie ustawione rootCategory.
    * Dla podkategorii oraz dla historycznie niespójnej gałęzi „Gipsy i gładzie”
@@ -630,69 +663,46 @@ export default function CategoryPage() {
    * bezpośrednio do kategorii dzieci (np. gladzie-gipsowe-w-proszku).
    */
   const shouldUseSlugTreeProducts = useMemo(
-    () => !!slug && (breadcrumbs.length > 0 || slug === "gipsy-i-gladzie" || slug === "gipsy-gladzie"),
-    [slug, breadcrumbs.length],
+    () => !!canonicalSlug && (breadcrumbs.length > 0 || canonicalSlug === "gipsy-i-gladzie"),
+    [canonicalSlug, breadcrumbs.length],
   );
 
   // ⚡ TWO-PHASE LOADING
   // Phase 1 (fast ~200-400ms): pierwsze 48 produktów — użytkownik widzi treść natychmiast
-  const { data: firstBatch, loading: firstLoading } = useProductMetaByCatSlugFast(slug);
+  const { data: firstBatch, loading: firstLoading } = useProductMetaByCatSlugFast(canonicalSlug);
   // Phase 2 (background ~1-3s): wszystkie produkty — pełne filtry i paginacja
-  const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(slug);
+  const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(canonicalSlug);
   // Fallback/tryb podkategorii: produkty po bezpośrednich slugach kategorii i dzieci
   const { data: slugTreeMeta, loading: slugTreeLoading } = useProductMetaByCategorySlugs(
-    shouldUseSlugTreeProducts ? allSubSlugs : []
+    shouldUseSlugTreeProducts ? querySubSlugs : []
   );
 
-
-  // ── Slug-tree query: pobiera produkty po category->slug in $slugs (dla L2/L3) ──
-  const querySubSlugs = useMemo(() => {
-    if (!allSubSlugs || allSubSlugs.length === 0) return [];
-    // Expand canonical slugs with their aliases for Sanity query
-    const canonicalSet = new Set(allSubSlugs);
-    const expanded = new Set(canonicalSet);
-    if (typeof CATEGORY_SLUG_ALIASES !== "undefined") {
-      Object.entries(CATEGORY_SLUG_ALIASES).forEach(([alias, target]) => {
-        if (canonicalSet.has(target)) expanded.add(alias);
-      });
-    }
-    return Array.from(expanded).sort();
-  }, [allSubSlugs]);
-  const { data: slugTreeMeta, loading: slugTreeLoading } = useProductMetaByCategorySlugs(querySubSlugs);
-
   // Pokaż firstBatch natychmiast; przełącz na allMeta gdy gotowe
-  // Prefer slugTreeMeta (category->slug in $slugs) for subcategories;
-  // fall back to rootCategory queries only if they returned data
-  const rootMetaEffective = (allMeta && (allMeta as any[]).length > 0) ? allMeta
-    : (firstBatch && (firstBatch as any[]).length > 0) ? firstBatch
-    : null;
-  const sanityMeta = slugTreeMeta && (slugTreeMeta as any[]).length > 0
-    ? slugTreeMeta
-    : rootMetaEffective;
-  const productsLoading = allMeta ? false : firstLoading;
-  const isLoadingAll = allLoading && !!firstBatch; // true gdy Phase 1 ready, Phase 2 w toku
+  const rootMeta = allMeta ?? firstBatch;
+  const sanityMeta = shouldUseSlugTreeProducts
+    ? (slugTreeMeta ?? rootMeta)
+    : rootMeta;
+  const productsLoading = shouldUseSlugTreeProducts
+    ? (!slugTreeMeta && !rootMeta && slugTreeLoading)
+    : (allMeta ? false : firstLoading);
+  const isLoadingAll = shouldUseSlugTreeProducts
+    ? (slugTreeLoading && !slugTreeMeta && !!rootMeta)
+    : (allLoading && !!firstBatch); // true gdy Phase 1 ready, Phase 2 w toku
 
   // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
   // Pokazuj skeleton TYLKO gdy kategoria nie ma żadnych danych statycznych.
   // Gdy static ma produkty → pokaż od razu; gdy brak → czekaj na Sanity.
   const hasStaticFallback = useMemo(() => {
     const slugSet = new Set(allSubSlugs);
-    return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
+    return staticProducts.some((p: any) => slugSet.has(resolveCategorySlug(p.categorySlug)));
   }, [allSubSlugs]);
   const isLoadingProducts = firstLoading && !firstBatch && !hasStaticFallback;
-  // True gdy żadne zapytanie Sanity nie zwróciło jeszcze użytecznych danych produktowych
-  // a przynajmniej jedno jeszcze się ładuje — nie pokazuj "brak produktów"
-  const hasAnySanityProducts = !!(
-    (firstBatch && (firstBatch as any[]).length > 0) ||
-    (allMeta && (allMeta as any[]).length > 0) ||
-    (slugTreeMeta && (slugTreeMeta as any[]).length > 0)
-  );
-  const anySanityStillLoading = firstLoading || allLoading || slugTreeLoading;
-  const isSanityPending = !hasAnySanityProducts && anySanityStillLoading;
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
-    const staticCategoryProducts = staticProducts.filter(p => slugSet.has(p.categorySlug)); // O(n)
+    const staticCategoryProducts = staticProducts
+      .filter(p => slugSet.has(resolveCategorySlug(p.categorySlug))) // O(n)
+      .map(p => ({ ...p, categorySlug: resolveCategorySlug(p.categorySlug) }));
 
     // Jeśli Sanity jeszcze ładuje, pokazuj od razu statyczne produkty zamiast pustych skeletonów.
     // Dzięki temu karty renderują parametry techniczne i placeholdery już w pierwszym widoku.
@@ -714,8 +724,8 @@ export default function CategoryPage() {
           brand:            meta.brand    || base.brand,
           unit:             meta.unit     || base.unit,
           tags:             meta.tags?.length ? meta.tags : base.tags,
-          featured:         (meta as any).featured ?? (base as any).featured,
-          inStock:          (meta as any).inStock  ?? (base as any).inStock,
+          featured:         meta.featured ?? base.featured,
+          inStock:          meta.inStock  ?? base.inStock,
           images:           mergedImages,
           shortDescription: base.shortDescription || meta.shortDescription || '',
         };
@@ -726,7 +736,7 @@ export default function CategoryPage() {
         slug: meta.slug, name: meta.name,
         brand: meta.brand || '', unit: meta.unit || '',
         tags: meta.tags || [], featured: !!meta.featured, inStock: meta.inStock !== false,
-        categorySlug: meta.categorySlug, categoryName: '',
+        categorySlug: resolveCategorySlug(meta.categorySlug), categoryName: '',
         sku: '',
         shortDescription: meta.shortDescription || '',
         description: '', application: '',
@@ -807,11 +817,11 @@ export default function CategoryPage() {
     if (selectedSubcat) {
       // Zbierz wszystkie slugi poddrzewa wybranej podkategorii
       const collectSlugs = (nodes: TreeNode[]): string[] =>
-        nodes.flatMap(n => [n.slug, ...(n.children ? collectSlugs(n.children) : [])]);
+        nodes.flatMap(n => [resolveCategorySlug(n.slug), ...(n.children ? collectSlugs(n.children) : [])]);
       const subcatTree = (cat?.children as TreeNode[] | undefined) ?? [];
       const findNode = (nodes: TreeNode[], s: string): TreeNode | null => {
         for (const n of nodes) {
-          if (n.slug === s) return n;
+          if (resolveCategorySlug(n.slug) === s) return n;
           const found = n.children ? findNode(n.children, s) : null;
           if (found) return found;
         }
@@ -819,7 +829,7 @@ export default function CategoryPage() {
       };
       const node = findNode(subcatTree, selectedSubcat);
       const slugSet = new Set(node ? collectSlugs([node]) : [selectedSubcat]);
-      result = result.filter(p => slugSet.has(p.categorySlug));
+      result = result.filter(p => slugSet.has(resolveCategorySlug(p.categorySlug)));
     }
     if (selectedBrand) result = result.filter(p => p.brand === selectedBrand);
     if (selectedUnit)  result = result.filter(p => p.unit  === selectedUnit);
@@ -851,8 +861,8 @@ export default function CategoryPage() {
       });
     }
     switch (sortBy) {
-      case "inStock":    result.sort((a, b) => ((b as any).inStock ? 1 : 0) - ((a as any).inStock ? 1 : 0)); break;
-      case "featured":   result.sort((a, b) => ((b as any).featured || (b as any).isFeatured ? 1 : 0) - ((a as any).featured || (a as any).isFeatured ? 1 : 0)); break;
+      case "inStock":    result.sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0)); break;
+      case "featured":   result.sort((a, b) => (b.featured || (b as any).isFeatured ? 1 : 0) - (a.featured || (a as any).isFeatured ? 1 : 0)); break;
       case "name-asc":  result.sort((a, b) => a.name.localeCompare(b.name, "pl")); break;
       case "name-desc": result.sort((a, b) => b.name.localeCompare(a.name, "pl")); break;
       case "brand":     result.sort((a, b) => a.brand.localeCompare(b.brand, "pl")); break;
@@ -867,7 +877,8 @@ export default function CategoryPage() {
 
   const updateParam = (key: string, value: string) => {
     const p = new URLSearchParams(searchParams);
-    if (value) p.set(key, value); else p.delete(key);
+    const nextValue = key === "subcat" ? resolveCategorySlug(value) : value;
+    if (nextValue) p.set(key, nextValue); else p.delete(key);
     if (key !== "page") p.delete("page");
     setSearchParams(p);
   };
@@ -894,11 +905,11 @@ export default function CategoryPage() {
 
   /* FAQ — szukamy po bieżącym slugu lub po korzeniu breadcrumbów */
   const faqItems = useMemo(() => {
-    if (slug && CATEGORY_FAQS[slug]) return CATEGORY_FAQS[slug];
-    const rootSlug = breadcrumbs[0]?.slug;
+    if (canonicalSlug && CATEGORY_FAQS[canonicalSlug]) return CATEGORY_FAQS[canonicalSlug];
+    const rootSlug = breadcrumbs[0]?.slug ? resolveCategorySlug(breadcrumbs[0].slug) : "";
     if (rootSlug && CATEGORY_FAQS[rootSlug]) return CATEGORY_FAQS[rootSlug];
     return null;
-  }, [slug, breadcrumbs]);
+  }, [canonicalSlug, breadcrumbs]);
 
   /* ── Liczba aktywnych filtrów (bez sortowania) ── */
   /* Liczba produktów per categorySlug — dla liczników w drzewie */
@@ -918,7 +929,7 @@ export default function CategoryPage() {
     description: cat
       ? `Kup ${cat.name.toLowerCase()} w Lublinie. ${cat.description ? cat.description.slice(0, 100) + '...' : ''} Dostawa na plac budowy, doradztwo techniczne gratis. Media Bud – ul. Chemiczna 8d Lublin.`
       : undefined,
-    canonical: slug ? `/kategoria/${slug}` : undefined,
+    canonical: canonicalSlug ? `/kategoria/${canonicalSlug}` : undefined,
   });
 
   const pageNums = useMemo(() => {
@@ -942,6 +953,8 @@ export default function CategoryPage() {
     );
   }
 
+  const currentCategorySlug = resolveCategorySlug(cat.slug || canonicalSlug);
+
   /* ── Mobile Filter Panel — sekcje z checkboxowymi przyciskami ── */
   const MobileFilterPanel = () => (
     <div className="space-y-6">
@@ -956,7 +969,7 @@ export default function CategoryPage() {
               key={rootCat.id}
               node={rootCat as TreeNode}
               depth={0}
-              currentSlug={slug || ""}
+              currentSlug={canonicalSlug}
               expanded={expandedNodes}
               toggle={toggleExpand}
               pathToActive={pathToActive}
@@ -1129,7 +1142,7 @@ export default function CategoryPage() {
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
           { "@type": "ListItem", "position": 2, "name": "Kategorie", "item": "https://mediabud.pl/kategoria" },
-          { "@type": "ListItem", "position": 3, "name": cat.name, "item": `https://mediabud.pl/kategoria/${slug}` },
+          { "@type": "ListItem", "position": 3, "name": cat.name, "item": `https://mediabud.pl/kategoria/${currentCategorySlug}` },
         ],
       })}} />
 
@@ -1138,13 +1151,13 @@ export default function CategoryPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "@id": `https://mediabud.pl/kategoria/${slug}#collectionpage`,
+          "@id": `https://mediabud.pl/kategoria/${currentCategorySlug}#collectionpage`,
           "name": cat.name,
           "headline": `${cat.name} — materiały budowlane Media Bud Lublin`,
-          "description": slug && CATEGORY_SEO_TEXTS[slug]
-            ? CATEGORY_SEO_TEXTS[slug].title
+          "description": currentCategorySlug && CATEGORY_SEO_TEXTS[currentCategorySlug]
+            ? CATEGORY_SEO_TEXTS[currentCategorySlug].title
             : ((cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin.`),
-          "url": `https://mediabud.pl/kategoria/${slug}`,
+          "url": `https://mediabud.pl/kategoria/${currentCategorySlug}`,
           "inLanguage": "pl-PL",
           "isPartOf": {
             "@type": "WebSite",
@@ -1160,7 +1173,7 @@ export default function CategoryPage() {
           },
           "about": [
             { "@type": "Thing", "name": cat.name },
-            ...(slug === "izolacje" ? [
+            ...(currentCategorySlug === "izolacje" ? [
               { "@type": "Thing", "name": "styropian EPS" },
               { "@type": "Thing", "name": "wełna mineralna" },
               { "@type": "Thing", "name": "płyty XPS" },
@@ -1174,7 +1187,7 @@ export default function CategoryPage() {
           "seller": { "@id": "https://mediabud.pl/#localbusiness" },
           "mainEntity": {
             "@type": "ItemList",
-            "@id": `https://mediabud.pl/kategoria/${slug}#itemlist`,
+            "@id": `https://mediabud.pl/kategoria/${currentCategorySlug}#itemlist`,
             "name": `${cat.name} — lista produktów`,
             "numberOfItems": filtered.length,
             "itemListOrder": "https://schema.org/ItemListUnordered",
@@ -1231,11 +1244,11 @@ export default function CategoryPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] mr-1" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
             <Link to="/" className="hover:text-[#f81828] transition-colors font-mono tracking-wide">ROOT</Link>
             {breadcrumbs.map((bc, i) => (
-              <span key={bc.slug} className="flex items-center gap-1">
+              <span key={bc.id} className="flex items-center gap-1">
                 <ChevronRight className="w-3 h-3 text-[#f81828]/40" />
                 {i === breadcrumbs.length - 1
                   ? <span className="text-gray-200 font-bold tracking-wide font-mono">{bc.name.toUpperCase()}</span>
-                  : <Link to={`/kategoria/${bc.slug}`} className="hover:text-[#f81828] transition-colors font-mono">{bc.name.toUpperCase()}</Link>
+                  : <Link to={`/kategoria/${resolveCategorySlug(bc.slug)}`} className="hover:text-[#f81828] transition-colors font-mono">{bc.name.toUpperCase()}</Link>
                 }
               </span>
             ))}
@@ -1262,10 +1275,10 @@ export default function CategoryPage() {
         }} />
 
         {/* Category image bg */}
-        {catImages[cat.slug] && (
+        {catImages[currentCategorySlug] && (
           <div className="absolute inset-0">
             <img
-              src={catImages[cat.slug]}
+              src={catImages[currentCategorySlug]}
               alt=""
               className="w-full h-full object-cover"
               style={{ filter: "brightness(0.18) saturate(0.6)" }}
@@ -1313,7 +1326,7 @@ export default function CategoryPage() {
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  {(isLoadingAll || isSanityPending) ? "···" : String(catProducts.length).padStart(3, "0")}
+                  {isLoadingAll ? "···" : String(catProducts.length).padStart(3, "0")}
                 </span>
                 {/* Glowing copy behind */}
                 <span
@@ -1326,13 +1339,13 @@ export default function CategoryPage() {
                   }}
                   aria-hidden
                 >
-                  {(isLoadingAll || isSanityPending) ? "···" : String(catProducts.length).padStart(3, "0")}
+                  {isLoadingAll ? "···" : String(catProducts.length).padStart(3, "0")}
                 </span>
               </div>
               <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">PRODUKTÓW</span>
               <div className="flex items-center gap-1 mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
-                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{(isLoadingProducts || isLoadingAll || isSanityPending) ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
+                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{(isLoadingProducts || isLoadingAll) ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
               </div>
             </div>
           </div>
@@ -1365,30 +1378,30 @@ export default function CategoryPage() {
                 {categories.map(topCat => (
                   <div key={topCat.id}>
                     <Link
-                      to={`/kategoria/${topCat.slug}`}
+                      to={`/kategoria/${resolveCategorySlug(topCat.slug)}`}
                       onMouseEnter={() => prefetchForSlug(topCat.slug)}
                       className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all my-0.5 ${
-                        (topCat as any).id === (cat as any).id || breadcrumbs.some(b => (b as any).id === (topCat as any).id)
+                        topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)
                           ? "bg-[#f81828] text-white"
                           : "text-gray-400 hover:bg-[#f81828]/10 hover:text-white"
                       }`}
                     >
                       {topCat.name}
                     </Link>
-                    {((topCat as any).id === (cat as any).id || breadcrumbs.some(b => (b as any).id === (topCat as any).id)) && topCat.children && (
+                    {(topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)) && topCat.children && (
                       <div className="ml-4 pl-3 mb-1 space-y-0.5" style={{ borderLeft: "2px solid rgba(248,24,40,0.25)" }}>
                         {topCat.children.slice(0, 14).map(sub => (
                           <Link
-                            key={(sub as any).id || sub.slug}
-                            to={`/kategoria/${sub.slug}`}
+                            key={sub.id}
+                            to={`/kategoria/${resolveCategorySlug(sub.slug)}`}
                             onMouseEnter={() => prefetchForSlug(sub.slug)}
                             className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs transition-all ${
-                              (sub as any).id === (cat as any).id
+                              sub.id === cat.id
                                 ? "text-[#f81828] font-bold bg-[#f81828]/10"
                                 : "text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/8"
                             }`}
                           >
-                            {(sub as any).id === (cat as any).id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
+                            {sub.id === cat.id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
                             {sub.name}
                           </Link>
                         ))}
@@ -1415,10 +1428,10 @@ export default function CategoryPage() {
                 <FilterPanel />
                 
                 {/* Nowe filtry parametrów technicznych */}
-                {slug && getCategoryFilters(slug).length > 0 && (
+                {currentCategorySlug && getCategoryFilters(currentCategorySlug).length > 0 && (
                   <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                     <CategoryFilters
-                      categorySlug={slug}
+                      categorySlug={currentCategorySlug}
                       activeFilters={techFilters}
                       onFiltersChange={setTechFilters}
                       productCount={filtered.length}
@@ -1485,10 +1498,10 @@ export default function CategoryPage() {
                   Podkategorie
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                  {Array.from(new Map(cat.children.map(s => [s.slug, s])).values()).map((sub, i) => (
+                  {Array.from(new Map(cat.children.map(s => [resolveCategorySlug(s.slug), s])).values()).map((sub, i) => (
                     <Link
-                      key={(sub as any).id || sub.slug}
-                      to={`/kategoria/${sub.slug}`}
+                      key={sub.id}
+                      to={`/kategoria/${resolveCategorySlug(sub.slug)}`}
                       className={`group rounded-xl p-3 transition-all duration-300 ${subReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                       style={{
                         background: "#0f0f0f",
@@ -1548,7 +1561,7 @@ export default function CategoryPage() {
                       boxShadow: "0 0 8px rgba(248,24,40,0.15)",
                     }}
                   >
-                    {(isLoadingProducts || isLoadingAll || isSanityPending) ? "…" : `${filtered.length}`}
+                    {(isLoadingProducts || isLoadingAll) ? "…" : `${filtered.length}`}
                   </span>
 
                   {/* ── Desktop inline filter dropdowns (lg:) ── */}
@@ -1698,36 +1711,28 @@ export default function CategoryPage() {
                   style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
                   onClick={() => setMobileFilterOpen(false)}
                 />
-                {/* Bottom Sheet panel */}
+                {/* Drawer panel */}
                 <div
-                  className="absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden"
+                  className="absolute left-0 top-0 h-full w-[85vw] max-w-[320px] flex flex-col overflow-hidden"
                   style={{
                     background: "#0d0d0d",
-                    borderTop: "1px solid rgba(248,24,40,0.25)",
-                    borderRadius: "20px 20px 0 0",
-                    boxShadow: "0 -8px 40px rgba(0,0,0,0.8), 0 0 60px rgba(248,24,40,0.06)",
-                    maxHeight: "82vh",
-                    animation: "slideInBottom 0.32s cubic-bezier(0.22,1,0.36,1)",
+                    borderRight: "1px solid rgba(248,24,40,0.2)",
+                    boxShadow: "4px 0 32px rgba(0,0,0,0.7), 0 0 60px rgba(248,24,40,0.05)",
+                    animation: "slideInLeft 0.3s cubic-bezier(0.22,1,0.36,1)",
                   }}
                 >
-                  {/* Drag handle */}
-                  <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
-                    <div className="w-10 h-1 rounded-full" style={{ background: "rgba(248,24,40,0.4)" }} />
-                  </div>
-
-                  {/* Sheet header */}
+                  {/* Drawer header */}
                   <div
-                    className="flex items-center justify-between px-4 py-2.5 flex-shrink-0"
-                    style={{ borderBottom: "1px solid rgba(248,24,40,0.12)" }}
+                    className="flex items-center justify-between px-4 py-3 flex-shrink-0 relative"
+                    style={{ background: "#080808", borderBottom: "1px solid rgba(248,24,40,0.15)" }}
                   >
+                    <div className="absolute top-0 left-0 right-0 h-[2px]"
+                      style={{ background: "linear-gradient(90deg, #f81828, transparent)" }} />
                     <div className="flex items-center gap-2">
                       <SlidersHorizontal className="w-4 h-4 text-[#f81828]" />
                       <span className="font-black text-sm text-white tracking-widest font-mono uppercase">Filtry</span>
                       {hasActiveFilters && (
                         <span className="w-2 h-2 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 6px rgba(248,24,40,0.8)" }} />
-                      )}
-                      {activeFilterCount > 0 && (
-                        <span className="text-[10px] font-black text-[#f81828] font-mono">({activeFilterCount})</span>
                       )}
                     </div>
                     <button
@@ -1739,54 +1744,26 @@ export default function CategoryPage() {
                     </button>
                   </div>
 
-                  {/* Sheet content — scrollable */}
+                  {/* Drawer content */}
                   <div className="flex-1 overflow-y-auto p-4" style={{ scrollbarWidth: "none" }}>
                     <FilterPanel />
-                    {/* Tech filters per kategoria */}
-                    {slug && getCategoryFilters(slug).length > 0 && (
-                      <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                        <CategoryFilters
-                          categorySlug={slug}
-                          activeFilters={techFilters}
-                          onFiltersChange={setTechFilters}
-                          productCount={filtered.length}
-                        />
-                      </div>
-                    )}
                   </div>
 
-                  {/* Sheet footer — sticky CTA */}
-                  <div
-                    className="p-4 flex-shrink-0 flex gap-3"
-                    style={{
-                      borderTop: "1px solid rgba(255,255,255,0.06)",
-                      background: "#080808",
-                      paddingBottom: "max(1rem, env(safe-area-inset-bottom, 1rem))",
-                    }}
-                  >
-                    {hasActiveFilters && (
-                      <button
-                        onClick={() => { clearFilters(); setMobileFilterOpen(false); }}
-                        className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold text-gray-400 transition-all"
-                        style={{ border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.04)" }}
-                      >
-                        <X className="w-3.5 h-3.5" />
-                        Wyczyść
-                      </button>
-                    )}
+                  {/* Drawer footer */}
+                  <div className="p-4 flex-shrink-0" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#080808" }}>
                     <button
                       onClick={() => setMobileFilterOpen(false)}
-                      className="flex-1 h-11 rounded-xl text-sm font-black text-white transition-all"
+                      className="w-full h-10 rounded-xl text-sm font-black text-white transition-all"
                       style={{
                         background: "linear-gradient(135deg, #f81828, #c8000f)",
-                        boxShadow: "0 0 20px rgba(248,24,40,0.35)",
+                        boxShadow: "0 0 16px rgba(248,24,40,0.3)",
                       }}
                     >
-                      Pokaż {(isLoadingAll || isSanityPending) ? "···" : filtered.length} produktów
+                      Pokaż {isLoadingAll ? "···" : filtered.length} produktów
                     </button>
                   </div>
                 </div>
-                <style>{`@keyframes slideInBottom { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>
+                <style>{`@keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }`}</style>
               </div>
             )}
 
@@ -1804,30 +1781,30 @@ export default function CategoryPage() {
                   {categories.map(topCat => (
                     <div key={topCat.id}>
                       <Link
-                        to={`/kategoria/${topCat.slug}`}
+                        to={`/kategoria/${resolveCategorySlug(topCat.slug)}`}
                         onClick={() => setMobileCatsOpen(false)}
                         className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all my-0.5 ${
-                          (topCat as any).id === (cat as any).id || breadcrumbs.some(b => (b as any).id === (topCat as any).id)
+                          topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)
                             ? "bg-[#f81828] text-white"
                             : "text-gray-400 hover:bg-[#f81828]/10 hover:text-white"
                         }`}
                       >
                         {topCat.name}
                       </Link>
-                      {((topCat as any).id === (cat as any).id || breadcrumbs.some(b => (b as any).id === (topCat as any).id)) && topCat.children && (
+                      {(topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)) && topCat.children && (
                         <div className="ml-4 pl-3 mb-1 space-y-0.5" style={{ borderLeft: "2px solid rgba(248,24,40,0.25)" }}>
                           {topCat.children.slice(0, 14).map(sub => (
                             <Link
-                              key={(sub as any).id || sub.slug}
-                              to={`/kategoria/${sub.slug}`}
+                              key={sub.id}
+                              to={`/kategoria/${resolveCategorySlug(sub.slug)}`}
                               onClick={() => setMobileCatsOpen(false)}
                               className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs transition-all ${
-                                (sub as any).id === (cat as any).id
+                                sub.id === cat.id
                                   ? "text-[#f81828] font-bold bg-[#f81828]/10"
                                   : "text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/8"
                               }`}
                             >
-                              {(sub as any).id === (cat as any).id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
+                              {sub.id === cat.id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
                               {sub.name}
                             </Link>
                           ))}
@@ -1864,7 +1841,7 @@ export default function CategoryPage() {
             )}
 
             {/* Product grid */}
-            {(isLoadingProducts || (isSanityPending && paginated.length === 0)) ? (
+            {isLoadingProducts ? (
               /* ── Skeleton — 8 ciemnych pulse kart ── */
               <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {Array.from({ length: 8 }).map((_, i) => (
@@ -1957,7 +1934,7 @@ export default function CategoryPage() {
                       className={`h-full transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                       style={{ transitionDelay: `${(i % 8) * 40}ms` }}
                     >
-                      <ProductCard product={p} priority={i < 4} />
+                      <ProductCardFuturistic product={p} priority={i < 4} index={i} categorySlug={currentCategorySlug} />
                     </div>
                   ))}
                 </div>
@@ -2000,7 +1977,7 @@ export default function CategoryPage() {
                       <ChevronNext className="w-4 h-4" />
                     </button>
                     <span className="text-xs text-gray-600 ml-2 font-mono">
-                      {safePage}/{totalPages} · {(isLoadingAll || isSanityPending) ? "···" : filtered.length} szt.
+                      {safePage}/{totalPages} · {isLoadingAll ? "···" : filtered.length} szt.
                     </span>
                   </div>
                 )}
@@ -2030,18 +2007,18 @@ export default function CategoryPage() {
         </div>
 
         {/* ── Sekcja SEO i FAQ (na dole strony) ── */}
-        {((slug && CATEGORY_SEO_TEXTS[slug]) || (faqItems && faqItems.length > 0)) && (
+        {((currentCategorySlug && CATEGORY_SEO_TEXTS[currentCategorySlug]) || (faqItems && faqItems.length > 0)) && (
           <div className="mt-16 pt-12 border-t border-white/5">
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Lewa kolumna: Tekst SEO */}
               <div>
-                {slug && CATEGORY_SEO_TEXTS[slug] ? (
+                {currentCategorySlug && CATEGORY_SEO_TEXTS[currentCategorySlug] ? (
                   <>
                     <h2 className="text-2xl font-black text-white font-display mb-6">
-                      {CATEGORY_SEO_TEXTS[slug].title}
+                      {CATEGORY_SEO_TEXTS[currentCategorySlug].title}
                     </h2>
                     <div className="text-gray-400 text-sm leading-relaxed">
-                      {CATEGORY_SEO_TEXTS[slug].content}
+                      {CATEGORY_SEO_TEXTS[currentCategorySlug].content}
                     </div>
                   </>
                 ) : (

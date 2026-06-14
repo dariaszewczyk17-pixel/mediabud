@@ -1,0 +1,4045 @@
+{
+  "counts": {
+    "sanity": 551,
+    "bech": 10,
+    "productCategorySlugs": 270,
+    "remapPairs": 37
+  },
+  "missingInSanityFromBech": [],
+  "productSlugsMissingInSanityCats": [],
+  "productSlugsMissingInBech": [
+    "akcesoria-do-elektronarzedzi",
+    "akcesoria-do-farb-proszkowych",
+    "akcesoria-do-farb-przemyslowych",
+    "akcesoria-do-izolacji",
+    "akcesoria-do-kominow",
+    "akcesoria-do-plotkow-przeciwsniegowe",
+    "akcesoria-do-systemow-rynnowych",
+    "akcesoria-instalacyjne",
+    "akcesoria-malarskie-i-tynkarskie",
+    "akcesoria-murarskie",
+    "artykuly-scierne",
+    "artykuly-scierne-do-suchej-zabudowy",
+    "bazy-i-koloranty",
+    "belki-stropowe-betonowe",
+    "belki-stropowe-ceramiczne",
+    "bhp",
+    "bloczki",
+    "bloczki-beton-komorkowy",
+    "bloczki-betonowe-i-fundamentowe",
+    "bloczki-silikatowe",
+    "bloczki-z-betonu-keramzytowego",
+    "czysciki-do-pian-montazowych",
+    "dachowki-ceramiczne",
+    "dluta",
+    "dodatki-do-zapraw-i-betonu",
+    "drabiny",
+    "drzwi-i-akcesoria-do-drzwi",
+    "drzwi-kolankowe",
+    "elektronarzedzia",
+    "elementy-kanalizacyjne",
+    "elementy-mocujace-uniwersalne",
+    "elementy-ogrodzenia",
+    "emalie-akrylowe",
+    "emalie-chlorokauczukowe",
+    "emalie-ftalowe",
+    "emalie-poliuretanowe",
+    "farby-alkidowe",
+    "farby-cynkowe",
+    "farby-do-betonu",
+    "farby-drogowe",
+    "farby-elewacyjne-akrylowe",
+    "farby-elewacyjne-emulsyjne",
+    "farby-elewacyjne-pozostale",
+    "farby-elewacyjne-silikatowe",
+    "farby-elewacyjne-silikonowe",
+    "farby-elewacyjne-specjalne",
+    "farby-epoksydowe",
+    "farby-ogniochronne",
+    "farby-poliuretanowe",
+    "farby-poliwinylowe",
+    "farby-pozostale",
+    "farby-proszkowe",
+    "farby-proszkowe-epoksydowe",
+    "farby-proszkowe-epoksydowo-poliestrowe",
+    "farby-proszkowe-poliestrowe",
+    "farby-przemyslowe",
+    "farby-specjalistyczne",
+    "farby-wewnetrzne",
+    "farby-wewnetrzne-biale",
+    "farby-wewnetrzne-kolorowe",
+    "farby-zaprawkowe",
+    "farby-zaroodporne",
+    "folie-budowlane",
+    "folie-fundamentowe",
+    "folie-ochronne",
+    "folie-paroizolacyjne",
+    "folie-w-plynie",
+    "fotowoltaika",
+    "galanteria-betonowa",
+    "gipsy-budowlane",
+    "gipsy-szpachlowe",
+    "gladzie-gipsowe-w-proszku",
+    "gladzie-masy-gotowe",
+    "grunty",
+    "grunty-do-posadzek",
+    "grunty-pod-farby",
+    "grunty-pod-tynki",
+    "grunty-specjalistyczne",
+    "grunty-uniwersalne",
+    "hydroizolacje-bitumiczne",
+    "hydroizolacje-mineralne",
+    "impregnaty",
+    "izolacje-akustyczne",
+    "izolacje-dachow-plaskich",
+    "izolacje-hvac",
+    "izolacje-przemyslowe",
+    "izolacje-stropow-i-podlog",
+    "katowniki-i-katomierze",
+    "kielnie",
+    "kleje-do-drewna",
+    "kleje-do-gips-karton",
+    "kleje-do-glazury",
+    "kleje-do-styropianu-i-styroduru",
+    "kleje-do-welen",
+    "kleje-gipsowe",
+    "kleje-montazowe",
+    "kliny-do-izolacji-dachowych",
+    "kolki-i-wkrety-uniwersalne",
+    "kolnierze-i-produkty-instalacyjne",
+    "kominy-ceramiczne",
+    "kominy-stalowe",
+    "kostki-scierne",
+    "kotwy-chemiczne",
+    "kotwy-montazowe",
+    "laczniki-do-izolacji-fasadowych",
+    "laczniki-do-profili",
+    "lakierobejce",
+    "lakiery-do-drewna",
+    "lakiery-do-metalu",
+    "lakiery-pozostale",
+    "lasery-i-dalmierze",
+    "laty-murarskie",
+    "listwy-przypodlogowe",
+    "masy-bitumiczne-gruntujace",
+    "masy-szpachlowe-gotowe",
+    "masy-uszczelniajace",
+    "materialy-konstrukcyjne",
+    "membrany-dachowe",
+    "miary",
+    "mieszadla",
+    "mlotki-budowlane",
+    "mocowania-do-suchej-zabudowy",
+    "mocowania-do-sufitow-podwieszanych",
+    "mozaiki",
+    "narozniki-do-tynkow-mokrych",
+    "narozniki-i-listwy",
+    "narzedzia-budowlane",
+    "narzedzia-do-ciecia",
+    "narzedzia-i-akcesoria-glazurnicze",
+    "narzedzia-malarskie",
+    "narzedzia-pomiarowe",
+    "narzedzia-reczne",
+    "nawadnianie",
+    "odkurzacze-worki-rury",
+    "odziez-ochronna",
+    "okladziny-z-wlokna-szklanego",
+    "okna-dachowe",
+    "okna-dachowe-i-akcesoria",
+    "okna-i-akcesoria-do-okien",
+    "oleje",
+    "olowki-kredy-i-markery",
+    "opalarki-i-palniki",
+    "oswietlenie-budowlane",
+    "pace",
+    "palisady-krawezniki-i-obrzeza",
+    "panele-i-dekory-scienne",
+    "papier-scierny",
+    "paski-i-kabury-narzedziowe",
+    "pedzle",
+    "piany-montazowe-pistoletowe",
+    "piany-montazowe-wezykowe",
+    "pigmenty",
+    "pilniki",
+    "pistolety",
+    "plandeki-ochronne",
+    "plotki-przeciwsniegowe",
+    "plytki-elewacyjne",
+    "plytki-scienne",
+    "plytki-scienno-podlogowe",
+    "plytki-tarasowe",
+    "plyty-cementowe",
+    "plyty-dachowe-pir",
+    "plyty-drewnopochodne",
+    "plyty-elewacyjne-pir",
+    "plyty-elewacyjne-pur",
+    "plyty-gipsowo-kartonowe",
+    "plyty-sufitowe",
+    "plyty-sufitowe-drewniane",
+    "plyty-sufitowe-metalowe",
+    "plyty-sufitowe-z-welny-mineralnej",
+    "plyty-sufitowe-z-welny-szklanej",
+    "plyty-xps",
+    "podklady-wypelniajace",
+    "pokrycia-dachowe-z-blachy",
+    "powloki-epoksydowe",
+    "poziomnice",
+    "pozostale-narzedzia-reczne",
+    "preparaty-do-chemicznego-oczyszczania-powierzchni",
+    "produkty-do-renowacji",
+    "profile-do-suchej-zabudowy-konstrukcja-scienna",
+    "profile-do-sufitow-podwieszanych",
+    "profile-i-narozniki-do-izolacji-budowlanych",
+    "profile-okapowe",
+    "przyrzady-do-fugowania",
+    "pustaki",
+    "pustaki-betonowe",
+    "pustaki-ceramiczne",
+    "pustaki-wentylacyjne-i-dymne",
+    "pustaki-z-betonu-keramzytowego",
+    "rewizje",
+    "rozpuszczalniki",
+    "schody-strychowe",
+    "siatki-elewacyjne",
+    "silikony-dekarskie",
+    "silikony-sanitarne",
+    "silikony-szklarskie",
+    "silikony-uniwersalne",
+    "silikony-wysokotemperaturowe",
+    "spoiny",
+    "spoiny-elastyczne",
+    "spoiny-specjalistyczne",
+    "spoiny-zwykle",
+    "spraye",
+    "srodki-czyszczaco-pielegnacyjne",
+    "srodki-grzybobojcze",
+    "stopnie-kominiarskie",
+    "styropapy",
+    "styropian-dach-podloga-eps",
+    "styropiany",
+    "styropiany-akustyczne",
+    "styropiany-do-fundamentow",
+    "styropiany-fasadowe-eps",
+    "systemy-rynnowe-pvc",
+    "szablony-malarskie",
+    "szlifierki",
+    "sznury-traserskie",
+    "szpachle-i-szpachelki",
+    "tapety-scienne",
+    "tarniki",
+    "tasmy-do-suchej-zabudowy",
+    "tasmy-i-folie-ostrzegawcze",
+    "tasmy-i-folie-pozostale",
+    "tasmy-malarskie",
+    "tasmy-naprawcze-i-montazowe",
+    "tasmy-tynkarskie",
+    "tasmy-uszczelniajace-do-hydroizolacji",
+    "tektury-ochronne",
+    "tynki-cementowo-wapienne",
+    "tynki-elewacyjne",
+    "tynki-elewacyjne-akrylowe",
+    "tynki-elewacyjne-mineralne",
+    "tynki-elewacyjne-ozdobne",
+    "tynki-elewacyjne-silikonowe",
+    "tynki-elewacyjne-silikonowo-silikatowe",
+    "tynki-gipsowe",
+    "tynki-mozaikowe",
+    "tynki-specjalne",
+    "tynki-wapienne",
+    "uszczelniacze-dekarskie",
+    "uszczelniacze-i-silikony",
+    "uszczelniacze-poliuretanowe",
+    "walki-malarskie",
+    "welny-do-dachow-plaskich",
+    "welny-do-izolacji-fasad-niewentylowanych",
+    "welny-do-izolacji-fasad-wentylowanych",
+    "welny-do-poddaszy",
+    "welny-fasadowe",
+    "weze",
+    "wiadra-i-pojemniki-budowlane",
+    "wiertarko-wkretarki",
+    "wieszaki-do-suchej-zabudowy-z-noniuszem",
+    "wkretaki",
+    "wkrety-do-metalu",
+    "wkrety-do-suchej-zabudowy",
+    "wsporniki-belek-i-rur-przeciwsniegowych",
+    "wsporniki-plotkow-przeciwsniegowych",
+    "wsporniki-tarasowe",
+    "zabezpieczenia-przeciwsniegowe",
+    "zaprawy",
+    "zaprawy-do-renowacji",
+    "zaprawy-do-spoin",
+    "zaprawy-murarskie-ogolnego-zastosowania",
+    "zaprawy-naprawcze",
+    "zaprawy-posadzkowe-masy-samopoziomujace",
+    "zaprawy-specjalistyczne",
+    "zaprawy-uszczelniajace",
+    "zdzieraki",
+    "zszywacze"
+  ],
+  "remapOldStillProducts": [],
+  "remapNewMissingSanity": [],
+  "duplicateNames": [
+    {
+      "name": "laczniki-do-izolacji-fasadowych",
+      "items": [
+        {
+          "slug": "aczniki-do-izolacji-fasadowych",
+          "parentSlug": "akcesoria-do-izolacji",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "laczniki-do-izolacji-fasadowych",
+          "parentSlug": "akcesoria-do-izolacji",
+          "productCount": 295,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "laczniki-do-profili",
+      "items": [
+        {
+          "slug": "aczniki-do-profili",
+          "parentSlug": "mocowania-do-suchej-zabudowy",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "laczniki-do-profili",
+          "parentSlug": "mocowania-do-suchej-zabudowy",
+          "productCount": 131,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "akcesoria-do-izolacji",
+      "items": [
+        {
+          "slug": "akcesoria-do-izolacji",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "akcesoria-do-izolacji",
+          "parentSlug": "izolacje",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "akcesoria-do-kominow",
+      "items": [
+        {
+          "slug": "akcesoria-do-kominow",
+          "parentSlug": "systemy-kominowe",
+          "productCount": 161,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "akcesoria-do-kominow",
+          "parentSlug": "systemy-kominowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "akcesoria-do-plotkow-przeciwsniegowe",
+      "items": [
+        {
+          "slug": "akcesoria-do-plotkow-przeciwsniegowe",
+          "parentSlug": "zabezpieczenia-przeciwsniegowe",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "akcesoria-do-potkow-przeciwsniegowe",
+          "parentSlug": "zabezpieczenia-przeciwsniegowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "akcesoria-malarskie-i-tynkarskie",
+      "items": [
+        {
+          "slug": "akcesoria-malarskie-i-tynkarskie",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 85,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "akcesoria-malarskie-i-tynkarskie",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "akcesoria-murarskie",
+      "items": [
+        {
+          "slug": "akcesoria-murarskie",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 2,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "akcesoria-murarskie",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "artykuly-scierne-do-suchej-zabudowy",
+      "items": [
+        {
+          "slug": "artykuly-scierne-do-suchej-zabudowy",
+          "parentSlug": "artykuly-scierne",
+          "productCount": 12,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "artykuy-scierne-do-suchej-zabudowy",
+          "parentSlug": "artykuy-scierne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "artykuly-scierne",
+      "items": [
+        {
+          "slug": "artykuy-scierne",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "artykuly-scierne",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 27,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "bazy-i-koloranty",
+      "items": [
+        {
+          "slug": "bazy-i-koloranty",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 170,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "bazy-i-koloranty",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "belki-stropowe-betonowe",
+      "items": [
+        {
+          "slug": "belki-stropowe-betonowe",
+          "parentSlug": "materiay-konstrukcyjne",
+          "productCount": 37,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "belki-stropowe-betonowe",
+          "parentSlug": "materialy-konstrukcyjne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "belki-stropowe-ceramiczne",
+      "items": [
+        {
+          "slug": "belki-stropowe-ceramiczne",
+          "parentSlug": "materiay-konstrukcyjne",
+          "productCount": 5,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "belki-stropowe-ceramiczne",
+          "parentSlug": "materialy-konstrukcyjne",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "bloczki",
+      "items": [
+        {
+          "slug": "bloczki",
+          "parentSlug": "materiay-konstrukcyjne",
+          "productCount": 31,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "bloczki",
+          "parentSlug": "materialy-konstrukcyjne",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "czysciki-do-pian-montazowych",
+      "items": [
+        {
+          "slug": "czysciki-do-pian-montazowych",
+          "parentSlug": "piany-montazowe",
+          "productCount": 5,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "czysciki-do-pian-montazowych",
+          "parentSlug": "piany-montazowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "dachowki-ceramiczne",
+      "items": [
+        {
+          "slug": "dachowki-ceramiczne",
+          "parentSlug": "pokrycia-dachowe",
+          "productCount": 304,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "dachowki-ceramiczne",
+          "parentSlug": "pokrycia-dachowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "drzwi-kolankowe",
+      "items": [
+        {
+          "slug": "drzwi-kolankowe",
+          "parentSlug": "schody-i-akcesoria-strychowe",
+          "productCount": 15,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "drzwi-kolankowe",
+          "parentSlug": "schody-i-akcesoria-strychowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "elektronarzedzia",
+      "items": [
+        {
+          "slug": "elektronarzedzia",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 1,
+          "rootProductCount": 1
+        },
+        {
+          "slug": "elektronarzedzia",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "emalie-akrylowe",
+      "items": [
+        {
+          "slug": "emalie-akrylowe",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 250,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "emalie-akrylowe",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "emalie-chlorokauczukowe",
+      "items": [
+        {
+          "slug": "emalie-chlorokauczukowe",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 162,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "emalie-chlorokauczukowe",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "emalie-ftalowe",
+      "items": [
+        {
+          "slug": "emalie-ftalowe",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 279,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "emalie-ftalowe",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "emalie-poliuretanowe",
+      "items": [
+        {
+          "slug": "emalie-poliuretanowe",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 11,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "emalie-poliuretanowe",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-do-betonu",
+      "items": [
+        {
+          "slug": "farby-do-betonu",
+          "parentSlug": "farby-pozostae",
+          "productCount": 44,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-do-betonu",
+          "parentSlug": "farby-pozostale",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-do-drewna",
+      "items": [
+        {
+          "slug": "farby-do-drewna",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-do-drewna",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-do-metalu",
+      "items": [
+        {
+          "slug": "farby-do-metalu",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-do-metalu",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-elewacyjne",
+      "items": [
+        {
+          "slug": "farby-elewacyjne",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-elewacyjne",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-elewacyjne-akrylowe",
+      "items": [
+        {
+          "slug": "farby-elewacyjne-akrylowe",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 299,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-elewacyjne-akrylowe",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-elewacyjne-emulsyjne",
+      "items": [
+        {
+          "slug": "farby-elewacyjne-emulsyjne",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 76,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-elewacyjne-emulsyjne",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-elewacyjne-silikatowe",
+      "items": [
+        {
+          "slug": "farby-elewacyjne-silikatowe",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 299,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-elewacyjne-silikatowe",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-elewacyjne-silikonowe",
+      "items": [
+        {
+          "slug": "farby-elewacyjne-silikonowe",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 300,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-elewacyjne-silikonowe",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-elewacyjne-specjalne",
+      "items": [
+        {
+          "slug": "farby-elewacyjne-specjalne",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 77,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-elewacyjne-specjalne",
+          "parentSlug": "farby-elewacyjne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-pozostale",
+      "items": [
+        {
+          "slug": "farby-pozostae",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-pozostale",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-proszkowe",
+      "items": [
+        {
+          "slug": "farby-proszkowe",
+          "parentSlug": "farby-specjalistyczne",
+          "productCount": 9,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-proszkowe",
+          "parentSlug": "impregnaty",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-przemyslowe",
+      "items": [
+        {
+          "slug": "farby-przemysowe",
+          "parentSlug": "farby-specjalistyczne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-przemyslowe",
+          "parentSlug": "impregnaty",
+          "productCount": 21,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-wewnetrzne",
+      "items": [
+        {
+          "slug": "farby-wewnetrzne",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 16,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-wewnetrzne",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-wewnetrzne-biale",
+      "items": [
+        {
+          "slug": "farby-wewnetrzne-biae",
+          "parentSlug": "farby-wewnetrzne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-wewnetrzne-biale",
+          "parentSlug": "farby-wewnetrzne",
+          "productCount": 264,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-wewnetrzne-kolorowe",
+      "items": [
+        {
+          "slug": "farby-wewnetrzne-kolorowe",
+          "parentSlug": "farby-wewnetrzne",
+          "productCount": 302,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-wewnetrzne-kolorowe",
+          "parentSlug": "farby-wewnetrzne",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "farby-zaprawkowe",
+      "items": [
+        {
+          "slug": "farby-zaprawkowe",
+          "parentSlug": "farby-pozostae",
+          "productCount": 3,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "farby-zaprawkowe",
+          "parentSlug": "farby-pozostale",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "folie-budowlane",
+      "items": [
+        {
+          "slug": "folie-budowlane",
+          "parentSlug": "folie",
+          "productCount": 66,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "folie-budowlane",
+          "parentSlug": "folie",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "folie-fundamentowe",
+      "items": [
+        {
+          "slug": "folie-fundamentowe",
+          "parentSlug": "folie",
+          "productCount": 33,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "folie-fundamentowe",
+          "parentSlug": "folie",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "folie-paroizolacyjne",
+      "items": [
+        {
+          "slug": "folie-paroizolacyjne",
+          "parentSlug": "folie",
+          "productCount": 20,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "folie-paroizolacyjne",
+          "parentSlug": "folie",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "gladzie-gipsowe-w-proszku",
+      "items": [
+        {
+          "slug": "gadzie-gipsowe-w-proszku",
+          "parentSlug": "gipsy-i-gadzie",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "gladzie-gipsowe-w-proszku",
+          "parentSlug": "gipsy-i-gladzie",
+          "productCount": 66,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "gladzie-masy-gotowe",
+      "items": [
+        {
+          "slug": "gadzie-masy-gotowe",
+          "parentSlug": "gipsy-i-gadzie",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "gladzie-masy-gotowe",
+          "parentSlug": "gipsy-i-gladzie",
+          "productCount": 123,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "gipsy-budowlane",
+      "items": [
+        {
+          "slug": "gipsy-budowlane",
+          "parentSlug": "gipsy-i-gadzie",
+          "productCount": 7,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "gipsy-budowlane",
+          "parentSlug": "gipsy-i-gladzie",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "gipsy-i-gladzie",
+      "items": [
+        {
+          "slug": "gipsy-i-gadzie",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "gipsy-i-gladzie",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "gipsy-szpachlowe",
+      "items": [
+        {
+          "slug": "gipsy-szpachlowe",
+          "parentSlug": "gipsy-i-gadzie",
+          "productCount": 81,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "gipsy-szpachlowe",
+          "parentSlug": "gipsy-i-gladzie",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "grunty-do-posadzek",
+      "items": [
+        {
+          "slug": "grunty-do-posadzek",
+          "parentSlug": "grunty",
+          "productCount": 25,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "grunty-do-posadzek",
+          "parentSlug": "grunty",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "grunty-pod-tynki",
+      "items": [
+        {
+          "slug": "grunty-pod-tynki",
+          "parentSlug": "grunty",
+          "productCount": 40,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "grunty-pod-tynki",
+          "parentSlug": "grunty",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "grunty-specjalistyczne",
+      "items": [
+        {
+          "slug": "grunty-specjalistyczne",
+          "parentSlug": "grunty",
+          "productCount": 61,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "grunty-specjalistyczne",
+          "parentSlug": "grunty",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "grunty-uniwersalne",
+      "items": [
+        {
+          "slug": "grunty-uniwersalne",
+          "parentSlug": "grunty",
+          "productCount": 340,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "grunty-uniwersalne",
+          "parentSlug": "grunty",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "hydroizolacje",
+      "items": [
+        {
+          "slug": "hydroizolacje",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 1
+        },
+        {
+          "slug": "hydroizolacje",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "hydroizolacje-bitumiczne",
+      "items": [
+        {
+          "slug": "hydroizolacje-bitumiczne",
+          "parentSlug": "hydroizolacje",
+          "productCount": 135,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "hydroizolacje-bitumiczne",
+          "parentSlug": "hydroizolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "hydroizolacje-mineralne",
+      "items": [
+        {
+          "slug": "hydroizolacje-mineralne",
+          "parentSlug": "hydroizolacje",
+          "productCount": 14,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "hydroizolacje-mineralne",
+          "parentSlug": "hydroizolacje",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "izolacje-akustyczne",
+      "items": [
+        {
+          "slug": "izolacje-akustyczne",
+          "parentSlug": "izolacje-budowlane",
+          "productCount": 3,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "izolacje-akustyczne",
+          "parentSlug": "izolacje-budowlane",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "izolacje-budowlane",
+      "items": [
+        {
+          "slug": "izolacje-budowlane",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "izolacje-budowlane",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "izolacje-dachow-plaskich",
+      "items": [
+        {
+          "slug": "izolacje-dachow-paskich",
+          "parentSlug": "izolacje-budowlane",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "izolacje-dachow-plaskich",
+          "parentSlug": "izolacje-budowlane",
+          "productCount": 2,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "izolacje-fasadowe",
+      "items": [
+        {
+          "slug": "izolacje-fasadowe",
+          "parentSlug": "izolacje-budowlane",
+          "productCount": 0,
+          "rootProductCount": 5
+        },
+        {
+          "slug": "izolacje-fasadowe",
+          "parentSlug": "izolacje-budowlane",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "izolacje-hvac",
+      "items": [
+        {
+          "slug": "izolacje-hvac",
+          "parentSlug": "izolacje-techniczne",
+          "productCount": 11,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "izolacje-hvac",
+          "parentSlug": "izolacje-techniczne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "izolacje-przemyslowe",
+      "items": [
+        {
+          "slug": "izolacje-przemysowe",
+          "parentSlug": "izolacje-techniczne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "izolacje-przemyslowe",
+          "parentSlug": "izolacje-techniczne",
+          "productCount": 10,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "izolacje-stropow-i-podlog",
+      "items": [
+        {
+          "slug": "izolacje-stropow-i-podog",
+          "parentSlug": "izolacje-budowlane",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "izolacje-stropow-i-podlog",
+          "parentSlug": "izolacje-budowlane",
+          "productCount": 25,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "izolacje-techniczne",
+      "items": [
+        {
+          "slug": "izolacje-techniczne",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "izolacje-techniczne",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "katowniki-i-katomierze",
+      "items": [
+        {
+          "slug": "katowniki-i-katomierze",
+          "parentSlug": "narzedzia-pomiarowe",
+          "productCount": 40,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "katowniki-i-katomierze",
+          "parentSlug": "narzedzia-pomiarowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kielnie",
+      "items": [
+        {
+          "slug": "kielnie",
+          "parentSlug": "narzedzia-budowlane",
+          "productCount": 69,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kielnie",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kleje-do-drewna",
+      "items": [
+        {
+          "slug": "kleje-do-drewna",
+          "parentSlug": "kleje",
+          "productCount": 44,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kleje-do-drewna",
+          "parentSlug": "kleje",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kleje-do-glazury",
+      "items": [
+        {
+          "slug": "kleje-do-glazury",
+          "parentSlug": "kleje",
+          "productCount": 157,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kleje-do-glazury",
+          "parentSlug": "kleje",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kleje-do-glazury",
+          "parentSlug": "kleje",
+          "productCount": 2,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kleje-do-styropianu-i-styroduru",
+      "items": [
+        {
+          "slug": "kleje-do-styropianu-i-styroduru",
+          "parentSlug": "kleje",
+          "productCount": 108,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kleje-do-styropianu-i-styroduru",
+          "parentSlug": "kleje",
+          "productCount": 2,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kleje-do-welen",
+      "items": [
+        {
+          "slug": "kleje-do-ween",
+          "parentSlug": "kleje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kleje-do-welen",
+          "parentSlug": "kleje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kleje-do-welen",
+          "parentSlug": "kleje",
+          "productCount": 18,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kleje-gipsowe",
+      "items": [
+        {
+          "slug": "kleje-gipsowe",
+          "parentSlug": "gipsy-i-gadzie",
+          "productCount": 6,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kleje-gipsowe",
+          "parentSlug": "gipsy-i-gladzie",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kleje-montazowe",
+      "items": [
+        {
+          "slug": "kleje-montazowe",
+          "parentSlug": "kleje",
+          "productCount": 7,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kleje-montazowe",
+          "parentSlug": "kleje",
+          "productCount": 96,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kolki-i-wkrety-uniwersalne",
+      "items": [
+        {
+          "slug": "koki-i-wkrety-uniwersalne",
+          "parentSlug": "elementy-mocujace-uniwersalne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kolki-i-wkrety-uniwersalne",
+          "parentSlug": "elementy-mocujace-uniwersalne",
+          "productCount": 264,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kominy-ceramiczne",
+      "items": [
+        {
+          "slug": "kominy-ceramiczne",
+          "parentSlug": "systemy-kominowe",
+          "productCount": 295,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kominy-ceramiczne",
+          "parentSlug": "systemy-kominowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kominy-stalowe",
+      "items": [
+        {
+          "slug": "kominy-stalowe",
+          "parentSlug": "systemy-kominowe",
+          "productCount": 113,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kominy-stalowe",
+          "parentSlug": "systemy-kominowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "komunikacja-dachowa",
+      "items": [
+        {
+          "slug": "komunikacja-dachowa",
+          "parentSlug": "dachy",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "komunikacja-dachowa",
+          "parentSlug": "dachy",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kostki-scierne",
+      "items": [
+        {
+          "slug": "kostki-scierne",
+          "parentSlug": "artykuy-scierne",
+          "productCount": 49,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kostki-scierne",
+          "parentSlug": "artykuly-scierne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kotwy-chemiczne",
+      "items": [
+        {
+          "slug": "kotwy-chemiczne",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 17,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kotwy-chemiczne",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "kotwy-montazowe",
+      "items": [
+        {
+          "slug": "kotwy-montazowe",
+          "parentSlug": "elementy-mocujace-uniwersalne",
+          "productCount": 3,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "kotwy-montazowe",
+          "parentSlug": "elementy-mocujace-uniwersalne",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "materialy-konstrukcyjne",
+      "items": [
+        {
+          "slug": "materialy-konstrukcyjne",
+          "parentSlug": "stropy-i-sciany",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "materiay-konstrukcyjne",
+          "parentSlug": "stropy-i-sciany",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "mocowania-do-suchej-zabudowy",
+      "items": [
+        {
+          "slug": "mocowania-do-suchej-zabudowy",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 3,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "mocowania-do-suchej-zabudowy",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "narozniki-i-listwy",
+      "items": [
+        {
+          "slug": "narozniki-i-listwy",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 8,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "narozniki-i-listwy",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "narzedzia-budowlane",
+      "items": [
+        {
+          "slug": "narzedzia-budowlane",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "narzedzia-budowlane",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 32,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "narzedzia-malarskie",
+      "items": [
+        {
+          "slug": "narzedzia-malarskie",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 5,
+          "rootProductCount": 7
+        },
+        {
+          "slug": "narzedzia-malarskie",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "narzedzia-pomiarowe",
+      "items": [
+        {
+          "slug": "narzedzia-pomiarowe",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "narzedzia-pomiarowe",
+          "parentSlug": "narzedzia-i-mocowania",
+          "productCount": 2,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "okna-dachowe-i-akcesoria",
+      "items": [
+        {
+          "slug": "okna-dachowe-i-akcesoria",
+          "parentSlug": "dachy",
+          "productCount": 4,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "okna-dachowe-i-akcesoria",
+          "parentSlug": "dachy",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "panele-scienne-i-tapety",
+      "items": [
+        {
+          "slug": "panele-scienne-i-tapety",
+          "parentSlug": "stropy-i-sciany",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "panele-scienne-i-tapety",
+          "parentSlug": "stropy-i-sciany",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "piany-montazowe",
+      "items": [
+        {
+          "slug": "piany-montazowe",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "piany-montazowe",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plytki-ceramiczne",
+      "items": [
+        {
+          "slug": "plytki-ceramiczne",
+          "parentSlug": "plytki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pytki-ceramiczne",
+          "parentSlug": "plytki",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plytki-dekoracyjne",
+      "items": [
+        {
+          "slug": "plytki-dekoracyjne",
+          "parentSlug": "plytki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pytki-dekoracyjne",
+          "parentSlug": "plytki",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "pokrycia-dachowe",
+      "items": [
+        {
+          "slug": "pokrycia-dachowe",
+          "parentSlug": "dachy",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pokrycia-dachowe",
+          "parentSlug": "dachy",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "powloki-epoksydowe",
+      "items": [
+        {
+          "slug": "powloki-epoksydowe",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 43,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "powoki-epoksydowe",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "profile-do-suchej-zabudowy",
+      "items": [
+        {
+          "slug": "profile-do-suchej-zabudowy",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "profile-do-suchej-zabudowy",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "schody-i-akcesoria-strychowe",
+      "items": [
+        {
+          "slug": "schody-i-akcesoria-strychowe",
+          "parentSlug": "stropy-i-sciany",
+          "productCount": 0,
+          "rootProductCount": 1
+        },
+        {
+          "slug": "schody-i-akcesoria-strychowe",
+          "parentSlug": "stropy-i-sciany",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "styropiany",
+      "items": [
+        {
+          "slug": "styropiany",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "styropiany",
+          "parentSlug": "izolacje",
+          "productCount": 5,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "systemy-kominowe",
+      "items": [
+        {
+          "slug": "systemy-kominowe",
+          "parentSlug": "stropy-i-sciany",
+          "productCount": 0,
+          "rootProductCount": 4
+        },
+        {
+          "slug": "systemy-kominowe",
+          "parentSlug": "stropy-i-sciany",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "uszczelniacze-i-silikony",
+      "items": [
+        {
+          "slug": "uszczelniacze-i-silikony",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "uszczelniacze-i-silikony",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "wieszaki-do-suchej-zabudowy",
+      "items": [
+        {
+          "slug": "wieszaki-do-suchej-zabudowy",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "wieszaki-do-suchej-zabudowy",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "zabezpieczenia-przeciwsniegowe",
+      "items": [
+        {
+          "slug": "zabezpieczenia-przeciwsniegowe",
+          "parentSlug": "dachy",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "zabezpieczenia-przeciwsniegowe",
+          "parentSlug": "dachy",
+          "productCount": 45,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "zaprawy",
+      "items": [
+        {
+          "slug": "zaprawy",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "zaprawy",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "lakiery-do-drewna",
+      "items": [
+        {
+          "slug": "lakiery-do-drewna",
+          "parentSlug": "farby-do-drewna",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "lakiery-do-drewna",
+          "parentSlug": "farby-do-drewna",
+          "productCount": 126,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "lakiery-do-metalu",
+      "items": [
+        {
+          "slug": "lakiery-do-metalu",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "lakiery-do-metalu",
+          "parentSlug": "farby-do-metalu",
+          "productCount": 8,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "lasery-i-dalmierze",
+      "items": [
+        {
+          "slug": "lasery-i-dalmierze",
+          "parentSlug": "narzedzia-pomiarowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "lasery-i-dalmierze",
+          "parentSlug": "narzedzia-pomiarowe",
+          "productCount": 42,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "laty-murarskie",
+      "items": [
+        {
+          "slug": "laty-murarskie",
+          "parentSlug": "narzedzia-pomiarowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "laty-murarskie",
+          "parentSlug": "narzedzia-pomiarowe",
+          "productCount": 40,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "listwy-przypodlogowe",
+      "items": [
+        {
+          "slug": "listwy-przypodlogowe",
+          "parentSlug": "listwy-i-akcesoria",
+          "productCount": 38,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "listwy-przypodogowe",
+          "parentSlug": "listwy-i-akcesoria",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "masy-bitumiczne-gruntujace",
+      "items": [
+        {
+          "slug": "masy-bitumiczne-gruntujace",
+          "parentSlug": "grunty",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "masy-bitumiczne-gruntujace",
+          "parentSlug": "grunty",
+          "productCount": 56,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "mlotki-budowlane",
+      "items": [
+        {
+          "slug": "mlotki-budowlane",
+          "parentSlug": "narzedzia-budowlane",
+          "productCount": 27,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "motki-budowlane",
+          "parentSlug": "narzedzia-budowlane",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "narozniki-do-tynkow-mokrych",
+      "items": [
+        {
+          "slug": "narozniki-do-tynkow-mokrych",
+          "parentSlug": "narozniki-i-listwy",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "narozniki-do-tynkow-mokrych",
+          "parentSlug": "narozniki-i-listwy",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "okladziny-z-wlokna-szklanego",
+      "items": [
+        {
+          "slug": "okladziny-z-wlokna-szklanego",
+          "parentSlug": "panele-scienne-i-tapety",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "okadziny-z-wokna-szklanego",
+          "parentSlug": "panele-scienne-i-tapety",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "okna-dachowe",
+      "items": [
+        {
+          "slug": "okna-dachowe",
+          "parentSlug": "okna-dachowe-i-akcesoria",
+          "productCount": 2,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "okna-dachowe",
+          "parentSlug": "okna-dachowe-i-akcesoria",
+          "productCount": 300,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "panele-i-dekory-scienne",
+      "items": [
+        {
+          "slug": "panele-i-dekory-scienne",
+          "parentSlug": "plytki-dekoracyjne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "panele-i-dekory-scienne",
+          "parentSlug": "pytki-dekoracyjne",
+          "productCount": 26,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "papier-scierny",
+      "items": [
+        {
+          "slug": "papier-scierny",
+          "parentSlug": "artykuly-scierne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "papier-scierny",
+          "parentSlug": "artykuy-scierne",
+          "productCount": 75,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "piany-montazowe-pistoletowe",
+      "items": [
+        {
+          "slug": "piany-montazowe-pistoletowe",
+          "parentSlug": "piany-montazowe",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "piany-montazowe-pistoletowe",
+          "parentSlug": "piany-montazowe",
+          "productCount": 55,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "piany-montazowe-wezykowe",
+      "items": [
+        {
+          "slug": "piany-montazowe-wezykowe",
+          "parentSlug": "piany-montazowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "piany-montazowe-wezykowe",
+          "parentSlug": "piany-montazowe",
+          "productCount": 32,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "pigmenty",
+      "items": [
+        {
+          "slug": "pigmenty",
+          "parentSlug": "farby-pozostale",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pigmenty",
+          "parentSlug": "farby-pozostae",
+          "productCount": 296,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "pilniki",
+      "items": [
+        {
+          "slug": "pilniki",
+          "parentSlug": "artykuly-scierne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pilniki",
+          "parentSlug": "artykuy-scierne",
+          "productCount": 8,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plotki-przeciwsniegowe",
+      "items": [
+        {
+          "slug": "plotki-przeciwsniegowe",
+          "parentSlug": "zabezpieczenia-przeciwsniegowe",
+          "productCount": 10,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "potki-przeciwsniegowe",
+          "parentSlug": "zabezpieczenia-przeciwsniegowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "podklady-wypelniajace",
+      "items": [
+        {
+          "slug": "podklady-wypelniajace",
+          "parentSlug": "farby-do-drewna",
+          "productCount": 18,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "podkady-wypeniajace",
+          "parentSlug": "farby-do-drewna",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "pokrycia-dachowe-z-blachy",
+      "items": [
+        {
+          "slug": "pokrycia-dachowe-z-blachy",
+          "parentSlug": "pokrycia-dachowe",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pokrycia-dachowe-z-blachy",
+          "parentSlug": "pokrycia-dachowe",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "pustaki",
+      "items": [
+        {
+          "slug": "pustaki",
+          "parentSlug": "materialy-konstrukcyjne",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pustaki",
+          "parentSlug": "materiay-konstrukcyjne",
+          "productCount": 85,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "schody-strychowe",
+      "items": [
+        {
+          "slug": "schody-strychowe",
+          "parentSlug": "schody-i-akcesoria-strychowe",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "schody-strychowe",
+          "parentSlug": "schody-i-akcesoria-strychowe",
+          "productCount": 300,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "siatki-elewacyjne",
+      "items": [
+        {
+          "slug": "siatki-elewacyjne",
+          "parentSlug": "akcesoria-do-izolacji",
+          "productCount": 2,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "siatki-elewacyjne",
+          "parentSlug": "akcesoria-do-izolacji",
+          "productCount": 65,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "silikony-dekarskie",
+      "items": [
+        {
+          "slug": "silikony-dekarskie",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "silikony-dekarskie",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 4,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "silikony-szklarskie",
+      "items": [
+        {
+          "slug": "silikony-szklarskie",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "silikony-szklarskie",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 7,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "silikony-uniwersalne",
+      "items": [
+        {
+          "slug": "silikony-uniwersalne",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "silikony-uniwersalne",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 56,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "silikony-wysokotemperaturowe",
+      "items": [
+        {
+          "slug": "silikony-wysokotemperaturowe",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "silikony-wysokotemperaturowe",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 9,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "spoiny-elastyczne",
+      "items": [
+        {
+          "slug": "spoiny-elastyczne",
+          "parentSlug": "spoiny",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "spoiny-elastyczne",
+          "parentSlug": "spoiny",
+          "productCount": 323,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "spoiny-specjalistyczne",
+      "items": [
+        {
+          "slug": "spoiny-specjalistyczne",
+          "parentSlug": "spoiny",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "spoiny-specjalistyczne",
+          "parentSlug": "spoiny",
+          "productCount": 16,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "spoiny-zwykle",
+      "items": [
+        {
+          "slug": "spoiny-zwykle",
+          "parentSlug": "spoiny",
+          "productCount": 4,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "spoiny-zwyke",
+          "parentSlug": "spoiny",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "stopnie-kominiarskie",
+      "items": [
+        {
+          "slug": "stopnie-kominiarskie",
+          "parentSlug": "komunikacja-dachowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "stopnie-kominiarskie",
+          "parentSlug": "komunikacja-dachowa",
+          "productCount": 14,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "styropian-dach-podloga-eps",
+      "items": [
+        {
+          "slug": "styropian-dach-podloga-eps",
+          "parentSlug": "styropiany",
+          "productCount": 262,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "styropian-dach-podoga-eps",
+          "parentSlug": "styropiany",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "styropiany-akustyczne",
+      "items": [
+        {
+          "slug": "styropiany-akustyczne",
+          "parentSlug": "styropiany",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "styropiany-akustyczne",
+          "parentSlug": "styropiany",
+          "productCount": 8,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "styropiany-do-fundamentow",
+      "items": [
+        {
+          "slug": "styropiany-do-fundamentow",
+          "parentSlug": "styropiany",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "styropiany-do-fundamentow",
+          "parentSlug": "styropiany",
+          "productCount": 215,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "styropiany-fasadowe-eps",
+      "items": [
+        {
+          "slug": "styropiany-fasadowe-eps",
+          "parentSlug": "styropiany",
+          "productCount": 4,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "styropiany-fasadowe-eps",
+          "parentSlug": "styropiany",
+          "productCount": 313,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "szlifierki",
+      "items": [
+        {
+          "slug": "szlifierki",
+          "parentSlug": "elektronarzedzia",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "szlifierki",
+          "parentSlug": "elektronarzedzia",
+          "productCount": 17,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "szpachle-i-szpachelki",
+      "items": [
+        {
+          "slug": "szpachle-i-szpachelki",
+          "parentSlug": "narzedzia-budowlane",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "szpachle-i-szpachelki",
+          "parentSlug": "narzedzia-budowlane",
+          "productCount": 62,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tapety-scienne",
+      "items": [
+        {
+          "slug": "tapety-scienne",
+          "parentSlug": "panele-scienne-i-tapety",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tapety-scienne",
+          "parentSlug": "panele-scienne-i-tapety",
+          "productCount": 5,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tasmy-uszczelniajace-do-hydroizolacji",
+      "items": [
+        {
+          "slug": "tasmy-uszczelniajace-do-hydroizolacji",
+          "parentSlug": "hydroizolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tasmy-uszczelniajace-do-hydroizolacji",
+          "parentSlug": "hydroizolacje",
+          "productCount": 4,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tynki-elewacyjne",
+      "items": [
+        {
+          "slug": "tynki-elewacyjne",
+          "parentSlug": "tynki",
+          "productCount": 2,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tynki-elewacyjne",
+          "parentSlug": "tynki",
+          "productCount": 36,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tynki-specjalne",
+      "items": [
+        {
+          "slug": "tynki-specjalne",
+          "parentSlug": "tynki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tynki-specjalne",
+          "parentSlug": "tynki",
+          "productCount": 56,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tynki-wapienne",
+      "items": [
+        {
+          "slug": "tynki-wapienne",
+          "parentSlug": "tynki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tynki-wapienne",
+          "parentSlug": "tynki",
+          "productCount": 8,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "welny-do-dachow-plaskich",
+      "items": [
+        {
+          "slug": "welny-do-dachow-plaskich",
+          "parentSlug": "welny",
+          "productCount": 57,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "weny-do-dachow-paskich",
+          "parentSlug": "weny",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "welny-do-poddaszy",
+      "items": [
+        {
+          "slug": "welny-do-poddaszy",
+          "parentSlug": "welny",
+          "productCount": 142,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "weny-do-poddaszy",
+          "parentSlug": "weny",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "welny-fasadowe",
+      "items": [
+        {
+          "slug": "welny-fasadowe",
+          "parentSlug": "welny",
+          "productCount": 43,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "weny-fasadowe",
+          "parentSlug": "weny",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "wiadra-i-pojemniki-budowlane",
+      "items": [
+        {
+          "slug": "wiadra-i-pojemniki-budowlane",
+          "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+          "productCount": 9,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "wiadra-i-pojemniki-budowlane",
+          "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+          "productCount": 29,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "wkrety-do-metalu",
+      "items": [
+        {
+          "slug": "wkrety-do-metalu",
+          "parentSlug": "elementy-mocujace-uniwersalne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "wkrety-do-metalu",
+          "parentSlug": "elementy-mocujace-uniwersalne",
+          "productCount": 7,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "wkrety-do-suchej-zabudowy",
+      "items": [
+        {
+          "slug": "wkrety-do-suchej-zabudowy",
+          "parentSlug": "mocowania-do-suchej-zabudowy",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "wkrety-do-suchej-zabudowy",
+          "parentSlug": "mocowania-do-suchej-zabudowy",
+          "productCount": 292,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "wsporniki-plotkow-przeciwsniegowych",
+      "items": [
+        {
+          "slug": "wsporniki-plotkow-przeciwsniegowych",
+          "parentSlug": "zabezpieczenia-przeciwsniegowe",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "wsporniki-potkow-przeciwsniegowych",
+          "parentSlug": "zabezpieczenia-przeciwsniegowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "zaprawy-do-spoin",
+      "items": [
+        {
+          "slug": "zaprawy-do-spoin",
+          "parentSlug": "spoiny",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "zaprawy-do-spoin",
+          "parentSlug": "spoiny",
+          "productCount": 72,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "zaprawy-naprawcze",
+      "items": [
+        {
+          "slug": "zaprawy-naprawcze",
+          "parentSlug": "zaprawy",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "zaprawy-naprawcze",
+          "parentSlug": "zaprawy",
+          "productCount": 42,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "zaprawy-specjalistyczne",
+      "items": [
+        {
+          "slug": "zaprawy-specjalistyczne",
+          "parentSlug": "zaprawy",
+          "productCount": 1,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "zaprawy-specjalistyczne",
+          "parentSlug": "zaprawy",
+          "productCount": 55,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "lakierobejce",
+      "items": [
+        {
+          "slug": "lakierobejce",
+          "parentSlug": "farby-do-drewna",
+          "productCount": 102,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "lakierobejce",
+          "parentSlug": "farby-do-drewna",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "membrany-dachowe",
+      "items": [
+        {
+          "slug": "membrany-dachowe",
+          "parentSlug": "hydroizolacje",
+          "productCount": 41,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "membrany-dachowe",
+          "parentSlug": "hydroizolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "mieszadla",
+      "items": [
+        {
+          "slug": "mieszada",
+          "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "mieszadla",
+          "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+          "productCount": 25,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "olowki-kredy-i-markery",
+      "items": [
+        {
+          "slug": "olowki-kredy-i-markery",
+          "parentSlug": "narzedzia-budowlane",
+          "productCount": 8,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "oowkikredy-i-markery",
+          "parentSlug": "narzedzia-budowlane",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "pedzle",
+      "items": [
+        {
+          "slug": "pedzle",
+          "parentSlug": "narzedzia-malarskie",
+          "productCount": 297,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pedzle",
+          "parentSlug": "narzedzia-malarskie",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plyty",
+      "items": [
+        {
+          "slug": "plyty",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "pyty",
+          "parentSlug": "sucha-zabudowa",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "poziomnice",
+      "items": [
+        {
+          "slug": "poziomnice",
+          "parentSlug": "narzedzia-pomiarowe",
+          "productCount": 83,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "poziomnice",
+          "parentSlug": "narzedzia-pomiarowe",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plytki-elewacyjne",
+      "items": [
+        {
+          "slug": "pytki-elewacyjne",
+          "parentSlug": "pytki-ceramiczne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "plytki-elewacyjne",
+          "parentSlug": "plytki-ceramiczne",
+          "productCount": 113,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plytki-scienne",
+      "items": [
+        {
+          "slug": "pytki-scienne",
+          "parentSlug": "pytki-ceramiczne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "plytki-scienne",
+          "parentSlug": "plytki-ceramiczne",
+          "productCount": 206,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plytki-tarasowe",
+      "items": [
+        {
+          "slug": "pytki-tarasowe",
+          "parentSlug": "pytki-ceramiczne",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "plytki-tarasowe",
+          "parentSlug": "plytki-ceramiczne",
+          "productCount": 190,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plyty-cementowe",
+      "items": [
+        {
+          "slug": "pyty-cementowe",
+          "parentSlug": "pyty",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "plyty-cementowe",
+          "parentSlug": "plyty",
+          "productCount": 19,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plyty-gipsowo-kartonowe",
+      "items": [
+        {
+          "slug": "pyty-gipsowo-kartonowe",
+          "parentSlug": "pyty",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "plyty-gipsowo-kartonowe",
+          "parentSlug": "plyty",
+          "productCount": 119,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "plyty-xps",
+      "items": [
+        {
+          "slug": "pyty-xps",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "plyty-xps",
+          "parentSlug": "izolacje",
+          "productCount": 128,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "rozpuszczalniki",
+      "items": [
+        {
+          "slug": "rozpuszczalniki",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 289,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "rozpuszczalniki",
+          "parentSlug": "farby-i-rozpuszczalniki",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "silikony-sanitarne",
+      "items": [
+        {
+          "slug": "silikony-sanitarne",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 287,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "silikony-sanitarne",
+          "parentSlug": "uszczelniacze-i-silikony",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "spoiny",
+      "items": [
+        {
+          "slug": "spoiny",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 2,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "spoiny",
+          "parentSlug": "chemia-budowlana",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tasmy-i-folie-pozostale",
+      "items": [
+        {
+          "slug": "tasmy-i-folie-pozostae",
+          "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tasmy-i-folie-pozostale",
+          "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+          "productCount": 6,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tasmy-malarskie",
+      "items": [
+        {
+          "slug": "tasmy-malarskie",
+          "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+          "productCount": 30,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tasmy-malarskie",
+          "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tynki-cementowo-wapienne",
+      "items": [
+        {
+          "slug": "tynki-cementowo-wapienne",
+          "parentSlug": "tynki",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tynki-cementowo-wapienne",
+          "parentSlug": "tynki",
+          "productCount": 30,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "tynki-gipsowe",
+      "items": [
+        {
+          "slug": "tynki-gipsowe",
+          "parentSlug": "tynki",
+          "productCount": 2,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "tynki-gipsowe",
+          "parentSlug": "tynki",
+          "productCount": 45,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "walki-malarskie",
+      "items": [
+        {
+          "slug": "waki-malarskie",
+          "parentSlug": "narzedzia-malarskie",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "walki-malarskie",
+          "parentSlug": "narzedzia-malarskie",
+          "productCount": 75,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "welny",
+      "items": [
+        {
+          "slug": "welny",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "weny",
+          "parentSlug": "izolacje",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "wiertarko-wkretarki",
+      "items": [
+        {
+          "slug": "wiertarko-wkretarki",
+          "parentSlug": "elektronarzedzia",
+          "productCount": 10,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "wiertarko-wkretarki",
+          "parentSlug": "elektronarzedzia",
+          "productCount": 1,
+          "rootProductCount": 0
+        }
+      ]
+    },
+    {
+      "name": "zaprawy-uszczelniajace",
+      "items": [
+        {
+          "slug": "zaprawy-uszczelniajace",
+          "parentSlug": "zaprawy",
+          "productCount": 39,
+          "rootProductCount": 0
+        },
+        {
+          "slug": "zaprawy-uszczelniajace",
+          "parentSlug": "zaprawy",
+          "productCount": 0,
+          "rootProductCount": 0
+        }
+      ]
+    }
+  ],
+  "sanityWithDirectProducts": [
+    {
+      "slug": "grunty-uniwersalne",
+      "name": "Grunty uniwersalne",
+      "parentSlug": "grunty",
+      "productCount": 340,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "spoiny-elastyczne",
+      "name": "Spoiny elastyczne",
+      "parentSlug": "spoiny",
+      "productCount": 323,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "styropiany-fasadowe-eps",
+      "name": "Styropiany fasadowe EPS",
+      "parentSlug": "styropiany",
+      "productCount": 313,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "impregnaty",
+      "name": "Impregnaty",
+      "parentSlug": "farby-do-drewna",
+      "productCount": 306,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "dachowki-ceramiczne",
+      "name": "Dachówki ceramiczne",
+      "parentSlug": "pokrycia-dachowe",
+      "productCount": 304,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-wewnetrzne-kolorowe",
+      "name": "Farby wewnętrzne kolorowe",
+      "parentSlug": "farby-wewnetrzne",
+      "productCount": 302,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-elewacyjne-silikonowe",
+      "name": "Farby elewacyjne silikonowe",
+      "parentSlug": "farby-elewacyjne",
+      "productCount": 300,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "okna-dachowe",
+      "name": "Okna dachowe",
+      "parentSlug": "okna-dachowe-i-akcesoria",
+      "productCount": 300,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "schody-strychowe",
+      "name": "Schody strychowe",
+      "parentSlug": "schody-i-akcesoria-strychowe",
+      "productCount": 300,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-elewacyjne-akrylowe",
+      "name": "Farby elewacyjne akrylowe",
+      "parentSlug": "farby-elewacyjne",
+      "productCount": 299,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-elewacyjne-silikatowe",
+      "name": "Farby elewacyjne silikatowe",
+      "parentSlug": "farby-elewacyjne",
+      "productCount": 299,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "pedzle",
+      "name": "Pędzle",
+      "parentSlug": "narzedzia-malarskie",
+      "productCount": 297,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "pigmenty",
+      "name": "Pigmenty",
+      "parentSlug": "farby-pozostae",
+      "productCount": 296,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kominy-ceramiczne",
+      "name": "Kominy ceramiczne",
+      "parentSlug": "systemy-kominowe",
+      "productCount": 295,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "laczniki-do-izolacji-fasadowych",
+      "name": "Łączniki do izolacji fasadowych",
+      "parentSlug": "akcesoria-do-izolacji",
+      "productCount": 295,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "spraye",
+      "name": "Spraye",
+      "parentSlug": "farby-pozostae",
+      "productCount": 295,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "profile-i-narozniki-do-izolacji-budowlanych",
+      "name": "Profile i narożniki do izolacji budowlanych",
+      "parentSlug": "akcesoria-do-izolacji",
+      "productCount": 293,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "wkrety-do-suchej-zabudowy",
+      "name": "Wkręty do suchej zabudowy",
+      "parentSlug": "mocowania-do-suchej-zabudowy",
+      "productCount": 292,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "rozpuszczalniki",
+      "name": "Rozpuszczalniki",
+      "parentSlug": "farby-i-rozpuszczalniki",
+      "productCount": 289,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "profile-do-suchej-zabudowy-konstrukcja-scienna",
+      "name": "Profile do suchej zabudowy konstrukcja ścienna",
+      "parentSlug": "profile-do-suchej-zabudowy",
+      "productCount": 287,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "silikony-sanitarne",
+      "name": "Silikony sanitarne",
+      "parentSlug": "uszczelniacze-i-silikony",
+      "productCount": 287,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "emalie-ftalowe",
+      "name": "Emalie ftalowe",
+      "parentSlug": "farby-do-metalu",
+      "productCount": 279,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-proszkowe-poliestrowe",
+      "name": "Farby proszkowe poliestrowe",
+      "parentSlug": "farby-proszkowe",
+      "productCount": 275,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kolnierze-i-produkty-instalacyjne",
+      "name": "Kołnierze i produkty instalacyjne",
+      "parentSlug": "okna-dachowe-i-akcesoria",
+      "productCount": 269,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-wewnetrzne-biale",
+      "name": "Farby wewnętrzne białe",
+      "parentSlug": "farby-wewnetrzne",
+      "productCount": 264,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kolki-i-wkrety-uniwersalne",
+      "name": "Kołki i wkręty uniwersalne",
+      "parentSlug": "elementy-mocujace-uniwersalne",
+      "productCount": 264,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "styropian-dach-podloga-eps",
+      "name": "Styropian dach-podłoga EPS",
+      "parentSlug": "styropiany",
+      "productCount": 262,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "emalie-akrylowe",
+      "name": "Emalie akrylowe",
+      "parentSlug": "farby-do-metalu",
+      "productCount": 250,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "galanteria-betonowa",
+      "name": "Galanteria betonowa",
+      "parentSlug": "pozostale",
+      "productCount": 243,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "pozostale",
+      "name": "Pozostałe",
+      "parentSlug": null,
+      "productCount": 243,
+      "rootProductCount": 281
+    },
+    {
+      "slug": "mocowania-do-sufitow-podwieszanych",
+      "name": "Mocowania do sufitów podwieszanych",
+      "parentSlug": "sufity-podwieszane",
+      "productCount": 219,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "styropiany-do-fundamentow",
+      "name": "Styropiany do fundamentów",
+      "parentSlug": "styropiany",
+      "productCount": 215,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "plytki-scienne",
+      "name": "Płytki ścienne",
+      "parentSlug": "plytki-ceramiczne",
+      "productCount": 206,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "plytki-tarasowe",
+      "name": "Płytki tarasowe",
+      "parentSlug": "plytki-ceramiczne",
+      "productCount": 190,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "bazy-i-koloranty",
+      "name": "Bazy i koloranty",
+      "parentSlug": "farby-i-rozpuszczalniki",
+      "productCount": 170,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "emalie-chlorokauczukowe",
+      "name": "Emalie chlorokauczukowe",
+      "parentSlug": "farby-do-metalu",
+      "productCount": 162,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "akcesoria-do-kominow",
+      "name": "Akcesoria do kominów",
+      "parentSlug": "systemy-kominowe",
+      "productCount": 161,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kleje-do-glazury",
+      "name": "Kleje do glazury",
+      "parentSlug": "kleje",
+      "productCount": 157,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "plyty-sufitowe",
+      "name": "Płyty sufitowe",
+      "parentSlug": "sufity-podwieszane",
+      "productCount": 155,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "tynki-elewacyjne-mineralne",
+      "name": "Tynki elewacyjne mineralne",
+      "parentSlug": "tynki-elewacyjne",
+      "productCount": 153,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "odziez-ochronna",
+      "name": "Odzież ochronna",
+      "parentSlug": "bhp",
+      "productCount": 150,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "profile-do-sufitow-podwieszanych",
+      "name": "Profile do sufitów podwieszanych",
+      "parentSlug": "sufity-podwieszane",
+      "productCount": 148,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "welny-do-poddaszy",
+      "name": "Wełny do poddaszy",
+      "parentSlug": "welny",
+      "productCount": 142,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "hydroizolacje-bitumiczne",
+      "name": "Hydroizolacje bitumiczne",
+      "parentSlug": "hydroizolacje",
+      "productCount": 135,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "laczniki-do-profili",
+      "name": "Łączniki do profili",
+      "parentSlug": "mocowania-do-suchej-zabudowy",
+      "productCount": 131,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "plyty-xps",
+      "name": "Płyty XPS",
+      "parentSlug": "izolacje",
+      "productCount": 128,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "plyty-elewacyjne-pir",
+      "name": "Płyty elewacyjne PIR",
+      "parentSlug": "izolacje-fasadowe",
+      "productCount": 127,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "lakiery-do-drewna",
+      "name": "Lakiery do drewna",
+      "parentSlug": "farby-do-drewna",
+      "productCount": 126,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "gladzie-masy-gotowe",
+      "name": "Gładzie masy gotowe",
+      "parentSlug": "gipsy-i-gladzie",
+      "productCount": 123,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "bloczki-beton-komorkowy",
+      "name": "Bloczki beton komórkowy",
+      "parentSlug": "bloczki",
+      "productCount": 119,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "plyty-gipsowo-kartonowe",
+      "name": "Płyty gipsowo-kartonowe",
+      "parentSlug": "plyty",
+      "productCount": 119,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kominy-stalowe",
+      "name": "Kominy stalowe",
+      "parentSlug": "systemy-kominowe",
+      "productCount": 113,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "plytki-elewacyjne",
+      "name": "Płytki elewacyjne",
+      "parentSlug": "plytki-ceramiczne",
+      "productCount": 113,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kleje-do-styropianu-i-styroduru",
+      "name": "Kleje do styropianu i styroduru",
+      "parentSlug": "kleje",
+      "productCount": 108,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "masy-szpachlowe-gotowe",
+      "name": "Masy szpachlowe gotowe",
+      "parentSlug": "gipsy-i-gadzie",
+      "productCount": 108,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "lakierobejce",
+      "name": "Lakierobejce",
+      "parentSlug": "farby-do-drewna",
+      "productCount": 102,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kleje-montazowe",
+      "name": "Kleje montażowe",
+      "parentSlug": "kleje",
+      "productCount": 96,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "welny-do-izolacji-fasad-niewentylowanych",
+      "name": "Wełny do izolacji fasad niewentylowanych",
+      "parentSlug": "weny-fasadowe",
+      "productCount": 86,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "akcesoria-malarskie-i-tynkarskie",
+      "name": "Akcesoria malarskie i tynkarskie",
+      "parentSlug": "narzedzia-i-mocowania",
+      "productCount": 85,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "pustaki",
+      "name": "Pustaki",
+      "parentSlug": "materiay-konstrukcyjne",
+      "productCount": 85,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "poziomnice",
+      "name": "Poziomnice",
+      "parentSlug": "narzedzia-pomiarowe",
+      "productCount": 83,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "gipsy-szpachlowe",
+      "name": "Gipsy szpachlowe",
+      "parentSlug": "gipsy-i-gadzie",
+      "productCount": 81,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-poliuretanowe",
+      "name": "Farby poliuretanowe",
+      "parentSlug": "farby-przemysowe",
+      "productCount": 80,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-elewacyjne-specjalne",
+      "name": "Farby elewacyjne specjalne",
+      "parentSlug": "farby-elewacyjne",
+      "productCount": 77,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-elewacyjne-emulsyjne",
+      "name": "Farby elewacyjne emulsyjne",
+      "parentSlug": "farby-elewacyjne",
+      "productCount": 76,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-epoksydowe",
+      "name": "Farby epoksydowe",
+      "parentSlug": "farby-przemysowe",
+      "productCount": 76,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "oleje",
+      "name": "Oleje",
+      "parentSlug": "farby-do-drewna",
+      "productCount": 76,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "papier-scierny",
+      "name": "Papier ścierny",
+      "parentSlug": "artykuy-scierne",
+      "productCount": 75,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "walki-malarskie",
+      "name": "Wałki malarskie",
+      "parentSlug": "narzedzia-malarskie",
+      "productCount": 75,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "miary",
+      "name": "Miary",
+      "parentSlug": "narzedzia-pomiarowe",
+      "productCount": 74,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "zaprawy-do-spoin",
+      "name": "Zaprawy do spoin",
+      "parentSlug": "spoiny",
+      "productCount": 72,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "welny-do-izolacji-fasad-wentylowanych",
+      "name": "Wełny do izolacji fasad wentylowanych",
+      "parentSlug": "weny-fasadowe",
+      "productCount": 71,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kielnie",
+      "name": "Kielnie",
+      "parentSlug": "narzedzia-budowlane",
+      "productCount": 69,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "masy-uszczelniajace",
+      "name": "Masy uszczelniające",
+      "parentSlug": "hydroizolacje",
+      "productCount": 68,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "folie-budowlane",
+      "name": "Folie budowlane",
+      "parentSlug": "folie",
+      "productCount": 66,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "gladzie-gipsowe-w-proszku",
+      "name": "Gładzie gipsowe w proszku",
+      "parentSlug": "gipsy-i-gladzie",
+      "productCount": 66,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "siatki-elewacyjne",
+      "name": "Siatki elewacyjne",
+      "parentSlug": "akcesoria-do-izolacji",
+      "productCount": 65,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "szpachle-i-szpachelki",
+      "name": "Szpachle i szpachelki",
+      "parentSlug": "narzedzia-budowlane",
+      "productCount": 62,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "grunty-specjalistyczne",
+      "name": "Grunty specjalistyczne",
+      "parentSlug": "grunty",
+      "productCount": 61,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "tasmy-naprawcze-i-montazowe",
+      "name": "Taśmy naprawcze i montażowe",
+      "parentSlug": "elementy-mocujace-uniwersalne",
+      "productCount": 61,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "bloczki-silikatowe",
+      "name": "Bloczki silikatowe",
+      "parentSlug": "bloczki",
+      "productCount": 59,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "welny-do-dachow-plaskich",
+      "name": "Wełny do dachów płaskich",
+      "parentSlug": "welny",
+      "productCount": 57,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "palisady-krawezniki-i-obrzeza",
+      "name": "Palisady, krawężniki i obrzeża",
+      "parentSlug": "galanteria-betonowa",
+      "productCount": 56,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "masy-bitumiczne-gruntujace",
+      "name": "Masy bitumiczne gruntujące",
+      "parentSlug": "grunty",
+      "productCount": 56,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "silikony-uniwersalne",
+      "name": "Silikony uniwersalne",
+      "parentSlug": "uszczelniacze-i-silikony",
+      "productCount": 56,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "tynki-specjalne",
+      "name": "Tynki specjalne",
+      "parentSlug": "tynki",
+      "productCount": 56,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "piany-montazowe-pistoletowe",
+      "name": "Piany montażowe pistoletowe",
+      "parentSlug": "piany-montazowe",
+      "productCount": 55,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "zaprawy-specjalistyczne",
+      "name": "Zaprawy specjalistyczne",
+      "parentSlug": "zaprawy",
+      "productCount": 55,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "elementy-mocujace-uniwersalne",
+      "name": "Elementy mocujące uniwersalne",
+      "parentSlug": "narzedzia-i-mocowania",
+      "productCount": 53,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "pace",
+      "name": "Pace",
+      "parentSlug": "narzedzia-budowlane",
+      "productCount": 52,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "srodki-czyszczaco-pielegnacyjne",
+      "name": "Środki czyszcząco-pielęgnacyjne",
+      "parentSlug": "chemia-budowlana",
+      "productCount": 52,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "drzwi-i-akcesoria-do-drzwi",
+      "name": "Drzwi i akcesoria do drzwi",
+      "parentSlug": "stolarka-otworowa",
+      "productCount": 50,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kostki-scierne",
+      "name": "Kostki ścierne",
+      "parentSlug": "artykuy-scierne",
+      "productCount": 49,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "mozaiki",
+      "name": "Mozaiki",
+      "parentSlug": "pytki-dekoracyjne",
+      "productCount": 47,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "tynki-gipsowe",
+      "name": "Tynki gipsowe",
+      "parentSlug": "tynki",
+      "productCount": 45,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "zabezpieczenia-przeciwsniegowe",
+      "name": "Zabezpieczenia przeciwśniegowe",
+      "parentSlug": "dachy",
+      "productCount": 45,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "zaprawy-posadzkowe-masy-samopoziomujace",
+      "name": "Zaprawy posadzkowe masy samopoziomujące",
+      "parentSlug": "zaprawy",
+      "productCount": 45,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-do-betonu",
+      "name": "Farby do betonu",
+      "parentSlug": "farby-pozostae",
+      "productCount": 44,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "folie-ochronne",
+      "name": "Folie ochronne",
+      "parentSlug": "akcesoria-malarskie-i-tynkarskie",
+      "productCount": 44,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "kleje-do-drewna",
+      "name": "Kleje do drewna",
+      "parentSlug": "kleje",
+      "productCount": 44,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "tynki-elewacyjne-silikonowe",
+      "name": "Tynki elewacyjne silikonowe",
+      "parentSlug": "tynki-elewacyjne",
+      "productCount": 44,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "powloki-epoksydowe",
+      "name": "Powłoki epoksydowe",
+      "parentSlug": "chemia-budowlana",
+      "productCount": 43,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "welny-fasadowe",
+      "name": "Wełny fasadowe",
+      "parentSlug": "welny",
+      "productCount": 43,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "narzedzia-reczne",
+      "name": "Narzędzia ręczne",
+      "parentSlug": "narzedzia-i-mocowania",
+      "productCount": 43,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "lasery-i-dalmierze",
+      "name": "Lasery i dalmierze",
+      "parentSlug": "narzedzia-pomiarowe",
+      "productCount": 42,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "zaprawy-murarskie-ogolnego-zastosowania",
+      "name": "Zaprawy murarskie ogólnego zastosowania",
+      "parentSlug": "zaprawy",
+      "productCount": 42,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "zaprawy-naprawcze",
+      "name": "Zaprawy naprawcze",
+      "parentSlug": "zaprawy",
+      "productCount": 42,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "membrany-dachowe",
+      "name": "Membrany dachowe",
+      "parentSlug": "hydroizolacje",
+      "productCount": 41,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "odkurzacze-worki-rury",
+      "name": "Odkurzacze, worki, rury",
+      "parentSlug": "bhp",
+      "productCount": 41,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "farby-elewacyjne-pozostale",
+      "name": "Farby elewacyjne pozostałe",
+      "parentSlug": "farby-elewacyjne",
+      "productCount": 40,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "grunty-pod-tynki",
+      "name": "Grunty pod tynki",
+      "parentSlug": "grunty",
+      "productCount": 40,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "katowniki-i-katomierze",
+      "name": "Kątowniki i kątomierze",
+      "parentSlug": "narzedzia-pomiarowe",
+      "productCount": 40,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "laty-murarskie",
+      "name": "laty murarskie",
+      "parentSlug": "narzedzia-pomiarowe",
+      "productCount": 40,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "zaprawy-uszczelniajace",
+      "name": "Zaprawy uszczelniające",
+      "parentSlug": "zaprawy",
+      "productCount": 39,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "listwy-przypodlogowe",
+      "name": "Listwy przypodłogowe",
+      "parentSlug": "listwy-i-akcesoria",
+      "productCount": 38,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "uszczelniacze-poliuretanowe",
+      "name": "Uszczelniacze poliuretanowe",
+      "parentSlug": "uszczelniacze-i-silikony",
+      "productCount": 38,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "belki-stropowe-betonowe",
+      "name": "Belki stropowe betonowe",
+      "parentSlug": "materiay-konstrukcyjne",
+      "productCount": 37,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "tynki-elewacyjne-ozdobne",
+      "name": "Tynki elewacyjne ozdobne",
+      "parentSlug": "tynki-elewacyjne",
+      "productCount": 37,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "tynki-elewacyjne",
+      "name": "Tynki elewacyjne",
+      "parentSlug": "tynki",
+      "productCount": 36,
+      "rootProductCount": 0
+    },
+    {
+      "slug": "folie-fundamentowe",
+      "name": "Folie fundamentowe",
+      "parentSlug": "folie",
+      "productCount": 33,
+      "rootProductCount": 0
+    }
+  ]
+}

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite",
+    "prebuild": "node scripts/generate-static-fallbacks.mjs",
     "build": "vite build",
     "postbuild": "node scripts/generate-sitemap.mjs",
     "build:dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite build --mode development --sourcemap",

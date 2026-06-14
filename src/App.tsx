@@ -1,11 +1,28 @@
-import { lazy, Suspense, useState, useCallback } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense, useState, useCallback, useEffect } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import Layout from "@/components/Layout";
 import NotFoundPage from "@/pages/NotFoundPage";
 import SplashScreen from "@/components/SplashScreen";
 
 const SPLASH_KEY = "mb_splash_shown";
+const DEEP_LINK_KEY = "mb_pending_deep_link";
+
+function StaticDeepLinkBridge(): null {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      const pendingPath = sessionStorage.getItem(DEEP_LINK_KEY);
+      if (!pendingPath || !pendingPath.startsWith("/")) return;
+
+      sessionStorage.removeItem(DEEP_LINK_KEY);
+      navigate(pendingPath, { replace: true });
+    } catch { /* ignore */ }
+  }, [navigate]);
+
+  return null;
+}
 
 /* ─── Lazy-loaded pages ─────────────────────────────────
    Każda strona ładuje się osobnym chunk-em — Vite rozbija
@@ -43,6 +60,7 @@ export default function App() {
     <>
       {showSplash && <SplashScreen onDone={handleSplashDone} />}
       <BrowserRouter>
+      <StaticDeepLinkBridge />
       <ScrollToTop />
       {/* Outer Suspense: fallback=null — spinner obsługiwany przez Layout/Suspense wewnątrz main */}
       <Suspense fallback={null}>

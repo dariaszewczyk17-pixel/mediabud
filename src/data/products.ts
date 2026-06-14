@@ -153,7 +153,7 @@ export const products: Product[] = [
   {
     id: "p006", slug: "gladz-gipsowa-knauf-multifinish-20kg",
     name: "Gładź gipsowa Knauf Multifinish 20kg",
-    categorySlug: "gladzie-proszek", brand: "Knauf", sku: "KNF-MUL-20", unit: "worek 20kg",
+    categorySlug: "gladzie-gipsowe-w-proszku", brand: "Knauf", sku: "KNF-MUL-20", unit: "worek 20kg",
     shortDescription: "Gładź gipsowa Knauf Multifinish do cienkowarstwowego szpachlowania powierzchni wewnątrz budynków.",
     description: "Knauf Multifinish to uniwersalna, sypka gładź gipsowa wzbogacona polimerami, przeznaczona do cienkowarstwowego szpachlowania powierzchni wewnątrz budynków. Idealnie nadaje się do wygładzania nierówności na tynkach cementowo-wapiennych, gipsowych, a także na podłożach betonowych i płytach gipsowo-kartonowych. Dzięki specjalnej formule, gładź charakteryzuje się wysoką przyczepnością, elastycznością i łatwością obróbki. Pozwala na uzyskanie idealnie gładkich powierzchni (standard Q4), gotowych do malowania lub tapetowania. Może być nakładana ręcznie lub maszynowo.",
     application: "Cienkowarstwowe szpachlowanie (wygładzanie) powierzchni ścian i sufitów wewnątrz pomieszczeń. Stosowana na tynkach gipsowych, cementowo-wapiennych, betonie oraz płytach g-k. Służy również do wypełniania drobnych ubytków i rys. Grubość warstwy od 0 do 5 mm.",

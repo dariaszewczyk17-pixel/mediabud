@@ -906,6 +906,13 @@ export default function CategoryPage() {
     canonical: slug ? `/kategoria/${slug}` : undefined,
   });
 
+  const pageNums = useMemo(() => {
+    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (safePage <= 4) return [1,2,3,4,5,"…",totalPages];
+    if (safePage >= totalPages - 3) return [1,"…",totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
+    return [1,"…",safePage-1,safePage,safePage+1,"…",totalPages];
+  }, [totalPages, safePage]);
+
   if (!cat) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "#080808" }}>
@@ -1096,13 +1103,6 @@ export default function CategoryPage() {
 
   /* ── Desktop Filter Panel (sidebar) — zachowany dla kompatybilności ── */
   const FilterPanel = MobileFilterPanel;
-
-  const pageNums = useMemo(() => {
-    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
-    if (safePage <= 4) return [1,2,3,4,5,"…",totalPages];
-    if (safePage >= totalPages - 3) return [1,"…",totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
-    return [1,"…",safePage-1,safePage,safePage+1,"…",totalPages];
-  }, [totalPages, safePage]);
 
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>

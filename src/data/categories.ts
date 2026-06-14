@@ -62,6 +62,7 @@ export const categories: Category[] = [
           { id: "kleje-gipsowe", slug: "kleje-gipsowe", name: "Kleje gipsowe" },
           { id: "gipsy-budowlane", slug: "gipsy-budowlane", name: "Gipsy budowlane" },
           { id: "masy-szpachlowe", slug: "masy-szpachlowe-gotowe", name: "Masy szpachlowe gotowe" },
+          { id: "gipsy-wapienne", slug: "gipsy-wapienne", name: "Gipsy wapienne" },
         ]
       },
       {
@@ -550,6 +551,7 @@ export const CATEGORY_SLUG_ALIASES: Record<string, string> = {
   "gladzie-proszek": "gladzie-gipsowe-w-proszku",
   "gladzie-gotowe": "gladzie-masy-gotowe",
   "masy-szpachlowe": "masy-szpachlowe-gotowe",
+<<<<<<< HEAD
 
   // Sanity po imporcie potrafiło zgubić literę „ł" w slugach (ł → pusty znak).
   "aczniki-do-izolacji-fasadowych": "laczniki-do-izolacji-fasadowych",
@@ -730,6 +732,7 @@ export const getCategoryBySlug = (slug: string): Category | null => {
   const targetSlug = resolveCategorySlug(slug);
   const findInTree = (cats: Category[]): Category | null => {
     for (const cat of cats) {
+<<<<<<< HEAD
       if (resolveCategorySlug(cat.slug) === targetSlug) return cat;
       if (cat.children) {
         const found = findInTree(cat.children);
@@ -739,6 +742,21 @@ export const getCategoryBySlug = (slug: string): Category | null => {
     return null;
   };
   return findInTree(categories);
+};
+
+export const getParentCategory = (slug: string): Category | null => {
+  const targetSlug = resolveCategorySlug(slug);
+  const findParent = (cats: Category[], parent: Category | null): Category | null => {
+    for (const cat of cats) {
+      if (resolveCategorySlug(cat.slug) === targetSlug) return parent;
+      if (cat.children) {
+        const found = findParent(cat.children, cat);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
+  return findParent(categories, null);
 };
 
 export const getBreadcrumbs = (slug: string): { name: string; slug: string }[] => {

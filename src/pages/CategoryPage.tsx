@@ -43,9 +43,60 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   "pozostale": <Package className="w-3.5 h-3.5" />,
 };
 
+/* ── Węzeł drzewa kategorii ─────────────────────────────────────────────── */
+interface TreeNode { id: string; slug: string; name: string; children?: TreeNode[] }
+
+/* ── Deduplikacja drzewa UI: slug bywa różny (np. welny/weny), nazwa ta sama ── */
+const normalizeTreeKey = (value?: string) =>
+  (value ?? "")
+    .toLocaleLowerCase("pl-PL")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ł/g, "l")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+const treeDedupeKey = (node: TreeNode) =>
+  normalizeTreeKey(node.name) || normalizeTreeKey(node.slug) || node.id;
+
+function dedupeTreeNodes<T extends TreeNode>(nodes: T[] = []): T[] {
+  const merged = new Map<string, T>();
+
+  for (const node of nodes) {
+    const normalizedNode = {
+      ...node,
+      children: node.children ? dedupeTreeNodes(node.children) : undefined,
+    } as T;
+    const key = treeDedupeKey(normalizedNode);
+    const existing = merged.get(key);
+
+    if (!existing) {
+      merged.set(key, normalizedNode);
+      continue;
+    }
+
+    merged.set(key, {
+      ...existing,
+      children: dedupeTreeNodes([
+        ...(existing.children ?? []),
+        ...(normalizedNode.children ?? []),
+      ]),
+    } as T);
+  }
+
+  return Array.from(merged.values()).map(node => ({
+    ...node,
+    children: node.children && node.children.length > 0 ? node.children : undefined,
+  } as T));
+}
+
+function dedupeTree<T extends TreeNode>(node: T | null): T | null {
+  return node ? ({ ...node, children: dedupeTreeNodes(node.children ?? []) } as T) : null;
+}
+
 /* ── Helper: znajdź ścieżkę do kategorii w drzewie ── */
 function findPathToSlug(nodes: TreeNode[], targetSlug: string, path: string[] = []): string[] | null {
-  for (const node of nodes) {
+  for (const node of dedupeTreeNodes(nodes)) {
     const newPath = [...path, node.id];
     if (node.slug === targetSlug) return newPath;
     if (node.children) {
@@ -55,9 +106,6 @@ function findPathToSlug(nodes: TreeNode[], targetSlug: string, path: string[] = 
   }
   return null;
 }
-
-/* ── Węzeł drzewa kategorii ─────────────────────────────────────────────── */
-interface TreeNode { id: string; slug: string; name: string; children?: TreeNode[] }
 
 /* ── Pełne drzewko WSZYSTKICH kategorii z linkami ── */
 interface FullTreeNodeProps {
@@ -493,9 +541,11 @@ export default function CategoryPage() {
   const { data: sanityTopCats }  = useAllCategories();
 
   const cat = useMemo(
-    () => sanityCategory
-      ? sanityCategoryToLegacy(sanityCategory as SanityCategory)
-      : (slug ? getCategoryBySlug(slug) : null),
+    () => dedupeTree(
+      sanityCategory
+        ? sanityCategoryToLegacy(sanityCategory as SanityCategory)
+        : (slug ? getCategoryBySlug(slug) : null)
+    ),
     [sanityCategory, slug],
   );
 
@@ -507,9 +557,11 @@ export default function CategoryPage() {
   );
 
   const categories = useMemo(
-    () => sanityTopCats && (sanityTopCats as any[]).length > 0
-      ? (sanityTopCats as any[]).map(sanityCategoryToLegacy)
-      : staticCategories,
+    () => dedupeTreeNodes(
+      sanityTopCats && (sanityTopCats as any[]).length > 0
+        ? (sanityTopCats as any[]).map(sanityCategoryToLegacy)
+        : staticCategories
+    ),
     [sanityTopCats],
   );
 

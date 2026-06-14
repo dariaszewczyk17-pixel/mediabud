@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function — /api/cleanup-duplicate-categories
  * POST — usuwa zduplikowane rekordy kategorii z Sanity
- * v3: Krok1=produkty, Krok1b=kategorie-dzieci l2/l3, Krok2=delete
+ * v4: fail-safe delete (1 per mutation), pomija bledy, raportuje skipped
  */
 
 const PROJECT_ID = "nzcwegq7";
@@ -33,7 +33,6 @@ const DUPLICATE_IDS = [
   "cat-tynki-cem","cat-weny",
 ];
 
-// Produkty z tymi kategoriami wymagaja przepiecia przed usunieciem
 const REASSIGN_MAP = {
   "category-grunty-pod-tynki":           "cat-grunty-pod-tynki",
   "cat-l3-kleje-do-glazury":             "cat-kleje-do-glazury",
@@ -85,41 +84,33 @@ export async function onRequest(context) {
       reassigned += prods.length;
     }
 
-    // Krok 1b: Przepnij kategorie-dzieci z l2/l3 duplikatow na kanoniczne
-    // Dla cat-l2-X => cat-X, dla cat-l3-X => cat-X, dla category-X => cat-X
-    let reassignedCats = 0;
-    const allToDeleteSet = new Set([...DUPLICATE_IDS, ...Object.keys(REASSIGN_MAP)]);
-    for (const oldId of allToDeleteSet) {
-      const canonicalId = oldId.replace(/^cat-l[23]-/, "cat-").replace(/^category-/, "cat-");
-      if (canonicalId === oldId) continue; // brak prefiksu l2/l3/category, pomijamy
-      const q = encodeURIComponent(`*[_type=="category" && parent._ref=="${oldId}"]{_id}`);
-      const qRes = await fetch(`${SANITY_QUERY_URL}?query=${q}`, { headers });
-      const cats = (await qRes.json()).result ?? [];
-      if (cats.length === 0) continue;
-      const mutations = cats.map(c => ({
-        patch: { id: c._id, set: { parent: { _type: "reference", _ref: canonicalId } } }
-      }));
-      const mRes = await fetch(SANITY_MUTATE_URL, { method: "POST", headers, body: JSON.stringify({ mutations }) });
-      if (mRes.ok) reassignedCats += cats.length;
-      // Jesli canonical nie istnieje — ignorujemy blad, kategorie beda osierocone tymczasowo
-    }
-
-    // Krok 2: Usun wszystkie duplikaty
+    // Krok 2: Fail-safe — usuwamy kazde ID osobno, pomijamy jesli ma referencje
     const allToDelete = [...DUPLICATE_IDS, ...Object.keys(REASSIGN_MAP)];
-    const BATCH = 25;
-    const results = [];
-    for (let i = 0; i < allToDelete.length; i += BATCH) {
-      const mutations = allToDelete.slice(i, i + BATCH).map(id => ({ delete: { id } }));
-      const res = await fetch(SANITY_MUTATE_URL, { method: "POST", headers, body: JSON.stringify({ mutations }) });
-      const data = await res.json();
-      results.push({ batch: i / BATCH + 1, ok: res.ok, count: mutations.length });
-      if (!res.ok) return json({ error: "Blad delete", details: data, results }, 500);
+    let deleted = 0;
+    const skipped = [];
+
+    for (const id of allToDelete) {
+      const res = await fetch(SANITY_MUTATE_URL, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ mutations: [{ delete: { id } }] }),
+      });
+      if (res.ok) {
+        deleted++;
+      } else {
+        const err = await res.json();
+        const reason = (err?.error?.description || "unknown").slice(0, 80);
+        skipped.push({ id, reason });
+      }
     }
 
     return json({
       success: true,
-      message: `Przepieto ${reassigned} prod + ${reassignedCats} cats. Usunieto ${allToDelete.length} duplikatow.`,
-      reassigned, reassignedCats, deleted: allToDelete.length, batches: results,
+      message: `Przepieto ${reassigned} prod. Usunieto ${deleted}/${allToDelete.length}. Pominieto: ${skipped.length}.`,
+      reassigned,
+      deleted,
+      total: allToDelete.length,
+      skipped,
     });
   } catch (err) {
     return json({ error: err.message }, 500);

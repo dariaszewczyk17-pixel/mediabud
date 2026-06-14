@@ -1,13 +1,5 @@
 /**
  * generate-sitemap.mjs  v2
- * ─────────────────────────────────────────────────────────────────────────────
- * Mechanizmy:
- *  1. Quality score   — priorytet URL na podstawie kompletności danych produktu
- *  2. Dynamiczny changefreq — na bazie _updatedAt (daily/weekly/monthly/yearly)
- *  3. Sitemap index   — 4 oddzielne pliki zamiast jednego 5 MB molocha
- *  4. Raport JSON     — coverage%, statystyki jakości przy każdym buildzie
- *  5. Google ping     — powiadomienie Googlebota po wygenerowaniu
- *
  * Uruchamiany przez: npm run postbuild  lub  node scripts/generate-sitemap.mjs
  */
 
@@ -15,25 +7,20 @@ import fs   from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// ─── Ścieżki ─────────────────────────────────────────────────────────────────
 const __dirname  = path.dirname(fileURLToPath(import.meta.url));
 const ROOT       = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const DIST_DIR   = path.join(ROOT, 'dist');
 
-// ─── Konfiguracja ─────────────────────────────────────────────────────────────
 const PROJECT_ID = process.env.VITE_SANITY_PROJECT_ID || 'nzcwegq7';
 const DATASET    = process.env.VITE_SANITY_DATASET    || 'production';
 const TOKEN      = process.env.SANITY_TOKEN || process.env.VITE_SANITY_TOKEN || '';
 const BASE_URL   = (process.env.SITE_URL || 'https://mediabud.pl').replace(/\/$/, '');
 const API_VER    = '2024-01-01';
 
-// Próg jakości do podziału na full / partial
-const SCORE_FULL_MIN    = 5;   // score ≥ 5 → pełny opis → sitemap-products-full
-const SCORE_PARTIAL_MIN = 1;   // score 1–4 → częściowy → sitemap-products-partial
-                                // score 0   → wykluczone ze sitemapki
+const SCORE_FULL_MIN    = 5;
+const SCORE_PARTIAL_MIN = 1;
 
-// ─── Sanity helpers ──────────────────────────────────────────────────────────
 const SANITY_BASE = `https://${PROJECT_ID}.api.sanity.io/v${API_VER}/data/query/${DATASET}`;
 
 async function sanityQuery(query) {
@@ -58,20 +45,15 @@ async function fetchAllPaginated(baseQuery, pageSize = 1000) {
   return results;
 }
 
-// ─── Mechanizm 1: Quality score ──────────────────────────────────────────────
-/**
- * Oblicza score kompletności produktu (0–8).
- * Każde brakujące pole to utrata punktów → niższy priorytet / wykluczenie.
- */
 function calcScore(prod) {
   let score = 0;
-  if (prod.hasDescription)  score += 2;  // shortDescription > 50 znaków
-  if (prod.hasLongDesc)     score += 2;  // description > 200 znaków
-  if (prod.hasImage)        score += 1;  // zdjęcie
-  if (prod.hasTechSpec)     score += 1;  // technicalSpec[] niepuste
-  if (prod.hasValidName)    score += 1;  // name > 10 znaków (nie SKU-only)
-  if (prod.hasCategory)     score += 1;  // przypisana kategoria
-  return score;                          // max: 8
+  if (prod.hasDescription)  score += 2;
+  if (prod.hasLongDesc)     score += 2;
+  if (prod.hasImage)        score += 1;
+  if (prod.hasTechSpec)     score += 1;
+  if (prod.hasValidName)    score += 1;
+  if (prod.hasCategory)     score += 1;
+  return score;
 }
 
 function scoreToPriority(score) {
@@ -82,21 +64,15 @@ function scoreToPriority(score) {
   return '0.1';
 }
 
-// ─── Mechanizm 2: Dynamiczny changefreq ──────────────────────────────────────
-/**
- * Szacuje jak często Google powinien wracać na stronę,
- * na podstawie tego kiedy ją ostatnio aktualizowaliśmy.
- */
 function calcChangefreq(updatedAt) {
   if (!updatedAt) return 'monthly';
   const daysSince = (Date.now() - new Date(updatedAt).getTime()) / 86_400_000;
-  if (daysSince < 7)   return 'daily';    // świeżo po pipeline / aktualizacji
+  if (daysSince < 7)   return 'daily';
   if (daysSince < 30)  return 'weekly';
   if (daysSince < 180) return 'monthly';
   return 'yearly';
 }
 
-// ─── XML helpers ─────────────────────────────────────────────────────────────
 function escapeXml(str) {
   return String(str ?? '')
     .replace(/&/g, '&amp;')
@@ -109,6 +85,183 @@ function escapeXml(str) {
 function formatDate(iso) {
   if (!iso) return new Date().toISOString().slice(0, 10);
   return iso.slice(0, 10);
+}
+
+const CATEGORY_SLUG_ALIASES = {
+  'gipsy-gladzie': 'gipsy-i-gladzie',
+  'gladzie-proszek': 'gladzie-gipsowe-w-proszku',
+  'gladzie-gotowe': 'gladzie-masy-gotowe',
+  'masy-szpachlowe': 'masy-szpachlowe-gotowe',
+  'aczniki-do-izolacji-fasadowych': 'laczniki-do-izolacji-fasadowych',
+  'aczniki-do-profili': 'laczniki-do-profili',
+  'akcesoria-do-potkow-przeciwsniegowe': 'akcesoria-do-plotkow-przeciwsniegowe',
+  'artykuy-scierne': 'artykuly-scierne',
+  'artykuy-scierne-do-suchej-zabudowy': 'artykuly-scierne-do-suchej-zabudowy',
+  'farby-pozostae': 'farby-pozostale',
+  'farby-przemysowe': 'farby-przemyslowe',
+  'farby-wewnetrzne-biae': 'farby-wewnetrzne-biale',
+  'gadzie-gipsowe-w-proszku': 'gladzie-gipsowe-w-proszku',
+  'gadzie-masy-gotowe': 'gladzie-masy-gotowe',
+  'gipsy-i-gadzie': 'gipsy-i-gladzie',
+  'izolacje-dachow-paskich': 'izolacje-dachow-plaskich',
+  'izolacje-przemysowe': 'izolacje-przemyslowe',
+  'izolacje-stropow-i-podog': 'izolacje-stropow-i-podlog',
+  'kleje-do-ween': 'kleje-do-welen',
+  'koki-i-wkrety-uniwersalne': 'kolki-i-wkrety-uniwersalne',
+  'listwy-przypodogowe': 'listwy-przypodlogowe',
+  'materiay-konstrukcyjne': 'materialy-konstrukcyjne',
+  'mieszada': 'mieszadla',
+  'motki-budowlane': 'mlotki-budowlane',
+  'okadziny-z-wokna-szklanego': 'okladziny-z-wlokna-szklanego',
+  'oowkikredy-i-markery': 'olowki-kredy-i-markery',
+  'podkady-wypeniajace': 'podklady-wypelniajace',
+  'potki-przeciwsniegowe': 'plotki-przeciwsniegowe',
+  'powoki-epoksydowe': 'powloki-epoksydowe',
+  'pytki-elewacyjne': 'plytki-elewacyjne',
+  'pytki-scienne': 'plytki-scienne',
+  'pytki-tarasowe': 'plytki-tarasowe',
+  'pyty-cementowe': 'plyty-cementowe',
+  'pyty-gipsowo-kartonowe': 'plyty-gipsowo-kartonowe',
+  'pyty-xps': 'plyty-xps',
+  'spoiny-zwyke': 'spoiny-zwykle',
+  'styropian-dach-podoga-eps': 'styropian-dach-podloga-eps',
+  'tasmy-i-folie-pozostae': 'tasmy-i-folie-pozostale',
+  'waki-malarskie': 'walki-malarskie',
+  'weny': 'welny',
+  'weny-do-dachow-paskich': 'welny-do-dachow-plaskich',
+  'weny-do-poddaszy': 'welny-do-poddaszy',
+  'weny-fasadowe': 'welny-fasadowe',
+  'welna-fasadowa': 'welny-fasadowe',
+  'welna-sucha-zabudowa': 'welny-do-suchej-zabudowy-i-scian-dzialowych',
+  'welna-stropy': 'welny-do-stropow-i-podlog',
+  'welna-dachy-plaskie': 'welny-do-dachow-plaskich',
+  'welna-poddasza': 'welny-do-poddaszy',
+  'welna-akustyczna': 'welny-do-suchej-zabudowy-i-scian-dzialowych',
+  'welna-kominkowa': 'welny',
+  'plyty-welna-mineralna': 'plyty-sufitowe-z-welny-mineralnej',
+  'plyty-welna-szklana': 'plyty-sufitowe-z-welny-szklanej',
+  'kleje-welna': 'kleje-do-welen',
+  'akcesoria-izolacji': 'akcesoria-do-izolacji',
+  'akcesoria-kominy': 'akcesoria-do-kominow',
+  'akcesoria-malarskie': 'akcesoria-malarskie-i-tynkarskie',
+  'akcesoria-rynny': 'akcesoria-do-systemow-rynnowych',
+  'bazy-koloranty': 'bazy-i-koloranty',
+  'bloczki-betonowe': 'bloczki-betonowe-i-fundamentowe',
+  'czysciki-pian': 'czysciki-do-pian-montazowych',
+  'dodatki-tynki': 'tynki-specjalne',
+  'dodatki-zaprawy': 'dodatki-do-zapraw-i-betonu',
+  'druty-hakiem': 'druty-z-hakiem',
+  'drzwi-akcesoria': 'drzwi-i-akcesoria-do-drzwi',
+  'elementy-mocujace': 'elementy-mocujace-uniwersalne',
+  'farby-biale': 'farby-wewnetrzne-biale',
+  'farby-drewno': 'farby-do-drewna',
+  'farby-elaw-akrylowe': 'farby-elewacyjne-akrylowe',
+  'farby-elaw-emulsyjne': 'farby-elewacyjne-emulsyjne',
+  'farby-elaw-silikatowe': 'farby-elewacyjne-silikatowe',
+  'farby-elaw-silikatowo-akrylowe': 'farby-elewacyjne-akrylowe',
+  'farby-elaw-silikatowo-silikonowe': 'farby-elewacyjne-silikonowe',
+  'farby-elaw-silikonowe': 'farby-elewacyjne-silikonowe',
+  'farby-kolorowe': 'farby-wewnetrzne-kolorowe',
+  'farby-metal': 'farby-do-metalu',
+  'gipsy-wapienne': 'tynki-wapienne',
+  'grunty-posadzki': 'grunty-do-posadzek',
+  'gwozdzie-budowlane': 'gwozdzie-i-podkladki-dociskowe-do-pap',
+  'impregnaty-drewno': 'impregnaty',
+  'katowniki': 'katowniki-i-katomierze',
+  'kleje-drewno': 'kleje-do-drewna',
+  'kleje-gkb': 'kleje-do-gips-karton',
+  'kleje-glazura': 'kleje-do-glazury',
+  'kleje-styropian': 'kleje-do-styropianu-i-styroduru',
+  'klipsy-mocujace-sufity': 'klipsy-mocujace-do-sufitow-podwieszanych',
+  'klucze-narzedzia': 'klucze',
+  'kolki-beton': 'kotwy-chemiczne',
+  'kolki-rozpozowe': 'kolki-do-suchej-zabudowy',
+  'kolki-wkrety-uniwersalne': 'kolki-i-wkrety-uniwersalne',
+  'kruszywa-tynki': 'tynki-mozaikowe',
+  'lakiery-drewno': 'lakiery-do-drewna',
+  'lamele-dekoracyjne': 'plytki-dekoracyjne',
+  'listwy-akcesoria': 'listwy-i-akcesoria',
+  'listwy-podtynkowe': 'listwy-przypodlogowe',
+  'masy-bitumiczne': 'masy-bitumiczne-gruntujace',
+  'mocowania-sufity': 'mocowania-do-sufitow-podwieszanych',
+  'narozniki-aluminiowe': 'narozniki-do-suchej-zabudowy-aluminiowe',
+  'narozniki-listwy': 'narozniki-i-listwy',
+  'narozniki-pvc': 'narozniki-do-suchej-zabudowy-pvc',
+  'narozniki-tynki-mokre': 'narozniki-do-tynkow-mokrych',
+  'okna-akcesoria': 'okna-dachowe-i-akcesoria',
+  'okna-dachowe-std': 'okna-dachowe',
+  'oleje-drewno': 'oleje',
+  'opalarki-palniki': 'opalarki-i-palniki',
+  'pace-budowlane': 'pace',
+  'palisady-krawezniki': 'palisady-krawezniki-i-obrzeza',
+  'panele-dekory': 'panele-i-dekory-scienne',
+  'panele-scienne-tapety': 'panele-scienne-i-tapety',
+  'papy-dachowe': 'papy',
+  'piany-pistoletowe': 'piany-montazowe-pistoletowe',
+  'piany-wezyk': 'piany-montazowe-wezykowe',
+  'pilarki': 'pily-i-pilarki',
+  'pistolety-budowlane': 'pistolety',
+  'plyty-chodnikowe': 'plyty-chodnikowe-i-tarasowe',
+  'plyty-drewniane-sufitowe': 'plyty-sufitowe-drewniane',
+  'plyty-gipsowe-sufitowe': 'plyty-gipsowo-kartonowe',
+  'plyty-metalowe-sufitowe': 'plyty-sufitowe-metalowe',
+  'plyty-specjalistyczne-gk': 'plyty-gipsowo-kartonowe',
+  'plyty-sucha-zabudowa': 'sucha-zabudowa',
+  'podbitki-dachowe': 'pokrycia-dachowe',
+  'pokrycia-blacha': 'pokrycia-dachowe-z-blachy',
+  'profile-nosne-glowne': 'profile-nosne-glowne-do-sufitow-podwieszanych',
+  'profile-oscieznicowe': 'profile-do-suchej-zabudowy-oscieznicowe',
+  'profile-poprzeczne': 'profile-poprzeczne-do-sufitow-podwieszanych',
+  'profile-przysc-sufity': 'profile-przyscienne-do-sufitow-podwieszanych',
+  'profile-sciana': 'profile-do-suchej-zabudowy-konstrukcja-scienna',
+  'profile-specjalne-suf': 'profile-specjalne-do-sufitow-podwieszanych',
+  'profile-sucha-zabudowa': 'profile-do-suchej-zabudowy',
+  'profile-sufit': 'profile-do-suchej-zabudowy-konstrukcja-sufitowa',
+  'profile-sufity-podwieszane': 'profile-do-sufitow-podwieszanych',
+  'pustaki-wentylacyjne': 'pustaki-wentylacyjne-i-dymne',
+  'rynny-blacha': 'systemy-rynnowe-z-blachy-powlekanej',
+  'rynny-ocynkowane': 'systemy-rynnowe-ocynkowane',
+  'rynny-pvc': 'systemy-rynnowe-pvc',
+  'schody-akcesoria': 'schody-i-akcesoria-strychowe',
+  'silikony-wysokotemp': 'silikony-wysokotemperaturowe',
+  'srodki-czyszczace': 'srodki-czyszczaco-pielegnacyjne',
+  'sruby-podkladki': 'sruby-i-podkladki-do-srub',
+  'styropian-akustyczny': 'styropiany-akustyczne',
+  'styropian-dach-podloga': 'styropian-dach-podloga-eps',
+  'styropian-fasadowy-eps': 'styropiany-fasadowe-eps',
+  'styropian-fundamenty': 'styropiany-do-fundamentow',
+  'swietliki-dachowe': 'balkony-dachowe',
+  'szpachle': 'szpachle-i-szpachelki',
+  'tasmy-sucha-zabudowa': 'tasmy-do-suchej-zabudowy',
+  'tasmy-uszczelniajace': 'tasmy-uszczelniajace-do-hydroizolacji',
+  'tynki-akrylowe': 'tynki-elewacyjne-akrylowe',
+  'tynki-mineralne': 'tynki-elewacyjne-mineralne',
+  'tynki-ozdobne': 'tynki-elewacyjne-ozdobne',
+  'tynki-silikatowe': 'tynki-elewacyjne-silikonowo-silikatowe',
+  'tynki-silikonowe': 'tynki-elewacyjne-silikonowe',
+  'tynki-silikonowo-silikatowe': 'tynki-elewacyjne-silikonowo-silikatowe',
+  'uszcz-akrylowe': 'uszczelniacze-i-silikony',
+  'uszcz-dekarskie': 'uszczelniacze-dekarskie',
+  'uszcz-poliuretanowe': 'uszczelniacze-poliuretanowe',
+  'uszczelniacze-silikony': 'uszczelniacze-i-silikony',
+  'wiadra-pojemniki': 'wiadra-i-pojemniki-budowlane',
+  'wiertarki-mloty': 'wiertarko-wkretarki',
+  'wieszaki-bezposrednie': 'wieszaki-do-suchej-zabudowy-bezposrednie',
+  'wieszaki-noniusz': 'wieszaki-do-suchej-zabudowy-z-noniuszem',
+  'wieszaki-poddasze': 'wieszaki-do-suchej-zabudowy-poddaszy',
+  'wieszaki-sucha-zabudowa': 'wieszaki-do-suchej-zabudowy',
+  'wylewki-betonowe': 'zaprawy-posadzkowe-masy-samopoziomujace',
+  'zabezpieczenia-sniegu': 'zabezpieczenia-przeciwsniegowe',
+  'zaprawy-jastrych': 'zaprawy-posadzkowe-masy-samopoziomujace',
+  'zaprawy-montazowe': 'kotwy-montazowe',
+  'zaprawy-murarskie': 'zaprawy-murarskie-ogolnego-zastosowania',
+  'zaprawy-posadzkowe': 'zaprawy-posadzkowe-masy-samopoziomujace',
+  'zaprawy-tynkarskie': 'tynki-cementowo-wapienne',
+  'wsporniki-potkow-przeciwsniegowych': 'wsporniki-plotkow-przeciwsniegowych',
+};
+
+function resolveCategorySlug(slug) {
+  return CATEGORY_SLUG_ALIASES[slug] ?? slug;
 }
 
 function xmlHeader() {
@@ -137,27 +290,20 @@ function buildUrlset(entries) {
   return [xmlHeader(), '', ...entries, '', '</urlset>'].join('\n');
 }
 
-// Zapisuje plik do public/ i (jeśli istnieje) do dist/
 async function writeXml(filename, content) {
   await fs.writeFile(path.join(PUBLIC_DIR, filename), content, 'utf-8');
   try {
     await fs.access(DIST_DIR);
     await fs.writeFile(path.join(DIST_DIR, filename), content, 'utf-8');
-  } catch { /* dist/ nie istnieje w trybie standalone */ }
+  } catch { }
   const kb = (Buffer.byteLength(content, 'utf-8') / 1024).toFixed(0);
   console.log(`  ✓ ${filename.padEnd(34)} (${String(kb).padStart(5)} KB)`);
 }
 
-// ─── Mechanizm 5: Google ping ────────────────────────────────────────────────
-// UWAGA: Google deprecated ping endpoint w czerwcu 2023.
-// Zgłoś sitemapę raz ręcznie w Google Search Console:
-//   https://search.google.com/search-console → Sitemaps → Dodaj sitemapę
-// GSC sam sprawdza zmiany regularnie po pierwszym zgłoszeniu.
 async function pingGoogle(_sitemapUrl) {
   console.log('  ℹ Google ping pominięty (deprecated od 2023 — użyj GSC)');
 }
 
-// ─── Dane statyczne ──────────────────────────────────────────────────────────
 const STATIC_PAGES = [
   { path: '/',          changefreq: 'weekly',  priority: '1.0' },
   { path: '/produkty',  changefreq: 'weekly',  priority: '0.9' },
@@ -168,30 +314,29 @@ const STATIC_PAGES = [
 ];
 
 const CALCULATORS = [
-  'tynk-elewacyjny', 'farba-elewacyjna', 'styropian-welna', 
+  'tynk-elewacyjny', 'farba-elewacyjna', 'styropian-welna',
   'klej-do-plytek', 'plytki-ceramiczne', 'izolacja-fundamentow'
 ];
 
-// ─── Main ────────────────────────────────────────────────────────────────────
 async function main() {
   const today    = new Date().toISOString().slice(0, 10);
   const nowIso   = new Date().toISOString();
   console.log(`\n🗺️  Sitemap generator v2 — ${today}`);
 
-  // ── Pobierz kategorie ──────────────────────────────────────────────────────
   console.log('\n📂 Pobieranie kategorii...');
   let categories = [];
   try {
     const rawCats = await fetchAllPaginated(
       `*[_type=="category" && defined(slug.current)]{slug, _updatedAt, depth}`
     );
-    // Deduplikacja i filtrowanie błędnych slugów (np. "aczniki" zamiast "laczniki")
     const catMap = new Map();
     for (const c of rawCats) {
-      const s = c.slug?.current;
-      if (!s || (s.includes('acznik') && !s.includes('lacznik'))) continue;
+      const rawSlug = c.slug?.current;
+      const s = rawSlug ? resolveCategorySlug(rawSlug) : '';
+      if (!s) continue;
+      const normalizedCat = { ...c, slug: { ...c.slug, current: s } };
       if (!catMap.has(s) || new Date(c._updatedAt) > new Date(catMap.get(s)._updatedAt)) {
-        catMap.set(s, c);
+        catMap.set(s, normalizedCat);
       }
     }
     categories = Array.from(catMap.values());
@@ -200,15 +345,12 @@ async function main() {
     console.warn(`  ⚠ Błąd kategorii: ${e.message}`);
   }
 
-  // ── Pobierz produkty z quality flags ──────────────────────────────────────
-  console.log('\n📦 Pobieranie produktów z quality flags...');
+  console.log('\n📦 Pobieranie produktów...');
   let rawProducts = [];
   try {
-    // Mechanizm 1: GROQ zwraca flagi jakości — bez dodatkowych requestów
     const rawProds = await fetchAllPaginated(
       `*[_type=="product" && defined(slug.current) && !(name match "P-*")]{
-        slug,
-        _updatedAt,
+        slug, _updatedAt,
         "hasDescription": defined(shortDescription) && length(shortDescription) > 50,
         "hasLongDesc":    defined(description)       && length(description) > 200,
         "hasImage":       defined(image),
@@ -217,7 +359,6 @@ async function main() {
         "hasCategory":    defined(category)
       }`
     );
-    // Deduplikacja produktów
     const prodMap = new Map();
     for (const p of rawProds) {
       const s = p.slug?.current;
@@ -227,207 +368,118 @@ async function main() {
       }
     }
     rawProducts = Array.from(prodMap.values());
-    console.log(`  ✓ ${rawProducts.length} unikalnych produktów (z ${rawProds.length} pobranych)`);
+    console.log(`  ✓ ${rawProducts.length} unikalnych produktów`);
   } catch (e) {
     console.warn(`  ⚠ Błąd produktów: ${e.message}`);
   }
 
-  // ── Pobierz Marki i Blog z plików lokalnych ───────────────────────────────
-  console.log('\n📝 Pobieranie lokalnych danych (Marki, Blog)...');
+  console.log('\n📝 Pobieranie lokalnych danych...');
   let brands = [];
   let blogPosts = [];
   try {
-    // Importujemy pliki .ts używając esbuild (ponieważ to TS)
     const { execSync } = await import('child_process');
     execSync('npx esbuild src/data/brands.ts --bundle --format=esm --outfile=dist/temp-brands.mjs');
     execSync('npx esbuild src/data/blog.ts --bundle --format=esm --outfile=dist/temp-blog.mjs');
-    
     const brandsModule = await import(path.join(ROOT, 'dist/temp-brands.mjs'));
     const blogModule = await import(path.join(ROOT, 'dist/temp-blog.mjs'));
-    
     brands = brandsModule.BRANDS || [];
     blogPosts = blogModule.blogPosts || [];
-    console.log(`  ✓ ${brands.length} marek, ${blogPosts.length} artykułów bloga`);
+    console.log(`  ✓ ${brands.length} marek, ${blogPosts.length} artykułów`);
   } catch (e) {
     console.warn(`  ⚠ Błąd lokalnych danych: ${e.message}`);
   }
 
-  // ── Klasyfikacja produktów wg score ───────────────────────────────────────
-  const full     = [];   // score ≥ SCORE_FULL_MIN
-  const partial  = [];   // score SCORE_PARTIAL_MIN – (SCORE_FULL_MIN-1)
-  const excluded = [];   // score 0
-
-  // Liczniki changefreq do raportu
+  const full = [], partial = [], excluded = [];
   const freqCount = { daily: 0, weekly: 0, monthly: 0, yearly: 0 };
 
   for (const prod of rawProducts) {
     const score = calcScore(prod);
     prod._score = score;
-    if (score >= SCORE_FULL_MIN)    full.push(prod);
+    if (score >= SCORE_FULL_MIN)         full.push(prod);
     else if (score >= SCORE_PARTIAL_MIN) partial.push(prod);
-    else excluded.push(prod);
-
+    else                                 excluded.push(prod);
     const freq = calcChangefreq(prod._updatedAt);
     freqCount[freq] = (freqCount[freq] ?? 0) + 1;
   }
 
-  console.log(`\n  Klasyfikacja produktów:`);
-  console.log(`  ✅ pełny opis   (score ≥ ${SCORE_FULL_MIN}): ${String(full.length).padStart(6)} → sitemap-products-full.xml`);
-  console.log(`  ⚠️  częściowy   (score 1–${SCORE_FULL_MIN-1}): ${String(partial.length).padStart(6)} → sitemap-products-partial.xml`);
-  console.log(`  ❌ wykluczony  (score 0): ${String(excluded.length).padStart(6)} → poza sitemapą`);
-  console.log(`\n  Rozkład changefreq:`);
-  console.log(`  daily: ${freqCount.daily}  weekly: ${freqCount.weekly}  monthly: ${freqCount.monthly}  yearly: ${freqCount.yearly}`);
+  console.log('\n✍️  Generowanie XML...');
 
-  // ── Buduj pliki XML ────────────────────────────────────────────────────────
-  console.log('\n✍️  Generowanie plików XML...');
-
-  // 1. sitemap-core.xml — strony statyczne, marki, blog, kalkulatory
   const coreEntries = [
-    ...STATIC_PAGES.map(p => urlEntry({
-      loc:        `${BASE_URL}${p.path}`,
-      lastmod:    today,
-      changefreq: p.changefreq,
-      priority:   p.priority,
-    })),
-    ...CALCULATORS.map(calc => urlEntry({
-      loc:        `${BASE_URL}/kalkulator/${calc}`,
-      lastmod:    today,
-      changefreq: 'monthly',
-      priority:   '0.8',
-    })),
-    ...brands.map(b => urlEntry({
-      loc:        `${BASE_URL}/marki/${escapeXml(b.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''))}`,
-      lastmod:    today,
-      changefreq: 'weekly',
-      priority:   '0.7',
-    })),
-    ...blogPosts.map(post => urlEntry({
-      loc:        `${BASE_URL}/blog/${escapeXml(post.id)}`,
-      lastmod:    post.date || today,
-      changefreq: 'monthly',
-      priority:   '0.7',
-    }))
+    ...STATIC_PAGES.map(p => urlEntry({ loc: `${BASE_URL}${p.path}`, lastmod: today, changefreq: p.changefreq, priority: p.priority })),
+    ...CALCULATORS.map(calc => urlEntry({ loc: `${BASE_URL}/kalkulator/${calc}`, lastmod: today, changefreq: 'monthly', priority: '0.8' })),
+    ...brands.map(b => urlEntry({ loc: `${BASE_URL}/marki/${escapeXml(b.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''))}`, lastmod: today, changefreq: 'weekly', priority: '0.7' })),
+    ...blogPosts.map(post => urlEntry({ loc: `${BASE_URL}/blog/${escapeXml(post.id)}`, lastmod: post.date || today, changefreq: 'monthly', priority: '0.7' }))
   ];
   await writeXml('sitemap-core.xml', buildUrlset(coreEntries));
 
-  // 2. sitemap-categories.xml — wszystkie kategorie
   const catEntries = categories
     .map(cat => {
       const slug = cat.slug?.current;
       if (!slug) return null;
       const depth = cat.depth ?? 2;
-      return urlEntry({
-        loc:        `${BASE_URL}/kategoria/${escapeXml(slug)}`,
-        lastmod:    formatDate(cat._updatedAt),
-        changefreq: 'weekly',
-        priority:   depth <= 1 ? '0.9' : depth <= 2 ? '0.8' : '0.7',
-      });
+      return urlEntry({ loc: `${BASE_URL}/kategoria/${escapeXml(slug)}`, lastmod: formatDate(cat._updatedAt), changefreq: 'weekly', priority: depth <= 1 ? '0.9' : depth <= 2 ? '0.8' : '0.7' });
     })
     .filter(Boolean);
   await writeXml('sitemap-categories.xml', buildUrlset(catEntries));
 
-  // 3. sitemap-products-full.xml — produkty z pełnymi opisami
   const fullEntries = full.map(prod => {
     const slug = prod.slug?.current;
     if (!slug) return null;
-    return urlEntry({
-      loc:        `${BASE_URL}/produkt/${escapeXml(slug)}`,
-      lastmod:    formatDate(prod._updatedAt),
-      changefreq: calcChangefreq(prod._updatedAt),
-      priority:   scoreToPriority(prod._score),
-    });
+    return urlEntry({ loc: `${BASE_URL}/produkt/${escapeXml(slug)}`, lastmod: formatDate(prod._updatedAt), changefreq: calcChangefreq(prod._updatedAt), priority: scoreToPriority(prod._score) });
   }).filter(Boolean);
   await writeXml('sitemap-products-full.xml', buildUrlset(fullEntries));
 
-  // 4. sitemap-products-partial.xml — produkty z częściowymi opisami
   const partialEntries = partial.map(prod => {
     const slug = prod.slug?.current;
     if (!slug) return null;
-    return urlEntry({
-      loc:        `${BASE_URL}/produkt/${escapeXml(slug)}`,
-      lastmod:    formatDate(prod._updatedAt),
-      changefreq: calcChangefreq(prod._updatedAt),
-      priority:   scoreToPriority(prod._score),
-    });
+    return urlEntry({ loc: `${BASE_URL}/produkt/${escapeXml(slug)}`, lastmod: formatDate(prod._updatedAt), changefreq: calcChangefreq(prod._updatedAt), priority: scoreToPriority(prod._score) });
   }).filter(Boolean);
   await writeXml('sitemap-products-partial.xml', buildUrlset(partialEntries));
 
-  // ── Mechanizm 3: sitemap index ─────────────────────────────────────────────
   const totalInSitemap = STATIC_PAGES.length + catEntries.length + fullEntries.length + partialEntries.length;
 
   const indexContent = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    '',
-    `  <!-- Wygenerowano: ${nowIso} | Łącznie URL: ${totalInSitemap} | Wykluczone: ${excluded.length} -->`,
-    '',
     `  <sitemap><loc>${BASE_URL}/sitemap-core.xml</loc><lastmod>${today}</lastmod></sitemap>`,
     `  <sitemap><loc>${BASE_URL}/sitemap-categories.xml</loc><lastmod>${today}</lastmod></sitemap>`,
     `  <sitemap><loc>${BASE_URL}/sitemap-products-full.xml</loc><lastmod>${today}</lastmod></sitemap>`,
     `  <sitemap><loc>${BASE_URL}/sitemap-products-partial.xml</loc><lastmod>${today}</lastmod></sitemap>`,
-    '',
     '</sitemapindex>',
   ].join('\n');
-
   await writeXml('sitemap.xml', indexContent);
 
-  // ── Mechanizm 4: Raport JSON ───────────────────────────────────────────────
-  const coveragePct = rawProducts.length > 0
-    ? ((full.length / rawProducts.length) * 100).toFixed(1)
-    : '0.0';
-
   const report = {
-    generated:  nowIso,
-    base_url:   BASE_URL,
-    products: {
-      total:              rawProducts.length,
-      full_quality:       full.length,
-      partial_quality:    partial.length,
-      excluded:           excluded.length,
-      coverage_pct:       parseFloat(coveragePct),
-      score_thresholds: {
-        full_min:    SCORE_FULL_MIN,
-        partial_min: SCORE_PARTIAL_MIN,
-      },
-    },
-    categories: {
-      total: categories.length,
-    },
+    generated: nowIso, base_url: BASE_URL,
+    products: { total: rawProducts.length, full_quality: full.length, partial_quality: partial.length, excluded: excluded.length, coverage_pct: rawProducts.length > 0 ? parseFloat(((full.length / rawProducts.length) * 100).toFixed(1)) : 0 },
+    categories: { total: categories.length },
     changefreq_distribution: freqCount,
-    sitemap_files: {
-      'sitemap.xml':                   '(index)',
-      'sitemap-core.xml':              STATIC_PAGES.length,
-      'sitemap-categories.xml':        catEntries.length,
-      'sitemap-products-full.xml':     fullEntries.length,
-      'sitemap-products-partial.xml':  partialEntries.length,
-    },
     total_urls_in_sitemap: totalInSitemap,
-    excluded_urls:         excluded.length,
   };
-
-  const reportPath = path.join(PUBLIC_DIR, 'sitemap-report.json');
-  await fs.writeFile(reportPath, JSON.stringify(report, null, 2), 'utf-8');
+  await fs.writeFile(path.join(PUBLIC_DIR, 'sitemap-report.json'), JSON.stringify(report, null, 2), 'utf-8');
   console.log(`  ✓ sitemap-report.json`);
 
   try {
     await fs.access(DIST_DIR);
     await fs.writeFile(path.join(DIST_DIR, 'sitemap-report.json'), JSON.stringify(report, null, 2), 'utf-8');
-  } catch { /* dist/ nie istnieje */ }
+    const indexHtml = path.join(DIST_DIR, 'index.html');
+    await fs.copyFile(indexHtml, path.join(DIST_DIR, '404.html'));
+    const categoryFallbackSlugs = new Set([
+      ...categories.map(cat => cat.slug?.current).filter(Boolean),
+      ...Object.keys(CATEGORY_SLUG_ALIASES),
+      ...Object.values(CATEGORY_SLUG_ALIASES),
+    ]);
+    for (const slug of categoryFallbackSlugs) {
+      if (!slug || slug.includes('/') || slug.includes('..')) continue;
+      const categoryDir = path.join(DIST_DIR, 'kategoria', slug);
+      await fs.mkdir(categoryDir, { recursive: true });
+      await fs.copyFile(indexHtml, path.join(categoryDir, 'index.html'));
+    }
+    console.log(`  ✓ category SPA fallbacks (${categoryFallbackSlugs.size})`);
+  } catch { }
 
-  // ── Podsumowanie ───────────────────────────────────────────────────────────
-  console.log('\n' + '─'.repeat(56));
-  console.log(`✅ Sitemap gotowy:`);
-  console.log(`   URL w sitemapie:   ${totalInSitemap}`);
-  console.log(`   Pełne opisy:       ${full.length}  (${coveragePct}% katalogu)`);
-  console.log(`   Częściowe opisy:   ${partial.length}`);
-  console.log(`   Wykluczone:        ${excluded.length}`);
-  console.log('─'.repeat(56));
-
-  // ── Mechanizm 5: Google ping ───────────────────────────────────────────────
-  console.log('\n📡 Google ping...');
+  console.log(`\n✅ Sitemap gotowy: ${totalInSitemap} URL`);
   await pingGoogle(`${BASE_URL}/sitemap.xml`);
-
-  console.log('');
 }
 
 main().catch(err => {

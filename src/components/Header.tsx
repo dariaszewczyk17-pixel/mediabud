@@ -693,8 +693,8 @@ export default function Header() {
             style={{ backgroundImage: "linear-gradient(rgba(248,24,40,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,24,40,0.04) 1px,transparent 1px)", backgroundSize: "32px 32px" }}
           />
 
-          <nav className="relative container mx-auto px-4" role="navigation" aria-label="Kategorie produktów">
-            <div className="flex items-stretch">
+          <nav className="relative container mx-auto px-4 h-[52px] overflow-hidden" role="navigation" aria-label="Kategorie produktów">
+            <div className="flex items-stretch h-full">
               {categories.map((cat) => (
                 <div
                   key={cat.id}
@@ -704,7 +704,7 @@ export default function Header() {
                 >
                   <Link
                     to={`/kategoria/${cat.slug}`}
-                    className={`relative flex min-h-[44px] min-w-0 w-full items-center justify-center overflow-hidden px-1 py-2 text-center transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
+                    className={`relative flex h-[52px] min-w-0 w-full items-center justify-center overflow-hidden px-1 text-center transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 ${activeMenu === cat.id ? "text-[#f81828]" : "text-[#888888] hover:text-[#f81828]"}`}
                     aria-expanded={cat.children ? activeMenu === cat.id : undefined}
                     aria-haspopup={cat.children ? "true" : undefined}
                     onClick={() => trackNav(cat.name, "desktop_L1", cat.slug)}

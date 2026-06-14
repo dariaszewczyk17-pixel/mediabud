@@ -7,15 +7,38 @@ Użycie:
   python3 bechcicki_sync.py                    # wszystkie kategorie
   python3 bechcicki_sync.py welny-fasadowe     # konkretna kategoria (slug)
 """
-import sys, re, json, time, os, requests, asyncio
+import sys, re, json, time, os, requests, asyncio, unicodedata
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
-TOKEN = "skZFMehj3STc5EGpVcQPUP5PQRmE4kWEQps0Zso4Rl5Ri3QUfmKRViMkpQ6lkHXZTrnHn0kuQgj6y6x7b6Y0Uz0z1jXPmYCKXVbAvYeZcSFOD7mk6uTEeE3MRSLTanEaUjtrPVEO6DkRdKAt6MOHv0zU4NgWek5XVMcahI6TvYOzLqORIR9J"
+# TOKEN bezpiecznie z environment variable — NIE hardcode w kodzie
+# Ustaw: export SANITY_TOKEN="sk..." przed uruchomieniem
+TOKEN = os.environ.get('SANITY_TOKEN', '')
+if not TOKEN:
+    print("BŁĄD: Brak zmiennej środowiskowej SANITY_TOKEN.")
+    print("Ustaw: export SANITY_TOKEN='sk...'")
+    sys.exit(1)
+
 SAN_BASE  = "https://nzcwegq7.api.sanity.io/v2021-06-07/data"
 SAN_HDR   = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
 REQ_HDR   = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0"}
 BAD_ASSET = "image-64aeb66968a6ba126888f09a972ada28c2b0b53a-1200x1200-webp"
+
+# Normalizacja nazw do porównywania (eliminuje problemy z polskimi znakami)
+# Zapewnia że "Wełna fasadowa" == "Welna fasadowa" == "wełna fasadowa"
+_PL_CHARS = str.maketrans('ąćęłńóśźżĄĆĘŁŃÓŚŹŻ', 'acelnoszzACELNOSZZ')
+
+def normalize_name(s: str) -> str:
+    """Normalizuje nazwę do porównania: lowercase + bez polskich znaków diakrytycznych."""
+    if not s:
+        return ''
+    # Krok 1: konwersja przez tabelę bezpośrednich zamian (ł→l, ą→a, etc.)
+    result = s.translate(_PL_CHARS)
+    # Krok 2: NFD decomposition dla pozostałych znaków diakrytycznych
+    result = unicodedata.normalize('NFD', result)
+    result = ''.join(c for c in result if unicodedata.category(c) != 'Mn')
+    # Krok 3: lowercase i usunięcie nadmiarowych spacji
+    return re.sub(r'\s+', ' ', result.lower().strip())
 
 LOG_FILE  = os.path.join(os.path.dirname(__file__), "bechcicki_sync_log.json")
 
@@ -180,8 +203,10 @@ async def sync_category(browser, bech_path, sanity_slug, log):
     san_prods = san_query(f'''*[_type=="product" && category->slug.current=="{sanity_slug}" && !(name match "P-*")]
         {{_id,name,ean,"imgRef":mainImage.asset._ref}}[0..500]''') or []
     san_by_ean = {p['ean']: p for p in san_prods if p.get('ean')}
-    san_by_name = {p['name'].lower(): p for p in san_prods}
-    print(f"  Produktów w Sanity: {len(san_prods)} ({len(san_by_ean)} z EAN)")
+    # Klucze znormalizowane: "Wełna fasadowa" → "welna fasadowa"
+    # Dzięki temu match działa nawet gdy bechcicki i Sanity mają różne kodowanie ł/ą/ę
+    san_by_name = {normalize_name(p['name']): p for p in san_prods if p.get('name')}
+    print(f"  Produktów w Sanity: {len(san_prods)} ({len(san_by_ean)} z EAN, {len(san_by_name)} z nazwą)")
 
     updated = skipped = errors = 0
 
@@ -196,12 +221,12 @@ async def sync_category(browser, bech_path, sanity_slug, log):
             time.sleep(0.3)
             continue
 
-        # Dopasuj po EAN lub nazwie
+        # Dopasuj po EAN lub nazwie (znormalizowanej — bez polskich znaków)
         san_prod = None
         if bech.get('ean'):
             san_prod = san_by_ean.get(bech['ean'])
         if not san_prod and bech.get('name'):
-            san_prod = san_by_name.get(bech['name'].lower())
+            san_prod = san_by_name.get(normalize_name(bech['name']))
 
         if not san_prod:
             print("SKIP (brak w Sanity)")
@@ -250,6 +275,25 @@ async def sync_category(browser, bech_path, sanity_slug, log):
         time.sleep(0.8)
 
     print(f"\n  Wynik: updated={updated}, skipped={skipped}, errors={errors}")
+
+    # VERIFY: ponowne zapytanie do Sanity — sprawdź ile produktów ma teraz dane pola
+    if updated > 0:
+        verify = san_query(f'''*[_type=="product" && category->slug.current=="{sanity_slug}"] {{
+            "hasName": name != null,
+            "hasDesc": shortDescription != null,
+            "hasSpecs": count(technicalSpec) > 0,
+            "hasImg": mainImage != null
+        }}''') or []
+        if verify:
+            has_desc  = sum(1 for p in verify if p.get('hasDesc'))
+            has_specs = sum(1 for p in verify if p.get('hasSpecs'))
+            has_img   = sum(1 for p in verify if p.get('hasImg'))
+            total_v   = len(verify)
+            print(f"  VERIFY [{sanity_slug}]: {total_v} produktów | "
+                  f"opisy: {has_desc}/{total_v} | "
+                  f"specs: {has_specs}/{total_v} | "
+                  f"zdjęcia: {has_img}/{total_v}")
+
     return updated, skipped, errors
 
 async def main():

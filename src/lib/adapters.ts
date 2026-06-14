@@ -52,16 +52,61 @@ export interface SanityProduct {
 
 // ─── Konwertery ───────────────────────────────────────────────────────────────
 
+const normalizeCategoryKey = (value?: string) =>
+  (value ?? '')
+    .toLocaleLowerCase('pl-PL')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ł/g, 'l')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+
+const categoryDedupeKey = (c: SanityCategory) =>
+  normalizeCategoryKey(c.name) || normalizeCategoryKey(c.slug) || c._id
+
+const pickPreferredCategory = (a: SanityCategory, b: SanityCategory) => {
+  // Rekordy z kontrolowanym order zwykle pochodzą z nowszego, kanonicznego drzewa.
+  if (a.order == null && b.order != null) return b
+  return a
+}
+
+function dedupeSanityCategorySiblings(children: SanityCategory[] = []): SanityCategory[] {
+  const merged = new Map<string, SanityCategory>()
+
+  for (const child of children) {
+    const key = categoryDedupeKey(child)
+    const existing = merged.get(key)
+
+    if (!existing) {
+      merged.set(key, {
+        ...child,
+        children: dedupeSanityCategorySiblings(child.children ?? []),
+      })
+      continue
+    }
+
+    const preferred = pickPreferredCategory(existing, child)
+    const fallback = preferred === existing ? child : existing
+    merged.set(key, {
+      ...preferred,
+      icon: preferred.icon ?? fallback.icon,
+      description: preferred.description ?? fallback.description,
+      children: dedupeSanityCategorySiblings([
+        ...(preferred.children ?? []),
+        ...(fallback.children ?? []),
+      ]),
+    })
+  }
+
+  return Array.from(merged.values()).map(child => ({
+    ...child,
+    children: child.children && child.children.length > 0 ? child.children : undefined,
+  }))
+}
+
 /** Sanity category → legacy Category (dla istniejących komponentów) */
 export function sanityCategoryToLegacy(c: SanityCategory): Category {
-  const seenChildren = new Set<string>()
-  const children = (c.children ?? [])
-    .filter((child) => {
-      const key = child.slug || child._id
-      if (!key || seenChildren.has(key)) return false
-      seenChildren.add(key)
-      return true
-    })
+  const children = dedupeSanityCategorySiblings(c.children ?? [])
     .map(sanityCategoryToLegacy)
 
   return {

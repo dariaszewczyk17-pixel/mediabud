@@ -49,7 +49,7 @@ export const categories: Category[] = [
           { id: "kleje-glazura", slug: "kleje-glazura", name: "Kleje do glazury" },
           { id: "kleje-drewno", slug: "kleje-drewno", name: "Kleje do drewna" },
           { id: "kleje-styropian", slug: "kleje-styropian", name: "Kleje do styropianu i styroduru" },
-          { id: "kleje-welna", slug: "kleje-welna", name: "Kleje do wełen" },
+          { id: "kleje-welna", slug: "kleje-do-welen", name: "Kleje do wełen" },
           { id: "kleje-gkb", slug: "kleje-gkb", name: "Kleje do gips karton" },
           { id: "kleje-tapety", slug: "kleje-tapety", name: "Kleje do tapet" },
           { id: "kleje-pozostale", slug: "kleje-pozostale", name: "Kleje pozostałe" },
@@ -239,13 +239,13 @@ export const categories: Category[] = [
       {
         id: "welny", slug: "welny", name: "Wełny",
         children: [
-          { id: "welna-sucha-zabudowa", slug: "welna-sucha-zabudowa", name: "Wełny do suchej zabudowy i ścian działowych" },
-          { id: "welna-fasadowa", slug: "welna-fasadowa", name: "Wełny fasadowe" },
-          { id: "welna-stropy", slug: "welna-stropy", name: "Wełny do stropów i podłóg" },
-          { id: "welna-dachy-plaskie", slug: "welna-dachy-plaskie", name: "Wełny do dachów płaskich" },
-          { id: "welna-poddasza", slug: "welna-poddasza", name: "Wełny do poddaszy" },
-          { id: "welna-akustyczna", slug: "welna-akustyczna", name: "Wełny budowlane do izolacji akustycznych" },
-          { id: "welna-kominkowa", slug: "welna-kominkowa", name: "Wełny kominkowe" },
+          { id: "welna-sucha-zabudowa", slug: "welny-do-suchej-zabudowy-i-scian-dzialowych", name: "Wełny do suchej zabudowy i ścian działowych" },
+          { id: "welna-fasadowa", slug: "welny-fasadowe", name: "Wełny fasadowe" },
+          { id: "welna-stropy", slug: "welny-do-stropow-i-podlog", name: "Wełny do stropów i podłóg" },
+          { id: "welna-dachy-plaskie", slug: "welny-do-dachow-plaskich", name: "Wełny do dachów płaskich" },
+          { id: "welna-poddasza", slug: "welny-do-poddaszy", name: "Wełny do poddaszy" },
+          { id: "welna-fasady-niew", slug: "welny-do-izolacji-fasad-niewentylowanych", name: "Wełny do izolacji fasad niewentylowanych" },
+          { id: "welna-fasady-went", slug: "welny-do-izolacji-fasad-wentylowanych", name: "Wełny do izolacji fasad wentylowanych" },
         ]
       },
       {
@@ -531,8 +531,8 @@ export const categories: Category[] = [
         id: "plyty-sufitowe", slug: "plyty-sufitowe", name: "Płyty sufitowe",
         children: [
           { id: "sufity-rastrowe", slug: "sufity-rastrowe", name: "Sufity rastrowe" },
-          { id: "plyty-welna-mineralna", slug: "plyty-welna-mineralna", name: "Płyty sufitowe z wełny mineralnej" },
-          { id: "plyty-welna-szklana", slug: "plyty-welna-szklana", name: "Płyty sufitowe z wełny szklanej" },
+          { id: "plyty-welna-mineralna", slug: "plyty-sufitowe-z-welny-mineralnej", name: "Płyty sufitowe z wełny mineralnej" },
+          { id: "plyty-welna-szklana", slug: "plyty-sufitowe-z-welny-szklanej", name: "Płyty sufitowe z wełny szklanej" },
           { id: "plyty-drewniane", slug: "plyty-drewniane-sufitowe", name: "Płyty sufitowe drewniane" },
           { id: "plyty-metalowe", slug: "plyty-metalowe-sufitowe", name: "Płyty sufitowe metalowe" },
           { id: "plyty-higieniczne", slug: "plyty-higieniczne", name: "Płyty sufitowe higieniczne" },
@@ -609,6 +609,19 @@ export const CATEGORY_SLUG_ALIASES: Record<string, string> = {
   "weny-do-dachow-paskich": "welny-do-dachow-plaskich",
   "weny-do-poddaszy": "welny-do-poddaszy",
   "weny-fasadowe": "welny-fasadowe",
+  // Stare statyczne slugi welna-* → kanoniczne Sanity welny-*
+  "welna-fasadowa": "welny-fasadowe",
+  "welna-sucha-zabudowa": "welny-do-suchej-zabudowy-i-scian-dzialowych",
+  "welna-stropy": "welny-do-stropow-i-podlog",
+  "welna-dachy-plaskie": "welny-do-dachow-plaskich",
+  "welna-poddasza": "welny-do-poddaszy",
+  "welna-akustyczna": "welny-do-suchej-zabudowy-i-scian-dzialowych",
+  "welna-kominkowa": "welny",
+  // Stare slugi skrócone sufity z wełny
+  "plyty-welna-mineralna": "plyty-sufitowe-z-welny-mineralnej",
+  "plyty-welna-szklana": "plyty-sufitowe-z-welny-szklanej",
+  // Stary skrót kleje-welna
+  "kleje-welna": "kleje-do-welen",
   "wsporniki-potkow-przeciwsniegowych": "wsporniki-plotkow-przeciwsniegowych",
 };
 

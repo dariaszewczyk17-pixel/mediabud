@@ -689,14 +689,23 @@ export default function CategoryPage() {
 
   // Pokaż firstBatch natychmiast; przełącz na allMeta gdy gotowe
   const rootMeta = allMeta ?? firstBatch;
+
+  // ⚠️ Dla podkategorii (L2/L3) rootCategory query zwraca [] (pusta tablica),
+  // bo produkty mają rootCategory ustawione na top-level (L1) kategorię.
+  // Pusta tablica jest truthy → blokuje fallback na slugTreeMeta.
+  // Fix: traktuj pustą tablicę z rootCategory jako null gdy czekamy na slugTree.
+  const rootMetaEffective = shouldUseSlugTreeProducts && rootMeta && rootMeta.length === 0
+    ? null
+    : rootMeta;
+
   const sanityMeta = shouldUseSlugTreeProducts
-    ? (slugTreeMeta ?? rootMeta)
+    ? (slugTreeMeta ?? rootMetaEffective)
     : rootMeta;
   const productsLoading = shouldUseSlugTreeProducts
-    ? (!slugTreeMeta && !rootMeta && slugTreeLoading)
+    ? (!slugTreeMeta && !rootMetaEffective && slugTreeLoading)
     : (allMeta ? false : firstLoading);
   const isLoadingAll = shouldUseSlugTreeProducts
-    ? (slugTreeLoading && !slugTreeMeta && !!rootMeta)
+    ? (slugTreeLoading && !slugTreeMeta && !!rootMetaEffective)
     : (allLoading && !!firstBatch); // true gdy Phase 1 ready, Phase 2 w toku
 
   // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)

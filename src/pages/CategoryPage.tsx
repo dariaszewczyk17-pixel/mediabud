@@ -682,30 +682,25 @@ export default function CategoryPage() {
   const { data: firstBatch, loading: firstLoading } = useProductMetaByCatSlugFast(canonicalSlug);
   // Phase 2 (background ~1-3s): wszystkie produkty — pełne filtry i paginacja
   const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(canonicalSlug);
-  // Fallback/tryb podkategorii: produkty po bezpośrednich slugach kategorii i dzieci
-  const { data: slugTreeMeta, loading: slugTreeLoading } = useProductMetaByCategorySlugs(
-    shouldUseSlugTreeProducts ? querySubSlugs : []
-  );
+  // ⚡ Produkty po bezpośrednich slugach kategorii i dzieci — ZAWSZE odpalaj.
+  // Dla L2/L3 kategorii rootCategory query zwraca [] (rootCategory wskazuje na L1),
+  // więc slugTree jest jedynym źródłem produktów. Odpala się równolegle z rootCategory query.
+  const { data: slugTreeMeta, loading: slugTreeLoading } = useProductMetaByCategorySlugs(querySubSlugs);
 
   // Pokaż firstBatch natychmiast; przełącz na allMeta gdy gotowe
   const rootMeta = allMeta ?? firstBatch;
 
-  // ⚠️ Dla podkategorii (L2/L3) rootCategory query zwraca [] (pusta tablica),
+  // Dla podkategorii (L2/L3): rootCategory query zwraca [] (pusta tablica truthy),
   // bo produkty mają rootCategory ustawione na top-level (L1) kategorię.
-  // Pusta tablica jest truthy → blokuje fallback na slugTreeMeta.
-  // Fix: traktuj pustą tablicę z rootCategory jako null gdy czekamy na slugTree.
-  const rootMetaEffective = shouldUseSlugTreeProducts && rootMeta && rootMeta.length === 0
-    ? null
-    : rootMeta;
-
+  // slugTreeMeta jest jedynym poprawnym źródłem — preferuj je gdy dostępne.
   const sanityMeta = shouldUseSlugTreeProducts
-    ? (slugTreeMeta ?? rootMetaEffective)
-    : rootMeta;
+    ? (slugTreeMeta ?? (rootMeta && rootMeta.length > 0 ? rootMeta : null))
+    : (rootMeta && rootMeta.length > 0 ? rootMeta : slugTreeMeta);
   const productsLoading = shouldUseSlugTreeProducts
-    ? (!slugTreeMeta && !rootMetaEffective && slugTreeLoading)
+    ? (!slugTreeMeta && slugTreeLoading)
     : (allMeta ? false : firstLoading);
   const isLoadingAll = shouldUseSlugTreeProducts
-    ? (slugTreeLoading && !slugTreeMeta && !!rootMetaEffective)
+    ? (slugTreeLoading && !slugTreeMeta)
     : (allLoading && !!firstBatch); // true gdy Phase 1 ready, Phase 2 w toku
 
   // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)

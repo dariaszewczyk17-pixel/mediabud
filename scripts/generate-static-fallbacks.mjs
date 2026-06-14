@@ -106,25 +106,47 @@ async function readXmlPaths(fileName, prefixFilter = '') {
   }
 }
 
-async function writeFallback(targetPath) {
+async function removeGeneratedDirectoryIfPresent(filePath) {
+  try {
+    const stat = await fs.stat(filePath);
+    if (!stat.isDirectory()) return;
+
+    const markerPath = path.join(filePath, 'index.html');
+    const marker = await fs.readFile(markerPath, 'utf-8').catch(() => '');
+    if (marker.includes('mb_pending_deep_link')) {
+      await fs.rm(filePath, { recursive: true, force: true });
+    }
+  } catch { /* nie istnieje */ }
+}
+
+async function writeIndexFallback(targetPath) {
   if (!targetPath.startsWith('/') || targetPath.includes('..')) return;
   const dir = path.join(PUBLIC_DIR, targetPath.replace(/^\//, ''));
   await fs.mkdir(dir, { recursive: true });
   await fs.writeFile(path.join(dir, 'index.html'), fallbackHtml(targetPath), 'utf-8');
 }
 
+async function writeExactFallback(targetPath) {
+  if (!targetPath.startsWith('/') || targetPath.includes('..')) return;
+  const filePath = path.join(PUBLIC_DIR, targetPath.replace(/^\//, ''));
+  await removeGeneratedDirectoryIfPresent(filePath);
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  await fs.writeFile(filePath, fallbackHtml(targetPath), 'utf-8');
+}
+
 async function main() {
-  const paths = new Set(BASE_SPA_PATHS);
+  const indexPaths = new Set(['/kategoria', '/blog', '/marki', '/kalkulator']);
+  const exactPaths = new Set(BASE_SPA_PATHS.filter(pathname => !indexPaths.has(pathname)));
 
   for (const pathFromSitemap of await readXmlPaths('sitemap-categories.xml', '/kategoria/')) {
-    paths.add(pathFromSitemap);
+    exactPaths.add(pathFromSitemap);
   }
 
   for (const slug of Object.keys(CATEGORY_SLUG_ALIASES)) {
-    paths.add(`/kategoria/${slug}`);
+    exactPaths.add(`/kategoria/${slug}`);
   }
   for (const slug of Object.values(CATEGORY_SLUG_ALIASES)) {
-    paths.add(`/kategoria/${slug}`);
+    exactPaths.add(`/kategoria/${slug}`);
   }
 
   // Core sitemap zawiera blog, marki i kalkulatory — bez produktów, żeby nie generować dziesiątek tysięcy plików.
@@ -134,15 +156,18 @@ async function main() {
       pathFromSitemap.startsWith('/marki/') ||
       pathFromSitemap.startsWith('/kalkulator/')
     ) {
-      paths.add(pathFromSitemap);
+      exactPaths.add(pathFromSitemap);
     }
   }
 
-  for (const targetPath of paths) {
-    await writeFallback(targetPath);
+  for (const targetPath of indexPaths) {
+    await writeIndexFallback(targetPath);
+  }
+  for (const targetPath of exactPaths) {
+    await writeExactFallback(targetPath);
   }
 
-  console.log(`✓ static SPA fallbacks generated in public/ (${paths.size})`);
+  console.log(`✓ static SPA fallbacks generated in public/ (${indexPaths.size} index + ${exactPaths.size} exact)`);
 }
 
 main().catch(err => {

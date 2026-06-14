@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function — /api/cleanup-duplicate-categories
  * POST — usuwa zduplikowane rekordy kategorii z Sanity
- * v5: bez cat-l2-* (maja dzieci), batch 25, max ~12 subrequestow
+ * v6: usunieto cat-materiay-konstrukcyjne (ma dzieci-podkategorie)
  */
 
 const PROJECT_ID = "nzcwegq7";
@@ -11,8 +11,8 @@ const API_VER    = "v2021-06-07";
 const SANITY_MUTATE_URL = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/mutate/${DATASET}`;
 const SANITY_QUERY_URL  = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/query/${DATASET}`;
 
-// Tylko bezpieczne leaf-node duplikaty (0 produktow, 0 dzieci)
-// cat-l2-* WYKLUCZONE — maja podkategorie-dzieci
+// Tylko bezpieczne leaf-node duplikaty (0 produktow, 0 dzieci-kategorii)
+// Wykluczone: cat-l2-*, cat-materiay-konstrukcyjne (maja podkategorie-dzieci)
 const DUPLICATE_IDS = [
   "cat-akcesoria-do-izolacji",
   "cat-artykuy-scierne","cat-gipsy",
@@ -23,7 +23,7 @@ const DUPLICATE_IDS = [
   "cat-l3-grunty-uniwersalne","cat-hydroizolacje","cat-izolacje-budowlane",
   "cat-izolacje-techniczne","cat-l3-kleje-do-drewna","cat-kleje-welna",
   "cat-kleje-do-ween","cat-koki-i-wkrety-uniwersalne","cat-komunikacja-dachowa",
-  "category-kotwy-chemiczne","cat-l3-kotwy-montazowe","cat-materiay-konstrukcyjne",
+  "category-kotwy-chemiczne","cat-l3-kotwy-montazowe",
   "cat-mocowania-do-suchej-zabudowy","cat-narozniki-i-listwy","cat-narzedzia-malarskie",
   "cat-okna-dachowe-i-akcesoria","cat-panele-scienne-i-tapety",
   "cat-piany-montazowe","cat-pytki-ceramiczne","cat-pytki-dekoracyjne",
@@ -87,7 +87,7 @@ export async function onRequest(context) {
       reassigned += prods.length;
     }
 
-    // Krok 2: Usun duplikaty w batchach po 25 (max ~3 batche = 3 subrequesty)
+    // Krok 2: Usun duplikaty w batchach po 25
     const allToDelete = [...DUPLICATE_IDS, ...Object.keys(REASSIGN_MAP)];
     const BATCH = 25;
     const results = [];
@@ -97,7 +97,7 @@ export async function onRequest(context) {
       const mutations = batch.map(id => ({ delete: { id } }));
       const res = await fetch(SANITY_MUTATE_URL, { method: "POST", headers, body: JSON.stringify({ mutations }) });
       const data = await res.json();
-      results.push({ batch: i / BATCH + 1, ok: res.ok, count: batch.length, ids: batch });
+      results.push({ batch: i / BATCH + 1, ok: res.ok, count: batch.length });
       if (!res.ok) return json({ error: "Blad delete", details: data, results }, 500);
     }
 
@@ -107,7 +107,6 @@ export async function onRequest(context) {
       reassigned,
       deleted: allToDelete.length,
       batches: results,
-      note: "cat-l2-* pominiete (maja podkategorie wymagajace odrebnej migracji dzieci)",
     });
   } catch (err) {
     return json({ error: err.message }, 500);

@@ -44,62 +44,11 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   "pozostale": <Package className="w-3.5 h-3.5" />,
 };
 
-/* ── Węzeł drzewa kategorii ─────────────────────────────────────────────── */
-interface TreeNode { id: string; slug: string; name: string; children?: TreeNode[] }
-
-/* ── Deduplikacja drzewa UI: slug bywa różny (np. welny/weny), nazwa ta sama ── */
-const normalizeTreeKey = (value?: string) =>
-  (value ?? "")
-    .toLocaleLowerCase("pl-PL")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/ł/g, "l")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-const treeDedupeKey = (node: TreeNode) =>
-  normalizeTreeKey(node.name) || normalizeTreeKey(node.slug) || node.id;
-
-function dedupeTreeNodes<T extends TreeNode>(nodes: T[] = []): T[] {
-  const merged = new Map<string, T>();
-
-  for (const node of nodes) {
-    const normalizedNode = {
-      ...node,
-      children: node.children ? dedupeTreeNodes(node.children) : undefined,
-    } as T;
-    const key = treeDedupeKey(normalizedNode);
-    const existing = merged.get(key);
-
-    if (!existing) {
-      merged.set(key, normalizedNode);
-      continue;
-    }
-
-    merged.set(key, {
-      ...existing,
-      children: dedupeTreeNodes([
-        ...(existing.children ?? []),
-        ...(normalizedNode.children ?? []),
-      ]),
-    } as T);
-  }
-
-  return Array.from(merged.values()).map(node => ({
-    ...node,
-    children: node.children && node.children.length > 0 ? node.children : undefined,
-  } as T));
-}
-
-function dedupeTree<T extends TreeNode>(node: T | null): T | null {
-  return node ? ({ ...node, children: dedupeTreeNodes(node.children ?? []) } as T) : null;
-}
-
 /* ── Helper: znajdź ścieżkę do kategorii w drzewie ── */
 function findPathToSlug(nodes: TreeNode[], targetSlug: string, path: string[] = []): string[] | null {
-  for (const node of dedupeTreeNodes(nodes)) {
+  for (const node of nodes) {
     const newPath = [...path, node.id];
-    if (resolveCategorySlug(node.slug) === targetSlug) return newPath;
+    if (node.slug === targetSlug) return newPath;
     if (node.children) {
       const found = findPathToSlug(node.children, targetSlug, newPath);
       if (found) return found;
@@ -108,20 +57,8 @@ function findPathToSlug(nodes: TreeNode[], targetSlug: string, path: string[] = 
   return null;
 }
 
-const uniqueCanonicalCategorySlugs = (slugs: string[]) =>
-  Array.from(new Set(slugs.map(resolveCategorySlug).filter(Boolean))).sort();
-
-const expandCategorySlugsForQuery = (canonicalSlugs: string[]) => {
-  const canonicalSet = new Set(canonicalSlugs.map(resolveCategorySlug).filter(Boolean));
-  const expanded = new Set(canonicalSet);
-
-  Object.entries(CATEGORY_SLUG_ALIASES).forEach(([alias, target]) => {
-    const resolvedTarget = resolveCategorySlug(target);
-    if (canonicalSet.has(resolvedTarget)) expanded.add(alias);
-  });
-
-  return Array.from(expanded).sort();
-};
+/* ── Węzeł drzewa kategorii ─────────────────────────────────────────────── */
+interface TreeNode { id: string; slug: string; name: string; children?: TreeNode[] }
 
 /* ── Pełne drzewko WSZYSTKICH kategorii z linkami ── */
 interface FullTreeNodeProps {
@@ -135,10 +72,9 @@ interface FullTreeNodeProps {
 function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle, pathToActive }: FullTreeNodeProps) {
   const hasKids = !!(node.children && node.children.length > 0);
   const isOpen = expanded.has(node.id);
-  const nodeCanonicalSlug = resolveCategorySlug(node.slug);
-  const isActive = currentSlug === nodeCanonicalSlug;
+  const isActive = currentSlug === node.slug;
   const isOnPath = pathToActive.has(node.id); // Czy węzeł jest na ścieżce do aktywnej kategorii
-  const icon = depth === 0 ? CATEGORY_ICONS[nodeCanonicalSlug] : null;
+  const icon = depth === 0 ? CATEGORY_ICONS[node.slug] : null;
 
   return (
     <div>
@@ -159,7 +95,7 @@ function FullCategoryTreeNode({ node, depth, currentSlug, expanded, toggle, path
 
         {/* Link do kategorii */}
         <Link
-          to={`/kategoria/${nodeCanonicalSlug}`}
+          to={`/kategoria/${node.slug}`}
           className={`flex-1 flex items-center gap-1.5 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all truncate ${
             isActive
               ? "bg-[#f81828] text-white"
@@ -205,9 +141,8 @@ interface TreeNodeProps {
 function CategoryTreeNode({ node, depth, selectedSubcat, onSelect, counts, expanded, toggle }: TreeNodeProps) {
   const hasKids = !!(node.children && node.children.length > 0);
   const isOpen  = expanded.has(node.id);
-  const nodeCanonicalSlug = resolveCategorySlug(node.slug);
-  const isActive = selectedSubcat === nodeCanonicalSlug;
-  const count    = counts[nodeCanonicalSlug] ?? 0;
+  const isActive = selectedSubcat === node.slug;
+  const count    = counts[node.slug] ?? 0;
 
   return (
     <div>
@@ -226,7 +161,7 @@ function CategoryTreeNode({ node, depth, selectedSubcat, onSelect, counts, expan
 
         {/* Node button */}
         <button
-          onClick={() => onSelect(isActive ? "" : nodeCanonicalSlug)}
+          onClick={() => onSelect(isActive ? "" : node.slug)}
           className={`flex-1 text-left rounded-lg px-2 py-1 text-xs font-medium transition-all flex items-center justify-between gap-1 min-w-0 ${
             isActive
               ? "bg-[#f81828] text-white"
@@ -291,29 +226,11 @@ const CATEGORY_SEO_TEXTS: Record<string, { title: string; content: React.ReactNo
     )
   },
   "izolacje": {
-    title: "Izolacje Lublin — styropian, wełna, XPS i hydroizolacje",
+    title: "Materiały izolacyjne — styropian, wełna, XPS",
     content: (
       <>
-        <p className="mb-3"><strong>Izolacje</strong> w Media Bud to materiały do ocieplenia elewacji, fundamentów, poddaszy, stropów, podłóg i tarasów: styropian fasadowy EPS, styropian grafitowy, płyty XPS, wełna mineralna, wełna szklana, hydroizolacje oraz akcesoria systemowe do ETICS. Dobieramy rozwiązania pod realne warunki inwestycji w Lublinie i województwie lubelskim — od domu jednorodzinnego po większe realizacje wykonawcze i deweloperskie.</p>
-        <p className="mb-5">Najważniejsze kryteria wyboru to <strong>grubość izolacji</strong>, współczynnik przewodzenia ciepła <strong>lambda λ</strong>, klasa reakcji na ogień, nasiąkliwość, wytrzymałość na ściskanie, format płyty oraz miejsce zastosowania. Jeśli chcesz szybko policzyć zapotrzebowanie, użyj <Link to="/kalkulator/styropian-welna" className="text-[#f81828] hover:underline">kalkulatora styropianu i wełny</Link>. Przy izolacji fundamentów sprawdź też <Link to="/kalkulator/izolacja-fundamentow" className="text-[#f81828] hover:underline">kalkulator izolacji fundamentów XPS</Link>.</p>
-
-        <h3 className="text-white font-black text-base mt-6 mb-3">Jak wybrać materiał izolacyjny?</h3>
-        <ul className="space-y-2 mb-5 list-disc pl-5 marker:text-[#f81828]">
-          <li><strong>Elewacja ETICS:</strong> najczęściej styropian fasadowy EPS 70/EPS 80 lub wełna fasadowa, gdy ważna jest paroprzepuszczalność i odporność ogniowa.</li>
-          <li><strong>Fundamenty, tarasy i dach odwrócony:</strong> płyty XPS o niskiej nasiąkliwości i wysokiej odporności na ściskanie.</li>
-          <li><strong>Poddasze i sufity:</strong> wełna mineralna lub szklana układana warstwowo, z prawidłową paroizolacją od strony ogrzewanej.</li>
-          <li><strong>Podłoga na gruncie:</strong> EPS 100 lub XPS, szczególnie przy ogrzewaniu podłogowym i większych obciążeniach użytkowych.</li>
-        </ul>
-
-        <h3 className="text-white font-black text-base mt-6 mb-3">Kluczowe parametry w tej kategorii</h3>
-        <p className="mb-5">Przy porównywaniu produktów zwracaj uwagę na: <strong>grubość</strong>, <strong>lambda λ</strong>, klasę reakcji na ogień, zastosowanie, wymiar płyty, typ materiału, nasiąkliwość wodą, wytrzymałość na ściskanie oraz kompatybilność z klejem, siatką, kołkami i tynkiem. Te dane pomagają porównać warianty i ograniczają ryzyko zakupu materiału niedopasowanego do przegrody.</p>
-
-        <h3 className="text-white font-black text-base mt-6 mb-3">Zastosowanie i przewagi</h3>
-        <p className="mb-3">Materiały izolacyjne stosuje się do ograniczenia strat ciepła, poprawy komfortu akustycznego, ochrony fundamentów przed wilgocią oraz spełnienia wymagań energetycznych budynku. W Media Bud możesz zestawić produkty marek takich jak <Link to="/marki/swisspor" className="text-[#f81828] hover:underline">Swisspor</Link>, <Link to="/marki/rockwool" className="text-[#f81828] hover:underline">Rockwool</Link>, <Link to="/marki/isover" className="text-[#f81828] hover:underline">Isover</Link>, <Link to="/marki/ursa" className="text-[#f81828] hover:underline">URSA</Link> czy <Link to="/marki/termoorganika" className="text-[#f81828] hover:underline">Termo Organika</Link> — w zależności od dostępności w katalogu.</p>
-        <p className="mb-5">Dla pogłębienia tematu zobacz poradniki: <Link to="/blog/koszt-ocieplenia-domu-150m2-2026" className="text-[#f81828] hover:underline">koszt ocieplenia domu 150 m²</Link>, <Link to="/blog/welna-mineralna-czy-styropian-ocieplenie" className="text-[#f81828] hover:underline">wełna mineralna czy styropian</Link> oraz <Link to="/blog/10-bledow-przy-ocieplaniu-budynkow" className="text-[#f81828] hover:underline">najczęstsze błędy przy ocieplaniu domu</Link>.</p>
-
-        <h3 className="text-white font-black text-base mt-6 mb-3">Ostrzeżenia przed zakupem</h3>
-        <p>Nie dobieraj izolacji wyłącznie po cenie za paczkę. Zbyt słaba lambda, niewłaściwa grubość, brak systemowych akcesoriów, źle dobrany klej lub brak paroizolacji mogą pogorszyć parametry przegrody i podnieść koszt wykonania. Przy większych inwestycjach w Lublinie i regionie warto wysłać projekt lub zestawienie materiałów do wyceny — dobierzemy pełny system i logistykę dostawy na plac budowy.</p>
+        <p className="mb-3">Skuteczna termoizolacja to klucz do niższych rachunków za ogrzewanie i komfortu cieplnego. W naszej ofercie znajdziesz kompletne systemy ociepleń (ETICS): <strong>styropian fasadowy (EPS), styrodur (XPS) na fundamenty, wełnę mineralną i szklaną</strong> do poddaszy oraz piany poliuretanowe (PIR).</p>
+        <p>Oferujemy materiały o najlepszych współczynnikach przewodzenia ciepła (lambda λ) od sprawdzonych marek: <strong>Swisspor, Termo Organika, Rockwool, Isover</strong>. Szukasz styropianu grafitowego na elewację w Lublinie? Potrzebujesz wyliczyć zapotrzebowanie? Skorzystaj z naszego <a href="/kalkulator/styropian-welna" className="text-[#f81828] hover:underline">kalkulatora izolacji</a> lub skontaktuj się z naszym działem sprzedaży B2B. Dowiedz się więcej z naszego artykułu: <a href="/blog/koszt-ocieplenia-domu-150m2" className="text-[#f81828] hover:underline">Ile kosztuje ocieplenie domu 150m2 w 2026 roku?</a></p>
       </>
     )
   },
@@ -405,12 +322,11 @@ const CATEGORY_FAQS: Record<string, { q: string; a: string }[]> = {
     { q: "Jak prawidłowo rozcieńczyć farbę i czy zawsze trzeba to robić?", a: "Pierwsza warstwa (gruntująca) rozcieńczana jest o 10–20% wodą lub dedykowanym rozcieńczalnikiem. Kolejne warstwy kryjące stosuje się zazwyczaj bez rozcieńczania. Nadmierne rozcieńczanie obniża krycie i trwałość powłoki. Zawsze sprawdź kartę techniczną produktu." },
   ],
   "izolacje": [
-    { q: "Jaki styropian wybrać do ocieplenia ścian zewnętrznych?", a: "Do ocieplenia ścian metodą ETICS najczęściej wybiera się styropian fasadowy EPS 70 lub EPS 80. Kluczowe są grubość, lambda λ i zgodność z systemem klej–siatka–tynk. Dla nowych i modernizowanych budynków często stosuje się 15–20 cm izolacji, ale ostateczną grubość warto dobrać do projektu oraz oczekiwanego współczynnika U przegrody." },
-    { q: "Wełna mineralna czy styropian — co lepsze do ocieplenia domu?", a: "Styropian EPS jest lżejszy, zwykle tańszy i łatwy w montażu, dlatego dobrze sprawdza się na typowych elewacjach. Wełna mineralna jest niepalna, paroprzepuszczalna i lepiej tłumi hałas, więc warto ją rozważyć przy wyższych wymaganiach przeciwpożarowych, akustycznych lub przy przegrodach wymagających większej dyfuzyjności." },
-    { q: "Kiedy wybrać XPS zamiast EPS?", a: "XPS wybiera się tam, gdzie izolacja ma kontakt z wilgocią lub większym obciążeniem: fundamenty, ściany poniżej gruntu, tarasy, dach odwrócony, cokoły i podłogi narażone na nacisk. W porównaniu z EPS płyty XPS mają niższą nasiąkliwość i wysoką odporność na ściskanie." },
-    { q: "Jakie parametry są najważniejsze przy zakupie izolacji?", a: "Najważniejsze parametry to grubość, lambda λ, klasa reakcji na ogień, nasiąkliwość, wytrzymałość na ściskanie, wymiar płyty, typ materiału oraz miejsce zastosowania. Przy produktach systemowych należy też sprawdzić kompatybilność z klejem, kołkami, siatką zbrojącą, gruntem i tynkiem." },
-    { q: "Jak obliczyć ilość styropianu lub wełny na elewację?", a: "Najpierw policz powierzchnię ścian, odejmij większe otwory okienne i drzwiowe, a następnie dodaj zapas na docinki, zwykle około 5–10%. Do szybkiego szacunku można użyć kalkulatora styropianu i wełny Media Bud, a przy większej inwestycji przesłać projekt do wyceny materiałowej." },
-    { q: "Czy Media Bud dostarcza izolacje na budowę w Lublinie i regionie?", a: "Tak. Media Bud obsługuje inwestycje w Lublinie i województwie lubelskim, w tym dostawy izolacji, chemii systemowej i akcesoriów na plac budowy. Przy większych zamówieniach warto skontaktować się z działem sprzedaży, aby ustalić komplet materiałów, dostępność i logistykę dostawy." },
+    { q: "Jaki styropian wybrać do ocieplenia ścian zewnętrznych?", a: "Do ocieplenia ścian metodą ETICS (lekka mokra) stosuje się styropian fasadowy EPS 70 lub EPS 80 (np. Swisspor Lambda, Yetico, Styropmin). Grubość minimum 15 cm dla nowych budynków zgodnie z WT 2021. Współczynnik lambda ≤ 0,036 W/(m·K) gwarantuje lepszy efekt cieplny." },
+    { q: "Wełna mineralna czy styropian — co lepsze do ocieplenia domu?", a: "Styropian EPS jest tańszy i łatwiejszy w montażu, wystarczy do większości ścian. Wełna mineralna (Rockwool, Isover, URSA) jest paroprzepuszczalna, niepalna (klasa A1/A2) i ma lepszą izolację akustyczną — polecana na ściany piwnic, stropy, dachy i budynki wyższe niż 25m (warunek p-poż)." },
+    { q: "Jak ocieplić poddasze — styropian między krokwiami czy wełna?", a: "Na poddasze użytkowe stosuje się wełnę mineralną (np. Rockwool Rockmin Plus) układaną w 2 warstwach: między krokwiami + pod krokwiami (eliminacja mostków). Łączna grubość minimum 25–30 cm. Pod wełną od strony ciepłej obowiązkowo folia paroizolacyjna." },
+    { q: "Ile cm izolacji potrzebuję na podłogę na gruncie?", a: "Zgodnie z WT 2021 izolacja podłogi na gruncie powinna mieć U ≤ 0,30 W/(m²·K). Osiąga to styropian EPS 100 o grubości minimum 12–15 cm lub XPS 10–12 cm. Pod ogrzewanie podłogowe rekomendujemy styropian o odporności na ściskanie min. CS(10)100 (EPS 100)." },
+    { q: "Co to jest XPS i kiedy stosować go zamiast EPS?", a: "XPS (polistyren ekstrudowany, np. Ravatherm, Nexler, URSA XPS) ma zamkniętą strukturę komórek — nie nasiąka wodą (chłonność < 0,3%). Stosuj XPS wszędzie tam, gdzie izolacja kontaktuje się z wilgocią: ławy fundamentowe, ściana zewnętrzna poniżej terenu, dach odwrócony, taras." },
   ],
   "narzedzia-i-mocowania": [
     { q: "Jakie kołki rozporowe wybrać do styropianu EPS?", a: "Do mocowania styropianu w systemach ETICS stosuje się kołki teleskopowe z tworzywowymi talerzami lub kołki z wbijanym trzpieniem stalowym. Zalecana liczba kołków to 6 szt./m² (naroża i krawędzie 8 szt./m²). Odpowiednie kołki to np. Ejot STR, Rawplug R-TK, Fischer Etics." },
@@ -527,14 +443,6 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const canonicalSlug = useMemo(() => resolveCategorySlug(slug ?? ""), [slug]);
-
-  useEffect(() => {
-    if (!slug || !canonicalSlug || slug === canonicalSlug) return;
-    const query = searchParams.toString();
-    navigate(`/kategoria/${canonicalSlug}${query ? `?${query}` : ""}`, { replace: true });
-  }, [slug, canonicalSlug, searchParams, navigate]);
   const [view, setView] = useState<"grid" | "list">("grid");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [mobileCatsOpen, setMobileCatsOpen] = useState(false);
@@ -547,10 +455,10 @@ export default function CategoryPage() {
 
   // Oblicz ścieżkę do aktywnej kategorii (dla podświetlenia i auto-rozwijania)
   const pathToActive = useMemo(() => {
-    if (!canonicalSlug) return new Set<string>();
-    const path = findPathToSlug(staticCategories as TreeNode[], canonicalSlug);
+    if (!slug) return new Set<string>();
+    const path = findPathToSlug(staticCategories as TreeNode[], slug);
     return new Set(path || []);
-  }, [canonicalSlug]);
+  }, [slug]);
 
   // Auto-rozwijanie drzewka do aktywnej kategorii przy zmianie slug
   useEffect(() => {
@@ -563,38 +471,34 @@ export default function CategoryPage() {
     }
   }, [pathToActive]);
 
-  const { data: sanityCategory } = useCategoryBySlug(canonicalSlug);
+  const { data: sanityCategory } = useCategoryBySlug(slug ?? '');
   const { data: sanityTopCats }  = useAllCategories();
 
   const cat = useMemo(
-    () => dedupeTree(
-      sanityCategory
-        ? sanityCategoryToLegacy(sanityCategory as SanityCategory)
-        : (canonicalSlug ? getCategoryBySlug(canonicalSlug) : null)
-    ),
-    [sanityCategory, canonicalSlug],
+    () => sanityCategory
+      ? sanityCategoryToLegacy(sanityCategory as SanityCategory)
+      : (slug ? getCategoryBySlug(slug) : null),
+    [sanityCategory, slug],
   );
 
   const breadcrumbs = useMemo(
     () => sanityCategory
       ? buildSanityBreadcrumbs(sanityCategory as SanityCategory).slice(0, -1)
-      : (canonicalSlug ? getBreadcrumbs(canonicalSlug) : []),
-    [sanityCategory, canonicalSlug],
+      : (slug ? getBreadcrumbs(slug) : []),
+    [sanityCategory, slug],
   );
 
   const categories = useMemo(
-    () => dedupeTreeNodes(
-      sanityTopCats && (sanityTopCats as any[]).length > 0
-        ? (sanityTopCats as any[]).map(sanityCategoryToLegacy)
-        : staticCategories
-    ),
+    () => sanityTopCats && (sanityTopCats as any[]).length > 0
+      ? (sanityTopCats as any[]).map(sanityCategoryToLegacy)
+      : staticCategories,
     [sanityTopCats],
   );
 
   const selectedBrand = searchParams.get("brand") || "";
   const selectedUnit  = searchParams.get("unit")  || "";
   const selectedTag   = searchParams.get("tag")   || "";
-  const selectedSubcat = resolveCategorySlug(searchParams.get("subcat") || "");
+  const selectedSubcat = searchParams.get("subcat") || "";
   const sortBy = searchParams.get("sort") || "default";
   // techSpec filters: "Label::Value" zakodowane w URL jako spec=Label%3A%3AValue
   const selectedSpecs: string[] = useMemo(
@@ -602,55 +506,43 @@ export default function CategoryPage() {
     [searchParams]
   );
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
-  const previousCanonicalSlugRef = useRef<string | null>(null);
 
-  /* Reset filtrów i strony tylko przy realnej zmianie kategorii, nie na pierwszym wejściu/alias redirect */
+  /* Reset filtrów i strony gdy zmienia się kategoria */
   useEffect(() => {
-    if (!canonicalSlug) return;
-    if (slug && canonicalSlug && slug !== canonicalSlug) return;
-
-    if (previousCanonicalSlugRef.current === null) {
-      previousCanonicalSlugRef.current = canonicalSlug;
-      return;
-    }
-
-    if (previousCanonicalSlugRef.current === canonicalSlug) return;
-
-    previousCanonicalSlugRef.current = canonicalSlug;
     setSearchParams(new URLSearchParams(), { replace: true });
     setTechFilters({});
-  }, [slug, canonicalSlug, setSearchParams]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
 
   /* Prefetch metadanych produktów gdy user najeżdża na link kategorii */
   const prefetchForSlug = useCallback((targetSlug: string) => {
-    const resolvedSlug = resolveCategorySlug(targetSlug);
-    const staticCat = getCategoryBySlug(resolvedSlug);
+    const staticCat = getCategoryBySlug(targetSlug);
     if (!staticCat) return;
     const collect = (c: typeof staticCat): string[] => [
-      resolveCategorySlug(c.slug), ...(c.children?.flatMap(ch => collect(ch)) || []),
+      c.slug, ...(c.children?.flatMap(ch => collect(ch)) || []),
     ];
-    const slugs = expandCategorySlugsForQuery(uniqueCanonicalCategorySlugs(collect(staticCat)));
+    const slugs = collect(staticCat).sort();
     if (slugs.length) prefetchSanity(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs });
   }, []);
 
   // Slugi ze statycznych danych — dostępne NATYCHMIAST, bez czekania na Sanity
   const staticSubSlugs = useMemo(() => {
-    const staticCat = canonicalSlug ? getCategoryBySlug(canonicalSlug) : null;
+    const staticCat = slug ? getCategoryBySlug(slug) : null;
     if (!staticCat) return [] as string[];
     const collect = (c: typeof staticCat): string[] => [
-      resolveCategorySlug(c.slug), ...(c.children?.flatMap(child => collect(child)) || []),
+      c.slug, ...(c.children?.flatMap(child => collect(child)) || []),
     ];
-    return uniqueCanonicalCategorySlugs(collect(staticCat));
-  }, [canonicalSlug]);
+    return collect(staticCat).sort();
+  }, [slug]);
 
   // Slugi z Sanity — dokładniejsze, dostępne po ~200-400ms
   const sanitySubSlugs = useMemo(() => {
     if (!sanityCategory) return null; // null = jeszcze się ładuje
     const legacyCat = sanityCategoryToLegacy(sanityCategory as SanityCategory);
     const collect = (c: typeof legacyCat): string[] => [
-      resolveCategorySlug(c.slug), ...(c.children?.flatMap(child => collect(child)) || []),
+      c.slug, ...(c.children?.flatMap(child => collect(child)) || []),
     ];
-    return uniqueCanonicalCategorySlugs(collect(legacyCat));
+    return collect(legacyCat).sort();
   }, [sanityCategory]);
 
   // Używaj static slugs NATYCHMIAST (fetch startuje równolegle z Sanity category).
@@ -661,66 +553,56 @@ export default function CategoryPage() {
     [sanitySubSlugs, staticSubSlugs],
   );
 
-  const querySubSlugs = useMemo(
-    () => expandCategorySlugsForQuery(allSubSlugs),
-    [allSubSlugs],
-  );
-
-  /*
-   * Nie każda gałąź w Sanity ma poprawnie ustawione rootCategory.
-   * Dla podkategorii oraz dla historycznie niespójnej gałęzi „Gipsy i gładzie”
-   * pobieramy produkty po slugach całego poddrzewa, bo produkty są przypięte
-   * bezpośrednio do kategorii dzieci (np. gladzie-gipsowe-w-proszku).
-   */
-  const shouldUseSlugTreeProducts = useMemo(
-    () => !!canonicalSlug && (breadcrumbs.length > 0 || canonicalSlug === "gipsy-i-gladzie"),
-    [canonicalSlug, breadcrumbs.length],
-  );
-
   // ⚡ TWO-PHASE LOADING
   // Phase 1 (fast ~200-400ms): pierwsze 48 produktów — użytkownik widzi treść natychmiast
-  const { data: firstBatch, loading: firstLoading } = useProductMetaByCatSlugFast(canonicalSlug);
+  const { data: firstBatch, loading: firstLoading } = useProductMetaByCatSlugFast(slug);
   // Phase 2 (background ~1-3s): wszystkie produkty — pełne filtry i paginacja
-  const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(canonicalSlug);
-  // ⚡ Produkty po bezpośrednich slugach kategorii i dzieci — ZAWSZE odpalaj.
-  // Dla L2/L3 kategorii rootCategory query zwraca [] (rootCategory wskazuje na L1),
-  // więc slugTree jest jedynym źródłem produktów. Odpala się równolegle z rootCategory query.
-  const { data: slugTreeMeta, loading: slugTreeLoading } = useProductMetaByCategorySlugs(querySubSlugs);
+  const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(slug);
+
+
+  // ── Slug-tree query: pobiera produkty po category->slug in $slugs (dla L2/L3) ──
+  const querySubSlugs = useMemo(() => {
+    if (!allSubSlugs || allSubSlugs.length === 0) return [];
+    // Expand canonical slugs with their aliases for Sanity query
+    const canonicalSet = new Set(allSubSlugs);
+    const expanded = new Set(canonicalSet);
+    if (typeof CATEGORY_SLUG_ALIASES !== "undefined") {
+      Object.entries(CATEGORY_SLUG_ALIASES).forEach(([alias, target]) => {
+        if (canonicalSet.has(target)) expanded.add(alias);
+      });
+    }
+    return Array.from(expanded).sort();
+  }, [allSubSlugs]);
+  const { data: slugTreeMeta } = useProductMetaByCategorySlugs(querySubSlugs);
 
   // Pokaż firstBatch natychmiast; przełącz na allMeta gdy gotowe
-  const rootMeta = allMeta ?? firstBatch;
-
-  // Dla podkategorii (L2/L3): rootCategory query zwraca [] (pusta tablica truthy),
-  // bo produkty mają rootCategory ustawione na top-level (L1) kategorię.
-  // slugTreeMeta jest jedynym poprawnym źródłem — preferuj je gdy dostępne.
-  const sanityMeta = shouldUseSlugTreeProducts
-    ? (slugTreeMeta ?? (rootMeta && rootMeta.length > 0 ? rootMeta : null))
-    : (rootMeta && rootMeta.length > 0 ? rootMeta : slugTreeMeta);
-  const productsLoading = shouldUseSlugTreeProducts
-    ? (!slugTreeMeta && slugTreeLoading)
-    : (allMeta ? false : firstLoading);
-  const isLoadingAll = shouldUseSlugTreeProducts
-    ? (slugTreeLoading && !slugTreeMeta)
-    : (allLoading && !!firstBatch); // true gdy Phase 1 ready, Phase 2 w toku
+  // Prefer slugTreeMeta (category->slug in $slugs) for subcategories;
+  // fall back to rootCategory queries only if they returned data
+  const rootMetaEffective = (allMeta && (allMeta as any[]).length > 0) ? allMeta
+    : (firstBatch && (firstBatch as any[]).length > 0) ? firstBatch
+    : null;
+  const sanityMeta = slugTreeMeta && (slugTreeMeta as any[]).length > 0
+    ? slugTreeMeta
+    : rootMetaEffective;
+  const productsLoading = allMeta ? false : firstLoading;
+  const isLoadingAll = allLoading && !!firstBatch; // true gdy Phase 1 ready, Phase 2 w toku
 
   // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
   // Pokazuj skeleton TYLKO gdy kategoria nie ma żadnych danych statycznych.
   // Gdy static ma produkty → pokaż od razu; gdy brak → czekaj na Sanity.
   const hasStaticFallback = useMemo(() => {
     const slugSet = new Set(allSubSlugs);
-    return staticProducts.some((p: any) => slugSet.has(resolveCategorySlug(p.categorySlug)));
+    return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
   }, [allSubSlugs]);
   const isLoadingProducts = firstLoading && !firstBatch && !hasStaticFallback;
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
-    const staticCategoryProducts = staticProducts
-      .filter(p => slugSet.has(resolveCategorySlug(p.categorySlug))) // O(n)
-      .map(p => ({ ...p, categorySlug: resolveCategorySlug(p.categorySlug) }));
+    const staticCategoryProducts = staticProducts.filter(p => slugSet.has(p.categorySlug)); // O(n)
 
-    // Jeśli Sanity jeszcze ładuje LUB zwróciło pustą tablicę (np. rootCategory query dla L2/L3),
-    // pokazuj od razu statyczne produkty zamiast pustych skeletonów.
-    if (!sanityMeta || (sanityMeta as any[]).length === 0) return staticCategoryProducts as ReturnType<typeof mergeProductCollections>;
+    // Jeśli Sanity jeszcze ładuje, pokazuj od razu statyczne produkty zamiast pustych skeletonów.
+    // Dzięki temu karty renderują parametry techniczne i placeholdery już w pierwszym widoku.
+    if (!sanityMeta) return staticCategoryProducts as ReturnType<typeof mergeProductCollections>;
 
     // ⚡ Two-query: Sanity dostarcza tylko meta (brand/unit/tags/featured/inStock),
     // pełne dane (obrazy, opisy, sku) pobierane ze staticProducts przez lookup by slug.
@@ -750,7 +632,7 @@ export default function CategoryPage() {
         slug: meta.slug, name: meta.name,
         brand: meta.brand || '', unit: meta.unit || '',
         tags: meta.tags || [], featured: !!meta.featured, inStock: meta.inStock !== false,
-        categorySlug: resolveCategorySlug(meta.categorySlug), categoryName: '',
+        categorySlug: meta.categorySlug, categoryName: '',
         sku: '',
         shortDescription: meta.shortDescription || '',
         description: '', application: '',
@@ -831,11 +713,11 @@ export default function CategoryPage() {
     if (selectedSubcat) {
       // Zbierz wszystkie slugi poddrzewa wybranej podkategorii
       const collectSlugs = (nodes: TreeNode[]): string[] =>
-        nodes.flatMap(n => [resolveCategorySlug(n.slug), ...(n.children ? collectSlugs(n.children) : [])]);
+        nodes.flatMap(n => [n.slug, ...(n.children ? collectSlugs(n.children) : [])]);
       const subcatTree = (cat?.children as TreeNode[] | undefined) ?? [];
       const findNode = (nodes: TreeNode[], s: string): TreeNode | null => {
         for (const n of nodes) {
-          if (resolveCategorySlug(n.slug) === s) return n;
+          if (n.slug === s) return n;
           const found = n.children ? findNode(n.children, s) : null;
           if (found) return found;
         }
@@ -843,7 +725,7 @@ export default function CategoryPage() {
       };
       const node = findNode(subcatTree, selectedSubcat);
       const slugSet = new Set(node ? collectSlugs([node]) : [selectedSubcat]);
-      result = result.filter(p => slugSet.has(resolveCategorySlug(p.categorySlug)));
+      result = result.filter(p => slugSet.has(p.categorySlug));
     }
     if (selectedBrand) result = result.filter(p => p.brand === selectedBrand);
     if (selectedUnit)  result = result.filter(p => p.unit  === selectedUnit);
@@ -891,8 +773,7 @@ export default function CategoryPage() {
 
   const updateParam = (key: string, value: string) => {
     const p = new URLSearchParams(searchParams);
-    const nextValue = key === "subcat" ? resolveCategorySlug(value) : value;
-    if (nextValue) p.set(key, nextValue); else p.delete(key);
+    if (value) p.set(key, value); else p.delete(key);
     if (key !== "page") p.delete("page");
     setSearchParams(p);
   };
@@ -919,11 +800,11 @@ export default function CategoryPage() {
 
   /* FAQ — szukamy po bieżącym slugu lub po korzeniu breadcrumbów */
   const faqItems = useMemo(() => {
-    if (canonicalSlug && CATEGORY_FAQS[canonicalSlug]) return CATEGORY_FAQS[canonicalSlug];
-    const rootSlug = breadcrumbs[0]?.slug ? resolveCategorySlug(breadcrumbs[0].slug) : "";
+    if (slug && CATEGORY_FAQS[slug]) return CATEGORY_FAQS[slug];
+    const rootSlug = breadcrumbs[0]?.slug;
     if (rootSlug && CATEGORY_FAQS[rootSlug]) return CATEGORY_FAQS[rootSlug];
     return null;
-  }, [canonicalSlug, breadcrumbs]);
+  }, [slug, breadcrumbs]);
 
   /* ── Liczba aktywnych filtrów (bez sortowania) ── */
   /* Liczba produktów per categorySlug — dla liczników w drzewie */
@@ -943,15 +824,8 @@ export default function CategoryPage() {
     description: cat
       ? `Kup ${cat.name.toLowerCase()} w Lublinie. ${cat.description ? cat.description.slice(0, 100) + '...' : ''} Dostawa na plac budowy, doradztwo techniczne gratis. Media Bud – ul. Chemiczna 8d Lublin.`
       : undefined,
-    canonical: canonicalSlug ? `/kategoria/${canonicalSlug}` : undefined,
+    canonical: slug ? `/kategoria/${slug}` : undefined,
   });
-
-  const pageNums = useMemo(() => {
-    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
-    if (safePage <= 4) return [1,2,3,4,5,"…",totalPages];
-    if (safePage >= totalPages - 3) return [1,"…",totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
-    return [1,"…",safePage-1,safePage,safePage+1,"…",totalPages];
-  }, [totalPages, safePage]);
 
   if (!cat) {
     return (
@@ -967,8 +841,6 @@ export default function CategoryPage() {
     );
   }
 
-  const currentCategorySlug = resolveCategorySlug(cat.slug || canonicalSlug);
-
   /* ── Mobile Filter Panel — sekcje z checkboxowymi przyciskami ── */
   const MobileFilterPanel = () => (
     <div className="space-y-6">
@@ -983,7 +855,7 @@ export default function CategoryPage() {
               key={rootCat.id}
               node={rootCat as TreeNode}
               depth={0}
-              currentSlug={canonicalSlug}
+              currentSlug={slug || ""}
               expanded={expandedNodes}
               toggle={toggleExpand}
               pathToActive={pathToActive}
@@ -1146,6 +1018,13 @@ export default function CategoryPage() {
   /* ── Desktop Filter Panel (sidebar) — zachowany dla kompatybilności ── */
   const FilterPanel = MobileFilterPanel;
 
+  const pageNums = useMemo(() => {
+    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (safePage <= 4) return [1,2,3,4,5,"…",totalPages];
+    if (safePage >= totalPages - 3) return [1,"…",totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
+    return [1,"…",safePage-1,safePage,safePage+1,"…",totalPages];
+  }, [totalPages, safePage]);
+
   return (
     <div className="min-h-screen" style={{ background: "#080808" }}>
 
@@ -1156,7 +1035,7 @@ export default function CategoryPage() {
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
           { "@type": "ListItem", "position": 2, "name": "Kategorie", "item": "https://mediabud.pl/kategoria" },
-          { "@type": "ListItem", "position": 3, "name": cat.name, "item": `https://mediabud.pl/kategoria/${currentCategorySlug}` },
+          { "@type": "ListItem", "position": 3, "name": cat.name, "item": `https://mediabud.pl/kategoria/${slug}` },
         ],
       })}} />
 
@@ -1165,69 +1044,24 @@ export default function CategoryPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "@id": `https://mediabud.pl/kategoria/${currentCategorySlug}#collectionpage`,
+          "@id": `https://mediabud.pl/kategoria/${slug}`,
           "name": cat.name,
-          "headline": `${cat.name} — materiały budowlane Media Bud Lublin`,
-          "description": currentCategorySlug && CATEGORY_SEO_TEXTS[currentCategorySlug]
-            ? CATEGORY_SEO_TEXTS[currentCategorySlug].title
-            : ((cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin.`),
-          "url": `https://mediabud.pl/kategoria/${currentCategorySlug}`,
-          "inLanguage": "pl-PL",
-          "isPartOf": {
-            "@type": "WebSite",
-            "@id": "https://mediabud.pl/#website",
-            "name": "Media Bud",
-            "publisher": { "@id": "https://mediabud.pl/#organization" },
-          },
-          "publisher": { "@id": "https://mediabud.pl/#organization" },
+          "description": (cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin.`,
+          "url": `https://mediabud.pl/kategoria/${slug}`,
           "provider": {
             "@type": "Organization",
             "@id": "https://mediabud.pl/#organization",
             "name": "Media Bud",
           },
-          "about": [
-            { "@type": "Thing", "name": cat.name },
-            ...(currentCategorySlug === "izolacje" ? [
-              { "@type": "Thing", "name": "styropian EPS" },
-              { "@type": "Thing", "name": "wełna mineralna" },
-              { "@type": "Thing", "name": "płyty XPS" },
-              { "@type": "Thing", "name": "systemy ociepleń ETICS" },
-            ] : []),
-          ],
-          "areaServed": {
-            "@type": "AdministrativeArea",
-            "name": "Lublin i województwo lubelskie",
-          },
-          "seller": { "@id": "https://mediabud.pl/#localbusiness" },
           "mainEntity": {
             "@type": "ItemList",
-            "@id": `https://mediabud.pl/kategoria/${currentCategorySlug}#itemlist`,
             "name": `${cat.name} — lista produktów`,
             "numberOfItems": filtered.length,
-            "itemListOrder": "https://schema.org/ItemListUnordered",
             "itemListElement": paginated.slice(0, 10).map((p, i) => ({
               "@type": "ListItem",
               "position": i + 1,
               "url": `https://mediabud.pl/produkt/${p.slug}`,
               "name": p.name,
-              "item": {
-                "@type": "Product",
-                "@id": `https://mediabud.pl/produkt/${p.slug}#product`,
-                "name": p.name,
-                "url": `https://mediabud.pl/produkt/${p.slug}`,
-                ...(p.sku ? { "sku": p.sku } : {}),
-                ...(p.brand ? { "brand": { "@type": "Brand", "name": p.brand } } : {}),
-                "category": cat.name,
-                ...(p.images?.[0] ? { "image": p.images[0] } : {}),
-                "offers": {
-                  "@type": "Offer",
-                  "price": "0.00",
-                  "priceCurrency": "PLN",
-                  "availability": p.inStock === false ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
-                  "url": `https://mediabud.pl/produkt/${p.slug}`,
-                  "seller": { "@id": "https://mediabud.pl/#localbusiness" },
-                },
-              },
             })),
           },
         })}} />
@@ -1262,7 +1096,7 @@ export default function CategoryPage() {
                 <ChevronRight className="w-3 h-3 text-[#f81828]/40" />
                 {i === breadcrumbs.length - 1
                   ? <span className="text-gray-200 font-bold tracking-wide font-mono">{bc.name.toUpperCase()}</span>
-                  : <Link to={`/kategoria/${resolveCategorySlug(bc.slug)}`} className="hover:text-[#f81828] transition-colors font-mono">{bc.name.toUpperCase()}</Link>
+                  : <Link to={`/kategoria/${bc.slug}`} className="hover:text-[#f81828] transition-colors font-mono">{bc.name.toUpperCase()}</Link>
                 }
               </span>
             ))}
@@ -1289,10 +1123,10 @@ export default function CategoryPage() {
         }} />
 
         {/* Category image bg */}
-        {catImages[currentCategorySlug] && (
+        {catImages[cat.slug] && (
           <div className="absolute inset-0">
             <img
-              src={catImages[currentCategorySlug]}
+              src={catImages[cat.slug]}
               alt=""
               className="w-full h-full object-cover"
               style={{ filter: "brightness(0.18) saturate(0.6)" }}
@@ -1392,7 +1226,7 @@ export default function CategoryPage() {
                 {categories.map(topCat => (
                   <div key={topCat.id}>
                     <Link
-                      to={`/kategoria/${resolveCategorySlug(topCat.slug)}`}
+                      to={`/kategoria/${topCat.slug}`}
                       onMouseEnter={() => prefetchForSlug(topCat.slug)}
                       className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all my-0.5 ${
                         topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)
@@ -1407,7 +1241,7 @@ export default function CategoryPage() {
                         {topCat.children.slice(0, 14).map(sub => (
                           <Link
                             key={sub.id}
-                            to={`/kategoria/${resolveCategorySlug(sub.slug)}`}
+                            to={`/kategoria/${sub.slug}`}
                             onMouseEnter={() => prefetchForSlug(sub.slug)}
                             className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs transition-all ${
                               sub.id === cat.id
@@ -1442,10 +1276,10 @@ export default function CategoryPage() {
                 <FilterPanel />
                 
                 {/* Nowe filtry parametrów technicznych */}
-                {currentCategorySlug && getCategoryFilters(currentCategorySlug).length > 0 && (
+                {slug && getCategoryFilters(slug).length > 0 && (
                   <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                     <CategoryFilters
-                      categorySlug={currentCategorySlug}
+                      categorySlug={slug}
                       activeFilters={techFilters}
                       onFiltersChange={setTechFilters}
                       productCount={filtered.length}
@@ -1512,10 +1346,10 @@ export default function CategoryPage() {
                   Podkategorie
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                  {Array.from(new Map(cat.children.map(s => [resolveCategorySlug(s.slug), s])).values()).map((sub, i) => (
+                  {Array.from(new Map(cat.children.map(s => [s.slug, s])).values()).map((sub, i) => (
                     <Link
                       key={sub.id}
-                      to={`/kategoria/${resolveCategorySlug(sub.slug)}`}
+                      to={`/kategoria/${sub.slug}`}
                       className={`group rounded-xl p-3 transition-all duration-300 ${subReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                       style={{
                         background: "#0f0f0f",
@@ -1795,7 +1629,7 @@ export default function CategoryPage() {
                   {categories.map(topCat => (
                     <div key={topCat.id}>
                       <Link
-                        to={`/kategoria/${resolveCategorySlug(topCat.slug)}`}
+                        to={`/kategoria/${topCat.slug}`}
                         onClick={() => setMobileCatsOpen(false)}
                         className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all my-0.5 ${
                           topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)
@@ -1810,7 +1644,7 @@ export default function CategoryPage() {
                           {topCat.children.slice(0, 14).map(sub => (
                             <Link
                               key={sub.id}
-                              to={`/kategoria/${resolveCategorySlug(sub.slug)}`}
+                              to={`/kategoria/${sub.slug}`}
                               onClick={() => setMobileCatsOpen(false)}
                               className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs transition-all ${
                                 sub.id === cat.id
@@ -1948,7 +1782,7 @@ export default function CategoryPage() {
                       className={`h-full transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                       style={{ transitionDelay: `${(i % 8) * 40}ms` }}
                     >
-                      <ProductCardFuturistic product={p} priority={i < 4} index={i} categorySlug={currentCategorySlug} />
+                      <ProductCardFuturistic product={p} priority={i < 4} index={i} categorySlug={slug} />
                     </div>
                   ))}
                 </div>
@@ -2021,18 +1855,18 @@ export default function CategoryPage() {
         </div>
 
         {/* ── Sekcja SEO i FAQ (na dole strony) ── */}
-        {((currentCategorySlug && CATEGORY_SEO_TEXTS[currentCategorySlug]) || (faqItems && faqItems.length > 0)) && (
+        {((slug && CATEGORY_SEO_TEXTS[slug]) || (faqItems && faqItems.length > 0)) && (
           <div className="mt-16 pt-12 border-t border-white/5">
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Lewa kolumna: Tekst SEO */}
               <div>
-                {currentCategorySlug && CATEGORY_SEO_TEXTS[currentCategorySlug] ? (
+                {slug && CATEGORY_SEO_TEXTS[slug] ? (
                   <>
                     <h2 className="text-2xl font-black text-white font-display mb-6">
-                      {CATEGORY_SEO_TEXTS[currentCategorySlug].title}
+                      {CATEGORY_SEO_TEXTS[slug].title}
                     </h2>
                     <div className="text-gray-400 text-sm leading-relaxed">
-                      {CATEGORY_SEO_TEXTS[currentCategorySlug].content}
+                      {CATEGORY_SEO_TEXTS[slug].content}
                     </div>
                   </>
                 ) : (

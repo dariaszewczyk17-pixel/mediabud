@@ -13,6 +13,9 @@ import { trackFormSubmit, trackPhoneClick } from "@/hooks/useConversionTracking"
 import type { Product } from "@/data/products";
 import { toast } from "sonner";
 
+// cache-bust: force hash change
+console.log("cache-bust");
+
 const PRODUCT_PLACEHOLDER = "/images/placeholder-product_2.png";
 
 const getProductImage = (product: Pick<Product, "images">) => product.images?.[0] || PRODUCT_PLACEHOLDER;

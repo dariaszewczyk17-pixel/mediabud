@@ -595,6 +595,8 @@ export default function CategoryPage() {
     return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
   }, [allSubSlugs]);
   const isLoadingProducts = firstLoading && !firstBatch && !hasStaticFallback;
+  // True gdy Sanity jeszcze nie zwróciło danych — nie pokazuj "brak produktów"
+  const isSanityPending = firstLoading && !firstBatch;
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
@@ -1174,7 +1176,7 @@ export default function CategoryPage() {
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  {isLoadingAll ? "···" : String(catProducts.length).padStart(3, "0")}
+                  {(isLoadingAll || isSanityPending) ? "···" : String(catProducts.length).padStart(3, "0")}
                 </span>
                 {/* Glowing copy behind */}
                 <span
@@ -1187,13 +1189,13 @@ export default function CategoryPage() {
                   }}
                   aria-hidden
                 >
-                  {isLoadingAll ? "···" : String(catProducts.length).padStart(3, "0")}
+                  {(isLoadingAll || isSanityPending) ? "···" : String(catProducts.length).padStart(3, "0")}
                 </span>
               </div>
               <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">PRODUKTÓW</span>
               <div className="flex items-center gap-1 mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
-                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{(isLoadingProducts || isLoadingAll) ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
+                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{(isLoadingProducts || isLoadingAll || isSanityPending) ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
               </div>
             </div>
           </div>
@@ -1409,7 +1411,7 @@ export default function CategoryPage() {
                       boxShadow: "0 0 8px rgba(248,24,40,0.15)",
                     }}
                   >
-                    {(isLoadingProducts || isLoadingAll) ? "…" : `${filtered.length}`}
+                    {(isLoadingProducts || isLoadingAll || isSanityPending) ? "…" : `${filtered.length}`}
                   </span>
 
                   {/* ── Desktop inline filter dropdowns (lg:) ── */}
@@ -1607,7 +1609,7 @@ export default function CategoryPage() {
                         boxShadow: "0 0 16px rgba(248,24,40,0.3)",
                       }}
                     >
-                      Pokaż {isLoadingAll ? "···" : filtered.length} produktów
+                      Pokaż {(isLoadingAll || isSanityPending) ? "···" : filtered.length} produktów
                     </button>
                   </div>
                 </div>
@@ -1689,7 +1691,7 @@ export default function CategoryPage() {
             )}
 
             {/* Product grid */}
-            {isLoadingProducts ? (
+            {(isLoadingProducts || (isSanityPending && paginated.length === 0)) ? (
               /* ── Skeleton — 8 ciemnych pulse kart ── */
               <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {Array.from({ length: 8 }).map((_, i) => (
@@ -1825,7 +1827,7 @@ export default function CategoryPage() {
                       <ChevronNext className="w-4 h-4" />
                     </button>
                     <span className="text-xs text-gray-600 ml-2 font-mono">
-                      {safePage}/{totalPages} · {isLoadingAll ? "···" : filtered.length} szt.
+                      {safePage}/{totalPages} · {(isLoadingAll || isSanityPending) ? "···" : filtered.length} szt.
                     </span>
                   </div>
                 )}

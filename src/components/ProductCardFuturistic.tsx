@@ -285,3 +285,5 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
 });
 
 export default ProductCardFuturistic;
+
+// cache-bust-card-redesign

@@ -1,19 +1,15 @@
 {
-  "generated": "2026-06-12T20:37:15.068Z",
+  "generated": "2026-06-15T19:14:16.722Z",
   "base_url": "https://mediabud.pl",
   "products": {
     "total": 17160,
     "full_quality": 15332,
     "partial_quality": 1828,
     "excluded": 0,
-    "coverage_pct": 89.3,
-    "score_thresholds": {
-      "full_min": 5,
-      "partial_min": 1
-    }
+    "coverage_pct": 89.3
   },
   "categories": {
-    "total": 419
+    "total": 378
   },
   "changefreq_distribution": {
     "daily": 17160,
@@ -21,13 +17,5 @@
     "monthly": 0,
     "yearly": 0
   },
-  "sitemap_files": {
-    "sitemap.xml": "(index)",
-    "sitemap-core.xml": 6,
-    "sitemap-categories.xml": 419,
-    "sitemap-products-full.xml": 15332,
-    "sitemap-products-partial.xml": 1828
-  },
-  "total_urls_in_sitemap": 17585,
-  "excluded_urls": 0
+  "total_urls_in_sitemap": 17544
 }

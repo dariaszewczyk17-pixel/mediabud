@@ -160,7 +160,7 @@ export default function AdminPanel() {
   const pagedProds = filteredProds.slice((prodPage-1)*PROD_PAGE, prodPage*PROD_PAGE);
 
   /* ── Inquiries filter (also before early return) ── */
-  const filteredInq = inqFilter==="Wszystkie" ? INQUIRIES : inquiries.filter(i=>i.status===inqFilter);
+  const filteredInq = inqFilter==="Wszystkie" ? inquiries : inquiries.filter(i=>i.status===inqFilter);
 
   /* ── Sanity products (real data) ── */
   const [sanityProds,    setSanityProds]    = useState<any[]>([]);

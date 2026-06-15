@@ -24,7 +24,7 @@ declare global {
 const AW_ID = 'AW-18206359267';
 const CONV_FORM_SUBMIT = `${AW_ID}/fcMjCPrWx78cEOP9u-lD`;
 const CONV_PHONE_CLICK = `${AW_ID}/1k3iCNL0yL8cEOP9u-lD`;
-const CONV_EMAIL_CLICK = `${AW_ID}/EMAIL_CLICK`;   // ← zamień na prawdziwy label
+const CONV_EMAIL_CLICK = `${AW_ID}/NV7WCI6Nyb8cEOP9u-lD`;
 
 function sendConversion(conversionLabel: string, extraParams?: Record<string, unknown>) {
   if (typeof window !== 'undefined' && window.gtag) {
@@ -58,7 +58,7 @@ export function trackPhoneClick() {
 
 /** Wywołaj przy kliknięciu w adres email */
 export function trackEmailClick() {
-  sendConversion(CONV_EMAIL_CLICK);
+  sendConversion(CONV_EMAIL_CLICK, { value: 1.0, currency: 'PLN' });
   window.gtag?.('event', 'contact_email', {
     event_category: 'conversion',
     event_label: 'klikniecie_email',

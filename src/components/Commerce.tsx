@@ -85,7 +85,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
   const cardRef = useRef<HTMLDivElement>(null);
   const mainImage = getProductImage(product);
   const topSpecs = product.technicalSpec.slice(0, 4);
-  const topTags = product.tags.slice(0, 3);
+  const topTags = product.tags.slice(0, 4);
   const inStock = (product as any).inStock !== false;
 
   /* 3-D tilt */
@@ -246,9 +246,11 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
           <p className="text-[11px] text-gray-400 mb-3 line-clamp-2 leading-relaxed min-h-[2.5rem]">{product.shortDescription}</p>
 
           <div className="flex flex-wrap items-center gap-1.5 mb-3">
-            <span className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-medium text-gray-300"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <Layers3 className="w-3 h-3 text-[#f81828]" /> {product.categorySlug.replace(/-/g, " ")}
+            <span
+              className="inline-flex items-center rounded-full px-2 py-1 text-[10px] font-medium text-gray-300"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+            >
+              {product.categorySlug.replace(/-/g, " ")}
             </span>
             {topTags.map((tag) => (
               <span
@@ -262,12 +264,19 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
           </div>
 
           {topSpecs.length > 0 && (
-            <div className="mb-3 rounded-xl p-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div className="text-[9px] font-black uppercase tracking-[0.15em] text-gray-500 mb-2.5">Parametry techniczne</div>
+            <div
+              className="mb-3 rounded-xl p-3"
+              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+            >
+              <div className="text-[9px] font-black uppercase tracking-[0.15em] text-gray-500 mb-2.5">
+                PARAMETRY TECHNICZNE
+              </div>
               <div className="grid grid-cols-2 gap-x-3 gap-y-2">
                 {topSpecs.map((spec) => (
-                  <div key={spec.label}>
-                    <div className="text-[9px] text-gray-500 leading-tight mb-0.5">{spec.label}</div>
+                  <div key={spec.label} className="grid grid-cols-[1fr]">
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.12em] text-gray-500 leading-tight mb-0.5">
+                      {spec.label}
+                    </div>
                     <div className="text-[11px] font-bold text-gray-200 leading-tight line-clamp-1">{spec.value}</div>
                   </div>
                 ))}

@@ -573,7 +573,7 @@ export default function CategoryPage() {
     }
     return Array.from(expanded).sort();
   }, [allSubSlugs]);
-  const { data: slugTreeMeta } = useProductMetaByCategorySlugs(querySubSlugs);
+  const { data: slugTreeMeta, loading: slugTreeLoading } = useProductMetaByCategorySlugs(querySubSlugs);
 
   // Pokaż firstBatch natychmiast; przełącz na allMeta gdy gotowe
   // Prefer slugTreeMeta (category->slug in $slugs) for subcategories;
@@ -595,8 +595,15 @@ export default function CategoryPage() {
     return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
   }, [allSubSlugs]);
   const isLoadingProducts = firstLoading && !firstBatch && !hasStaticFallback;
-  // True gdy Sanity jeszcze nie zwróciło danych — nie pokazuj "brak produktów"
-  const isSanityPending = firstLoading && !firstBatch;
+  // True gdy żadne zapytanie Sanity nie zwróciło jeszcze użytecznych danych produktowych
+  // a przynajmniej jedno jeszcze się ładuje — nie pokazuj "brak produktów"
+  const hasAnySanityProducts = !!(
+    (firstBatch && (firstBatch as any[]).length > 0) ||
+    (allMeta && (allMeta as any[]).length > 0) ||
+    (slugTreeMeta && (slugTreeMeta as any[]).length > 0)
+  );
+  const anySanityStillLoading = firstLoading || allLoading || slugTreeLoading;
+  const isSanityPending = !hasAnySanityProducts && anySanityStillLoading;
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz

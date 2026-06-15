@@ -23,7 +23,7 @@ declare global {
 // Google da Ci Conversion Label dla każdej akcji. Wklej je tutaj:
 const AW_ID = 'AW-18206359267';
 const CONV_FORM_SUBMIT = `${AW_ID}/fcMjCPrWx78cEOP9u-lD`;
-const CONV_PHONE_CLICK = `${AW_ID}/PHONE_CLICK`;   // ← zamień na prawdziwy label
+const CONV_PHONE_CLICK = `${AW_ID}/1k3iCNL0yL8cEOP9u-lD`;
 const CONV_EMAIL_CLICK = `${AW_ID}/EMAIL_CLICK`;   // ← zamień na prawdziwy label
 
 function sendConversion(conversionLabel: string, extraParams?: Record<string, unknown>) {
@@ -49,7 +49,7 @@ export function trackFormSubmit() {
 
 /** Wywołaj przy kliknięciu w numer telefonu */
 export function trackPhoneClick() {
-  sendConversion(CONV_PHONE_CLICK);
+  sendConversion(CONV_PHONE_CLICK, { value: 1.0, currency: 'PLN' });
   window.gtag?.('event', 'contact_phone', {
     event_category: 'conversion',
     event_label: 'klikniecie_telefon',

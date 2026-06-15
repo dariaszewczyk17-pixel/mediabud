@@ -8,6 +8,8 @@ import {
   PRODUCT_META_BY_CATEGORY_SLUGS_QUERY,
   PRODUCT_META_BY_CAT_FIRST_QUERY,
   PRODUCT_META_BY_ROOT_CAT_QUERY,
+  PRODUCT_META_PAGINATED_QUERY,
+  PRODUCT_COUNT_BY_ROOT_CAT_QUERY,
   PRODUCT_BY_SLUG_QUERY,
   CATEGORY_BY_SLUG_QUERY,
   FEATURED_PRODUCTS_QUERY,
@@ -197,7 +199,7 @@ export function useProductMetaByCategorySlugs(slugs: string[]) {
   useEffect(() => {
     if (!slugs.length) { setData(null); setLoading(false); return }
     let cancelled = false
-    setData(null)      // â czyÅÄ stare dane natychmiast przy zmianie kategorii
+    setData(null)      // ← czyść stare dane natychmiast przy zmianie kategorii
     setLoading(true)
     sanityFetch<ProductMeta[]>(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs })
       .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
@@ -207,4 +209,80 @@ export function useProductMetaByCategorySlugs(slugs: string[]) {
   }, [slugsKey])
 
   return { data, loading, error }
+}
+
+// ─── Paginated loading (infinite scroll) ─────────────────────────────────────
+
+const PAGE_SIZE = 48
+
+/**
+ * ⚡ Paginated product loading — ładuje produkty stronami po 48.
+ * Zwraca accumulated products + loadMore() + hasMore + total count.
+ * Używaj zamiast useProductMetaByCatSlug gdy kategoria ma >200 produktów.
+ */
+export function useProductMetaPaginated(catSlug: string | undefined) {
+  const [pages, setPages] = useState<ProductMeta[][]>([])
+  const [loading, setLoading] = useState(false)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [total, setTotal] = useState<number | null>(null)
+  const [error, setError] = useState<Error | null>(null)
+
+  // Reset przy zmianie kategorii
+  useEffect(() => {
+    if (!catSlug) { setPages([]); setTotal(null); return }
+    let cancelled = false
+    setPages([])
+    setLoading(true)
+    setError(null)
+
+    // Ładuj pierwszą stronę + count równolegle
+    Promise.all([
+      sanityFetch<ProductMeta[]>(PRODUCT_META_PAGINATED_QUERY, {
+        catSlug, offset: 0, end: PAGE_SIZE,
+      }),
+      sanityFetch<number>(PRODUCT_COUNT_BY_ROOT_CAT_QUERY, { catSlug }),
+    ])
+      .then(([firstPage, count]) => {
+        if (cancelled) return
+        setPages([firstPage])
+        setTotal(count)
+        setLoading(false)
+      })
+      .catch(err => {
+        if (cancelled) return
+        setError(err)
+        setLoading(false)
+      })
+
+    return () => { cancelled = true }
+  }, [catSlug])
+
+  const allProducts = pages.flat()
+  const hasMore = total !== null && allProducts.length < total
+
+  const loadMore = async () => {
+    if (!catSlug || loadingMore || !hasMore) return
+    setLoadingMore(true)
+    try {
+      const offset = allProducts.length
+      const nextPage = await sanityFetch<ProductMeta[]>(PRODUCT_META_PAGINATED_QUERY, {
+        catSlug, offset, end: offset + PAGE_SIZE,
+      })
+      setPages(prev => [...prev, nextPage])
+    } catch (err) {
+      setError(err as Error)
+    } finally {
+      setLoadingMore(false)
+    }
+  }
+
+  return {
+    data: allProducts.length > 0 ? allProducts : null,
+    loading,
+    loadingMore,
+    hasMore,
+    total,
+    loadMore,
+    error,
+  }
 }

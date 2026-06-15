@@ -129,6 +129,27 @@ export const PRODUCT_META_BY_ROOT_CAT_QUERY =
   "images": images[0..0].asset->url
 }`
 
+// ⚡ PAGINATED — ładuje stronę produktów (offset/limit) dla infinite scroll.
+// Używa $offset i $end z params. Sortowanie server-side (name asc).
+export const PRODUCT_META_PAGINATED_QUERY =
+  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(name asc) [$offset...$end] {
+  _id,
+  "slug": slug.current,
+  name,
+  shortDescription,
+  "categorySlug": category->slug.current,
+  "brand": brand->name,
+  unit,
+  tags,
+  featured,
+  inStock,
+  "images": images[0..0].asset->url
+}`
+
+// ⚡ COUNT — szybkie zliczenie produktów w kategorii (dla UI "X produktów")
+export const PRODUCT_COUNT_BY_ROOT_CAT_QUERY =
+  `count(*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug])`
+
 export const PRODUCTS_BY_CATEGORY_QUERY =
   `*[_type == "product" && category->slug.current == $slug && ${NO_PLACEHOLDER}] | order(name asc) ${PRODUCT_CARD_FIELDS}`
 

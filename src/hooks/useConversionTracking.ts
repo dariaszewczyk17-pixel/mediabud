@@ -1,0 +1,66 @@
+/**
+ * Google Ads Conversion Tracking
+ * 
+ * Trzy konwersje:
+ * 1. Wysłanie formularza wyceny (Web3Forms)
+ * 2. Kliknięcie w numer telefonu (tel:)
+ * 3. Kliknięcie w adres email (mailto:)
+ * 
+ * Wymaga: gtag('config', 'AW-18206359267') w index.html
+ * 
+ * WAŻNE: Conversion Labels (AW-18206359267/XXXXX) trzeba uzupełnić
+ * po utworzeniu konwersji w panelu Google Ads.
+ */
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+// ── Conversion IDs ──────────────────────────────────────────────────
+// Po utworzeniu konwersji w Google Ads → Narzędzia → Konwersje → Nowa konwersja
+// Google da Ci Conversion Label dla każdej akcji. Wklej je tutaj:
+const AW_ID = 'AW-18206359267';
+const CONV_FORM_SUBMIT = `${AW_ID}/FORM_SUBMIT`;   // ← zamień na prawdziwy label
+const CONV_PHONE_CLICK = `${AW_ID}/PHONE_CLICK`;   // ← zamień na prawdziwy label
+const CONV_EMAIL_CLICK = `${AW_ID}/EMAIL_CLICK`;   // ← zamień na prawdziwy label
+
+function sendConversion(conversionLabel: string, extraParams?: Record<string, unknown>) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'conversion', {
+      send_to: conversionLabel,
+      ...extraParams,
+    });
+  }
+}
+
+// ── Eksportowane funkcje ────────────────────────────────────────────
+
+/** Wywołaj po udanym wysłaniu formularza wyceny */
+export function trackFormSubmit() {
+  sendConversion(CONV_FORM_SUBMIT);
+  // GA4 event (do raportów w Analytics)
+  window.gtag?.('event', 'generate_lead', {
+    event_category: 'conversion',
+    event_label: 'formularz_wyceny',
+  });
+}
+
+/** Wywołaj przy kliknięciu w numer telefonu */
+export function trackPhoneClick() {
+  sendConversion(CONV_PHONE_CLICK);
+  window.gtag?.('event', 'contact_phone', {
+    event_category: 'conversion',
+    event_label: 'klikniecie_telefon',
+  });
+}
+
+/** Wywołaj przy kliknięciu w adres email */
+export function trackEmailClick() {
+  sendConversion(CONV_EMAIL_CLICK);
+  window.gtag?.('event', 'contact_email', {
+    event_category: 'conversion',
+    event_label: 'klikniecie_email',
+  });
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { trackPhoneClick, trackEmailClick } from "@/hooks/useConversionTracking";
 import {
   Facebook, Instagram, Youtube,
   ChevronRight, Shield, Truck, Wrench, Award, CheckCircle2
@@ -155,6 +156,7 @@ export default function Footer() {
             <div className="space-y-3 mb-6 text-sm" style={{ color: "#888" }}>
               <a
                 href="tel:+48533553344"
+                onClick={trackPhoneClick}
                 className="block transition-colors duration-200"
                 style={{ color: "#888" }}
                 onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#fff"; }}
@@ -164,6 +166,7 @@ export default function Footer() {
               </a>
               <a
                 href="mailto:sprzedaz@mediabud.pl"
+                onClick={trackEmailClick}
                 className="block transition-colors duration-200"
                 style={{ color: "#888" }}
                 onMouseEnter={e => { (e.target as HTMLAnchorElement).style.color = "#fff"; }}

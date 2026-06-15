@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, Search, ClipboardList, Phone } from "lucide-react";
 import { useWycena } from "@/hooks/useWycena";
+import { trackPhoneClick } from "@/hooks/useConversionTracking";
 
 export default function BottomNav() {
   const { pathname } = useLocation();
@@ -43,7 +44,7 @@ export default function BottomNav() {
     {
       label: "Zadzwoń",
       icon: <Phone className="h-5 w-5" />,
-      action: () => { window.location.href = "tel:+48533553344"; },
+      action: () => { trackPhoneClick(); window.location.href = "tel:+48533553344"; },
       isActive: false,
     },
   ];

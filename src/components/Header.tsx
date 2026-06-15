@@ -12,6 +12,7 @@ import { useWycena } from "@/hooks/useWycena";
 import { Input } from "@/components/ui/input";
 import { products, type Product } from "@/data/products";
 import { useAllProducts, useAllCategories } from "@/hooks/useSanityData";
+import { trackPhoneClick, trackEmailClick } from "@/hooks/useConversionTracking";
 import { sanityProductToLegacy, sanityCategoryToLegacy, type SanityProduct, type SanityCategory } from "@/lib/adapters";
 import { mergeProductCollections } from "@/lib/productMerge";
 import { searchProducts } from "@/lib/productSearch";
@@ -47,7 +48,6 @@ const CAT_IMAGES: Record<string, string> = {
 };
 
 /* ── GA4 helper ── */
-declare global { interface Window { gtag?: (...a: unknown[]) => void } }
 const trackNav = (label: string, level: string, slug?: string) =>
   window.gtag?.("event", "navigation_click", { nav_label: label, nav_level: level, nav_slug: slug });
 
@@ -362,6 +362,7 @@ window.removeEventListener("scroll", fn);
             <div className="hidden items-center gap-5 text-[#888888] lg:flex">
               <a
                 href="tel:+48533553344"
+                onClick={trackPhoneClick}
                 className="group flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-[#888888] transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
               >
                 <Phone className="h-3 w-3 text-[#f81828]" />
@@ -370,6 +371,7 @@ window.removeEventListener("scroll", fn);
               <span className="h-3 w-px bg-white/10" />
               <a
                 href="mailto:sprzedaz@mediabud.pl"
+                onClick={trackEmailClick}
                 className="group flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-[#888888] transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
               >
                 <Mail className="h-3 w-3 text-[#f81828]" />
@@ -635,6 +637,7 @@ window.removeEventListener("scroll", fn);
             {/* Phone — ghost red button */}
             <a
               href="tel:+48533553344"
+              onClick={trackPhoneClick}
               className="hidden h-11 flex-shrink-0 items-center gap-2 rounded-lg border border-[#2d2d2d] px-5 text-sm font-bold uppercase tracking-[0.1em] text-[#888] transition-all duration-200 hover:border-[#f81828]/60 hover:text-white focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2 lg:flex"
             >
               <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#1a1a1a]">
@@ -866,7 +869,7 @@ window.removeEventListener("scroll", fn);
                                 <Phone className="h-3.5 w-3.5 text-[#f81828]" />
                                 <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#888888]">Zadzwoń</span>
                               </div>
-                              <a href="tel:+48533553344" className="text-sm font-black uppercase tracking-[0.08em] text-white transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
+                              <a href="tel:+48533553344" onClick={trackPhoneClick} className="text-sm font-black uppercase tracking-[0.08em] text-white transition-colors hover:text-[#f81828] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2">
                                 +48 533 553 344
                               </a>
                             </div>
@@ -985,12 +988,13 @@ window.removeEventListener("scroll", fn);
             <a
               href="tel:+48533553344"
               className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#f81828] active:opacity-70 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
-              onClick={() => trackNav("phone", "mobile_contact")}
+              onClick={() => { trackNav("phone", "mobile_contact"); trackPhoneClick(); }}
             >
               <Phone className="h-4 w-4" />533 553 344
             </a>
             <a
               href="mailto:sprzedaz@mediabud.pl"
+              onClick={trackEmailClick}
               className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#888888] transition-colors hover:text-white active:opacity-70 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
             >
               <Mail className="h-4 w-4" />Email
@@ -1083,7 +1087,7 @@ window.removeEventListener("scroll", fn);
             <a
               href="tel:+48533553344"
               className="flex items-center justify-center gap-2 rounded-xl border border-[#2d2d2d] bg-[#111111] py-3 text-sm font-semibold uppercase tracking-[0.08em] text-gray-300 transition-colors hover:border-[#f81828]/60 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
-              onClick={() => setMobileOpen(false)}
+              onClick={() => { setMobileOpen(false); trackPhoneClick(); }}
             >
               <Phone className="h-4 w-4" />+48 533 553 344
             </a>

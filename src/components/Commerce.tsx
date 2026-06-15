@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useWycena } from "@/hooks/useWycena";
+import { trackFormSubmit, trackPhoneClick } from "@/hooks/useConversionTracking";
 import type { Product } from "@/data/products";
 import { toast } from "sonner";
 
@@ -348,9 +349,11 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
       const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
       if (res.ok) {
         setMode("sent");
+        trackFormSubmit();
       } else {
         // fallback — pokaż sukces nawet bez klucza API (dev)
         setMode("sent");
+        trackFormSubmit();
       }
     } catch {
       toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
@@ -401,7 +404,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                 style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(16,185,129,0.4)"; (e.currentTarget as HTMLElement).style.background = "rgba(16,185,129,0.07)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)"; (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.03)"; }}
-                onClick={handleClose}
+                onClick={() => { handleClose(); trackPhoneClick(); }}
               >
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all"
                   style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.22)" }}>
@@ -529,6 +532,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                 Odpowiemy w ciągu 24 godzin roboczych.<br />Możesz też zadzwonić bezpośrednio.
               </p>
               <a href="tel:+48533553344"
+                onClick={trackPhoneClick}
                 className="inline-flex items-center gap-1.5 font-bold text-sm text-[#f81828] hover:underline mb-4 block">
                 <Phone className="w-4 h-4" /> +48 533 553 344
               </a>
@@ -577,6 +581,7 @@ export function WycenaDrawer() {
       if (form.file) fd.append("attachment", form.file);
       await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
       setSent(true);
+      trackFormSubmit();
       clearWycena();
     } catch {
       toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
@@ -760,6 +765,7 @@ export function WycenaDrawer() {
                   <h3 className="font-display font-black text-white mb-2">Zapytanie wysłane!</h3>
                   <p className="text-xs text-gray-500 mb-4">Odpowiemy w ciągu 24h roboczych.</p>
                   <a href="tel:+48533553344"
+                    onClick={trackPhoneClick}
                     className="block font-bold text-sm text-[#f81828] hover:underline">
                     <Phone className="w-4 h-4 inline mr-1" />+48 533 553 344
                   </a>
@@ -782,6 +788,7 @@ export function WycenaDrawer() {
             </button>
             <div className="flex gap-2">
               <a href="tel:+48533553344"
+                onClick={trackPhoneClick}
                 className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:border-gray-500 transition-colors"
                 style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
                 <Phone className="w-3.5 h-3.5" /> Zadzwoń

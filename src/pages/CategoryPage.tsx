@@ -624,6 +624,7 @@ export default function CategoryPage() {
           inStock:          meta.inStock  ?? base.inStock,
           images:           mergedImages,
           shortDescription: base.shortDescription || meta.shortDescription || '',
+          technicalSpec:    meta.technicalSpec?.length ? meta.technicalSpec : (base.technicalSpec ?? []),
         };
       }
       // Fallback: produkt tylko w Sanity (jeszcze nie ma w static data)
@@ -637,7 +638,7 @@ export default function CategoryPage() {
         shortDescription: meta.shortDescription || '',
         description: '', application: '',
         images: meta.images?.filter(Boolean) ?? [],
-        technicalSpec: [] as { label: string; value: string }[], faq: [] as { q: string; a: string }[], advantages: [] as string[], warnings: [] as string[],
+        technicalSpec: (meta.technicalSpec ?? []) as { label: string; value: string }[], faq: [] as { q: string; a: string }[], advantages: [] as string[], warnings: [] as string[],
         isNew: false,
       };
     });

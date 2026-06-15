@@ -134,6 +134,7 @@ export interface ProductMeta {
   tags: string[]
   featured: boolean
   inStock: boolean
+  technicalSpec?: { label: string; value: string }[]
 }
 
 /**

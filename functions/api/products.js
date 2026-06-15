@@ -34,16 +34,19 @@ async function handleGet(request, env) {
   const limit  = Math.min(50, parseInt(url.searchParams.get("limit") || "25"));
   const search  = (url.searchParams.get("search") || "").trim();
   const cat     = (url.searchParams.get("category") || "").trim();
-  const brand   = (url.searchParams.get("brand") || "").trim();
-  const sortBy  = (url.searchParams.get("sort") || "name").trim();
-  const sortDir = (url.searchParams.get("dir") || "asc").trim() === "desc" ? "desc" : "asc";
-  const offset  = (page - 1) * limit;
+  const brand    = (url.searchParams.get("brand") || "").trim();
+  const active   = (url.searchParams.get("active") || "").trim();
+  const sortBy   = (url.searchParams.get("sort") || "name").trim();
+  const sortDir  = (url.searchParams.get("dir") || "asc").trim() === "desc" ? "desc" : "asc";
+  const offset   = (page - 1) * limit;
 
   /* Budujemy filtr GROQ */
   let filter = `_type == "product"`;
   if (search) filter += ` && (name match "*${search}*" || brand->name match "*${search}*")`;
   if (cat)    filter += ` && category->slug.current == "${cat}"`;
   if (brand)  filter += ` && brand->name == "${brand}"`;
+  if (active === "true")  filter += ` && isActive == true`;
+  if (active === "false") filter += ` && (isActive == false || !(defined(isActive)))`;
 
   /* Sortowanie */
   const SORT_MAP = { name: "name", brand: "brand->name", category: "category->name" };
@@ -55,10 +58,12 @@ async function handleGet(request, env) {
     `*[${filter}] | order(${sortExpr}) [${offset}...${offset + limit}] {
       _id, name, slug,
       "brand": brand->name,
-      "category": category->{ name, "slug": slug.current },
+      "brandRef": brand._ref,
+      "category": category->{ _id, name, "slug": slug.current },
+      "categoryRef": category._ref,
       description, shortDescription,
       "images": images[0..0][].asset->url,
-      ean, unit
+      ean, unit, isActive, specs
     }`
   );
 

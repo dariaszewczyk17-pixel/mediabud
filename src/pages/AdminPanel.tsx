@@ -181,24 +181,36 @@ export default function AdminPanel() {
   const [showFilters, setShowFilters] = useState(false);
 
   /* ── P1.1 Meta danych (kategorie, marki, quality) ── */
-  const [metaCats,    setMetaCats]    = useState<{slug:string;name:string;count:number}[]>([]);
-  const [metaBrands,  setMetaBrands]  = useState<{name:string;count:number}[]>([]);
-  const [quality,     setQuality]     = useState<{total:number;noImage:number;noDesc:number;noShort:number;noEan:number;noCat:number}|null>(null);
+  const [metaCats,    setMetaCats]    = useState<{_id?:string;slug:string;name:string;count:number}[]>([]);
+  const [metaBrands,  setMetaBrands]  = useState<{_id?:string;name:string;count:number}[]>([]);
+  const [quality,     setQuality]     = useState<{total:number;noImage:number;noDesc:number;noShort:number;noEan:number;noCat:number;inactive?:number}|null>(null);
   const [metaLoaded,  setMetaLoaded]  = useState(false);
 
   /* ── P1.2 Edycja (slide-over) ── */
   const [editProd,   setEditProd]   = useState<any>(null);
   const [editTab,    setEditTab]    = useState<"basic"|"images"|"specs"|"seo">("basic");
-  const [editFields, setEditFields] = useState({ name:"", brand:"", unit:"", ean:"", shortDescription:"", description:"" });
+  const [editFields, setEditFields] = useState({ name:"", brand:"", unit:"", ean:"", shortDescription:"", description:"", categoryRef:"", brandRef:"", isActive:true });
   const [editSaving, setEditSaving] = useState(false);
   const [editMsg,    setEditMsg]    = useState<{type:"ok"|"err"; text:string}|null>(null);
 
   /* ── P1.4 Parametry techniczne ── */
   const [specs, setSpecs] = useState<{key:string;value:string}[]>([]);
 
-  /* ── P1.3 Upload zdjęć ── */
+  /* ── Upload zdjęć ── */
   const [imgUploading, setImgUploading] = useState(false);
   const [imgMsg,       setImgMsg]       = useState<{type:"ok"|"err";text:string}|null>(null);
+  const [editImages,   setEditImages]   = useState<{_key:string;assetId:string;url:string}[]>([]);
+
+  /* ── Filtr widoczności ── */
+  const [filterActive, setFilterActive] = useState<""|"true"|"false">("");
+
+  /* ── Nowy produkt ── */
+  const [showNewProduct, setShowNewProduct] = useState(false);
+  const [newProdFields, setNewProdFields] = useState({ name:"", brandRef:"", categoryRef:"", unit:"", ean:"", shortDescription:"", description:"", isActive:true });
+  const [newProdSaving, setNewProdSaving] = useState(false);
+  const [newProdMsg, setNewProdMsg] = useState<{type:"ok"|"err";text:string}|null>(null);
+  const [newProdImages, setNewProdImages] = useState<{assetId:string;url:string}[]>([]);
+  const [validationErrors, setValidationErrors] = useState<Record<string,string>>({});
 
   /* ── P2.1 Bulk actions ── */
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -277,6 +289,7 @@ export default function AdminPanel() {
       brand: filterBrand,
       sort: sortCol,
       dir: sortDir,
+      active: filterActive,
     });
     fetch(`/api/products?${params}`)
       .then(r => r.json())
@@ -288,16 +301,17 @@ export default function AdminPanel() {
       })
       .catch(e => setSanityError("Błąd połączenia: " + e.message))
       .finally(() => setSanityLoading(false));
-  }, [loggedIn, tab, prodPage, search, filterCat, filterBrand, sortCol, sortDir]);
+  }, [loggedIn, tab, prodPage, search, filterCat, filterBrand, sortCol, sortDir, filterActive]);
 
   /* ── Otwórz slide-over edycji ── */
   const openEdit = useCallback((p: any) => {
     setEditProd(p);
     setEditTab("basic");
-    setEditFields({ name:p.name||"", brand:p.brand||"", unit:p.unit||"", ean:p.ean||"", shortDescription:p.shortDescription||"", description:p.description||"" });
+    setEditFields({ name:p.name||"", brand:p.brand||"", unit:p.unit||"", ean:p.ean||"", shortDescription:p.shortDescription||"", description:p.description||"", categoryRef:p.categoryRef||"", brandRef:p.brandRef||"", isActive: p.isActive !== false });
     setEditMsg(null);
     setImgMsg(null);
-    /* Wczytaj specs: zakładamy format {key:string, value:string}[] lub Record<string,string> */
+    setEditImages([]);
+    /* Wczytaj specs */
     const rawSpecs = p.specs;
     if (Array.isArray(rawSpecs)) {
       setSpecs(rawSpecs.map((s:any) => ({ key: s.key||s.name||"", value: s.value||"" })));
@@ -306,23 +320,58 @@ export default function AdminPanel() {
     } else {
       setSpecs([]);
     }
+    /* Pobierz pełne dane produktu (images z assetId) */
+    fetch(`/api/product/${p._id}`)
+      .then(r=>r.json())
+      .then(data=>{
+        if (data.product?.images) {
+          setEditImages(data.product.images.map((img:any)=>({ _key:img._key||`k${Math.random().toString(36).slice(2,8)}`, assetId:img.assetId||"", url:img.url||"" })));
+        }
+        if (data.product?.categoryRef) setEditFields(f=>({...f, categoryRef:data.product.categoryRef}));
+        if (data.product?.brandRef) setEditFields(f=>({...f, brandRef:data.product.brandRef}));
+        if (data.product?.isActive !== undefined) setEditFields(f=>({...f, isActive:data.product.isActive !== false}));
+      })
+      .catch(()=>{});
   }, []);
 
   /* ── Zapisz edytowany produkt do Sanity ── */
   const saveProduct = useCallback(async () => {
     if (!editProd) return;
+    /* Walidacja */
+    const errs: Record<string,string> = {};
+    if (!editFields.name.trim()) errs.name = "Nazwa jest wymagana";
+    if (Object.keys(errs).length > 0) { setValidationErrors(errs); return; }
+    setValidationErrors({});
     setEditSaving(true);
     setEditMsg(null);
     try {
-      const res  = await fetch(`/api/product/${editProd._id}`, {
-        method:"PATCH",
-        headers:{ "Content-Type":"application/json" },
-        body: JSON.stringify(editFields),
+      const payload: any = {
+        name: editFields.name, description: editFields.description,
+        shortDescription: editFields.shortDescription, unit: editFields.unit, ean: editFields.ean,
+        isActive: editFields.isActive,
+        categoryRef: editFields.categoryRef || null,
+        brandRef: editFields.brandRef || null,
+      };
+      /* Dołącz images jeśli były edytowane */
+      if (editImages.length > 0 || (editProd.images?.length > 0 && editImages.length === 0)) {
+        payload.images = editImages.map(img => ({ _key: img._key, assetId: img.assetId }));
+      }
+      const res = await fetch(`/api/product/${editProd._id}`, {
+        method:"PATCH", headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (data.success) {
-        setEditMsg({ type:"ok", text:"✅ Zapisano pomyślnie w Sanity!" });
-        setSanityProds(prev => prev.map(p => p._id===editProd._id ? {...p, ...editFields} : p));
+        setEditMsg({ type:"ok", text:"✅ Zapisano pomyślnie!" });
+        const brandName = metaBrands.find(b=>b._id===editFields.brandRef)?.name || editFields.brand;
+        const catObj = metaCats.find(c=>c._id===editFields.categoryRef);
+        setSanityProds(prev => prev.map(p => p._id===editProd._id ? {
+          ...p, name:editFields.name, brand:brandName, brandRef:editFields.brandRef,
+          category: catObj ? {_id:catObj._id, name:catObj.name, slug:catObj.slug} : p.category,
+          categoryRef:editFields.categoryRef, unit:editFields.unit, ean:editFields.ean,
+          description:editFields.description, shortDescription:editFields.shortDescription,
+          isActive:editFields.isActive, images: editImages.length>0 ? [editImages[0].url] : [],
+        } : p));
         setTimeout(() => setEditMsg(null), 2500);
       } else {
         setEditMsg({ type:"err", text: data.error || "Błąd zapisu" });
@@ -331,7 +380,112 @@ export default function AdminPanel() {
       setEditMsg({ type:"err", text:"Błąd sieci: " + e.message });
     }
     setEditSaving(false);
-  }, [editProd, editFields]);
+  }, [editProd, editFields, editImages, metaBrands, metaCats]);
+
+  /* ── Upload zdjęcia do Sanity ── */
+  const uploadImage = useCallback(async (file: File) => {
+    setImgUploading(true);
+    setImgMsg(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/upload-image", { method:"POST", body:fd });
+      const data = await res.json();
+      if (data.assetId) {
+        const newImg = { _key:`k${Date.now()}`, assetId:data.assetId, url:data.url };
+        setEditImages(prev => [...prev, newImg]);
+        setImgMsg({ type:"ok", text:`✅ Dodano: ${data.originalFilename || file.name}` });
+        setTimeout(() => setImgMsg(null), 2500);
+      } else {
+        setImgMsg({ type:"err", text: data.error || "Błąd uploadu" });
+      }
+    } catch(e:any) {
+      setImgMsg({ type:"err", text:"Błąd sieci: " + e.message });
+    }
+    setImgUploading(false);
+  }, []);
+
+  /* ── Usuń zdjęcie z listy ── */
+  const removeImage = useCallback((key: string) => {
+    setEditImages(prev => prev.filter(img => img._key !== key));
+  }, []);
+
+  /* ── Przesuń zdjęcie w kolejności ── */
+  const moveImage = useCallback((key: string, dir: -1|1) => {
+    setEditImages(prev => {
+      const idx = prev.findIndex(img => img._key === key);
+      if (idx < 0) return prev;
+      const newIdx = idx + dir;
+      if (newIdx < 0 || newIdx >= prev.length) return prev;
+      const arr = [...prev];
+      [arr[idx], arr[newIdx]] = [arr[newIdx], arr[idx]];
+      return arr;
+    });
+  }, []);
+
+  /* ── Toggle isActive ── */
+  const toggleActive = useCallback(async (prodId: string, current: boolean) => {
+    const newVal = !current;
+    try {
+      const res = await fetch(`/api/product/${prodId}`, {
+        method:"PATCH", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ isActive: newVal }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSanityProds(prev => prev.map(p => p._id===prodId ? {...p, isActive:newVal} : p));
+      }
+    } catch {}
+  }, []);
+
+  /* ── Utwórz nowy produkt ── */
+  const createProduct = useCallback(async () => {
+    const errs: Record<string,string> = {};
+    if (!newProdFields.name.trim()) errs.name = "Nazwa jest wymagana";
+    if (Object.keys(errs).length > 0) { setValidationErrors(errs); return; }
+    setValidationErrors({});
+    setNewProdSaving(true);
+    setNewProdMsg(null);
+    try {
+      const payload: any = {
+        ...newProdFields,
+        imageAssetIds: newProdImages.map(i => i.assetId),
+      };
+      const res = await fetch("/api/create-product", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setNewProdMsg({ type:"ok", text:`✅ Produkt utworzony! (ID: ${data.productId?.slice(0,8)}…)` });
+        /* Odśwież listę */
+        setProdPage(1);
+        setSearch("");
+        setMetaLoaded(false);
+        setTimeout(() => { setShowNewProduct(false); setNewProdMsg(null); setNewProdFields({ name:"", brandRef:"", categoryRef:"", unit:"", ean:"", shortDescription:"", description:"", isActive:true }); setNewProdImages([]); }, 2000);
+      } else {
+        setNewProdMsg({ type:"err", text: data.error || "Błąd tworzenia" });
+      }
+    } catch(e:any) {
+      setNewProdMsg({ type:"err", text:"Błąd sieci: " + e.message });
+    }
+    setNewProdSaving(false);
+  }, [newProdFields, newProdImages]);
+
+  /* ── Upload zdjęcia dla nowego produktu ── */
+  const uploadNewProdImage = useCallback(async (file: File) => {
+    setImgUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/upload-image", { method:"POST", body:fd });
+      const data = await res.json();
+      if (data.assetId) {
+        setNewProdImages(prev => [...prev, { assetId:data.assetId, url:data.url }]);
+      }
+    } catch {}
+    setImgUploading(false);
+  }, []);
 
   /* ── Zapisz parametry techniczne do Sanity ── */
   const saveSpecs = useCallback(async () => {
@@ -369,7 +523,7 @@ export default function AdminPanel() {
 
   /* ── Reset filtrów ── */
   const resetFilters = useCallback(() => {
-    setFilterCat(""); setFilterBrand(""); setSearch(""); setSortCol("name"); setSortDir("asc"); setProdPage(1);
+    setFilterCat(""); setFilterBrand(""); setFilterActive(""); setSearch(""); setSortCol("name"); setSortDir("asc"); setProdPage(1);
   }, []);
 
   /* ── Login ── */
@@ -824,7 +978,7 @@ export default function AdminPanel() {
           {/* ════ PRODUKTY ════ */}
           {tab==="products" && (
             <div>
-              <SectionHeader title="Produkty" count={sanityTotal} addLabel="Dodaj w Sanity" onAdd={()=>window.open("https://mediabud-studio.pages.dev","_blank")}/>
+              <SectionHeader title="Produkty" count={sanityTotal} addLabel="Dodaj produkt" onAdd={()=>{setShowNewProduct(true);setNewProdFields({name:"",brandRef:"",categoryRef:"",unit:"",ean:"",shortDescription:"",description:"",isActive:true});setNewProdImages([]);setNewProdMsg(null);setValidationErrors({});}}/>
 
               {/* ── P1.5 Quality Score Dashboard ── */}
               {quality && (
@@ -921,6 +1075,16 @@ export default function AdminPanel() {
                       ))}
                     </select>
                   </div>
+                  <div className="flex flex-col gap-1 min-w-[140px]">
+                    <label className="text-[9px] text-gray-600 font-black uppercase tracking-wider">Widoczność</label>
+                    <select value={filterActive} onChange={e=>{setFilterActive(e.target.value as any);setProdPage(1);}}
+                      className="px-2.5 py-1.5 rounded-lg text-xs text-white outline-none cursor-pointer"
+                      style={{background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)"}}>
+                      <option value="">Wszystkie</option>
+                      <option value="true">Aktywne</option>
+                      <option value="false">Nieaktywne</option>
+                    </select>
+                  </div>
                 </div>
               )}
 
@@ -958,6 +1122,7 @@ export default function AdminPanel() {
                         </th>
                       ))}
                       <th className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">Jednostka</th>
+                      <th className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">Status</th>
                       <th className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">Jakość</th>
                       <th className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">Akcje</th>
                     </tr>
@@ -965,7 +1130,7 @@ export default function AdminPanel() {
                   <tbody className="divide-y" style={{borderColor:"rgba(255,255,255,0.04)"}}>
                     {sanityLoading && Array.from({length:8}).map((_,i)=>(
                       <tr key={i}>
-                        {[20,200,80,100,50,60,50].map((w,j)=>(
+                        {[20,200,80,100,50,40,60,50].map((w,j)=>(
                           <td key={j} className="px-4 py-3">
                             <div className="h-3 rounded animate-pulse" style={{width:`${w}px`,background:"rgba(255,255,255,0.06)"}}/>
                           </td>
@@ -1015,6 +1180,12 @@ export default function AdminPanel() {
                           <td className="px-4 py-2.5 text-xs text-gray-500">{p.category?.name || "—"}</td>
                           <td className="px-4 py-2.5 text-xs text-gray-500">{p.unit || "—"}</td>
                           <td className="px-4 py-2.5">
+                            <button onClick={()=>toggleActive(p._id, p.isActive !== false)}
+                              className={`text-[10px] font-bold px-2 py-0.5 rounded-full transition-all ${p.isActive !== false ? "bg-emerald-500/20 text-emerald-400":"bg-gray-700/30 text-gray-500"}`}>
+                              {p.isActive !== false ? "Aktywny" : "Nieaktywny"}
+                            </button>
+                          </td>
+                          <td className="px-4 py-2.5">
                             <div className="flex items-center gap-1">
                               {!hasImg  && <span title="Brak zdjęcia" className="text-[#f81828] opacity-70"><ImageOff className="w-3 h-3"/></span>}
                               {!hasDesc && <span title="Brak opisu"   className="text-amber-500 opacity-70"><FileText className="w-3 h-3"/></span>}
@@ -1042,7 +1213,7 @@ export default function AdminPanel() {
                       );
                     })}
                     {!sanityLoading && sanityProds.length===0 && !sanityError && (
-                      <tr><td colSpan={7} className="px-4 py-10 text-center text-xs text-gray-600">Brak produktów spełniających kryteria</td></tr>
+                      <tr><td colSpan={8} className="px-4 py-10 text-center text-xs text-gray-600">Brak produktów spełniających kryteria</td></tr>
                     )}
                   </tbody>
                 </table>
@@ -1058,6 +1229,143 @@ export default function AdminPanel() {
                   </div>
                 </div>
               </Card>
+
+              {/* ── FORMULARZ NOWEGO PRODUKTU (slide-over) ── */}
+              {showNewProduct && (
+                <>
+                  <div className="fixed inset-0 z-40" style={{background:"rgba(0,0,0,0.6)"}} onClick={()=>setShowNewProduct(false)}/>
+                  <div className="fixed right-0 top-0 bottom-0 z-50 flex flex-col w-full max-w-xl" style={{background:"#0c0c0c",borderLeft:"1px solid rgba(255,255,255,0.1)"}}>
+                    {/* Header */}
+                    <div className="flex items-center justify-between px-6 py-4 flex-shrink-0" style={{borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-[#f81828]/15 flex items-center justify-center flex-shrink-0">
+                          <Plus className="w-5 h-5 text-[#f81828]"/>
+                        </div>
+                        <div>
+                          <h2 className="text-sm font-black text-white" style={{fontFamily:"'Rajdhani',sans-serif"}}>NOWY PRODUKT</h2>
+                          <p className="text-[10px] text-gray-600">Wypełnij dane i zapisz w Sanity</p>
+                        </div>
+                      </div>
+                      <button onClick={()=>setShowNewProduct(false)} className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-white hover:bg-white/5 transition-colors">
+                        <X className="w-4 h-4"/>
+                      </button>
+                    </div>
+                    {/* Body */}
+                    <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
+                      {newProdMsg && (
+                        <div className={`px-4 py-2.5 rounded-lg text-xs font-bold ${newProdMsg.type==="ok"?"bg-emerald-500/15 text-emerald-400 border border-emerald-500/20":"bg-[#f81828]/10 text-[#f81828] border border-[#f81828]/20"}`}>
+                          {newProdMsg.text}
+                        </div>
+                      )}
+                      <div>
+                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Nazwa produktu {validationErrors.name && <span className="text-[#f81828] ml-1">— {validationErrors.name}</span>}</label>
+                        <input type="text" value={newProdFields.name}
+                          onChange={e=>setNewProdFields(f=>({...f,name:e.target.value}))}
+                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none"
+                          style={{background:"rgba(255,255,255,0.04)",border:`1px solid ${validationErrors.name?"rgba(248,24,40,0.5)":"rgba(255,255,255,0.10)"}`}}
+                          placeholder="np. Tynk silikonowy Weber TD322 25kg"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Kategoria</label>
+                        <select value={newProdFields.categoryRef} onChange={e=>setNewProdFields(f=>({...f,categoryRef:e.target.value}))}
+                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white outline-none cursor-pointer"
+                          style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}>
+                          <option value="">— Wybierz kategorię —</option>
+                          {metaCats.map(c=><option key={c._id||c.slug} value={c._id||""}>{c.name}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Marka</label>
+                        <select value={newProdFields.brandRef} onChange={e=>setNewProdFields(f=>({...f,brandRef:e.target.value}))}
+                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white outline-none cursor-pointer"
+                          style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}>
+                          <option value="">— Wybierz markę —</option>
+                          {metaBrands.map(b=><option key={b._id||b.name} value={b._id||""}>{b.name}</option>)}
+                        </select>
+                      </div>
+                      {([
+                        ["Jednostka (szt / kg / mb / m²)","unit"],["EAN / kod kreskowy","ean"],
+                      ] as const).map(([label,field])=>(
+                        <div key={field}>
+                          <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">{label}</label>
+                          <input type="text" value={(newProdFields as any)[field]}
+                            onChange={e=>setNewProdFields(f=>({...f,[field]:e.target.value}))}
+                            className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none"
+                            style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                          />
+                        </div>
+                      ))}
+                      <div>
+                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Krótki opis</label>
+                        <textarea value={newProdFields.shortDescription} rows={2}
+                          onChange={e=>setNewProdFields(f=>({...f,shortDescription:e.target.value}))}
+                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none resize-none"
+                          style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Długi opis</label>
+                        <textarea value={newProdFields.description} rows={6}
+                          onChange={e=>setNewProdFields(f=>({...f,description:e.target.value}))}
+                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none resize-none"
+                          style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                        />
+                      </div>
+                      {/* Toggle widoczności */}
+                      <div className="flex items-center justify-between px-3 py-3 rounded-lg" style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)"}}>
+                        <div>
+                          <p className="text-xs font-bold text-white">Widoczność produktu</p>
+                          <p className="text-[10px] text-gray-500 mt-0.5">{newProdFields.isActive ? "Produkt widoczny na stronie" : "Produkt ukryty"}</p>
+                        </div>
+                        <button onClick={()=>setNewProdFields(f=>({...f,isActive:!f.isActive}))}
+                          className={`w-10 h-5 rounded-full transition-all relative ${newProdFields.isActive?"bg-emerald-500":"bg-gray-700"}`}>
+                          <div className="w-4 h-4 rounded-full bg-white absolute top-0.5 transition-all"
+                            style={{left: newProdFields.isActive ? "22px" : "2px"}}/>
+                        </button>
+                      </div>
+                      {/* Upload zdjęć */}
+                      <div>
+                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Zdjęcia</label>
+                        <div className="flex flex-col items-center justify-center py-5 rounded-xl gap-2 cursor-pointer hover:border-[#f81828]/30 transition-all"
+                          style={{border:"2px dashed rgba(255,255,255,0.12)"}}
+                          onDragOver={e=>{e.preventDefault();e.currentTarget.style.borderColor="rgba(248,24,40,0.5)";}}
+                          onDragLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,0.12)";}}
+                          onDrop={e=>{e.preventDefault();e.currentTarget.style.borderColor="rgba(255,255,255,0.12)";const f=e.dataTransfer.files[0];if(f)uploadNewProdImage(f);}}
+                          onClick={()=>{const inp=document.createElement("input");inp.type="file";inp.accept="image/*";inp.onchange=()=>{if(inp.files?.[0])uploadNewProdImage(inp.files[0]);};inp.click();}}>
+                          {imgUploading
+                            ? <RefreshCw className="w-5 h-5 text-[#f81828] animate-spin"/>
+                            : <Upload className="w-5 h-5 text-gray-600"/>}
+                          <p className="text-xs text-gray-500 font-bold">{imgUploading ? "Wysyłanie…" : "Przeciągnij lub kliknij"}</p>
+                        </div>
+                        {newProdImages.length > 0 && (
+                          <div className="mt-2 grid grid-cols-4 gap-2">
+                            {newProdImages.map((img,i)=>(
+                              <div key={i} className="relative aspect-square rounded-lg bg-white overflow-hidden" style={{border:"1px solid rgba(255,255,255,0.08)"}}>
+                                <img src={img.url} alt={`Nowe ${i+1}`} className="w-full h-full object-contain p-0.5"/>
+                                <button onClick={(e)=>{e.stopPropagation();setNewProdImages(prev=>prev.filter((_,j)=>j!==i));}}
+                                  className="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-black/70 flex items-center justify-center text-gray-400 hover:text-[#f81828] transition-colors">
+                                  <X className="w-2.5 h-2.5"/>
+                                </button>
+                                {i===0 && <span className="absolute bottom-0.5 left-0.5 text-[8px] px-1 py-0.5 rounded bg-[#f81828]/80 text-white font-bold">OKŁADKA</span>}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {/* Footer */}
+                    <div className="flex gap-3 px-6 py-4 justify-end flex-shrink-0" style={{borderTop:"1px solid rgba(255,255,255,0.07)"}}>
+                      <button onClick={()=>setShowNewProduct(false)} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-500 hover:text-white hover:bg-white/5 transition-colors">Anuluj</button>
+                      <button onClick={createProduct} disabled={newProdSaving}
+                        className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] disabled:opacity-50 transition-colors">
+                        {newProdSaving ? <RefreshCw className="w-3.5 h-3.5 animate-spin"/> : <Plus className="w-3.5 h-3.5"/>}
+                        {newProdSaving ? "Tworzę…" : "Utwórz produkt"}
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
 
               {/* ── P1.2 SLIDE-OVER EDYCJI PRODUKTU ── */}
               {editProd && (
@@ -1108,8 +1416,35 @@ export default function AdminPanel() {
                       {/* ── Zakładka: Podstawowe ── */}
                       {editTab==="basic" && (
                         <div className="space-y-4">
+                          <div>
+                            <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Nazwa produktu {validationErrors.name && <span className="text-[#f81828] ml-1">— {validationErrors.name}</span>}</label>
+                            <input type="text" value={editFields.name}
+                              onChange={e=>setEditFields(f=>({...f,name:e.target.value}))}
+                              className={`w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all ${validationErrors.name?"border-[#f81828]/50":""}`}
+                              style={{background:"rgba(255,255,255,0.04)",border:`1px solid ${validationErrors.name?"rgba(248,24,40,0.5)":"rgba(255,255,255,0.10)"}`}}
+                            />
+                          </div>
+                          {/* Kategoria dropdown */}
+                          <div>
+                            <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Kategoria</label>
+                            <select value={editFields.categoryRef} onChange={e=>setEditFields(f=>({...f,categoryRef:e.target.value}))}
+                              className="w-full px-3 py-2.5 rounded-lg text-xs text-white outline-none cursor-pointer"
+                              style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}>
+                              <option value="">— Brak kategorii —</option>
+                              {metaCats.map(c=><option key={c._id||c.slug} value={c._id||""}>{c.name}</option>)}
+                            </select>
+                          </div>
+                          {/* Marka dropdown */}
+                          <div>
+                            <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Marka</label>
+                            <select value={editFields.brandRef} onChange={e=>setEditFields(f=>({...f,brandRef:e.target.value}))}
+                              className="w-full px-3 py-2.5 rounded-lg text-xs text-white outline-none cursor-pointer"
+                              style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}>
+                              <option value="">— Brak marki —</option>
+                              {metaBrands.map(b=><option key={b._id||b.name} value={b._id||""}>{b.name}</option>)}
+                            </select>
+                          </div>
                           {([
-                            ["Nazwa produktu","name","text"],["Marka","brand","text"],
                             ["Jednostka (szt / kg / mb / m²)","unit","text"],["EAN / kod kreskowy","ean","text"],
                           ] as const).map(([label,field,type])=>(
                             <div key={field}>
@@ -1118,8 +1453,6 @@ export default function AdminPanel() {
                                 onChange={e=>setEditFields(f=>({...f,[field]:e.target.value}))}
                                 className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all"
                                 style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
-                                onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
-                                onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
                               />
                             </div>
                           ))}
@@ -1129,8 +1462,6 @@ export default function AdminPanel() {
                               onChange={e=>setEditFields(f=>({...f,shortDescription:e.target.value}))}
                               className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all resize-none"
                               style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
-                              onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
-                              onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
                             />
                           </div>
                           <div>
@@ -1139,44 +1470,71 @@ export default function AdminPanel() {
                               onChange={e=>setEditFields(f=>({...f,description:e.target.value}))}
                               className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all resize-none"
                               style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
-                              onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
-                              onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
                             />
+                          </div>
+                          {/* Toggle widoczności */}
+                          <div className="flex items-center justify-between px-3 py-3 rounded-lg" style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)"}}>
+                            <div>
+                              <p className="text-xs font-bold text-white">Widoczność produktu</p>
+                              <p className="text-[10px] text-gray-500 mt-0.5">{editFields.isActive ? "Produkt widoczny na stronie" : "Produkt ukryty"}</p>
+                            </div>
+                            <button onClick={()=>setEditFields(f=>({...f,isActive:!f.isActive}))}
+                              className={`w-10 h-5 rounded-full transition-all relative ${editFields.isActive?"bg-emerald-500":"bg-gray-700"}`}>
+                              <div className={`w-4 h-4 rounded-full bg-white absolute top-0.5 transition-all ${editFields.isActive?"left-5.5":"left-0.5"}`}
+                                style={{left: editFields.isActive ? "22px" : "2px"}}/>
+                            </button>
                           </div>
                         </div>
                       )}
 
-                      {/* ── P1.3 Zakładka: Zdjęcia ── */}
+                      {/* ── Zakładka: Zdjęcia (upload/usuwanie/reorder) ── */}
                       {editTab==="images" && (
                         <div className="space-y-4">
-                          <p className="text-xs text-gray-500">Bieżące zdjęcia produktu. Zarządzanie zdjęciami w pełni przez <a href="https://mediabud-studio.pages.dev" target="_blank" rel="noreferrer" className="text-[#f81828] hover:underline font-bold">Studio Sanity ↗</a></p>
-                          {editProd.images && editProd.images.length > 0 ? (
-                            <div className="grid grid-cols-3 gap-3">
-                              {editProd.images.map((url:string, i:number)=>(
-                                <div key={i} className="relative group aspect-square rounded-xl overflow-hidden bg-white" style={{border:"1px solid rgba(255,255,255,0.08)"}}>
-                                  <img src={url} alt={`Zdjęcie ${i+1}`} className="w-full h-full object-contain p-1.5" loading="lazy"/>
-                                  <div className="absolute top-1.5 left-1.5 w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-black text-white" style={{background:"rgba(0,0,0,0.65)"}}>
-                                    {i+1}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="flex flex-col items-center justify-center py-12 rounded-xl gap-3" style={{border:"2px dashed rgba(255,255,255,0.1)"}}>
-                              <ImageOff className="w-8 h-8 text-gray-700"/>
-                              <p className="text-xs text-gray-600 font-bold">Brak zdjęć dla tego produktu</p>
-                            </div>
-                          )}
+                          {/* Upload area */}
+                          <div className="flex flex-col items-center justify-center py-6 rounded-xl gap-2 cursor-pointer hover:border-[#f81828]/30 transition-all"
+                            style={{border:"2px dashed rgba(255,255,255,0.12)"}}
+                            onDragOver={e=>{e.preventDefault();e.currentTarget.style.borderColor="rgba(248,24,40,0.5)";}}
+                            onDragLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,0.12)";}}
+                            onDrop={e=>{e.preventDefault();e.currentTarget.style.borderColor="rgba(255,255,255,0.12)";const f=e.dataTransfer.files[0];if(f)uploadImage(f);}}
+                            onClick={()=>{const inp=document.createElement("input");inp.type="file";inp.accept="image/*";inp.onchange=()=>{if(inp.files?.[0])uploadImage(inp.files[0]);};inp.click();}}>
+                            {imgUploading
+                              ? <RefreshCw className="w-6 h-6 text-[#f81828] animate-spin"/>
+                              : <Upload className="w-6 h-6 text-gray-600"/>}
+                            <p className="text-xs text-gray-500 font-bold">{imgUploading ? "Wysyłanie…" : "Przeciągnij zdjęcie lub kliknij"}</p>
+                            <p className="text-[10px] text-gray-700">JPG, PNG, WebP, GIF — max 10 MB</p>
+                          </div>
                           {imgMsg && (
                             <div className={`px-4 py-2.5 rounded-lg text-xs font-bold ${imgMsg.type==="ok"?"bg-emerald-500/15 text-emerald-400 border border-emerald-500/20":"bg-[#f81828]/10 text-[#f81828] border border-[#f81828]/20"}`}>
                               {imgMsg.text}
                             </div>
                           )}
-                          <a href={`https://mediabud-studio.pages.dev/desk/product;${editProd._id}`} target="_blank" rel="noreferrer"
-                            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg text-xs font-bold text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                            style={{border:"1px solid rgba(255,255,255,0.1)"}}>
-                            <Upload className="w-3.5 h-3.5"/> Zarządzaj zdjęciami w Sanity Studio
-                          </a>
+                          {/* Lista zdjęć z reorder i usuwaniem */}
+                          {editImages.length > 0 ? (
+                            <div className="space-y-2">
+                              {editImages.map((img,i)=>(
+                                <div key={img._key} className="flex items-center gap-3 px-3 py-2 rounded-lg" style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.07)"}}>
+                                  <div className="w-12 h-12 rounded-lg bg-white flex-shrink-0 overflow-hidden">
+                                    <img src={img.url} alt={`Zdjęcie ${i+1}`} className="w-full h-full object-contain p-0.5"/>
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <span className="text-xs font-bold text-white">{i===0?"Główne zdjęcie":`Zdjęcie ${i+1}`}</span>
+                                    {i===0 && <span className="ml-2 text-[9px] px-1.5 py-0.5 rounded bg-[#f81828]/15 text-[#f81828] font-bold">OKŁADKA</span>}
+                                  </div>
+                                  <div className="flex gap-1 flex-shrink-0">
+                                    <button onClick={()=>moveImage(img._key,-1)} disabled={i===0}
+                                      className="w-6 h-6 flex items-center justify-center rounded text-gray-600 hover:text-white disabled:opacity-20 transition-colors"><ArrowUp className="w-3 h-3"/></button>
+                                    <button onClick={()=>moveImage(img._key,1)} disabled={i===editImages.length-1}
+                                      className="w-6 h-6 flex items-center justify-center rounded text-gray-600 hover:text-white disabled:opacity-20 transition-colors"><ArrowDown className="w-3 h-3"/></button>
+                                    <button onClick={()=>removeImage(img._key)}
+                                      className="w-6 h-6 flex items-center justify-center rounded text-gray-600 hover:text-[#f81828] transition-colors"><Trash2 className="w-3 h-3"/></button>
+                                  </div>
+                                </div>
+                              ))}
+                              <p className="text-[10px] text-gray-600 text-center">Zmiany zdjęć zapisują się razem z przyciskiem „Zapisz w Sanity"</p>
+                            </div>
+                          ) : (
+                            <div className="text-center py-4 text-xs text-gray-600">Brak zdjęć — dodaj pierwsze powyżej</div>
+                          )}
                         </div>
                       )}
 
@@ -1281,7 +1639,7 @@ export default function AdminPanel() {
                           {editSaving ? <RefreshCw className="w-3.5 h-3.5 animate-spin"/> : <CheckCircle2 className="w-3.5 h-3.5"/>}
                           {editSaving ? "Zapisuję…" : "Zapisz parametry"}
                         </button>
-                      ) : editTab === "basic" ? (
+                      ) : (editTab === "basic" || editTab === "images") ? (
                         <button onClick={saveProduct} disabled={editSaving}
                           className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] disabled:opacity-50 transition-colors">
                           {editSaving ? <RefreshCw className="w-3.5 h-3.5 animate-spin"/> : <CheckCircle2 className="w-3.5 h-3.5"/>}

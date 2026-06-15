@@ -50,7 +50,7 @@ export async function onRequest(context) {
       /* Kategorie z liczbą produktów */
       sanityFetch(
         `*[_type == "category" && defined(slug.current)] | order(name asc) {
-          "slug": slug.current, name,
+          _id, "slug": slug.current, name,
           "count": count(*[_type == "product" && references(^._id)])
         }`,
         token
@@ -59,7 +59,7 @@ export async function onRequest(context) {
       /* Marki z liczbą produktów */
       sanityFetch(
         `*[_type == "brand"] | order(name asc) {
-          name,
+          _id, name,
           "count": count(*[_type == "product" && references(^._id)])
         }`,
         token
@@ -73,7 +73,8 @@ export async function onRequest(context) {
           "noDesc":  count(*[_type == "product" && (!(defined(description)) || description == "")]),
           "noShort": count(*[_type == "product" && (!(defined(shortDescription)) || shortDescription == "")]),
           "noEan":   count(*[_type == "product" && !(defined(ean))]),
-          "noCat":   count(*[_type == "product" && !(defined(category))])
+          "noCat":   count(*[_type == "product" && !(defined(category))]),
+          "inactive": count(*[_type == "product" && (isActive == false || !(defined(isActive)))])
         }`,
         token
       ),

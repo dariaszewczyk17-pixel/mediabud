@@ -167,8 +167,11 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
         <div style={cornerStyle({ bottom: 0, right: 0 })} />
 
         {/* ── Image area ── */}
-        <Link to={`/produkt/${product.slug}`} className="block relative overflow-hidden"
-          style={{ background: "#141414", aspectRatio: "4/3" }}>
+        <Link
+          to={`/produkt/${product.slug}`}
+          className="block relative overflow-hidden p-3"
+          style={{ background: "#141414", aspectRatio: "1/1" }}
+        >
 
           {/* Scan-line effect */}
           <div
@@ -192,33 +195,36 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
           <div className="card-spark-bl absolute bottom-0.5 left-0.5 w-1.5 h-1.5 rounded-full pointer-events-none z-30"
             style={{ background: "#ff6b35", boxShadow: "0 0 4px rgba(255,107,53,0.8)", opacity: 0 }} />
 
-          <div className="absolute inset-0" style={{ background: "#141414" }}>
+          <div className="absolute inset-0 rounded-lg" style={{ background: "#141414" }}>
+            {/* Jasna ramka jak w bestsellerach */}
+            <div
+              className="absolute inset-0 rounded-lg"
+              style={{
+                background: "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04))",
+                border: "1px solid rgba(255,255,255,0.55)",
+                boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.35)",
+              }}
+            />
+
             {/* Shimmer skeleton */}
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="img-shimmer absolute inset-0"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)" }} />
+            <div className="absolute inset-0 overflow-hidden rounded-lg">
+              <div
+                className="img-shimmer absolute inset-0"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)" }}
+              />
             </div>
+
             <img
               src={mainImage}
               alt={product.name}
               loading={priority ? "eager" : "lazy"}
               fetchPriority={priority ? "high" : "auto"}
               decoding="async"
-              className="relative z-[1] w-full h-full object-contain p-4 transition-all duration-500 group-hover:scale-105"
+              className="relative z-[1] w-full h-full object-contain p-3 transition-all duration-500 group-hover:scale-105"
               onError={e => { (e.target as HTMLImageElement).src = PRODUCT_PLACEHOLDER; }}
             />
           </div>
 
-          {/* Badges — NEW / FEATURED / IN-STOCK */}
-          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-[2]">
-            {product.isNew && (
-              <span className="px-2 py-0.5 text-[9px] font-black rounded-full text-white tracking-wider"
-                style={{ background: "#10b981", boxShadow: "0 0 8px rgba(16,185,129,0.5)" }}>
-                NOWOŚĆ
-              </span>
-            )}
-
-          </div>
 
         </Link>
 

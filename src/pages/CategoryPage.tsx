@@ -19,7 +19,6 @@ import { mergeProductCollections } from "@/lib/productMerge";
 import { prefetchSanity } from "@/lib/sanity";
 import { PRODUCT_META_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
 import { ProductCard } from "@/components/Commerce";
-import { ProductCardFuturistic } from "@/components/ProductCardFuturistic";
 import { FilterBarFuturistic } from "@/components/FilterBarFuturistic";
 import { ZeroResultsRecovery } from "@/components/ZeroResultsRecovery";
 import { FilterListWithDisclosure, ProgressiveDisclosure } from "@/components/ProgressiveDisclosure";
@@ -1827,7 +1826,7 @@ export default function CategoryPage() {
                       className={`h-full transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                       style={{ transitionDelay: `${(i % 8) * 40}ms` }}
                     >
-                      <ProductCardFuturistic product={p} priority={i < 4} index={i} categorySlug={slug} />
+                      <ProductCard product={p} priority={i < 4} />
                     </div>
                   ))}
                 </div>

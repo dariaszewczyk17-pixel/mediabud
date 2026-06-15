@@ -599,9 +599,18 @@ export default function CategoryPage() {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
     const staticCategoryProducts = staticProducts.filter(p => slugSet.has(p.categorySlug)); // O(n)
 
-    // Jeśli Sanity jeszcze ładuje, pokazuj od razu statyczne produkty zamiast pustych skeletonów.
+    // Helper: filtruj stare bechcicki.pl placeholdery "MR"
+    const cleanImages = (images: string[] | undefined) => 
+      (images || []).filter(url => 
+        url && !url.includes('bechcicki.pl') && !url.includes('3907a0b3a13f')
+      );
+
+    // Jeśli Sanity jeszcze ładuje, pokazuj od razu statyczne produkty z wyczyszczonymi obrazami.
     // Dzięki temu karty renderują parametry techniczne i placeholdery już w pierwszym widoku.
-    if (!sanityMeta) return staticCategoryProducts as ReturnType<typeof mergeProductCollections>;
+    if (!sanityMeta) return staticCategoryProducts.map(p => ({
+      ...p,
+      images: cleanImages(p.images)
+    })) as ReturnType<typeof mergeProductCollections>;
 
     // ⚡ Two-query: Sanity dostarcza tylko meta (brand/unit/tags/featured/inStock),
     // pełne dane (obrazy, opisy, sku) pobierane ze staticProducts przez lookup by slug.

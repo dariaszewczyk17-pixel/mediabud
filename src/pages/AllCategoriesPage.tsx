@@ -4,7 +4,7 @@ import { useSEO } from "@/hooks/useSEO";
 import { ChevronRight, ArrowRight, Phone, Grid3x3 } from "lucide-react";
 import { categories } from "@/data/categories";
 import { useAllProducts } from "@/hooks/useSanityData";
-import { ProductCardFuturistic } from "@/components/ProductCardFuturistic";
+import { ProductCard } from "@/components/Commerce";
 
 const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;
 const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] transition-all duration-300";
@@ -61,24 +61,30 @@ function CatalogSection() {
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-stretch">
               {visible.map((p: any, i: number) => (
                 <div key={p._id ?? p.id} className="h-full">
-                  <ProductCardFuturistic
+                  <ProductCard
                     product={{
                       id: p._id ?? p.id,
                       slug: p.slug,
                       name: p.name,
-                      brand: p.brand,
-                      images: p.images,
-                      unit: p.unit,
-                      shortDescription: p.shortDescription,
-                      description: p.description,
-                      application: p.application,
-                      technicalSpec: p.technicalSpec,
-                      tags: p.tags,
+                      brand: p.brand ?? '',
+                      images: (p.images || []).filter(Boolean),
+                      unit: p.unit ?? '',
+                      shortDescription: p.shortDescription ?? '',
+                      description: p.description ?? '',
+                      application: p.application ?? '',
+                      technicalSpec: p.technicalSpec ?? [],
+                      tags: p.tags ?? [],
+                      categorySlug: p.categorySlug ?? '',
+                      sku: p.sku ?? '',
+                      related: [],
+                      advantages: [],
+                      warnings: [],
+                      faq: [],
+                      seoDescription: '',
+                      isNew: false,
+                      isFeatured: !!p.featured,
                     } as any}
                     priority={i < 4}
-                    index={i}
-                    showBrand={true}
-                    // /produkty nie ma jednej kategorii — pozwól extractProductSpecs działać z getCategorySlugFromProduct(product)
                   />
                 </div>
               ))}

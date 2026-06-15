@@ -85,7 +85,24 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const mainImage = getProductImage(product);
-  const topSpecs = product.technicalSpec.slice(0, 4);
+
+  // Filtrowanie parametrów: bez pól administracyjnych, GPSR, boolean i cieplnych dla nie-izolacji
+  const topSpecs = (() => {
+    const PALLET_LABEL  = /paleta|palet|na\s+pal[ei]|ilo[sś][cć]\s+na/i;
+    const GPSR_LABEL    = /^GPSR/i;
+    const BOOL_VALUE    = /^(true|false)$/i;
+    const THERMAL_LABEL = /lambda|λ|przewodno[sś][cć]|wsp[oó][łl]czynnik\s*ciep/i;
+    const catSlug       = product.categorySlug || '';
+    const isIsolation   = /izolac|styropian|we[łl]na|xps|eps/i.test(catSlug);
+    return (product.technicalSpec || [])
+      .filter(s => s.label && s.value)
+      .filter(s => !PALLET_LABEL.test(s.label))
+      .filter(s => !GPSR_LABEL.test(s.label))
+      .filter(s => !BOOL_VALUE.test(s.value))
+      .filter(s => s.label.length <= 35)
+      .filter(s => isIsolation || !THERMAL_LABEL.test(s.label))
+      .slice(0, 4);
+  })();
   const topTags = product.tags.slice(0, 4);
   const inStock = product.inStock !== false;
 

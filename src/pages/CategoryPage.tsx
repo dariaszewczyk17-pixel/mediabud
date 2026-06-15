@@ -19,7 +19,6 @@ import { mergeProductCollections } from "@/lib/productMerge";
 import { prefetchSanity } from "@/lib/sanity";
 import { PRODUCT_META_BY_CATEGORY_SLUGS_QUERY } from "@/lib/queries";
 import { ProductCard } from "@/components/Commerce";
-import { ProductCardFuturistic } from "@/components/ProductCardFuturistic";
 import { FilterBarFuturistic } from "@/components/FilterBarFuturistic";
 import { ZeroResultsRecovery } from "@/components/ZeroResultsRecovery";
 import { FilterListWithDisclosure, ProgressiveDisclosure } from "@/components/ProgressiveDisclosure";
@@ -610,15 +609,10 @@ export default function CategoryPage() {
     const sanityMapped = ((sanityMeta as ProductMeta[] | null) ?? []).map((meta: ProductMeta) => {
       const base = staticBySlug.get(meta.slug);
       if (base) {
-        // Merge obrazów: Sanity CDN (czyste URL) ma priorytet nad statycznymi bechcicki.pl URL
-        // Stare bechcicki.pl URL mogą wskazywać na placeholder "MR" — filtrujemy znane hashi
+        // Obrazy: TYLKO Sanity CDN — bechcicki.pl CDN może serwować placeholder "MR"
+        // Gdy Sanity ma puste images[], ProductCard pokaże /images/placeholder-product_2.png
         const sanityImages = (meta.images || []).filter(Boolean);
-        const staticImages = (base.images || []).filter((u): u is string =>
-          !!u &&
-          !u.includes('3907a0b3a13f08c233374a46960c3c76d175b4af') &&
-          !u.includes('placeholder')
-        );
-        const mergedImages = sanityImages.length ? sanityImages : staticImages;
+        const mergedImages = sanityImages;
         return {
           ...base,
           brand:            meta.brand    || base.brand,
@@ -1787,7 +1781,7 @@ export default function CategoryPage() {
                       className={`h-full transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                       style={{ transitionDelay: `${(i % 8) * 40}ms` }}
                     >
-                      <ProductCardFuturistic product={p} priority={i < 4} index={i} categorySlug={slug} />
+                      <ProductCard product={p} priority={i < 4} />
                     </div>
                   ))}
                 </div>

@@ -1721,7 +1721,7 @@ export default function CategoryPage() {
                 ))}
                 <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }`}</style>
               </div>
-            ) : paginated.length > 0 ? (
+            ) : (paginated.length > 0 || isLoadingAll) ? (
               <>
 
                 {/* ── Popularne marki w tej kategorii (Wizualny Silos) ── */}
@@ -1775,15 +1775,28 @@ export default function CategoryPage() {
                     ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-stretch"
                     : "space-y-4"}
                 >
-                  {paginated.map((p, i) => (
-                    <div
-                      key={p.id}
-                      className={`h-full transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                      style={{ transitionDelay: `${(i % 8) * 40}ms` }}
-                    >
-                      <ProductCard product={p} priority={i < 4} />
-                    </div>
-                  ))}
+                  {paginated.length === 0 && isLoadingAll ? (
+                    /* Skeleton podczas ładowania gdy paginated jest puste */
+                    Array.from({ length: 8 }).map((_, i) => (
+                      <div key={`skel-${i}`} className="rounded-xl overflow-hidden" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a", animation: "pulse 1.5s infinite" }}>
+                        <div className="aspect-[4/3]" style={{ background: "#141414" }} />
+                        <div className="p-4 space-y-2">
+                          <div className="h-4 w-5/6 rounded" style={{ background: "#1a1a1a" }} />
+                          <div className="h-3 w-3/4 rounded" style={{ background: "#161616" }} />
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    paginated.map((p, i) => (
+                      <div
+                        key={p.id}
+                        className={`h-full transition-all duration-500 ease-out ${gridReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                        style={{ transitionDelay: `${(i % 8) * 40}ms` }}
+                      >
+                        <ProductCard product={p} priority={i < 4} />
+                      </div>
+                    ))
+                  )}
                 </div>
 
                 {/* Pagination */}

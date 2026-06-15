@@ -93,7 +93,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
     const BOOL_VALUE    = /^(true|false)$/i;
     const THERMAL_LABEL = /lambda|λ|przewodno[sś][cć]|wsp[oó][łl]czynnik\s*ciep/i;
     const catSlug       = product.categorySlug || '';
-    const isIsolation   = /izolac|styropian|we[łl]na|xps|eps/i.test(catSlug);
+    const isIsolation   = /izolac|styropian|we[łl]n[ay]|xps|eps|pianka|ociepleni/i.test(catSlug);
     return (product.technicalSpec || [])
       .filter(s => s.label && s.value)
       .filter(s => !PALLET_LABEL.test(s.label))

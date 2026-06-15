@@ -1,10 +1,8 @@
 /**
  * Cloudflare Pages Function — /api/contact
  * POST body: { name, email, phone, subject, message }
- * Wysyła mail przez SMTP home.pl → sprzedaz@mediabud.pl
+ * Wysyła mail przez Resend API → sprzedaz@mediabud.pl
  */
-
-import { WorkerMailer } from "worker-mailer";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -32,10 +30,9 @@ export async function onRequestPost(context) {
       return json({ ok: false, error: "Brak wymaganych pól (name, email, message)" }, 400);
     }
 
-    const { SMTP_HOST, SMTP_USER, SMTP_PASS } = context.env;
-
-    if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-      console.error("Brak zmiennych SMTP w env");
+    const RESEND_API_KEY = context.env.RESEND_API_KEY;
+    if (!RESEND_API_KEY) {
+      console.error("Brak RESEND_API_KEY w env");
       return json({ ok: false, error: "Błąd konfiguracji serwera" }, 500);
     }
 
@@ -60,22 +57,29 @@ export async function onRequestPost(context) {
       </div>
     `;
 
-    await WorkerMailer.send({
-      host: SMTP_HOST,
-      port: 465,
-      secure: true,
-      auth: {
-        username: SMTP_USER,
-        password: SMTP_PASS,
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
       },
-      from: { name: "Media Bud — Formularz", address: SMTP_USER },
-      to: SMTP_USER,
-      replyTo: { name, address: email },
-      subject: subject || `Zapytanie ze strony mediabud.pl — ${name}`,
-      html: htmlBody,
+      body: JSON.stringify({
+        from: "Media Bud Formularz <formularz@mediabud.pl>",
+        to: "sprzedaz@mediabud.pl",
+        reply_to: email,
+        subject: subject || `Zapytanie ze strony mediabud.pl — ${name}`,
+        html: htmlBody,
+      }),
     });
 
-    return json({ ok: true });
+    const result = await res.json();
+
+    if (res.ok) {
+      return json({ ok: true });
+    } else {
+      console.error("Resend error:", JSON.stringify(result));
+      return json({ ok: false, error: "Nie udało się wysłać wiadomości" }, 500);
+    }
   } catch (err) {
     console.error("Błąd wysyłki maila:", err);
     return json({ ok: false, error: "Nie udało się wysłać wiadomości" }, 500);

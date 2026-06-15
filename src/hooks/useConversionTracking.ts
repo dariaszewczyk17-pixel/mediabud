@@ -22,7 +22,7 @@ declare global {
 // Po utworzeniu konwersji w Google Ads → Narzędzia → Konwersje → Nowa konwersja
 // Google da Ci Conversion Label dla każdej akcji. Wklej je tutaj:
 const AW_ID = 'AW-18206359267';
-const CONV_FORM_SUBMIT = `${AW_ID}/FORM_SUBMIT`;   // ← zamień na prawdziwy label
+const CONV_FORM_SUBMIT = `${AW_ID}/fcMjCPrWx78cEOP9u-lD`;
 const CONV_PHONE_CLICK = `${AW_ID}/PHONE_CLICK`;   // ← zamień na prawdziwy label
 const CONV_EMAIL_CLICK = `${AW_ID}/EMAIL_CLICK`;   // ← zamień na prawdziwy label
 
@@ -39,7 +39,7 @@ function sendConversion(conversionLabel: string, extraParams?: Record<string, un
 
 /** Wywołaj po udanym wysłaniu formularza wyceny */
 export function trackFormSubmit() {
-  sendConversion(CONV_FORM_SUBMIT);
+  sendConversion(CONV_FORM_SUBMIT, { value: 1.0, currency: 'PLN' });
   // GA4 event (do raportów w Analytics)
   window.gtag?.('event', 'generate_lead', {
     event_category: 'conversion',

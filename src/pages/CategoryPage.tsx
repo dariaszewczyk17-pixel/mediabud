@@ -5,10 +5,10 @@ import {
   ChevronLeft, ChevronRight as ChevronNext, Tag, Zap, ArrowRight, Phone, Mail, ChevronDown,
   Droplets, Layers, Home, Paintbrush, Thermometer, Wrench, Package, Building2, LayoutGrid, FlaskConical
 } from "lucide-react";
-import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories } from "@/data/categories";
+import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories, resolveCategorySlug, CATEGORY_SLUG_ALIASES } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
 import { getBrandBySlug, slugifyBrand } from "@/data/brands";
-import { useCategoryBySlug, useAllCategories, useProductMetaByCatSlug, useProductMetaByCatSlugFast, type ProductMeta } from "@/hooks/useSanityData";
+import { useCategoryBySlug, useAllCategories, useProductMetaByCatSlug, useProductMetaByCatSlugFast, useProductMetaByCategorySlugs, type ProductMeta } from "@/hooks/useSanityData";
 import { useSEO } from "@/hooks/useSEO";
 import {
   sanityCategoryToLegacy,
@@ -559,8 +559,31 @@ export default function CategoryPage() {
   // Phase 2 (background ~1-3s): wszystkie produkty — pełne filtry i paginacja
   const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(slug);
 
+
+  // ── Slug-tree query: pobiera produkty po category->slug in $slugs (dla L2/L3) ──
+  const querySubSlugs = useMemo(() => {
+    if (!allSubSlugs || allSubSlugs.length === 0) return [];
+    // Expand canonical slugs with their aliases for Sanity query
+    const canonicalSet = new Set(allSubSlugs);
+    const expanded = new Set(canonicalSet);
+    if (typeof CATEGORY_SLUG_ALIASES !== "undefined") {
+      Object.entries(CATEGORY_SLUG_ALIASES).forEach(([alias, target]) => {
+        if (canonicalSet.has(target)) expanded.add(alias);
+      });
+    }
+    return Array.from(expanded).sort();
+  }, [allSubSlugs]);
+  const { data: slugTreeMeta } = useProductMetaByCategorySlugs(querySubSlugs);
+
   // Pokaż firstBatch natychmiast; przełącz na allMeta gdy gotowe
-  const sanityMeta = allMeta ?? firstBatch;
+  // Prefer slugTreeMeta (category->slug in $slugs) for subcategories;
+  // fall back to rootCategory queries only if they returned data
+  const rootMetaEffective = (allMeta && (allMeta as any[]).length > 0) ? allMeta
+    : (firstBatch && (firstBatch as any[]).length > 0) ? firstBatch
+    : null;
+  const sanityMeta = slugTreeMeta && (slugTreeMeta as any[]).length > 0
+    ? slugTreeMeta
+    : rootMetaEffective;
   const productsLoading = allMeta ? false : firstLoading;
   const isLoadingAll = allLoading && !!firstBatch; // true gdy Phase 1 ready, Phase 2 w toku
 

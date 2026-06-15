@@ -294,8 +294,8 @@ export default function ContactPage() {
                       <div className="absolute inset-0 rounded-full" style={{ boxShadow: "0 0 32px rgba(16,185,129,0.2)" }} />
                       <Check className="w-9 h-9 text-emerald-400" />
                     </div>
-                    <h3 className="font-display text-3xl font-black text-white mb-3" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>Wiadomość wysłana!</h3>
-                    <p className="text-gray-500 mb-8 text-sm">Dziękujemy za kontakt. Odpowiemy w ciągu 24 godzin roboczych.</p>
+                    <h3 className="font-display text-3xl font-black text-white mb-3" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif" }}>Dziękujemy za przesłanie formularza!</h3>
+                    <p className="text-gray-500 mb-8 text-sm">Twoje zapytanie zostało przyjęte. Skontaktujemy się z Tobą w ciągu 24 godzin roboczych.</p>
                     <button onClick={() => setSent(false)}
                       className="px-8 py-3 rounded-xl bg-[#f81828] text-white font-black text-sm uppercase tracking-wide hover:bg-[#c8000f] hover:shadow-[0_0_24px_rgba(248,24,40,0.4)] transition-all">
                       Wyślij kolejną wiadomość

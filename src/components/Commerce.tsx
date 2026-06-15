@@ -523,9 +523,9 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                 style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.3)" }}>
                 <Check className="w-8 h-8 text-emerald-400" />
               </div>
-              <h3 className="font-display text-lg font-black text-white mb-2">Zapytanie wysłane!</h3>
+              <h3 className="font-display text-lg font-black text-white mb-2">Dziękujemy za przesłanie zapytania!</h3>
               <p className="text-xs text-gray-500 mb-5 leading-relaxed">
-                Odpowiemy w ciągu 24 godzin roboczych.<br />Możesz też zadzwonić bezpośrednio.
+                Twoje zapytanie zostało przyjęte. Skontaktujemy się z Tobą<br />w ciągu 24 godzin roboczych. Możesz też zadzwonić bezpośrednio.
               </p>
               <a href="tel:+48533553344"
                 onClick={trackPhoneClick}
@@ -762,8 +762,8 @@ export function WycenaDrawer() {
                     style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.3)" }}>
                     <Check className="w-7 h-7 text-emerald-400" />
                   </div>
-                  <h3 className="font-display font-black text-white mb-2">Zapytanie wysłane!</h3>
-                  <p className="text-xs text-gray-500 mb-4">Odpowiemy w ciągu 24h roboczych.</p>
+                  <h3 className="font-display font-black text-white mb-2">Dziękujemy za przesłanie zapytania!</h3>
+                  <p className="text-xs text-gray-500 mb-4">Twoje zapytanie zostało przyjęte. Odpowiemy w ciągu 24h roboczych.</p>
                   <a href="tel:+48533553344"
                     onClick={trackPhoneClick}
                     className="block font-bold text-sm text-[#f81828] hover:underline">

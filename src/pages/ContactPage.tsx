@@ -104,19 +104,23 @@ export default function ContactPage() {
     if (!agreed) return;
     setSending(true);
     try {
-      const apiKey = import.meta.env.VITE_WEB3FORMS_KEY || "";
-      const fd = new FormData();
-      fd.append("access_key", apiKey);
-      fd.append("name", form.name);
-      fd.append("email", form.email);
-      fd.append("phone", form.phone);
-      fd.append("subject", form.subject || "Zapytanie ze strony mediabud.pl");
-      fd.append("message", form.message);
-      fd.append("to", "sprzedaz@mediabud.pl");
-      form.attachments.forEach((file, i) => fd.append(`attachment_${i + 1}`, file));
-      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
-      if (apiKey && res.ok) { setSent(true); toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24h."); }
-      else { setSent(true); toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24h."); }
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          subject: form.subject || "Zapytanie ze strony mediabud.pl",
+          message: form.message,
+        }),
+      });
+      if (res.ok) {
+        setSent(true);
+        toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24h.");
+      } else {
+        toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
+      }
     } catch {
       toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
     } finally {

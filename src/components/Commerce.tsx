@@ -334,26 +334,22 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
     if (!agreed) return;
     setSending(true);
     try {
-      const apiKey = import.meta.env.VITE_WEB3FORMS_KEY || "";
-      const fd = new FormData();
-      fd.append("access_key", apiKey);
-      fd.append("name", form.name);
-      fd.append("email", form.email);
-      fd.append("phone", form.phone);
-      fd.append("subject", `Zapytanie o ofertę${productName ? `: ${productName}` : ""} – mediabud.pl`);
-      fd.append("message",
-        `Produkt: ${productName || "—"}\nIlość/zakres: ${form.quantity || "—"}\n\n${form.message}`
-      );
-      fd.append("to", "sprzedaz@mediabud.pl");
-      if (form.file) fd.append("attachment", form.file);
-      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          subject: `Zapytanie o ofertę${productName ? `: ${productName}` : ""} – mediabud.pl`,
+          message: `Produkt: ${productName || "—"}\nIlość/zakres: ${form.quantity || "—"}\n\n${form.message}`,
+        }),
+      });
       if (res.ok) {
         setMode("sent");
         trackFormSubmit();
       } else {
-        // fallback — pokaż sukces nawet bez klucza API (dev)
-        setMode("sent");
-        trackFormSubmit();
+        toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
       }
     } catch {
       toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
@@ -566,23 +562,27 @@ export function WycenaDrawer() {
     if (!agreed) return;
     setSending(true);
     try {
-      const apiKey = import.meta.env.VITE_WEB3FORMS_KEY || "";
       const productList = items
         .map(i => `• ${i.product.name} (${i.product.brand}) × ${i.quantity}${i.note ? ` — ${i.note}` : ""}`)
         .join("\n");
-      const fd = new FormData();
-      fd.append("access_key", apiKey);
-      fd.append("name", form.name);
-      fd.append("email", form.email);
-      fd.append("phone", form.phone);
-      fd.append("subject", `Zapytanie o wycenę (${items.length} produktów) – mediabud.pl`);
-      fd.append("message", `Zapytanie o wycenę:\n\n${productList}\n\nDodatkowe informacje:\n${form.message || "—"}`);
-      fd.append("to", "sprzedaz@mediabud.pl");
-      if (form.file) fd.append("attachment", form.file);
-      await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
-      setSent(true);
-      trackFormSubmit();
-      clearWycena();
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          subject: `Zapytanie o wycenę (${items.length} produktów) – mediabud.pl`,
+          message: `Zapytanie o wycenę:\n\n${productList}\n\nDodatkowe informacje:\n${form.message || "—"}`,
+        }),
+      });
+      if (res.ok) {
+        setSent(true);
+        trackFormSubmit();
+        clearWycena();
+      } else {
+        toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
+      }
     } catch {
       toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
     } finally {

@@ -4,7 +4,7 @@ import { ShoppingCart, Check, Mail } from "lucide-react";
 import { useWycena } from "@/hooks/useWycena";
 import type { Product } from "@/data/products";
 import { toast } from "sonner";
-import { extractProductSpecs, getCategorySlugFromProduct } from "@/lib/extractProductSpecs";
+import { getCategorySlugFromProduct } from "@/lib/extractProductSpecs";
 
 const PRODUCT_PLACEHOLDER = "/images/placeholder-product_2.png";
 
@@ -36,33 +36,34 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
   // ── Parametry techniczne — do 6, grid 2-kolumnowy ──
   const techSpecs = useMemo(() => {
     const categorySlug = categorySlugProp || getCategorySlugFromProduct(product);
-    const searchableText = [
-      product.shortDescription,
-      product.description,
-      product.application,
-      product.unit,
-      ...(product.technicalSpec || []).flatMap((s) => [s.label, s.value]),
-    ].filter(Boolean).join(" ");
 
-    const extracted = extractProductSpecs(product.name, searchableText, categorySlug);
+    // Pola paletowe — ukryte na karcie, widoczne tylko w opisie produktu
+    const PALLET_LABEL = /paleta|palet|na\s+pal[ei]|ilo[sś][cć]\s+na/i;
 
-    const fromProductSpecs = (product.technicalSpec || [])
+    // Lambda i parametry termiczne — tylko dla kategorii izolacyjnych
+    const THERMAL_LABEL = /lambda|λ|przewodno[sś][cć]|wsp[oó][łl]czynnik\s*ciep/i;
+    const isIsolationCat = !!categorySlug && (
+      /izolac|styropian|we[łl]na|xps|eps|wata[-_]szklana|wata[-_]skalna/i.test(categorySlug)
+    );
+
+    const specs = (product.technicalSpec || [])
       .filter((s) => s.label && s.value)
+      .filter((s) => !PALLET_LABEL.test(s.label))
+      .filter((s) => isIsolationCat || !THERMAL_LABEL.test(s.label))
       .slice(0, 6)
-      .map((s, i) => ({ key: `ps-${i}-${s.label}`, label: s.label, value: s.value, highlight: i === 0 }));
+      .map((s, i) => ({
+        key: `ps-${i}-${s.label}`,
+        label: s.label,
+        value: s.value,
+        highlight: i === 0,
+      }));
 
-    const fallback = [
-      product.unit ? { key: "unit", label: "Opakowanie", value: product.unit, highlight: false } : null,
-    ].filter(Boolean) as typeof extracted;
+    // Fallback: pokaż jednostkę jeśli brak parametrów
+    if (specs.length === 0 && product.unit) {
+      return [{ key: "unit", label: "Opakowanie", value: product.unit, highlight: false }];
+    }
 
-    const merged = [...extracted, ...fromProductSpecs, ...fallback];
-    const seen = new Set<string>();
-    return merged.filter((s) => {
-      const id = `${s.label.toLowerCase()}::${s.value.toLowerCase()}`;
-      if (seen.has(id)) return false;
-      seen.add(id);
-      return true;
-    }).slice(0, 6);
+    return specs;
   }, [product, categorySlugProp]);
 
   // ── Intersection Observer lazy load ──

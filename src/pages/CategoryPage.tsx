@@ -610,11 +610,15 @@ export default function CategoryPage() {
     const sanityMapped = ((sanityMeta as ProductMeta[] | null) ?? []).map((meta: ProductMeta) => {
       const base = staticBySlug.get(meta.slug);
       if (base) {
-        // Merge: Sanity meta nadpisuje pola filtrów (świeższe), static dostarcza obrazy/opisy.
-        // Jeśli static nie ma obrazów (inne slugi bechcicki vs Sanity), użyj obrazu z Sanity.
-        const mergedImages = base.images?.length
-          ? base.images
-          : (meta.images?.filter(Boolean) ?? []);
+        // Merge obrazów: Sanity CDN (czyste URL) ma priorytet nad statycznymi bechcicki.pl URL
+        // Stare bechcicki.pl URL mogą wskazywać na placeholder "MR" — filtrujemy znane hashi
+        const sanityImages = (meta.images || []).filter(Boolean);
+        const staticImages = (base.images || []).filter((u): u is string =>
+          !!u &&
+          !u.includes('3907a0b3a13f08c233374a46960c3c76d175b4af') &&
+          !u.includes('placeholder')
+        );
+        const mergedImages = sanityImages.length ? sanityImages : staticImages;
         return {
           ...base,
           brand:            meta.brand    || base.brand,

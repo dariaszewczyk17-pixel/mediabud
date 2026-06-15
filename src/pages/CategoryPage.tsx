@@ -26,6 +26,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CategoryFilters, type ActiveFilters } from "@/components/CategoryFilters";
 import { getCategoryFilters } from "@/lib/categoryConfig";
+import {
+  getCategoryDefinition,
+  getCategoryFaqs,
+  getCategoryComparison,
+  getCategoryTopProducts,
+  CATEGORY_FAQS_EXTENDED,
+  type ComparisonTable,
+  type TopProduct,
+} from "@/data/categorySeoData";
 
 const PRODUCTS_PER_PAGE = 24;
 
@@ -439,6 +448,121 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   );
 }
 
+/* ── Definicja kategorii ("Czym jest X") — Featured Snippet ─────────────────── */
+function CategoryDefinition({ definition, categoryName }: { definition: string; categoryName: string }) {
+  return (
+    <div className="mb-8 rounded-2xl p-6" style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.06)" }}>
+      <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+        <span className="w-[3px] h-5 bg-[#f81828] rounded-full" />
+        Czym jest {categoryName}?
+      </h2>
+      <p 
+        className="text-sm text-gray-400 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: definition.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>') }}
+      />
+    </div>
+  );
+}
+
+/* ── Tabela porównawcza produktów — AI Overviews ────────────────────────────── */
+function ComparisonTableComponent({ table }: { table: ComparisonTable }) {
+  return (
+    <div className="mb-8 rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="px-6 py-4" style={{ background: "#0f0f0f", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <span className="w-[3px] h-5 bg-[#f81828] rounded-full" />
+          {table.title}
+        </h2>
+        <p className="text-xs text-gray-500 mt-1">{table.description}</p>
+      </div>
+      <div className="overflow-x-auto" style={{ background: "#0a0a0a" }}>
+        <table className="w-full text-sm">
+          <thead>
+            <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+              <th className="text-left px-4 py-3 text-gray-500 font-semibold text-xs uppercase tracking-wide">Parametr</th>
+              {table.products.map(product => (
+                <th key={product} className="text-left px-4 py-3 text-gray-300 font-bold text-xs">{product}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {table.rows.map((row, i) => (
+              <tr 
+                key={row.parameter} 
+                style={{ 
+                  background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent",
+                  borderBottom: "1px solid rgba(255,255,255,0.04)" 
+                }}
+              >
+                <td className="px-4 py-3 text-gray-400 font-medium">{row.parameter}</td>
+                {table.products.map(product => (
+                  <td 
+                    key={product} 
+                    className={`px-4 py-3 ${row.winner === product ? "text-[#f81828] font-bold" : "text-gray-300"}`}
+                  >
+                    {row.values[product] || "—"}
+                    {row.winner === product && <span className="ml-1 text-[10px]">★</span>}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="px-6 py-4" style={{ background: "#0f0f0f", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <p 
+          className="text-xs text-gray-400 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: table.recommendation.replace(/\*\*(.+?)\*\*/g, '<strong class="text-[#f81828]">$1</strong>') }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ── Top 5 produktów — Featured Snippet lista ───────────────────────────────── */
+function TopProductsList({ products, categoryName }: { products: TopProduct[]; categoryName: string }) {
+  return (
+    <div className="mb-8 rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="px-6 py-4" style={{ background: "#0f0f0f", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <span className="w-[3px] h-5 bg-[#f81828] rounded-full" />
+          Top {products.length} produktów — {categoryName}
+        </h2>
+        <p className="text-xs text-gray-500 mt-1">Najczęściej wybierane przez klientów Media Bud</p>
+      </div>
+      <ol className="divide-y divide-white/5" style={{ background: "#0a0a0a" }}>
+        {products.map((product, i) => (
+          <li key={product.slug} className="px-6 py-4 flex items-center gap-4 hover:bg-white/[0.02] transition-colors">
+            <span 
+              className="w-8 h-8 rounded-full flex items-center justify-center font-black text-sm flex-shrink-0"
+              style={{ 
+                background: i === 0 ? "#f81828" : "rgba(255,255,255,0.06)", 
+                color: i === 0 ? "#fff" : "#888" 
+              }}
+            >
+              {i + 1}
+            </span>
+            <div className="flex-1 min-w-0">
+              <Link 
+                to={`/produkt/${product.slug}`}
+                className="text-sm font-bold text-white hover:text-[#f81828] transition-colors block truncate"
+              >
+                {product.name}
+              </Link>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-xs text-gray-500">{product.brand}</span>
+                <span className="text-gray-700">•</span>
+                <span className="text-xs text-gray-400">{product.highlight}</span>
+              </div>
+            </div>
+            <ArrowRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -803,13 +927,35 @@ export default function CategoryPage() {
   const subReveal  = useReveal();
   const gridReveal = useReveal();
 
-  /* FAQ — szukamy po bieżącym slugu lub po korzeniu breadcrumbów */
+  /* FAQ — szukamy po bieżącym slugu lub po korzeniu breadcrumbów (rozszerzone FAQ) */
+  const rootSlug = breadcrumbs[0]?.slug;
   const faqItems = useMemo(() => {
+    // Najpierw sprawdź rozszerzone FAQ
+    const extendedFaq = getCategoryFaqs(slug || '', rootSlug);
+    if (extendedFaq.length > 0) return extendedFaq;
+    // Fallback do starych FAQ
     if (slug && CATEGORY_FAQS[slug]) return CATEGORY_FAQS[slug];
-    const rootSlug = breadcrumbs[0]?.slug;
     if (rootSlug && CATEGORY_FAQS[rootSlug]) return CATEGORY_FAQS[rootSlug];
     return null;
-  }, [slug, breadcrumbs]);
+  }, [slug, rootSlug]);
+
+  /* Definicja kategorii ("Czym jest X") */
+  const categoryDefinition = useMemo(() => 
+    getCategoryDefinition(slug || '', rootSlug), 
+    [slug, rootSlug]
+  );
+
+  /* Tabela porównawcza produktów */
+  const comparisonTable = useMemo(() => 
+    getCategoryComparison(slug || '', rootSlug), 
+    [slug, rootSlug]
+  );
+
+  /* Top 5 produktów */
+  const topProducts = useMemo(() => 
+    getCategoryTopProducts(slug || '', rootSlug), 
+    [slug, rootSlug]
+  );
 
   /* ── Liczba aktywnych filtrów (bez sortowania) ── */
   /* Liczba produktów per categorySlug — dla liczników w drzewie */
@@ -1871,6 +2017,26 @@ export default function CategoryPage() {
             )}
           </div>
         </div>
+
+        {/* ── Sekcje SEO: Definicja, Tabela porównawcza, Top 5 ── */}
+        {(categoryDefinition || comparisonTable || topProducts.length > 0) && (
+          <div className="mt-16 pt-12 border-t border-white/5">
+            {/* Definicja kategorii */}
+            {categoryDefinition && (
+              <CategoryDefinition definition={categoryDefinition} categoryName={cat?.name || ''} />
+            )}
+
+            {/* Tabela porównawcza i Top 5 obok siebie */}
+            <div className="grid lg:grid-cols-2 gap-8">
+              {comparisonTable && (
+                <ComparisonTableComponent table={comparisonTable} />
+              )}
+              {topProducts.length > 0 && (
+                <TopProductsList products={topProducts} categoryName={cat?.name || ''} />
+              )}
+            </div>
+          </div>
+        )}
 
         {/* ── Sekcja SEO i FAQ (na dole strony) ── */}
         {((slug && CATEGORY_SEO_TEXTS[slug]) || (faqItems && faqItems.length > 0)) && (

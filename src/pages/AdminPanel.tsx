@@ -7,6 +7,8 @@ import {
   ChevronDown, Filter, ArrowUpRight, MoreHorizontal, RefreshCw,
   ArrowUp, ArrowDown, ChevronUp, Upload, GripVertical, Award,
   AlertTriangle, Layers, ImageOff, SlidersHorizontal,
+  Download, Check, Square, CheckSquare, FolderTree, Type,
+  ExternalLink, Copy,
 } from "lucide-react";
 import { products } from "@/data/products";
 import { sanityClient } from "@/lib/sanity";
@@ -186,7 +188,7 @@ export default function AdminPanel() {
 
   /* ── P1.2 Edycja (slide-over) ── */
   const [editProd,   setEditProd]   = useState<any>(null);
-  const [editTab,    setEditTab]    = useState<"basic"|"images"|"specs">("basic");
+  const [editTab,    setEditTab]    = useState<"basic"|"images"|"specs"|"seo">("basic");
   const [editFields, setEditFields] = useState({ name:"", brand:"", unit:"", ean:"", shortDescription:"", description:"" });
   const [editSaving, setEditSaving] = useState(false);
   const [editMsg,    setEditMsg]    = useState<{type:"ok"|"err"; text:string}|null>(null);
@@ -197,6 +199,55 @@ export default function AdminPanel() {
   /* ── P1.3 Upload zdjęć ── */
   const [imgUploading, setImgUploading] = useState(false);
   const [imgMsg,       setImgMsg]       = useState<{type:"ok"|"err";text:string}|null>(null);
+
+  /* ── P2.1 Bulk actions ── */
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const allSelected = sanityProds.length > 0 && sanityProds.every(p => selectedIds.has(p._id));
+  const someSelected = selectedIds.size > 0;
+
+  const toggleSelect = useCallback((id: string) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  }, []);
+  const toggleAll = useCallback(() => {
+    if (allSelected) setSelectedIds(new Set());
+    else setSelectedIds(new Set(sanityProds.map(p => p._id)));
+  }, [allSelected, sanityProds]);
+
+  /* ── P2.4 Eksport CSV ── */
+  const exportCSV = useCallback((items: any[]) => {
+    const headers = ["Nazwa","Marka","Kategoria","Jednostka","EAN","Opis krótki","Opis"];
+    const rows = items.map(p => [
+      p.name||"", p.brand||"", p.category?.name||"", p.unit||"", p.ean||"",
+      (p.shortDescription||"").replace(/[\n\r]+/g," "), (p.description||"").replace(/[\n\r]+/g," "),
+    ]);
+    const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
+    const blob = new Blob(["\uFEFF"+csv], { type:"text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = `mediabud-produkty-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click(); URL.revokeObjectURL(url);
+  }, []);
+
+  /* ── P2.6 Inline edit ── */
+  const [inlineEdit, setInlineEdit] = useState<{id:string;field:string;value:string}|null>(null);
+  const saveInline = useCallback(async () => {
+    if (!inlineEdit) return;
+    try {
+      const res = await fetch(`/api/product/${inlineEdit.id}`, {
+        method:"PATCH", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ [inlineEdit.field]: inlineEdit.value }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSanityProds(prev => prev.map(p => p._id===inlineEdit.id ? {...p, [inlineEdit.field]:inlineEdit.value} : p));
+      }
+    } catch {}
+    setInlineEdit(null);
+  }, [inlineEdit]);
 
   /* ── Ładuj meta (kategorie, marki, quality) raz po zalogowaniu ── */
   useEffect(() => {
@@ -819,6 +870,11 @@ export default function AdminPanel() {
                   <SlidersHorizontal className="w-3.5 h-3.5"/>
                   Filtry {(filterCat||filterBrand) ? <span className="ml-0.5 w-4 h-4 rounded-full bg-[#f81828] text-white text-[9px] flex items-center justify-center font-black">{[filterCat,filterBrand].filter(Boolean).length}</span> : null}
                 </button>
+                <button onClick={()=>exportCSV(sanityProds)} title="Eksportuj bieżącą stronę do CSV"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-all"
+                  style={{border:"1px solid rgba(255,255,255,0.08)"}}>
+                  <Download className="w-3.5 h-3.5"/> CSV
+                </button>
                 {(filterCat||filterBrand||search) && (
                   <button onClick={resetFilters} className="text-[10px] text-gray-600 hover:text-[#f81828] transition-colors font-bold">✕ Resetuj</button>
                 )}
@@ -826,6 +882,19 @@ export default function AdminPanel() {
                   {sanityLoading ? "Ładowanie…" : sanityTotal > 0 ? `${sanityTotal.toLocaleString("pl-PL")} produktów` : ""}
                 </div>
               </div>
+
+              {/* P2.1 Bulk action bar */}
+              {someSelected && (
+                <div className="flex items-center gap-3 mb-3 px-4 py-2.5 rounded-xl" style={{background:"rgba(248,24,40,0.08)",border:"1px solid rgba(248,24,40,0.2)"}}>
+                  <span className="text-xs font-bold text-white">{selectedIds.size} zaznaczonych</span>
+                  <button onClick={()=>{ const items = sanityProds.filter(p=>selectedIds.has(p._id)); exportCSV(items); }}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold text-[#f81828] hover:bg-[#f81828]/15 transition-colors"
+                    style={{border:"1px solid rgba(248,24,40,0.3)"}}>
+                    <Download className="w-3 h-3"/> Eksportuj zaznaczone
+                  </button>
+                  <button onClick={()=>setSelectedIds(new Set())} className="ml-auto text-[10px] text-gray-500 hover:text-white font-bold">Odznacz wszystko</button>
+                </div>
+              )}
 
               {/* Rozwijane filtry */}
               {showFilters && (
@@ -868,6 +937,12 @@ export default function AdminPanel() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr style={{background:"rgba(255,255,255,0.02)",borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
+                      {/* P2.1 Checkbox select-all */}
+                      <th className="px-3 py-3 w-8">
+                        <button onClick={toggleAll} className="w-4 h-4 flex items-center justify-center rounded text-gray-500 hover:text-white transition-colors">
+                          {allSelected ? <CheckSquare className="w-4 h-4 text-[#f81828]"/> : <Square className="w-4 h-4"/>}
+                        </button>
+                      </th>
                       {/* Sortowalne nagłówki */}
                       {([
                         ["Produkt","name"],["Marka","brand"],["Kategoria","category"],
@@ -890,7 +965,7 @@ export default function AdminPanel() {
                   <tbody className="divide-y" style={{borderColor:"rgba(255,255,255,0.04)"}}>
                     {sanityLoading && Array.from({length:8}).map((_,i)=>(
                       <tr key={i}>
-                        {[200,80,100,50,60,50].map((w,j)=>(
+                        {[20,200,80,100,50,60,50].map((w,j)=>(
                           <td key={j} className="px-4 py-3">
                             <div className="h-3 rounded animate-pulse" style={{width:`${w}px`,background:"rgba(255,255,255,0.06)"}}/>
                           </td>
@@ -903,8 +978,15 @@ export default function AdminPanel() {
                       const hasEan  = !!p.ean;
                       const score   = [hasImg, hasDesc, hasEan].filter(Boolean).length;
                       const scoreColor = score===3?"#10b981":score===2?"#f59e0b":"#f81828";
+                      const isSelected = selectedIds.has(p._id);
                       return (
-                        <tr key={p._id} className="hover:bg-white/[0.02] transition-colors">
+                        <tr key={p._id} className={`transition-colors ${isSelected?"bg-[#f81828]/[0.04]":"hover:bg-white/[0.02]"}`}>
+                          {/* P2.1 Checkbox */}
+                          <td className="px-3 py-2.5 w-8">
+                            <button onClick={()=>toggleSelect(p._id)} className="w-4 h-4 flex items-center justify-center rounded transition-colors">
+                              {isSelected ? <CheckSquare className="w-4 h-4 text-[#f81828]"/> : <Square className="w-4 h-4 text-gray-600 hover:text-gray-400"/>}
+                            </button>
+                          </td>
                           <td className="px-4 py-2.5">
                             <div className="flex items-center gap-3">
                               <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center flex-shrink-0 overflow-hidden" style={{border:"1px solid rgba(255,255,255,0.1)"}}>
@@ -912,7 +994,21 @@ export default function AdminPanel() {
                                   ? <img src={p.images[0]} alt={p.name} className="w-full h-full object-contain p-0.5" onError={e=>{(e.currentTarget as HTMLImageElement).style.display="none";}} loading="lazy"/>
                                   : <Package className="w-4 h-4 text-gray-400"/>}
                               </div>
-                              <span className="text-xs font-bold text-gray-300 line-clamp-2 max-w-[200px]">{p.name}</span>
+                              {/* P2.6 Inline edit na nazwie */}
+                              {inlineEdit?.id===p._id && inlineEdit.field==="name" ? (
+                                <input autoFocus value={inlineEdit.value}
+                                  onChange={e=>setInlineEdit({...inlineEdit,value:e.target.value})}
+                                  onBlur={saveInline}
+                                  onKeyDown={e=>{ if(e.key==="Enter") saveInline(); if(e.key==="Escape") setInlineEdit(null); }}
+                                  className="text-xs font-bold text-white bg-transparent outline-none border-b border-[#f81828]/50 max-w-[200px] py-0.5"
+                                />
+                              ) : (
+                                <span className="text-xs font-bold text-gray-300 line-clamp-2 max-w-[200px] cursor-pointer hover:text-white transition-colors"
+                                  onDoubleClick={()=>setInlineEdit({id:p._id,field:"name",value:p.name||""})}
+                                  title="Kliknij 2× aby edytować">
+                                  {p.name}
+                                </span>
+                              )}
                             </div>
                           </td>
                           <td className="px-4 py-2.5 text-xs text-gray-500">{p.brand || "—"}</td>
@@ -946,7 +1042,7 @@ export default function AdminPanel() {
                       );
                     })}
                     {!sanityLoading && sanityProds.length===0 && !sanityError && (
-                      <tr><td colSpan={6} className="px-4 py-10 text-center text-xs text-gray-600">Brak produktów spełniających kryteria</td></tr>
+                      <tr><td colSpan={7} className="px-4 py-10 text-center text-xs text-gray-600">Brak produktów spełniających kryteria</td></tr>
                     )}
                   </tbody>
                 </table>
@@ -990,7 +1086,7 @@ export default function AdminPanel() {
 
                     {/* Zakładki */}
                     <div className="flex gap-0.5 px-6 pt-3 flex-shrink-0">
-                      {([["basic","Podstawowe"],["images","Zdjęcia"],["specs","Parametry"]] as const).map(([id,label])=>(
+                      {([["basic","Podstawowe"],["images","Zdjęcia"],["specs","Parametry"],["seo","SEO"]] as const).map(([id,label])=>(
                         <button key={id} onClick={()=>setEditTab(id)}
                           className={`px-4 py-2 rounded-t-lg text-xs font-bold transition-all ${editTab===id?"text-white":"text-gray-500 hover:text-gray-300"}`}
                           style={editTab===id?{background:"rgba(255,255,255,0.06)",borderBottom:"2px solid #f81828"}:{borderBottom:"2px solid transparent"}}>
@@ -1123,6 +1219,57 @@ export default function AdminPanel() {
                           ))}
                         </div>
                       )}
+
+                      {/* ── P2.3 Zakładka: SEO Preview ── */}
+                      {editTab==="seo" && editProd && (
+                        <div className="space-y-5">
+                          <p className="text-xs text-gray-500">Podgląd jak produkt wygląda w wynikach Google</p>
+                          {/* Google snippet preview */}
+                          <div className="rounded-xl p-5 space-y-1" style={{background:"#fff"}}>
+                            <p className="text-[13px] text-[#1a0dab] font-medium truncate" style={{fontFamily:"Arial,sans-serif"}}>
+                              {editFields.name || editProd.name || "Nazwa produktu"} — Media Bud
+                            </p>
+                            <p className="text-[11px] text-[#006621] truncate" style={{fontFamily:"Arial,sans-serif"}}>
+                              mediabud.pl › produkt › {editProd.slug?.current || editProd.slug || "slug"}
+                            </p>
+                            <p className="text-[12px] text-[#545454] line-clamp-2" style={{fontFamily:"Arial,sans-serif"}}>
+                              {editFields.shortDescription || editProd.shortDescription || editFields.description?.slice(0,160) || "Brak opisu — dodaj krótki opis produktu aby poprawić SEO."}
+                            </p>
+                          </div>
+
+                          {/* Analiza SEO */}
+                          <div className="space-y-2">
+                            <p className="text-[10px] text-gray-600 font-black uppercase tracking-wider">Analiza SEO</p>
+                            {[
+                              { ok: (editFields.name||"").length >= 10 && (editFields.name||"").length <= 70, label:"Tytuł", hint: `${(editFields.name||"").length}/70 znaków — optymalnie 30–70` },
+                              { ok: (editFields.shortDescription||"").length >= 50, label:"Krótki opis (meta description)", hint: `${(editFields.shortDescription||"").length}/160 znaków — min. 50` },
+                              { ok: (editFields.description||"").length >= 100, label:"Długi opis", hint: `${(editFields.description||"").length} znaków — min. 100 dla SEO` },
+                              { ok: !!editFields.ean, label:"EAN / kod kreskowy", hint: editFields.ean ? "✓ Wypełniony" : "Brak — ważny dla Google Shopping" },
+                              { ok: editProd.images?.length > 0, label:"Zdjęcia", hint: editProd.images?.length > 0 ? `${editProd.images.length} zdjęć` : "Brak — krytyczne dla konwersji" },
+                            ].map(item=>(
+                              <div key={item.label} className="flex items-center gap-2.5 px-3 py-2 rounded-lg" style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)"}}>
+                                <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${item.ok?"bg-emerald-500/20 text-emerald-400":"bg-amber-500/20 text-amber-400"}`}>
+                                  {item.ok ? <Check className="w-3 h-3"/> : <AlertTriangle className="w-3 h-3"/>}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <span className="text-xs font-bold text-white">{item.label}</span>
+                                  <span className="text-[10px] text-gray-500 ml-2">{item.hint}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* URL */}
+                          <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.06)"}}>
+                            <ExternalLink className="w-3.5 h-3.5 text-gray-600 flex-shrink-0"/>
+                            <span className="text-[11px] text-gray-400 truncate">mediabud.pl/produkt/{editProd.slug?.current || editProd.slug || "—"}</span>
+                            <button onClick={()=>navigator.clipboard.writeText(`https://mediabud.pl/produkt/${editProd.slug?.current||editProd.slug||""}`)}
+                              className="ml-auto text-gray-600 hover:text-white transition-colors flex-shrink-0" title="Kopiuj URL">
+                              <Copy className="w-3 h-3"/>
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Footer */}
@@ -1151,21 +1298,49 @@ export default function AdminPanel() {
           {/* ════ KATEGORIE ════ */}
           {tab==="categories" && (
             <div>
-              <SectionHeader title="Kategorie" count={categories.length} addLabel="Dodaj kategorię" onAdd={()=>window.open("https://mediabud-studio.pages.dev","_blank")}/>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {categories.map(cat=>(
-                  <Card key={cat.id} className="p-4 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-xl" style={{background:"rgba(248,24,40,0.1)",border:"1px solid rgba(248,24,40,0.2)"}}>
-                      {(cat as any).icon || "📦"}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-bold text-white truncate">{cat.name}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">{(cat as any).children?.length ?? 0} podkategorii</div>
-                    </div>
-                    <a href={`/kategoria/${cat.slug}`} target="_blank" rel="noreferrer" className="text-gray-600 hover:text-[#f81828] transition-colors flex-shrink-0"><Eye className="w-4 h-4"/></a>
-                  </Card>
-                ))}
-              </div>
+              <SectionHeader title="Kategorie" count={metaCats.length > 0 ? metaCats.length : categories.length} addLabel="Dodaj kategorię" onAdd={()=>window.open("https://mediabud-studio.pages.dev","_blank")}/>
+              {/* P2.5 Drzewo kategorii z Sanity z liczbą produktów */}
+              {metaCats.length > 0 ? (
+                <div className="space-y-2">
+                  {metaCats.map(cat=>(
+                    <Card key={cat.slug} className="p-4 flex items-center gap-3 hover:border-white/10 transition-all cursor-pointer"
+                      onClick={()=>{setTab("products" as Tab);setFilterCat(cat.slug);setShowFilters(true);setProdPage(1);}}>
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{background:"rgba(248,24,40,0.1)",border:"1px solid rgba(248,24,40,0.2)"}}>
+                        <FolderTree className="w-4 h-4 text-[#f81828]"/>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-bold text-white truncate">{cat.name}</div>
+                        <div className="text-xs text-gray-500 mt-0.5">{cat.count.toLocaleString("pl-PL")} produktów</div>
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{background:"rgba(248,24,40,0.1)",color:"#f81828"}}>{cat.count}</span>
+                        <a href={`/kategoria/${cat.slug}`} target="_blank" rel="noreferrer" className="text-gray-600 hover:text-[#f81828] transition-colors"
+                          onClick={e=>e.stopPropagation()}>
+                          <Eye className="w-4 h-4"/>
+                        </a>
+                      </div>
+                    </Card>
+                  ))}
+                  <div className="mt-3 text-center">
+                    <p className="text-[10px] text-gray-600">Kliknij kategorię aby zobaczyć jej produkty w zakładce Produkty</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {categories.map(cat=>(
+                    <Card key={cat.id} className="p-4 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-xl" style={{background:"rgba(248,24,40,0.1)",border:"1px solid rgba(248,24,40,0.2)"}}>
+                        {(cat as any).icon || "📦"}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-bold text-white truncate">{cat.name}</div>
+                        <div className="text-xs text-gray-500 mt-0.5">{(cat as any).children?.length ?? 0} podkategorii</div>
+                      </div>
+                      <a href={`/kategoria/${cat.slug}`} target="_blank" rel="noreferrer" className="text-gray-600 hover:text-[#f81828] transition-colors flex-shrink-0"><Eye className="w-4 h-4"/></a>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 

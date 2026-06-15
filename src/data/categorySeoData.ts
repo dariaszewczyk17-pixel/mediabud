@@ -337,3 +337,4 @@ export function getCategoryComparison(slug: string, parentSlug?: string): Compar
 export function getCategoryTopProducts(slug: string, parentSlug?: string): TopProduct[] {
   return CATEGORY_TOP_PRODUCTS[slug] || (parentSlug ? CATEGORY_TOP_PRODUCTS[parentSlug] : null) || [];
 }
+// cache-bust 1781567980

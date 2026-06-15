@@ -86,7 +86,12 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
   const mainImage = getProductImage(product);
   const topSpecs = product.technicalSpec.slice(0, 4);
   const topTags = product.tags.slice(0, 4);
-  const inStock = (product as any).inStock !== false;
+  const inStock = product.inStock !== false;
+
+  const brandLabel = (product.brand || "").trim();
+  const skuLabel = (product.sku || "").trim();
+  const hasMeta = Boolean(brandLabel || skuLabel);
+  const shortDesc = (product.shortDescription || "").trim();
 
   /* 3-D tilt */
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -169,9 +174,20 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
         {/* ── Image area ── */}
         <Link
           to={`/produkt/${product.slug}`}
-          className="block relative overflow-hidden p-3"
-          style={{ background: "#141414", aspectRatio: "1/1" }}
+          className="block relative overflow-hidden"
+          style={{
+            background: "#141414",
+            aspectRatio: "4/3",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+          }}
         >
+          {/* inner frame (mockup-like) */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)",
+            }}
+          />
 
           {/* Scan-line effect */}
           <div
@@ -230,20 +246,31 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
 
         {/* ── Content ── */}
         <div className="p-4">
-          {showBrand && product.brand && /^[A-Za-zÀ-ÿĄąĆćĘęŁłŃńÓóŚśŹźŻż]/.test(product.brand) && (
-            <div className="flex items-center justify-between gap-3 mb-2">
-              <span className="text-[9px] font-black tracking-widest uppercase text-[#f81828]">{product.brand}</span>
-              <span className="text-[9px] font-mono text-gray-500 truncate">{product.sku}</span>
-            </div>
-          )}
-
           <Link to={`/produkt/${product.slug}`} className="block">
-            <h3 className="text-sm font-bold text-gray-200 leading-snug mb-2 group-hover:text-[#f88090] transition-colors line-clamp-2 font-display min-h-[2.7rem]">
+            <h3 className="text-sm font-bold text-gray-200 leading-snug mb-1.5 group-hover:text-[#f88090] transition-colors line-clamp-2 font-display min-h-[2.7rem]">
               {product.name}
             </h3>
           </Link>
 
-          <p className="text-[11px] text-gray-400 mb-3 line-clamp-2 leading-relaxed min-h-[2.5rem]">{product.shortDescription}</p>
+          {/* Meta: brand + SKU (mockup) */}
+          {showBrand && hasMeta && (
+            <div className="flex items-center gap-2 text-[10px] text-gray-500 mb-2">
+              {brandLabel && (
+                <span className="font-semibold tracking-wide text-gray-400">{brandLabel}</span>
+              )}
+              {brandLabel && skuLabel && <span className="text-gray-600">•</span>}
+              {skuLabel && (
+                <span className="font-mono text-gray-500 truncate">SKU: {skuLabel}</span>
+              )}
+            </div>
+          )}
+
+          {/* Short description (mockup) */}
+          {shortDesc ? (
+            <p className="text-[11px] text-gray-400 mb-3 line-clamp-2 leading-relaxed min-h-[2.5rem]">{shortDesc}</p>
+          ) : (
+            <div className="mb-3 min-h-[2.5rem]" />
+          )}
 
           <div className="flex flex-wrap items-center gap-1.5 mb-3">
             <span
@@ -255,7 +282,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
             {topTags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full px-2 py-1 text-[10px] text-gray-400"
+                className="rounded-full px-2 py-1 text-[10px] text-gray-300"
                 style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.14)" }}
               >
                 {tag}
@@ -266,18 +293,23 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
           {topSpecs.length > 0 && (
             <div
               className="mb-3 rounded-xl p-3"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.06)",
+              }}
             >
-              <div className="text-[9px] font-black uppercase tracking-[0.15em] text-gray-500 mb-2.5">
+              <div className="text-[9px] font-black uppercase tracking-[0.18em] text-gray-500 mb-2">
                 PARAMETRY TECHNICZNE
               </div>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-2">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {topSpecs.map((spec) => (
-                  <div key={spec.label} className="grid grid-cols-[1fr]">
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.12em] text-gray-500 leading-tight mb-0.5">
+                  <div key={spec.label} className="min-w-0">
+                    <div className="text-[9px] font-bold uppercase tracking-wide text-gray-500 leading-tight mb-0.5 line-clamp-1">
                       {spec.label}
                     </div>
-                    <div className="text-[11px] font-bold text-gray-200 leading-tight line-clamp-1">{spec.value}</div>
+                    <div className="text-[11px] font-semibold text-gray-200 leading-tight line-clamp-1">
+                      {spec.value}
+                    </div>
                   </div>
                 ))}
               </div>

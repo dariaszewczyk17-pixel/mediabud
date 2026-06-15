@@ -195,6 +195,21 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const pathname = url.pathname;
 
+  // ── /produkt/* — SPA fallback z kodem 200 (nie 404) ──
+  // Cloudflare Pages domyślnie serwuje SPA shell jako 404 dla nieznanych ścieżek.
+  // Musimy zwrócić 200 żeby GSC nie raportowało błędów w sitemap.
+  if (pathname.startsWith("/produkt/")) {
+    const response = await next();
+    // Jeśli Cloudflare zwróciło 404 z SPA shell — zmień na 200
+    if (response.status === 404) {
+      return new Response(response.body, {
+        status: 200,
+        headers: response.headers,
+      });
+    }
+    return response;
+  }
+
   // Tylko dla stron kategorii i tylko dla botów
   if (!pathname.startsWith("/kategoria/") || !isBot(request)) {
     return next();

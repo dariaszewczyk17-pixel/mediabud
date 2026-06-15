@@ -4,6 +4,7 @@ import { useSEO } from "@/hooks/useSEO";
 import { ChevronRight, ArrowRight, Phone, Grid3x3 } from "lucide-react";
 import { categories } from "@/data/categories";
 import { useAllProducts } from "@/hooks/useSanityData";
+import { ProductCardFuturistic } from "@/components/ProductCardFuturistic";
 
 const card = { background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.07)" } as const;
 const cardHover = "hover:border-[#f81828]/30 hover:shadow-[0_8px_32px_rgba(248,24,40,0.10)] transition-all duration-300";
@@ -57,30 +58,29 @@ function CatalogSection() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
-              {visible.map((p: any) => (
-                <Link
-                  key={p._id ?? p.id}
-                  to={`/produkty/${p.slug}`}
-                  className="group rounded-xl overflow-hidden transition-all duration-200"
-                  style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.06)" }}
-                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(248,24,40,0.4)"; el.style.transform = "translateY(-2px)"; el.style.boxShadow = "0 8px 24px rgba(248,24,40,0.1)"; }}
-                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.06)"; el.style.transform = ""; el.style.boxShadow = "none"; }}
-                >
-                  {p.images?.[0] ? (
-                    <div className="h-28 overflow-hidden bg-white flex items-center justify-center p-2">
-                      <img src={p.images[0]} alt={p.name} loading="lazy" className="max-h-full max-w-full object-contain" />
-                    </div>
-                  ) : (
-                    <div className="h-28 flex items-center justify-center" style={{ background: "#1a1a1a" }}>
-                      <span className="text-2xl font-black text-[#333]">{p.name?.charAt(0)}</span>
-                    </div>
-                  )}
-                  <div className="p-2.5">
-                    <p className="text-[10px] font-black uppercase tracking-wider text-[#f81828] mb-0.5 truncate">{p.brand}</p>
-                    <p className="text-xs text-white font-semibold line-clamp-2 leading-tight" style={{ minHeight: "2.4em" }}>{p.name}</p>
-                  </div>
-                </Link>
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-stretch">
+              {visible.map((p: any, i: number) => (
+                <div key={p._id ?? p.id} className="h-full">
+                  <ProductCardFuturistic
+                    product={{
+                      id: p._id ?? p.id,
+                      slug: p.slug,
+                      name: p.name,
+                      brand: p.brand,
+                      images: p.images,
+                      unit: p.unit,
+                      shortDescription: p.shortDescription,
+                      description: p.description,
+                      application: p.application,
+                      technicalSpec: p.technicalSpec,
+                      tags: p.tags,
+                    } as any}
+                    priority={i < 4}
+                    index={i}
+                    showBrand={true}
+                    // /produkty nie ma jednej kategorii — pozwól extractProductSpecs działać z getCategorySlugFromProduct(product)
+                  />
+                </div>
               ))}
             </div>
             {page * PAGE_SIZE < allProducts.length && (

@@ -145,5 +145,27 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- ── Speculation Rules API — Chrome 121+ prerenderuje strony ──── -->
+    <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "where": { "href_matches": "/kategoria/*" },
+          "eagerness": "moderate"
+        }
+      ],
+      "prefetch": [
+        {
+          "where": { "href_matches": "/*-id-p-*" },
+          "eagerness": "moderate"
+        },
+        {
+          "where": { "href_matches": "/marki/*" },
+          "eagerness": "moderate"
+        }
+      ]
+    }
+    </script>
   </body>
 </html>

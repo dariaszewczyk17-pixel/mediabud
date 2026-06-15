@@ -16,6 +16,8 @@ import { sanityProductToLegacy, sanityCategoryToLegacy, type SanityProduct, type
 import { mergeProductCollections } from "@/lib/productMerge";
 import { searchProducts } from "@/lib/productSearch";
 import { BRANDS, slugifyBrand } from "@/data/brands";
+import { prefetchSanity } from "@/lib/sanity";
+import { PRODUCT_META_BY_ROOT_CAT_QUERY } from "@/lib/queries";
 
 /* ── Category icon map — wszystkie 10 kategorii ─────────────────── */
 const CAT_ICONS: Record<string, React.ReactNode> = {
@@ -693,7 +695,7 @@ window.removeEventListener("scroll", fn);
                 <div
                   key={cat.id}
                   className="group/icon relative flex-1"
-                  onMouseEnter={() => { menuEnter(cat.id); setMegaSearch(""); }}
+                  onMouseEnter={() => { menuEnter(cat.id); setMegaSearch(""); prefetchSanity(PRODUCT_META_BY_ROOT_CAT_QUERY, { catSlug: cat.slug }); }}
                   onMouseLeave={menuLeave}
                 >
                   <Link

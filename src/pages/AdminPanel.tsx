@@ -99,8 +99,6 @@ export default function AdminPanel() {
     const saved = localStorage.getItem("mb_admin_inquiries");
     return saved ? JSON.parse(saved) : INITIAL_INQUIRIES;
   });
-  const [sanityRealizacje, setSanityRealizacje] = useState<any[]>([]);
-  const [sanityRealizacjeLoading, setSanityRealizacjeLoading] = useState(false);
   const [inqNotes, setInqNotes] = useState<Record<number, string>>(() => {
     const saved = localStorage.getItem("mb_admin_inq_notes");
     return saved ? JSON.parse(saved) : {};

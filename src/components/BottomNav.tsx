@@ -1,4 +1,3 @@
-// cache-bust-v2
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, Search, ShoppingBag, Phone } from "lucide-react";
 import { trackPhoneClick } from "@/hooks/useConversionTracking";

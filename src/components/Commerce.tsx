@@ -86,21 +86,51 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
   const cardRef = useRef<HTMLDivElement>(null);
   const mainImage = getProductImage(product);
 
-  // Filtrowanie parametrów: bez pól administracyjnych, GPSR, boolean i cieplnych dla nie-izolacji
+  // Filtrowanie parametrów: bez pól administracyjnych, GPSR, boolean, bezużytecznych
+  // + priorytet dla Lambda/Grubość/Zużycie/Wymiar
   const topSpecs = (() => {
     const PALLET_LABEL  = /paleta|palet|na\s+pal[ei]|ilo[sś][cć]\s+na/i;
     const GPSR_LABEL    = /^GPSR/i;
     const BOOL_VALUE    = /^(true|false)$/i;
     const THERMAL_LABEL = /lambda|λ|przewodno[sś][cć]|wsp[oó][łl]czynnik\s*ciep/i;
-    const catSlug       = product.categorySlug || '';
-    const isIsolation   = /izolac|styropian|we[łl]n[ay]|xps|eps|pianka|ociepleni/i.test(catSlug);
-    return (product.technicalSpec || [])
+    // Blacklist: bezużyteczne parametry na kartach produktów
+    const BLACKLIST     = /seria\s+produkt|rodzaj\s+we[łl]n|typ\s+produkt|numer\s+katalog|kod\s+produc|index|indeks|symbol|ref\s*\./i;
+    // Priorytetowe parametry (wyświetlane jako pierwsze)
+    const PRIORITY_LABELS = [
+      /lambda|λ/i,                           // Lambda (izolacje)
+      /grubo[sś][cć]/i,                      // Grubość
+      /zu[żz]ycie/i,                         // Zużycie
+      /wymiar\s*(p[łl]yty)?/i,               // Wymiar płyty
+      /klasa\s+reakcji/i,                    // Klasa reakcji na ogień
+      /czas\s+schni[eę]cia/i,                // Czas schnięcia
+      /temperatura/i,                        // Temperatura aplikacji
+      /granulacja|ziarno/i,                  // Granulacja (tynki)
+      /wydajno[sś][cć]/i,                    // Wydajność
+      /d[łl]ugo[sś][cć]/i,                   // Długość
+      /szeroko[sś][cć]/i,                    // Szerokość
+    ];
+    
+    const catSlug     = product.categorySlug || '';
+    const isIsolation = /izolac|styropian|we[łl]n[ay]|xps|eps|pianka|ociepleni/i.test(catSlug);
+    
+    // Filtruj
+    const filtered = (product.technicalSpec || [])
       .filter(s => s.label && s.value)
       .filter(s => !PALLET_LABEL.test(s.label))
       .filter(s => !GPSR_LABEL.test(s.label))
       .filter(s => !BOOL_VALUE.test(s.value))
+      .filter(s => !BLACKLIST.test(s.label))
       .filter(s => s.label.length <= 35)
-      .filter(s => isIsolation || !THERMAL_LABEL.test(s.label))
+      .filter(s => isIsolation || !THERMAL_LABEL.test(s.label));
+    
+    // Sortuj: priorytetowe parametry na górę
+    const getPriority = (label: string) => {
+      const idx = PRIORITY_LABELS.findIndex(rx => rx.test(label));
+      return idx === -1 ? 999 : idx;
+    };
+    
+    return filtered
+      .sort((a, b) => getPriority(a.label) - getPriority(b.label))
       .slice(0, 4);
   })();
   const topTags = product.tags.slice(0, 4);

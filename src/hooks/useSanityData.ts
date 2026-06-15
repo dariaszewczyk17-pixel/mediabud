@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
 import { sanityFetch } from '@/lib/sanity'
 import {
   ALL_CATEGORIES_QUERY,
@@ -20,107 +20,179 @@ import {
   ALL_BRANDS_QUERY,
 } from '@/lib/queries'
 
-// âââ Bazowy hook ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── Query Keys ─────────────────────────────────────────────────────────────
+// Centralizowane klucze dla cache invalidation i deduplication
 
-function useSanityQuery<T>(query: string, params?: Record<string, any>) {
-  const [data, setData] = useState<T | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  const paramsKey = JSON.stringify(params)
-
-  useEffect(() => {
-    if (!query) { setData(null); setLoading(false); return }
-    let cancelled = false
-    setData(null)      // â czyÅÄ stare dane natychmiast przy zmianie zapytania
-    setLoading(true)
-    sanityFetch<T>(query, params)
-      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
-      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
-    return () => { cancelled = true }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, paramsKey])
-
-  return { data, loading, error }
+export const queryKeys = {
+  categories: {
+    all: ['categories'] as const,
+    bySlug: (slug: string) => ['categories', slug] as const,
+  },
+  products: {
+    all: ['products'] as const,
+    featured: ['products', 'featured'] as const,
+    bySlug: (slug: string) => ['products', slug] as const,
+    byCategory: (slug: string) => ['products', 'category', slug] as const,
+    byCategorySlugs: (slugs: string[]) => ['products', 'categorySlugs', slugs.join(',')] as const,
+    metaByCatSlug: (catSlug: string) => ['products', 'meta', catSlug] as const,
+    metaByCatSlugFast: (catSlug: string) => ['products', 'metaFast', catSlug] as const,
+    metaByCategorySlugs: (slugs: string[]) => ['products', 'metaSlugs', slugs.join(',')] as const,
+    metaPaginated: (catSlug: string) => ['products', 'metaPaginated', catSlug] as const,
+    related: (categorySlug: string, currentSlug: string) => ['products', 'related', categorySlug, currentSlug] as const,
+  },
+  blog: {
+    all: ['blog'] as const,
+    bySlug: (slug: string) => ['blog', slug] as const,
+  },
+  brands: {
+    all: ['brands'] as const,
+  },
+  settings: ['settings'] as const,
 }
 
-// âââ Eksportowane hooki âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── Helper: mapowanie na stary format {data, loading, error} ───────────────
 
-/** Wszystkie kategorie top-level z dzieÄmi */
-export const useAllCategories = () =>
-  useSanityQuery(ALL_CATEGORIES_QUERY)
+function useQueryCompat<T>(queryResult: ReturnType<typeof useQuery<T>>) {
+  return {
+    data: queryResult.data ?? null,
+    loading: queryResult.isLoading,
+    error: queryResult.error,
+  }
+}
+
+// ─── Eksportowane hooki ─────────────────────────────────────────────────────
+
+/** Wszystkie kategorie top-level z dziećmi */
+export function useAllCategories() {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.categories.all,
+      queryFn: () => sanityFetch(ALL_CATEGORIES_QUERY),
+    })
+  )
+}
 
 /** Wszystkie produkty */
-export const useAllProducts = () =>
-  useSanityQuery(ALL_PRODUCTS_QUERY)
+export function useAllProducts() {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.all,
+      queryFn: () => sanityFetch(ALL_PRODUCTS_QUERY),
+    })
+  )
+}
 
 /** Produkty polecane (featured: true) */
-export const useFeaturedProducts = () =>
-  useSanityQuery(FEATURED_PRODUCTS_QUERY)
+export function useFeaturedProducts() {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.featured,
+      queryFn: () => sanityFetch(FEATURED_PRODUCTS_QUERY),
+    })
+  )
+}
 
 /** Produkty dla jednej kategorii (slug) */
-export const useProductsByCategory = (slug: string) =>
-  useSanityQuery(PRODUCTS_BY_CATEGORY_QUERY, { slug })
+export function useProductsByCategory(slug: string) {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.byCategory(slug),
+      queryFn: () => sanityFetch(PRODUCTS_BY_CATEGORY_QUERY, { slug }),
+      enabled: !!slug,
+    })
+  )
+}
 
 /**
  * Produkty dla wielu kategorii naraz (slug + wszystkie podkategorie).
- * PrzekaÅ´ wynik collectAllSlugs(sanityCategory).
- * Hook jest wyÅÄczony (skip) gdy slugs jest pustÄ tablicÄ.
+ * Przekaż wynik collectAllSlugs(sanityCategory).
+ * Hook jest wyłączony (skip) gdy slugs jest pustą tablicą.
  */
 export function useProductsByCategorySlugs(slugs: string[]) {
-  const [data, setData] = useState<any[] | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  const slugsKey = slugs.join(',')
-
-  useEffect(() => {
-    if (!slugs.length) { setData(null); setLoading(false); return }
-    let cancelled = false
-    setData(null)      // â czyÅÄ stare dane natychmiast przy zmianie kategorii
-    setLoading(true)
-    sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs, limit: 2000 })
-      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
-      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
-    return () => { cancelled = true }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slugsKey])
-
-  return { data, loading, error }
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.byCategorySlugs(slugs),
+      queryFn: () => sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_SLUGS_QUERY, { slugs, limit: 2000 }),
+      enabled: slugs.length > 0,
+    })
+  )
 }
 
 /** Jeden produkt po slug */
-export const useProductBySlug = (slug: string) =>
-  useSanityQuery(PRODUCT_BY_SLUG_QUERY, { slug })
-
-/** Jedna kategoria po slug (z ÅaÅcuchem rodzicÃ³w + dzieÄmi) */
-export const useCategoryBySlug = (slug: string) =>
-  useSanityQuery(CATEGORY_BY_SLUG_QUERY, { slug })
-
-/** Produkty powiÄzane z tej samej kategorii */
-export const useRelatedProducts = (categorySlug: string, currentSlug: string) =>
-  useSanityQuery(
-    categorySlug ? RELATED_PRODUCTS_QUERY : '',
-    categorySlug ? { categorySlug, currentSlug } : undefined,
+export function useProductBySlug(slug: string) {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.bySlug(slug),
+      queryFn: () => sanityFetch(PRODUCT_BY_SLUG_QUERY, { slug }),
+      enabled: !!slug,
+    })
   )
+}
+
+/** Jedna kategoria po slug (z łańcuchem rodziców + dziećmi) */
+export function useCategoryBySlug(slug: string) {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.categories.bySlug(slug),
+      queryFn: () => sanityFetch(CATEGORY_BY_SLUG_QUERY, { slug }),
+      enabled: !!slug,
+    })
+  )
+}
+
+/** Produkty powiązane z tej samej kategorii */
+export function useRelatedProducts(categorySlug: string, currentSlug: string) {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.related(categorySlug, currentSlug),
+      queryFn: () => sanityFetch(RELATED_PRODUCTS_QUERY, { categorySlug, currentSlug }),
+      enabled: !!categorySlug,
+    })
+  )
+}
 
 /** Wszystkie posty bloga */
-export const useAllBlogPosts = () =>
-  useSanityQuery(ALL_BLOG_POSTS_QUERY)
+export function useAllBlogPosts() {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.blog.all,
+      queryFn: () => sanityFetch(ALL_BLOG_POSTS_QUERY),
+    })
+  )
+}
 
 /** Jeden post bloga po slug */
-export const useBlogPostBySlug = (slug: string) =>
-  useSanityQuery(BLOG_POST_BY_SLUG_QUERY, { slug })
+export function useBlogPostBySlug(slug: string) {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.blog.bySlug(slug),
+      queryFn: () => sanityFetch(BLOG_POST_BY_SLUG_QUERY, { slug }),
+      enabled: !!slug,
+    })
+  )
+}
 
 /** Ustawienia witryny */
-export const useSiteSettings = () =>
-  useSanityQuery(SITE_SETTINGS_QUERY)
+export function useSiteSettings() {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.settings,
+      queryFn: () => sanityFetch(SITE_SETTINGS_QUERY),
+    })
+  )
+}
 
 /** Wszystkie marki */
-export const useAllBrands = () =>
-  useSanityQuery(ALL_BRANDS_QUERY)
+export function useAllBrands() {
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.brands.all,
+      queryFn: () => sanityFetch(ALL_BRANDS_QUERY),
+    })
+  )
+}
 
-// âââ Typ metadanych produktu (Query A) âââââââââââââââââââââââââââââââââââââââ
+// ─── Typ metadanych produktu (Query A) ──────────────────────────────────────
 
 export interface ProductMeta {
   _id: string
@@ -138,81 +210,49 @@ export interface ProductMeta {
 }
 
 /**
- * â¡ FAST FIRST PAGE â pierwsze 48 produktÃ³w dla natychmiastowego wyÅwietlenia.
- * WywoÅaj rÃ³wnolegle z useProductMetaByCatSlug. Zwraca dane w~200-400ms.
+ * ⚡ FAST FIRST PAGE — pierwsze 48 produktów dla natychmiastowego wyświetlenia.
+ * Wywołaj równolegle z useProductMetaByCatSlug. Zwraca dane w ~200-400ms.
  */
 export function useProductMetaByCatSlugFast(catSlug: string | undefined) {
-  const [data, setData] = useState<ProductMeta[] | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  useEffect(() => {
-    if (!catSlug) { setData(null); setLoading(false); return }
-    let cancelled = false
-    setData(null)
-    setLoading(true)
-    sanityFetch<ProductMeta[]>(PRODUCT_META_BY_CAT_FIRST_QUERY, { catSlug })
-      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
-      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
-    return () => { cancelled = true }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [catSlug])
-
-  return { data, loading, error }
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.metaByCatSlugFast(catSlug || ''),
+      queryFn: () => sanityFetch<ProductMeta[]>(PRODUCT_META_BY_CAT_FIRST_QUERY, { catSlug }),
+      enabled: !!catSlug,
+    })
+  )
 }
 
 /**
- * â¡ Query B FULL â wszystkie produkty przez $catSlug, optymalizowane `in` subquery.
- * Åaduj w tle rÃ³wnolegle z useProductMetaByCatSlugFast.
+ * ⚡ Query B FULL — wszystkie produkty przez $catSlug, optymalizowane `in` subquery.
+ * Ładuj w tle równolegle z useProductMetaByCatSlugFast.
  */
 export function useProductMetaByCatSlug(catSlug: string | undefined) {
-  const [data, setData] = useState<ProductMeta[] | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  useEffect(() => {
-    if (!catSlug) { setData(null); setLoading(false); return }
-    let cancelled = false
-    setData(null)
-    setLoading(true)
-    sanityFetch<ProductMeta[]>(PRODUCT_META_BY_ROOT_CAT_QUERY, { catSlug })
-      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
-      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
-    return () => { cancelled = true }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [catSlug])
-
-  return { data, loading, error }
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.metaByCatSlug(catSlug || ''),
+      queryFn: () => sanityFetch<ProductMeta[]>(PRODUCT_META_BY_ROOT_CAT_QUERY, { catSlug }),
+      enabled: !!catSlug,
+    })
+  )
 }
 
 /**
- * â¡ Query A â metadane produktÃ³w + pierwsze zdjÄcie + shortDescription.
- * UÅ¼ywany do kart produktÃ³w w CategoryPage (limit 500).
- * PeÅna galeria i dÅugi opis Åadowane dopiero w ProductDetail.
+ * ⚡ Query A — metadane produktów + pierwsze zdjęcie + shortDescription.
+ * Używany do kart produktów w CategoryPage (limit 500).
+ * Pełna galeria i długi opis ładowane dopiero w ProductDetail.
  */
 export function useProductMetaByCategorySlugs(slugs: string[]) {
-  const [data, setData] = useState<ProductMeta[] | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  const slugsKey = slugs.join(',')
-
-  useEffect(() => {
-    if (!slugs.length) { setData(null); setLoading(false); return }
-    let cancelled = false
-    setData(null)      // ← czyść stare dane natychmiast przy zmianie kategorii
-    setLoading(true)
-    sanityFetch<ProductMeta[]>(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs })
-      .then(res => { if (!cancelled) { setData(res); setLoading(false) } })
-      .catch(err => { if (!cancelled) { setError(err); setLoading(false) } })
-    return () => { cancelled = true }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slugsKey])
-
-  return { data, loading, error }
+  return useQueryCompat(
+    useQuery({
+      queryKey: queryKeys.products.metaByCategorySlugs(slugs),
+      queryFn: () => sanityFetch<ProductMeta[]>(PRODUCT_META_BY_CATEGORY_SLUGS_QUERY, { slugs }),
+      enabled: slugs.length > 0,
+    })
+  )
 }
 
-// ─── Paginated loading (infinite scroll) ─────────────────────────────────────
+// ─── Paginated loading (infinite scroll) ────────────────────────────────────
 
 const PAGE_SIZE = 48
 
@@ -222,68 +262,42 @@ const PAGE_SIZE = 48
  * Używaj zamiast useProductMetaByCatSlug gdy kategoria ma >200 produktów.
  */
 export function useProductMetaPaginated(catSlug: string | undefined) {
-  const [pages, setPages] = useState<ProductMeta[][]>([])
-  const [loading, setLoading] = useState(false)
-  const [loadingMore, setLoadingMore] = useState(false)
-  const [total, setTotal] = useState<number | null>(null)
-  const [error, setError] = useState<Error | null>(null)
+  // Pobierz total count osobno
+  const countQuery = useQuery({
+    queryKey: [...queryKeys.products.metaPaginated(catSlug || ''), 'count'],
+    queryFn: () => sanityFetch<number>(PRODUCT_COUNT_BY_ROOT_CAT_QUERY, { catSlug }),
+    enabled: !!catSlug,
+  })
 
-  // Reset przy zmianie kategorii
-  useEffect(() => {
-    if (!catSlug) { setPages([]); setTotal(null); return }
-    let cancelled = false
-    setPages([])
-    setLoading(true)
-    setError(null)
-
-    // Ładuj pierwszą stronę + count równolegle
-    Promise.all([
+  // Infinite query dla stron produktów
+  const infiniteQuery = useInfiniteQuery({
+    queryKey: queryKeys.products.metaPaginated(catSlug || ''),
+    queryFn: ({ pageParam = 0 }) =>
       sanityFetch<ProductMeta[]>(PRODUCT_META_PAGINATED_QUERY, {
-        catSlug, offset: 0, end: PAGE_SIZE,
+        catSlug,
+        offset: pageParam,
+        end: pageParam + PAGE_SIZE,
       }),
-      sanityFetch<number>(PRODUCT_COUNT_BY_ROOT_CAT_QUERY, { catSlug }),
-    ])
-      .then(([firstPage, count]) => {
-        if (cancelled) return
-        setPages([firstPage])
-        setTotal(count)
-        setLoading(false)
-      })
-      .catch(err => {
-        if (cancelled) return
-        setError(err)
-        setLoading(false)
-      })
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      const total = countQuery.data ?? 0
+      const loaded = allPages.flat().length
+      return loaded < total ? loaded : undefined
+    },
+    enabled: !!catSlug,
+  })
 
-    return () => { cancelled = true }
-  }, [catSlug])
-
-  const allProducts = pages.flat()
+  const allProducts = infiniteQuery.data?.pages.flat() ?? []
+  const total = countQuery.data ?? null
   const hasMore = total !== null && allProducts.length < total
-
-  const loadMore = async () => {
-    if (!catSlug || loadingMore || !hasMore) return
-    setLoadingMore(true)
-    try {
-      const offset = allProducts.length
-      const nextPage = await sanityFetch<ProductMeta[]>(PRODUCT_META_PAGINATED_QUERY, {
-        catSlug, offset, end: offset + PAGE_SIZE,
-      })
-      setPages(prev => [...prev, nextPage])
-    } catch (err) {
-      setError(err as Error)
-    } finally {
-      setLoadingMore(false)
-    }
-  }
 
   return {
     data: allProducts.length > 0 ? allProducts : null,
-    loading,
-    loadingMore,
+    loading: infiniteQuery.isLoading || countQuery.isLoading,
+    loadingMore: infiniteQuery.isFetchingNextPage,
     hasMore,
     total,
-    loadMore,
-    error,
+    loadMore: () => infiniteQuery.fetchNextPage(),
+    error: infiniteQuery.error || countQuery.error,
   }
 }

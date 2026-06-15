@@ -23,6 +23,7 @@ function jsonRes(data, status = 200) {
 
 // 29 starych parent duplikatów → kanoniczne
 const PARENT_MAP = {
+  // Runda 1 (29 parent duplikatów — większość już usunięta)
   "cat-akcesoria-malarskie-i-tynkarskie": "cat-l2-akcesoria-malarskie-i-tynkar",
   "cat-artykuy-scierne": "cat-l2-artykuly-scierne",
   "cat-farby-el": "cat-farby-do-drewna",
@@ -52,6 +53,29 @@ const PARENT_MAP = {
   "cat-wieszaki-do-suchej-zabudowy": "cat-l2-wieszaki-do-suchej-zabudowy",
   "cat-zabezpieczenia-przeciwsniegowe": "cat-l2-zabezpieczenia-przeciwsniego",
   "cat-zaprawy": "cat-l2-zaprawy",
+  // Runda 2 (23 duplikatów drugiej generacji)
+  "cat-artykuy-scierne-do-suchej-zabudowy": "cat-artykuly-scierne-do-suchej-zabudowy",
+  "cat-belki-stropowe-betonowe": "category-belki-stropowe-betonowe",
+  "cat-belki-stropowe-ceramiczne": "cat-l3-belki-stropowe-ceramiczne",
+  "cat-bloczki": "cat-l3-bloczki",
+  "cat-farby-do-betonu": "cat-l3-farby-do-betonu",
+  "cat-farby-zaprawkowe": "cat-l3-farby-zaprawkowe",
+  "cat-gadzie-gipsowe-w-proszku": "cat-l3-gladzie-gipsowe-w-proszku",
+  "cat-gadzie-masy-gotowe": "cat-l3-gladzie-masy-gotowe",
+  "cat-gipsy-budowlane": "cat-l3-gipsy-budowlane",
+  "cat-gipsy-szpachlowe": "cat-l3-gipsy-szpachlowe",
+  "cat-kleje-gipsowe": "cat-l3-kleje-gipsowe",
+  "cat-kostki-scierne": "cat-l3-kostki-scierne",
+  "cat-panele-i-dekory-scienne": "cat-l3-panele-i-dekory-scienne",
+  "cat-papier-scierny": "cat-l3-papier-scierny",
+  "cat-pigmenty": "cat-l3-pigmenty",
+  "cat-pilniki": "cat-l3-pilniki",
+  "cat-pustaki": "cat-l3-pustaki",
+  "cat-pytki-elewacyjne": "category-plytki-elewacyjne",
+  "cat-pytki-scienne": "category-plytki-scienne",
+  "cat-pytki-tarasowe": "category-plytki-tarasowe",
+  "cat-pyty-cementowe": "category-plyty-cementowe",
+  "cat-pyty-gipsowo-kartonowe": "category-plyty-gipsowo-kartonowe",
 };
 
 export async function onRequest({ request, env }) {
@@ -80,11 +104,11 @@ export async function onRequest({ request, env }) {
       log.push(`Przepięto parent w ${children.length} podkategoriach`);
     }
 
-    // KROK 2: Przepnij produkty (safety — mogły zostać)
+    // KROK 2: Przepnij produkty category._ref (safety — mogły zostać)
     const q2 = encodeURIComponent(`*[_type=="product" && category._ref in [${idsStr}]]{_id, "catRef": category._ref}`);
     const r2 = await fetch(`${QUERY_URL}?query=${q2}`, { headers: h });
     const prods = (await r2.json()).result ?? [];
-    log.push(`Produktów do przepięcia: ${prods.length}`);
+    log.push(`Produktów (category) do przepięcia: ${prods.length}`);
 
     if (prods.length > 0) {
       const mutations = prods.map(p => ({
@@ -94,7 +118,24 @@ export async function onRequest({ request, env }) {
         const batch = mutations.slice(i, i + 100);
         await fetch(MUTATE, { method: "POST", headers: h, body: JSON.stringify({ mutations: batch }) });
       }
-      log.push(`Przepięto ${prods.length} produktów`);
+      log.push(`Przepięto ${prods.length} produktów (category)`);
+    }
+
+    // KROK 2b: Przepnij produkty rootCategory._ref
+    const q2b = encodeURIComponent(`*[_type=="product" && rootCategory._ref in [${idsStr}]]{_id, "rootRef": rootCategory._ref}`);
+    const r2b = await fetch(`${QUERY_URL}?query=${q2b}`, { headers: h });
+    const rootProds = (await r2b.json()).result ?? [];
+    log.push(`Produktów (rootCategory) do przepięcia: ${rootProds.length}`);
+
+    if (rootProds.length > 0) {
+      const mutations = rootProds.map(p => ({
+        patch: { id: p._id, set: { rootCategory: { _type: "reference", _ref: PARENT_MAP[p.rootRef] } } }
+      }));
+      for (let i = 0; i < mutations.length; i += 100) {
+        const batch = mutations.slice(i, i + 100);
+        await fetch(MUTATE, { method: "POST", headers: h, body: JSON.stringify({ mutations: batch }) });
+      }
+      log.push(`Przepięto ${rootProds.length} produktów (rootCategory)`);
     }
 
     // KROK 3: Usuń stare duplikaty (safety check — tylko bez referencji)

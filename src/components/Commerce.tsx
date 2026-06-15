@@ -86,7 +86,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
   const mainImage = getProductImage(product);
   const topSpecs = product.technicalSpec.slice(0, 4);
   const topTags = product.tags.slice(0, 3);
-  const inStock = product.inStock !== false;
+  const inStock = (product as any).inStock !== false;
 
   /* 3-D tilt */
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {

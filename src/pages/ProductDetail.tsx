@@ -263,7 +263,7 @@ export default function ProductDetail() {
               Strona główna
             </Link>
             {breadcrumbs.map((bc) => (
-              <span key={bc.id} className="flex items-center gap-1">
+              <span key={bc.slug} className="flex items-center gap-1">
                 <ChevronRight className="w-3 h-3 text-gray-700" />
                 <Link to={`/kategoria/${bc.slug}`} className="hover:text-[#f81828] transition-colors font-medium px-1.5 py-0.5 rounded">
                   {bc.name}

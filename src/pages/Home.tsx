@@ -279,7 +279,7 @@ export default function Home() {
   const featured = useMemo(() => {
     if (activeTab === "bestsellery") {
       const slugSet = new Set(BESTSELLER_SLUGS);
-      const found = allStaticProducts.filter(p => slugSet.has(p.slug));
+      const found = allStaticProducts.filter(p => (slugSet as any).has(p.slug));
       return (BESTSELLER_SLUGS as readonly string[])
         .map(slug => found.find(p => p.slug === slug))
         .filter(Boolean) as typeof found;

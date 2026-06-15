@@ -242,7 +242,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
               Nowość
             </span>
           )}
-          {product.featured && (
+          {(product as any).featured && (
             <span className="px-2.5 py-1 text-[9px] font-black rounded-lg text-white tracking-wider uppercase"
               style={{ background: "linear-gradient(135deg, #f81828, #c8000f)", boxShadow: "0 0 12px rgba(248,24,40,0.5)" }}>
               <Zap className="w-3 h-3 inline mr-1" />Polecane

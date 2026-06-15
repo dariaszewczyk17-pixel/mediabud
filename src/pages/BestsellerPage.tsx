@@ -42,7 +42,7 @@ const RANK_BADGE = [
 /* ─── Produkty w rankingowej kolejności ──────────────────────── */
 const slugSet    = new Set(BESTSELLER_SLUGS);
 const ORDERED_BESTSELLERS = (() => {
-  const found = allStaticProducts.filter(p => slugSet.has(p.slug));
+  const found = allStaticProducts.filter(p => (slugSet as Set<string>).has(p.slug));
   return (BESTSELLER_SLUGS as readonly string[])
     .map(slug => found.find(p => p.slug === slug))
     .filter(Boolean) as typeof found;
@@ -58,7 +58,7 @@ export default function BestsellerPage() {
     if (activeCategory === "wszystkie") return ORDERED_BESTSELLERS;
     const filter = BESTSELLER_CATEGORY_FILTERS.find(f => f.id === activeCategory);
     if (!filter || !("slugs" in filter)) return ORDERED_BESTSELLERS;
-    const catSet = new Set(filter.slugs);
+    const catSet = new Set<string>((filter as any).slugs ?? []);
     return ORDERED_BESTSELLERS.filter(p => catSet.has(p.categorySlug));
   }, [activeCategory]);
 
@@ -79,7 +79,7 @@ export default function BestsellerPage() {
           "itemListElement": ORDERED_BESTSELLERS.map((p, i) => ({
             "@type": "ListItem", "position": i + 1, "url": `https://mediabud.pl/produkt/${p.slug}`, "name": p.name,
             "item": { "@type": "Product", "name": p.name, "sku": p.sku || undefined, "image": p.images?.[0] ? `https://mediabud.pl${p.images[0]}` : undefined,
-              "brand": { "@type": "Brand", "name": p.brand }, "offers": { "@type": "Offer", "availability": p.inStock !== false ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", "priceCurrency": "PLN", "seller": { "@id": ORG_ID } } },
+              "brand": { "@type": "Brand", "name": p.brand }, "offers": { "@type": "Offer", "availability": (p as any).inStock !== false ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", "priceCurrency": "PLN", "seller": { "@id": ORG_ID } } },
           })),
         },
       },

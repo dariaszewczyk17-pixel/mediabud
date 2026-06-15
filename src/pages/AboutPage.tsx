@@ -45,7 +45,7 @@ function StatCard({ value, numericValue, suffix, label, delay = 0 }: { value: st
   useEffect(() => { if (inView) { const t = setTimeout(() => setStarted(true), delay); return () => clearTimeout(t); } }, [inView, delay]);
   const count = useAnimatedCounter(numericValue, 1600, started);
   return (
-    <div ref={ref} className="relative rounded-2xl p-6 text-center overflow-hidden group"
+    <div ref={ref as any} className="relative rounded-2xl p-6 text-center overflow-hidden group"
       style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", backdropFilter: "blur(16px)", transition: "border-color 0.3s, box-shadow 0.3s" }}
       onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.4)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 32px rgba(248,24,40,0.12), inset 0 0 32px rgba(248,24,40,0.03)"; }}
       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
@@ -64,7 +64,7 @@ function StatCard({ value, numericValue, suffix, label, delay = 0 }: { value: st
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const { ref, visible: inView } = useHeaderAwareReveal({ threshold: 0.1 });
   return (
-    <div ref={ref} className={className} style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)", transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms` }}>
+    <div ref={ref as any} className={className} style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)", transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms` }}>
       {children}
     </div>
   );

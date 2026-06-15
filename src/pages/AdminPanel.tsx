@@ -98,6 +98,8 @@ export default function AdminPanel() {
     const saved = localStorage.getItem("mb_admin_inquiries");
     return saved ? JSON.parse(saved) : INITIAL_INQUIRIES;
   });
+  const [sanityRealizacje, setSanityRealizacje] = useState<any[]>([]);
+  const [sanityRealizacjeLoading, setSanityRealizacjeLoading] = useState(false);
   const [inqNotes, setInqNotes] = useState<Record<number, string>>(() => {
     const saved = localStorage.getItem("mb_admin_inq_notes");
     return saved ? JSON.parse(saved) : {};
@@ -989,7 +991,7 @@ export default function AdminPanel() {
                     { icon:<AlertTriangle className="w-4 h-4"/>, label:"Bez EAN", val:quality.noEan,   color:"#8b5cf6",   pct: Math.round(quality.noEan/quality.total*100)   },
                     { icon:<Layers className="w-4 h-4"/>,   label:"Bez kategorii",val:quality.noCat,   color:"#06b6d4",   pct: Math.round(quality.noCat/quality.total*100)   },
                   ].map(w=>(
-                    <Card key={w.label} className="p-4 flex items-center gap-3 cursor-pointer hover:border-white/15 transition-all" style={{borderColor:"rgba(255,255,255,0.06)"}}>
+                    <div key={w.label} className="p-4 flex items-center gap-3 cursor-pointer hover:border-white/15 transition-all rounded-xl" style={{borderColor:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.06)", background:"rgba(255,255,255,0.02)"}}>
                       <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{background:`${w.color}18`,color:w.color}}>{w.icon}</div>
                       <div className="flex-1 min-w-0">
                         <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">{w.label}</div>
@@ -1001,7 +1003,7 @@ export default function AdminPanel() {
                           <div className="h-full rounded-full transition-all" style={{width:`${w.pct}%`,background:w.color}}/>
                         </div>
                       </div>
-                    </Card>
+                    </div>
                   ))}
                 </div>
               )}
@@ -1661,7 +1663,7 @@ export default function AdminPanel() {
               {metaCats.length > 0 ? (
                 <div className="space-y-2">
                   {metaCats.map(cat=>(
-                    <Card key={cat.slug} className="p-4 flex items-center gap-3 hover:border-white/10 transition-all cursor-pointer"
+                    <div key={cat.slug} className="p-4 flex items-center gap-3 hover:border-white/10 transition-all cursor-pointer rounded-xl" style={{border:"1px solid rgba(255,255,255,0.07)",background:"rgba(255,255,255,0.02)"}}
                       onClick={()=>{setTab("products" as Tab);setFilterCat(cat.slug);setShowFilters(true);setProdPage(1);}}>
                       <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{background:"rgba(248,24,40,0.1)",border:"1px solid rgba(248,24,40,0.2)"}}>
                         <FolderTree className="w-4 h-4 text-[#f81828]"/>
@@ -1677,7 +1679,7 @@ export default function AdminPanel() {
                           <Eye className="w-4 h-4"/>
                         </a>
                       </div>
-                    </Card>
+                    </div>
                   ))}
                   <div className="mt-3 text-center">
                     <p className="text-[10px] text-gray-600">Kliknij kategorię aby zobaczyć jej produkty w zakładce Produkty</p>

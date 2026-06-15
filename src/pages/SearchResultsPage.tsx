@@ -11,8 +11,10 @@ import {
   Filter,
   X,
   ArrowUpDown,
+  Grid,
+  List,
 } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSEO } from "@/hooks/useSEO";
 import { products as staticProducts } from "@/data/products";
 import { useAllProducts } from "@/hooks/useSanityData";
@@ -51,6 +53,10 @@ export default function SearchResultsPage() {
 
   const brandMode = !query && selectedBrand !== ALL_BRANDS;
 
+  const [view, setView] = useState<"grid" | "list">(() => {
+    try { return (localStorage.getItem("srp-view") as "grid" | "list") || "grid"; } catch { return "grid"; }
+  });
+
   const mergedProducts = useMemo(() => {
     const sanityLegacyProducts = ((sanityProducts as SanityProduct[] | undefined) ?? []).map(sanityProductToLegacy);
     return mergeProductCollections(sanityLegacyProducts, staticProducts);
@@ -69,7 +75,7 @@ export default function SearchResultsPage() {
       : query ? `Wyniki dla: "${query}" | Media Bud` : "Wyszukiwarka produktów | Media Bud",
     description: brandMode
       ? `Pełny katalog produktów ${selectedBrand} w składzie Media Bud Lublin. Materiały budowlane, doradztwo, dostawa.`
-      : query && !isLoading && results.length > 0
+      : query && !loading && results.length > 0
         ? `Znaleziono ${results.length} produktów dla zapytania "${query}". Sklep budowlany Media Bud Lublin.`
         : "Wyszukaj materiały budowlane w katalogu Media Bud.",
     noIndex: !brandMode,
@@ -366,7 +372,7 @@ export default function SearchResultsPage() {
                   className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <option value={ALL_CATEGORIES}>Wszystkie kategorie ({isLoading ? "···" : results.length})</option>
+                  <option value={ALL_CATEGORIES}>Wszystkie kategorie ({loading ? "···" : results.length})</option>
                   {availableCategories.map((category) => (
                     <option key={category} value={category}>{categoryLabel(category)} ({categoryCounts[category] ?? 0})</option>
                   ))}
@@ -480,15 +486,61 @@ export default function SearchResultsPage() {
           </div>
         ) : (
           <>
+            {/* Header wyników: licznik + toggle widoku */}
             <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
               <p className="text-sm text-gray-500">Strona <span className="text-white font-semibold">{safePage}</span> z <span className="text-white font-semibold">{totalPages}</span> · pokazuję <span className="text-white font-semibold">{loading ? "···" : paginatedResults.length}</span> produktów na tej stronie.</p>
+              {/* Grid / List toggle */}
+              <div className="flex rounded-lg overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
+                <button
+                  onClick={() => { setView("grid"); try { localStorage.setItem("srp-view", "grid"); } catch {} }}
+                  className="p-1.5 transition-colors"
+                  style={{ background: view === "grid" ? "#f81828" : "transparent", color: view === "grid" ? "#fff" : "#6b7280" }}
+                  title="Widok siatki"
+                >
+                  <Grid className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => { setView("list"); try { localStorage.setItem("srp-view", "list"); } catch {} }}
+                  className="p-1.5 transition-colors"
+                  style={{ background: view === "list" ? "#f81828" : "transparent", color: view === "list" ? "#fff" : "#6b7280" }}
+                  title="Widok listy"
+                >
+                  <List className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {paginatedResults.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+            {/* Skeleton screens gdy loading */}
+            {loading && paginatedResults.length === 0 ? (
+              <div className={view === "grid" ? "grid grid-cols-2 lg:grid-cols-4 gap-4" : "space-y-3"}>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="rounded-xl overflow-hidden"
+                    style={{
+                      background: "#0f0f0f",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      animation: `pulse 1.8s ease-in-out ${i * 0.1}s infinite`,
+                    }}
+                  >
+                    <div className="aspect-[4/3] w-full" style={{ background: "#141414" }} />
+                    <div className="p-4 space-y-2.5">
+                      <div className="h-2 w-1/4 rounded" style={{ background: "rgba(248,24,40,0.08)" }} />
+                      <div className="h-4 w-5/6 rounded" style={{ background: "#1a1a1a" }} />
+                      <div className="h-3 w-3/4 rounded" style={{ background: "#161616" }} />
+                      <div className="h-11 w-full rounded-lg mt-2" style={{ background: "rgba(248,24,40,0.07)", border: "1px solid rgba(248,24,40,0.12)" }} />
+                    </div>
+                  </div>
+                ))}
+                <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }`}</style>
+              </div>
+            ) : (
+              <div className={view === "grid" ? "grid grid-cols-2 lg:grid-cols-4 gap-4" : "space-y-3"}>
+                {paginatedResults.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
 
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-8 flex-wrap">

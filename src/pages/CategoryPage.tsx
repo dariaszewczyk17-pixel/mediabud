@@ -629,8 +629,8 @@ export default function CategoryPage() {
           brand:            meta.brand    || base.brand,
           unit:             meta.unit     || base.unit,
           tags:             meta.tags?.length ? meta.tags : base.tags,
-          featured:         meta.featured ?? base.featured,
-          inStock:          meta.inStock  ?? base.inStock,
+          featured:         (meta as any).featured ?? (base as any).featured,
+          inStock:          (meta as any).inStock  ?? (base as any).inStock,
           images:           mergedImages,
           shortDescription: base.shortDescription || meta.shortDescription || '',
         };
@@ -766,8 +766,8 @@ export default function CategoryPage() {
       });
     }
     switch (sortBy) {
-      case "inStock":    result.sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0)); break;
-      case "featured":   result.sort((a, b) => (b.featured || (b as any).isFeatured ? 1 : 0) - (a.featured || (a as any).isFeatured ? 1 : 0)); break;
+      case "inStock":    result.sort((a, b) => ((b as any).inStock ? 1 : 0) - ((a as any).inStock ? 1 : 0)); break;
+      case "featured":   result.sort((a, b) => ((b as any).featured || (b as any).isFeatured ? 1 : 0) - ((a as any).featured || (a as any).isFeatured ? 1 : 0)); break;
       case "name-asc":  result.sort((a, b) => a.name.localeCompare(b.name, "pl")); break;
       case "name-desc": result.sort((a, b) => b.name.localeCompare(a.name, "pl")); break;
       case "brand":     result.sort((a, b) => a.brand.localeCompare(b.brand, "pl")); break;
@@ -1101,7 +1101,7 @@ export default function CategoryPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] mr-1" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
             <Link to="/" className="hover:text-[#f81828] transition-colors font-mono tracking-wide">ROOT</Link>
             {breadcrumbs.map((bc, i) => (
-              <span key={bc.id} className="flex items-center gap-1">
+              <span key={bc.slug} className="flex items-center gap-1">
                 <ChevronRight className="w-3 h-3 text-[#f81828]/40" />
                 {i === breadcrumbs.length - 1
                   ? <span className="text-gray-200 font-bold tracking-wide font-mono">{bc.name.toUpperCase()}</span>
@@ -1238,27 +1238,27 @@ export default function CategoryPage() {
                       to={`/kategoria/${topCat.slug}`}
                       onMouseEnter={() => prefetchForSlug(topCat.slug)}
                       className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all my-0.5 ${
-                        topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)
+                        (topCat as any).id === (cat as any).id || breadcrumbs.some(b => (b as any).id === (topCat as any).id)
                           ? "bg-[#f81828] text-white"
                           : "text-gray-400 hover:bg-[#f81828]/10 hover:text-white"
                       }`}
                     >
                       {topCat.name}
                     </Link>
-                    {(topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)) && topCat.children && (
+                    {((topCat as any).id === (cat as any).id || breadcrumbs.some(b => (b as any).id === (topCat as any).id)) && topCat.children && (
                       <div className="ml-4 pl-3 mb-1 space-y-0.5" style={{ borderLeft: "2px solid rgba(248,24,40,0.25)" }}>
                         {topCat.children.slice(0, 14).map(sub => (
                           <Link
-                            key={sub.id}
+                            key={(sub as any).id || sub.slug}
                             to={`/kategoria/${sub.slug}`}
                             onMouseEnter={() => prefetchForSlug(sub.slug)}
                             className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs transition-all ${
-                              sub.id === cat.id
+                              (sub as any).id === (cat as any).id
                                 ? "text-[#f81828] font-bold bg-[#f81828]/10"
                                 : "text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/8"
                             }`}
                           >
-                            {sub.id === cat.id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
+                            {(sub as any).id === (cat as any).id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
                             {sub.name}
                           </Link>
                         ))}
@@ -1357,7 +1357,7 @@ export default function CategoryPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
                   {Array.from(new Map(cat.children.map(s => [s.slug, s])).values()).map((sub, i) => (
                     <Link
-                      key={sub.id}
+                      key={(sub as any).id || sub.slug}
                       to={`/kategoria/${sub.slug}`}
                       className={`group rounded-xl p-3 transition-all duration-300 ${subReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                       style={{
@@ -1568,28 +1568,36 @@ export default function CategoryPage() {
                   style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
                   onClick={() => setMobileFilterOpen(false)}
                 />
-                {/* Drawer panel */}
+                {/* Bottom Sheet panel */}
                 <div
-                  className="absolute left-0 top-0 h-full w-[85vw] max-w-[320px] flex flex-col overflow-hidden"
+                  className="absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden"
                   style={{
                     background: "#0d0d0d",
-                    borderRight: "1px solid rgba(248,24,40,0.2)",
-                    boxShadow: "4px 0 32px rgba(0,0,0,0.7), 0 0 60px rgba(248,24,40,0.05)",
-                    animation: "slideInLeft 0.3s cubic-bezier(0.22,1,0.36,1)",
+                    borderTop: "1px solid rgba(248,24,40,0.25)",
+                    borderRadius: "20px 20px 0 0",
+                    boxShadow: "0 -8px 40px rgba(0,0,0,0.8), 0 0 60px rgba(248,24,40,0.06)",
+                    maxHeight: "82vh",
+                    animation: "slideInBottom 0.32s cubic-bezier(0.22,1,0.36,1)",
                   }}
                 >
-                  {/* Drawer header */}
+                  {/* Drag handle */}
+                  <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
+                    <div className="w-10 h-1 rounded-full" style={{ background: "rgba(248,24,40,0.4)" }} />
+                  </div>
+
+                  {/* Sheet header */}
                   <div
-                    className="flex items-center justify-between px-4 py-3 flex-shrink-0 relative"
-                    style={{ background: "#080808", borderBottom: "1px solid rgba(248,24,40,0.15)" }}
+                    className="flex items-center justify-between px-4 py-2.5 flex-shrink-0"
+                    style={{ borderBottom: "1px solid rgba(248,24,40,0.12)" }}
                   >
-                    <div className="absolute top-0 left-0 right-0 h-[2px]"
-                      style={{ background: "linear-gradient(90deg, #f81828, transparent)" }} />
                     <div className="flex items-center gap-2">
                       <SlidersHorizontal className="w-4 h-4 text-[#f81828]" />
                       <span className="font-black text-sm text-white tracking-widest font-mono uppercase">Filtry</span>
                       {hasActiveFilters && (
                         <span className="w-2 h-2 bg-[#f81828] rounded-full" style={{ boxShadow: "0 0 6px rgba(248,24,40,0.8)" }} />
+                      )}
+                      {activeFilterCount > 0 && (
+                        <span className="text-[10px] font-black text-[#f81828] font-mono">({activeFilterCount})</span>
                       )}
                     </div>
                     <button
@@ -1601,26 +1609,54 @@ export default function CategoryPage() {
                     </button>
                   </div>
 
-                  {/* Drawer content */}
+                  {/* Sheet content — scrollable */}
                   <div className="flex-1 overflow-y-auto p-4" style={{ scrollbarWidth: "none" }}>
                     <FilterPanel />
+                    {/* Tech filters per kategoria */}
+                    {slug && getCategoryFilters(slug).length > 0 && (
+                      <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                        <CategoryFilters
+                          categorySlug={slug}
+                          activeFilters={techFilters}
+                          onFiltersChange={setTechFilters}
+                          productCount={filtered.length}
+                        />
+                      </div>
+                    )}
                   </div>
 
-                  {/* Drawer footer */}
-                  <div className="p-4 flex-shrink-0" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#080808" }}>
+                  {/* Sheet footer — sticky CTA */}
+                  <div
+                    className="p-4 flex-shrink-0 flex gap-3"
+                    style={{
+                      borderTop: "1px solid rgba(255,255,255,0.06)",
+                      background: "#080808",
+                      paddingBottom: "max(1rem, env(safe-area-inset-bottom, 1rem))",
+                    }}
+                  >
+                    {hasActiveFilters && (
+                      <button
+                        onClick={() => { clearFilters(); setMobileFilterOpen(false); }}
+                        className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold text-gray-400 transition-all"
+                        style={{ border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.04)" }}
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        Wyczyść
+                      </button>
+                    )}
                     <button
                       onClick={() => setMobileFilterOpen(false)}
-                      className="w-full h-10 rounded-xl text-sm font-black text-white transition-all"
+                      className="flex-1 h-11 rounded-xl text-sm font-black text-white transition-all"
                       style={{
                         background: "linear-gradient(135deg, #f81828, #c8000f)",
-                        boxShadow: "0 0 16px rgba(248,24,40,0.3)",
+                        boxShadow: "0 0 20px rgba(248,24,40,0.35)",
                       }}
                     >
                       Pokaż {(isLoadingAll || isSanityPending) ? "···" : filtered.length} produktów
                     </button>
                   </div>
                 </div>
-                <style>{`@keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }`}</style>
+                <style>{`@keyframes slideInBottom { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>
               </div>
             )}
 
@@ -1641,27 +1677,27 @@ export default function CategoryPage() {
                         to={`/kategoria/${topCat.slug}`}
                         onClick={() => setMobileCatsOpen(false)}
                         className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all my-0.5 ${
-                          topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)
+                          (topCat as any).id === (cat as any).id || breadcrumbs.some(b => (b as any).id === (topCat as any).id)
                             ? "bg-[#f81828] text-white"
                             : "text-gray-400 hover:bg-[#f81828]/10 hover:text-white"
                         }`}
                       >
                         {topCat.name}
                       </Link>
-                      {(topCat.id === cat.id || breadcrumbs.some(b => b.id === topCat.id)) && topCat.children && (
+                      {((topCat as any).id === (cat as any).id || breadcrumbs.some(b => (b as any).id === (topCat as any).id)) && topCat.children && (
                         <div className="ml-4 pl-3 mb-1 space-y-0.5" style={{ borderLeft: "2px solid rgba(248,24,40,0.25)" }}>
                           {topCat.children.slice(0, 14).map(sub => (
                             <Link
-                              key={sub.id}
+                              key={(sub as any).id || sub.slug}
                               to={`/kategoria/${sub.slug}`}
                               onClick={() => setMobileCatsOpen(false)}
                               className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs transition-all ${
-                                sub.id === cat.id
+                                (sub as any).id === (cat as any).id
                                   ? "text-[#f81828] font-bold bg-[#f81828]/10"
                                   : "text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/8"
                               }`}
                             >
-                              {sub.id === cat.id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
+                              {(sub as any).id === (cat as any).id && <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] flex-shrink-0" />}
                               {sub.name}
                             </Link>
                           ))}

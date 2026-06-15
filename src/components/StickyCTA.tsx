@@ -70,14 +70,15 @@ export function StickyCTA({ productName, onQuoteClick, className = "" }: StickyC
         />
       )}
 
-      {/* Sticky bar */}
+      {/* Sticky bar — siedzi PONAD BottomNav (offset = 56px + safe-area) */}
       <div
         className={`
-          fixed bottom-0 left-0 right-0 z-50
+          fixed left-0 right-0 z-50
           transform transition-transform duration-300 ease-out
           ${isVisible ? "translate-y-0" : "translate-y-full"}
           ${className}
         `}
+        style={{ bottom: "calc(56px + env(safe-area-inset-bottom, 0px))" }}
       >
         {/* Rozwinięty panel */}
         {isExpanded && (
@@ -161,8 +162,6 @@ export function StickyCTA({ productName, onQuoteClick, className = "" }: StickyC
           </a>
         </div>
 
-        {/* Safe area na iPhone */}
-        <div className="h-[env(safe-area-inset-bottom)] bg-[#080808]" />
       </div>
     </>
   );

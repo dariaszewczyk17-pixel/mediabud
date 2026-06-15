@@ -207,30 +207,23 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
           className="rounded-xl overflow-hidden mt-auto"
           style={{ background: "#1c1c1c", border: "1px solid rgba(255,255,255,0.07)" }}
         >
-          {/* nagłówek */}
-          <div
-            className="px-3 py-1.5"
-            style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-          >
+          {/* nagłówek — płaski, bez separatora */}
+          <div className="px-3 pt-2.5 pb-1">
             <span className="text-[9px] font-black uppercase tracking-[0.22em] text-gray-500">
               Parametry techniczne
             </span>
           </div>
 
-          {/* grid 2 kolumny */}
+          {/* grid 2 kolumny — płaski, bez ramek komórek */}
           {techSpecs.length > 0 ? (
-            <div className="grid grid-cols-2 px-2 py-1.5" style={{ gap: "1px", background: "rgba(255,255,255,0.04)" }}>
+            <div className="grid grid-cols-2 px-3 pb-2.5 pt-1 gap-x-4 gap-y-2">
               {techSpecs.map((spec) => (
-                <div
-                  key={spec.key}
-                  className="flex flex-col px-2 py-2"
-                  style={{ background: "#1c1c1c" }}
-                >
+                <div key={spec.key} className="flex flex-col min-w-0">
                   <span className="text-[9px] uppercase tracking-[0.1em] text-gray-500 font-medium truncate">
                     {spec.label}
                   </span>
                   <span
-                    className="text-[12px] font-black text-white leading-tight mt-0.5 truncate"
+                    className="text-[13px] font-black text-white leading-tight truncate"
                     title={spec.value}
                   >
                     {spec.value}

@@ -165,7 +165,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer h-[560px] flex flex-col"
+      className="group relative rounded-2xl overflow-hidden cursor-pointer lg:h-[560px] flex flex-col"
       style={{
         background: "linear-gradient(145deg, #0f0f0f 0%, #0a0a0a 100%)",
         border: hovered ? "1px solid rgba(248,24,40,0.5)" : "1px solid rgba(255,255,255,0.06)",
@@ -295,7 +295,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
         {/* @section: product-card-title */}
         {/* Product name */}
         <Link to={`/produkt/${product.slug}`} className="block group/title">
-          <h3 className="text-sm font-bold text-gray-200 leading-snug mb-3 line-clamp-3 min-h-[3.9rem] transition-colors group-hover/title:text-white"
+          <h3 className="text-sm font-bold text-gray-200 leading-snug mb-3 line-clamp-3 lg:min-h-[3.9rem] transition-colors group-hover/title:text-white"
             style={{ fontFamily: "'Rajdhani', 'Inter', sans-serif" }}>
             {product.name}
           </h3>
@@ -332,18 +332,22 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
         </div>
 
         {/* @section: product-card-short-description */}
-        {/* Short description */}
-        <div className="min-h-[2.6rem] mb-3">
+        {/* Short description — ukryte na mobile gdy puste */}
+        {product.shortDescription && (
+        <div className="mb-3">
           <p className="text-[11px] text-gray-500 line-clamp-2 leading-relaxed">
             {product.shortDescription}
           </p>
         </div>
+        )}
 
         {/* @section: product-card-meta */}
-        {/* Tags */}
-        <div className="mb-4 min-h-[1.15rem] text-[9px] font-medium uppercase tracking-[0.12em] text-gray-600 line-clamp-1">
-          {product.tags && product.tags.length > 0 ? product.tags.slice(0, 2).join(" / ") : ""}
+        {/* Tags — ukryte gdy puste */}
+        {product.tags && product.tags.length > 0 && (
+        <div className="mb-4 text-[9px] font-medium uppercase tracking-[0.12em] text-gray-600 line-clamp-1">
+          {product.tags.slice(0, 2).join(" / ")}
         </div>
+        )}
 
         <div className="mt-auto pt-1">
         {/* Action buttons */}

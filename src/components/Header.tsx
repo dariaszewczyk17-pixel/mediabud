@@ -303,7 +303,7 @@ window.removeEventListener("scroll", fn);
           PROMO STRIP — zamykany, zapamiętywany
       ════════════════════════════════════════════════ */}
       <div
-        className="overflow-hidden"
+        className="hidden lg:block overflow-hidden"
         style={{ maxHeight: promoVisible ? "36px" : "0", transition: "max-height 0.3s ease" }}
       >
         <div className="relative flex h-9 items-center justify-center overflow-hidden px-10 text-[12px] font-bold uppercase tracking-[0.14em]"

@@ -353,7 +353,7 @@ window.removeEventListener("scroll", fn);
           ROW 1 — Top info bar (collapses on scroll)
       ════════════════════════════════════════════════ */}
       <div
-        className="overflow-hidden border-b border-white/5 bg-black"
+        className="hidden lg:block overflow-hidden border-b border-white/5 bg-black"
         style={{ maxHeight: (scrolled && !isMobile) ? "0" : "40px", transition: "max-height 0.3s ease" }}
       >
         <div className="container mx-auto px-4">
@@ -649,10 +649,10 @@ window.removeEventListener("scroll", fn);
               </div>
             </a>
 
-            {/* Wycena counter */}
+            {/* Wycena counter — hidden on mobile, visible sm+ */}
             <button
               onClick={openDrawer}
-              className="relative flex h-11 flex-shrink-0 items-center gap-2 rounded-lg bg-[#f81828] px-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-all duration-200 hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
+              className="relative hidden sm:flex h-11 flex-shrink-0 items-center gap-2 rounded-lg bg-[#f81828] px-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-all duration-200 hover:bg-[#c8000f] focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
             >
               <Calculator className="h-4 w-4" />
                 <div className="hidden text-left leading-none sm:block">

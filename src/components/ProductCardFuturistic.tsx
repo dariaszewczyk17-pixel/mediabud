@@ -302,8 +302,8 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
         </Link>
 
         {/* @section: product-card-technical-specs */}
-        {/* Technical specs - czytelna tabela zamiast emoji/chipów */}
-        <div className="mb-3 min-h-[104px] rounded-xl overflow-hidden"
+        {/* Technical specs - ukryte na mobile, widoczne na desktop */}
+        <div className="mb-3 min-h-[104px] rounded-xl overflow-hidden hidden lg:block"
           style={{
             background: "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.015) 100%)",
             border: "1px solid rgba(255,255,255,0.075)",

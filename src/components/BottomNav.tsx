@@ -1,15 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, Search, ClipboardList, Phone } from "lucide-react";
-import { useWycena } from "@/hooks/useWycena";
+import { Home, Search, ShoppingBag, Phone } from "lucide-react";
 import { trackPhoneClick } from "@/hooks/useConversionTracking";
 
 export default function BottomNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { items, openDrawer } = useWycena();
-  const count = items.reduce((s, i) => s + i.quantity, 0);
 
-  const isBrowse = ["/szukaj", "/kategoria", "/marki", "/bestsellery", "/produkty"].some(
+  const isBrowse = ["/szukaj", "/kategoria", "/marki", "/bestsellery"].some(
     p => pathname === p || pathname.startsWith(p + "/")
   );
 
@@ -27,19 +24,10 @@ export default function BottomNav() {
       isActive: isBrowse,
     },
     {
-      label: "Wycena",
-      icon: (
-        <span className="relative inline-flex">
-          <ClipboardList className="h-5 w-5" />
-          {count > 0 && (
-            <span className="absolute -right-2.5 -top-2 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#f81828] px-0.5 text-[9px] font-black text-white shadow">
-              {count}
-            </span>
-          )}
-        </span>
-      ),
-      action: openDrawer,
-      isActive: false,
+      label: "Produkty",
+      icon: <ShoppingBag className="h-5 w-5" />,
+      action: () => navigate("/produkty"),
+      isActive: pathname === "/produkty" || pathname.startsWith("/produkty/"),
     },
     {
       label: "Zadzwoń",

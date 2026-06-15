@@ -32,18 +32,27 @@ async function handleGet(request, env) {
   const url    = new URL(request.url);
   const page   = Math.max(1, parseInt(url.searchParams.get("page") || "1"));
   const limit  = Math.min(50, parseInt(url.searchParams.get("limit") || "25"));
-  const search = (url.searchParams.get("search") || "").trim();
-  const cat    = (url.searchParams.get("category") || "").trim();
-  const offset = (page - 1) * limit;
+  const search  = (url.searchParams.get("search") || "").trim();
+  const cat     = (url.searchParams.get("category") || "").trim();
+  const brand   = (url.searchParams.get("brand") || "").trim();
+  const sortBy  = (url.searchParams.get("sort") || "name").trim();
+  const sortDir = (url.searchParams.get("dir") || "asc").trim() === "desc" ? "desc" : "asc";
+  const offset  = (page - 1) * limit;
 
   /* Budujemy filtr GROQ */
   let filter = `_type == "product"`;
   if (search) filter += ` && (name match "*${search}*" || brand->name match "*${search}*")`;
   if (cat)    filter += ` && category->slug.current == "${cat}"`;
+  if (brand)  filter += ` && brand->name == "${brand}"`;
+
+  /* Sortowanie */
+  const SORT_MAP = { name: "name", brand: "brand->name", category: "category->name" };
+  const sortField = SORT_MAP[sortBy] || "name";
+  const sortExpr  = `${sortField} ${sortDir}`;
 
   const countQuery   = encodeURIComponent(`count(*[${filter}])`);
   const listQuery    = encodeURIComponent(
-    `*[${filter}] | order(name asc) [${offset}...${offset + limit}] {
+    `*[${filter}] | order(${sortExpr}) [${offset}...${offset + limit}] {
       _id, name, slug,
       "brand": brand->name,
       "category": category->{ name, "slug": slug.current },

@@ -60,7 +60,7 @@ export async function onRequest(context) {
     try { body = await request.json(); }
     catch { return json({ error: "Nieprawidłowy JSON" }, 400); }
 
-    const ALLOWED = ["name", "description", "shortDescription", "brand", "unit", "ean"];
+    const ALLOWED = ["name", "description", "shortDescription", "brand", "unit", "ean", "specs"];
     const patch   = {};
     for (const key of ALLOWED) {
       if (key in body) patch[key] = body[key];

@@ -5,6 +5,8 @@ import {
   FileText, Home, Users, Megaphone, HardHat, CheckCircle2,
   Clock, AlertCircle, TrendingUp, ShoppingBag, Phone, Globe,
   ChevronDown, Filter, ArrowUpRight, MoreHorizontal, RefreshCw,
+  ArrowUp, ArrowDown, ChevronUp, Upload, GripVertical, Award,
+  AlertTriangle, Layers, ImageOff, SlidersHorizontal,
 } from "lucide-react";
 import { products } from "@/data/products";
 import { sanityClient } from "@/lib/sanity";
@@ -169,18 +171,62 @@ export default function AdminPanel() {
   const [sanityLoading,  setSanityLoading]  = useState(false);
   const [sanityError,    setSanityError]    = useState("");
 
-  /* ── Edit modal ── */
+  /* ── P1.1 Filtry i sortowanie ── */
+  const [filterCat,   setFilterCat]   = useState("");
+  const [filterBrand, setFilterBrand] = useState("");
+  const [sortCol,     setSortCol]     = useState<"name"|"brand"|"category">("name");
+  const [sortDir,     setSortDir]     = useState<"asc"|"desc">("asc");
+  const [showFilters, setShowFilters] = useState(false);
+
+  /* ── P1.1 Meta danych (kategorie, marki, quality) ── */
+  const [metaCats,    setMetaCats]    = useState<{slug:string;name:string;count:number}[]>([]);
+  const [metaBrands,  setMetaBrands]  = useState<{name:string;count:number}[]>([]);
+  const [quality,     setQuality]     = useState<{total:number;noImage:number;noDesc:number;noShort:number;noEan:number;noCat:number}|null>(null);
+  const [metaLoaded,  setMetaLoaded]  = useState(false);
+
+  /* ── P1.2 Edycja (slide-over) ── */
   const [editProd,   setEditProd]   = useState<any>(null);
+  const [editTab,    setEditTab]    = useState<"basic"|"images"|"specs">("basic");
   const [editFields, setEditFields] = useState({ name:"", brand:"", unit:"", ean:"", shortDescription:"", description:"" });
   const [editSaving, setEditSaving] = useState(false);
   const [editMsg,    setEditMsg]    = useState<{type:"ok"|"err"; text:string}|null>(null);
+
+  /* ── P1.4 Parametry techniczne ── */
+  const [specs, setSpecs] = useState<{key:string;value:string}[]>([]);
+
+  /* ── P1.3 Upload zdjęć ── */
+  const [imgUploading, setImgUploading] = useState(false);
+  const [imgMsg,       setImgMsg]       = useState<{type:"ok"|"err";text:string}|null>(null);
+
+  /* ── Ładuj meta (kategorie, marki, quality) raz po zalogowaniu ── */
+  useEffect(() => {
+    if (!loggedIn || metaLoaded) return;
+    fetch("/api/products-meta")
+      .then(r => r.json())
+      .then(data => {
+        if (!data.error) {
+          setMetaCats(data.categories || []);
+          setMetaBrands(data.brands || []);
+          setQuality(data.quality || null);
+          setMetaLoaded(true);
+        }
+      })
+      .catch(() => {});
+  }, [loggedIn, metaLoaded]);
 
   /* ── Ładuj produkty z Sanity gdy tab=products ── */
   useEffect(() => {
     if (!loggedIn || tab !== "products") return;
     setSanityLoading(true);
     setSanityError("");
-    const params = new URLSearchParams({ page: String(prodPage), limit:"25", search: search.trim() });
+    const params = new URLSearchParams({
+      page: String(prodPage), limit:"25",
+      search: search.trim(),
+      category: filterCat,
+      brand: filterBrand,
+      sort: sortCol,
+      dir: sortDir,
+    });
     fetch(`/api/products?${params}`)
       .then(r => r.json())
       .then(data => {
@@ -191,7 +237,25 @@ export default function AdminPanel() {
       })
       .catch(e => setSanityError("Błąd połączenia: " + e.message))
       .finally(() => setSanityLoading(false));
-  }, [loggedIn, tab, prodPage, search]);
+  }, [loggedIn, tab, prodPage, search, filterCat, filterBrand, sortCol, sortDir]);
+
+  /* ── Otwórz slide-over edycji ── */
+  const openEdit = useCallback((p: any) => {
+    setEditProd(p);
+    setEditTab("basic");
+    setEditFields({ name:p.name||"", brand:p.brand||"", unit:p.unit||"", ean:p.ean||"", shortDescription:p.shortDescription||"", description:p.description||"" });
+    setEditMsg(null);
+    setImgMsg(null);
+    /* Wczytaj specs: zakładamy format {key:string, value:string}[] lub Record<string,string> */
+    const rawSpecs = p.specs;
+    if (Array.isArray(rawSpecs)) {
+      setSpecs(rawSpecs.map((s:any) => ({ key: s.key||s.name||"", value: s.value||"" })));
+    } else if (rawSpecs && typeof rawSpecs === "object") {
+      setSpecs(Object.entries(rawSpecs).map(([k,v]) => ({ key:k, value:String(v) })));
+    } else {
+      setSpecs([]);
+    }
+  }, []);
 
   /* ── Zapisz edytowany produkt do Sanity ── */
   const saveProduct = useCallback(async () => {
@@ -208,7 +272,7 @@ export default function AdminPanel() {
       if (data.success) {
         setEditMsg({ type:"ok", text:"✅ Zapisano pomyślnie w Sanity!" });
         setSanityProds(prev => prev.map(p => p._id===editProd._id ? {...p, ...editFields} : p));
-        setTimeout(() => { setEditProd(null); setEditMsg(null); }, 1800);
+        setTimeout(() => setEditMsg(null), 2500);
       } else {
         setEditMsg({ type:"err", text: data.error || "Błąd zapisu" });
       }
@@ -217,6 +281,45 @@ export default function AdminPanel() {
     }
     setEditSaving(false);
   }, [editProd, editFields]);
+
+  /* ── Zapisz parametry techniczne do Sanity ── */
+  const saveSpecs = useCallback(async () => {
+    if (!editProd) return;
+    setEditSaving(true);
+    setEditMsg(null);
+    try {
+      const specsObj: Record<string,string> = {};
+      specs.filter(s => s.key.trim()).forEach(s => { specsObj[s.key.trim()] = s.value; });
+      const res = await fetch(`/api/product/${editProd._id}`, {
+        method:"PATCH",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ specs: specsObj }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setEditMsg({ type:"ok", text:"✅ Parametry zapisane w Sanity!" });
+        setSanityProds(prev => prev.map(p => p._id===editProd._id ? {...p, specs: specsObj} : p));
+        setTimeout(() => setEditMsg(null), 2500);
+      } else {
+        setEditMsg({ type:"err", text: data.error || "Błąd zapisu parametrów" });
+      }
+    } catch(e:any) {
+      setEditMsg({ type:"err", text:"Błąd sieci: " + e.message });
+    }
+    setEditSaving(false);
+  }, [editProd, specs]);
+
+  /* ── Sortowanie ── */
+  const toggleSort = useCallback((col: "name"|"brand"|"category") => {
+    if (sortCol === col) setSortDir(d => d === "asc" ? "desc" : "asc");
+    else { setSortCol(col); setSortDir("asc"); }
+    setProdPage(1);
+  }, [sortCol]);
+
+  /* ── Reset filtrów ── */
+  const resetFilters = useCallback(() => {
+    setFilterCat(""); setFilterBrand(""); setSearch(""); setSortCol("name"); setSortDir("asc"); setProdPage(1);
+  }, []);
 
   /* ── Login ── */
   if (!loggedIn) return (
@@ -671,7 +774,35 @@ export default function AdminPanel() {
           {tab==="products" && (
             <div>
               <SectionHeader title="Produkty" count={sanityTotal} addLabel="Dodaj w Sanity" onAdd={()=>window.open("https://mediabud-studio.pages.dev","_blank")}/>
-              <div className="flex gap-3 mb-4 flex-wrap">
+
+              {/* ── P1.5 Quality Score Dashboard ── */}
+              {quality && (
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+                  {[
+                    { icon:<ImageOff className="w-4 h-4"/>, label:"Bez zdjęć",    val:quality.noImage, color:"#f81828",   pct: Math.round(quality.noImage/quality.total*100) },
+                    { icon:<FileText className="w-4 h-4"/>, label:"Bez opisu",    val:quality.noDesc,  color:"#f59e0b",   pct: Math.round(quality.noDesc/quality.total*100)  },
+                    { icon:<AlertTriangle className="w-4 h-4"/>, label:"Bez EAN", val:quality.noEan,   color:"#8b5cf6",   pct: Math.round(quality.noEan/quality.total*100)   },
+                    { icon:<Layers className="w-4 h-4"/>,   label:"Bez kategorii",val:quality.noCat,   color:"#06b6d4",   pct: Math.round(quality.noCat/quality.total*100)   },
+                  ].map(w=>(
+                    <Card key={w.label} className="p-4 flex items-center gap-3 cursor-pointer hover:border-white/15 transition-all" style={{borderColor:"rgba(255,255,255,0.06)"}}>
+                      <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{background:`${w.color}18`,color:w.color}}>{w.icon}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">{w.label}</div>
+                        <div className="flex items-baseline gap-1.5 mt-0.5">
+                          <span className="text-xl font-black text-white">{w.val.toLocaleString("pl-PL")}</span>
+                          <span className="text-[10px] font-bold" style={{color:w.color}}>{w.pct}%</span>
+                        </div>
+                        <div className="mt-1.5 h-1 rounded-full overflow-hidden" style={{background:"rgba(255,255,255,0.06)"}}>
+                          <div className="h-full rounded-full transition-all" style={{width:`${w.pct}%`,background:w.color}}/>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              )}
+
+              {/* ── P1.1 Toolbar — wyszukiwanie + filtry ── */}
+              <div className="flex gap-2 mb-3 flex-wrap items-center">
                 <div className="relative flex-1 min-w-[200px] max-w-xs">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-600 pointer-events-none"/>
                   <input value={search} onChange={e=>{setSearch(e.target.value);setProdPage(1);}}
@@ -682,11 +813,47 @@ export default function AdminPanel() {
                     onBlur={e=>e.target.style.borderColor="rgba(255,255,255,0.08)"}
                   />
                 </div>
-                <div className="text-xs text-gray-500 flex items-center gap-1 font-bold px-3 py-2 rounded-lg" style={{border:"1px solid rgba(255,255,255,0.08)"}}>
-                  <Filter className="w-3.5 h-3.5"/>
-                  {sanityLoading ? "Ładowanie…" : `Strona ${prodPage}/${sanityPages}`}
+                <button onClick={()=>setShowFilters(f=>!f)}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${showFilters||filterCat||filterBrand?"bg-[#f81828]/15 text-[#f81828] border-[#f81828]/30":"text-gray-400 hover:text-white"}`}
+                  style={{border:"1px solid rgba(255,255,255,0.08)"}}>
+                  <SlidersHorizontal className="w-3.5 h-3.5"/>
+                  Filtry {(filterCat||filterBrand) ? <span className="ml-0.5 w-4 h-4 rounded-full bg-[#f81828] text-white text-[9px] flex items-center justify-center font-black">{[filterCat,filterBrand].filter(Boolean).length}</span> : null}
+                </button>
+                {(filterCat||filterBrand||search) && (
+                  <button onClick={resetFilters} className="text-[10px] text-gray-600 hover:text-[#f81828] transition-colors font-bold">✕ Resetuj</button>
+                )}
+                <div className="ml-auto text-xs text-gray-600 font-bold">
+                  {sanityLoading ? "Ładowanie…" : sanityTotal > 0 ? `${sanityTotal.toLocaleString("pl-PL")} produktów` : ""}
                 </div>
               </div>
+
+              {/* Rozwijane filtry */}
+              {showFilters && (
+                <div className="flex gap-2 mb-3 flex-wrap p-3 rounded-xl" style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)"}}>
+                  <div className="flex flex-col gap-1 min-w-[180px]">
+                    <label className="text-[9px] text-gray-600 font-black uppercase tracking-wider">Kategoria</label>
+                    <select value={filterCat} onChange={e=>{setFilterCat(e.target.value);setProdPage(1);}}
+                      className="px-2.5 py-1.5 rounded-lg text-xs text-white outline-none cursor-pointer"
+                      style={{background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)"}}>
+                      <option value="">Wszystkie kategorie</option>
+                      {metaCats.map(c=>(
+                        <option key={c.slug} value={c.slug}>{c.name} ({c.count})</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1 min-w-[180px]">
+                    <label className="text-[9px] text-gray-600 font-black uppercase tracking-wider">Marka</label>
+                    <select value={filterBrand} onChange={e=>{setFilterBrand(e.target.value);setProdPage(1);}}
+                      className="px-2.5 py-1.5 rounded-lg text-xs text-white outline-none cursor-pointer"
+                      style={{background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)"}}>
+                      <option value="">Wszystkie marki</option>
+                      {metaBrands.filter(b=>b.count>0).map(b=>(
+                        <option key={b.name} value={b.name}>{b.name} ({b.count})</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              )}
 
               {/* Error */}
               {sanityError && (
@@ -695,139 +862,288 @@ export default function AdminPanel() {
                 </div>
               )}
 
+              {/* ── Tabela produktów ── */}
               <Card className="overflow-hidden">
+                <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr style={{background:"rgba(255,255,255,0.02)",borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
-                      {["Produkt","Marka","Kategoria","Jednostka","Akcje"].map(h=>(
-                        <th key={h} className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">{h}</th>
+                      {/* Sortowalne nagłówki */}
+                      {([
+                        ["Produkt","name"],["Marka","brand"],["Kategoria","category"],
+                      ] as [string,"name"|"brand"|"category"][]).map(([label,col])=>(
+                        <th key={col} className="px-4 py-3 text-left">
+                          <button onClick={()=>toggleSort(col)} className="flex items-center gap-1 text-[10px] font-black uppercase tracking-wider transition-colors hover:text-white"
+                            style={{color: sortCol===col?"rgba(248,24,40,0.9)":"rgba(156,163,175,1)"}}>
+                            {label}
+                            {sortCol===col
+                              ? (sortDir==="asc" ? <ArrowUp className="w-3 h-3"/> : <ArrowDown className="w-3 h-3"/>)
+                              : <span className="w-3 h-3 opacity-20"><ArrowUp className="w-3 h-3"/></span>}
+                          </button>
+                        </th>
                       ))}
+                      <th className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">Jednostka</th>
+                      <th className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">Jakość</th>
+                      <th className="px-4 py-3 text-left text-[10px] font-black text-gray-500 uppercase tracking-wider">Akcje</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y" style={{borderColor:"rgba(255,255,255,0.04)"}}>
                     {sanityLoading && Array.from({length:8}).map((_,i)=>(
                       <tr key={i}>
-                        {[200,80,100,50,60].map((w,j)=>(
+                        {[200,80,100,50,60,50].map((w,j)=>(
                           <td key={j} className="px-4 py-3">
                             <div className="h-3 rounded animate-pulse" style={{width:`${w}px`,background:"rgba(255,255,255,0.06)"}}/>
                           </td>
                         ))}
                       </tr>
                     ))}
-                    {!sanityLoading && sanityProds.map(p=>(
-                      <tr key={p._id} className="hover:bg-white/[0.02] transition-colors">
-                        <td className="px-4 py-2.5">
-                          <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center flex-shrink-0 overflow-hidden" style={{border:"1px solid rgba(255,255,255,0.1)"}}>
-                              {p.images?.[0]
-                                ? <img src={p.images[0]} alt={p.name} className="w-full h-full object-contain p-0.5" onError={e=>{(e.currentTarget as HTMLImageElement).style.display="none";}} loading="lazy"/>
-                                : <Package className="w-4 h-4 text-gray-400"/>}
+                    {!sanityLoading && sanityProds.map(p=>{
+                      const hasImg  = p.images?.length > 0;
+                      const hasDesc = p.description?.trim().length > 0;
+                      const hasEan  = !!p.ean;
+                      const score   = [hasImg, hasDesc, hasEan].filter(Boolean).length;
+                      const scoreColor = score===3?"#10b981":score===2?"#f59e0b":"#f81828";
+                      return (
+                        <tr key={p._id} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="px-4 py-2.5">
+                            <div className="flex items-center gap-3">
+                              <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center flex-shrink-0 overflow-hidden" style={{border:"1px solid rgba(255,255,255,0.1)"}}>
+                                {hasImg
+                                  ? <img src={p.images[0]} alt={p.name} className="w-full h-full object-contain p-0.5" onError={e=>{(e.currentTarget as HTMLImageElement).style.display="none";}} loading="lazy"/>
+                                  : <Package className="w-4 h-4 text-gray-400"/>}
+                              </div>
+                              <span className="text-xs font-bold text-gray-300 line-clamp-2 max-w-[200px]">{p.name}</span>
                             </div>
-                            <span className="text-xs font-bold text-gray-300 line-clamp-2 max-w-[200px]">{p.name}</span>
-                          </div>
-                        </td>
-                        <td className="px-4 py-2.5 text-xs text-gray-500">{p.brand || "—"}</td>
-                        <td className="px-4 py-2.5 text-xs text-gray-500">{p.category?.name || "—"}</td>
-                        <td className="px-4 py-2.5 text-xs text-gray-500">{p.unit || "—"}</td>
-                        <td className="px-4 py-2.5">
-                          <div className="flex gap-1">
-                            <button
-                              onClick={()=>{ setEditProd(p); setEditFields({ name:p.name||"", brand:p.brand||"", unit:p.unit||"", ean:p.ean||"", shortDescription:p.shortDescription||"", description:p.description||"" }); setEditMsg(null); }}
-                              className="w-7 h-7 flex items-center justify-center rounded text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/10 transition-colors" title="Edytuj">
-                              <Pencil className="w-3.5 h-3.5"/>
-                            </button>
-                            <a href={`/produkt/${p.slug?.current||p.slug}`} target="_blank" rel="noreferrer"
-                              className="w-7 h-7 flex items-center justify-center rounded text-gray-500 hover:text-blue-400 hover:bg-blue-400/10 transition-colors" title="Podgląd">
-                              <Eye className="w-3.5 h-3.5"/>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                          </td>
+                          <td className="px-4 py-2.5 text-xs text-gray-500">{p.brand || "—"}</td>
+                          <td className="px-4 py-2.5 text-xs text-gray-500">{p.category?.name || "—"}</td>
+                          <td className="px-4 py-2.5 text-xs text-gray-500">{p.unit || "—"}</td>
+                          <td className="px-4 py-2.5">
+                            <div className="flex items-center gap-1">
+                              {!hasImg  && <span title="Brak zdjęcia" className="text-[#f81828] opacity-70"><ImageOff className="w-3 h-3"/></span>}
+                              {!hasDesc && <span title="Brak opisu"   className="text-amber-500 opacity-70"><FileText className="w-3 h-3"/></span>}
+                              {!hasEan  && <span title="Brak EAN"     className="text-purple-400 opacity-70"><AlertTriangle className="w-3 h-3"/></span>}
+                              <div className="ml-1 flex gap-0.5">
+                                {[0,1,2].map(i=>(
+                                  <div key={i} className="w-1.5 h-4 rounded-sm" style={{background: i<score ? scoreColor : "rgba(255,255,255,0.08)"}}/>
+                                ))}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-2.5">
+                            <div className="flex gap-1">
+                              <button onClick={()=>openEdit(p)}
+                                className="w-7 h-7 flex items-center justify-center rounded text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/10 transition-colors" title="Edytuj">
+                                <Pencil className="w-3.5 h-3.5"/>
+                              </button>
+                              <a href={`/produkt/${p.slug?.current||p.slug}`} target="_blank" rel="noreferrer"
+                                className="w-7 h-7 flex items-center justify-center rounded text-gray-500 hover:text-blue-400 hover:bg-blue-400/10 transition-colors" title="Podgląd">
+                                <Eye className="w-3.5 h-3.5"/>
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
                     {!sanityLoading && sanityProds.length===0 && !sanityError && (
-                      <tr><td colSpan={5} className="px-4 py-10 text-center text-xs text-gray-600">Brak produktów</td></tr>
+                      <tr><td colSpan={6} className="px-4 py-10 text-center text-xs text-gray-600">Brak produktów spełniających kryteria</td></tr>
                     )}
                   </tbody>
                 </table>
+                </div>
                 <div className="flex items-center justify-between px-5 py-3" style={{borderTop:"1px solid rgba(255,255,255,0.06)"}}>
                   <span className="text-xs text-gray-600">
-                    {sanityTotal > 0 ? `Wyświetlono ${((prodPage-1)*25)+1}–${Math.min(prodPage*25, sanityTotal)} z ${sanityTotal.toLocaleString("pl-PL")}` : ""}
+                    {sanityTotal > 0 ? `${((prodPage-1)*25)+1}–${Math.min(prodPage*25, sanityTotal)} z ${sanityTotal.toLocaleString("pl-PL")}` : ""}
                   </span>
                   <div className="flex gap-1">
                     <button disabled={prodPage<=1||sanityLoading} onClick={()=>setProdPage(p=>p-1)} className="px-3 py-1.5 rounded-lg text-xs font-bold disabled:opacity-30 text-gray-400 hover:text-white hover:bg-white/5 transition-colors">← Poprzednia</button>
+                    <span className="px-3 py-1.5 text-xs text-gray-600 font-bold">{prodPage}/{sanityPages}</span>
                     <button disabled={prodPage>=sanityPages||sanityLoading} onClick={()=>setProdPage(p=>p+1)} className="px-3 py-1.5 rounded-lg text-xs font-bold disabled:opacity-30 text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Następna →</button>
                   </div>
                 </div>
               </Card>
 
-              {/* ── MODAL EDYCJI PRODUKTU ── */}
+              {/* ── P1.2 SLIDE-OVER EDYCJI PRODUKTU ── */}
               {editProd && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{background:"rgba(0,0,0,0.75)"}}>
-                  <div className="w-full max-w-lg rounded-2xl overflow-hidden flex flex-col" style={{background:"#0f0f0f",border:"1px solid rgba(255,255,255,0.1)",maxHeight:"90vh"}}>
+                <>
+                  {/* Backdrop */}
+                  <div className="fixed inset-0 z-40" style={{background:"rgba(0,0,0,0.6)"}} onClick={()=>setEditProd(null)}/>
+                  {/* Panel */}
+                  <div className="fixed right-0 top-0 bottom-0 z-50 flex flex-col w-full max-w-xl" style={{background:"#0c0c0c",borderLeft:"1px solid rgba(255,255,255,0.1)"}}>
                     {/* Header */}
                     <div className="flex items-center justify-between px-6 py-4 flex-shrink-0" style={{borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
-                      <div>
-                        <h2 className="text-sm font-black text-white" style={{fontFamily:"'Rajdhani',sans-serif"}}>EDYTUJ PRODUKT</h2>
-                        <p className="text-[11px] text-gray-500 mt-0.5 line-clamp-1">{editProd.name}</p>
-                      </div>
-                      <button onClick={()=>setEditProd(null)} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:text-white hover:bg-white/5 transition-colors"><X className="w-4 h-4"/></button>
-                    </div>
-                    {/* Body */}
-                    <div className="p-6 space-y-4 overflow-y-auto flex-1">
-                      {([
-                        ["Nazwa produktu", "name",  "text",  1],
-                        ["Marka",          "brand", "text",  1],
-                        ["Jednostka (szt / kg / mb / m²)", "unit", "text", 1],
-                        ["EAN / kod kreskowy", "ean", "text", 1],
-                      ] as const).map(([label, field, type])=>(
-                        <div key={field}>
-                          <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">{label}</label>
-                          <input type={type} value={(editFields as any)[field]}
-                            onChange={e=>setEditFields(f=>({...f,[field]:e.target.value}))}
-                            className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all"
-                            style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
-                            onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
-                            onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
-                          />
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center flex-shrink-0 overflow-hidden">
+                          {editProd.images?.[0]
+                            ? <img src={editProd.images[0]} alt={editProd.name} className="w-full h-full object-contain p-0.5"/>
+                            : <Package className="w-4 h-4 text-gray-400"/>}
                         </div>
+                        <div className="min-w-0">
+                          <h2 className="text-sm font-black text-white truncate" style={{fontFamily:"'Rajdhani',sans-serif"}}>EDYTUJ PRODUKT</h2>
+                          <p className="text-[11px] text-gray-500 truncate">{editProd.name}</p>
+                        </div>
+                      </div>
+                      <button onClick={()=>setEditProd(null)} className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-white hover:bg-white/5 transition-colors flex-shrink-0 ml-3">
+                        <X className="w-4 h-4"/>
+                      </button>
+                    </div>
+
+                    {/* Zakładki */}
+                    <div className="flex gap-0.5 px-6 pt-3 flex-shrink-0">
+                      {([["basic","Podstawowe"],["images","Zdjęcia"],["specs","Parametry"]] as const).map(([id,label])=>(
+                        <button key={id} onClick={()=>setEditTab(id)}
+                          className={`px-4 py-2 rounded-t-lg text-xs font-bold transition-all ${editTab===id?"text-white":"text-gray-500 hover:text-gray-300"}`}
+                          style={editTab===id?{background:"rgba(255,255,255,0.06)",borderBottom:"2px solid #f81828"}:{borderBottom:"2px solid transparent"}}>
+                          {label}
+                        </button>
                       ))}
-                      <div>
-                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Krótki opis</label>
-                        <textarea value={editFields.shortDescription} rows={2}
-                          onChange={e=>setEditFields(f=>({...f,shortDescription:e.target.value}))}
-                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all resize-none"
-                          style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
-                          onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
-                          onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
-                        />
+                    </div>
+
+                    {/* Komunikat */}
+                    {editMsg && (
+                      <div className={`mx-6 mt-3 px-4 py-2.5 rounded-lg text-xs font-bold flex-shrink-0 ${editMsg.type==="ok"?"bg-emerald-500/15 text-emerald-400 border border-emerald-500/20":"bg-[#f81828]/10 text-[#f81828] border border-[#f81828]/20"}`}>
+                        {editMsg.text}
                       </div>
-                      <div>
-                        <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Długi opis</label>
-                        <textarea value={editFields.description} rows={6}
-                          onChange={e=>setEditFields(f=>({...f,description:e.target.value}))}
-                          className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all resize-none"
-                          style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
-                          onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
-                          onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
-                        />
-                      </div>
-                      {editMsg && (
-                        <div className={`px-4 py-2.5 rounded-lg text-xs font-bold ${editMsg.type==="ok" ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20" : "bg-[#f81828]/10 text-[#f81828] border border-[#f81828]/20"}`}>
-                          {editMsg.text}
+                    )}
+
+                    {/* Body */}
+                    <div className="flex-1 overflow-y-auto px-6 py-4">
+
+                      {/* ── Zakładka: Podstawowe ── */}
+                      {editTab==="basic" && (
+                        <div className="space-y-4">
+                          {([
+                            ["Nazwa produktu","name","text"],["Marka","brand","text"],
+                            ["Jednostka (szt / kg / mb / m²)","unit","text"],["EAN / kod kreskowy","ean","text"],
+                          ] as const).map(([label,field,type])=>(
+                            <div key={field}>
+                              <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">{label}</label>
+                              <input type={type} value={(editFields as any)[field]}
+                                onChange={e=>setEditFields(f=>({...f,[field]:e.target.value}))}
+                                className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all"
+                                style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                                onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
+                                onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
+                              />
+                            </div>
+                          ))}
+                          <div>
+                            <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Krótki opis</label>
+                            <textarea value={editFields.shortDescription} rows={2}
+                              onChange={e=>setEditFields(f=>({...f,shortDescription:e.target.value}))}
+                              className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all resize-none"
+                              style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                              onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
+                              onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
+                            />
+                          </div>
+                          <div>
+                            <label className="text-[10px] text-gray-500 mb-1.5 block font-bold uppercase tracking-wider">Długi opis</label>
+                            <textarea value={editFields.description} rows={8}
+                              onChange={e=>setEditFields(f=>({...f,description:e.target.value}))}
+                              className="w-full px-3 py-2.5 rounded-lg text-xs text-white placeholder-gray-600 outline-none transition-all resize-none"
+                              style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.10)"}}
+                              onFocus={e=>{e.target.style.borderColor="rgba(248,24,40,0.5)";}}
+                              onBlur={e=>{e.target.style.borderColor="rgba(255,255,255,0.10)";}}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* ── P1.3 Zakładka: Zdjęcia ── */}
+                      {editTab==="images" && (
+                        <div className="space-y-4">
+                          <p className="text-xs text-gray-500">Bieżące zdjęcia produktu. Zarządzanie zdjęciami w pełni przez <a href="https://mediabud-studio.pages.dev" target="_blank" rel="noreferrer" className="text-[#f81828] hover:underline font-bold">Studio Sanity ↗</a></p>
+                          {editProd.images && editProd.images.length > 0 ? (
+                            <div className="grid grid-cols-3 gap-3">
+                              {editProd.images.map((url:string, i:number)=>(
+                                <div key={i} className="relative group aspect-square rounded-xl overflow-hidden bg-white" style={{border:"1px solid rgba(255,255,255,0.08)"}}>
+                                  <img src={url} alt={`Zdjęcie ${i+1}`} className="w-full h-full object-contain p-1.5" loading="lazy"/>
+                                  <div className="absolute top-1.5 left-1.5 w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-black text-white" style={{background:"rgba(0,0,0,0.65)"}}>
+                                    {i+1}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="flex flex-col items-center justify-center py-12 rounded-xl gap-3" style={{border:"2px dashed rgba(255,255,255,0.1)"}}>
+                              <ImageOff className="w-8 h-8 text-gray-700"/>
+                              <p className="text-xs text-gray-600 font-bold">Brak zdjęć dla tego produktu</p>
+                            </div>
+                          )}
+                          {imgMsg && (
+                            <div className={`px-4 py-2.5 rounded-lg text-xs font-bold ${imgMsg.type==="ok"?"bg-emerald-500/15 text-emerald-400 border border-emerald-500/20":"bg-[#f81828]/10 text-[#f81828] border border-[#f81828]/20"}`}>
+                              {imgMsg.text}
+                            </div>
+                          )}
+                          <a href={`https://mediabud-studio.pages.dev/desk/product;${editProd._id}`} target="_blank" rel="noreferrer"
+                            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg text-xs font-bold text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                            style={{border:"1px solid rgba(255,255,255,0.1)"}}>
+                            <Upload className="w-3.5 h-3.5"/> Zarządzaj zdjęciami w Sanity Studio
+                          </a>
+                        </div>
+                      )}
+
+                      {/* ── P1.4 Zakładka: Parametry techniczne ── */}
+                      {editTab==="specs" && (
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <p className="text-xs text-gray-500">Parametry techniczne (klucz → wartość)</p>
+                            <button onClick={()=>setSpecs(s=>[...s,{key:"",value:""}])}
+                              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold text-[#f81828] hover:bg-[#f81828]/10 transition-colors"
+                              style={{border:"1px solid rgba(248,24,40,0.3)"}}>
+                              <Plus className="w-3 h-3"/> Dodaj parametr
+                            </button>
+                          </div>
+                          {specs.length === 0 && (
+                            <div className="text-center py-8 text-xs text-gray-600">Brak parametrów. Dodaj pierwszy klawiszem powyżej.</div>
+                          )}
+                          {specs.map((spec,i)=>(
+                            <div key={i} className="flex gap-2 items-center">
+                              <GripVertical className="w-3.5 h-3.5 text-gray-700 flex-shrink-0"/>
+                              <input value={spec.key} placeholder="Parametr (np. Grubość)"
+                                onChange={e=>setSpecs(s=>s.map((x,j)=>j===i?{...x,key:e.target.value}:x))}
+                                className="flex-1 px-2.5 py-2 rounded-lg text-xs text-white placeholder-gray-700 outline-none"
+                                style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.09)"}}
+                                onFocus={e=>e.target.style.borderColor="rgba(248,24,40,0.4)"}
+                                onBlur={e=>e.target.style.borderColor="rgba(255,255,255,0.09)"}
+                              />
+                              <input value={spec.value} placeholder="Wartość (np. 10 cm)"
+                                onChange={e=>setSpecs(s=>s.map((x,j)=>j===i?{...x,value:e.target.value}:x))}
+                                className="flex-1 px-2.5 py-2 rounded-lg text-xs text-white placeholder-gray-700 outline-none"
+                                style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.09)"}}
+                                onFocus={e=>e.target.style.borderColor="rgba(248,24,40,0.4)"}
+                                onBlur={e=>e.target.style.borderColor="rgba(255,255,255,0.09)"}
+                              />
+                              <button onClick={()=>setSpecs(s=>s.filter((_,j)=>j!==i))}
+                                className="w-7 h-7 flex items-center justify-center rounded text-gray-600 hover:text-[#f81828] hover:bg-[#f81828]/10 transition-colors flex-shrink-0">
+                                <Trash2 className="w-3.5 h-3.5"/>
+                              </button>
+                            </div>
+                          ))}
                         </div>
                       )}
                     </div>
+
                     {/* Footer */}
                     <div className="flex gap-3 px-6 py-4 justify-end flex-shrink-0" style={{borderTop:"1px solid rgba(255,255,255,0.07)"}}>
-                      <button onClick={()=>setEditProd(null)} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-500 hover:text-white hover:bg-white/5 transition-colors">Anuluj</button>
-                      <button onClick={saveProduct} disabled={editSaving}
-                        className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] disabled:opacity-50 transition-colors">
-                        {editSaving ? <RefreshCw className="w-3.5 h-3.5 animate-spin"/> : <CheckCircle2 className="w-3.5 h-3.5"/>}
-                        {editSaving ? "Zapisuję…" : "Zapisz w Sanity"}
-                      </button>
+                      <button onClick={()=>setEditProd(null)} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-500 hover:text-white hover:bg-white/5 transition-colors">Zamknij</button>
+                      {editTab === "specs" ? (
+                        <button onClick={saveSpecs} disabled={editSaving}
+                          className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] disabled:opacity-50 transition-colors">
+                          {editSaving ? <RefreshCw className="w-3.5 h-3.5 animate-spin"/> : <CheckCircle2 className="w-3.5 h-3.5"/>}
+                          {editSaving ? "Zapisuję…" : "Zapisz parametry"}
+                        </button>
+                      ) : editTab === "basic" ? (
+                        <button onClick={saveProduct} disabled={editSaving}
+                          className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#f81828] text-white text-xs font-bold hover:bg-[#c8000f] disabled:opacity-50 transition-colors">
+                          {editSaving ? <RefreshCw className="w-3.5 h-3.5 animate-spin"/> : <CheckCircle2 className="w-3.5 h-3.5"/>}
+                          {editSaving ? "Zapisuję…" : "Zapisz w Sanity"}
+                        </button>
+                      ) : null}
                     </div>
                   </div>
-                </div>
+                </>
               )}
             </div>
           )}

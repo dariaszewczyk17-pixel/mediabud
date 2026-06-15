@@ -1,21 +1,13 @@
 /**
  * POST /api/migrate-duplicate-categories
- * Migruje zduplikowane kategorie: przepina dzieci i produkty na kanoniczne ID, usuwa duplikat.
+ * v2: Przepina parent._ref w 61 podkategoriach + produkty ze starych 29 duplikatów na kanoniczne,
+ *     potem usuwa stare duplikaty.
  */
 const PROJECT_ID = "nzcwegq7";
 const DATASET    = "production";
 const API_VER    = "v2021-06-07";
 const MUTATE     = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/mutate/${DATASET}`;
 const QUERY_URL  = `https://${PROJECT_ID}.api.sanity.io/${API_VER}/data/query/${DATASET}`;
-
-const MIGRATION_PAIRS = [
-  { dup: "cat-weny",                can: "cat-welny" },
-  { dup: "cat-hydroizolacje",       can: "cat-hydro" },
-  { dup: "cat-izolacje-budowlane",  can: "cat-l2-izolacje-budowlane" },
-  { dup: "cat-izolacje-techniczne", can: "cat-l2-izolacje-techniczne" },
-  { dup: "cat-akcesoria-do-izolacji", can: "cat-l2-akcesoria-do-izolacji" },
-  { dup: "cat-l2-styropiany",       can: "cat-styropiany" },
-];
 
 const CORS = {
   "Access-Control-Allow-Origin":  "*",
@@ -24,22 +16,43 @@ const CORS = {
 };
 
 function jsonRes(data, status = 200) {
-  return new Response(JSON.stringify(data), {
+  return new Response(JSON.stringify(data, null, 2), {
     status, headers: { "Content-Type": "application/json", ...CORS },
   });
 }
 
-async function sanityQuery(query, headers) {
-  const res = await fetch(`${QUERY_URL}?query=${encodeURIComponent(query)}`, { headers });
-  return (await res.json()).result ?? [];
-}
-
-async function sanityMutate(mutations, headers) {
-  const res = await fetch(MUTATE, {
-    method: "POST", headers, body: JSON.stringify({ mutations }),
-  });
-  return { ok: res.ok, data: await res.json() };
-}
+// 29 starych parent duplikatów → kanoniczne
+const PARENT_MAP = {
+  "cat-akcesoria-malarskie-i-tynkarskie": "cat-l2-akcesoria-malarskie-i-tynkar",
+  "cat-artykuy-scierne": "cat-l2-artykuly-scierne",
+  "cat-farby-el": "cat-farby-do-drewna",
+  "cat-farby-wn": "cat-farby-do-metalu",
+  "cat-farby-elewacyjne": "cat-l2-farby-elewacyjne",
+  "cat-farby-pozostae": "cat-plyty-gk",
+  "cat-gipsy-i-gadzie": "cat-styrodur",
+  "cat-izolacje-dachow-paskich": "cat-l3-izolacje-dachow-plaskich",
+  "cat-izolacje-fasadowe": "cat-l3-izolacje-fasadowe",
+  "cat-komunikacja-dachowa": "category-komunikacja-dachowa",
+  "cat-materiay-konstrukcyjne": "cat-l2-materialy-konstrukcyjne",
+  "cat-mocowania-do-suchej-zabudowy": "cat-l2-mocowania-do-suchej-zabudowy",
+  "cat-narozniki-i-listwy": "cat-l2-narozniki-i-listwy",
+  "cat-narzedzia-malarskie": "cat-l2-narzedzia-malarskie",
+  "cat-okna-dachowe-i-akcesoria": "cat-l2-okna-dachowe-i-akcesoria",
+  "cat-panele-scienne-i-tapety": "cat-l2-panele-scienne-i-tapety",
+  "cat-piany-montazowe": "cat-l2-piany-montazowe",
+  "cat-pokrycia-dachowe": "cat-l2-pokrycia-dachowe",
+  "cat-profile-do-suchej-zabudowy": "cat-l2-profile-do-suchej-zabudowy",
+  "cat-pytki-ceramiczne": "cat-l2-plytki-ceramiczne",
+  "cat-pytki-dekoracyjne": "cat-l2-plytki-dekoracyjne",
+  "cat-pyty": "cat-plyty",
+  "cat-schody-i-akcesoria-strychowe": "cat-l2-schody-i-akcesoria-strychowe",
+  "cat-systemy-kominowe": "cat-l2-systemy-kominowe",
+  "cat-uszczelniacze-i-silikony": "cat-l2-uszczelniacze-i-silikony",
+  "cat-weny-fasadowe": "cat-l3-welny-fasadowe",
+  "cat-wieszaki-do-suchej-zabudowy": "cat-l2-wieszaki-do-suchej-zabudowy",
+  "cat-zabezpieczenia-przeciwsniegowe": "cat-l2-zabezpieczenia-przeciwsniego",
+  "cat-zaprawy": "cat-l2-zaprawy",
+};
 
 export async function onRequest({ request, env }) {
   if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
@@ -47,47 +60,63 @@ export async function onRequest({ request, env }) {
   if (request.method !== "POST") return jsonRes({ error: "Tylko POST" }, 405);
 
   const h = { "Content-Type": "application/json", Authorization: `Bearer ${env.SANITY_TOKEN}` };
+  const oldIds = Object.keys(PARENT_MAP);
+  const idsStr = oldIds.map(id => `"${id}"`).join(",");
   const log = [];
 
-  for (const { dup, can } of MIGRATION_PAIRS) {
-    const entry = { dup, can, childCats: 0, products: 0, deleted: false, error: null };
+  try {
+    // KROK 1: Przepnij parent._ref w podkategoriach
+    const q1 = encodeURIComponent(`*[_type=="category" && parent._ref in [${idsStr}]]{_id, "parentRef": parent._ref}`);
+    const r1 = await fetch(`${QUERY_URL}?query=${q1}`, { headers: h });
+    const children = (await r1.json()).result ?? [];
+    log.push(`Podkategorii do przepięcia: ${children.length}`);
 
-    // 1. Przepnij pod-kategorie (parent._ref == dup → can)
-    const childCats = await sanityQuery(`*[_type=="category" && parent._ref=="${dup}"]{_id}`, h);
-    if (childCats.length > 0) {
-      const r = await sanityMutate(childCats.map(c => ({
-        patch: { id: c._id, set: { parent: { _type: "reference", _ref: can } } }
-      })), h);
-      if (!r.ok) { entry.error = `childCats patch failed`; log.push(entry); continue; }
-      entry.childCats = childCats.length;
+    if (children.length > 0) {
+      const mutations = children.map(c => ({
+        patch: { id: c._id, set: { parent: { _type: "reference", _ref: PARENT_MAP[c.parentRef] } } }
+      }));
+      const res = await fetch(MUTATE, { method: "POST", headers: h, body: JSON.stringify({ mutations }) });
+      if (!res.ok) return jsonRes({ error: "Błąd przepięcia parent", detail: await res.text(), log }, 500);
+      log.push(`Przepięto parent w ${children.length} podkategoriach`);
     }
 
-    // 2. Przepnij produkty (category._ref == dup → can)
-    const prods = await sanityQuery(`*[_type=="product" && category._ref=="${dup}"]{_id}`, h);
+    // KROK 2: Przepnij produkty (safety — mogły zostać)
+    const q2 = encodeURIComponent(`*[_type=="product" && category._ref in [${idsStr}]]{_id, "catRef": category._ref}`);
+    const r2 = await fetch(`${QUERY_URL}?query=${q2}`, { headers: h });
+    const prods = (await r2.json()).result ?? [];
+    log.push(`Produktów do przepięcia: ${prods.length}`);
+
     if (prods.length > 0) {
-      const r = await sanityMutate(prods.map(p => ({
-        patch: { id: p._id, set: { category: { _type: "reference", _ref: can } } }
-      })), h);
-      if (!r.ok) { entry.error = `products patch failed`; log.push(entry); continue; }
-      entry.products = prods.length;
+      const mutations = prods.map(p => ({
+        patch: { id: p._id, set: { category: { _type: "reference", _ref: PARENT_MAP[p.catRef] } } }
+      }));
+      for (let i = 0; i < mutations.length; i += 100) {
+        const batch = mutations.slice(i, i + 100);
+        await fetch(MUTATE, { method: "POST", headers: h, body: JSON.stringify({ mutations: batch }) });
+      }
+      log.push(`Przepięto ${prods.length} produktów`);
     }
 
-    // 3. Usun duplikat
-    const del = await sanityMutate([{ delete: { id: dup } }], h);
-    if (del.ok) {
-      entry.deleted = true;
-    } else {
-      entry.error = `delete failed: ${JSON.stringify(del.data).slice(0, 200)}`;
+    // KROK 3: Usuń stare duplikaty (safety check — tylko bez referencji)
+    const q3 = encodeURIComponent(`*[_id in [${idsStr}] && count(*[references(^._id)]) == 0]{_id}`);
+    const r3 = await fetch(`${QUERY_URL}?query=${q3}`, { headers: h });
+    const safeIds = ((await r3.json()).result ?? []).map(d => d._id);
+
+    if (safeIds.length > 0) {
+      const mutations = safeIds.map(id => ({ delete: { id } }));
+      await fetch(MUTATE, { method: "POST", headers: h, body: JSON.stringify({ mutations }) });
+      log.push(`Usunięto ${safeIds.length} duplikatów`);
     }
 
-    log.push(entry);
+    const still = oldIds.filter(id => !safeIds.includes(id));
+    if (still.length > 0) log.push(`Nadal pominięto ${still.length}: ${still.join(", ")}`);
+
+    return jsonRes({
+      success: true,
+      summary: { childrenReassigned: children.length, productsReassigned: prods.length, deleted: safeIds.length, stillSkipped: still.length },
+      log,
+    });
+  } catch (err) {
+    return jsonRes({ error: err.message, log }, 500);
   }
-
-  const deleted = log.filter(e => e.deleted).length;
-  const errors  = log.filter(e => e.error);
-  return jsonRes({
-    success: errors.length === 0,
-    message: `Zmigrowalo: ${deleted}/${MIGRATION_PAIRS.length} par. Bledy: ${errors.length}.`,
-    log,
-  });
 }

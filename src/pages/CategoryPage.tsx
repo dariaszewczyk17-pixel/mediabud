@@ -9,6 +9,7 @@ import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories, reso
 import { products as staticProducts } from "@/data/products";
 import { getBrandBySlug, slugifyBrand } from "@/data/brands";
 import { useCategoryBySlug, useAllCategories, useProductMetaFastPaginated, useProductMetaByCategorySlugs, type ProductMeta } from "@/hooks/useSanityData";
+import { useDebouncedCallback } from "@/hooks/useDebounce";
 import { useSEO } from "@/hooks/useSEO";
 import {
   sanityCategoryToLegacy,
@@ -905,12 +906,13 @@ export default function CategoryPage() {
   const safePage = useMemo(() => Math.min(currentPage, totalPages), [currentPage, totalPages]);
   const paginated = useMemo(() => filtered.slice((safePage - 1) * PRODUCTS_PER_PAGE, safePage * PRODUCTS_PER_PAGE), [filtered, safePage]);
 
-  const updateParam = (key: string, value: string) => {
+  // Debounced URL update dla lepszej wydajności na mobile (150ms)
+  const updateParam = useDebouncedCallback((key: string, value: string) => {
     const p = new URLSearchParams(searchParams);
     if (value) p.set(key, value); else p.delete(key);
     if (key !== "page") p.delete("page");
     setSearchParams(p);
-  };
+  }, 150);
 
   const clearFilters = () => setSearchParams(new URLSearchParams());
   const hasActiveFilters = !!(selectedBrand || selectedUnit || selectedTag || selectedSubcat || selectedSpecs.length > 0 || sortBy !== "default");

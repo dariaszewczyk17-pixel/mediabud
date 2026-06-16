@@ -1241,7 +1241,7 @@ export default function CategoryPage() {
         <div className="container mx-auto px-4 py-2.5">
           <nav className="flex items-center gap-1 text-xs text-gray-600 flex-wrap">
             <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] mr-1" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
-            <Link to="/" className="hover:text-[#f81828] transition-colors font-mono tracking-wide">ROOT</Link>
+            <Link to="/" className="hover:text-[#f81828] transition-colors font-mono tracking-wide">STRONA GŁÓWNA</Link>
             {breadcrumbs.map((bc, i) => (
               <span key={bc.id} className="flex items-center gap-1">
                 <ChevronRight className="w-3 h-3 text-[#f81828]/40" />
@@ -1299,7 +1299,7 @@ export default function CategoryPage() {
           background: "linear-gradient(90deg, transparent 0%, rgba(248,24,40,0.15) 30%, rgba(248,24,40,0.4) 50%, rgba(248,24,40,0.15) 70%, transparent 100%)",
         }} />
 
-        <div className={`relative z-[4] container mx-auto px-6 py-12 pl-10 transition-all duration-700 ease-out ${heroReveal.vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className="relative z-[4] container mx-auto px-6 py-12 pl-10">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-3">

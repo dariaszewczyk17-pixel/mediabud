@@ -22,7 +22,7 @@ const PRODUCT_CARD_FIELDS = `{
   "categoryName": category->name,
   "brand": brand->name,
   "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ label, value }
+  technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
 // PeÅne pola produktu (szczegÃ³Åy) â z wszystkimi joinami
@@ -33,7 +33,7 @@ const PRODUCT_FULL_FIELDS = `{
   priceMin, priceMax,
   shortDescription, description, application,
   advantages, warnings, tags, seoDescription,
-  technicalSpec[]{ label, value },
+  technicalSpec[]{ key, label, value, unit, priority },
   faq[]{ q, a },
   "categorySlug": category->slug.current,
   "categoryName": category->name,
@@ -93,7 +93,7 @@ export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
   featured,
   inStock,
   "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ label, value }
+  technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
 // â¡ Query B (FAST FIRST PAGE) â tylko pierwsze 48 produktÃ³w dla natychmiastowego wyÅwietlenia.
@@ -111,7 +111,7 @@ export const PRODUCT_META_BY_CAT_FIRST_QUERY =
   featured,
   inStock,
   "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ label, value }
+  technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
 // â¡ Query B FULL â wszystkie produkty kategorii, Åadowane w tle po wyÅwietleniu pierwszej strony.
@@ -130,7 +130,7 @@ export const PRODUCT_META_BY_ROOT_CAT_QUERY =
   featured,
   inStock,
   "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ label, value }
+  technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
 // ⚡ PAGINATED — ładuje stronę produktów (offset/limit) dla infinite scroll.
@@ -148,7 +148,7 @@ export const PRODUCT_META_PAGINATED_QUERY =
   featured,
   inStock,
   "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ label, value }
+  technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
 // ⚡ COUNT — szybkie zliczenie produktów w kategorii (dla UI "X produktów")

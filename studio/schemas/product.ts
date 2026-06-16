@@ -54,8 +54,11 @@ defineField({ group:'basic', name:'rootCategory', title:'Kategoria główna (roo
       type:'array',
       of:[{ type:'object', name:'specItem', title:'Parametr',
         fields:[
-          defineField({name:'label', title:'Nazwa parametru (np. Gramatura)', type:'string'}),
-          defineField({name:'value', title:'Wartość (np. 25 kg)',             type:'string'}),
+          defineField({name:'key',      title:'Klucz kanoniczny (np. lambda, grubosc)', type:'string', description:'Unikalny identyfikator parametru do filtrowania/sortowania. Małe litery, bez spacji.'}),
+          defineField({name:'label',    title:'Nazwa wyświetlana (np. Lambda λ)',       type:'string'}),
+          defineField({name:'value',    title:'Wartość (np. 0.033)',                    type:'string'}),
+          defineField({name:'unit',     title:'Jednostka (np. W/(m·K), mm, kg/m²)',     type:'string'}),
+          defineField({name:'priority', title:'Priorytet wyświetlania (1=najwyższy)',   type:'number', initialValue:99}),
         ],
         preview:{select:{title:'label',subtitle:'value'}},
       }],

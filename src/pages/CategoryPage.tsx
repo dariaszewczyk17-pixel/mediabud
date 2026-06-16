@@ -776,8 +776,8 @@ export default function CategoryPage() {
     return mergeProductCollections(sanityMapped as any, staticCategoryProducts);
   }, [sanityMeta, allSubSlugs]);
 
-  // Total: dla L1 używamy count z Sanity, dla L2+ używamy catProducts.length (po załadowaniu)
-  const totalProductsCount = catId ? totalProducts : (catProducts.length > 0 ? catProducts.length : null);
+  // Total: dla L1 używamy count z Sanity, dla L2+ używamy catProducts.length lub filtered.length
+  const totalProductsCount = catId ? totalProducts : (catProducts.length || null);
 
   /** Filtruje śmieciowe wartości brand (jednostki, znaki specjalne, puste) */
   const isValidBrand = (b: string) => {
@@ -1330,7 +1330,7 @@ export default function CategoryPage() {
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  {(productsLoading || (!totalProductsCount && catProducts.length === 0)) ? "···" : String(totalProductsCount ?? catProducts.length).padStart(3, "0")}
+                  {productsLoading ? "···" : String(totalProductsCount ?? filtered.length ?? catProducts.length).padStart(3, "0")}
                 </span>
                 {/* Glowing copy behind */}
                 <span
@@ -1343,7 +1343,7 @@ export default function CategoryPage() {
                   }}
                   aria-hidden
                 >
-                  {(productsLoading || (!totalProductsCount && catProducts.length === 0)) ? "···" : String(totalProductsCount ?? catProducts.length).padStart(3, "0")}
+                  {productsLoading ? "···" : String(totalProductsCount ?? filtered.length ?? catProducts.length).padStart(3, "0")}
                 </span>
               </div>
               <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">PRODUKTÓW</span>

@@ -707,7 +707,7 @@ export default function CategoryPage() {
   // Użyj szybkiego hooka gdy mamy catId, fallback na slug-tree dla podkategorii
   const sanityMeta = fastMeta ?? slugTreeMeta;
   const productsLoading = fastLoading;
-  const isLoadingAll = false; // Nie ma już two-phase loading
+  // productsLoading zastąpione przez productsLoading
 
   // Ładowanie = dopóki metadane nie dotarły
   // Pokazuj skeleton gdy Sanity jeszcze ładuje
@@ -1326,7 +1326,7 @@ export default function CategoryPage() {
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  {isLoadingAll ? "···" : String(catProducts.length).padStart(3, "0")}
+                  {productsLoading ? "···" : String(catProducts.length).padStart(3, "0")}
                 </span>
                 {/* Glowing copy behind */}
                 <span
@@ -1339,13 +1339,13 @@ export default function CategoryPage() {
                   }}
                   aria-hidden
                 >
-                  {isLoadingAll ? "···" : String(catProducts.length).padStart(3, "0")}
+                  {productsLoading ? "···" : String(catProducts.length).padStart(3, "0")}
                 </span>
               </div>
               <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">PRODUKTÓW</span>
               <div className="flex items-center gap-1 mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#f81828]" style={{ boxShadow: "0 0 4px rgba(248,24,40,0.8)" }} />
-                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{(isLoadingProducts || isLoadingAll) ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
+                <span className="text-[9px] text-gray-600 font-mono tracking-wide">{(isLoadingProducts || productsLoading) ? "ŁADOWANIE…" : `${filtered.length} WYNIKÓW`}</span>
               </div>
             </div>
           </div>
@@ -1561,7 +1561,7 @@ export default function CategoryPage() {
                       boxShadow: "0 0 8px rgba(248,24,40,0.15)",
                     }}
                   >
-                    {(isLoadingProducts || isLoadingAll) ? "…" : `${filtered.length}`}
+                    {(isLoadingProducts || productsLoading) ? "…" : `${filtered.length}`}
                   </span>
 
                   {/* ── Desktop inline filter dropdowns (lg:) ── */}
@@ -1759,7 +1759,7 @@ export default function CategoryPage() {
                         boxShadow: "0 0 16px rgba(248,24,40,0.3)",
                       }}
                     >
-                      Pokaż {isLoadingAll ? "···" : filtered.length} produktów
+                      Pokaż {productsLoading ? "···" : filtered.length} produktów
                     </button>
                   </div>
                 </div>
@@ -1874,7 +1874,7 @@ export default function CategoryPage() {
                 ))}
                 <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }`}</style>
               </div>
-            ) : (paginated.length > 0 || isLoadingAll) ? (
+            ) : (paginated.length > 0 || productsLoading) ? (
               <>
 
                 {/* ── Popularne marki w tej kategorii (Wizualny Silos) ── */}
@@ -1915,7 +1915,7 @@ export default function CategoryPage() {
                 )}
 
                 {/* ⚡ Banner Two-Phase: widoczny podczas ładowania reszty produktów w tle */}
-                {isLoadingAll && (
+                {productsLoading && (
                   <div className="flex items-center gap-2 mb-3 px-3 py-2 rounded-lg text-xs font-mono"
                     style={{ background: "rgba(248,24,40,0.06)", border: "1px solid rgba(248,24,40,0.18)" }}>
                     <span className="w-1.5 h-1.5 rounded-full bg-[#f81828] animate-pulse flex-shrink-0" />
@@ -1928,7 +1928,7 @@ export default function CategoryPage() {
                     ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-stretch"
                     : "space-y-4"}
                 >
-                  {paginated.length === 0 && isLoadingAll ? (
+                  {paginated.length === 0 && productsLoading ? (
                     /* Skeleton podczas ładowania gdy paginated jest puste */
                     Array.from({ length: 8 }).map((_, i) => (
                       <div key={`skel-${i}`} className="rounded-xl overflow-hidden" style={{ background: "#0f0f0f", border: "1px solid #1a1a1a", animation: "pulse 1.5s infinite" }}>
@@ -2023,7 +2023,7 @@ export default function CategoryPage() {
                       <ChevronNext className="w-4 h-4" />
                     </button>
                     <span className="text-xs text-gray-600 ml-2 font-mono">
-                      {safePage}/{totalPages} · {isLoadingAll ? "···" : filtered.length} szt.
+                      {safePage}/{totalPages} · {productsLoading ? "···" : filtered.length} szt.
                     </span>
                   </div>
                 )}

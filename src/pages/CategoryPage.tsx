@@ -708,6 +708,8 @@ export default function CategoryPage() {
   const sanityMeta = fastMeta ?? slugTreeMeta;
   // Ładowanie: fastLoading dla L1 (catId), slugTreeLoading dla L2+ (slug-tree)
   const productsLoading = catId ? fastLoading : slugTreeLoading;
+  // Total: dla L1 używamy count z Sanity, dla L2+ długość slugTreeMeta
+  const totalProductsCount = catId ? totalProducts : (slugTreeMeta?.length ?? null);
 
   // Ładowanie = dopóki metadane nie dotarły
   // Pokazuj skeleton gdy Sanity jeszcze ładuje
@@ -1326,7 +1328,7 @@ export default function CategoryPage() {
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  {productsLoading ? "···" : String(totalProducts ?? catProducts.length).padStart(3, "0")}
+                  {productsLoading ? "···" : String(totalProductsCount ?? catProducts.length).padStart(3, "0")}
                 </span>
                 {/* Glowing copy behind */}
                 <span
@@ -1339,7 +1341,7 @@ export default function CategoryPage() {
                   }}
                   aria-hidden
                 >
-                  {productsLoading ? "···" : String(totalProducts ?? catProducts.length).padStart(3, "0")}
+                  {productsLoading ? "···" : String(totalProductsCount ?? catProducts.length).padStart(3, "0")}
                 </span>
               </div>
               <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">PRODUKTÓW</span>
@@ -1977,9 +1979,9 @@ export default function CategoryPage() {
                         </>
                       )}
                     </button>
-                    {totalProducts && (
+                    {totalProductsCount && (
                       <span className="text-xs text-gray-500 font-mono">
-                        Wyświetlono {filtered.length} z {totalProducts} produktów
+                        Wyświetlono {filtered.length} z {totalProductsCount} produktów
                       </span>
                     )}
                   </div>
@@ -2046,7 +2048,7 @@ export default function CategoryPage() {
                   image: p.images?.[0],
                 }))}
                 onClearAll={clearFilters}
-                totalInCategory={totalProducts ?? catProducts.length}
+                totalInCategory={totalProductsCount ?? catProducts.length}
               />
             )}
           </div>

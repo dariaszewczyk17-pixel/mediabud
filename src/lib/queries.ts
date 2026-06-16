@@ -1,4 +1,4 @@
-// ââ Fragmenty GROQ âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── Fragmenty GROQ ─────────────────────────────────────────────────────────
 
 const CATEGORY_CHAIN = `{
   _id, "slug": slug.current, name,
@@ -11,12 +11,12 @@ const CATEGORY_CHAIN = `{
   }
 }`
 
-// Odchudzone pola karty produktu â bez categoryChain i technicalSpec
-// To eliminuje dziesiÄtki tysiÄcy dodatkowych joinÃ³w przy duÅ¼ych listach
+// Odchudzone pola karty produktu — bez categoryChain i technicalSpec
+// To eliminuje dziesiątki tysięcy dodatkowych joinów przy dużych listach
 const PRODUCT_CARD_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
-  name, sku, unit, featured, inStock,
+  name, sku, unit, featured, inStock, popularity,
   shortDescription, tags,
   "categorySlug": category->slug.current,
   "categoryName": category->name,
@@ -25,11 +25,11 @@ const PRODUCT_CARD_FIELDS = `{
   technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
-// PeÅne pola produktu (szczegÃ³Åy) â z wszystkimi joinami
+// Pełne pola produktu (szczegóły) — z wszystkimi joinami
 const PRODUCT_FULL_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
-  name, sku, unit, featured, inStock,
+  name, sku, unit, featured, inStock, popularity,
   priceMin, priceMax,
   shortDescription, description, application,
   advantages, warnings, tags, seoDescription,
@@ -60,28 +60,28 @@ const CATEGORY_FIELDS = `{
 
 const NO_PLACEHOLDER = `!(name match "P-*")`
 
-// ââ Queries ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── Queries ────────────────────────────────────────────────────────────────
 
 export const ALL_CATEGORIES_QUERY =
   `*[_type == "category" && !defined(parent)] | order(order asc, name asc) ${CATEGORY_FIELDS}`
 
 export const ALL_PRODUCTS_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER}] | order(name asc) [0...10000] ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc, name asc) [0...10000] ${PRODUCT_CARD_FIELDS}`
 
 export const FEATURED_PRODUCTS_QUERY =
   `*[_type == "product" && featured == true && ${NO_PLACEHOLDER}][0...12] ${PRODUCT_CARD_FIELDS}`
 
-// â¡ Kluczowa optymalizacja: jeden join zamiast czterech poziomÃ³w parent->
-// collectAllSlugs() po stronie frontu dostarcza juÅ¼ WSZYSTKIE podkategorie,
-// wiÄc wystarczy sprawdziÄ bezpoÅredni slug kategorii produktu.
+// ⚡ Kluczowa optymalizacja: jeden join zamiast czterech poziomów parent->
+// collectAllSlugs() po stronie frontu dostarcza już WSZYSTKIE podkategorie,
+// więc wystarczy sprawdzić bezpośredni slug kategorii produktu.
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...$limit] ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc, name asc) [0...$limit] ${PRODUCT_CARD_FIELDS}`
 
-// â¡ Query A â metadane + pierwsze zdjÄcie + shortDescription produktÃ³w
-// PeÅne pola (opisy, galeria) Åadowane dopiero w ProductDetail przez PRODUCT_BY_SLUG_QUERY.
-// STARA wersja (array $slugs) â zachowana dla kompatybilnoÅci
+// ⚡ Query A — metadane + pierwsze zdjęcie + shortDescription produktów
+// Pełne pola (opisy, galeria) ładowane dopiero w ProductDetail przez PRODUCT_BY_SLUG_QUERY.
+// Sortowanie: popularity desc (najpopularniejsze na górze)
 export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(name asc) [0...10000] {
+  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc, name asc) [0...10000] {
   _id,
   "slug": slug.current,
   name,
@@ -92,14 +92,15 @@ export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
   tags,
   featured,
   inStock,
+  popularity,
   "images": images[0..0].asset->url,
   technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
-// â¡ Query B (FAST FIRST PAGE) â tylko pierwsze 48 produktÃ³w dla natychmiastowego wyÅwietlenia.
-// UÅ¼ywa `in` subquery: lista ID kategorii obliczana RAZ, potem O(1) per produkt (zamiast O(4Ãn)).
+// ⚡ Query B (FAST FIRST PAGE) — tylko pierwsze 48 produktów dla natychmiastowego wyświetlenia.
+// Używa `in` subquery: lista ID kategorii obliczana RAZ, potem O(1) per produkt (zamiast O(4×n)).
 export const PRODUCT_META_BY_CAT_FIRST_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(featured desc) [0...48] {
+  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc, featured desc) [0...48] {
   _id,
   "slug": slug.current,
   name,
@@ -110,15 +111,16 @@ export const PRODUCT_META_BY_CAT_FIRST_QUERY =
   tags,
   featured,
   inStock,
+  popularity,
   "images": images[0..0].asset->url,
   technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
-// â¡ Query B FULL â wszystkie produkty kategorii, Åadowane w tle po wyÅwietleniu pierwszej strony.
-// `in` subquery: O(m) obliczenie listy ID kategorii (mâ100), potem O(n) porÃ³wnanie ID per produkt.
-// Bez ORDER BY â sortowanie po stronie klienta w CategoryPage (szybsze niÅ¼ server-side na 5000 wierszach).
+// ⚡ Query B FULL — wszystkie produkty kategorii, ładowane w tle po wyświetleniu pierwszej strony.
+// `in` subquery: O(m) obliczenie listy ID kategorii (m≈100), potem O(n) porównanie ID per produkt.
+// Sortowanie: popularity desc (najpopularniejsze na górze)
 export const PRODUCT_META_BY_ROOT_CAT_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] [0...10000] {
+  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc, name asc) [0...10000] {
   _id,
   "slug": slug.current,
   name,
@@ -129,14 +131,15 @@ export const PRODUCT_META_BY_ROOT_CAT_QUERY =
   tags,
   featured,
   inStock,
+  popularity,
   "images": images[0..0].asset->url,
   technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
 
 // ⚡ PAGINATED — ładuje stronę produktów (offset/limit) dla infinite scroll.
-// Używa $offset i $end z params. Sortowanie server-side (name asc).
+// Używa $offset i $end z params. Sortowanie: popularity desc.
 export const PRODUCT_META_PAGINATED_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(name asc) [$offset...$end] {
+  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc, name asc) [$offset...$end] {
   _id,
   "slug": slug.current,
   name,
@@ -147,6 +150,7 @@ export const PRODUCT_META_PAGINATED_QUERY =
   tags,
   featured,
   inStock,
+  popularity,
   "images": images[0..0].asset->url,
   technicalSpec[0...6]{ key, label, value, unit, priority }
 }`
@@ -156,7 +160,7 @@ export const PRODUCT_COUNT_BY_ROOT_CAT_QUERY =
   `count(*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug])`
 
 export const PRODUCTS_BY_CATEGORY_QUERY =
-  `*[_type == "product" && category->slug.current == $slug && ${NO_PLACEHOLDER}] | order(name asc) ${PRODUCT_CARD_FIELDS}`
+  `*[_type == "product" && category->slug.current == $slug && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc, name asc) ${PRODUCT_CARD_FIELDS}`
 
 export const PRODUCT_BY_SLUG_QUERY =
   `*[_type == "product" && slug.current == $slug && ${NO_PLACEHOLDER}][0] ${PRODUCT_FULL_FIELDS}`

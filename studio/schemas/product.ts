@@ -29,6 +29,7 @@ defineField({ group:'basic', name:'rootCategory', title:'Kategoria główna (roo
     defineField({ group:'basic', name:'featured',     title:'Produkt wyróżniony?',   type:'boolean', initialValue:false }),
     defineField({ group:'basic', name:'isNew',        title:'Nowość?',               type:'boolean', initialValue:false }),
     defineField({ group:'basic', name:'isBestseller', title:'Bestseller?',            type:'boolean', initialValue:false }),
+    defineField({ group:'basic', name:'popularity',   title:'Popularność (0-100)',    type:'number', initialValue:50, description:'Wyższy = bardziej popularny. Używane do domyślnego sortowania w kategoriach.', validation:R=>R.min(0).max(100) }),
 
     /* ── CONTENT ── */
     defineField({ group:'content', name:'shortDescription', title:'Krótki opis (zajawka, max 300 znaków)', type:'text', rows:3, validation:R=>R.max(300) }),
@@ -79,6 +80,7 @@ defineField({ group:'basic', name:'rootCategory', title:'Kategoria główna (roo
     defineField({ group:'seo', name:'metaDescription', title:'Meta Description (max 160 znaków)',        type:'text',   rows:2, validation:R=>R.max(160) }),
   ],
   orderings:[
+    { title:'Popularność',     name:'popularity',  by:[{field:'popularity',      direction:'desc'}] },
     { title:'Nazwa A–Z',       name:'nameAsc',     by:[{field:'name',          direction:'asc'}] },
     { title:'Kategoria A–Z',   name:'categoryAsc', by:[{field:'category._ref', direction:'asc'}] },
     { title:'Bestsellery',     name:'bestseller',  by:[{field:'isBestseller',  direction:'desc'}] },

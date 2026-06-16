@@ -8,7 +8,7 @@ import {
 import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories, resolveCategorySlug, CATEGORY_SLUG_ALIASES } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
 import { getBrandBySlug, slugifyBrand } from "@/data/brands";
-import { useCategoryBySlug, useAllCategories, useProductMetaByCatSlug, useProductMetaByCatSlugFast, useProductMetaByCategorySlugs, type ProductMeta } from "@/hooks/useSanityData";
+import { useCategoryBySlug, useAllCategories, useProductMetaByCatSlug, useProductMetaByCategorySlugs, type ProductMeta } from "@/hooks/useSanityData";
 import { useSEO } from "@/hooks/useSEO";
 import {
   sanityCategoryToLegacy,
@@ -676,10 +676,8 @@ export default function CategoryPage() {
     [sanitySubSlugs, staticSubSlugs],
   );
 
-  // ⚡ TWO-PHASE LOADING
-  // Phase 1 (fast ~200-400ms): pierwsze 48 produktów — użytkownik widzi treść natychmiast
-  const { data: firstBatch, loading: firstLoading } = useProductMetaByCatSlugFast(slug);
-  // Phase 2 (background ~1-3s): wszystkie produkty — pełne filtry i paginacja
+  // ⚡ SINGLE-PHASE LOADING — wszystkie produkty naraz (bez przeskakiwania)
+  // Usunięto two-phase loading który powodował "przeskakiwanie" produktów
   const { data: allMeta, loading: allLoading } = useProductMetaByCatSlug(slug);
 
 
@@ -698,26 +696,20 @@ export default function CategoryPage() {
   }, [allSubSlugs]);
   const { data: slugTreeMeta } = useProductMetaByCategorySlugs(querySubSlugs);
 
-  // Pokaż firstBatch natychmiast; przełącz na allMeta gdy gotowe
-  // Prefer slugTreeMeta (category->slug in $slugs) for subcategories;
-  // fall back to rootCategory queries only if they returned data
-  const rootMetaEffective = (allMeta && (allMeta as any[]).length > 0) ? allMeta
-    : (firstBatch && (firstBatch as any[]).length > 0) ? firstBatch
-    : null;
+  // Pokaż produkty dopiero gdy wszystkie dane gotowe (bez przeskakiwania)
   const sanityMeta = slugTreeMeta && (slugTreeMeta as any[]).length > 0
     ? slugTreeMeta
-    : rootMetaEffective;
-  const productsLoading = allMeta ? false : firstLoading;
-  const isLoadingAll = allLoading && !!firstBatch; // true gdy Phase 1 ready, Phase 2 w toku
+    : allMeta;
+  const productsLoading = allLoading;
+  const isLoadingAll = false; // Nie ma już two-phase loading
 
-  // Ładowanie = dopóki metadane nie dotarły (nie czekamy już na kategorię)
-  // Pokazuj skeleton TYLKO gdy kategoria nie ma żadnych danych statycznych.
-  // Gdy static ma produkty → pokaż od razu; gdy brak → czekaj na Sanity.
+  // Ładowanie = dopóki metadane nie dotarły
+  // Pokazuj skeleton gdy Sanity jeszcze ładuje
   const hasStaticFallback = useMemo(() => {
     const slugSet = new Set(allSubSlugs);
     return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
   }, [allSubSlugs]);
-  const isLoadingProducts = firstLoading && !firstBatch && !hasStaticFallback;
+  const isLoadingProducts = allLoading && !sanityMeta;
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz
@@ -1656,7 +1648,7 @@ export default function CategoryPage() {
                       color: sortBy !== "default" ? "#f81828" : "#6b7280",
                     }}
                   >
-                    <option value="default">SORTUJ ▾</option>
+                    <option value="default">Popularne ▾</option>
                     <option value="inStock">Dostępne od ręki</option>
                     <option value="featured">Polecane</option>
                     <option value="name-asc">Nazwa A–Z</option>

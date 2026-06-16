@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
-import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
+import { useParams, Link, useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import {
   ChevronRight, Grid, List, Filter, SlidersHorizontal, X,
   ChevronLeft, ChevronRight as ChevronNext, Tag, Zap, ArrowRight, Phone, Mail, ChevronDown,
@@ -565,7 +565,13 @@ function TopProductsList({ products, categoryName }: { products: TopProduct[]; c
 }
 
 export default function CategoryPage() {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug: paramSlug } = useParams<{ slug: string }>();
+  const location = useLocation();
+  // Dla podkategorii L2/L3/L4: pobierz pełną ścieżkę z URL (np. /kategoria/izolacje/styropiany → styropiany)
+  const slug = useMemo(() => {
+    const pathParts = location.pathname.replace(/^\/kategoria\//, '').split('/').filter(Boolean);
+    return pathParts[pathParts.length - 1] || paramSlug || '';
+  }, [location.pathname, paramSlug]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [view, setView] = useState<"grid" | "list">("grid");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);

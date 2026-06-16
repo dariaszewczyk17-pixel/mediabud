@@ -708,8 +708,6 @@ export default function CategoryPage() {
   const sanityMeta = fastMeta ?? slugTreeMeta;
   // Ładowanie: fastLoading dla L1 (catId), slugTreeLoading dla L2+ (slug-tree)
   const productsLoading = catId ? fastLoading : slugTreeLoading;
-  // Total: dla L1 używamy count z Sanity, dla L2+ długość slugTreeMeta
-  const totalProductsCount = catId ? totalProducts : (slugTreeMeta?.length ?? null);
 
   // Ładowanie = dopóki metadane nie dotarły
   // Pokazuj skeleton gdy Sanity jeszcze ładuje
@@ -776,6 +774,9 @@ export default function CategoryPage() {
 
     return mergeProductCollections(sanityMapped as any, staticCategoryProducts);
   }, [sanityMeta, allSubSlugs]);
+
+  // Total: dla L1 używamy count z Sanity, dla L2+ używamy catProducts.length (po załadowaniu)
+  const totalProductsCount = catId ? totalProducts : (catProducts.length > 0 ? catProducts.length : null);
 
   /** Filtruje śmieciowe wartości brand (jednostki, znaki specjalne, puste) */
   const isValidBrand = (b: string) => {

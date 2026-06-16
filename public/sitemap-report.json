@@ -1,12 +1,12 @@
 {
-  "generated": "2026-06-16T14:54:28.726Z",
+  "generated": "2026-06-16T15:43:22.369Z",
   "base_url": "https://mediabud.pl",
   "products": {
     "total": 15702,
-    "full_quality": 14772,
-    "partial_quality": 930,
+    "full_quality": 14064,
+    "partial_quality": 1638,
     "excluded": 0,
-    "coverage_pct": 94.1
+    "coverage_pct": 89.6
   },
   "categories": {
     "total": 351

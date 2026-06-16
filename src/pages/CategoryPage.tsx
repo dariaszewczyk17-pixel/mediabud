@@ -1329,7 +1329,7 @@ export default function CategoryPage() {
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  {productsLoading ? "···" : String(totalProductsCount ?? catProducts.length).padStart(3, "0")}
+                  {(productsLoading || (!totalProductsCount && catProducts.length === 0)) ? "···" : String(totalProductsCount ?? catProducts.length).padStart(3, "0")}
                 </span>
                 {/* Glowing copy behind */}
                 <span
@@ -1342,7 +1342,7 @@ export default function CategoryPage() {
                   }}
                   aria-hidden
                 >
-                  {productsLoading ? "···" : String(totalProductsCount ?? catProducts.length).padStart(3, "0")}
+                  {(productsLoading || (!totalProductsCount && catProducts.length === 0)) ? "···" : String(totalProductsCount ?? catProducts.length).padStart(3, "0")}
                 </span>
               </div>
               <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">PRODUKTÓW</span>

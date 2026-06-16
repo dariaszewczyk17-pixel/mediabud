@@ -739,10 +739,13 @@ export default function CategoryPage() {
     const sanityMapped = ((sanityMeta as ProductMeta[] | null) ?? []).map((meta: ProductMeta) => {
       const base = staticBySlug.get(meta.slug);
       if (base) {
-        // Obrazy: TYLKO Sanity CDN — bechcicki.pl CDN może serwować placeholder "MR"
-        // Gdy Sanity ma puste images[], ProductCard pokaże /images/placeholder-product_2.png
+        // Obrazy: Sanity CDN priorytet → fallback na static (bechcicki) gdy Sanity puste
+        // Identyczna logika jak ProductDetail → spójne zdjęcia karta vs detal
         const sanityImages = (meta.images || []).filter(Boolean);
-        const mergedImages = sanityImages;
+        const baseImages = (base.images || []).filter(url =>
+          url && !url.includes('3907a0b3a13f') && !url.includes('placeholder')
+        );
+        const mergedImages = sanityImages.length > 0 ? sanityImages : baseImages;
         return {
           ...base,
           brand:            meta.brand    || base.brand,

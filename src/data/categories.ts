@@ -333,43 +333,6 @@ export const categories: Category[] = [
     ]
   },
   {
-    id: "pozostale",
-    slug: "pozostale",
-    name: "Pozostałe",
-    icon: "package",
-    description: "Galanteria betonowa, stolarka otworowa, nawadnianie, BHP i inne materiały budowlane.",
-    metaTitle: "Materiały budowlane pozostałe Lublin | Kostka, stolarka | Media Bud",
-    metaDesc: "Uzupełnij swoje zamówienie o galanterię betonową, stolarkę otworową i artykuły BHP w hurtowni Media Bud w Lublinie.",
-    children: [
-      {
-        id: "galanteria-betonowa", slug: "galanteria-betonowa", name: "Galanteria betonowa",
-        children: [
-          { id: "kostka-brukowa", slug: "kostka-brukowa", name: "Kostka brukowa" },
-          { id: "palisady", slug: "palisady-krawezniki-i-obrzeza", name: "Palisady, krawężniki i obrzeża" },
-          { id: "plyty-chodnikowe", slug: "plyty-chodnikowe-i-tarasowe", name: "Płyty chodnikowe i tarasowe" },
-          { id: "elementy-ogrodzenia", slug: "elementy-ogrodzenia", name: "Elementy ogrodzenia" },
-          { id: "architektura-ogrodowa", slug: "architektura-ogrodowa", name: "Architektura ogrodowa betonowa" },
-        ]
-      },
-      { id: "nawadnianie", slug: "nawadnianie", name: "Nawadnianie" },
-      {
-        id: "stolarka", slug: "stolarka-otworowa", name: "Stolarka otworowa",
-        children: [
-          { id: "okna", slug: "okna-dachowe-i-akcesoria", name: "Okna i akcesoria do okien" },
-          { id: "drzwi", slug: "drzwi-i-akcesoria-do-drzwi", name: "Drzwi i akcesoria do drzwi" },
-        ]
-      },
-      {
-        id: "bhp", slug: "bhp", name: "BHP",
-        children: [
-          { id: "odziez-ochronna", slug: "odziez-ochronna", name: "Odzież ochronna" },
-          { id: "drabiny", slug: "drabiny", name: "Drabiny" },
-          { id: "ochrona-wysokosc", slug: "ochrona-wysokosc", name: "Ochrona do prac na wysokościach" },
-        ]
-      },
-    ]
-  },
-  {
     id: "plytki",
     slug: "plytki",
     name: "Płytki",

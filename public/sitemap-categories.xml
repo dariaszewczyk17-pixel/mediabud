@@ -53,12 +53,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/bhp</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/bloczki-beton-komorkowy</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -109,18 +103,6 @@
   <url>
     <loc>https://mediabud.pl/kategoria/dodatki-do-zapraw-i-betonu</loc>
     <lastmod>2026-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/drabiny</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/drzwi-i-akcesoria-do-drzwi</loc>
-    <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -443,12 +425,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kolnierze-i-produkty-instalacyjne</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/kotwy-chemiczne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -481,12 +457,6 @@
   <url>
     <loc>https://mediabud.pl/kategoria/farby-elewacyjne</loc>
     <lastmod>2026-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/galanteria-betonowa</loc>
-    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -529,12 +499,6 @@
   <url>
     <loc>https://mediabud.pl/kategoria/narzedzia-malarskie</loc>
     <lastmod>2026-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/okna-dachowe-i-akcesoria</loc>
-    <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -641,12 +605,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/balkony-dachowe</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/belki-stropowe-ceramiczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -678,18 +636,6 @@
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/drzwi-kolankowe</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/elementy-kanalizacyjne</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/elementy-ogrodzenia</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -953,31 +899,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/okna-dachowe</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/okna-kolankowe</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/okna-oddymiajace</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/opaski-zaciskowe</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/palisady-krawezniki-i-obrzeza</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1038,12 +960,6 @@
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plyty-cementowo-wloknowe</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/plyty-chodnikowe-i-tarasowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1403,12 +1319,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/nawadnianie</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/noze</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -1422,24 +1332,6 @@
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/obcinaczki</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/odkurzacze-worki-rury</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/odziez-ochronna</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/okna-i-akcesoria-do-okien</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1476,12 +1368,6 @@
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/papy</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/paski-i-kabury-narzedziowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1727,12 +1613,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/stolarka-otworowa</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/stropy-i-sciany</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -1819,12 +1699,6 @@
   <url>
     <loc>https://mediabud.pl/kategoria/tasmy-do-suchej-zabudowy</loc>
     <lastmod>2026-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/tasmy-i-folie-ostrzegawcze</loc>
-    <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1961,12 +1835,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/weze</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/wieszaki-do-suchej-zabudowy-bezposrednie</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -2045,18 +1913,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zlaczki-i-koncowki</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/zraszacze</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/zszywacze</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -2129,12 +1985,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kostka-brukowa</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/lakierobejce</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -2142,12 +1992,6 @@
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/membrany-dachowe</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/okna-wylazowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

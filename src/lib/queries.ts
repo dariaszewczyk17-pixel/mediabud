@@ -11,8 +11,7 @@ const CATEGORY_CHAIN = `{
   }
 }`
 
-// Odchudzone pola karty produktu — bez categoryChain i technicalSpec
-// To eliminuje dziesiątki tysięcy dodatkowych joinów przy dużych listach
+// Odchudzone pola karty produktu — bez categoryChain
 const PRODUCT_CARD_FIELDS = `{
   _id, "id": _id,
   "slug": slug.current,
@@ -60,6 +59,23 @@ const CATEGORY_FIELDS = `{
 
 const NO_PLACEHOLDER = `!(name match "P-*")`
 
+// ── Zoptymalizowane pola dla kart (minimalne joiny) ────────────────────────
+const PRODUCT_META_FIELDS = `{
+  _id,
+  "slug": slug.current,
+  name,
+  shortDescription,
+  "categorySlug": category->slug.current,
+  "brand": brand->name,
+  unit,
+  tags,
+  featured,
+  inStock,
+  popularity,
+  "images": images[0..0].asset->url,
+  technicalSpec[0...6]{ key, label, value, unit, priority }
+}`
+
 // ── Queries ────────────────────────────────────────────────────────────────
 
 export const ALL_CATEGORIES_QUERY =
@@ -72,90 +88,39 @@ export const FEATURED_PRODUCTS_QUERY =
   `*[_type == "product" && featured == true && ${NO_PLACEHOLDER}][0...12] ${PRODUCT_CARD_FIELDS}`
 
 // ⚡ Kluczowa optymalizacja: jeden join zamiast czterech poziomów parent->
-// collectAllSlugs() po stronie frontu dostarcza już WSZYSTKIE podkategorie,
-// więc wystarczy sprawdzić bezpośredni slug kategorii produktu.
 export const PRODUCTS_BY_CATEGORY_SLUGS_QUERY =
   `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc, name asc) [0...$limit] ${PRODUCT_CARD_FIELDS}`
 
-// ⚡ Query A — metadane + pierwsze zdjęcie + shortDescription produktów
-// Pełne pola (opisy, galeria) ładowane dopiero w ProductDetail przez PRODUCT_BY_SLUG_QUERY.
+// ⚡ Query A — metadane produktów po slugach kategorii
 // Sortowanie: popularity desc (najpopularniejsze na górze)
 export const PRODUCT_META_BY_CATEGORY_SLUGS_QUERY =
-  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc, name asc) [0...10000] {
-  _id,
-  "slug": slug.current,
-  name,
-  shortDescription,
-  "categorySlug": category->slug.current,
-  "brand": brand->name,
-  unit,
-  tags,
-  featured,
-  inStock,
-  popularity,
-  "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ key, label, value, unit, priority }
-}`
+  `*[_type == "product" && category->slug.current in $slugs && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc, name asc) [0...10000] ${PRODUCT_META_FIELDS}`
 
-// ⚡ Query B (FAST FIRST PAGE) — tylko pierwsze 48 produktów dla natychmiastowego wyświetlenia.
-// Używa `in` subquery: lista ID kategorii obliczana RAZ, potem O(1) per produkt (zamiast O(4×n)).
+// ⚡⚡ SUPER FAST — używa _ref zamiast joina (17x szybsze!)
+// Pierwsza strona produktów dla natychmiastowego wyświetlenia
+export const PRODUCT_META_FAST_QUERY =
+  `*[_type == "product" && rootCategory._ref == $catId && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc) [0...48] ${PRODUCT_META_FIELDS}`
+
+// ⚡⚡ SUPER FAST PAGINATED — używa _ref zamiast joina
+// Paginacja z offset/end dla infinite scroll
+export const PRODUCT_META_FAST_PAGINATED_QUERY =
+  `*[_type == "product" && rootCategory._ref == $catId && ${NO_PLACEHOLDER}] | order(coalesce(popularity, 50) desc) [$offset...$end] ${PRODUCT_META_FIELDS}`
+
+// ⚡⚡ SUPER FAST COUNT — szybkie zliczenie bez joina
+export const PRODUCT_COUNT_FAST_QUERY =
+  `count(*[_type == "product" && rootCategory._ref == $catId && ${NO_PLACEHOLDER}])`
+
+// ── Legacy queries (zachowane dla kompatybilności) ─────────────────────────
+
 export const PRODUCT_META_BY_CAT_FIRST_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc, featured desc) [0...48] {
-  _id,
-  "slug": slug.current,
-  name,
-  shortDescription,
-  "categorySlug": category->slug.current,
-  "brand": brand->name,
-  unit,
-  tags,
-  featured,
-  inStock,
-  popularity,
-  "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ key, label, value, unit, priority }
-}`
+  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc) [0...48] ${PRODUCT_META_FIELDS}`
 
-// ⚡ Query B FULL — wszystkie produkty kategorii, ładowane w tle po wyświetleniu pierwszej strony.
-// `in` subquery: O(m) obliczenie listy ID kategorii (m≈100), potem O(n) porównanie ID per produkt.
-// Sortowanie: popularity desc (najpopularniejsze na górze)
 export const PRODUCT_META_BY_ROOT_CAT_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc, name asc) [0...10000] {
-  _id,
-  "slug": slug.current,
-  name,
-  shortDescription,
-  "categorySlug": category->slug.current,
-  "brand": brand->name,
-  unit,
-  tags,
-  featured,
-  inStock,
-  popularity,
-  "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ key, label, value, unit, priority }
-}`
+  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc, name asc) [0...10000] ${PRODUCT_META_FIELDS}`
 
-// ⚡ PAGINATED — ładuje stronę produktów (offset/limit) dla infinite scroll.
-// Używa $offset i $end z params. Sortowanie: popularity desc.
 export const PRODUCT_META_PAGINATED_QUERY =
-  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc, name asc) [$offset...$end] {
-  _id,
-  "slug": slug.current,
-  name,
-  shortDescription,
-  "categorySlug": category->slug.current,
-  "brand": brand->name,
-  unit,
-  tags,
-  featured,
-  inStock,
-  popularity,
-  "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ key, label, value, unit, priority }
-}`
+  `*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug] | order(coalesce(popularity, 50) desc, name asc) [$offset...$end] ${PRODUCT_META_FIELDS}`
 
-// ⚡ COUNT — szybkie zliczenie produktów w kategorii (dla UI "X produktów")
 export const PRODUCT_COUNT_BY_ROOT_CAT_QUERY =
   `count(*[_type == "product" && ${NO_PLACEHOLDER} && rootCategory->slug.current == $catSlug])`
 

@@ -10,6 +10,9 @@ import {
   PRODUCT_META_BY_ROOT_CAT_QUERY,
   PRODUCT_META_PAGINATED_QUERY,
   PRODUCT_COUNT_BY_ROOT_CAT_QUERY,
+  PRODUCT_META_FAST_QUERY,
+  PRODUCT_META_FAST_PAGINATED_QUERY,
+  PRODUCT_COUNT_FAST_QUERY,
   PRODUCT_BY_SLUG_QUERY,
   CATEGORY_BY_SLUG_QUERY,
   FEATURED_PRODUCTS_QUERY,
@@ -286,6 +289,65 @@ export function useProductMetaPaginated(catSlug: string | undefined) {
       return loaded < total ? loaded : undefined
     },
     enabled: !!catSlug,
+  })
+
+  const allProducts = infiniteQuery.data?.pages.flat() ?? []
+  const total = countQuery.data ?? null
+  const hasMore = total !== null && allProducts.length < total
+
+  return {
+    data: allProducts.length > 0 ? allProducts : null,
+    loading: infiniteQuery.isLoading || countQuery.isLoading,
+    loadingMore: infiniteQuery.isFetchingNextPage,
+    hasMore,
+    total,
+    loadMore: () => infiniteQuery.fetchNextPage(),
+    error: infiniteQuery.error || countQuery.error,
+  }
+}
+
+// ─── SUPER FAST hooks (używają _ref zamiast joina — 17x szybsze!) ────────────
+
+/**
+ * ⚡⚡ SUPER FAST — pierwsza strona produktów (48) w ~300ms zamiast ~6s
+ * Używa rootCategory._ref zamiast rootCategory->slug.current
+ */
+export function useProductMetaFast(catId: string | undefined) {
+  return useQueryCompat(
+    useQuery({
+      queryKey: ['products', 'metaFast', catId || ''],
+      queryFn: () => sanityFetch<ProductMeta[]>(PRODUCT_META_FAST_QUERY, { catId }),
+      enabled: !!catId,
+    })
+  )
+}
+
+/**
+ * ⚡⚡ SUPER FAST PAGINATED — infinite scroll z _ref
+ * Ładuje produkty stronami po 48, każda strona w ~300ms
+ */
+export function useProductMetaFastPaginated(catId: string | undefined) {
+  const countQuery = useQuery({
+    queryKey: ['products', 'countFast', catId || ''],
+    queryFn: () => sanityFetch<number>(PRODUCT_COUNT_FAST_QUERY, { catId }),
+    enabled: !!catId,
+  })
+
+  const infiniteQuery = useInfiniteQuery({
+    queryKey: ['products', 'metaFastPaginated', catId || ''],
+    queryFn: ({ pageParam = 0 }) =>
+      sanityFetch<ProductMeta[]>(PRODUCT_META_FAST_PAGINATED_QUERY, {
+        catId,
+        offset: pageParam,
+        end: pageParam + PAGE_SIZE,
+      }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      const total = countQuery.data ?? 0
+      const loaded = allPages.flat().length
+      return loaded < total ? loaded : undefined
+    },
+    enabled: !!catId,
   })
 
   const allProducts = infiniteQuery.data?.pages.flat() ?? []

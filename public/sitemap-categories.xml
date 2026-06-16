@@ -923,12 +923,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/laty-murarskie</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://mediabud.pl/kategoria/listwy-przypodlogowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -1284,6 +1278,12 @@
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/lakiery-pozostale</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mediabud.pl/kategoria/laty-murarskie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

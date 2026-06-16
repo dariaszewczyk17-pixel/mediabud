@@ -702,12 +702,12 @@ export default function CategoryPage() {
     }
     return Array.from(expanded).sort();
   }, [allSubSlugs]);
-  const { data: slugTreeMeta } = useProductMetaByCategorySlugs(querySubSlugs);
+  const { data: slugTreeMeta, loading: slugTreeLoading } = useProductMetaByCategorySlugs(querySubSlugs);
 
   // Użyj szybkiego hooka gdy mamy catId, fallback na slug-tree dla podkategorii
   const sanityMeta = fastMeta ?? slugTreeMeta;
-  const productsLoading = fastLoading;
-  // productsLoading zastąpione przez productsLoading
+  // Ładowanie: fastLoading dla L1 (catId), slugTreeLoading dla L2+ (slug-tree)
+  const productsLoading = catId ? fastLoading : slugTreeLoading;
 
   // Ładowanie = dopóki metadane nie dotarły
   // Pokazuj skeleton gdy Sanity jeszcze ładuje

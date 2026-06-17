@@ -636,13 +636,17 @@ export default function CategoryPage() {
     [searchParams]
   );
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  // Ref do sledzenia marki miedzy nawigacjami kategorii
+  const prevBrandRef = useRef('');
 
   /* Reset filtrów i strony gdy zmienia się kategoria */
   useEffect(() => {
-    setSearchParams(new URLSearchParams(), { replace: true });
+    const _pb = prevBrandRef.current;    const _pp = new URLSearchParams();    if (_pb) _pp.set('brand', _pb);    setSearchParams(_pp, { replace: true });
     setTechFilters({});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
+  // Sledz biezaca marke — musi byc PO slug-change effect!
+  useEffect(() => { prevBrandRef.current = selectedBrand; });
 
   /* Prefetch metadanych produktów gdy user najeżdża na link kategorii */
   const prefetchForSlug = useCallback((targetSlug: string) => {

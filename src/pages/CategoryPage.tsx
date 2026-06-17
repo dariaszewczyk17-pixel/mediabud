@@ -8,7 +8,7 @@ import {
 import { getCategoryBySlug, getBreadcrumbs, categories as staticCategories, resolveCategorySlug, CATEGORY_SLUG_ALIASES } from "@/data/categories";
 import { products as staticProducts } from "@/data/products";
 import { getBrandBySlug, slugifyBrand } from "@/data/brands";
-import { useCategoryBySlug, useAllCategories, useProductMetaFastPaginated, useProductMetaByCategorySlugs, type ProductMeta } from "@/hooks/useSanityData";
+import { useCategoryBySlug, useAllCategories, useProductMetaFastPaginated, useProductMetaFastWithLimit, useProductMetaByCategorySlugs, type ProductMeta } from "@/hooks/useSanityData";
 import { useDebouncedCallback } from "@/hooks/useDebounce";
 import { useSEO } from "@/hooks/useSEO";
 import {
@@ -636,6 +636,7 @@ export default function CategoryPage() {
     [searchParams]
   );
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const productLimit = Math.min(parseInt(searchParams.get("loaded") || "48", 10), 480);
   // Ref do sledzenia marki miedzy nawigacjami kategorii
   const prevBrandRef = useRef('');
 
@@ -698,8 +699,7 @@ export default function CategoryPage() {
     loadingMore,
     hasMore,
     total: totalProducts,
-    loadMore 
-  } = useProductMetaFastPaginated(catId);
+  } = useProductMetaFastWithLimit(catId, productLimit);
 
   // Fallback dla podkategorii (L2/L3) — używa slug-tree query
   const querySubSlugs = useMemo(() => {
@@ -1972,7 +1972,7 @@ export default function CategoryPage() {
                 {hasMore && (
                   <div className="mt-8 flex flex-col items-center gap-3">
                     <button
-                      onClick={() => loadMore()}
+                      onClick={() => updateParam("loaded", String(productLimit + 48))}
                       disabled={loadingMore}
                       className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all disabled:opacity-50"
                       style={{

@@ -1577,7 +1577,7 @@ export default function CategoryPage() {
                       boxShadow: "0 0 8px rgba(248,24,40,0.15)",
                     }}
                   >
-                    {(isLoadingProducts || productsLoading) ? "…" : `${filtered.length}`}
+                    {(isLoadingProducts || productsLoading) ? "…" : `${totalProductsCount ?? filtered.length}`}
                   </span>
 
                   {/* ── Desktop inline filter dropdowns (lg:) ── */}

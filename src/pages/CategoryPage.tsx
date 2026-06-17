@@ -907,7 +907,7 @@ export default function CategoryPage() {
       case "name-asc":  result.sort((a, b) => a.name.localeCompare(b.name, "pl")); break;
       case "name-desc": result.sort((a, b) => b.name.localeCompare(a.name, "pl")); break;
       case "brand":     result.sort((a, b) => a.brand.localeCompare(b.brand, "pl")); break;
-      case "new":       result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)); break;
+      case "new":       result.sort((a, b) => new Date((b as any)._createdAt || 0).getTime() - new Date((a as any)._createdAt || 0).getTime()); break;
     }
     return result;
   }, [catProducts, selectedBrand, selectedUnit, selectedTag, selectedSubcat, selectedSpecs, sortBy, techFilters]);

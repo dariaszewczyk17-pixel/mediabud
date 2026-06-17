@@ -3,7 +3,7 @@
  *
  * /produkt/* — wstrzykuje title, meta description, OG tags i Product JSON-LD
  *              do surowego HTML (widoczne bez renderowania JS).
- * /kategoria/* + boty — zwraca pełny pre-renderowany HTML z produktami.
+ * /kategoria/* — canonical + BreadcrumbList dla WSZYSTKICH + prerender dla botów.
  */
 
 const BOT_UA_REGEX = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|applebot|petalbot/i;
@@ -70,6 +70,19 @@ async function fetchCategoryMeta(catSlug, token) {
   if (!res.ok) return null;
   const { result } = await res.json();
   return result;
+}
+
+async function fetchCategoryCount(catSlug, token) {
+  const query = encodeURIComponent(
+    `count(*[_type == "product" && (category->slug.current == "${catSlug}" || rootCategory->slug.current == "${catSlug}") && !(name match "P-*")])`
+  );
+  const res = await fetch(`${SANITY_QUERY_URL}?query=${query}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    cf: { cacheTtl: 3600, cacheEverything: true },
+  });
+  if (!res.ok) return null;
+  const { result } = await res.json();
+  return typeof result === "number" ? result : null;
 }
 
 function generateBotHTML(pathname, category, products) {
@@ -221,37 +234,113 @@ export async function onRequest(context) {
     }
   }
 
-  // ── /kategoria/* + boty — pre-rendering HTML z produktami ──
-  if (!pathname.startsWith("/kategoria/") || !isBot(request)) {
+  // ── /kategoria/* — canonical + BreadcrumbList dla wszystkich + prerender dla botów ──
+  if (!pathname.startsWith("/kategoria/")) {
     return next();
   }
 
   const catSlug = pathname.replace("/kategoria/", "").replace(/\/$/, "");
-  if (!catSlug || catSlug.includes("/")) return next();
+  if (!catSlug) return next();
 
-  const cacheKey = new Request(`${url.origin}/prerender${pathname}`, request);
-  const cache = caches.default;
-  const cachedResponse = await cache.match(cacheKey);
-  if (cachedResponse) return cachedResponse;
-
+  // Ostatni segment dla fetch (np. /kategoria/tynki/tynk-silikonowy → "tynk-silikonowy")
+  const leafSlug = catSlug.split("/").pop();
   const token = env.SANITY_TOKEN || "";
-  const [category, products] = await Promise.all([
-    fetchCategoryMeta(catSlug, token),
-    fetchCategoryProducts(catSlug, token),
-  ]);
 
-  if (!category) return next();
+  // ── BOT: pełny prerender z cache ──
+  if (isBot(request)) {
+    const cacheKey = new Request(`${url.origin}/prerender${pathname}`, request);
+    const cache = caches.default;
+    const cachedResponse = await cache.match(cacheKey);
+    if (cachedResponse) return cachedResponse;
 
-  const html = generateBotHTML(pathname, category, products);
-  const response = new Response(html, {
-    status: 200,
-    headers: {
-      "Content-Type": "text/html; charset=utf-8",
-      "Cache-Control": `public, s-maxage=${CACHE_TTL}, stale-while-revalidate=7200`,
-      "X-Prerender": "bot",
-    },
-  });
+    const [category, products] = await Promise.all([
+      fetchCategoryMeta(leafSlug, token),
+      fetchCategoryProducts(leafSlug, token),
+    ]);
 
-  context.waitUntil(cache.put(cacheKey, response.clone()));
-  return response;
+    if (!category) return next();
+
+    const html = generateBotHTML(pathname, category, products);
+    const response = new Response(html, {
+      status: 200,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": `public, s-maxage=${CACHE_TTL}, stale-while-revalidate=7200`,
+        "X-Prerender": "bot",
+      },
+    });
+
+    context.waitUntil(cache.put(cacheKey, response.clone()));
+    return response;
+  }
+
+  // ── REGULAR USER: wstrzykuj canonical + BreadcrumbList + meta ──
+  try {
+    const [category, productCount] = await Promise.all([
+      fetchCategoryMeta(leafSlug, token),
+      fetchCategoryCount(leafSlug, token),
+    ]);
+    const response = await next();
+    if (!category) return response;
+
+    const status = response.status === 404 ? 200 : response.status;
+    const ct = response.headers.get("content-type") || "";
+    if (!ct.includes("text/html")) return response;
+
+    const canonical = `${SITE_URL}${pathname}`;
+    const catName = category.name;
+    const pageTitle = esc(`${catName} - Media Bud | Sklep Budowlany Lublin`);
+    const count = productCount ?? 0;
+    const rawDesc = category.description
+      ? trunc(category.description, 160)
+      : count > 0
+        ? `${catName} - ${count} produktow w ofercie Media Bud. Sklep budowlany Lublin - zapytaj o cene.`
+        : `Produkty kategorii ${catName} w ofercie Media Bud - skladu budowlanego w Lublinie. Zapytaj o oferte.`;
+    const desc = esc(rawDesc);
+
+    const breadcrumbItems = [
+      { "@type": "ListItem", position: 1, name: "Strona glowna", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Produkty", item: `${SITE_URL}/produkty` },
+    ];
+    let pos = 3;
+    if (category.parentName) {
+      breadcrumbItems.push({ "@type": "ListItem", position: pos++, name: category.parentName, item: `${SITE_URL}/kategoria/${category.parentSlug}` });
+    }
+    breadcrumbItems.push({ "@type": "ListItem", position: pos, name: catName, item: canonical });
+
+    const ld = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems,
+    };
+
+    const inject = `
+  <title>${pageTitle}</title>
+  <meta name="description" content="${desc}" />
+  <link rel="canonical" href="${canonical}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="${pageTitle}" />
+  <meta property="og:description" content="${desc}" />
+  <meta property="og:url" content="${canonical}" />
+  <meta property="og:site_name" content="Media Bud" />
+  <script type="application/ld+json">${JSON.stringify(ld)}</script>`;
+
+    let html = await response.text();
+    html = html
+      .replace(/<title>[^<]*<\/title>/gi, "")
+      .replace(/<meta\s+name="description"[^>]*>/gi, "")
+      .replace(/<meta\s+property="og:[^"]*"[^>]*>/gi, "");
+    html = html.replace("</head>", inject + "\n</head>");
+
+    return new Response(html, {
+      status,
+      headers: {
+        "content-type": "text/html;charset=UTF-8",
+        "cache-control": "public, max-age=300, stale-while-revalidate=3600",
+      },
+    });
+  } catch (e) {
+    console.error("[cat-meta-inject] error:", e);
+    return next();
+  }
 }

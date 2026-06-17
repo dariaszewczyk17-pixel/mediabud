@@ -466,7 +466,7 @@ export default function Header() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
-                  placeholder="Szukaj produktów, marek, kategorii..."
+                  placeholder="Szukaj produktów..."
                   className="h-11 rounded-r-none border border-[#2d2d2d] border-r-0 bg-[#141414] pl-10 text-sm font-bold uppercase tracking-[0.08em] text-white placeholder:text-[#444] transition-all focus:border-[#f81828] focus:shadow-[0_0_0_2px_rgba(248,24,40,0.15)] focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-[#f81828] focus-visible:outline-offset-2"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && searchQuery) {

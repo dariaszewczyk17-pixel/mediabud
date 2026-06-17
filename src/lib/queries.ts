@@ -21,7 +21,8 @@ const PRODUCT_CARD_FIELDS = `{
   "categoryName": category->name,
   "brand": brand->name,
   "images": images[0..0].asset->url,
-  technicalSpec[0...6]{ key, label, value, unit, priority }
+  technicalSpec[0...6]{ key, label, value, unit, priority },
+  _createdAt
 }`
 
 // Pełne pola produktu (szczegóły) — z wszystkimi joinami

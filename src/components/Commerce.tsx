@@ -320,17 +320,17 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
             ))}
           </div>
 
-          {topSpecs.length > 0 && (
-            <div
-              className="mb-3 rounded-xl p-3"
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              <div className="text-[9px] font-black uppercase tracking-[0.18em] text-gray-500 mb-2">
-                PARAMETRY TECHNICZNE
-              </div>
+          <div
+            className="mb-3 rounded-xl p-3"
+            style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
+            <div className="text-[9px] font-black uppercase tracking-[0.18em] text-gray-500 mb-2">
+              PARAMETRY TECHNICZNE
+            </div>
+            {topSpecs.length > 0 ? (
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {topSpecs.map((spec) => (
                   <div key={spec.label} className="min-w-0">
@@ -343,8 +343,12 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
                   </div>
                 ))}
               </div>
-            </div>
-          )}
+            ) : (
+              <div className="text-[11px] text-gray-600">
+                Specyfikacja dostępna w szczegółach produktu.
+              </div>
+            )}
+          </div>
 
           {/* Action buttons */}
           <div className="flex flex-col gap-2">

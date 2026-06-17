@@ -364,3 +364,31 @@ export function useProductMetaFastPaginated(catId: string | undefined) {
     error: infiniteQuery.error || countQuery.error,
   }
 }
+
+export function useProductMetaFastWithLimit(catId: string | undefined, limit: number) {
+const countQuery = useQuery({
+queryKey: ['products', 'countFast', catId || ''],
+queryFn: () => sanityFetch<number>(PRODUCT_COUNT_FAST_QUERY, { catId }),
+enabled: !!catId,
+});
+const query = useQuery({
+queryKey: ['products', 'metaFastLimit', catId || '', limit],
+queryFn: () => sanityFetch<ProductMeta[]>(PRODUCT_META_FAST_PAGINATED_QUERY, {
+catId,
+offset: 0,
+end: limit,
+}),
+enabled: !!catId,
+});
+const total = countQuery.data ?? null;
+const data = query.data ?? null;
+const hasMore = total !== null && (data?.length ?? 0) < total;
+return {
+data: data && data.length > 0 ? data : null,
+loading: query.isLoading || countQuery.isLoading,
+loadingMore: query.isFetching && !query.isLoading,
+hasMore,
+total,
+error: query.error || countQuery.error,
+};
+}

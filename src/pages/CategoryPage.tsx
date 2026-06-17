@@ -601,7 +601,7 @@ export default function CategoryPage() {
     }
   }, [pathToActive]);
 
-  const { data: sanityCategory } = useCategoryBySlug(slug ?? '');
+  const { data: sanityCategory, loading: categoryLoading } = useCategoryBySlug(slug ?? '');
   const { data: sanityTopCats }  = useAllCategories();
 
   const cat = useMemo(
@@ -723,7 +723,7 @@ export default function CategoryPage() {
     const slugSet = new Set(allSubSlugs);
     return staticProducts.some((p: any) => slugSet.has(p.categorySlug));
   }, [allSubSlugs]);
-  const isLoadingProducts = fastLoading && !sanityMeta;
+  const isLoadingProducts = !sanityMeta && (fastLoading || categoryLoading || slugTreeLoading);
 
   const catProducts = useMemo(() => {
     const slugSet = new Set(allSubSlugs);                                          // O(m) raz

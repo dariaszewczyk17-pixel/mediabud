@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 /**
  * SplashScreen — animacja ładowania strony z logiem Media Bud.
  * Wyświetlana tylko raz na sesję (sessionStorage).
- * Czas trwania: ~1,8 s; potem zanika i odmontowuje się.
+ * Czas trwania: ~0.8 s (skrócono z 1.8 s dla lepszego LCP).
  */
 export default function SplashScreen({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<"in" | "hold" | "out">("in");
 
   useEffect(() => {
-    // in → hold po 400 ms
-    const t1 = setTimeout(() => setPhase("hold"), 400);
-    // hold → out po 1400 ms
-    const t2 = setTimeout(() => setPhase("out"), 1400);
-    // unmount + notify po 1800 ms
-    const t3 = setTimeout(() => onDone(), 1800);
+    // in → hold po 200 ms
+    const t1 = setTimeout(() => setPhase("hold"), 200);
+    // hold → out po 550 ms
+    const t2 = setTimeout(() => setPhase("out"), 550);
+    // unmount + notify po 800 ms
+    const t3 = setTimeout(() => onDone(), 800);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [onDone]);
 

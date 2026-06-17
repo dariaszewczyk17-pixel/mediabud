@@ -39,14 +39,16 @@
     <!-- ── Performance hints ───────────────────────────────────────── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
     <link rel="preconnect" href="https://nzcwegq7.api.sanity.io" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.sanity.io" />
     <link rel="dns-prefetch" href="https://nzcwegq7.api.sanity.io" />
 
-    <!-- ── Prefetch assets ──────────────────────────────────────────── -->
-    <link rel="prefetch" href="/images/logo-mediabud-main.png" as="image" type="image/png" />
+    <!-- ── Google Fonts — <link rel="stylesheet"> zamiast CSS @import (nie blokuje render) ── -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Condensed:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+    <!-- ── Preload krytycznych assetów (LCP) ────────────────────────── -->
+    <link rel="preload" href="/images/logo-mediabud-main.png" as="image" type="image/png" />
 
     <!-- ── Google Analytics 4 + Google Ads ─────────────────────────── -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QM0PEP8ZR"></script>

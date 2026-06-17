@@ -334,7 +334,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {topSpecs.map((spec) => (
                   <div key={spec.label} className="min-w-0">
-                    <div className="text-[9px] font-bold uppercase tracking-wide text-gray-500 leading-tight mb-0.5 line-clamp-1">
+                    <div className="text-[10px] font-bold uppercase tracking-wide text-gray-500 leading-tight mb-0.5">
                       {spec.label}
                     </div>
                     <div className="text-[11px] font-semibold text-gray-200 leading-tight line-clamp-1">

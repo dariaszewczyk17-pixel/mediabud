@@ -70,47 +70,50 @@ export default function CookieBanner() {
 
         {!details ? (
           /* ── Widok prosty ───────────────────────────────── */
-          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            {/* Ikona */}
-            <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl" style={{ background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.2)" }}>
-              🍪
+          <div className="max-w-5xl mx-auto">
+            {/* Mobile: kompaktowy pasek */}
+            <div className="flex sm:hidden items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-white font-bold text-xs leading-tight">Używamy cookies</p>
+                <button onClick={() => setDetails(true)} className="text-[#f81828] text-[10px] underline">Dostosuj</button>
+              </div>
+              <div className="flex gap-2 flex-shrink-0">
+                <button
+                  onClick={() => accept(false)}
+                  className="px-3 py-1.5 rounded-lg text-[11px] font-bold text-gray-300 transition-colors"
+                  style={{ border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)" }}
+                >
+                  Odrzuć
+                </button>
+                <button
+                  onClick={() => accept(true)}
+                  className="px-3 py-1.5 rounded-lg text-[11px] font-bold text-white transition-all"
+                  style={{ background: "#f81828" }}
+                >
+                  Akceptuj
+                </button>
+              </div>
             </div>
-
-            {/* Tekst */}
-            <div className="flex-1 min-w-0">
-              <p className="text-white font-bold text-sm mb-0.5">Ta strona używa plików cookies</p>
-              <p className="text-gray-400 text-xs leading-relaxed">
-                Stosujemy cookies niezbędne do działania strony oraz (opcjonalnie) analityczne do analizy ruchu.
-                Szczegóły w{" "}
-                <Link to="/polityka-prywatnosci" className="text-[#f81828] hover:underline">
-                  Polityce prywatności
-                </Link>.
-              </p>
-            </div>
-
-            {/* Przyciski */}
-            <div className="flex flex-wrap gap-2 flex-shrink-0">
-              <button
-                onClick={() => setDetails(true)}
-                className="px-4 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-colors"
-                style={{ border: "1px solid rgba(255,255,255,0.12)" }}
-              >
-                Dostosuj
-              </button>
-              <button
-                onClick={() => accept(false)}
-                className="px-4 py-2 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors"
-                style={{ border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)" }}
-              >
-                Tylko niezbędne
-              </button>
-              <button
-                onClick={() => accept(true)}
-                className="px-5 py-2 rounded-lg text-xs font-bold text-white transition-all hover:brightness-90"
-                style={{ background: "#f81828" }}
-              >
-                Akceptuję wszystkie
-              </button>
+            {/* Desktop: pełny layout */}
+            <div className="hidden sm:flex items-start sm:items-center gap-4">
+              <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl" style={{ background: "rgba(248,24,40,0.1)", border: "1px solid rgba(248,24,40,0.2)" }}>
+                🍪
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-white font-bold text-sm mb-0.5">Ta strona używa plików cookies</p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  Stosujemy cookies niezbędne do działania strony oraz (opcjonalnie) analityczne do analizy ruchu.
+                  Szczegóły w{" "}
+                  <Link to="/polityka-prywatnosci" className="text-[#f81828] hover:underline">
+                    Polityce prywatności
+                  </Link>.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 flex-shrink-0">
+                <button onClick={() => setDetails(true)} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.12)" }}>Dostosuj</button>
+                <button onClick={() => accept(false)} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)" }}>Tylko niezbędne</button>
+                <button onClick={() => accept(true)} className="px-5 py-2 rounded-lg text-xs font-bold text-white transition-all hover:brightness-90" style={{ background: "#f81828" }}>Akceptuję wszystkie</button>
+              </div>
             </div>
           </div>
         ) : (

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useSEO } from "@/hooks/useSEO";
 import { NAP_ADDRESS, NAP_GEO, NAP_HOURS, NAP_AREA_SERVED, NAP_CONTACT_POINT, NAP_SAME_AS } from "@/lib/localBusiness";
 import { ChevronRight, ArrowRight, Phone, Check, Mail } from "lucide-react";
 import { IconHouse, IconDeveloper, IconFinish, IconRoof, IconFacade, IconBuilding } from "@/components/FuturisticIcons";
@@ -492,6 +493,24 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
 export default function ServicesPage() {
   const { slug } = useParams<{ slug?: string }>();
   const service = slug ? services.find((s) => s.slug === slug) : null;
+
+  /* ─── SEO ────────────────────────────────────────────────────────── */
+  const seoTitle = service
+    ? `${service.title} — Media Bud Lublin | Usługi budowlane i remontowe`
+    : "Usługi budowlane i remontowe — Media Bud Lublin";
+  const seoDescription = service
+    ? service.krotkiOpis.slice(0, 155).replace(/\s\S*$/, "…")
+    : "Usługi wykonawcze Media Bud w Lublinie: budowa domów, wykończenia pod klucz, dachy, elewacje i remonty B2B. Własna ekipa + materiały z magazynu. Wycena 24h.";
+  const seoCanonical = service
+    ? `https://mediabud.pl/uslugi/${service.slug}`
+    : "https://mediabud.pl/uslugi";
+
+  useSEO({
+    title: seoTitle,
+    description: seoDescription,
+    canonical: seoCanonical,
+    ogType: "website",
+  });
 
   const jsonLd = {
     "@context": "https://schema.org",

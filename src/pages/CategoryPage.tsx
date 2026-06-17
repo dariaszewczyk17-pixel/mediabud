@@ -1277,7 +1277,7 @@ export default function CategoryPage() {
         ref={heroReveal.ref}
         className="relative overflow-hidden"
         style={{
-          minHeight: "280px",
+          minHeight: "clamp(140px, 22vw, 280px)",
           background: "#0a0a0a",
         }}
       >

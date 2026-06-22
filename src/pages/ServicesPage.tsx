@@ -548,6 +548,21 @@ export default function ServicesPage() {
           })),
         },
       },
+      // VideoObject — spot brandowy (tylko na głównej /uslugi, nie na podstronach usług)
+      ...(!service ? [{
+        "@type": "VideoObject",
+        "@id": "https://mediabud.pl/uslugi#spot-brandowy",
+        name: "Budujesz. Remontujesz. Media Bud. — spot brandowy",
+        description: "Spot brandowy firmy Media Bud — skład budowlany i usługi wykonawcze w Lublinie. Budowa domów od podstaw, wykończenia pod klucz, dachy, elewacje i remonty B2B.",
+        thumbnailUrl: "https://mediabud.pl/og-image.jpg",
+        uploadDate: "2026-06-09",
+        contentUrl: "https://skyagent-artifacts.skywork.ai/router/agent/2026-06-09/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/spot_mediabud_0029d1ffab6547489b85ca6540e5215a.mp4",
+        duration: "PT0M30S",
+        inLanguage: "pl",
+        isAccessibleForFree: true,
+        embedUrl: "https://mediabud.pl/uslugi",
+        publisher: { "@id": "https://mediabud.pl/#organization" },
+      }] : []),
     ],
   };
 

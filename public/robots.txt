@@ -1,17 +1,13 @@
 User-agent: *
+Allow: /
 Disallow: /admin/
 Disallow: /wycena/
-Allow: /
-Allow: /kategoria/
-Allow: /produkt/
-Allow: /blog/
-Allow: /marki/
-Allow: /szukaj
+Disallow: /api/
 
 User-agent: Googlebot
-Allow: /szukaj
+Allow: /
 
 User-agent: Bingbot
-Allow: /szukaj
+Allow: /
 
 Sitemap: https://mediabud.pl/sitemap.xml

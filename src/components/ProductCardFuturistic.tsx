@@ -219,12 +219,16 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
           {techSpecs.length > 0 ? (
             <div className="grid grid-cols-2 px-3 pb-2.5 pt-1 gap-x-4 gap-y-2">
               {techSpecs.map((spec) => (
-                <div key={spec.key} className="flex flex-col min-w-0">
-                  <span className="block text-[9px] uppercase tracking-[0.1em] text-gray-500 font-medium truncate">
+                <div key={spec.key} className="flex flex-col" style={{ minWidth: 0, overflow: "hidden" }}>
+                  <span style={{
+                    display: "block", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis",
+                    fontSize: "9px", textTransform: "uppercase", letterSpacing: "0.1em", color: "#6b7280", fontWeight: 500
+                  }}>
                     {spec.label}
                   </span>
                   <span
-                    className="block text-[13px] font-black text-white leading-tight truncate"
+                    style={{ display: "block", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis",
+                      fontSize: "13px", fontWeight: 900, color: "#fff", lineHeight: 1.25 }}
                     title={spec.value}
                   >
                     {spec.value}
@@ -242,9 +246,12 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
         {/* ── CTA ZAPYTAJ O OFERTĘ ── */}
         <Link
           to={`/produkt/${product.slug}`}
-          className="flex items-center justify-center gap-1.5 w-full rounded-xl text-[11px] font-black uppercase tracking-wide whitespace-nowrap text-white transition-all duration-200 mt-1"
+          className="flex items-center justify-center gap-1.5 w-full rounded-xl font-black uppercase text-white transition-all duration-200 mt-1"
           style={{
             height: 44,
+            fontSize: "11px",
+            letterSpacing: "0.04em",
+            whiteSpace: "nowrap",
             background: hovered ? "#ff2030" : "#f81828",
             boxShadow: hovered ? "0 0 20px rgba(248,24,40,0.45)" : "0 0 10px rgba(248,24,40,0.2)",
           }}

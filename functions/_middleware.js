@@ -240,7 +240,12 @@ export async function onRequest(context) {
 
   // ── /kategoria/* — canonical + BreadcrumbList dla wszystkich + prerender dla botów ──
   if (!pathname.startsWith("/kategoria/")) {
-    return next();
+    const spaRes = await next();
+    // next() zwraca 404 + body=index.html (przez _redirects rewrite) — konwertuj na 200
+    if (spaRes.status === 404) {
+      return new Response(spaRes.body, { status: 200, headers: spaRes.headers });
+    }
+    return spaRes;
   }
 
   const catSlug = pathname.replace("/kategoria/", "").replace(/\/$/, "");

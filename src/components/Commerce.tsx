@@ -333,11 +333,11 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
             {topSpecs.length > 0 ? (
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {topSpecs.map((spec) => (
-                  <div key={spec.label} className="min-w-0">
-                    <div className="text-[10px] font-bold uppercase tracking-wide text-gray-500 leading-tight mb-0.5">
+                  <div key={spec.label} className="min-w-0 overflow-hidden">
+                    <div className="text-[10px] font-bold uppercase tracking-wide text-gray-500 leading-tight mb-0.5 truncate">
                       {spec.label}
                     </div>
-                    <div className="text-[11px] font-semibold text-gray-200 leading-tight line-clamp-1">
+                    <div className="text-[11px] font-semibold text-gray-200 leading-tight truncate">
                       {spec.value}
                     </div>
                   </div>
@@ -365,7 +365,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #f81828 0%, #c8000f 100%)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 10px rgba(248,24,40,0.2)"; }}
               onClick={() => setQuoteOpen(true)}
             >
-              <Mail className="w-4 h-4" /> Zapytaj o ofertę
+              <Mail className="w-4 h-4 shrink-0" /><span className="whitespace-nowrap">Zapytaj o ofertę</span>
             </button>
 
             <button

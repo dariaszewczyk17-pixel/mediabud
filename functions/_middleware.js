@@ -241,9 +241,13 @@ export async function onRequest(context) {
   // ── /kategoria/* — canonical + BreadcrumbList dla wszystkich + prerender dla botów ──
   if (!pathname.startsWith("/kategoria/")) {
     const spaRes = await next();
-    // next() zwraca 404 + body=index.html (przez _redirects rewrite) — konwertuj na 200
+    // next() zwraca 404 gdy nie ma pliku statycznego — pobierz index.html jawnie przez ASSETS
     if (spaRes.status === 404) {
-      return new Response(spaRes.body, { status: 200, headers: spaRes.headers });
+      try {
+        return await env.ASSETS.fetch(new Request(`${url.origin}/index.html`));
+      } catch (_e) {
+        return new Response(spaRes.body, { status: 200, headers: spaRes.headers });
+      }
     }
     return spaRes;
   }

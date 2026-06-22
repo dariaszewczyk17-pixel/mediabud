@@ -447,11 +447,11 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md rounded-2xl p-0 overflow-hidden gap-0"
+      <DialogContent className="max-w-md w-[calc(100vw-24px)] rounded-2xl p-0 gap-0 flex flex-col max-h-[92dvh] overflow-hidden"
         style={{ background: "#0f0f0f", border: "1px solid rgba(255,255,255,0.09)" }}>
 
-        {/* Modal header */}
-        <div className="relative px-6 pt-6 pb-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+        {/* Modal header — fixed */}
+        <div className="relative px-6 pt-6 pb-4 flex-shrink-0" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
           <div className="absolute top-0 left-0 right-0 h-[2px]"
             style={{ background: "linear-gradient(90deg,#f81828,rgba(248,24,40,0.3) 60%,transparent)" }} />
           <DialogHeader>
@@ -463,7 +463,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
           </DialogHeader>
         </div>
 
-        <div className="px-6 py-5">
+        <div className="px-6 py-5 overflow-y-auto flex-1">
 
           {/* ── Choose mode ── */}
           {mode === "choose" && (
@@ -523,7 +523,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                   Produkt: <strong className="text-white">{productName}</strong>
                 </div>
               )}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <Label className="text-[10px] text-gray-500 mb-1 block">Imię i nazwisko *</Label>
                   <Input id="quote-name" name="name" required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} placeholder="Jan Kowalski"

@@ -220,11 +220,11 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
             <div className="grid grid-cols-2 px-3 pb-2.5 pt-1 gap-x-4 gap-y-2">
               {techSpecs.map((spec) => (
                 <div key={spec.key} className="flex flex-col min-w-0">
-                  <span className="text-[9px] uppercase tracking-[0.1em] text-gray-500 font-medium truncate">
+                  <span className="block text-[9px] uppercase tracking-[0.1em] text-gray-500 font-medium truncate">
                     {spec.label}
                   </span>
                   <span
-                    className="text-[13px] font-black text-white leading-tight truncate"
+                    className="block text-[13px] font-black text-white leading-tight truncate"
                     title={spec.value}
                   >
                     {spec.value}
@@ -242,7 +242,7 @@ export const ProductCardFuturistic = React.memo(function ProductCardFuturistic({
         {/* ── CTA ZAPYTAJ O OFERTĘ ── */}
         <Link
           to={`/produkt/${product.slug}`}
-          className="flex items-center justify-center gap-2 w-full rounded-xl text-[12px] font-black uppercase tracking-wider text-white transition-all duration-200 mt-1"
+          className="flex items-center justify-center gap-1.5 w-full rounded-xl text-[11px] font-black uppercase tracking-wide whitespace-nowrap text-white transition-all duration-200 mt-1"
           style={{
             height: 44,
             background: hovered ? "#ff2030" : "#f81828",

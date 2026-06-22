@@ -157,10 +157,14 @@ export async function onRequest(context) {
     const slug = pathname.replace(/^\/produkt\/?/, "").replace(/\/$/, "");
     if (!slug) return next();
 
-    const response = await next();
-    const status = response.status === 404 ? 200 : response.status;
+    let response = await next();
+    // /produkt/* jest w _routes.json include → _redirects nie działa automatycznie → explicit SPA fallback
+    if (response.status === 404) {
+      try { response = await env.ASSETS.fetch(new Request(`${url.origin}/index.html`)); } catch (_e) {}
+    }
+    const status = 200;
     const ct = response.headers.get("content-type") || "";
-    if (!ct.includes("text/html")) return response;
+    if (!ct.includes("text/html")) return next();
 
     try {
       const p = await fetchProduct(slug);
@@ -280,12 +284,16 @@ export async function onRequest(context) {
       fetchCategoryMeta(leafSlug, token),
       fetchCategoryCount(leafSlug, token),
     ]);
-    const response = await next();
-    if (!category) return response;
+    let response = await next();
+    // /kategoria/* jest w _routes.json include → _redirects nie działa automatycznie → explicit SPA fallback
+    if (response.status === 404) {
+      try { response = await env.ASSETS.fetch(new Request(`${url.origin}/index.html`)); } catch (_e) {}
+    }
+    if (!category) return new Response(response.body, { status: 200, headers: { "content-type": "text/html;charset=UTF-8" } });
 
-    const status = response.status === 404 ? 200 : response.status;
+    const status = 200;
     const ct = response.headers.get("content-type") || "";
-    if (!ct.includes("text/html")) return response;
+    if (!ct.includes("text/html")) return next();
 
     const canonical = `${SITE_URL}${pathname}`;
     const catName = category.name;

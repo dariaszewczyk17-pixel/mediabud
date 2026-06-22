@@ -241,13 +241,18 @@ export async function onRequest(context) {
   // ── /kategoria/* — canonical + BreadcrumbList dla wszystkich + prerender dla botów ──
   if (!pathname.startsWith("/kategoria/")) {
     const spaRes = await next();
-    // next() zwraca 404 gdy nie ma pliku statycznego — pobierz index.html jawnie przez ASSETS
+    // _redirects serwuje index.html z błędnym statusem 404 gdy plik statyczny nie istnieje.
+    // Czytamy body i zwracamy nową Response z jawnym status=200 (tak jak robi product handler).
     if (spaRes.status === 404) {
-      try {
-        return await env.ASSETS.fetch(new Request(`${url.origin}/index.html`));
-      } catch (_e) {
-        return new Response(spaRes.body, { status: 200, headers: spaRes.headers });
-      }
+      const html = await spaRes.text();
+      return new Response(html, {
+        status: 200,
+        headers: new Headers({
+          "content-type": "text/html;charset=UTF-8",
+          "cache-control": "no-cache, no-store, must-revalidate",
+          "x-spa-route": "1",
+        }),
+      });
     }
     return spaRes;
   }

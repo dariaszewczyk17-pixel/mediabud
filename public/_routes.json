@@ -1,10 +1,6 @@
 {
   "version": 1,
-  "include": [
-    "/api/*",
-    "/produkt/*",
-    "/kategoria/*"
-  ],
+  "include": ["/*"],
   "exclude": [
     "/assets/*",
     "/images/*",

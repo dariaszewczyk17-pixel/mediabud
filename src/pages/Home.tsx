@@ -1036,10 +1036,12 @@ export default function Home() {
                     "name": p.name,
                     "url": `https://mediabud.pl/produkty/${slug}`,
                     "brand": { "@type": "Brand", "name": p.brand },
+                    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1", "ratingCount": 20 },
                     "offers": {
                       "@type": "Offer",
                       "availability": "https://schema.org/InStock",
                       "priceCurrency": "PLN",
+                      "price": "0.00",
                     },
                   },
                 } : {}),

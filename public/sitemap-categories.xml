@@ -1,2127 +1,2114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
   <url>
     <loc>https://mediabud.pl/kategoria/akcesoria-do-farb-proszkowych</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/akcesoria-do-farb-przemyslowych</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/akcesoria-do-plotkow-przeciwsniegowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/akcesoria-do-systemow-rynnowych</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/rynny/akcesoria-do-systemow-rynnowych</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/akcesoria-instalacyjne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/akcesoria-murarskie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/artykuly-scierne-do-suchej-zabudowy</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/bazy-i-koloranty</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/bazy-i-koloranty</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/bloczki-beton-komorkowy</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/bloczki/bloczki-beton-komorkowy</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/bloczki-betonowe-i-fundamentowe</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/bloczki/bloczki-betonowe-i-fundamentowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/bloczki-silikatowe</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/bloczki/bloczki-silikatowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/bloczki-z-betonu-keramzytowego</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/chemia-budowlana</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/dachy</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/dachy-zielone</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/dachy-zielone</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/dluta</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/dodatki-do-zapraw-i-betonu</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/dodatki-do-zapraw-i-betonu</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/drzwiczki-rewizyjne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/elektronarzedzia</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elektronarzedzia</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/elementy-mocujace-uniwersalne</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elementy-mocujace-uniwersalne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/elementy-wykonczeniowe-do-mocowania-sufitow-podwieszanych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-alkidowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-cynkowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-do-drewna</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-drewna</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-do-metalu</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-metalu</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-drogowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-elewacyjne-pozostale</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-epoksydowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-ogniochronne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-poliuretanowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-poliwinylowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-proszkowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-proszkowe-epoksydowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-proszkowe-epoksydowo-poliestrowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-proszkowe-poliestrowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-przemysowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-przemyslowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-specjalistyczne</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-specjalistyczne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-wewnetrzne</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-wewnetrzne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-zaroodporne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/folie</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/folie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/folie-budowlane</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/folie/folie-budowlane</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/folie-fundamentowe</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/folie/folie-fundamentowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/folie-ochronne</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/folie-paroizolacyjne</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/folie/folie-paroizolacyjne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/folie-w-plynie</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/hydroizolacje/folie-w-plynie</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/fotowoltaika</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/grunty</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/grunty</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/grunty-do-posadzek</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/grunty/grunty-do-posadzek</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/grunty-pod-farby</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/grunty/grunty-pod-farby</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/grunty-pod-tynki</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/grunty/grunty-pod-tynki</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/grunty-specjalistyczne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/grunty/grunty-specjalistyczne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/grunty-uniwersalne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/grunty/grunty-uniwersalne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/gwozdzie-i-podkladki-dociskowe-do-pap</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elementy-mocujace-uniwersalne/gwozdzie-i-podkladki-dociskowe-do-pap</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/hydroizolacje</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/hydroizolacje</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/impregnaty</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-drewna/impregnaty</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/katowniki-do-profili-oscieznicowych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kielnie</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-budowlane/kielnie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/klamry-do-gasiorow</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/klapy-rewizyjne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kleje</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/kleje</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kleje-do-drewna</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/kleje/kleje-do-drewna</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kleje-do-gips-karton</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/kleje/kleje-do-gips-karton</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kleje-do-glazury</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/kleje/kleje-do-glazury</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kleje-do-styropianu-i-styroduru</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/kleje/kleje-do-styropianu-i-styroduru</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kleje-montazowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/kleje/kleje-montazowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/kliny-do-izolacji-dachowych</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/klipsy-mocujace-do-sufitow-podwieszanych</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/mocowania-do-sufitow-podwieszanych/klipsy-mocujace-do-sufitow-podwieszanych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/klucze</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-reczne/klucze</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kotwy-chemiczne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/kotwy-chemiczne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kotwy-montazowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/zaprawy/kotwy-montazowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/akcesoria-do-izolacji</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/akcesoria-do-izolacji</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/akcesoria-malarskie-i-tynkarskie</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/akcesoria-malarskie-i-tynkarskie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/artykuly-scierne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-elewacyjne</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-elewacyjne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-budowlane</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-techniczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/materialy-konstrukcyjne</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/mocowania-do-suchej-zabudowy</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/mocowania-do-sufitow-podwieszanych</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/mocowania-do-sufitow-podwieszanych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/narozniki-i-listwy</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/narozniki-i-listwy</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/narzedzia-malarskie</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-malarskie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/panele-scienne-i-tapety</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/panele-scienne-i-tapety</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/piany-montazowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/piany-montazowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plytki-ceramiczne</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-ceramiczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plytki-dekoracyjne</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-dekoracyjne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pokrycia-dachowe</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/pokrycia-dachowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/powloki-epoksydowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/powloki-epoksydowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-do-suchej-zabudowy</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/profile-do-suchej-zabudowy</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-do-sufitow-podwieszanych</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/profile-do-sufitow-podwieszanych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/schody-i-akcesoria-strychowe</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/schody-i-akcesoria-strychowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/systemy-kominowe</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/systemy-kominowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/uszczelniacze-i-silikony</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/uszczelniacze-i-silikony</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wieszaki-do-suchej-zabudowy</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/wieszaki-do-suchej-zabudowy</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zabezpieczenia-przeciwsniegowe</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/zabezpieczenia-przeciwsniegowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zaprawy</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/zaprawy</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/akcesoria-do-elektronarzedzi</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/akcesoria-do-kominow</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/systemy-kominowe/akcesoria-do-kominow</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/akcesoria-do-schodow</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/belki-stropowe-ceramiczne</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/belki-stropowe-ceramiczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/bloczki</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/bloczki</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/czysciki-do-pian-montazowych</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/piany-montazowe/czysciki-do-pian-montazowych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/druty-z-hakiem</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/mocowania-do-sufitow-podwieszanych/druty-z-hakiem</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/druty-z-oczkiem</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/drzwi-kolankowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/emalie-chlorokauczukowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-metalu/emalie-chlorokauczukowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/emalie-poliuretanowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-metalu/emalie-poliuretanowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-do-betonu</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-elewacyjne-akrylowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-elewacyjne/farby-elewacyjne-akrylowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-elewacyjne-emulsyjne</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-elewacyjne/farby-elewacyjne-emulsyjne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-elewacyjne-silikatowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-elewacyjne/farby-elewacyjne-silikatowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-elewacyjne-silikonowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-elewacyjne/farby-elewacyjne-silikonowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-elewacyjne-specjalne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-przemyslowe</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/farby-wewnetrzne-biale</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-wewnetrzne/farby-wewnetrzne-biale</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/farby-wewnetrzne-kolorowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-wewnetrzne/farby-wewnetrzne-kolorowe</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-zaprawkowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/gipsy-budowlane</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/gipsy-i-gladzie/gipsy-budowlane</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/gipsy-szpachlowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/gipsy-i-gladzie/gipsy-szpachlowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/gladzie-gipsowe-w-proszku</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/gipsy-i-gladzie/gladzie-gipsowe-w-proszku</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/gladzie-masy-gotowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/gipsy-i-gladzie/gladzie-masy-gotowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-akustyczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-dachow-plaskich</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-fasadowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-fundamentow</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-hvac</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-przemyslowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/izolacje-stropow-i-podlog</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/katowniki-i-katomierze</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-pomiarowe/katowniki-i-katomierze</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kleje-do-welen</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/kleje/kleje-do-welen</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kleje-gipsowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/gipsy-i-gladzie/kleje-gipsowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/klucze-udarowe</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kolki-do-suchej-zabudowy</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elementy-mocujace-uniwersalne/kolki-do-suchej-zabudowy</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kolki-i-wkrety-uniwersalne</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elementy-mocujace-uniwersalne/kolki-i-wkrety-uniwersalne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/kominy-ceramiczno-stalowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kominy-stalowe</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/systemy-kominowe/kominy-stalowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/kostki-scierne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/krzyzyki-do-glazury</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/kuwety-i-kratki-malarskie</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/laczniki-do-izolacji-fasadowych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/laczniki-do-profili</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/lakiery-do-drewna</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-drewna/lakiery-do-drewna</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/lakiery-do-metalu</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/lasery-i-dalmierze</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/listwy-przypodlogowe</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/narozniki-i-listwy/listwy-przypodlogowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/mlotki-budowlane</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-budowlane/mlotki-budowlane</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/nakretki</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/narozniki-do-tynkow-mokrych</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/narozniki-i-listwy/narozniki-do-tynkow-mokrych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/okladziny-z-wlokna-szklanego</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/opaski-zaciskowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/panele-i-dekory-scienne</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-dekoracyjne/panele-i-dekory-scienne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/panele-wielkowymiarowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/papier-scierny</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/piany-montazowe-pistoletowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/piany-montazowe/piany-montazowe-pistoletowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/piany-montazowe-wezykowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/piany-montazowe/piany-montazowe-wezykowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/pigmenty</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/pilniki</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pily-i-pilarki</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elektronarzedzia/pily-i-pilarki</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plotki-przeciwsniegowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-cementowo-wloknowe</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/plyty-do-suchej-zabudowy/plyty-cementowo-wloknowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plyty-drewnopochodne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/podklady-wypelniajace</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pokrycia-dachowe-z-blachy</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/pokrycia-dachowe/pokrycia-dachowe-z-blachy</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/przyrzady-do-ciecia-glazury</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pustaki</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/pustaki</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/schody-strychowe</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/schody-i-akcesoria-strychowe/schody-strychowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/siatki-elewacyjne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/silikony-dekarskie</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/uszczelniacze-i-silikony/silikony-dekarskie</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/silikony-szklarskie</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/uszczelniacze-i-silikony/silikony-szklarskie</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/silikony-uniwersalne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/uszczelniacze-i-silikony/silikony-uniwersalne</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/silikony-wysokotemperaturowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/uszczelniacze-i-silikony/silikony-wysokotemperaturowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/spoiny-elastyczne</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/spoiny-specjalistyczne</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/spoiny-zwykle</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/stopnie-kominiarskie</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/styropian-dach-podloga-eps</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/styropiany/styropian-dach-podloga-eps</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/styropiany-akustyczne</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/styropiany/styropiany-akustyczne</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/styropiany-do-fundamentow</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/styropiany/styropiany-do-fundamentow</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/styropiany-fasadowe-eps</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/styropiany/styropiany-fasadowe-eps</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/szlifierki</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elektronarzedzia/szlifierki</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/szpachle-i-szpachelki</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-budowlane/szpachle-i-szpachelki</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/talerze-dociskowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/tapety-scienne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tasmy-uszczelniajace-do-hydroizolacji</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/hydroizolacje/tasmy-uszczelniajace-do-hydroizolacji</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/welny-do-dachow-plaskich</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/welny/welny-do-dachow-plaskich</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/welny-do-poddaszy</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/welny/welny-do-poddaszy</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/welny-do-stropow-i-podlog</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/welny/welny-do-stropow-i-podlog</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/welny-fasadowe</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/welny/welny-fasadowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wiadra-i-pojemniki-budowlane</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/akcesoria-malarskie-i-tynkarskie/wiadra-i-pojemniki-budowlane</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wieszaki-es</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/wieszaki-do-suchej-zabudowy/wieszaki-es</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/wkrety-do-suchej-zabudowy</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/wsporniki-do-law-kominiarskich</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/wsporniki-plotkow-przeciwsniegowych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/zaprawy-do-spoin</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zaprawy-naprawcze</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/zaprawy/zaprawy-naprawcze</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zaprawy-specjalistyczne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/zaprawy/zaprawy-specjalistyczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zestawy-malarskie</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-malarskie/zestawy-malarskie</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/laczniki-teleskopowe-i-wkrety-do-lacznikow-teleskopowych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/lakiery-pozostale</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/laty-murarskie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/lawy-kominiarskie-i-laczniki-do-law-kominiarskich</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/listwy-do-zabezpieczenia-krawedzi-plyt</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/listwy-i-akcesoria</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/listwy-i-akcesoria</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/masy-bitumiczne-gruntujace</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/grunty/masy-bitumiczne-gruntujace</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/masy-szpachlowe-gotowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/gipsy-i-gladzie/masy-szpachlowe-gotowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/masy-uszczelniajace</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/hydroizolacje/masy-uszczelniajace</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/miary</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-pomiarowe/miary</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/mieszadla</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/akcesoria-malarskie-i-tynkarskie/mieszadla</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/mozaiki</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-dekoracyjne/mozaiki</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/narozniki-do-suchej-zabudowy-aluminiowe</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/narozniki-i-listwy/narozniki-do-suchej-zabudowy-aluminiowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/narozniki-do-suchej-zabudowy-elastyczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/narozniki-do-suchej-zabudowy-pvc</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/narozniki-i-listwy/narozniki-do-suchej-zabudowy-pvc</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/narzedzia-budowlane</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-budowlane</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/narzedzia-do-ciecia</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/narzedzia-i-akcesoria-glazurnicze</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/narzedzia-pomiarowe</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-pomiarowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/narzedzia-pozostale</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/narzedzia-reczne</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-reczne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/noze</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/nozyce</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/obcinaczki</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/oleje</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-drewna/oleje</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/olowki-kredy-i-markery</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/oowkikredy-i-markery</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/opalarki-i-palniki</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-reczne/opalarki-i-palniki</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/oswietlenie-budowlane</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pace</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-budowlane/pace</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/papy</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/pokrycia-dachowe/papy</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/pily-i-brzeszczoty</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pistolety</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-budowlane/pistolety</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plandeki-ochronne</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plytki</loc>
     <lastmod>2026-05-28</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plyty</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/farby-pozostale</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-sufitowe</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/plyty-sufitowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-sufitowe-drewniane</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/plyty-sufitowe/plyty-sufitowe-drewniane</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-sufitowe-metalowe</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/plyty-sufitowe/plyty-sufitowe-metalowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-sufitowe-z-welny-mineralnej</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/plyty-sufitowe/plyty-sufitowe-z-welny-mineralnej</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-sufitowe-z-welny-szklanej</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/plyty-sufitowe/plyty-sufitowe-z-welny-szklanej</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/pozostale-narzedzia-reczne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/preparaty-do-chemicznego-oczyszczania-powierzchni</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/produkty-do-renowacji</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-do-suchej-zabudowy-konstrukcja-scienna</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/profile-do-suchej-zabudowy/profile-do-suchej-zabudowy-konstrukcja-scienna</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-do-suchej-zabudowy-konstrukcja-sufitowa</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/profile-do-suchej-zabudowy/profile-do-suchej-zabudowy-konstrukcja-sufitowa</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-do-suchej-zabudowy-oscieznicowe</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/profile-do-suchej-zabudowy/profile-do-suchej-zabudowy-oscieznicowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/profile-i-narozniki-do-izolacji-budowlanych</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-nosne-glowne-do-sufitow-podwieszanych</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/profile-do-sufitow-podwieszanych/profile-nosne-glowne-do-sufitow-podwieszanych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/profile-okapowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-poprzeczne-do-sufitow-podwieszanych</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/profile-do-sufitow-podwieszanych/profile-poprzeczne-do-sufitow-podwieszanych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-przyscienne-do-sufitow-podwieszanych</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/profile-do-sufitow-podwieszanych/profile-przyscienne-do-sufitow-podwieszanych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/profile-specjalne-do-sufitow-podwieszanych</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/profile-do-sufitow-podwieszanych/profile-specjalne-do-sufitow-podwieszanych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/przecinaki</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/przyrzady-do-fugowania</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pustaki-betonowe</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/pustaki/pustaki-betonowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pustaki-ceramiczne</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/pustaki/pustaki-ceramiczne</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pustaki-wentylacyjne-i-dymne</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/pustaki/pustaki-wentylacyjne-i-dymne</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/pustaki-z-betonu-keramzytowego</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plyty-dachowe-pir</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plyty-elewacyjne-pir</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/plyty-elewacyjne-pur</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/rewizje</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/rewizje</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/rozpuszczalniki</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/rozpuszczalniki</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/rynny</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/rynny</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/spinki-do-dachowek</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/spoiny</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/spoiny</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/spraye</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/srodki-czyszczaco-pielegnacyjne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/srodki-czyszczaco-pielegnacyjne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/sruby-i-podkladki-do-srub</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elementy-mocujace-uniwersalne/sruby-i-podkladki-do-srub</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/stropy-i-sciany</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/gipsy-i-gladzie</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/gipsy-i-gladzie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/styropapy</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/styropian-dach-podoga-eps</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/styropiany</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mediabud.pl/kategoria/styropiany</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/sucha-zabudowa</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/sufity-podwieszane</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/sufity-rastrowe</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/plyty-sufitowe/sufity-rastrowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/systemy-rynnowe-ocynkowane</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/rynny/systemy-rynnowe-ocynkowane</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/systemy-rynnowe-pvc</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/rynny/systemy-rynnowe-pvc</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/systemy-rynnowe-z-blachy-powlekanej</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/rynny/systemy-rynnowe-z-blachy-powlekanej</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/szablony-malarskie</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/sznury-traserskie</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/tarniki</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/tasmy-do-laczenia-i-napraw-folii-paroprzepuszczalnych-i-paroizolacji</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tasmy-do-suchej-zabudowy</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/tasmy-do-suchej-zabudowy</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/tasmy-i-folie-pozostale</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/tasmy-naprawcze-i-montazowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/tasmy-tynkarskie</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/tektury-ochronne</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-cementowo-wapienne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-cementowo-wapienne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-elewacyjne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-elewacyjne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-elewacyjne-akrylowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-elewacyjne/tynki-elewacyjne-akrylowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-elewacyjne-mineralne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-elewacyjne/tynki-elewacyjne-mineralne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-elewacyjne-ozdobne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-elewacyjne/tynki-elewacyjne-ozdobne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-elewacyjne-silikonowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-elewacyjne/tynki-elewacyjne-silikonowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-elewacyjne-silikonowo-silikatowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-elewacyjne/tynki-elewacyjne-silikonowo-silikatowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-gipsowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-gipsowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-mozaikowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-elewacyjne/tynki-mozaikowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-specjalne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-specjalne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tynki-wapienne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/tynki/tynki-wapienne</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/uszczelniacze-dekarskie</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/uszczelniacze-i-silikony/uszczelniacze-dekarskie</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/uszczelniacze-poliuretanowe</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/uszczelniacze-i-silikony/uszczelniacze-poliuretanowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/welny</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/welny</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/welny-do-suchej-zabudowy-i-scian-dzialowych</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/welny/welny-do-suchej-zabudowy-i-scian-dzialowych</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/welny-do-izolacji-fasad-niewentylowanych</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/welny/welny-do-izolacji-fasad-niewentylowanych</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/welny-do-izolacji-fasad-wentylowanych</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/welny/welny-do-izolacji-fasad-wentylowanych</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wieszaki-do-suchej-zabudowy-bezposrednie</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/wieszaki-do-suchej-zabudowy/wieszaki-do-suchej-zabudowy-bezposrednie</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/wieszaki-do-suchej-zabudowy-obrotowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wieszaki-do-suchej-zabudowy-poddaszy</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/wieszaki-do-suchej-zabudowy/wieszaki-do-suchej-zabudowy-poddaszy</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wieszaki-do-suchej-zabudowy-z-noniuszem</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/wieszaki-do-suchej-zabudowy/wieszaki-do-suchej-zabudowy-z-noniuszem</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wkretaki</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-reczne/wkretaki</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/wkrety-do-metalu</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/wsporniki-belek-i-rur-przeciwsniegowych</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/wsporniki-tarasowe</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zamocowania-dachowe</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/zamocowania-dachowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/zaprawy-do-renowacji</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zaprawy-murarskie-ogolnego-zastosowania</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/zaprawy/zaprawy-murarskie-ogolnego-zastosowania</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zaprawy-posadzkowe-masy-samopoziomujace</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/zaprawy/zaprawy-posadzkowe-masy-samopoziomujace</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/zdzieraki</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mediabud.pl/kategoria/zszywacze</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/belki-stropowe-betonowe</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/materialy-konstrukcyjne/belki-stropowe-betonowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/dachowki-betonowe</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/pokrycia-dachowe/dachowki-betonowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/dachowki-ceramiczne</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/pokrycia-dachowe/dachowki-ceramiczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/emalie-akrylowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-metalu/emalie-akrylowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/emalie-ftalowe</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-metalu/emalie-ftalowe</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/folie-paroprzepuszczalne</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/folie/folie-paroprzepuszczalne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/gonty-bitumiczne</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/pokrycia-dachowe/gonty-bitumiczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/hydroizolacje-bitumiczne</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/hydroizolacje/hydroizolacje-bitumiczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/hydroizolacje-mineralne</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/hydroizolacje/hydroizolacje-mineralne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/kominy-ceramiczne</loc>
+    <loc>https://mediabud.pl/kategoria/stropy-i-sciany/systemy-kominowe/kominy-ceramiczne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/komunikacja-dachowa</loc>
+    <loc>https://mediabud.pl/kategoria/dachy/komunikacja-dachowa</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/lakierobejce</loc>
+    <loc>https://mediabud.pl/kategoria/farby-i-rozpuszczalniki/farby-do-drewna/lakierobejce</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/membrany-dachowe</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/hydroizolacje/membrany-dachowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/papy-hydroizolacyjne</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/hydroizolacje/papy-hydroizolacyjne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/pedzle</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-malarskie/pedzle</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plytki-elewacyjne</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-ceramiczne/plytki-elewacyjne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plytki-scienne</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-ceramiczne/plytki-scienne</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plytki-scienno-podlogowe</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-ceramiczne/plytki-scienno-podlogowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plytki-tarasowe</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-ceramiczne/plytki-tarasowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-cementowe</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/plyty-do-suchej-zabudowy/plyty-cementowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-gipsowo-kartonowe</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/plyty-do-suchej-zabudowy/plyty-gipsowo-kartonowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-gipsowo-wloknowe</loc>
+    <loc>https://mediabud.pl/kategoria/sucha-zabudowa/plyty-do-suchej-zabudowy/plyty-gipsowo-wloknowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/plyty-xps</loc>
+    <loc>https://mediabud.pl/kategoria/izolacje/plyty-xps</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/poziomnice</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-pomiarowe/poziomnice</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/silikony-sanitarne</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/uszczelniacze-i-silikony/silikony-sanitarne</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/srodki-grzybobojcze</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/srodki-grzybobojcze</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/stopnice</loc>
+    <loc>https://mediabud.pl/kategoria/plytki/plytki-ceramiczne/stopnice</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/tasmy-malarskie</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/akcesoria-malarskie-i-tynkarskie/tasmy-malarskie</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/walki-malarskie</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/narzedzia-malarskie/walki-malarskie</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wiertarko-wkretarki</loc>
+    <loc>https://mediabud.pl/kategoria/narzedzia-i-mocowania/elektronarzedzia/wiertarko-wkretarki</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/wieszaki-dwuhakowe</loc>
+    <loc>https://mediabud.pl/kategoria/sufity-podwieszane/mocowania-do-sufitow-podwieszanych/wieszaki-dwuhakowe</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mediabud.pl/kategoria/zaprawy-uszczelniajace</loc>
+    <loc>https://mediabud.pl/kategoria/chemia-budowlana/zaprawy/zaprawy-uszczelniajace</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
+
 </urlset>

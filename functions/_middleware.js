@@ -62,7 +62,7 @@ async function fetchCategoryProducts(catSlug, token) {
 
 async function fetchCategoryMeta(catSlug, token) {
   const query = encodeURIComponent(
-    `*[_type == "category" && slug.current == "${catSlug}"][0]{name, description, "parentName": parent->name, "parentSlug": parent->slug.current, "grandparentName": parent->parent->name, "grandparentSlug": parent->parent->slug.current}`
+    `*[_type == "category" && slug.current == "${catSlug}"][0]{name, description, "parentName": parent->name, "parentSlug": parent->slug.current, "grandparentName": parent->parent->name, "grandparentSlug": parent->parent->slug.current, "greatgrandparentName": parent->parent->parent->name, "greatgrandparentSlug": parent->parent->parent->slug.current}`
   );
   const res = await fetch(`${SANITY_QUERY_URL}?query=${query}`, {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -92,6 +92,8 @@ function generateBotHTML(pathname, category, products) {
 
   const breadcrumbs = [
     { name: "Strona glowna", url: SITE_URL },
+    ...(category?.greatgrandparentName ? [{ name: category.greatgrandparentName, url: `${SITE_URL}/kategoria/${category.greatgrandparentSlug}` }] : []),
+    ...(category?.grandparentName ? [{ name: category.grandparentName, url: `${SITE_URL}/kategoria/${category.grandparentSlug}` }] : []),
     ...(category?.parentName ? [{ name: category.parentName, url: `${SITE_URL}/kategoria/${category.parentSlug}` }] : []),
     { name: catName, url: canonical },
   ];
@@ -473,7 +475,10 @@ export async function onRequest(context) {
       { "@type": "ListItem", position: 2, name: "Produkty", item: `${SITE_URL}/produkty` },
     ];
     let pos = 3;
-    // Grandparent (L1 dla kategorii L3) — pelny lancuch dla rich snippets
+    // Pelny lancuch: greatgrandparent (L1 dla L4) → grandparent (L1/L2) → parent → leaf
+    if (category.greatgrandparentName) {
+      breadcrumbItems.push({ "@type": "ListItem", position: pos++, name: category.greatgrandparentName, item: `${SITE_URL}/kategoria/${category.greatgrandparentSlug}` });
+    }
     if (category.grandparentName) {
       breadcrumbItems.push({ "@type": "ListItem", position: pos++, name: category.grandparentName, item: `${SITE_URL}/kategoria/${category.grandparentSlug}` });
     }

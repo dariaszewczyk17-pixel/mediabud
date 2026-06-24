@@ -62,7 +62,7 @@ async function fetchCategoryProducts(catSlug, token) {
 
 async function fetchCategoryMeta(catSlug, token) {
   const query = encodeURIComponent(
-    `*[_type == "category" && slug.current == "${catSlug}"][0]{name, description, "parentName": parent->name, "parentSlug": parent->slug.current}`
+    `*[_type == "category" && slug.current == "${catSlug}"][0]{name, description, "parentName": parent->name, "parentSlug": parent->slug.current, "grandparentName": parent->parent->name, "grandparentSlug": parent->parent->slug.current}`
   );
   const res = await fetch(`${SANITY_QUERY_URL}?query=${query}`, {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -121,7 +121,7 @@ function generateBotHTML(pathname, category, products) {
     return "<div class=\"product-card\"><a href=\"" + pUrl + "\">" + (p.image ? "<img src=\"" + p.image + "\" alt=\"" + esc(p.name) + "\" loading=\"lazy\" width=\"250\" height=\"188\" />" : "") + "<h3>" + esc(p.name) + "</h3>" + (p.brand ? "<span>" + esc(p.brand) + "</span>" : "") + (p.shortDescription ? "<p>" + esc(p.shortDescription.substring(0, 100)) + "...</p>" : "") + "</a></div>";
   }).join("");
 
-  const title = `${catName} - Materialy Budowlane | Media Bud Lublin`;
+  const title = `${catName} Lublin \u2013 ceny, dostawa 24h | Media Bud`;
 
   return `<!DOCTYPE html><html lang="pl"><head>
   <meta charset="UTF-8" />
@@ -458,13 +458,14 @@ export async function onRequest(context) {
 
     const canonical = `${SITE_URL}${canonicalPathname}`;
     const catName = category.name;
-    const pageTitle = esc(`${catName} - Media Bud | Sklep Budowlany Lublin`);
+    // Title SEO: {catName} Lublin – ceny, dostawa 24h | Media Bud
+    const pageTitle = esc(`${catName} Lublin \u2013 ceny, dostawa 24h | Media Bud`);
     const count = productCount ?? 0;
     const rawDesc = category.description
       ? trunc(category.description, 160)
       : count > 0
-        ? `${catName} - ${count} produktow w ofercie Media Bud. Sklep budowlany Lublin - zapytaj o cene.`
-        : `Produkty kategorii ${catName} w ofercie Media Bud - skladu budowlanego w Lublinie. Zapytaj o oferte.`;
+        ? `Kup ${catName.toLowerCase()} w Lublinie. ${count} produktow w ofercie Media Bud. Dostawa na plac budowy, doradztwo techniczne gratis. Ul. Chemiczna 8d Lublin.`
+        : `${catName} w ofercie Media Bud - skladu budowlanego w Lublinie. Szeroki wybor, konkurencyjne ceny, dostawa 24h. Zapytaj o oferte.`;
     const desc = esc(rawDesc);
 
     const breadcrumbItems = [
@@ -472,6 +473,10 @@ export async function onRequest(context) {
       { "@type": "ListItem", position: 2, name: "Produkty", item: `${SITE_URL}/produkty` },
     ];
     let pos = 3;
+    // Grandparent (L1 dla kategorii L3) — pelny lancuch dla rich snippets
+    if (category.grandparentName) {
+      breadcrumbItems.push({ "@type": "ListItem", position: pos++, name: category.grandparentName, item: `${SITE_URL}/kategoria/${category.grandparentSlug}` });
+    }
     if (category.parentName) {
       breadcrumbItems.push({ "@type": "ListItem", position: pos++, name: category.parentName, item: `${SITE_URL}/kategoria/${category.parentSlug}` });
     }

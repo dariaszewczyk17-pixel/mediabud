@@ -36,6 +36,40 @@ import {
   type ComparisonTable,
   type TopProduct,
 } from "@/data/categorySeoData";
+import { blogPosts } from "@/data/blog";
+
+// Mapowanie slug kategorii → tagi bloga (internal linking)
+const CATEGORY_BLOG_TAG_MAP: Record<string, string[]> = {
+  "izolacje": ["styropian", "izolacja", "wełna", "etics", "eps"],
+  "styropiany": ["styropian", "eps", "izolacja"],
+  "welna-mineralna": ["wełna", "izolacja", "akustyka"],
+  "tynki": ["tynk", "elewacja"],
+  "tynki-elewacyjne": ["tynk", "elewacja", "silikat"],
+  "tynki-wewnetrzne": ["tynk", "gładź", "ściany"],
+  "kleje": ["klej"],
+  "kleje-do-plytek": ["klej", "płytki"],
+  "plytki": ["płytki", "ceramiczne"],
+  "farby": ["farba", "malowanie"],
+  "farby-elewacyjne": ["farba", "elewacja"],
+  "sucha-zabudowa": ["gips", "zabudowa", "płyta gipsowa"],
+  "gladzie": ["gładź"],
+  "systemy-ocieplan": ["styropian", "etics", "izolacja", "elewacja"],
+};
+
+function getRelatedBlogPosts(catSlug: string | undefined, limit = 3) {
+  if (!catSlug) return [];
+  const slugLower = catSlug.toLowerCase();
+  // znajdź pasujące tagi
+  const tags = Object.entries(CATEGORY_BLOG_TAG_MAP).find(([key]) =>
+    slugLower.includes(key) || key === slugLower
+  )?.[1] ?? [];
+  if (tags.length === 0) return [];
+  return blogPosts
+    .filter(post =>
+      post.tags.some(t => tags.some(tag => t.toLowerCase().includes(tag.toLowerCase())))
+    )
+    .slice(0, limit);
+}
 
 const PRODUCTS_PER_PAGE = 24;
 
@@ -969,8 +1003,14 @@ export default function CategoryPage() {
   );
 
   /* Top 5 produktów */
-  const topProducts = useMemo(() => 
-    getCategoryTopProducts(slug || '', rootSlug), 
+  const topProducts = useMemo(() =>
+    getCategoryTopProducts(slug || '', rootSlug),
+    [slug, rootSlug]
+  );
+
+  /* Powiązane artykuły bloga (internal linking) */
+  const relatedBlogPosts = useMemo(() =>
+    getRelatedBlogPosts(slug || rootSlug, 3),
     [slug, rootSlug]
   );
 
@@ -2089,6 +2129,32 @@ export default function CategoryPage() {
         )}
 
         {/* ── Sekcja SEO i FAQ (na dole strony) ── */}
+        {/* ── Sekcja Poradniki — internal linking blog ── */}
+        {relatedBlogPosts.length > 0 && (
+          <div className="mt-16 pt-12 border-t border-white/5">
+            <h2 className="text-2xl font-black text-white font-display mb-6 flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-[#f81828]/10 flex items-center justify-center text-[#f81828] text-sm">📖</span>
+              Poradniki dla tej kategorii
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedBlogPosts.map(post => (
+                <Link
+                  key={post.id}
+                  to={`/blog/${post.slug}`}
+                  className="group flex flex-col bg-white/[0.03] border border-white/5 rounded-xl p-5 hover:border-[#f81828]/30 hover:bg-white/[0.05] transition-all duration-200"
+                >
+                  <span className="text-xs font-semibold text-[#f81828] uppercase tracking-widest mb-2">{post.category}</span>
+                  <span className="text-white font-semibold text-sm leading-snug group-hover:text-[#f81828] transition-colors mb-3">{post.title}</span>
+                  <span className="text-gray-500 text-xs mt-auto flex items-center gap-1">
+                    <ArrowRight className="w-3 h-3" />
+                    Czytaj artykuł
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
         {((slug && CATEGORY_SEO_TEXTS[slug]) || (faqItems && faqItems.length > 0)) && (
           <div className="mt-16 pt-12 border-t border-white/5">
             <div className="grid lg:grid-cols-2 gap-12">

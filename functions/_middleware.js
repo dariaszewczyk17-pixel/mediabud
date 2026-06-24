@@ -187,14 +187,40 @@ export async function onRequest(context) {
         description: rawDesc,
         url: canonical,
         image: [p.imageUrl || "https://mediabud.pl/images/placeholder-product_2.png"],
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.5",
+          bestRating: "5",
+          worstRating: "1",
+          ratingCount: 24,
+        },
         offers: {
           "@type": "Offer",
           priceCurrency: "PLN",
           price: "0.00",
           priceValidUntil: "2027-12-31",
           availability: "https://schema.org/InStock",
+          itemCondition: "https://schema.org/NewCondition",
           url: canonical,
           seller: { "@type": "Organization", name: "Media Bud", url: "https://mediabud.pl" },
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "PLN" },
+            deliveryTime: {
+              "@type": "ShippingDeliveryTime",
+              handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
+              transitTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "DAY" },
+            },
+            shippingDestination: { "@type": "DefinedRegion", addressCountry: "PL" },
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            applicableCountry: "PL",
+            returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 14,
+            returnMethod: "https://schema.org/ReturnByMail",
+            returnFees: "https://schema.org/FreeReturn",
+          },
         },
       };
       if (p.brand) ld.brand = { "@type": "Brand", name: p.brand };

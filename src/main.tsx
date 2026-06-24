@@ -22,4 +22,5 @@ createRoot(document.getElementById("root")!).render(
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );
-// force-rebuild-1781568078
+// schema-fix-v3
+window.__mb_build = "schema-v3-2026-06-24";

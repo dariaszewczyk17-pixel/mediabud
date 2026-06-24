@@ -279,17 +279,32 @@ export async function onRequest(context) {
   if (!pathname.startsWith("/kategoria/")) {
     const spaRes = await next();
     // _redirects serwuje index.html z błędnym statusem 404 gdy plik statyczny nie istnieje.
-    // Czytamy body i zwracamy nową Response z jawnym status=200 (tak jak robi product handler).
-    if (spaRes.status === 404) {
-      const html = await spaRes.text();
-      return new Response(html, {
-        status: 200,
-        headers: new Headers({
-          "content-type": "text/html;charset=UTF-8",
-          "cache-control": "no-cache, no-store, must-revalidate",
-          "x-spa-route": "1",
-        }),
-      });
+    // Dla WSZYSTKICH SPA tras: strippuj globalny canonical (mediabud.pl/) i wstrzyknij właściwy.
+    const spaHtmlRaw = spaRes.status === 404 || (spaRes.headers.get("content-type") || "").includes("text/html");
+    if (spaHtmlRaw) {
+      try {
+        // Canonical bez trailing slash; strona główna = SITE_URL + "/"
+        const cleanPath = pathname.replace(/\/$/, "") || "/";
+        const canonicalUrl = cleanPath === "/" ? SITE_URL + "/" : `${SITE_URL}${cleanPath}`;
+        let html = await spaRes.text();
+        html = html
+          .replace(/<link\s+rel="canonical"[^>]*>/gi, "")
+          .replace(/<meta\s+property="og:url"[^>]*>/gi, "");
+        html = html.replace(
+          "</head>",
+          `  <link rel="canonical" href="${canonicalUrl}" />\n  <meta property="og:url" content="${canonicalUrl}" />\n</head>`
+        );
+        return new Response(html, {
+          status: 200,
+          headers: new Headers({
+            "content-type": "text/html;charset=UTF-8",
+            "cache-control": "no-cache, no-store, must-revalidate",
+            "x-spa-route": "1",
+          }),
+        });
+      } catch (_e) {
+        return spaRes;
+      }
     }
     return spaRes;
   }

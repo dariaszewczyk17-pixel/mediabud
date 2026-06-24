@@ -38,7 +38,7 @@ function trunc(str, max) {
 
 async function fetchProduct(slug) {
   const q = encodeURIComponent(
-    `*[_type=="product" && slug.current=="${slug.replace(/"/g, "")}"][0]{name,shortDescription,"category":category->name,"brand":brand->name,"imageUrl":images[0].asset->url}`
+    `*[_type=="product" && slug.current=="${slug.replace(/"/g, "")}"][0]{name,shortDescription,description,ean,"category":category->name,"categorySlug":category->slug.current,"brand":brand->name,"imageUrl":images[0].asset->url,"specs":specs[]{key,value}}`
   );
   const res = await fetch(`${SANITY_QUERY_URL}?query=${q}`, {
     cf: { cacheTtl: CACHE_TTL, cacheEverything: true },
@@ -176,40 +176,114 @@ export async function onRequest(context) {
           : `${p.name} dostepny w Media Bud - skladzie budowlanym w Lublinie. Zapytaj o oferte.`;
         const img = p.imageUrl || "https://mediabud.pl/images/placeholder-product_2.png";
 
+        // Rolling priceValidUntil — rok do przodu
+        const nextYear = new Date();
+        nextYear.setFullYear(nextYear.getFullYear() + 1);
+        const priceValidUntil = nextYear.toISOString().slice(0, 10);
+
+        const sellerLD = {
+          "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+          "@id": "https://mediabud.pl/#localbusiness",
+          name: "Media Bud",
+          url: "https://mediabud.pl",
+          telephone: "+48533553344",
+          email: "sprzedaz@mediabud.pl",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "ul. Chemiczna 8d",
+            addressLocality: "Lublin",
+            postalCode: "20-329",
+            addressCountry: "PL",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: 51.2375, longitude: 22.6016 },
+          areaServed: ["Lublin", "województwo lubelskie"],
+          openingHoursSpecification: [
+            { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "07:00", closes: "16:00" },
+            { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "07:00", closes: "13:00" },
+          ],
+        };
+
         const ld = {
           "@context": "https://schema.org", "@type": "Product",
-          name: p.name, description: rawDesc, url: canonical,
+          name: p.name,
+          description: p.description ? trunc(p.description.replace(/#{1,6}\s?/g, "").replace(/\n+/g, " "), 500) : rawDesc,
+          url: canonical,
           image: [img],
-          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.5", bestRating: "5", worstRating: "1", ratingCount: 24 },
+          sku: slug,
           offers: {
-            "@type": "Offer", priceCurrency: "PLN", price: "0.00", priceValidUntil: "2027-12-31",
-            availability: "https://schema.org/InStock", itemCondition: "https://schema.org/NewCondition",
-            url: canonical, seller: { "@type": "Organization", name: "Media Bud", url: "https://mediabud.pl" },
-            shippingDetails: {
-              "@type": "OfferShippingDetails",
-              shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "PLN" },
-              deliveryTime: { "@type": "ShippingDeliveryTime",
-                handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
-                transitTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "DAY" } },
-              shippingDestination: { "@type": "DefinedRegion", addressCountry: "PL" },
+            "@type": "Offer",
+            priceCurrency: "PLN",
+            price: "0.00",
+            priceValidUntil: priceValidUntil,
+            availability: "https://schema.org/InStock",
+            itemCondition: "https://schema.org/NewCondition",
+            url: canonical,
+            seller: sellerLD,
+            availableAtOrFrom: {
+              "@type": "Place",
+              name: "Media Bud – skład budowlany Lublin",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "ul. Chemiczna 8d",
+                addressLocality: "Lublin",
+                postalCode: "20-329",
+                addressCountry: "PL",
+              },
             },
+            shippingDetails: [
+              {
+                "@type": "OfferShippingDetails",
+                shippingLabel: "Dostawa na terenie Lublina – 24h",
+                shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "PLN" },
+                deliveryTime: {
+                  "@type": "ShippingDeliveryTime",
+                  handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+                  transitTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 1, unitCode: "DAY" },
+                },
+                shippingDestination: { "@type": "DefinedRegion", addressCountry: "PL", addressRegion: "LU" },
+              },
+              {
+                "@type": "OfferShippingDetails",
+                shippingLabel: "Dostawa Polska – 1-3 dni robocze",
+                shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "PLN" },
+                deliveryTime: {
+                  "@type": "ShippingDeliveryTime",
+                  handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
+                  transitTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "DAY" },
+                },
+                shippingDestination: { "@type": "DefinedRegion", addressCountry: "PL" },
+              },
+            ],
             hasMerchantReturnPolicy: {
-              "@type": "MerchantReturnPolicy", applicableCountry: "PL",
+              "@type": "MerchantReturnPolicy",
+              applicableCountry: "PL",
               returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-              merchantReturnDays: 14, returnMethod: "https://schema.org/ReturnByMail",
+              merchantReturnDays: 14,
+              returnMethod: "https://schema.org/ReturnByMail",
               returnFees: "https://schema.org/FreeReturn",
             },
           },
         };
+
+        // Brand
         if (p.brand) ld.brand = { "@type": "Brand", name: p.brand };
+        // Kategoria tekstowa
         if (p.category) ld.category = p.category;
+        // EAN/GTIN13
+        if (p.ean) ld.gtin13 = p.ean;
+        // Parametry techniczne jako PropertyValue
+        if (p.specs && p.specs.length > 0) {
+          ld.additionalProperty = p.specs
+            .filter(s => s.key && s.value)
+            .map(s => ({ "@type": "PropertyValue", name: s.key, value: s.value }));
+        }
 
         const breadcrumbLD = {
           "@context": "https://schema.org", "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Strona glowna", item: SITE_URL },
             { "@type": "ListItem", position: 2, name: "Produkty", item: `${SITE_URL}/produkty` },
-            ...(p.category ? [{ "@type": "ListItem", position: 3, name: p.category, item: `${SITE_URL}/produkty` }] : []),
+            ...(p.category && p.categorySlug ? [{ "@type": "ListItem", position: 3, name: p.category, item: `${SITE_URL}/kategoria/${p.categorySlug}` }] : []),
             { "@type": "ListItem", position: p.category ? 4 : 3, name: p.name, item: canonical },
           ],
         };

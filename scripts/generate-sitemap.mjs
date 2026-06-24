@@ -408,16 +408,40 @@ async function main() {
     ...STATIC_PAGES.map(p => urlEntry({ loc: `${BASE_URL}${p.path}`, lastmod: today, changefreq: p.changefreq, priority: p.priority })),
     ...CALCULATORS.map(calc => urlEntry({ loc: `${BASE_URL}/kalkulator/${calc}`, lastmod: today, changefreq: 'monthly', priority: '0.8' })),
     ...brands.map(b => urlEntry({ loc: `${BASE_URL}/marki/${escapeXml(b.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''))}`, lastmod: today, changefreq: 'weekly', priority: '0.7' })),
-    ...blogPosts.map(post => urlEntry({ loc: `${BASE_URL}/blog/${escapeXml(post.id)}`, lastmod: post.date || today, changefreq: 'monthly', priority: '0.7' }))
+    // dedup blogPosts by id (eliminuje duplikaty np. b032)
+    ...Array.from(new Map(blogPosts.map(p => [p.id, p])).values())
+      .map(post => urlEntry({ loc: `${BASE_URL}/blog/${escapeXml(post.id)}`, lastmod: post.date || today, changefreq: 'monthly', priority: '0.7' }))
   ];
   await writeXml('sitemap-core.xml', buildUrlset(coreEntries));
+
+  // Buduj mapę slug→pełna ścieżka hierarchiczna z drzewa categories.ts
+  let slugToFullPath = new Map();
+  try {
+    const { execSync } = await import('child_process');
+    execSync('npx esbuild src/data/categories.ts --bundle --format=esm --outfile=dist/temp-cats.mjs --log-level=silent', { stdio: 'pipe' });
+    const catsModule = await import(path.join(ROOT, 'dist/temp-cats.mjs'));
+    const catsTree = catsModule.categories || [];
+    function buildPaths(cats, prefix) {
+      for (const cat of cats) {
+        const fullPath = prefix ? `${prefix}/${cat.slug}` : cat.slug;
+        slugToFullPath.set(cat.slug, fullPath);
+        if (cat.children?.length) buildPaths(cat.children, fullPath);
+      }
+    }
+    buildPaths(catsTree, '');
+    console.log(`  ✓ Zbudowano mapę hierarchiczną: ${slugToFullPath.size} slugów`);
+  } catch (e) {
+    console.warn(`  ⚠ Błąd mapy hierarchicznej: ${e.message}`);
+  }
 
   const catEntries = categories
     .map(cat => {
       const slug = cat.slug?.current;
       if (!slug) return null;
       const depth = cat.depth ?? 2;
-      return urlEntry({ loc: `${BASE_URL}/kategoria/${escapeXml(slug)}`, lastmod: formatDate(cat._updatedAt), changefreq: 'weekly', priority: depth <= 1 ? '0.9' : depth <= 2 ? '0.8' : '0.7' });
+      // Użyj pełnej ścieżki hierarchicznej jeśli dostępna (eliminuje 308 redirecty)
+      const fullPath = slugToFullPath.get(slug) || slug;
+      return urlEntry({ loc: `${BASE_URL}/kategoria/${escapeXml(fullPath)}`, lastmod: formatDate(cat._updatedAt), changefreq: 'weekly', priority: depth <= 1 ? '0.9' : depth <= 2 ? '0.8' : '0.7' });
     })
     .filter(Boolean);
   await writeXml('sitemap-categories.xml', buildUrlset(catEntries));
@@ -444,7 +468,8 @@ async function main() {
     `  <sitemap><loc>${BASE_URL}/sitemap-core.xml</loc><lastmod>${today}</lastmod></sitemap>`,
     `  <sitemap><loc>${BASE_URL}/sitemap-categories.xml</loc><lastmod>${today}</lastmod></sitemap>`,
     `  <sitemap><loc>${BASE_URL}/sitemap-products-full.xml</loc><lastmod>${today}</lastmod></sitemap>`,
-    `  <sitemap><loc>${BASE_URL}/sitemap-products-partial.xml</loc><lastmod>${today}</lastmod></sitemap>`,
+    // sitemap-products-partial.xml celowo pominięty — zawiera produkty niskiej jakości,
+    // które nie powinny być indeksowane przez Google jako priorytet
     '</sitemapindex>',
   ].join('\n');
   await writeXml('sitemap.xml', indexContent);

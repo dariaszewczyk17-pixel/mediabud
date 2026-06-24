@@ -168,8 +168,19 @@ export async function onRequest(context) {
 
     try {
       const p = await fetchProduct(slug);
+
+      // Canonical bez trailing slash (zgodny z sitemap)
+      const canonicalPath = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+      const canonical = `${SITE_URL}${canonicalPath}`;
+
       if (!p || !p.name) {
-        return new Response(response.body, { status, headers: response.headers });
+        // Brak danych — wstrzyknij przynajmniej poprawny canonical, usuń globalny z index.html
+        let html = await response.text();
+        html = html
+          .replace(/<link\s+rel="canonical"[^>]*>/gi, "")
+          .replace(/<meta\s+property="og:url"[^>]*>/gi, "");
+        html = html.replace("</head>", `  <link rel="canonical" href="${canonical}" />\n  <meta property="og:url" content="${canonical}" />\n</head>`);
+        return new Response(html, { status, headers: { "content-type": "text/html;charset=UTF-8" } });
       }
 
       const pageTitle = esc(`${p.name} - Media Bud | Sklad Budowlany Lublin`);
@@ -177,7 +188,6 @@ export async function onRequest(context) {
         ? trunc(p.shortDescription, 160)
         : `${p.name} dostepny w Media Bud - skladzie budowlanym w Lublinie. Zapytaj o oferte.`;
       const desc = esc(rawDesc);
-      const canonical = `${SITE_URL}${pathname}`;
       const img = esc(p.imageUrl || "https://mediabud.pl/images/placeholder-product_2.png");
 
       const ld = {
@@ -246,6 +256,7 @@ export async function onRequest(context) {
       html = html
         .replace(/<title>[^<]*<\/title>/gi, "")
         .replace(/<meta\s+name="description"[^>]*>/gi, "")
+        .replace(/<link\s+rel="canonical"[^>]*>/gi, "")
         .replace(/<meta\s+property="og:[^"]*"[^>]*>/gi, "")
         .replace(/<meta\s+name="twitter:[^"]*"[^>]*>/gi, "");
       html = html.replace("</head>", inject + "\n</head>");
@@ -283,7 +294,9 @@ export async function onRequest(context) {
     return spaRes;
   }
 
-  const catSlug = pathname.replace("/kategoria/", "").replace(/\/$/, "");
+  // Strip trailing slash — 308 jest z Cloudflare, my serwujemy canonical bez trailing slash
+  const canonicalPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  const catSlug = canonicalPathname.replace("/kategoria/", "").replace(/\/$/, "");
   if (!catSlug) return next();
 
   // Ostatni segment dla fetch (np. /kategoria/tynki/tynk-silikonowy → "tynk-silikonowy")
@@ -335,7 +348,7 @@ export async function onRequest(context) {
     const ct = response.headers.get("content-type") || "";
     if (!ct.includes("text/html")) return next();
 
-    const canonical = `${SITE_URL}${pathname}`;
+    const canonical = `${SITE_URL}${canonicalPathname}`;
     const catName = category.name;
     const pageTitle = esc(`${catName} - Media Bud | Sklep Budowlany Lublin`);
     const count = productCount ?? 0;
@@ -377,6 +390,7 @@ export async function onRequest(context) {
     html = html
       .replace(/<title>[^<]*<\/title>/gi, "")
       .replace(/<meta\s+name="description"[^>]*>/gi, "")
+      .replace(/<link\s+rel="canonical"[^>]*>/gi, "")
       .replace(/<meta\s+property="og:[^"]*"[^>]*>/gi, "");
     html = html.replace("</head>", inject + "\n</head>");
 

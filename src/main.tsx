@@ -1,1 +1,26 @@
-Ly8gY2FjaGUtYnVzdC1tb2JpbGUtZml4LXYyCmltcG9ydCB7IGNyZWF0ZVJvb3QgfSBmcm9tICdyZWFjdC1kb20vY2xpZW50JwppbXBvcnQgeyBRdWVyeUNsaWVudCwgUXVlcnlDbGllbnRQcm92aWRlciB9IGZyb20gJ0B0YW5zdGFjay9yZWFjdC1xdWVyeScKaW1wb3J0IHsgUmVhY3RRdWVyeURldnRvb2xzIH0gZnJvbSAnQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5LWRldnRvb2xzJwppbXBvcnQgQXBwIGZyb20gJy4vQXBwLnRzeCcKaW1wb3J0ICcuL2luZGV4LmNzcycgLy8gY2FjaGUtYnVzdC1wcm9kdWN0LXNjaGVtYS12MgoKY29uc3QgcXVlcnlDbGllbnQgPSBuZXcgUXVlcnlDbGllbnQoewogIGRlZmF1bHRPcHRpb25zOiB7CiAgICBxdWVyaWVzOiB7CiAgICAgIHN0YWxlVGltZTogNSAqIDYwICogMTAwMCwgIC8vIDUgbWluIOKAlCBkYW5lIMWbd2llxbxlIHByemV6IDUgbWludXQKICAgICAgZ2NUaW1lOiAzMCAqIDYwICogMTAwMCwgICAvLyAzMCBtaW4g4oCUIGdhcmJhZ2UgY29sbGVjdGlvbiBwbyAzMCBtaW4KICAgICAgcmVmZXRjaE9uV2luZG93Rm9jdXM6IGZhbHNlLCAvLyBuaWUgb2TFm3dpZcW8YWogcHJ6eSBmb2N1cyBva25hCiAgICAgIHJldHJ5OiAxLCAvLyBqZWRuYSBwcsOzYmEgcmV0cnkgcHJ6eSBixYLEmWR6aWUKICAgIH0sCiAgfSwKfSkKCmNyZWF0ZVJvb3QoZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInJvb3QiKSEpLnJlbmRlcigKICA8UXVlcnlDbGllbnRQcm92aWRlciBjbGllbnQ9e3F1ZXJ5Q2xpZW50fT4KICAgIDxBcHAgLz4KICAgIDxSZWFjdFF1ZXJ5RGV2dG9vbHMgaW5pdGlhbElzT3Blbj17ZmFsc2V9IC8+CiAgPC9RdWVyeUNsaWVudFByb3ZpZGVyPgopOwovLyBzY2hlbWEtZml4LXYzCndpbmRvdy5fX21iX2J1aWxkID0gImN3di1zc3ItdjEtMjAyNi0wNi0yNCI7Cg==
+// cache-bust-mobile-fix-v2
+import { createRoot } from 'react-dom/client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import App from './App.tsx'
+import './index.css' // cache-bust-product-schema-v2
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,  // 5 min — dane świeże przez 5 minut
+      gcTime: 30 * 60 * 1000,   // 30 min — garbage collection po 30 min
+      refetchOnWindowFocus: false, // nie odświeżaj przy focus okna
+      retry: 1, // jedna próba retry przy błędzie
+    },
+  },
+})
+
+createRoot(document.getElementById("root")!).render(
+  <QueryClientProvider client={queryClient}>
+    <App />
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
+);
+// schema-fix-v3
+window.__mb_build = "cwv-ssr-v1-2026-06-24";

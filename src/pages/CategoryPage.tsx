@@ -40,19 +40,19 @@ import { blogPosts } from "@/data/blog";
 
 // Mapowanie slug kategorii → tagi bloga (internal linking)
 const CATEGORY_BLOG_TAG_MAP: Record<string, string[]> = {
-  "izolacje": ["styropian", "izolacja", "wełna", "etics", "eps"],
+  "izolacje": ["styropian", "izolacja", "welna", "etics", "eps"],
   "styropiany": ["styropian", "eps", "izolacja"],
-  "welna-mineralna": ["wełna", "izolacja", "akustyka"],
+  "welna-mineralna": ["welna", "izolacja", "akustyka"],
   "tynki": ["tynk", "elewacja"],
   "tynki-elewacyjne": ["tynk", "elewacja", "silikat"],
-  "tynki-wewnetrzne": ["tynk", "gładź", "ściany"],
+  "tynki-wewnetrzne": ["tynk", "gladz", "sciany"],
   "kleje": ["klej"],
-  "kleje-do-plytek": ["klej", "płytki"],
-  "plytki": ["płytki", "ceramiczne"],
+  "kleje-do-plytek": ["klej", "plytki"],
+  "plytki": ["plytki", "ceramiczne"],
   "farby": ["farba", "malowanie"],
   "farby-elewacyjne": ["farba", "elewacja"],
-  "sucha-zabudowa": ["gips", "zabudowa", "płyta gipsowa"],
-  "gladzie": ["gładź"],
+  "sucha-zabudowa": ["gips", "zabudowa", "plyta gipsowa"],
+  "gladzie": ["gladz"],
   "systemy-ocieplan": ["styropian", "etics", "izolacja", "elewacja"],
 };
 

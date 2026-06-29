@@ -43,7 +43,7 @@ const AllCategoriesPage = lazy(() => import("@/pages/AllCategoriesPage"));
 const ContactPage       = lazy(() => import("@/pages/ContactPage"));
 const AboutPage         = lazy(() => import("@/pages/AboutPage"));
 const ServicesPage      = lazy(() => import("@/pages/ServicesPage"));
-const AdminPanel        = lazy(() => import("@/pages/AdminPanel"));
+// const AdminPanel        = lazy(() => import("@/pages/AdminPanel")); // UKRYTE — do odwołania
 const PolicyPage        = lazy(() => import("@/pages/PolicyPage"));
 
 export default function App() {
@@ -65,7 +65,7 @@ export default function App() {
       {/* Outer Suspense: fallback=null — spinner obsługiwany przez Layout/Suspense wewnątrz main */}
       <Suspense fallback={null}>
         <Routes>
-          <Route path="/admin" element={<AdminPanel />} />
+          {/* <Route path="/admin" element={<AdminPanel />} /> */}{/* UKRYTE — do odwołania */}
           <Route element={<Layout />}>
             <Route path="/"                     element={<Home />} />
             <Route path="/kategoria"            element={<AllCategoriesPage />} />

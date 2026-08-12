@@ -492,7 +492,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                 <div>
                   <div className="font-bold text-white text-sm">Zadzwoń teraz</div>
                   <div className="text-sm font-medium text-emerald-400">+48 533 553 344</div>
-                  <div className="text-[10px] text-gray-600 mt-0.5">Pon–Pt 7:00–17:00 · Sob 8:00–14:00</div>
+                  <div className="text-[10px] text-gray-600 mt-0.5">Pon–Pt 7:00–16:00</div>
                 </div>
               </a>
 

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Product } from "@/data/products";
+import { trackQuoteAdd } from "@/hooks/useConversionTracking";
 
 export interface WycenaItem {
   product: Product;
@@ -30,6 +31,7 @@ export const useWycena = create<WycenaStore>()(
       isOpen: false,
 
       addItem: (product, quantity = 1) => {
+        trackQuoteAdd(product, quantity);
         set((state) => {
           const existing = state.items.find(i => i.product.id === product.id);
           if (existing) {

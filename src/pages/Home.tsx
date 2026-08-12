@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Award, Clock, ChevronLeft, Star, CheckCircle2, Send, Building2, HardHat, Home as HomeIcon, MapPin, Truck } from "lucide-react";
+import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Award, Clock, ChevronLeft, Star, CheckCircle2, Building2, HardHat, Home as HomeIcon, MapPin, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { categories as staticCategories } from "@/data/categories";
@@ -201,6 +201,33 @@ const testimonials = [
   },
 ];
 
+const localFaqs = [
+  {
+    question: "Gdzie znajduje się skład budowlany Media Bud w Lublinie?",
+    answer: "Media Bud znajduje się przy ul. Chemicznej 8d, 20-329 Lublin. Na miejscu możesz skonsultować listę materiałów, odebrać zamówienie i ustalić dostawę na budowę.",
+  },
+  {
+    question: "W jakich godzinach pracuje skład budowlany?",
+    answer: "Pracujemy od poniedziałku do piątku w godzinach 7:00–16:00. W soboty i niedziele skład jest zamknięty.",
+  },
+  {
+    question: "Czy Media Bud dowozi materiały na budowę w Lublinie?",
+    answer: "Tak. Organizujemy dostawy materiałów na budowy w Lublinie i województwie lubelskim. Termin, koszt i zakres transportu ustalamy indywidualnie podczas wyceny.",
+  },
+  {
+    question: "Jak otrzymać wycenę materiałów budowlanych?",
+    answer: "Dodaj interesujące produkty do koszyka wyceny i wyślij formularz. Możesz dołączyć projekt, zdjęcie albo zestawienie materiałów. Możesz też zadzwonić pod numer 533 553 344.",
+  },
+  {
+    question: "Jakie materiały budowlane są dostępne w Media Bud?",
+    answer: "Oferta obejmuje między innymi styropian i systemy ociepleń, suchą zabudowę, zaprawy, chemię budowlaną, farby elewacyjne, materiały konstrukcyjne i pokrycia dachowe. Dostępność konkretnego produktu potwierdzamy przy zapytaniu.",
+  },
+  {
+    question: "Czy obsługujecie firmy wykonawcze i większe inwestycje?",
+    answer: "Tak. Obsługujemy klientów indywidualnych, wykonawców, firmy budowlane i inwestycje deweloperskie. Pomagamy w doborze systemów, przygotowaniu zestawienia i organizacji dostaw.",
+  },
+];
+
 /* ─── Realizacje ──────────────────────────────────────────────── */
 const realizacje = [
   {
@@ -281,8 +308,6 @@ export default function Home() {
 
   const recentPosts = getRecentBlogPosts(3);
   const [quoteOpen, setQuoteOpen] = useState(false);
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [newsletterSent, setNewsletterSent]   = useState(false);
   const [productCount, setProductCount]       = useState<number>(15921); // fallback: stan na 2026-05-29
 
   /* ── Dynamiczny licznik produktów z Sanity ── */
@@ -321,21 +346,21 @@ export default function Home() {
   const r7 = useReveal(); // brands
   const r8 = useReveal(); // testimonials
   const r9 = useReveal(); // realizacje
-  const r10 = useReveal(); // newsletter
-
-  /* ── Newsletter submit ── */
-  const handleNewsletter = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail.includes("@")) {
-      setNewsletterSent(true);
-    }
-  };
 
   /* ── SEO meta tagi ── */
   useSEO({
     title: "Skład Budowlany Lublin – Materiały z Dostawą | Media Bud",
     description: "Skład budowlany Media Bud w Lublinie. Ponad 15 000 materiałów: styropian, tynki, zaprawy, sucha zabudowa, dachy i chemia budowlana. Dostawa na budowę i fachowe doradztwo.",
     canonical: "/",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: localFaqs.map(faq => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
+    },
   });
 
   return (
@@ -627,6 +652,37 @@ export default function Home() {
                 </Link>
               ))}
             </nav>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20" style={{ background: "#050505", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 lg:gap-14 items-start">
+            <div className="lg:sticky lg:top-28">
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#f81828] mb-3">Lokalne informacje</p>
+              <h2 className="font-display text-3xl md:text-4xl font-black text-white leading-tight mb-4">
+                Skład budowlany Lublin — najczęstsze pytania
+              </h2>
+              <p className="text-sm leading-6 text-gray-400 mb-6">
+                Najważniejsze informacje o zakupach, wycenie, odbiorze i dostawie materiałów w Media Bud.
+              </p>
+              <Link to="/kontakt" className="inline-flex items-center gap-2 text-sm font-black text-[#f81828] hover:underline">
+                Kontakt i dojazd <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="space-y-3">
+              {localFaqs.map((faq, index) => (
+                <details key={faq.question} className="group rounded-2xl p-5 open:border-[#f81828]/40"
+                  style={{ background: "#101010", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm md:text-base font-black text-white">
+                    <span><span className="mr-3 text-[#f81828]">{String(index + 1).padStart(2, "0")}</span>{faq.question}</span>
+                    <ChevronRight className="h-4 w-4 shrink-0 text-[#f81828] transition-transform group-open:rotate-90" />
+                  </summary>
+                  <p className="pt-4 pl-8 text-sm leading-6 text-gray-400">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -1713,13 +1769,8 @@ export default function Home() {
               </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          NEWSLETTER STRIP
-      ═══════════════════════════════════════════════════════ */}
-      <section
-        ref={r10.ref as React.RefObject<HTMLElement>}
-        className="bg-[#0a0a0a] py-12 relative overflow-hidden"
-      >
+      {/* CTA wyceny — zastępuje niedziałający formularz newslettera */}
+      <section className="bg-[#0a0a0a] py-12 relative overflow-hidden">
         {/* Decorative bg */}
         <div className="absolute inset-0">
           <img src="/images/newsletter-bg_2.png" alt="" className="w-full h-full object-cover opacity-20" />
@@ -1730,40 +1781,23 @@ export default function Home() {
         <div className="relative container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-xs font-black tracking-widest uppercase text-[#f81828] mb-2 flex items-center justify-center gap-2">
-              <span className="w-4 h-0.5 bg-[#f81828]" />Newsletter<span className="w-4 h-0.5 bg-[#f81828]" />
+              <span className="w-4 h-0.5 bg-[#f81828]" />Wycena materiałów<span className="w-4 h-0.5 bg-[#f81828]" />
             </p>
             <h2 className="font-display text-2xl md:text-3xl font-black text-white mb-2">
-              Bądź na bieżąco z naszą ofertą
+              Budujesz w Lublinie? Wyślij listę materiałów
             </h2>
             <p className="text-gray-400 text-sm mb-6">
-              Promocje, nowe produkty, porady techniczne — bezpośrednio na Twoją skrzynkę.
+              Dołącz projekt, zdjęcie lub zestawienie. Przygotujemy ofertę i ustalimy odbiór albo dostawę na budowę.
             </p>
-
-            {newsletterSent ? (
-              <div className="flex items-center justify-center gap-2 text-green-400 font-bold text-sm bg-green-500/10 border border-green-500/20 rounded-xl py-3 px-6">
-                <CheckCircle2 className="w-5 h-5" />
-                Dziękujemy za zapis! Sprawdź swoją skrzynkę mailową.
-              </div>
-            ) : (
-              <form onSubmit={handleNewsletter} className="flex gap-2 max-w-md mx-auto">
-                <input
-                  type="email"
-                  value={newsletterEmail}
-                  onChange={e => setNewsletterEmail(e.target.value)}
-                  placeholder="Twój adres e-mail..."
-                  required
-                  className="flex-1 h-11 px-4 rounded-l-xl bg-white/8 border border-white/10 text-white placeholder:text-gray-500 text-sm focus:outline-none focus:border-[#f81828] focus:bg-white/12 transition-all"
-                  style={{ background: "rgba(255,255,255,0.07)" }}
-                />
-                <button
-                  type="submit"
-                  className="h-11 px-5 bg-[#f81828] hover:bg-[#c8000f] text-white font-bold rounded-r-xl flex items-center gap-2 transition-colors text-sm flex-shrink-0"
-                >
-                  Zapisz się <Send className="w-3.5 h-3.5" />
-                </button>
-              </form>
-            )}
-            <p className="text-gray-600 text-xs mt-3">Możesz zrezygnować w każdej chwili. Nie wysyłamy spamu.</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <button onClick={() => setQuoteOpen(true)} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#f81828] px-6 text-sm font-black text-white hover:bg-[#c8000f] transition-colors">
+                <Mail className="w-4 h-4" /> Wyślij zapytanie
+              </button>
+              <a href="tel:+48533553344" className="inline-flex h-11 items-center justify-center gap-2 rounded-xl px-6 text-sm font-bold text-white hover:border-[#f81828] transition-colors" style={{ border: "1px solid rgba(255,255,255,0.2)" }}>
+                <Phone className="w-4 h-4" /> 533 553 344
+              </a>
+            </div>
+            <p className="text-gray-600 text-xs mt-3">Pon–Pt 7:00–16:00 · ul. Chemiczna 8d, Lublin</p>
           </div>
         </div>
       </section>

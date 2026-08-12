@@ -516,7 +516,7 @@ export default function Home() {
 
               <div className="premium-fade-soft flex flex-wrap gap-x-6 gap-y-2 mb-10 text-xs font-semibold text-gray-300" style={{ animationDelay: "820ms" }}>
                 <span className="inline-flex items-center gap-2"><MapPin className="w-4 h-4 text-[#f81828]" /> ul. Chemiczna 8d, Lublin</span>
-                <span className="inline-flex items-center gap-2"><Clock className="w-4 h-4 text-[#f81828]" /> Pon–Pt 7:00–16:00 · Sob 7:00–13:00</span>
+                <span className="inline-flex items-center gap-2"><Clock className="w-4 h-4 text-[#f81828]" /> Pon–Pt 7:00–16:00</span>
                 <span className="inline-flex items-center gap-2"><Truck className="w-4 h-4 text-[#f81828]" /> Dostawa na budowę</span>
               </div>
 

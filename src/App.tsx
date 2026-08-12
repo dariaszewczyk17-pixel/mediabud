@@ -34,6 +34,7 @@ const KalkulatorPage    = lazy(() => import("@/pages/Kalkulator"));
 const BrandsPage        = lazy(() => import("@/pages/BrandsPage"));
 const BrandDetailPage   = lazy(() => import("@/pages/BrandDetailPage"));
 const BestsellerPage    = lazy(() => import("@/pages/BestsellerPage"));
+const LocalOfferPage    = lazy(() => import("@/pages/LocalOfferPage"));
 
 /* Osobne pliki — każdy ma własny chunk, bez wspólnego 119 KB Pages.js */
 const AllCategoriesPage = lazy(() => import("@/pages/AllCategoriesPage"));
@@ -76,6 +77,11 @@ export default function App() {
             <Route path="/marki"                element={<BrandsPage />} />
             <Route path="/marki/:slug"          element={<BrandDetailPage />} />
             <Route path="/bestsellery"          element={<BestsellerPage />} />
+            <Route path="/materialy-budowlane-lublin" element={<LocalOfferPage />} />
+            <Route path="/styropian-lublin" element={<LocalOfferPage />} />
+            <Route path="/welna-mineralna-lublin" element={<LocalOfferPage />} />
+            <Route path="/chemia-budowlana-lublin" element={<LocalOfferPage />} />
+            <Route path="/dostawa-materialow-budowlanych-lublin" element={<LocalOfferPage />} />
             <Route path="*"                     element={<NotFoundPage />} />
           </Route>
         </Routes>

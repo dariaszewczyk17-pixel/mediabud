@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Phone, Mail, Check, X, ArrowLeft, Trash2, Package, Layers3 } from "lucide-react";
+import { ShoppingCart, Phone, Mail, Check, X, ArrowLeft, Trash2, Package, Layers3, ArrowRight, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -81,7 +81,6 @@ interface ProductCardProps {
 export const ProductCard = React.memo(function ProductCardComponent({ product, showBrand = true, priority = false }: ProductCardProps) {
   const { addItem } = useWycena();
   const [added, setAdded]     = useState(false);
-  const [quoteOpen, setQuoteOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const mainImage = getProductImage(product);
@@ -113,32 +112,19 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
     // Sortuj: używaj priority z Sanity (1=najwyższy), fallback na 99
     return filtered
       .sort((a, b) => ((a as any).priority ?? 99) - ((b as any).priority ?? 99))
-      .slice(0, 4);
+      .slice(0, 2);
   })();
-  const topTags = product.tags.slice(0, 4);
-  const inStock = product.inStock !== false;
 
   const brandLabel = (product.brand || "").trim();
   const skuLabel = (product.sku || "").trim();
   const hasMeta = Boolean(brandLabel || skuLabel);
   const shortDesc = (product.shortDescription || "").trim();
 
-  /* 3-D tilt */
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width  - 0.5;
-    const y = (e.clientY - rect.top)  / rect.height - 0.5;
-    el.style.transform = `perspective(800px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-4px)`;
-    el.style.boxShadow = "0 0 20px rgba(248,24,40,0.3), 0 12px 40px rgba(0,0,0,0.5)";
-    el.style.borderColor = "rgba(248,24,40,0.5)";
-  };
   const handleMouseLeave = () => {
     const el = cardRef.current;
     if (!el) return;
     el.style.transform = "translateY(0)";
-    el.style.boxShadow = "none";
+    el.style.boxShadow = "0 12px 30px rgba(0,0,0,0.18)";
     el.style.borderColor = "#2d2d2d";
     setHovered(false);
   };
@@ -146,7 +132,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
     const el = cardRef.current;
     if (!el) return;
     el.style.transform = "translateY(-4px)";
-    el.style.boxShadow = "0 0 20px rgba(248,24,40,0.3), 0 12px 40px rgba(0,0,0,0.5)";
+    el.style.boxShadow = "0 16px 36px rgba(0,0,0,0.34)";
     el.style.borderColor = "rgba(248,24,40,0.5)";
     setHovered(true);
   };
@@ -158,49 +144,23 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
     setTimeout(() => setAdded(false), 2200);
   };
 
-  /* Glowing corner bracket divs */
-  const cornerStyle = (pos: { top?: 0|"auto"; bottom?: 0|"auto"; left?: 0|"auto"; right?: 0|"auto" }) => ({
-    position: "absolute" as const,
-    width: 14, height: 14,
-    borderColor: "#f81828",
-    borderStyle: "solid",
-    borderWidth: 0,
-    borderTopWidth:    pos.top    === 0 ? 2 : 0,
-    borderBottomWidth: pos.bottom === 0 ? 2 : 0,
-    borderLeftWidth:   pos.left   === 0 ? 2 : 0,
-    borderRightWidth:  pos.right  === 0 ? 2 : 0,
-    ...pos,
-    opacity: hovered ? 1 : 0,
-    transition: "opacity 0.25s",
-    boxShadow: "0 0 6px rgba(248,24,40,0.7)",
-    zIndex: 10,
-    pointerEvents: "none" as const,
-  });
-
   return (
     <>
       <div
         ref={cardRef}
         onMouseEnter={handleMouseEnter}
-        onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="group cursor-pointer rounded-xl overflow-hidden"
+        className="group rounded-xl overflow-hidden h-full flex flex-col"
         style={{
           background: "#0f0f0f",
           border: "1px solid #2d2d2d",
           borderRadius: "0.75rem",
           overflow: "hidden",
           transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
-          willChange: "transform",
           position: "relative",
+          boxShadow: "0 12px 30px rgba(0,0,0,0.18)",
         }}
       >
-        {/* ── Glowing corner brackets ── */}
-        <div style={cornerStyle({ top: 0, left: 0 })} />
-        <div style={cornerStyle({ top: 0, right: 0 })} />
-        <div style={cornerStyle({ bottom: 0, left: 0 })} />
-        <div style={cornerStyle({ bottom: 0, right: 0 })} />
-
         {/* ── Image area ── */}
         <Link
           to={`/produkt/${product.slug}`}
@@ -219,27 +179,8 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
             }}
           />
 
-          {/* Scan-line effect */}
-          <div
-            className="card-scanline absolute left-0 right-0 h-[2px] pointer-events-none z-20"
-            style={{
-              background: "linear-gradient(90deg, transparent 0%, #f81828 40%, rgba(255,100,100,0.9) 50%, #f81828 60%, transparent 100%)",
-              boxShadow: "0 0 8px rgba(248,24,40,0.7), 0 0 2px rgba(248,24,40,0.5)",
-              opacity: hovered ? undefined : 0,
-              animation: hovered ? undefined : "none",
-            }}
-          />
-
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f81828] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{ boxShadow: "0 0 8px rgba(248,24,40,0.6)" }} />
-
-          {/* CSS Sparks — Industrial Glow particles */}
-          <div className="card-spark-tl absolute top-0.5 left-0.5 w-2 h-2 rounded-full pointer-events-none z-30"
-            style={{ background: "#f81828", boxShadow: "0 0 5px rgba(248,24,40,0.9)", opacity: 0 }} />
-          <div className="card-spark-tr absolute top-0.5 right-0.5 w-2 h-2 rounded-full pointer-events-none z-30"
-            style={{ background: "#f81828", boxShadow: "0 0 5px rgba(248,24,40,0.9)", opacity: 0 }} />
-          <div className="card-spark-bl absolute bottom-0.5 left-0.5 w-1.5 h-1.5 rounded-full pointer-events-none z-30"
-            style={{ background: "#ff6b35", boxShadow: "0 0 4px rgba(255,107,53,0.8)", opacity: 0 }} />
 
           <div className="absolute inset-0 rounded-lg" style={{ background: "#141414" }}>
             {/* Jasna ramka jak w bestsellerach */}
@@ -277,7 +218,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
         </Link>
 
         {/* ── Content ── */}
-        <div className="p-4">
+        <div className="p-4 flex flex-col flex-1">
           <Link to={`/produkt/${product.slug}`} className="block">
             <h3 className="text-sm font-bold text-gray-200 leading-snug mb-1.5 group-hover:text-[#f88090] transition-colors line-clamp-2 font-display min-h-[2.7rem]">
               {product.name}
@@ -311,15 +252,6 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
             >
               {product.categorySlug.replace(/-/g, " ")}
             </span>
-            {topTags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full px-2 py-1 text-[10px] text-gray-300"
-                style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.14)" }}
-              >
-                {tag}
-              </span>
-            ))}
           </div>
 
           <div
@@ -333,7 +265,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
               PARAMETRY TECHNICZNE
             </div>
             {topSpecs.length > 0 ? (
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2 min-h-[38px]">
                 {topSpecs.map((spec) => (
                   <div key={spec.label} className="min-w-0 overflow-hidden">
                     <div className="text-[10px] font-bold uppercase tracking-wide text-gray-500 leading-tight mb-0.5 truncate">
@@ -352,8 +284,17 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
             )}
           </div>
 
+          <div className="flex items-center justify-between gap-3 mb-3 text-[11px]">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-300">
+              <Package className="w-3.5 h-3.5" /> Zapytaj o dostępność
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-gray-500">
+              <Truck className="w-3.5 h-3.5" /> Odbiór lub dostawa
+            </span>
+          </div>
+
           {/* Action buttons */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mt-auto">
             {/* Primary CTA — glowing red, większy */}
             <button
               className="w-full h-11 text-white text-[13px] font-black rounded-lg flex items-center justify-center gap-2 transition-all duration-200 tracking-wide uppercase"
@@ -365,29 +306,25 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #ff2a3a 0%, #e0000e 100%)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(248,24,40,0.6), 0 4px 20px rgba(248,24,40,0.4)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #f81828 0%, #c8000f 100%)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 10px rgba(248,24,40,0.2)"; }}
-              onClick={() => setQuoteOpen(true)}
-            >
-              <Mail className="w-4 h-4 shrink-0" /><span className="whitespace-nowrap">Zapytaj o ofertę</span>
-            </button>
-
-            <button
-              className="w-full h-8 text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200"
-              style={added
-                ? { background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.35)", color: "#4ade80" }
-                : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "#9ca3af" }}
-              onMouseEnter={e => { if (!added) { (e.currentTarget as HTMLElement).style.borderColor = "rgba(248,24,40,0.4)"; (e.currentTarget as HTMLElement).style.color = "#f81828"; (e.currentTarget as HTMLElement).style.background = "rgba(248,24,40,0.07)"; } }}
-              onMouseLeave={e => { if (!added) { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; (e.currentTarget as HTMLElement).style.color = "#9ca3af"; (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; } }}
               onClick={handleAdd}
             >
               {added
-                ? <><Check className="w-3.5 h-3.5" /> Dodano!</>
-                : <><ShoppingCart className="w-3.5 h-3.5" /> Dodaj do wyceny</>}
+                ? <><Check className="w-4 h-4" /> Dodano do wyceny</>
+                : <><ShoppingCart className="w-4 h-4" /> Dodaj do wyceny</>}
             </button>
+
+            <div className="grid grid-cols-[1fr_auto] gap-2">
+              <Link to={`/produkt/${product.slug}`} className="h-9 text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 text-gray-300 hover:text-white transition-colors" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                Szczegóły <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              <a href="tel:+48533553344" aria-label={`Zadzwoń w sprawie: ${product.name}`} onClick={trackPhoneClick} className="h-9 w-10 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#f81828] transition-colors" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
+                <Phone className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      <QuoteModal open={quoteOpen} onClose={() => setQuoteOpen(false)} productName={product.name} />
     </>
   );
 });

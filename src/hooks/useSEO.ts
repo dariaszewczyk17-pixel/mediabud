@@ -26,6 +26,11 @@ function setMeta(name: string, content: string, prop?: boolean) {
   el.setAttribute("content", content);
 }
 
+function removeMeta(name: string, prop?: boolean) {
+  const attr = prop ? "property" : "name";
+  document.querySelector(`meta[${attr}="${name}"]`)?.remove();
+}
+
 function setLink(rel: string, href: string) {
   let el = document.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement;
   if (!el) {
@@ -71,6 +76,10 @@ export function useSEO({
       setMeta("description", description);
       setMeta("og:description", description, true);
       setMeta("twitter:description", description);
+    } else {
+      removeMeta("description");
+      removeMeta("og:description", true);
+      removeMeta("twitter:description");
     }
 
     // Open Graph — title
@@ -105,7 +114,11 @@ export function useSEO({
     setMeta("robots", noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
 
     // Schema.org JSON-LD
-    if (schema) setSchema(schema);
+    if (schema) {
+      setSchema(schema);
+    } else {
+      document.getElementById("seo-schema")?.remove();
+    }
   }, [title, description, canonical, ogImage, ogType, noIndex, schema]);
 }
 

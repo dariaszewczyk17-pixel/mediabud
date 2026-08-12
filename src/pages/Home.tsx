@@ -618,6 +618,55 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* Lokalny landing strony głównej — główny URL dla fraz składu budowlanego w Lublinie */}
+      <section className="py-14 md:py-20" style={{ background: "#090909", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-start">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#f81828] mb-3">Media Bud · ul. Chemiczna 8d</p>
+              <h2 className="font-display text-3xl md:text-5xl font-black text-white leading-tight mb-6">
+                Skład materiałów budowlanych w Lublinie dla domu i inwestycji
+              </h2>
+              <div className="space-y-4 text-gray-400 leading-relaxed">
+                <p>
+                  Media Bud to lokalny <strong className="text-white">skład i hurtownia budowlana w Lublinie</strong>, w której zaopatrzysz budowę od fundamentów po dach i wykończenie. Obsługujemy klientów indywidualnych, wykonawców, deweloperów oraz firmy realizujące większe inwestycje.
+                </p>
+                <p>
+                  Na miejscu otrzymasz pomoc w doborze kompatybilnych materiałów, obliczeniu potrzebnej ilości i przygotowaniu wyceny. Zamówienie możesz odebrać przy ul. Chemicznej 8d albo skorzystać z dostawy bezpośrednio na budowę w Lublinie i województwie lubelskim.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-7">
+                <a href="tel:+48533553344" className="inline-flex items-center gap-2 rounded-full bg-[#f81828] px-5 py-3 text-sm font-black text-white hover:bg-[#d71020] transition-colors">
+                  <Phone className="w-4 h-4" /> Zadzwoń: 533 553 344
+                </a>
+                <Link to="/kontakt" className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white transition-colors hover:border-[#f81828]" style={{ border: "1px solid rgba(255,255,255,0.18)" }}>
+                  Dojazd i kontakt <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+
+            <nav aria-label="Najważniejsze kategorie materiałów budowlanych" className="grid sm:grid-cols-2 gap-3">
+              {[
+                ["Styropian i ocieplenia", "/kategoria/styropiany"],
+                ["Sucha zabudowa", "/kategoria/sucha-zabudowa"],
+                ["Sufity podwieszane", "/kategoria/sufity-podwieszane"],
+                ["Zaprawy budowlane", "/kategoria/zaprawy"],
+                ["Farby elewacyjne", "/kategoria/farby-elewacyjne"],
+                ["Pokrycia dachowe", "/kategoria/pokrycia-dachowe"],
+                ["Materiały konstrukcyjne", "/kategoria/materialy-konstrukcyjne"],
+                ["Wszystkie kategorie", "/kategoria"],
+              ].map(([label, href]) => (
+                <Link key={href} to={href} className="group flex min-h-20 items-center justify-between gap-3 rounded-xl p-4 text-sm font-bold text-gray-200 transition-all hover:-translate-y-0.5 hover:text-white" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <span>{label}</span>
+                  <ChevronRight className="w-4 h-4 shrink-0 text-[#f81828] transition-transform group-hover:translate-x-1" />
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </div>
+      </section>
+
       {/* ═══ STAT BAR — NEON COUNTERS ═══ */}
       <div
         ref={r3.ref as React.RefObject<HTMLDivElement>}

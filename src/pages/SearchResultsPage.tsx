@@ -23,6 +23,7 @@ import { mergeProductCollections } from "@/lib/productMerge";
 import { searchProducts, scoreProductAgainstQuery } from "@/lib/productSearch";
 import { ProductCard } from "@/components/Commerce";
 import { Button } from "@/components/ui/button";
+import { slugifyBrand } from "@/data/brands";
 
 type SortOption = "relevance" | "name-asc" | "name-desc" | "brand-asc" | "featured";
 
@@ -78,8 +79,8 @@ export default function SearchResultsPage() {
       : query && !loading && results.length > 0
         ? `Znaleziono ${results.length} produktów dla zapytania "${query}". Sklep budowlany Media Bud Lublin.`
         : "Wyszukaj materiały budowlane w katalogu Media Bud.",
-    noIndex: !brandMode,
-    canonical: brandMode ? `/szukaj?brand=${encodeURIComponent(selectedBrand)}` : undefined,
+    noIndex: true,
+    canonical: brandMode ? `/marki/${slugifyBrand(selectedBrand)}` : "/szukaj",
   });
 
   const availableBrands = useMemo(
@@ -241,7 +242,7 @@ export default function SearchResultsPage() {
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://mediabud.pl/" },
             { "@type": "ListItem", position: 2, name: "Wyszukiwarka", item: "https://mediabud.pl/szukaj" },
-            { "@type": "ListItem", position: 3, name: selectedBrand, item: `https://mediabud.pl/szukaj?brand=${encodeURIComponent(selectedBrand)}` },
+            { "@type": "ListItem", position: 3, name: selectedBrand, item: `https://mediabud.pl/marki/${slugifyBrand(selectedBrand)}` },
           ],
         }) }} />
       )}
@@ -341,23 +342,6 @@ export default function SearchResultsPage() {
                   <option value={ALL_BRANDS}>Wszystkie marki ({loading ? "···" : results.length})</option>
                   {availableBrands.map((brand) => (
                     <option key={brand} value={brand}>{brand} ({brandCounts[brand] ?? 0})</option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="block">
-                <span className="text-[11px] uppercase tracking-[0.18em] text-gray-500 font-semibold mb-2 flex items-center gap-2">
-                  <Filter className="w-3.5 h-3.5 text-[#f81828]" /> Kategoria
-                </span>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => navigate(createSearchLink({ category: e.target.value }))}
-                  className="w-full rounded-2xl px-4 py-3 text-sm text-white outline-none"
-                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
-                >
-                  <option value={ALL_CATEGORIES}>Wszystkie kategorie ({loading ? "···" : results.length})</option>
-                  {availableCategories.map((category) => (
-                    <option key={category} value={category}>{categoryLabel(category)} ({categoryCounts[category] ?? 0})</option>
                   ))}
                 </select>
               </label>

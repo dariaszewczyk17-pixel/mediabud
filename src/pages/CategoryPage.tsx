@@ -126,6 +126,66 @@ const LOCAL_CATEGORY_SEO: Record<string, LocalCategorySeo> = {
         "href": "/kategoria/chemia-budowlana"
       }
     ]
+  },
+  "farby-elewacyjne": {
+    "title": "Farby Elewacyjne Lublin – Silikonowe i Silikatowe",
+    "description": "Farby elewacyjne w Lublinie: silikonowe, silikatowe, akrylowe i gruntujące. Dobór systemu, kolorów oraz dostawa na budowę z Media Bud.",
+    "h1": "Farby elewacyjne Lublin – trwałe systemy fasadowe",
+    "intro": "W Media Bud w Lublinie znajdziesz farby elewacyjne silikonowe, silikatowe i akrylowe renomowanych producentów. Dobierzemy farbę do rodzaju tynku, oczekiwanej paroprzepuszczalności oraz ekspozycji elewacji, a także grunt i pozostałe elementy jednego kompatybilnego systemu.",
+    "related": [
+      {
+        "label": "Farby silikonowe",
+        "href": "/kategoria/farby-elewacyjne-silikonowe"
+      },
+      {
+        "label": "Tynki elewacyjne",
+        "href": "/kategoria/tynki-elewacyjne"
+      },
+      {
+        "label": "Grunty",
+        "href": "/kategoria/grunty"
+      }
+    ]
+  },
+  "pokrycia-dachowe": {
+    "title": "Pokrycia Dachowe Lublin – Dachówki i Akcesoria",
+    "description": "Pokrycia dachowe w Lublinie: dachówki, membrany, obróbki i akcesoria. Zapytaj Media Bud o dostępność, wycenę i dostawę kompletnego systemu.",
+    "h1": "Pokrycia dachowe Lublin – dachówki, membrany i akcesoria",
+    "intro": "Kompletujemy materiały dachowe dla budów i remontów w Lublinie oraz województwie lubelskim. Oferujemy dachówki, pokrycia z blachy, membrany, obróbki, elementy wentylacyjne i mocowania. Na podstawie projektu przygotujemy zestawienie materiałów, wycenę i dostawę.",
+    "related": [
+      {
+        "label": "Dachówki ceramiczne",
+        "href": "/kategoria/dachowki-ceramiczne"
+      },
+      {
+        "label": "Membrany dachowe",
+        "href": "/kategoria/membrany-dachowe"
+      },
+      {
+        "label": "Systemy rynnowe",
+        "href": "/kategoria/rynny"
+      }
+    ]
+  },
+  "materialy-konstrukcyjne": {
+    "title": "Materiały Konstrukcyjne Lublin – Pustaki i Bloczki",
+    "description": "Materiały konstrukcyjne w Lublinie: pustaki ceramiczne, bloczki, nadproża i zaprawy. Wycena zamówienia oraz dostawa na budowę z Media Bud.",
+    "h1": "Materiały konstrukcyjne Lublin – pustaki, bloczki i nadproża",
+    "intro": "Zaopatrujemy budowy w Lublinie w pustaki ceramiczne, beton komórkowy, bloczki fundamentowe, silikaty, nadproża i odpowiednie zaprawy. Pomożemy przeliczyć ilości na podstawie projektu i skompletujemy materiały jednego systemu z dostawą na plac budowy.",
+    "related": [
+      {
+        "label": "Pustaki ceramiczne",
+        "href": "/kategoria/pustaki-ceramiczne"
+      },
+      {
+        "label": "Bloczki fundamentowe",
+        "href": "/kategoria/bloczki-betonowe-i-fundamentowe"
+      },
+      {
+        "label": "Zaprawy murarskie",
+        "href": "/kategoria/zaprawy-murarskie-ogolnego-zastosowania"
+      }
+    ]
   }
 };
 

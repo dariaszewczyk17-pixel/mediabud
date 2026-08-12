@@ -1054,7 +1054,7 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Bestsellery budowlane 2025 – Media Bud Lublin",
+            "name": "Bestsellery materiałów budowlanych – Media Bud Lublin",
             "description": "Najchętniej wybierane materiały budowlane w Lublinie: izolacje, kleje, tynki, farby, cement.",
             "url": "https://mediabud.pl/#bestsellery",
             "numberOfItems": BESTSELLER_SLUGS.length,
@@ -1063,21 +1063,14 @@ export default function Home() {
               return {
                 "@type": "ListItem",
                 "position": idx + 1,
-                "url": `https://mediabud.pl/produkty/${slug}`,
+                "url": `https://mediabud.pl/produkt/${slug}`,
                 ...(p ? {
                   "name": p.name,
                   "item": {
                     "@type": "Product",
                     "name": p.name,
-                    "url": `https://mediabud.pl/produkty/${slug}`,
+                    "url": `https://mediabud.pl/produkt/${slug}`,
                     "brand": { "@type": "Brand", "name": p.brand },
-                    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1", "ratingCount": 20 },
-                    "offers": {
-                      "@type": "Offer",
-                      "availability": "https://schema.org/InStock",
-                      "priceCurrency": "PLN",
-                      "price": "0.00",
-                    },
                   },
                 } : {}),
               };

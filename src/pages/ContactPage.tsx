@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { CONTACT_FILE_ACCEPT, prepareContactAttachments } from "@/lib/contactAttachments";
+import { trackFormSubmit } from "@/hooks/useConversionTracking";
 
 /* ─── IntersectionObserver Hook ─────────────────────────────────── */
 function useInView(threshold = 0.1) {
@@ -120,6 +121,7 @@ export default function ContactPage() {
       });
       if (res.ok) {
         setSent(true);
+        trackFormSubmit({ source: "contact_page" });
         toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24 godzin roboczych.");
       } else {
         toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");

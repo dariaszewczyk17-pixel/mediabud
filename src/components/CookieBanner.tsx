@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 
 type Consent = { necessary: true; analytics: boolean; marketing: boolean };
 
+declare global {
+  interface Window {
+    applyMediaBudConsent?: (consent: Consent) => void;
+  }
+}
+
 const STORAGE_KEY = "mb_cookie_consent";
 
 function loadConsent(): Consent | null {
@@ -25,7 +31,7 @@ function saveConsent(c: Consent) {
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const [details, setDetails] = useState(false);
-  const [analytics, setAnalytics] = useState(true);
+  const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
 
   useEffect(() => {
@@ -38,10 +44,15 @@ export default function CookieBanner() {
 
   if (!visible) return null;
 
-  const accept = (all: boolean) => {
-    saveConsent({ necessary: true, analytics: all || analytics, marketing: all || marketing });
+  const applyConsent = (consent: Consent) => {
+    saveConsent(consent);
+    window.applyMediaBudConsent?.(consent);
     setVisible(false);
   };
+
+  const rejectOptional = () => applyConsent({ necessary: true, analytics: false, marketing: false });
+  const acceptSelected = () => applyConsent({ necessary: true, analytics, marketing });
+  const acceptAll = () => applyConsent({ necessary: true, analytics: true, marketing: true });
 
   return (
     <>
@@ -79,14 +90,14 @@ export default function CookieBanner() {
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button
-                  onClick={() => accept(false)}
+                  onClick={rejectOptional}
                   className="px-3 py-1.5 rounded-lg text-[11px] font-bold text-gray-300 transition-colors"
                   style={{ border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)" }}
                 >
                   Odrzuć
                 </button>
                 <button
-                  onClick={() => accept(true)}
+                  onClick={acceptAll}
                   className="px-3 py-1.5 rounded-lg text-[11px] font-bold text-white transition-all"
                   style={{ background: "#f81828" }}
                 >
@@ -111,8 +122,8 @@ export default function CookieBanner() {
               </div>
               <div className="flex flex-wrap gap-2 flex-shrink-0">
                 <button onClick={() => setDetails(true)} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.12)" }}>Dostosuj</button>
-                <button onClick={() => accept(false)} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)" }}>Tylko niezbędne</button>
-                <button onClick={() => accept(true)} className="px-5 py-2 rounded-lg text-xs font-bold text-white transition-all hover:brightness-90" style={{ background: "#f81828" }}>Akceptuję wszystkie</button>
+                <button onClick={rejectOptional} className="px-4 py-2 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)" }}>Tylko niezbędne</button>
+                <button onClick={acceptAll} className="px-5 py-2 rounded-lg text-xs font-bold text-white transition-all hover:brightness-90" style={{ background: "#f81828" }}>Akceptuję wszystkie</button>
               </div>
             </div>
           </div>
@@ -136,15 +147,15 @@ export default function CookieBanner() {
               {/* Analityczne */}
               <CookieRow
                 title="Analityczne (Google Analytics 4)"
-                desc="Pozwalają nam mierzyć ruch i poprawiać stronę. Dane są anonimizowane."
+                desc="Pozwalają nam mierzyć ruch, skuteczność podstron i poprawiać serwis."
                 checked={analytics}
                 disabled={false}
                 onChange={setAnalytics}
               />
               {/* Marketingowe */}
               <CookieRow
-                title="Marketingowe"
-                desc="Służą do wyświetlania spersonalizowanych reklam. Aktualnie nie są stosowane."
+                title="Marketingowe (Google Ads)"
+                desc="Pozwalają mierzyć skuteczność reklam i konwersje z kampanii Google Ads."
                 checked={marketing}
                 disabled={false}
                 onChange={setMarketing}
@@ -153,21 +164,21 @@ export default function CookieBanner() {
 
             <div className="flex flex-wrap gap-2 justify-end">
               <button
-                onClick={() => accept(false)}
+                onClick={rejectOptional}
                 className="px-4 py-2 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors"
                 style={{ border: "1px solid rgba(255,255,255,0.2)" }}
               >
                 Tylko niezbędne
               </button>
               <button
-                onClick={() => accept(true)}
+                onClick={acceptSelected}
                 className="px-4 py-2 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors"
                 style={{ border: "1px solid rgba(255,255,255,0.2)" }}
               >
                 Akceptuję zaznaczone
               </button>
               <button
-                onClick={() => accept(true)}
+                onClick={acceptAll}
                 className="px-5 py-2 rounded-lg text-xs font-bold text-white transition-all hover:brightness-90"
                 style={{ background: "#f81828" }}
               >

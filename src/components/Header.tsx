@@ -57,12 +57,10 @@ const calcBusinessStatus = () => {
   const day = now.getDay();
   const t = now.getHours() * 60 + now.getMinutes();
   const isWeekday = day >= 1 && day <= 5;
-  const isSat = day === 6;
-  if ((isWeekday && t >= 420 && t < 960) || (isSat && t >= 420 && t < 780))
+  if (isWeekday && t >= 420 && t < 960)
     return { open: true,  label: "Teraz otwarte",       color: "bg-emerald-500" };
-  if (day === 5 && t >= 960)  return { open: false, label: "Otwieramy Sob 7:00",  color: "bg-red-500" };
-  if (isSat && t >= 780)      return { open: false, label: "Otwieramy Pn 7:00",   color: "bg-red-500" };
-  if (day === 0)              return { open: false, label: "Otwieramy Pn 7:00",   color: "bg-red-500" };
+  if (day === 5 && t >= 960)  return { open: false, label: "Otwieramy Pn 7:00",   color: "bg-red-500" };
+  if (day === 6 || day === 0) return { open: false, label: "Otwieramy Pn 7:00",   color: "bg-red-500" };
   return                             { open: false, label: "Otwieramy jutro 7:00", color: "bg-red-500" };
 };
 

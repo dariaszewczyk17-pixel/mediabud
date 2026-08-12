@@ -41,18 +41,11 @@ export const NAP_HOURS = [
     "opens": "07:00",
     "closes": "16:00",
   },
-  {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Saturday"],
-    "opens": "07:00",
-    "closes": "13:00",
-  },
 ];
 
 /** String format openingHours dla LocalBusiness (Google oczekuje tego formatu) */
 export const NAP_HOURS_STRING = [
   "Mo-Fr 07:00-16:00",
-  "Sa 07:00-13:00",
 ];
 
 export const NAP_AREA_SERVED = [

@@ -39,6 +39,28 @@ function useReveal() {
 
 type Tab = "opis" | "specyfikacja" | "zastosowanie" | "zalety" | "faq";
 
+
+// Strony z wyświetleniami w GSC i niewykorzystanym potencjałem CTR.
+// Nadpisania są niezależne od źródła produktu (Sanity / dane statyczne).
+const PRODUCT_SEO_OVERRIDES: Record<string, { title: string; description: string }> = {
+  "farba-lateksowa-dulux-kolory-swiata-do-scian-i-sufitow-mglisty-las-mat-25-l": {
+    title: "Dulux Mglisty Las 2,5 l – Farba Lateksowa | Media Bud",
+    description: "Dulux Kolory Świata Mglisty Las 2,5 l – matowa farba lateksowa do ścian i sufitów. Zapytaj Media Bud Lublin o dostępność i odbiór.",
+  },
+  "folia-budowlana-armat-matfol-fb-500-c-6-x-25-m": {
+    title: "Folia Budowlana Matfol FB 500, 6 × 25 m | Media Bud",
+    description: "Folia budowlana Armat Matfol FB 500 C, rolka 6 × 25 m. Sprawdź zastosowanie i zapytaj o dostępność w składzie Media Bud w Lublinie.",
+  },
+  "folia-budowlana-armat-matfol-fb-300-c-6-x-25-m": {
+    title: "Folia Budowlana Matfol FB 300, 6 × 25 m | Media Bud",
+    description: "Folia budowlana Armat Matfol FB 300 C, rolka 6 × 25 m. Dane techniczne, doradztwo oraz odbiór lub dostawa z Media Bud Lublin.",
+  },
+  "folia-paroizolacyjna-armat-matfol-pi-200-b-2-x-50-m-100-m2": {
+    title: "Folia Paroizolacyjna Matfol PI 200, 100 m² | Media Bud",
+    description: "Folia paroizolacyjna Armat Matfol PI 200 B, 2 × 50 m, 100 m². Zapytaj o dostępność, fachowy dobór i dostawę z Media Bud Lublin.",
+  },
+};
+
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
 
@@ -116,13 +138,15 @@ export default function ProductDetail() {
   const tabsReveal = useReveal();
   const relReveal  = useReveal();
 
+  const seoOverride = slug ? PRODUCT_SEO_OVERRIDES[slug] : undefined;
+
   useSEO({
-    title: product
-      ? `${product.name}${product.brand ? ` – ${product.brand}` : ""} | Media Bud`
-      : "Produkt | Media Bud",
-    description: product
-      ? (product.shortDescription || product.description || "").slice(0, 160)
-      : undefined,
+    title: seoOverride?.title ?? (product
+      ? (product.metaTitle || `${product.name}${product.brand ? ` – ${product.brand}` : ""} | Media Bud`)
+      : "Produkt | Media Bud"),
+    description: seoOverride?.description ?? (product
+      ? (product.metaDesc || product.shortDescription || product.description || "").slice(0, 160)
+      : undefined),
     canonical: slug ? `/produkt/${slug}` : undefined,
     noIndex: !product && !productLoading,
     ogType: "product",

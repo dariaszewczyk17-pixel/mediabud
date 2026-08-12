@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
+import { CONTACT_FILE_ACCEPT, prepareContactAttachments } from "@/lib/contactAttachments";
 
 /* ─── IntersectionObserver Hook ─────────────────────────────────── */
 function useInView(threshold = 0.1) {
@@ -104,6 +105,7 @@ export default function ContactPage() {
     if (!agreed) return;
     setSending(true);
     try {
+      const attachments = await prepareContactAttachments(form.attachments);
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -113,16 +115,17 @@ export default function ContactPage() {
           phone: form.phone,
           subject: form.subject || "Zapytanie ze strony mediabud.pl",
           message: form.message,
+          attachments,
         }),
       });
       if (res.ok) {
         setSent(true);
-        toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24h.");
+        toast.success("Wiadomość wysłana! Odpowiemy w ciągu 24 godzin roboczych.");
       } else {
         toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
       }
-    } catch {
-      toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Nie udało się wysłać. Zadzwoń: +48 533 553 344");
     } finally {
       setSending(false);
     }
@@ -390,9 +393,9 @@ export default function ContactPage() {
                           <span className="text-sm text-gray-600">
                             {form.attachments.length > 0
                               ? `${form.attachments.length} plik(ów) wybranych`
-                              : "Dodaj pliki (JPG, PNG, WEBP, PDF, DOC, DOCX, XLS, XLSX)"}
+                              : "Dodaj do 3 plików — maks. 5 MB każdy"}
                           </span>
-                          <input type="file" multiple accept=".jpg,.jpeg,.png,.webp,.pdf,.doc,.docx,.xls,.xlsx" className="hidden"
+                          <input type="file" multiple accept={CONTACT_FILE_ACCEPT} className="hidden"
                             onChange={e => setForm(f => ({ ...f, attachments: Array.from(e.target.files || []) }))} />
                         </label>
                         {form.attachments.length > 0 && (

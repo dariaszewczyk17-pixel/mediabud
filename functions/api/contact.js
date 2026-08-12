@@ -1,6 +1,6 @@
 /**
  * Cloudflare Pages Function — /api/contact
- * POST body: { name, email, phone, subject, message }
+ * POST body: { name, email, phone, subject, message, attachments? }
  * Wysyła mail przez Resend API → sprzedaz@mediabud.pl
  */
 
@@ -28,6 +28,11 @@ export async function onRequestPost(context) {
 
     if (!name || !email || !message) {
       return json({ ok: false, error: "Brak wymaganych pól (name, email, message)" }, 400);
+    }
+
+    const attachments = validateAttachments(body.attachments);
+    if (attachments.error) {
+      return json({ ok: false, error: attachments.error }, 400);
     }
 
     const RESEND_API_KEY = context.env.RESEND_API_KEY;
@@ -69,6 +74,7 @@ export async function onRequestPost(context) {
         reply_to: email,
         subject: subject || `Zapytanie ze strony mediabud.pl — ${name}`,
         html: htmlBody,
+        ...(attachments.items.length > 0 ? { attachments: attachments.items } : {}),
       }),
     });
 
@@ -84,6 +90,34 @@ export async function onRequestPost(context) {
     console.error("Błąd wysyłki maila:", err);
     return json({ ok: false, error: "Nie udało się wysłać wiadomości" }, 500);
   }
+}
+
+function validateAttachments(input) {
+  if (input == null) return { items: [] };
+  if (!Array.isArray(input) || input.length > 3) {
+    return { error: "Nieprawidłowa liczba załączników", items: [] };
+  }
+
+  const allowedExtensions = new Set(["pdf", "jpg", "jpeg", "png", "webp", "doc", "docx", "xls", "xlsx"]);
+  let estimatedBytes = 0;
+  const items = [];
+
+  for (const attachment of input) {
+    const filename = String(attachment?.filename || "").replace(/[\\/\r\n]/g, "_").slice(0, 150);
+    const content = String(attachment?.content || "");
+    const extension = filename.split(".").pop()?.toLowerCase();
+    estimatedBytes += Math.ceil(content.length * 0.75);
+
+    if (!filename || !content || !allowedExtensions.has(extension) || content.length > 7_100_000) {
+      return { error: "Nieprawidłowy załącznik lub plik większy niż 5 MB", items: [] };
+    }
+    items.push({ filename, content });
+  }
+
+  if (estimatedBytes > 10 * 1024 * 1024) {
+    return { error: "Łączny rozmiar załączników przekracza 10 MB", items: [] };
+  }
+  return { items };
 }
 
 function escapeHtml(str) {

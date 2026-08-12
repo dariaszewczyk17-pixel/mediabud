@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useWycena } from "@/hooks/useWycena";
-import { trackFormSubmit, trackPhoneClick } from "@/hooks/useConversionTracking";
+import { trackFormSubmit, trackPhoneClick, trackQuoteStart } from "@/hooks/useConversionTracking";
 import type { Product } from "@/data/products";
 import { toast } from "sonner";
 import { CONTACT_FILE_ACCEPT, prepareContactAttachments } from "@/lib/contactAttachments";
@@ -370,7 +370,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
       });
       if (res.ok) {
         setMode("sent");
-        trackFormSubmit();
+        trackFormSubmit({ source: "product_quote", itemCount: 1 });
       } else {
         toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
       }
@@ -613,7 +613,7 @@ export function WycenaDrawer() {
       if (res.ok) {
         setRequestId(generatedRequestId);
         setSent(true);
-        trackFormSubmit();
+        trackFormSubmit({ source: "quote_cart", itemCount: items.length });
         clearWycena();
       } else {
         toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
@@ -855,7 +855,7 @@ export function WycenaDrawer() {
         {items.length > 0 && !sendOpen && !sent && (
           <div className="p-4 space-y-2 flex-shrink-0"
             style={{ borderTop: "1px solid rgba(255,255,255,0.07)", background: "#080808" }}>
-            <button onClick={() => setSendOpen(true)}
+            <button onClick={() => { trackQuoteStart(items.length); setSendOpen(true); }}
               className="w-full flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-bold text-white transition-all"
               style={{ background: "#f81828" }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c8000f"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(248,24,40,0.4)"; }}

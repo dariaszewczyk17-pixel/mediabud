@@ -7,7 +7,7 @@
     "dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite",
     "prebuild": "echo 'Skipping static fallbacks - Cloudflare Pages handles SPA routing'",
     "build": "vite build",
-    "postbuild": "node scripts/generate-sitemap.mjs",
+    "postbuild": "node scripts/generate-sitemap.mjs && node scripts/generate-static-seo.mjs",
     "build:dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite build --mode development --sourcemap",
     "build:map": "VITE_ENABLE_ROUTE_MESSAGING=true vite build --sourcemap",
     "sitemap:generate": "node scripts/generate-sitemap.mjs",

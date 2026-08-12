@@ -199,7 +199,6 @@ export async function onRequest(context) {
           areaServed: ["Lublin", "województwo lubelskie"],
           openingHoursSpecification: [
             { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "07:00", closes: "16:00" },
-            { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "07:00", closes: "13:00" },
           ],
         };
 

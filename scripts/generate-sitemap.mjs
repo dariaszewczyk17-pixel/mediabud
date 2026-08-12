@@ -87,6 +87,16 @@ function formatDate(iso) {
   return iso.slice(0, 10);
 }
 
+function slugifyBrand(name) {
+  return String(name ?? '')
+    .toLowerCase()
+    .replace(/ą/g, 'a').replace(/ć/g, 'c').replace(/ę/g, 'e')
+    .replace(/ł/g, 'l').replace(/ń/g, 'n').replace(/ó/g, 'o')
+    .replace(/ś/g, 's').replace(/ź/g, 'z').replace(/ż/g, 'z')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 const CATEGORY_SLUG_ALIASES = {
   'gipsy-gladzie': 'gipsy-i-gladzie',
   'gladzie-proszek': 'gladzie-gipsowe-w-proszku',
@@ -305,17 +315,27 @@ async function pingGoogle(_sitemapUrl) {
 }
 
 const STATIC_PAGES = [
-  { path: '/',          changefreq: 'weekly',  priority: '1.0' },
-  { path: '/produkty',  changefreq: 'weekly',  priority: '0.9' },
-  { path: '/o-firmie',  changefreq: 'monthly', priority: '0.7' },
-  { path: '/kontakt',   changefreq: 'monthly', priority: '0.7' },
-  { path: '/blog',      changefreq: 'weekly',  priority: '0.8' },
-  { path: '/marki',     changefreq: 'weekly',  priority: '0.8' },
+  { path: '/',           lastmod: '2026-08-12', changefreq: 'weekly',  priority: '1.0' },
+  { path: '/produkty',   lastmod: '2026-08-12', changefreq: 'weekly',  priority: '0.9' },
+  { path: '/kategoria',  lastmod: '2026-08-12', changefreq: 'weekly',  priority: '0.9' },
+  { path: '/bestsellery',lastmod: '2026-08-12', changefreq: 'weekly',  priority: '0.9' },
+  { path: '/uslugi',     lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.8' },
+  { path: '/realizacje', lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.8' },
+  { path: '/kalkulator', lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.8' },
+  { path: '/o-firmie',   lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.7' },
+  { path: '/kontakt',    lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.7' },
+  { path: '/blog',       lastmod: '2026-08-12', changefreq: 'weekly',  priority: '0.8' },
+  { path: '/marki',      lastmod: '2026-08-12', changefreq: 'weekly',  priority: '0.8' },
 ];
 
 const CALCULATORS = [
   'tynk-elewacyjny', 'farba-elewacyjna', 'styropian-welna',
   'klej-do-plytek', 'plytki-ceramiczne', 'izolacja-fundamentow'
+];
+
+const SERVICES = [
+  'dom-od-podstaw', 'kompleksowa-wspolpraca-z-deweloperami',
+  'wykonczenia-pod-klucz', 'dachy', 'elewacje', 'galerie-obiekty',
 ];
 
 async function main() {
@@ -350,7 +370,7 @@ async function main() {
   try {
     const rawProds = await fetchAllPaginated(
       `*[_type=="product" && defined(slug.current) && !(name match "P-*")]{
-        slug, _updatedAt,
+        slug, _updatedAt, "brandName": brand->name,
         "hasDescription": defined(shortDescription) && length(shortDescription) > 50,
         "hasLongDesc":    defined(description)       && length(description) > 200,
         "hasImage":       defined(image),
@@ -404,10 +424,13 @@ async function main() {
 
   console.log('\n✍️  Generowanie XML...');
 
+  const productBrandNames = new Set(rawProducts.map(p => p.brandName).filter(Boolean));
+  const indexableBrands = brands.filter(b => productBrandNames.has(b.name) && slugifyBrand(b.name));
   const coreEntries = [
-    ...STATIC_PAGES.map(p => urlEntry({ loc: `${BASE_URL}${p.path}`, lastmod: today, changefreq: p.changefreq, priority: p.priority })),
-    ...CALCULATORS.map(calc => urlEntry({ loc: `${BASE_URL}/kalkulator/${calc}`, lastmod: today, changefreq: 'monthly', priority: '0.8' })),
-    ...brands.map(b => urlEntry({ loc: `${BASE_URL}/marki/${escapeXml(b.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''))}`, lastmod: today, changefreq: 'weekly', priority: '0.7' })),
+    ...STATIC_PAGES.map(p => urlEntry({ loc: `${BASE_URL}${p.path}`, lastmod: p.lastmod, changefreq: p.changefreq, priority: p.priority })),
+    ...CALCULATORS.map(calc => urlEntry({ loc: `${BASE_URL}/kalkulator/${calc}`, lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.8' })),
+    ...SERVICES.map(service => urlEntry({ loc: `${BASE_URL}/uslugi/${service}`, lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.8' })),
+    ...indexableBrands.map(b => urlEntry({ loc: `${BASE_URL}/marki/${escapeXml(slugifyBrand(b.name))}`, lastmod: '2026-08-12', changefreq: 'weekly', priority: '0.7' })),
     // dedup blogPosts by id (eliminuje duplikaty np. b032)
     ...Array.from(new Map(blogPosts.map(p => [p.id, p])).values())
       .map(post => urlEntry({ loc: `${BASE_URL}/blog/${escapeXml(post.id)}`, lastmod: post.date || today, changefreq: 'monthly', priority: '0.7' }))
@@ -460,7 +483,7 @@ async function main() {
   }).filter(Boolean);
   await writeXml('sitemap-products-partial.xml', buildUrlset(partialEntries));
 
-  const totalInSitemap = STATIC_PAGES.length + catEntries.length + fullEntries.length + partialEntries.length;
+  const totalInSitemap = coreEntries.length + catEntries.length + fullEntries.length;
 
   const indexContent = [
     '<?xml version="1.0" encoding="UTF-8"?>',
@@ -476,8 +499,9 @@ async function main() {
 
   const report = {
     generated: nowIso, base_url: BASE_URL,
-    products: { total: rawProducts.length, full_quality: full.length, partial_quality: partial.length, excluded: excluded.length, coverage_pct: rawProducts.length > 0 ? parseFloat(((full.length / rawProducts.length) * 100).toFixed(1)) : 0 },
+    products: { total: rawProducts.length, indexed: full.length, partial_quality_not_submitted: partial.length, excluded: excluded.length, coverage_pct: rawProducts.length > 0 ? parseFloat(((full.length / rawProducts.length) * 100).toFixed(1)) : 0 },
     categories: { total: categories.length },
+    brands: { total: brands.length, indexed_with_products: indexableBrands.length },
     changefreq_distribution: freqCount,
     total_urls_in_sitemap: totalInSitemap,
   };

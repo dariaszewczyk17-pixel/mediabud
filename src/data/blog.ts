@@ -1143,7 +1143,7 @@ Wyliczymy ilości materiałów — **+48 533 553 344** | ul. Chemiczna 8d, Lubli
 | Dzień | Godziny |
 |---|---|
 | Pon–Pt | 7:00–16:00 |
-| Sobota | 7:00–13:00 |
+| Sobota | Zamknięte |
 
 **Adres**: ul. Chemiczna 8d, 20-329 Lublin
 
@@ -1972,7 +1972,7 @@ Nasz handlowiec przygotuje zestawienie materiałów z cenami hurtowymi w ciągu 
 Tak — obsługujemy zarówno klientów B2C (osoby prywatne), jak i B2B (firmy budowlane, deweloperzy, spółdzielnie). Wystawiamy faktury VAT, przyjmujemy przelewy i płatności gotówkowe.
 
 **Czy można zamówić i odebrać tego samego dnia?**
-Przy towarach dostępnych na stanie — tak. Nasz magazyn przy ul. Chemicznej 8d jest otwarty Pon–Pt 7:00–16:00, Sob 7:00–13:00.
+Przy towarach dostępnych na stanie — tak. Nasz magazyn przy ul. Chemicznej 8d jest otwarty Pon–Pt 7:00–16:00. W soboty i niedziele nie pracujemy.
 
 **Czy dowoziecie materiały na rusztowanie?**
 Transport HDS umożliwia rozładunek na placu budowy, jednak wnoszenie materiałów na rusztowania wyceniamy indywidualnie. Zapytaj przed zamówieniem.
@@ -1983,7 +1983,7 @@ W ofercie Media Bud znajdziesz produkty Swisspor, Synthos, Austrotherm, Ravather
       { q: "Gdzie kupić materiały budowlane w Lublinie?", a: "Media Bud — skład budowlany przy ul. Chemicznej 8d w Lublinie. Oferujemy ponad 15 000 produktów z dostawą na teren całego woj. lubelskiego." },
       { q: "Czy Media Bud dostarcza materiały na plac budowy?", a: "Tak, realizujemy dostawy transportem HDS na terenie Lublina (24h) i całego województwa lubelskiego." },
       { q: "Czy można uzyskać bezpłatną wycenę projektu?", a: "Tak — wyślij projekt lub przedmiar, a nasz handlowiec przygotuje zestawienie materiałów z cenami hurtowymi w ciągu 24 h." },
-      { q: "Jakie godziny otwarcia ma skład budowlany Media Bud?", a: "Pon–Pt 7:00–16:00, Sob 7:00–13:00. Adres: ul. Chemiczna 8d, 20-329 Lublin." },
+      { q: "Jakie godziny otwarcia ma skład budowlany Media Bud?", a: "Pon–Pt 7:00–16:00. W soboty i niedziele skład jest zamknięty. Adres: ul. Chemiczna 8d, 20-329 Lublin." },
     ],
   }
 ];

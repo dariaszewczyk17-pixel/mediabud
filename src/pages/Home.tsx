@@ -100,6 +100,19 @@ const catImages: Record<string, string> = {
   "pozostale": "https://skyagent-artifacts.skywork.ai/router/agent/2026-06-08/prod_agent_919fac5a-210e-47ca-8b62-27ddea343c50/pozostale_kategoria_2_8a82cc38d2a44d9b884d891b1745b7b2.png",
 };
 
+const categoryCardCopy: Record<string, { benefit: string; scope: string }> = {
+  "chemia-budowlana": { benefit: "Dobierz kompatybilny system", scope: "Kleje, grunty, zaprawy i hydroizolacje" },
+  "dachy": { benefit: "Skompletuj materiały na dach", scope: "Pokrycia, membrany, rynny i akcesoria" },
+  "farby-i-rozpuszczalniki": { benefit: "Dobierz farbę i przygotowanie", scope: "Wnętrza, elewacje, drewno i metal" },
+  "izolacje": { benefit: "Obliczymy ilość i parametry", scope: "Styropian, wełna i izolacje techniczne" },
+  "narzedzia-i-mocowania": { benefit: "Wyposaż ekipę do pracy", scope: "Narzędzia, wkręty, kołki i mocowania" },
+  "plytki": { benefit: "Kompletny system montażowy", scope: "Płytki, kleje, fugi i przygotowanie podłoża" },
+  "stropy-i-sciany": { benefit: "Wycena materiałów z projektu", scope: "Pustaki, bloczki, nadproża i zaprawy" },
+  "sucha-zabudowa": { benefit: "Zbuduj kompletny system GK", scope: "Płyty, profile, wkręty, masy i wełna" },
+  "sufity-podwieszane": { benefit: "Dobierz system do pomieszczenia", scope: "Płyty, konstrukcje, wieszaki i akcesoria" },
+  "pozostale": { benefit: "Znajdź brakujący element", scope: "Materiały uzupełniające i specjalistyczne" },
+};
+
 const stats = [
   { icon: TrendingUp, num: 15900, suffix: "+", label: "produktów w ofercie" },
   { icon: Users,     num: 500,  suffix: "+", label: "zadowolonych klientów" },
@@ -872,10 +885,10 @@ export default function Home() {
           .cat-card:hover img { filter: brightness(0.56) saturate(0.84); transform: scale(1.05); }
           .cat-card-title,
           .cat-card-kicker,
-          .cat-card-cta { transition: transform 0.38s cubic-bezier(.22,1,.36,1), opacity 0.38s cubic-bezier(.22,1,.36,1), color 0.38s cubic-bezier(.22,1,.36,1); }
+          .cat-card-cta { transition: transform 0.38s cubic-bezier(.22,1,.36,1), color 0.38s cubic-bezier(.22,1,.36,1); }
           .cat-card:hover .cat-card-title { transform: translateY(-2px); }
           .cat-card:hover .cat-card-kicker { opacity: 0.75; }
-          .cat-card:hover .cat-card-cta { opacity: 1; transform: translateY(0); }
+          .cat-card:hover .cat-card-cta { transform: translateX(3px); }
         `}</style>
 
         <div className="container mx-auto px-4 relative z-[2]">
@@ -894,13 +907,13 @@ export default function Home() {
                   overflowWrap: "anywhere",
                 }}
               >
-                Nasze
+                Materiały do każdego etapu
                 <span className="block" style={{ background: "linear-gradient(135deg,#ffffff 0%, #ffd9dd 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  kategorie
+                  budowy i remontu
                 </span>
               </h2>
               <p className="text-sm md:text-[15px] mt-4 max-w-xl" style={{ color: "rgba(255,255,255,0.62)", lineHeight: 1.85 }}>
-                Kompleksowy asortyment materiałów dla każdej budowy — od systemów elewacyjnych po chemię, izolacje i rozwiązania wykończeniowe.
+                Wybierz zakres prac. W kategorii znajdziesz produkty, parametry techniczne i możliwość przygotowania jednej kompletnej wyceny.
               </p>
             </div>
             <Link
@@ -912,14 +925,14 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {categories.map((cat, i) => {
-              const isWide = i < 2;
+              const copy = categoryCardCopy[cat.slug] ?? { benefit: "Sprawdź dostępne rozwiązania", scope: cat.description || "Materiały i akcesoria budowlane" };
               return (
                 <Link
                   key={cat.id}
                   to={`/kategoria/${cat.slug}`}
-                  className={`cat-card group relative overflow-hidden rounded-[20px] md:rounded-[24px] ${isWide ? "col-span-2 aspect-[21/7] lg:aspect-[21/5.4]" : "col-span-1 aspect-[4/3] lg:aspect-[4/3.2]"} ${r1.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                  className={`cat-card group relative overflow-hidden rounded-[20px] md:rounded-[24px] min-h-[270px] ${r1.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                   style={{
                     background: "#0f0f0f",
                     border: "1px solid rgba(255,255,255,0.08)",
@@ -951,7 +964,7 @@ export default function Home() {
                     <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,#111,#0a0a0a)" }} />
                   )}
 
-                  <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.58) 46%, rgba(0,0,0,0.12) 100%)" }} />
+                  <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.99) 0%, rgba(0,0,0,0.88) 48%, rgba(0,0,0,0.24) 100%)" }} />
 
                   <div className="absolute top-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.9), rgba(248,24,40,0.18), transparent)", boxShadow: "0 0 10px rgba(248,24,40,0.55)" }} />
 
@@ -962,21 +975,22 @@ export default function Home() {
                       </span>
                     </div>
 
-                    <div>
+                    <div className="min-h-[150px] flex flex-col justify-end">
+                      <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#f3b0b5] mb-2">{copy.benefit}</p>
                       <h3
-                        className="cat-card-title font-black text-white leading-[0.98] mb-2"
+                        className="cat-card-title font-black text-white leading-[1.02] mb-3"
                         style={{
                           fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif",
-                          fontSize: isWide ? "clamp(1.15rem, 2.3vw, 1.65rem)" : "clamp(0.88rem, 1.6vw, 1.05rem)",
+                          fontSize: "clamp(1.12rem, 1.6vw, 1.35rem)",
                           letterSpacing: "-0.01em",
-                          textTransform: "uppercase",
                         }}
                       >
                         {cat.name}
                       </h3>
-                      <div className="cat-card-cta flex items-center gap-1 opacity-0 translate-y-1">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f3b0b5]">Przeglądaj</span>
-                        <ChevronRight className="w-3 h-3 text-[#f3b0b5]" />
+                      <p className="text-xs leading-5 text-gray-400 mb-4 line-clamp-2">{copy.scope}</p>
+                      <div className="cat-card-cta flex items-center justify-between gap-2 border-t border-white/10 pt-3">
+                        <span className="text-[10px] font-black uppercase tracking-[0.16em] text-white">Sprawdź ofertę</span>
+                        <span className="w-7 h-7 rounded-full flex items-center justify-center bg-[#f81828] text-white"><ChevronRight className="w-4 h-4" /></span>
                       </div>
                     </div>
                   </div>

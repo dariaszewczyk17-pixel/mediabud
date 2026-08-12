@@ -5,7 +5,6 @@ import Footer from "./Footer";
 import BottomNav from "./BottomNav";
 import CookieBanner from "./CookieBanner";
 import { Toaster } from "sonner";
-import { LOCAL_BUSINESS_JSONLD } from "@/lib/localBusiness";
 
 /* WycenaDrawer lazy — wyciąga Commerce.tsx (~40 kB) z critical path */
 const WycenaDrawer = lazy(() =>
@@ -15,11 +14,6 @@ const WycenaDrawer = lazy(() =>
 export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-[#080808]">
-      {/* ── LocalBusiness JSON-LD — globalny na każdej podstronie ── */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS_JSONLD) }}
-      />
       {/* ── Skip-link — Lighthouse accessibility ── */}
       <a
         href="#main"

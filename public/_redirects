@@ -1,2 +1,7 @@
+# Jeden kanoniczny wariant domeny. Reguły hosta muszą być przed SPA fallback.
+http://mediabud.pl/*      https://mediabud.pl/:splat  301
+http://www.mediabud.pl/*  https://mediabud.pl/:splat  301
+https://www.mediabud.pl/* https://mediabud.pl/:splat  301
+
 # Fallback dla Single Page Application
 /*    /index.html   200

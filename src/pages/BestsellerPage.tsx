@@ -79,9 +79,7 @@ export default function BestsellerPage() {
           "itemListElement": ORDERED_BESTSELLERS.map((p, i) => ({
             "@type": "ListItem", "position": i + 1, "url": `https://mediabud.pl/produkt/${p.slug}`, "name": p.name,
             "item": { "@type": "Product", "name": p.name, "sku": p.sku || undefined, "image": p.images?.[0] ? `https://mediabud.pl${p.images[0]}` : undefined,
-              "brand": { "@type": "Brand", "name": p.brand },
-              "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1", "ratingCount": 20 },
-              "offers": { "@type": "Offer", "availability": (p as any).inStock !== false ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", "priceCurrency": "PLN", "price": "0.00", "seller": { "@id": ORG_ID } } },
+              "brand": { "@type": "Brand", "name": p.brand } },
           })),
         },
       },

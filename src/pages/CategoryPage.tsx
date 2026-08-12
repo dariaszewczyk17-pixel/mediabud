@@ -37,6 +37,158 @@ import {
   type TopProduct,
 } from "@/data/categorySeoData";
 import { blogPosts } from "@/data/blog";
+type LocalCategorySeo = {
+  title: string;
+  description: string;
+  h1: string;
+  intro: string;
+  related: { label: string; href: string }[];
+};
+
+// Priorytetowe landingi lokalne wybrane na podstawie wyświetleń w Search Console.
+const LOCAL_CATEGORY_SEO: Record<string, LocalCategorySeo> = {
+  "sucha-zabudowa": {
+    "title": "Sucha Zabudowa Lublin – Płyty GK i Profile | Media Bud",
+    "description": "Sucha zabudowa w Lublinie: płyty gipsowo-kartonowe, profile, wkręty, masy i akcesoria. Odbiór w Media Bud lub dostawa materiałów na budowę.",
+    "h1": "Sucha zabudowa Lublin – płyty GK, profile i akcesoria",
+    "intro": "Kompletujemy systemy suchej zabudowy dla mieszkań, domów i inwestycji w Lublinie: od płyt GK i profili po wełnę, wkręty oraz masy do spoinowania. Pomożemy dobrać rozwiązanie do ścian, sufitów, pomieszczeń wilgotnych i wymagań ogniowych, a większe zamówienie dostarczymy bezpośrednio na budowę.",
+    "related": [
+      {
+        "label": "Sufity podwieszane",
+        "href": "/kategoria/sufity-podwieszane"
+      },
+      {
+        "label": "Płyty gipsowo-kartonowe",
+        "href": "/kategoria/plyty-gipsowo-kartonowe"
+      },
+      {
+        "label": "Wełna mineralna",
+        "href": "/kategoria/welny"
+      }
+    ]
+  },
+  "sufity-podwieszane": {
+    "title": "Sufity Podwieszane Lublin – Płyty i Systemy | Media Bud",
+    "description": "Materiały do sufitów podwieszanych w Lublinie: płyty sufitowe, profile, wieszaki i akcesoria montażowe. Fachowy dobór oraz dostawa na budowę.",
+    "h1": "Sufity podwieszane Lublin – płyty, profile i systemy",
+    "intro": "W Media Bud w Lublinie dobierzesz kompletny sufit podwieszany do domu, biura, szkoły lub obiektu usługowego. Oferujemy płyty mineralne i gipsowo-kartonowe, profile, wieszaki, łączniki oraz akcesoria. Doradzimy w zakresie akustyki, odporności ogniowej i dostępu do instalacji.",
+    "related": [
+      {
+        "label": "Płyty sufitowe",
+        "href": "/kategoria/plyty-sufitowe"
+      },
+      {
+        "label": "Profile do sufitów",
+        "href": "/kategoria/profile-do-sufitow-podwieszanych"
+      },
+      {
+        "label": "Sucha zabudowa",
+        "href": "/kategoria/sucha-zabudowa"
+      }
+    ]
+  },
+  "styropiany": {
+    "title": "Styropian Lublin – Elewacyjny, Podłogowy i Fundamentowy",
+    "description": "Styropian w Lublinie do elewacji, podłóg i fundamentów. Porównaj parametry i dobierz kompletny system ocieplenia z doradztwem Media Bud i dostawą.",
+    "h1": "Styropian Lublin – elewacyjny, podłogowy i fundamentowy",
+    "intro": "Dobieramy styropian biały i grafitowy według współczynnika lambda, wytrzymałości oraz miejsca zastosowania. W składzie Media Bud w Lublinie zamówisz płyty fasadowe, podłogowe, dachowe i fundamentowe wraz z klejem, siatką, gruntem i tynkiem. Obliczymy ilość materiału i zorganizujemy dostawę.",
+    "related": [
+      {
+        "label": "Styropian fasadowy EPS",
+        "href": "/kategoria/styropiany-fasadowe-eps"
+      },
+      {
+        "label": "Kleje do styropianu",
+        "href": "/kategoria/kleje-do-styropianu-i-styroduru"
+      },
+      {
+        "label": "Akcesoria do izolacji",
+        "href": "/kategoria/akcesoria-do-izolacji"
+      }
+    ]
+  },
+  "zaprawy": {
+    "title": "Zaprawy Budowlane Lublin – Murarskie i Specjalistyczne",
+    "description": "Zaprawy budowlane w Lublinie: murarskie, tynkarskie, naprawcze i specjalistyczne. Oferta renomowanych producentów, doradztwo i dostawa Media Bud.",
+    "h1": "Zaprawy budowlane Lublin – murarskie i specjalistyczne",
+    "intro": "Oferujemy zaprawy do murowania, tynkowania, napraw betonu i zastosowań specjalistycznych. Zespół Media Bud w Lublinie pomoże dopasować produkt do podłoża, wymaganej wytrzymałości i warunków aplikacji. Przy większym zamówieniu przygotujemy indywidualną wycenę i dostawę na inwestycję.",
+    "related": [
+      {
+        "label": "Zaprawy murarskie",
+        "href": "/kategoria/zaprawy-murarskie-ogolnego-zastosowania"
+      },
+      {
+        "label": "Zaprawy naprawcze",
+        "href": "/kategoria/zaprawy-naprawcze"
+      },
+      {
+        "label": "Chemia budowlana",
+        "href": "/kategoria/chemia-budowlana"
+      }
+    ]
+  },
+  "farby-elewacyjne": {
+    "title": "Farby Elewacyjne Lublin – Silikonowe i Silikatowe",
+    "description": "Farby elewacyjne w Lublinie: silikonowe, silikatowe, akrylowe i gruntujące. Dobór systemu, kolorów oraz dostawa na budowę z Media Bud.",
+    "h1": "Farby elewacyjne Lublin – trwałe systemy fasadowe",
+    "intro": "W Media Bud w Lublinie znajdziesz farby elewacyjne silikonowe, silikatowe i akrylowe renomowanych producentów. Dobierzemy farbę do rodzaju tynku, oczekiwanej paroprzepuszczalności oraz ekspozycji elewacji, a także grunt i pozostałe elementy jednego kompatybilnego systemu.",
+    "related": [
+      {
+        "label": "Farby silikonowe",
+        "href": "/kategoria/farby-elewacyjne-silikonowe"
+      },
+      {
+        "label": "Tynki elewacyjne",
+        "href": "/kategoria/tynki-elewacyjne"
+      },
+      {
+        "label": "Grunty",
+        "href": "/kategoria/grunty"
+      }
+    ]
+  },
+  "pokrycia-dachowe": {
+    "title": "Pokrycia Dachowe Lublin – Dachówki i Akcesoria",
+    "description": "Pokrycia dachowe w Lublinie: dachówki, membrany, obróbki i akcesoria. Zapytaj Media Bud o dostępność, wycenę i dostawę kompletnego systemu.",
+    "h1": "Pokrycia dachowe Lublin – dachówki, membrany i akcesoria",
+    "intro": "Kompletujemy materiały dachowe dla budów i remontów w Lublinie oraz województwie lubelskim. Oferujemy dachówki, pokrycia z blachy, membrany, obróbki, elementy wentylacyjne i mocowania. Na podstawie projektu przygotujemy zestawienie materiałów, wycenę i dostawę.",
+    "related": [
+      {
+        "label": "Dachówki ceramiczne",
+        "href": "/kategoria/dachowki-ceramiczne"
+      },
+      {
+        "label": "Membrany dachowe",
+        "href": "/kategoria/membrany-dachowe"
+      },
+      {
+        "label": "Systemy rynnowe",
+        "href": "/kategoria/rynny"
+      }
+    ]
+  },
+  "materialy-konstrukcyjne": {
+    "title": "Materiały Konstrukcyjne Lublin – Pustaki i Bloczki",
+    "description": "Materiały konstrukcyjne w Lublinie: pustaki ceramiczne, bloczki, nadproża i zaprawy. Wycena zamówienia oraz dostawa na budowę z Media Bud.",
+    "h1": "Materiały konstrukcyjne Lublin – pustaki, bloczki i nadproża",
+    "intro": "Zaopatrujemy budowy w Lublinie w pustaki ceramiczne, beton komórkowy, bloczki fundamentowe, silikaty, nadproża i odpowiednie zaprawy. Pomożemy przeliczyć ilości na podstawie projektu i skompletujemy materiały jednego systemu z dostawą na plac budowy.",
+    "related": [
+      {
+        "label": "Pustaki ceramiczne",
+        "href": "/kategoria/pustaki-ceramiczne"
+      },
+      {
+        "label": "Bloczki fundamentowe",
+        "href": "/kategoria/bloczki-betonowe-i-fundamentowe"
+      },
+      {
+        "label": "Zaprawy murarskie",
+        "href": "/kategoria/zaprawy-murarskie-ogolnego-zastosowania"
+      }
+    ]
+  }
+};
+
 
 // Mapowanie slug kategorii → tagi bloga (internal linking)
 const CATEGORY_BLOG_TAG_MAP: Record<string, string[]> = {
@@ -1024,15 +1176,18 @@ export default function CategoryPage() {
 
   const activeFilterCount = [selectedBrand, selectedUnit, selectedTag, selectedSubcat].filter(Boolean).length + selectedSpecs.length;
 
+  const localSeo = slug ? LOCAL_CATEGORY_SEO[slug] : undefined;
+
   /* ── SEO meta tagi ── */
   useSEO({
-    title: cat
+    title: localSeo?.title ?? (cat
       ? `${cat.name} Lublin – Ceny, Dostawa 24h | Media Bud Skład Budowlany`
-      : "Kategoria | Media Bud",
-    description: cat
+      : "Kategoria | Media Bud"),
+    description: localSeo?.description ?? (cat
       ? `Kup ${cat.name.toLowerCase()} w Lublinie. ${cat.description ? cat.description.slice(0, 100) + '...' : ''} Dostawa na plac budowy, doradztwo techniczne gratis. Media Bud – ul. Chemiczna 8d Lublin.`
-      : undefined,
-    canonical: slug ? `/kategoria/${slug}` : undefined,
+      : undefined),
+    canonical: slug ? location.pathname.replace(/\/$/, "") : undefined,
+    noIndex: !cat || searchParams.toString().length > 0,
   });
 
   if (!cat) {
@@ -1364,10 +1519,21 @@ export default function CategoryPage() {
                 <span className="h-px flex-1 max-w-16" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.6), transparent)" }} />
               </div>
               <h1 className="font-display text-3xl md:text-4xl font-black leading-tight tracking-tight text-white mb-3">
-                {cat.metaTitle ? cat.metaTitle.split("|")[0].trim() : cat.name}
+                {localSeo?.h1 ?? (cat.metaTitle ? cat.metaTitle.split("|")[0].trim() : cat.name)}
               </h1>
-              {cat.description && (
-                <p className="text-gray-400 max-w-2xl text-sm leading-relaxed">{cat.description}</p>
+              {(localSeo?.intro || cat.description) && (
+                <p className="text-gray-300 max-w-3xl text-sm leading-relaxed">{localSeo?.intro ?? cat.description}</p>
+              )}
+              {localSeo && (
+                <nav aria-label="Powiązane kategorie" className="flex flex-wrap gap-2 mt-5">
+                  {localSeo.related.map(item => (
+                    <Link key={item.href} to={item.href}
+                      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-300 transition-colors hover:text-white"
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                      {item.label}<ChevronNext className="w-3 h-3 text-[#f81828]" />
+                    </Link>
+                  ))}
+                </nav>
               )}
             </div>
             {/* Animated product counter */}
@@ -1510,7 +1676,7 @@ export default function CategoryPage() {
                   {availableBrands.slice(0, 18).map(brand => (
                     <Link
                       key={brand}
-                      to={`/szukaj?brand=${encodeURIComponent(brand)}`}
+                      to={`/marki/${slugifyBrand(brand)}`}
                       className="text-[10px] font-semibold px-2 py-1 rounded-md transition-all text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/08"
                       style={{ border: "1px solid rgba(255,255,255,0.08)" }}
                     >

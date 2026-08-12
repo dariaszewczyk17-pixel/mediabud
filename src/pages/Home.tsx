@@ -369,27 +369,13 @@ export default function Home() {
 
   /* ── SEO meta tagi ── */
   useSEO({
-    title: "Skład Budowlany Lublin – Materiały Budowlane, Dostawa 24h | Media Bud",
-    description: "Media Bud – profesjonalny skład budowlany w Lublinie (ul. Chemiczna 8d). Ponad 15 000 materiałów: tynki, styropian, wełna, chemia budowlana, dachy. Dostawa na teren woj. lubelskiego. Bezpłatna wycena.",
+    title: "Skład Budowlany Lublin – Materiały z Dostawą | Media Bud",
+    description: "Skład budowlany Media Bud w Lublinie. Ponad 15 000 materiałów: styropian, tynki, zaprawy, sucha zabudowa, dachy i chemia budowlana. Dostawa na budowę i fachowe doradztwo.",
     canonical: "/",
   });
 
   return (
     <>
-      {/* Schema.org JSON-LD */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Media Bud – Skład Budowlany",
-        "description": "Profesjonalna hurtownia materiałów budowlanych w Lublinie",
-        "telephone": "+48533553344",
-        "email": "sprzedaz@mediabud.pl",
-        "address": { "@type": "PostalAddress", "streetAddress": "ul. Chemiczna 8d", "addressLocality": "Lublin", "postalCode": "20-329", "addressCountry": "PL" },
-        "url": "https://mediabud.pl",
-        "openingHours": ["Mo-Fr 07:00-16:00"],
-        "priceRange": "$$",
-        "areaServed": "Lublin, województwo lubelskie"
-      })}} />
 
       {/* ═══════════════════════════════════════════════════════
           HERO — INDUSTRIAL PREMIUM / EDITORIAL LUXURY
@@ -543,17 +529,17 @@ export default function Home() {
                 <div className="premium-fade-soft mb-6 text-[11px] font-black uppercase tracking-[0.34em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>Materiały budowlane najwyższej jakości · Lublin</div>
                 <h1 className="text-white mb-7" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.045em", fontSize: "clamp(2rem, 6.6vw, 6.8rem)" }}>
                   <span className="block overflow-hidden">
-                    <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Budujesz.</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Skład budowlany</span>
                   </span>
                   <span className="block overflow-hidden mt-1">
-                    <span className="premium-editorial-word" style={{ animationDelay: "260ms" }}>Remontujesz.</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "260ms" }}>w Lublinie.</span>
                   </span>
                   <span className="block overflow-hidden mt-1">
                     <span className="premium-editorial-word" style={{ animationDelay: "340ms", background: "linear-gradient(135deg,#ffffff 0%, #ffd7db 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Wszystko</span>
-                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "420ms" }}>w jednym</span>
+                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "420ms" }}>do budowy</span>
                   </span>
                   <span className="block overflow-hidden mt-1">
-                    <span className="premium-editorial-word" style={{ animationDelay: "500ms" }}>miejscu.</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "500ms" }}>i remontu.</span>
                   </span>
                 </h1>
                 <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.78)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1.02rem, 1.36vw, 1.18rem)", lineHeight: 1.92 }}>
@@ -628,6 +614,55 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Lokalny landing strony głównej — główny URL dla fraz składu budowlanego w Lublinie */}
+      <section className="py-14 md:py-20" style={{ background: "#090909", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-start">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#f81828] mb-3">Media Bud · ul. Chemiczna 8d</p>
+              <h2 className="font-display text-3xl md:text-5xl font-black text-white leading-tight mb-6">
+                Skład materiałów budowlanych w Lublinie dla domu i inwestycji
+              </h2>
+              <div className="space-y-4 text-gray-400 leading-relaxed">
+                <p>
+                  Media Bud to lokalny <strong className="text-white">skład i hurtownia budowlana w Lublinie</strong>, w której zaopatrzysz budowę od fundamentów po dach i wykończenie. Obsługujemy klientów indywidualnych, wykonawców, deweloperów oraz firmy realizujące większe inwestycje.
+                </p>
+                <p>
+                  Na miejscu otrzymasz pomoc w doborze kompatybilnych materiałów, obliczeniu potrzebnej ilości i przygotowaniu wyceny. Zamówienie możesz odebrać przy ul. Chemicznej 8d albo skorzystać z dostawy bezpośrednio na budowę w Lublinie i województwie lubelskim.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-7">
+                <a href="tel:+48533553344" className="inline-flex items-center gap-2 rounded-full bg-[#f81828] px-5 py-3 text-sm font-black text-white hover:bg-[#d71020] transition-colors">
+                  <Phone className="w-4 h-4" /> Zadzwoń: 533 553 344
+                </a>
+                <Link to="/kontakt" className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white transition-colors hover:border-[#f81828]" style={{ border: "1px solid rgba(255,255,255,0.18)" }}>
+                  Dojazd i kontakt <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+
+            <nav aria-label="Najważniejsze kategorie materiałów budowlanych" className="grid sm:grid-cols-2 gap-3">
+              {[
+                ["Styropian i ocieplenia", "/kategoria/styropiany"],
+                ["Sucha zabudowa", "/kategoria/sucha-zabudowa"],
+                ["Sufity podwieszane", "/kategoria/sufity-podwieszane"],
+                ["Zaprawy budowlane", "/kategoria/zaprawy"],
+                ["Farby elewacyjne", "/kategoria/farby-elewacyjne"],
+                ["Pokrycia dachowe", "/kategoria/pokrycia-dachowe"],
+                ["Materiały konstrukcyjne", "/kategoria/materialy-konstrukcyjne"],
+                ["Wszystkie kategorie", "/kategoria"],
+              ].map(([label, href]) => (
+                <Link key={href} to={href} className="group flex min-h-20 items-center justify-between gap-3 rounded-xl p-4 text-sm font-bold text-gray-200 transition-all hover:-translate-y-0.5 hover:text-white" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <span>{label}</span>
+                  <ChevronRight className="w-4 h-4 shrink-0 text-[#f81828] transition-transform group-hover:translate-x-1" />
+                </Link>
+              ))}
+            </nav>
           </div>
         </div>
       </section>
@@ -1019,7 +1054,7 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Bestsellery budowlane 2025 – Media Bud Lublin",
+            "name": "Bestsellery materiałów budowlanych – Media Bud Lublin",
             "description": "Najchętniej wybierane materiały budowlane w Lublinie: izolacje, kleje, tynki, farby, cement.",
             "url": "https://mediabud.pl/#bestsellery",
             "numberOfItems": BESTSELLER_SLUGS.length,
@@ -1028,21 +1063,14 @@ export default function Home() {
               return {
                 "@type": "ListItem",
                 "position": idx + 1,
-                "url": `https://mediabud.pl/produkty/${slug}`,
+                "url": `https://mediabud.pl/produkt/${slug}`,
                 ...(p ? {
                   "name": p.name,
                   "item": {
                     "@type": "Product",
                     "name": p.name,
-                    "url": `https://mediabud.pl/produkty/${slug}`,
+                    "url": `https://mediabud.pl/produkt/${slug}`,
                     "brand": { "@type": "Brand", "name": p.brand },
-                    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1", "ratingCount": 20 },
-                    "offers": {
-                      "@type": "Offer",
-                      "availability": "https://schema.org/InStock",
-                      "priceCurrency": "PLN",
-                      "price": "0.00",
-                    },
                   },
                 } : {}),
               };

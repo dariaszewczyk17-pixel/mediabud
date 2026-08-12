@@ -19,6 +19,7 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import { HeroSpecs } from "@/components/HeroSpecs";
 import { StickyCTA } from "@/components/StickyCTA";
 import { toast } from "sonner";
+import { slugifyBrand } from "@/data/brands";
 
 /* ---------- tiny reveal hook ---------- */
 function useReveal() {
@@ -37,6 +38,28 @@ function useReveal() {
 }
 
 type Tab = "opis" | "specyfikacja" | "zastosowanie" | "zalety" | "faq";
+
+
+// Strony z wyświetleniami w GSC i niewykorzystanym potencjałem CTR.
+// Nadpisania są niezależne od źródła produktu (Sanity / dane statyczne).
+const PRODUCT_SEO_OVERRIDES: Record<string, { title: string; description: string }> = {
+  "farba-lateksowa-dulux-kolory-swiata-do-scian-i-sufitow-mglisty-las-mat-25-l": {
+    title: "Dulux Mglisty Las 2,5 l – Farba Lateksowa | Media Bud",
+    description: "Dulux Kolory Świata Mglisty Las 2,5 l – matowa farba lateksowa do ścian i sufitów. Zapytaj Media Bud Lublin o dostępność i odbiór.",
+  },
+  "folia-budowlana-armat-matfol-fb-500-c-6-x-25-m": {
+    title: "Folia Budowlana Matfol FB 500, 6 × 25 m | Media Bud",
+    description: "Folia budowlana Armat Matfol FB 500 C, rolka 6 × 25 m. Sprawdź zastosowanie i zapytaj o dostępność w składzie Media Bud w Lublinie.",
+  },
+  "folia-budowlana-armat-matfol-fb-300-c-6-x-25-m": {
+    title: "Folia Budowlana Matfol FB 300, 6 × 25 m | Media Bud",
+    description: "Folia budowlana Armat Matfol FB 300 C, rolka 6 × 25 m. Dane techniczne, doradztwo oraz odbiór lub dostawa z Media Bud Lublin.",
+  },
+  "folia-paroizolacyjna-armat-matfol-pi-200-b-2-x-50-m-100-m2": {
+    title: "Folia Paroizolacyjna Matfol PI 200, 100 m² | Media Bud",
+    description: "Folia paroizolacyjna Armat Matfol PI 200 B, 2 × 50 m, 100 m². Zapytaj o dostępność, fachowy dobór i dostawę z Media Bud Lublin.",
+  },
+};
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -115,14 +138,17 @@ export default function ProductDetail() {
   const tabsReveal = useReveal();
   const relReveal  = useReveal();
 
+  const seoOverride = slug ? PRODUCT_SEO_OVERRIDES[slug] : undefined;
+
   useSEO({
-    title: product
-      ? `${product.name}${product.brand ? ` – ${product.brand}` : ""} | Media Bud`
-      : "Produkt | Media Bud",
-    description: product
-      ? (product.shortDescription || product.description || "").slice(0, 160)
-      : undefined,
+    title: seoOverride?.title ?? (product
+      ? (product.metaTitle || `${product.name}${product.brand ? ` – ${product.brand}` : ""} | Media Bud`)
+      : "Produkt | Media Bud"),
+    description: seoOverride?.description ?? (product
+      ? (product.metaDesc || product.shortDescription || product.description || "").slice(0, 160)
+      : undefined),
     canonical: slug ? `/produkt/${slug}` : undefined,
+    noIndex: !product && !productLoading,
     ogType: "product",
     ogImage: product?.images?.[0] ?? undefined,
   });
@@ -228,22 +254,9 @@ export default function ProductDetail() {
         ...(similarProducts.length > 0 && {
           "isSimilarTo": similarProducts.map(s => ({ "@type": "Product", "url": `https://mediabud.pl/produkt/${s.slug}`, "name": s.name }))
         }),
-        // aggregateRating — ocena produktu oparta na popularności marki i kategorii
-        // Wymagane przez Google dla pełnej zgodności Product schema
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": Math.min(5, Math.max(3.5, 3.5 + ((product.popularity || 50) / 100) * 1.5)).toFixed(1),
-          "bestRating": "5",
-          "worstRating": "1",
-          "ratingCount": Math.max(10, Math.floor((product.popularity || 50) / 2) + 5),
-        },
-        "offers": {
-          "@type": "Offer", "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition", "priceCurrency": "PLN", "price": "0.00",
-          "url": `https://mediabud.pl/produkt/${slug}`,
-          "areaServed": { "@type": "AdministrativeArea", "name": "Lublin i województwo lubelskie" },
-          "seller": { "@type": "Organization", "@id": "https://mediabud.pl/#organization", "name": "Media Bud" },
-        },
+        // Nie publikujemy AggregateRating ani Offer bez prawdziwych opinii,
+        // aktualnej ceny i potwierdzonej dostępności. Dane można dodać ponownie,
+        // gdy katalog otrzyma wiarygodne pola biznesowe.
       })}} />
 
       {breadcrumbs.length > 0 && (
@@ -386,7 +399,7 @@ export default function ProductDetail() {
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-4 flex-wrap">
               <Link
-                to={`/szukaj?brand=${encodeURIComponent(product.brand)}`}
+                to={`/marki/${slugifyBrand(product.brand)}`}
                 className="text-xs font-black px-3 py-1 rounded-full transition-all"
                 style={{ background: "rgba(248,24,40,0.12)", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.35)" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}

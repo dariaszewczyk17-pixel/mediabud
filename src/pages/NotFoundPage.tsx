@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Home, Layers, Phone, ArrowRight, Construction } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { slugifyBrand } from "@/data/brands";
 
 const POPULAR_CATEGORIES = [
   { name: "Chemia budowlana", slug: "chemia-budowlana" },
@@ -99,7 +100,7 @@ export default function NotFoundPage() {
           <p className="text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-3">Popularne marki</p>
           <div className="flex flex-wrap justify-center gap-2">
             {POPULAR_BRANDS.map(b => (
-              <Link key={b} to={`/szukaj?brand=${encodeURIComponent(b)}`}
+              <Link key={b} to={`/marki/${slugifyBrand(b)}`}
                 className="text-xs font-bold text-[#f81828] bg-[#f81828]/8 hover:bg-[#f81828] hover:text-white border border-[#f81828]/20 hover:border-[#f81828] px-3 py-1.5 rounded-full transition-all">
                 {b}
               </Link>

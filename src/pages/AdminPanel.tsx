@@ -1892,7 +1892,7 @@ export default function AdminPanel() {
                 <Card className="p-6">
                   <p className="text-xs font-black uppercase tracking-wider text-[#f81828] mb-4">Kontakt i godziny</p>
                   <div className="space-y-3">
-                    {[["Telefon","+48 533 553 344"],["E-mail","sprzedaz@mediabud.pl"],["Pon–Pt","7:00–16:00"],["Sobota","7:00–13:00"],].map(([label,val])=>(
+                    {[["Telefon","+48 533 553 344"],["E-mail","sprzedaz@mediabud.pl"],["Pon–Pt","7:00–16:00"],["Sobota","Zamknięte"],].map(([label,val])=>(
                       <div key={label}>
                         <label className="text-[10px] font-black uppercase tracking-wider text-gray-600 mb-1 block">{label}</label>
                         <input defaultValue={val} className="w-full px-3 py-2 rounded-lg text-xs text-white outline-none" style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)"}}/>

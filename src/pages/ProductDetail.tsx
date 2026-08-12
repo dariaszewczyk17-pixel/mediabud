@@ -228,22 +228,9 @@ export default function ProductDetail() {
         ...(similarProducts.length > 0 && {
           "isSimilarTo": similarProducts.map(s => ({ "@type": "Product", "url": `https://mediabud.pl/produkt/${s.slug}`, "name": s.name }))
         }),
-        // aggregateRating — ocena produktu oparta na popularności marki i kategorii
-        // Wymagane przez Google dla pełnej zgodności Product schema
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": Math.min(5, Math.max(3.5, 3.5 + ((product.popularity || 50) / 100) * 1.5)).toFixed(1),
-          "bestRating": "5",
-          "worstRating": "1",
-          "ratingCount": Math.max(10, Math.floor((product.popularity || 50) / 2) + 5),
-        },
-        "offers": {
-          "@type": "Offer", "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition", "priceCurrency": "PLN", "price": "0.00",
-          "url": `https://mediabud.pl/produkt/${slug}`,
-          "areaServed": { "@type": "AdministrativeArea", "name": "Lublin i województwo lubelskie" },
-          "seller": { "@type": "Organization", "@id": "https://mediabud.pl/#organization", "name": "Media Bud" },
-        },
+        // Nie publikujemy AggregateRating ani Offer bez prawdziwych opinii,
+        // aktualnej ceny i potwierdzonej dostępności. Dane można dodać ponownie,
+        // gdy katalog otrzyma wiarygodne pola biznesowe.
       })}} />
 
       {breadcrumbs.length > 0 && (

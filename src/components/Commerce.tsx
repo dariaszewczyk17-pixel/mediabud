@@ -12,6 +12,7 @@ import { useWycena } from "@/hooks/useWycena";
 import { trackFormSubmit, trackPhoneClick } from "@/hooks/useConversionTracking";
 import type { Product } from "@/data/products";
 import { toast } from "sonner";
+import { CONTACT_FILE_ACCEPT, prepareContactAttachments } from "@/lib/contactAttachments";
 
 
 const PRODUCT_PLACEHOLDER = "/images/placeholder-product_2.png";
@@ -354,6 +355,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
     if (!agreed) return;
     setSending(true);
     try {
+      const attachments = await prepareContactAttachments(form.file ? [form.file] : []);
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -363,6 +365,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
           phone: form.phone,
           subject: `Zapytanie o ofertę${productName ? `: ${productName}` : ""} – mediabud.pl`,
           message: `Produkt: ${productName || "—"}\nIlość/zakres: ${form.quantity || "—"}\n\n${form.message}`,
+          attachments,
         }),
       });
       if (res.ok) {
@@ -371,8 +374,8 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
       } else {
         toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
       }
-    } catch {
-      toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Nie udało się wysłać. Zadzwoń: +48 533 553 344");
     } finally {
       setSending(false);
     }
@@ -502,7 +505,7 @@ export function QuoteModal({ open, onClose, productName }: QuoteModalProps) {
                   onMouseLeave={e => { (e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(255,255,255,0.15)"; }}>
                   <span className="text-[#f81828]">📎</span>
                   <span className="text-gray-500">{form.file ? form.file.name : "Dodaj plik (PDF, JPG, PNG, DOCX — max 5 MB)"}</span>
-                  <input type="file" className="hidden" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                  <input type="file" className="hidden" accept={CONTACT_FILE_ACCEPT}
                     onChange={e => setForm(f => ({...f, file: e.target.files?.[0] ?? null}))} />
                 </label>
                 {form.file && (
@@ -577,6 +580,7 @@ export function WycenaDrawer() {
     fulfillment: "Odbiór osobisty",
     address: "",
     preferredContact: "Telefon",
+    file: null as File | null,
   });
   const [sent, setSent]         = useState(false);
   const [sending, setSending]   = useState(false);
@@ -590,6 +594,7 @@ export function WycenaDrawer() {
     setSending(true);
     try {
       const generatedRequestId = `MB-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+      const attachments = await prepareContactAttachments(form.file ? [form.file] : []);
       const productList = items
         .map(i => `• ${i.product.name} (${i.product.brand}) × ${i.quantity}${i.note ? ` — ${i.note}` : ""}`)
         .join("\n");
@@ -602,6 +607,7 @@ export function WycenaDrawer() {
           phone: form.phone,
           subject: `[${generatedRequestId}] Zapytanie o wycenę (${items.length} produktów)`,
           message: `Numer zapytania: ${generatedRequestId}\nTyp klienta: ${form.customerType}\nRealizacja: ${form.fulfillment}${form.fulfillment === "Dostawa na budowę" ? `\nAdres dostawy: ${form.address}` : ""}\nPreferowany kontakt: ${form.preferredContact}\n\nProdukty:\n${productList}\n\nDodatkowe informacje:\n${form.message || "—"}`,
+          attachments,
         }),
       });
       if (res.ok) {
@@ -612,8 +618,8 @@ export function WycenaDrawer() {
       } else {
         toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
       }
-    } catch {
-      toast.error("Nie udało się wysłać. Zadzwoń: +48 533 553 344");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Nie udało się wysłać. Zadzwoń: +48 533 553 344");
     } finally {
       setSending(false);
     }
@@ -789,10 +795,20 @@ export function WycenaDrawer() {
                       className="text-sm text-gray-200 placeholder:text-gray-600 resize-none focus-visible:ring-0 focus-visible:border-[#f81828] mt-1"
                       style={drawerInput} />
                   </div>
-                  <p className="text-[10px] leading-relaxed text-gray-600">
-                    Projekt lub zestawienie materiałów możesz dosłać po wysłaniu zapytania na
-                    {" "}<a href="mailto:sprzedaz@mediabud.pl" className="text-gray-400 hover:text-white">sprzedaz@mediabud.pl</a>, podając numer zapytania.
-                  </p>
+                  <div>
+                    <Label className="text-[10px] text-gray-500 mb-1 block">Projekt lub zestawienie <span className="text-gray-700 font-normal">(opcjonalnie)</span></Label>
+                    <label className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-xs"
+                      style={{ background: "rgba(255,255,255,0.04)", border: "1px dashed rgba(255,255,255,0.15)" }}>
+                      <span className="text-[#f81828]">📎</span>
+                      <span className="text-gray-500 truncate">{form.file ? form.file.name : "PDF, zdjęcie lub dokument — maks. 5 MB"}</span>
+                      <input type="file" className="hidden" accept={CONTACT_FILE_ACCEPT}
+                        onChange={e => setForm(f => ({ ...f, file: e.target.files?.[0] ?? null }))} />
+                    </label>
+                    {form.file && (
+                      <button type="button" onClick={() => setForm(f => ({ ...f, file: null }))}
+                        className="text-[10px] text-gray-600 hover:text-red-400 mt-1">✕ usuń załącznik</button>
+                    )}
+                  </div>
                   <div className="flex items-start gap-2.5">
                     <Checkbox id="rodo2" checked={agreed} onCheckedChange={v => setAgreed(!!v)} className="mt-0.5" />
                     <Label htmlFor="rodo2" className="text-[10px] text-gray-500 leading-relaxed cursor-pointer">

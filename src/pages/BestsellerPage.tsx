@@ -167,7 +167,7 @@ export default function BestsellerPage() {
                 izolacje termiczne, chemia budowlana, tynki, farby elewacyjne.
               </p>
               <p className="text-gray-600 text-xs font-mono">
-                ul. Chemiczna 8d, Lublin · pon–pt 7:00–16:00, sob 7:00–13:00 · tel. 533&nbsp;553&nbsp;344
+                ul. Chemiczna 8d, Lublin · pon–pt 7:00–16:00 · tel. 533&nbsp;553&nbsp;344
               </p>
             </div>
 

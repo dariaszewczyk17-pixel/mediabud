@@ -37,6 +37,98 @@ import {
   type TopProduct,
 } from "@/data/categorySeoData";
 import { blogPosts } from "@/data/blog";
+type LocalCategorySeo = {
+  title: string;
+  description: string;
+  h1: string;
+  intro: string;
+  related: { label: string; href: string }[];
+};
+
+// Priorytetowe landingi lokalne wybrane na podstawie wyświetleń w Search Console.
+const LOCAL_CATEGORY_SEO: Record<string, LocalCategorySeo> = {
+  "sucha-zabudowa": {
+    "title": "Sucha Zabudowa Lublin – Płyty GK i Profile | Media Bud",
+    "description": "Sucha zabudowa w Lublinie: płyty gipsowo-kartonowe, profile, wkręty, masy i akcesoria. Odbiór w Media Bud lub dostawa materiałów na budowę.",
+    "h1": "Sucha zabudowa Lublin – płyty GK, profile i akcesoria",
+    "intro": "Kompletujemy systemy suchej zabudowy dla mieszkań, domów i inwestycji w Lublinie: od płyt GK i profili po wełnę, wkręty oraz masy do spoinowania. Pomożemy dobrać rozwiązanie do ścian, sufitów, pomieszczeń wilgotnych i wymagań ogniowych, a większe zamówienie dostarczymy bezpośrednio na budowę.",
+    "related": [
+      {
+        "label": "Sufity podwieszane",
+        "href": "/kategoria/sufity-podwieszane"
+      },
+      {
+        "label": "Płyty gipsowo-kartonowe",
+        "href": "/kategoria/plyty-gipsowo-kartonowe"
+      },
+      {
+        "label": "Wełna mineralna",
+        "href": "/kategoria/welny"
+      }
+    ]
+  },
+  "sufity-podwieszane": {
+    "title": "Sufity Podwieszane Lublin – Płyty i Systemy | Media Bud",
+    "description": "Materiały do sufitów podwieszanych w Lublinie: płyty sufitowe, profile, wieszaki i akcesoria montażowe. Fachowy dobór oraz dostawa na budowę.",
+    "h1": "Sufity podwieszane Lublin – płyty, profile i systemy",
+    "intro": "W Media Bud w Lublinie dobierzesz kompletny sufit podwieszany do domu, biura, szkoły lub obiektu usługowego. Oferujemy płyty mineralne i gipsowo-kartonowe, profile, wieszaki, łączniki oraz akcesoria. Doradzimy w zakresie akustyki, odporności ogniowej i dostępu do instalacji.",
+    "related": [
+      {
+        "label": "Płyty sufitowe",
+        "href": "/kategoria/plyty-sufitowe"
+      },
+      {
+        "label": "Profile do sufitów",
+        "href": "/kategoria/profile-do-sufitow-podwieszanych"
+      },
+      {
+        "label": "Sucha zabudowa",
+        "href": "/kategoria/sucha-zabudowa"
+      }
+    ]
+  },
+  "styropiany": {
+    "title": "Styropian Lublin – Elewacyjny, Podłogowy i Fundamentowy",
+    "description": "Styropian w Lublinie do elewacji, podłóg i fundamentów. Porównaj parametry i dobierz kompletny system ocieplenia z doradztwem Media Bud i dostawą.",
+    "h1": "Styropian Lublin – elewacyjny, podłogowy i fundamentowy",
+    "intro": "Dobieramy styropian biały i grafitowy według współczynnika lambda, wytrzymałości oraz miejsca zastosowania. W składzie Media Bud w Lublinie zamówisz płyty fasadowe, podłogowe, dachowe i fundamentowe wraz z klejem, siatką, gruntem i tynkiem. Obliczymy ilość materiału i zorganizujemy dostawę.",
+    "related": [
+      {
+        "label": "Styropian fasadowy EPS",
+        "href": "/kategoria/styropiany-fasadowe-eps"
+      },
+      {
+        "label": "Kleje do styropianu",
+        "href": "/kategoria/kleje-do-styropianu-i-styroduru"
+      },
+      {
+        "label": "Akcesoria do izolacji",
+        "href": "/kategoria/akcesoria-do-izolacji"
+      }
+    ]
+  },
+  "zaprawy": {
+    "title": "Zaprawy Budowlane Lublin – Murarskie i Specjalistyczne",
+    "description": "Zaprawy budowlane w Lublinie: murarskie, tynkarskie, naprawcze i specjalistyczne. Oferta renomowanych producentów, doradztwo i dostawa Media Bud.",
+    "h1": "Zaprawy budowlane Lublin – murarskie i specjalistyczne",
+    "intro": "Oferujemy zaprawy do murowania, tynkowania, napraw betonu i zastosowań specjalistycznych. Zespół Media Bud w Lublinie pomoże dopasować produkt do podłoża, wymaganej wytrzymałości i warunków aplikacji. Przy większym zamówieniu przygotujemy indywidualną wycenę i dostawę na inwestycję.",
+    "related": [
+      {
+        "label": "Zaprawy murarskie",
+        "href": "/kategoria/zaprawy-murarskie-ogolnego-zastosowania"
+      },
+      {
+        "label": "Zaprawy naprawcze",
+        "href": "/kategoria/zaprawy-naprawcze"
+      },
+      {
+        "label": "Chemia budowlana",
+        "href": "/kategoria/chemia-budowlana"
+      }
+    ]
+  }
+};
+
 
 // Mapowanie slug kategorii → tagi bloga (internal linking)
 const CATEGORY_BLOG_TAG_MAP: Record<string, string[]> = {
@@ -1024,14 +1116,16 @@ export default function CategoryPage() {
 
   const activeFilterCount = [selectedBrand, selectedUnit, selectedTag, selectedSubcat].filter(Boolean).length + selectedSpecs.length;
 
+  const localSeo = slug ? LOCAL_CATEGORY_SEO[slug] : undefined;
+
   /* ── SEO meta tagi ── */
   useSEO({
-    title: cat
+    title: localSeo?.title ?? (cat
       ? `${cat.name} Lublin – Ceny, Dostawa 24h | Media Bud Skład Budowlany`
-      : "Kategoria | Media Bud",
-    description: cat
+      : "Kategoria | Media Bud"),
+    description: localSeo?.description ?? (cat
       ? `Kup ${cat.name.toLowerCase()} w Lublinie. ${cat.description ? cat.description.slice(0, 100) + '...' : ''} Dostawa na plac budowy, doradztwo techniczne gratis. Media Bud – ul. Chemiczna 8d Lublin.`
-      : undefined,
+      : undefined),
     canonical: slug ? `/kategoria/${slug}` : undefined,
   });
 
@@ -1364,10 +1458,21 @@ export default function CategoryPage() {
                 <span className="h-px flex-1 max-w-16" style={{ background: "linear-gradient(90deg, rgba(248,24,40,0.6), transparent)" }} />
               </div>
               <h1 className="font-display text-3xl md:text-4xl font-black leading-tight tracking-tight text-white mb-3">
-                {cat.metaTitle ? cat.metaTitle.split("|")[0].trim() : cat.name}
+                {localSeo?.h1 ?? (cat.metaTitle ? cat.metaTitle.split("|")[0].trim() : cat.name)}
               </h1>
-              {cat.description && (
-                <p className="text-gray-400 max-w-2xl text-sm leading-relaxed">{cat.description}</p>
+              {(localSeo?.intro || cat.description) && (
+                <p className="text-gray-300 max-w-3xl text-sm leading-relaxed">{localSeo?.intro ?? cat.description}</p>
+              )}
+              {localSeo && (
+                <nav aria-label="Powiązane kategorie" className="flex flex-wrap gap-2 mt-5">
+                  {localSeo.related.map(item => (
+                    <Link key={item.href} to={item.href}
+                      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-300 transition-colors hover:text-white"
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                      {item.label}<ChevronNext className="w-3 h-3 text-[#f81828]" />
+                    </Link>
+                  ))}
+                </nav>
               )}
             </div>
             {/* Animated product counter */}

@@ -369,27 +369,13 @@ export default function Home() {
 
   /* ── SEO meta tagi ── */
   useSEO({
-    title: "Skład Budowlany Lublin – Materiały Budowlane, Dostawa 24h | Media Bud",
-    description: "Media Bud – profesjonalny skład budowlany w Lublinie (ul. Chemiczna 8d). Ponad 15 000 materiałów: tynki, styropian, wełna, chemia budowlana, dachy. Dostawa na teren woj. lubelskiego. Bezpłatna wycena.",
+    title: "Skład Budowlany Lublin – Materiały z Dostawą | Media Bud",
+    description: "Skład budowlany Media Bud w Lublinie. Ponad 15 000 materiałów: styropian, tynki, zaprawy, sucha zabudowa, dachy i chemia budowlana. Dostawa na budowę i fachowe doradztwo.",
     canonical: "/",
   });
 
   return (
     <>
-      {/* Schema.org JSON-LD */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Media Bud – Skład Budowlany",
-        "description": "Profesjonalna hurtownia materiałów budowlanych w Lublinie",
-        "telephone": "+48533553344",
-        "email": "sprzedaz@mediabud.pl",
-        "address": { "@type": "PostalAddress", "streetAddress": "ul. Chemiczna 8d", "addressLocality": "Lublin", "postalCode": "20-329", "addressCountry": "PL" },
-        "url": "https://mediabud.pl",
-        "openingHours": ["Mo-Fr 07:00-16:00"],
-        "priceRange": "$$",
-        "areaServed": "Lublin, województwo lubelskie"
-      })}} />
 
       {/* ═══════════════════════════════════════════════════════
           HERO — INDUSTRIAL PREMIUM / EDITORIAL LUXURY
@@ -543,17 +529,17 @@ export default function Home() {
                 <div className="premium-fade-soft mb-6 text-[11px] font-black uppercase tracking-[0.34em] text-[#f3b0b5]" style={{ animationDelay: "120ms" }}>Materiały budowlane najwyższej jakości · Lublin</div>
                 <h1 className="text-white mb-7" style={{ fontFamily: "'Rajdhani','Barlow Condensed',Inter,sans-serif", fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.045em", fontSize: "clamp(2rem, 6.6vw, 6.8rem)" }}>
                   <span className="block overflow-hidden">
-                    <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Budujesz.</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "180ms" }}>Skład budowlany</span>
                   </span>
                   <span className="block overflow-hidden mt-1">
-                    <span className="premium-editorial-word" style={{ animationDelay: "260ms" }}>Remontujesz.</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "260ms" }}>w Lublinie.</span>
                   </span>
                   <span className="block overflow-hidden mt-1">
                     <span className="premium-editorial-word" style={{ animationDelay: "340ms", background: "linear-gradient(135deg,#ffffff 0%, #ffd7db 32%, #f81828 88%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Wszystko</span>
-                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "420ms" }}>w jednym</span>
+                    <span className="premium-editorial-word ml-[0.18em]" style={{ animationDelay: "420ms" }}>do budowy</span>
                   </span>
                   <span className="block overflow-hidden mt-1">
-                    <span className="premium-editorial-word" style={{ animationDelay: "500ms" }}>miejscu.</span>
+                    <span className="premium-editorial-word" style={{ animationDelay: "500ms" }}>i remontu.</span>
                   </span>
                 </h1>
                 <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.78)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1.02rem, 1.36vw, 1.18rem)", lineHeight: 1.92 }}>

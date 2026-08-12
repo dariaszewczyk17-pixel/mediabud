@@ -571,9 +571,16 @@ export function WycenaDrawer() {
   const { items, isOpen, closeDrawer, removeItem, updateQty, updateNote, clearWycena } = useWycena();
   const [sendOpen, setSendOpen] = useState(false);
   const [agreed, setAgreed]     = useState(false);
-  const [form, setForm]         = useState({ name: "", email: "", phone: "", message: "", file: null as File | null });
+  const [form, setForm]         = useState({
+    name: "", email: "", phone: "", message: "",
+    customerType: "Klient indywidualny",
+    fulfillment: "Odbiór osobisty",
+    address: "",
+    preferredContact: "Telefon",
+  });
   const [sent, setSent]         = useState(false);
   const [sending, setSending]   = useState(false);
+  const [requestId, setRequestId] = useState("");
 
   if (!isOpen) return null;
 
@@ -582,6 +589,7 @@ export function WycenaDrawer() {
     if (!agreed) return;
     setSending(true);
     try {
+      const generatedRequestId = `MB-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
       const productList = items
         .map(i => `• ${i.product.name} (${i.product.brand}) × ${i.quantity}${i.note ? ` — ${i.note}` : ""}`)
         .join("\n");
@@ -592,11 +600,12 @@ export function WycenaDrawer() {
           name: form.name,
           email: form.email,
           phone: form.phone,
-          subject: `Zapytanie o wycenę (${items.length} produktów) – mediabud.pl`,
-          message: `Zapytanie o wycenę:\n\n${productList}\n\nDodatkowe informacje:\n${form.message || "—"}`,
+          subject: `[${generatedRequestId}] Zapytanie o wycenę (${items.length} produktów)`,
+          message: `Numer zapytania: ${generatedRequestId}\nTyp klienta: ${form.customerType}\nRealizacja: ${form.fulfillment}${form.fulfillment === "Dostawa na budowę" ? `\nAdres dostawy: ${form.address}` : ""}\nPreferowany kontakt: ${form.preferredContact}\n\nProdukty:\n${productList}\n\nDodatkowe informacje:\n${form.message || "—"}`,
         }),
       });
       if (res.ok) {
+        setRequestId(generatedRequestId);
         setSent(true);
         trackFormSubmit();
         clearWycena();
@@ -623,7 +632,7 @@ export function WycenaDrawer() {
         style={{ animation: "fadeIn 0.2s ease" }} />
 
       {/* Panel */}
-      <div className="absolute right-0 top-0 h-full w-full max-w-md flex flex-col"
+      <div className="absolute right-0 top-0 h-full w-full max-w-xl flex flex-col"
         style={{ background: "#0d0d0d", borderLeft: "1px solid rgba(255,255,255,0.08)", animation: "slideInRight 0.3s cubic-bezier(0.22,1,0.36,1)" }}>
 
         {/* Header */}
@@ -712,6 +721,50 @@ export function WycenaDrawer() {
                     style={{ background: "rgba(248,24,40,0.08)", border: "1px solid rgba(248,24,40,0.18)", color: "#f88090" }}>
                     {items.length} produkt(ów) w koszyku wyceny
                   </div>
+                  <fieldset>
+                    <legend className="text-[10px] text-gray-500 mb-1.5">Sposób realizacji *</legend>
+                    <div className="grid grid-cols-2 gap-2">
+                      {["Odbiór osobisty", "Dostawa na budowę"].map(option => (
+                        <button key={option} type="button" onClick={() => setForm(f => ({ ...f, fulfillment: option }))}
+                          aria-pressed={form.fulfillment === option}
+                          className="rounded-lg px-3 py-2.5 text-xs font-semibold transition-colors"
+                          style={{
+                            background: form.fulfillment === option ? "rgba(248,24,40,0.12)" : "rgba(255,255,255,0.04)",
+                            border: `1px solid ${form.fulfillment === option ? "rgba(248,24,40,0.55)" : "rgba(255,255,255,0.1)"}`,
+                            color: form.fulfillment === option ? "#fff" : "#9ca3af",
+                          }}>
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
+                  {form.fulfillment === "Dostawa na budowę" && (
+                    <div>
+                      <Label className="text-[10px] text-gray-500 mb-1 block">Adres dostawy *</Label>
+                      <Input required value={form.address} onChange={e => setForm(f => ({ ...f, address: e.target.value }))}
+                        placeholder="Ulica, kod pocztowy, miejscowość"
+                        className="text-sm h-9 text-gray-200 placeholder:text-gray-600 focus-visible:ring-0 focus-visible:border-[#f81828] mt-1"
+                        style={drawerInput} />
+                    </div>
+                  )}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label htmlFor="drawer-customer-type" className="text-[10px] text-gray-500 mb-1 block">Kupuję jako</Label>
+                      <select id="drawer-customer-type" value={form.customerType} onChange={e => setForm(f => ({ ...f, customerType: e.target.value }))}
+                        className="w-full h-9 rounded-md px-3 text-xs outline-none focus:border-[#f81828]" style={drawerInput}>
+                        <option>Klient indywidualny</option>
+                        <option>Firma / wykonawca</option>
+                      </select>
+                    </div>
+                    <div>
+                      <Label htmlFor="drawer-contact-method" className="text-[10px] text-gray-500 mb-1 block">Preferowany kontakt</Label>
+                      <select id="drawer-contact-method" value={form.preferredContact} onChange={e => setForm(f => ({ ...f, preferredContact: e.target.value }))}
+                        className="w-full h-9 rounded-md px-3 text-xs outline-none focus:border-[#f81828]" style={drawerInput}>
+                        <option>Telefon</option>
+                        <option>Email</option>
+                      </select>
+                    </div>
+                  </div>
                   <div>
                     <Label className="text-[10px] text-gray-500 mb-1 block">Imię i nazwisko *</Label>
                     <Input id="drawer-name" name="name" required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} placeholder="Jan Kowalski"
@@ -736,24 +789,10 @@ export function WycenaDrawer() {
                       className="text-sm text-gray-200 placeholder:text-gray-600 resize-none focus-visible:ring-0 focus-visible:border-[#f81828] mt-1"
                       style={drawerInput} />
                   </div>
-                  <div>
-                    <Label className="text-[10px] text-gray-500 mb-1 block">Załącznik <span className="text-gray-700 font-normal">(opcjonalnie)</span></Label>
-                    <label className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-xs transition-all duration-200"
-                      style={{ background: "rgba(255,255,255,0.04)", border: "1px dashed rgba(255,255,255,0.15)" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(248,24,40,0.5)"; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLLabelElement).style.borderColor = "rgba(255,255,255,0.15)"; }}>
-                      <span className="text-[#f81828]">📎</span>
-                      <span className="text-gray-500">{form.file ? form.file.name : "Dodaj plik (PDF, JPG, PNG, DOCX — max 5 MB)"}</span>
-                      <input type="file" className="hidden" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                        onChange={e => setForm(f => ({...f, file: e.target.files?.[0] ?? null}))} />
-                    </label>
-                    {form.file && (
-                      <button type="button" onClick={() => setForm(f => ({...f, file: null}))}
-                        className="text-[10px] text-gray-600 hover:text-red-400 mt-1 transition-colors">
-                        ✕ usuń załącznik
-                      </button>
-                    )}
-                  </div>
+                  <p className="text-[10px] leading-relaxed text-gray-600">
+                    Projekt lub zestawienie materiałów możesz dosłać po wysłaniu zapytania na
+                    {" "}<a href="mailto:sprzedaz@mediabud.pl" className="text-gray-400 hover:text-white">sprzedaz@mediabud.pl</a>, podając numer zapytania.
+                  </p>
                   <div className="flex items-start gap-2.5">
                     <Checkbox id="rodo2" checked={agreed} onCheckedChange={v => setAgreed(!!v)} className="mt-0.5" />
                     <Label htmlFor="rodo2" className="text-[10px] text-gray-500 leading-relaxed cursor-pointer">
@@ -783,7 +822,8 @@ export function WycenaDrawer() {
                     <Check className="w-7 h-7 text-emerald-400" />
                   </div>
                   <h3 className="font-display font-black text-white mb-2">Dziękujemy za przesłanie zapytania!</h3>
-                  <p className="text-xs text-gray-500 mb-4">Twoje zapytanie zostało przyjęte. Odpowiemy w ciągu 24h roboczych.</p>
+                  <p className="text-xs text-gray-500 mb-2">Twoje zapytanie zostało przyjęte. Odpowiemy w ciągu 24 godzin roboczych.</p>
+                  <p className="text-xs text-gray-400 mb-4">Numer zapytania: <strong className="text-white">{requestId}</strong></p>
                   <a href="tel:+48533553344"
                     onClick={trackPhoneClick}
                     className="block font-bold text-sm text-[#f81828] hover:underline">

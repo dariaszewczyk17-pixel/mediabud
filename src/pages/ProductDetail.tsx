@@ -19,6 +19,7 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import { HeroSpecs } from "@/components/HeroSpecs";
 import { StickyCTA } from "@/components/StickyCTA";
 import { toast } from "sonner";
+import { slugifyBrand } from "@/data/brands";
 
 /* ---------- tiny reveal hook ---------- */
 function useReveal() {
@@ -123,6 +124,7 @@ export default function ProductDetail() {
       ? (product.shortDescription || product.description || "").slice(0, 160)
       : undefined,
     canonical: slug ? `/produkt/${slug}` : undefined,
+    noIndex: !product && !productLoading,
     ogType: "product",
     ogImage: product?.images?.[0] ?? undefined,
   });
@@ -373,7 +375,7 @@ export default function ProductDetail() {
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-4 flex-wrap">
               <Link
-                to={`/szukaj?brand=${encodeURIComponent(product.brand)}`}
+                to={`/marki/${slugifyBrand(product.brand)}`}
                 className="text-xs font-black px-3 py-1 rounded-full transition-all"
                 style={{ background: "rgba(248,24,40,0.12)", color: "#ff9aa3", border: "1px solid rgba(248,24,40,0.35)" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#f81828"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}

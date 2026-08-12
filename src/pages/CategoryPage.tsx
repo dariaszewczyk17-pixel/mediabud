@@ -1186,7 +1186,8 @@ export default function CategoryPage() {
     description: localSeo?.description ?? (cat
       ? `Kup ${cat.name.toLowerCase()} w Lublinie. ${cat.description ? cat.description.slice(0, 100) + '...' : ''} Dostawa na plac budowy, doradztwo techniczne gratis. Media Bud – ul. Chemiczna 8d Lublin.`
       : undefined),
-    canonical: slug ? `/kategoria/${slug}` : undefined,
+    canonical: slug ? location.pathname.replace(/\/$/, "") : undefined,
+    noIndex: !cat || searchParams.toString().length > 0,
   });
 
   if (!cat) {
@@ -1675,7 +1676,7 @@ export default function CategoryPage() {
                   {availableBrands.slice(0, 18).map(brand => (
                     <Link
                       key={brand}
-                      to={`/szukaj?brand=${encodeURIComponent(brand)}`}
+                      to={`/marki/${slugifyBrand(brand)}`}
                       className="text-[10px] font-semibold px-2 py-1 rounded-md transition-all text-gray-500 hover:text-[#f81828] hover:bg-[#f81828]/08"
                       style={{ border: "1px solid rgba(255,255,255,0.08)" }}
                     >

@@ -54,14 +54,40 @@
     <!-- Preload Google Fonts CSS (blokuje render) -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Condensed:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style" />
 
-    <!-- ── Google Analytics 4 + Google Ads ─────────────────────────── -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QM0PEP8ZR"></script>
+    <!-- ── Google Analytics 4 + Google Ads — ładowane dopiero po zgodzie ── -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3QM0PEP8ZR');
-      gtag('config', 'AW-18206359267');
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+      window.applyMediaBudConsent = function(consent) {
+        gtag('consent', 'update', {
+          analytics_storage: consent.analytics ? 'granted' : 'denied',
+          ad_storage: consent.marketing ? 'granted' : 'denied',
+          ad_user_data: consent.marketing ? 'granted' : 'denied',
+          ad_personalization: consent.marketing ? 'granted' : 'denied'
+        });
+        if (!consent.analytics && !consent.marketing) return;
+        if (!document.querySelector('script[data-mediabud-google-tags]')) {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-3QM0PEP8ZR';
+          script.dataset.mediabudGoogleTags = 'true';
+          document.head.appendChild(script);
+          gtag('js', new Date());
+        }
+        if (consent.analytics) gtag('config', 'G-3QM0PEP8ZR');
+        if (consent.marketing) gtag('config', 'AW-18206359267');
+      };
+      try {
+        var savedConsent = JSON.parse(localStorage.getItem('mb_cookie_consent') || 'null');
+        if (savedConsent) window.applyMediaBudConsent(savedConsent);
+      } catch (_error) {}
     </script>
 
     <!-- ── Schema.org LocalBusiness + Website ─────────────────────── -->

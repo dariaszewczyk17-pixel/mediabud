@@ -1,11 +1,8 @@
-import { lazy, Suspense, useState, useCallback, useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import Layout from "@/components/Layout";
 import NotFoundPage from "@/pages/NotFoundPage";
-import SplashScreen from "@/components/SplashScreen";
-
-const SPLASH_KEY = "mb_splash_shown";
 const DEEP_LINK_KEY = "mb_pending_deep_link";
 
 function StaticDeepLinkBridge(): null {
@@ -47,19 +44,8 @@ const ServicesPage      = lazy(() => import("@/pages/ServicesPage"));
 const PolicyPage        = lazy(() => import("@/pages/PolicyPage"));
 
 export default function App() {
-  const [showSplash, setShowSplash] = useState<boolean>(() => {
-    try { return !sessionStorage.getItem(SPLASH_KEY); }
-    catch { return false; }
-  });
-  const handleSplashDone = useCallback(() => {
-    try { sessionStorage.setItem(SPLASH_KEY, "1"); } catch { /* ignore */ }
-    setShowSplash(false);
-  }, []);
-
   return (
-    <>
-      {showSplash && <SplashScreen onDone={handleSplashDone} />}
-      <BrowserRouter>
+    <BrowserRouter>
       <StaticDeepLinkBridge />
       <ScrollToTop />
       {/* Outer Suspense: fallback=null — spinner obsługiwany przez Layout/Suspense wewnątrz main */}
@@ -95,6 +81,5 @@ export default function App() {
         </Routes>
       </Suspense>
     </BrowserRouter>
-    </>
   );
 }

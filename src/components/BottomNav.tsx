@@ -1,14 +1,10 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, Search, ShoppingBag, Phone } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Home, FileText, MapPin, Phone } from "lucide-react";
 import { trackPhoneClick } from "@/hooks/useConversionTracking";
 
 export default function BottomNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
-  const isBrowse = ["/szukaj", "/kategoria", "/marki", "/bestsellery"].some(
-    p => pathname === p || pathname.startsWith(p + "/")
-  );
 
   const items4 = [
     {
@@ -18,16 +14,16 @@ export default function BottomNav() {
       isActive: pathname === "/",
     },
     {
-      label: "Szukaj",
-      icon: <Search className="h-5 w-5" />,
-      action: () => navigate("/szukaj"),
-      isActive: isBrowse,
+      label: "Wycena",
+      icon: <FileText className="h-5 w-5" />,
+      action: () => navigate("/kontakt"),
+      isActive: pathname === "/kontakt",
     },
     {
-      label: "Produkty",
-      icon: <ShoppingBag className="h-5 w-5" />,
-      action: () => navigate("/produkty"),
-      isActive: pathname === "/produkty" || pathname.startsWith("/produkty/"),
+      label: "Dojazd",
+      icon: <MapPin className="h-5 w-5" />,
+      action: () => window.open("https://www.google.com/maps/search/?api=1&query=Media+Bud+Chemiczna+8d+Lublin", "_blank", "noopener,noreferrer"),
+      isActive: false,
     },
     {
       label: "Zadzwoń",

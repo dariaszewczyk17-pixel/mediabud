@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Award, Clock, ChevronLeft, Star, CheckCircle2, Send, Building2, HardHat, Home as HomeIcon } from "lucide-react";
+import { Phone, Mail, ChevronRight, ArrowRight, Calendar, TrendingUp, Users, Award, Clock, ChevronLeft, Star, CheckCircle2, Send, Building2, HardHat, Home as HomeIcon, MapPin, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { categories as staticCategories } from "@/data/categories";
@@ -80,34 +80,6 @@ function CountUp({ to, suffix = "", prefix = "", duration = 1800, neon = false }
     </span>
   );
 }
-
-/* ─── Hero Slides ─────────────────────────────────────────────── */
-const heroSlides = [
-  {
-    image: "/images/hero-materialy_2.png",
-    label: "Skład budowlany · Lublin",
-    title: "15 000+ produktów.\nDostawa na budowę.",
-    subtitle: "Odbierasz od ręki lub zamawiasz z dostawą na plac budowy. Materiały renomowanych marek, doradztwo techniczne gratis.",
-    cta: "Przeglądaj produkty",
-    ctaLink: "/produkty",
-  },
-  {
-    image: "/images/hero-etics_2.png",
-    label: "Ocieplenia i OZE",
-    title: "Ocieplenie i elewacja.\nMateriały + ekipa w jednym.",
-    subtitle: "Ocieplamy ściany, dachy i elewacje. Materiały renomowanych marek z naszego składu — nasza ekipa wbudowuje je pod klucz.",
-    cta: "Sprawdź usługi",
-    ctaLink: "/uslugi/elewacje",
-  },
-  {
-    image: "/images/hero-chemia_2.png",
-    label: "Budujesz lub remontujesz?",
-    title: "Materiały i ekipa.\nJeden partner.",
-    subtitle: "Media Bud to skład budowlany i firma wykonawcza w jednym. Kupujesz materiały i zamawiasz ekipę u jednego sprawdzonego partnera w Lublinie.",
-    cta: "Zobacz usługi",
-    ctaLink: "/uslugi",
-  },
-];
 
 /* ─── Category icons / images ─────────────────────────────────── */
 const catIcons: Record<string, string> = {
@@ -327,25 +299,6 @@ export default function Home() {
     return () => clearTimeout(t);
   }, []);
 
-  /* ── Hero slider ── */
-  const [slide, setSlide]   = useState(0);
-  const [sliding, setSliding] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const goTo = useCallback((idx: number) => {
-    if (sliding) return;
-    setSliding(true);
-    setSlide(idx);
-    setTimeout(() => setSliding(false), 700);
-  }, [sliding]);
-
-  useEffect(() => {
-    timerRef.current = setTimeout(() => {
-      goTo((slide + 1) % heroSlides.length);
-    }, 6000);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [slide, goTo]);
-
   /* ── Section reveals ── */
   const r1 = useReveal(); // categories
   const r2 = useReveal(); // featured
@@ -356,8 +309,6 @@ export default function Home() {
   const r8 = useReveal(); // testimonials
   const r9 = useReveal(); // realizacje
   const r10 = useReveal(); // newsletter
-
-  const current = heroSlides[slide];
 
   /* ── Newsletter submit ── */
   const handleNewsletter = (e: React.FormEvent) => {
@@ -376,7 +327,6 @@ export default function Home() {
 
   return (
     <>
-
       {/* ═══════════════════════════════════════════════════════
           HERO — INDUSTRIAL PREMIUM / EDITORIAL LUXURY
       ═══════════════════════════════════════════════════════ */}
@@ -494,19 +444,14 @@ export default function Home() {
             }
           }
         `}</style>
-        <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1 }}>
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover premium-hero-video" style={{ filter: "brightness(0.44) saturate(0.78) contrast(1.1)" }}>
-            <source src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skywork_assets/20260609/text2video-d8k2ve780j2drgd1u7pg.mp4" type="video/mp4" />
-          </video>
-        </div>
         <div
-          className="absolute inset-0 block md:hidden"
+          className="absolute inset-0"
           style={{
             zIndex: 1,
             backgroundImage: "url('/images/hero-materialy_2.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "brightness(0.4) saturate(0.8)",
+            filter: "brightness(0.48) saturate(0.78)",
           }}
         />
 
@@ -542,30 +487,37 @@ export default function Home() {
                     <span className="premium-editorial-word" style={{ animationDelay: "500ms" }}>i remontu.</span>
                   </span>
                 </h1>
-                <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.78)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1.02rem, 1.36vw, 1.18rem)", lineHeight: 1.92 }}>
-                  Znajdziesz u nas wszystko, czego potrzebujesz do budowy i remontu — tynki, systemy ociepleń, styropiany, wełnę i akcesoria od <span className="text-white font-semibold">renomowanych producentów</span>. Sprawdzona trwałość, efektywność energetyczna i terminowa dostawa, a nasi specjaliści pomogą dobrać rozwiązania do Twoich potrzeb.
+                <p className="premium-fade-soft max-w-2xl" style={{ animationDelay: "660ms", color: "rgba(255,255,255,0.82)", fontFamily: "Inter,sans-serif", fontSize: "clamp(1.02rem, 1.36vw, 1.18rem)", lineHeight: 1.75 }}>
+                  Materiały od fundamentu po dach, fachowy dobór i dostawa na budowę. Obsługujemy klientów indywidualnych, wykonawców i inwestycje w Lublinie oraz województwie lubelskim.
                 </p>
               </div>
 
-              <div className="premium-fade-soft flex flex-wrap gap-4 mb-12" style={{ animationDelay: "760ms" }}>
-                <Link
-                  to="/produkty"
-                  className="premium-shimmer relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] text-white rounded-full transition-all duration-500 hover:-translate-y-[2px]"
-                  style={{ background: "linear-gradient(135deg, #f81828 0%, #d10f1e 100%)", boxShadow: "0 16px 40px rgba(248,24,40,0.30)", fontSize: "0.82rem" }}
-                >
-                  <span className="relative z-10">Zobacz ofertę</span>
-                  <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" />
-                </Link>
+              <div className="premium-fade-soft flex flex-wrap gap-3 mb-7" style={{ animationDelay: "760ms" }}>
                 <button
                   type="button"
+                  className="premium-shimmer relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] text-white rounded-full transition-all duration-500 hover:-translate-y-[2px]"
+                  style={{ background: "linear-gradient(135deg, #f81828 0%, #d10f1e 100%)", boxShadow: "0 16px 40px rgba(248,24,40,0.30)", fontSize: "0.82rem" }}
+                  onClick={() => setQuoteOpen(true)}
+                >
+                  <span className="relative z-10">Poproś o wycenę</span>
+                  <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" />
+                </button>
+                <a
+                  href="tel:+48533553344"
                   className="premium-shimmer relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 font-black uppercase tracking-[0.16em] rounded-full transition-all duration-500 text-white hover:-translate-y-[2px]"
                   style={{ border: "1px solid rgba(255,255,255,0.18)", background: "rgba(255,255,255,0.05)", fontSize: "0.82rem", backdropFilter: "blur(10px)" }}
-                  onClick={() => setQuoteOpen(true)}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(248,24,40,0.55)"; e.currentTarget.style.background = "rgba(248,24,40,0.10)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(248,24,40,0.10)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.boxShadow = "none"; }}
                 >
-                  <span className="relative z-10">Bezpłatna wycena</span>
-                </button>
+                  <Phone className="w-4 h-4" /><span className="relative z-10">Zadzwoń</span>
+                </a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Media+Bud+Chemiczna+8d+Lublin" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-5 py-4 text-sm font-bold text-white hover:text-[#f81828] transition-colors">
+                  <MapPin className="w-4 h-4 text-[#f81828]" /> Wyznacz trasę
+                </a>
+              </div>
+
+              <div className="premium-fade-soft flex flex-wrap gap-x-6 gap-y-2 mb-10 text-xs font-semibold text-gray-300" style={{ animationDelay: "820ms" }}>
+                <span className="inline-flex items-center gap-2"><MapPin className="w-4 h-4 text-[#f81828]" /> ul. Chemiczna 8d, Lublin</span>
+                <span className="inline-flex items-center gap-2"><Clock className="w-4 h-4 text-[#f81828]" /> Pon–Pt 7:00–16:00 · Sob 7:00–13:00</span>
+                <span className="inline-flex items-center gap-2"><Truck className="w-4 h-4 text-[#f81828]" /> Dostawa na budowę</span>
               </div>
 
               <div className="grid sm:grid-cols-3 gap-4 max-w-4xl">
@@ -617,7 +569,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
 
       {/* Lokalny landing strony głównej — główny URL dla fraz składu budowlanego w Lublinie */}
       <section className="py-14 md:py-20" style={{ background: "#090909", borderTop: "1px solid rgba(255,255,255,0.06)" }}>

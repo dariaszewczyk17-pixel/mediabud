@@ -61,6 +61,35 @@ const PRODUCT_SEO_OVERRIDES: Record<string, { title: string; description: string
   },
 };
 
+const SITE_URL = "https://mediabud.pl";
+
+function compactSeoText(value: string, maxLength: number): string {
+  const text = value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  if (text.length <= maxLength) return text;
+  const shortened = text.slice(0, maxLength - 1);
+  const lastSpace = shortened.lastIndexOf(" ");
+  return `${shortened.slice(0, lastSpace > maxLength * 0.7 ? lastSpace : shortened.length).trim()}…`;
+}
+
+function buildProductSeoTitle(product: Product): string {
+  if (product.metaTitle) return product.metaTitle;
+  const name = compactSeoText(product.name, 54);
+  const includesBrand = product.brand && name.toLocaleLowerCase("pl").includes(product.brand.toLocaleLowerCase("pl"));
+  return `${name}${product.brand && !includesBrand ? ` – ${product.brand}` : ""} | Media Bud`;
+}
+
+function buildProductSeoDescription(product: Product): string {
+  if (product.metaDesc) return compactSeoText(product.metaDesc, 160);
+  const source = product.shortDescription || product.description;
+  if (source) return compactSeoText(source, 160);
+  const details = [product.brand, product.sku ? `SKU: ${product.sku}` : ""].filter(Boolean).join(", ");
+  return compactSeoText(`${product.name}${details ? ` (${details})` : ""}. Sprawdź parametry i zapytaj Media Bud Lublin o dostępność, odbiór lub dostawę.`, 160);
+}
+
+function absoluteProductImage(image: string): string {
+  return image.startsWith("http") ? image : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`;
+}
+
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
 
@@ -142,10 +171,10 @@ export default function ProductDetail() {
 
   useSEO({
     title: seoOverride?.title ?? (product
-      ? (product.metaTitle || `${product.name}${product.brand ? ` – ${product.brand}` : ""} | Media Bud`)
+      ? buildProductSeoTitle(product)
       : "Produkt | Media Bud"),
     description: seoOverride?.description ?? (product
-      ? (product.metaDesc || product.shortDescription || product.description || "").slice(0, 160)
+      ? buildProductSeoDescription(product)
       : undefined),
     canonical: slug ? `/produkt/${slug}` : undefined,
     noIndex: !product && !productLoading,
@@ -240,11 +269,14 @@ export default function ProductDetail() {
     <div className="min-h-screen" style={{ background: "#050505" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "Product",
-        "@id": `https://mediabud.pl/produkt/${slug}`, "url": `https://mediabud.pl/produkt/${slug}`,
+        "@id": `${SITE_URL}/produkt/${slug}#product`, "url": `${SITE_URL}/produkt/${slug}`,
+        "mainEntityOfPage": { "@type": "WebPage", "@id": `${SITE_URL}/produkt/${slug}` },
         "name": product.name, "description": product.shortDescription || product.description || undefined,
         "brand": product.brand ? { "@type": "Brand", "name": product.brand } : undefined,
-        "sku": product.sku || undefined, "image": images.filter(i => i && !i.includes("placeholder")),
-        "category": cat?.name || undefined,
+        "manufacturer": product.brand ? { "@type": "Organization", "name": product.brand } : undefined,
+        "sku": product.sku || undefined,
+        "image": images.filter(i => i && !i.includes("placeholder")).map(absoluteProductImage),
+        "category": cat ? { "@type": "Thing", "name": cat.name, "url": `${SITE_URL}/kategoria/${cat.slug}` } : undefined,
         ...(product.technicalSpec?.length > 0 && {
           "additionalProperty": product.technicalSpec.map(s => ({ "@type": "PropertyValue", "name": s.label, "value": s.value })),
         }),
@@ -263,9 +295,9 @@ export default function ProductDetail() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org", "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
-            ...breadcrumbs.map((bc, i) => ({ "@type": "ListItem", "position": i + 2, "name": bc.name, "item": `https://mediabud.pl/kategoria/${bc.slug}` })),
-            { "@type": "ListItem", "position": breadcrumbs.length + 2, "name": product.name },
+            { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": `${SITE_URL}/` },
+            ...breadcrumbs.map((bc, i) => ({ "@type": "ListItem", "position": i + 2, "name": bc.name, "item": `${SITE_URL}/kategoria/${bc.slug}` })),
+            { "@type": "ListItem", "position": breadcrumbs.length + 2, "name": product.name, "item": `${SITE_URL}/produkt/${product.slug}` },
           ],
         })}} />
       )}

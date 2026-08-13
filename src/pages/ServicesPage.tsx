@@ -341,7 +341,7 @@ function ServiceDetailPage({ service }: { service: ServiceDetail }) {
         "url": `https://mediabud.pl/uslugi/${service.slug}`,
         "provider": {
           "@type": "HomeAndConstructionBusiness",
-          "@id": "https://mediabud.pl/#organization",
+          "@id": "https://mediabud.pl/#localbusiness",
           "name": "Media Bud",
           "telephone": "+48533553344",
           "email": "sprzedaz@mediabud.pl"
@@ -561,7 +561,7 @@ export default function ServicesPage() {
         inLanguage: "pl",
         isAccessibleForFree: true,
         embedUrl: "https://mediabud.pl/uslugi",
-        publisher: { "@id": "https://mediabud.pl/#organization" },
+        publisher: { "@id": "https://mediabud.pl/#localbusiness" },
       }] : []),
     ],
   };

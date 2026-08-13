@@ -43,6 +43,26 @@ type LocalCategorySeo = {
   related: { label: string; href: string }[];
 };
 
+type LocalLandingLink = { label: string; href: string; description: string };
+
+const LOCAL_LANDING_LINKS: Record<string, LocalLandingLink> = {
+  materials: { label: "Materiały budowlane w Lublinie", href: "/materialy-budowlane-lublin", description: "Zobacz, jak skompletować wiele grup materiałów w jednej wycenie." },
+  styrofoam: { label: "Styropian w Lublinie", href: "/styropian-lublin", description: "Dobór EPS do elewacji, podłogi, fundamentu lub dachu." },
+  wool: { label: "Wełna mineralna w Lublinie", href: "/welna-mineralna-lublin", description: "Wełna do poddaszy, elewacji, ścian, stropów i dachów." },
+  chemistry: { label: "Chemia budowlana w Lublinie", href: "/chemia-budowlana-lublin", description: "Kleje, zaprawy, grunty i hydroizolacje dobierane do zastosowania." },
+  delivery: { label: "Dostawa materiałów na budowę", href: "/dostawa-materialow-budowlanych-lublin", description: "Sprawdź, jakie dane przygotować do indywidualnej wyceny transportu." },
+};
+
+function getLocalLandingLinks(slug: string, rootSlug?: string): LocalLandingLink[] {
+  const context = `${rootSlug ?? ""} ${slug}`.toLowerCase();
+  const links: LocalLandingLink[] = [];
+  if (/styropian|eps|xps|styrodur/.test(context)) links.push(LOCAL_LANDING_LINKS.styrofoam);
+  if (/welna|wełna|mineraln/.test(context)) links.push(LOCAL_LANDING_LINKS.wool);
+  if (/chemia|klej|zapraw|grunt|hydroizol|uszczelni|tynk|farb/.test(context)) links.push(LOCAL_LANDING_LINKS.chemistry);
+  links.push(LOCAL_LANDING_LINKS.materials, LOCAL_LANDING_LINKS.delivery);
+  return links.filter((link, index, items) => items.findIndex(item => item.href === link.href) === index).slice(0, 3);
+}
+
 // Priorytetowe landingi lokalne wybrane na podstawie wyświetleń w Search Console.
 const LOCAL_CATEGORY_SEO: Record<string, LocalCategorySeo> = {
   "sucha-zabudowa": {
@@ -1145,6 +1165,11 @@ export default function CategoryPage() {
     [slug, rootSlug]
   );
 
+  const localLandingLinks = useMemo(
+    () => getLocalLandingLinks(slug || "", rootSlug),
+    [slug, rootSlug]
+  );
+
   /* ── Liczba aktywnych filtrów (bez sortowania) ── */
   /* Liczba produktów per categorySlug — dla liczników w drzewie */
   const subcatCounts = useMemo(() => {
@@ -1400,6 +1425,7 @@ export default function CategoryPage() {
           "description": (cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin.`,
           "url": canonicalUrl,
           "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
+          "significantLink": localLandingLinks.map(link => `https://mediabud.pl${link.href}`),
           "provider": {
             "@type": "Organization",
             "@id": "https://mediabud.pl/#organization",
@@ -2274,6 +2300,24 @@ export default function CategoryPage() {
         )}
 
         {/* ── Sekcja SEO i FAQ (na dole strony) ── */}
+        <section className="mt-16 pt-12 border-t border-white/5" aria-labelledby="local-category-links">
+          <div className="mb-6 max-w-3xl">
+            <p className="text-[10px] font-black uppercase tracking-widest text-[#f81828]">Media Bud · Lublin</p>
+            <h2 id="local-category-links" className="mt-2 text-2xl font-black text-white font-display">Materiały, dobór i dostawa w Lublinie</h2>
+            <p className="mt-2 text-sm leading-relaxed text-gray-500">Przejdź do informacji lokalnych związanych z tą kategorią. Sprawdzisz sposób przygotowania wyceny, zakres pomocy w doborze oraz zasady indywidualnego ustalania transportu.</p>
+          </div>
+          <nav aria-label="Lokalna oferta Media Bud" className="grid gap-4 md:grid-cols-3">
+            {localLandingLinks.map(link => (
+              <Link key={link.href} to={link.href} className="group rounded-xl border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#f81828]/50 hover:bg-white/[0.04]">
+                <span className="flex items-center justify-between gap-3 text-sm font-bold text-white group-hover:text-[#f81828]">
+                  {link.label}<ArrowRight className="h-4 w-4 shrink-0" />
+                </span>
+                <span className="mt-2 block text-xs leading-relaxed text-gray-500">{link.description}</span>
+              </Link>
+            ))}
+          </nav>
+        </section>
+
         {/* ── Sekcja Poradniki — internal linking blog ── */}
         {relatedBlogPosts.length > 0 && (
           <div className="mt-16 pt-12 border-t border-white/5">
@@ -2320,8 +2364,8 @@ export default function CategoryPage() {
                       {cat?.name} — materiały budowlane Lublin
                     </h2>
                     <div className="text-gray-400 text-sm leading-relaxed">
-                      <p className="mb-3">Wybierając materiały z kategorii <strong>{cat?.name}</strong> w hurtowni Media Bud, zyskujesz gwarancję najwyższej jakości i profesjonalnego doradztwa. Oferujemy szeroki asortyment produktów od sprawdzonych producentów, dostępnych od ręki w naszym magazynie w Lublinie.</p>
-                      <p>Zapewniamy konkurencyjne ceny dla wykonawców i inwestorów indywidualnych oraz szybką dostawę na terenie całego województwa lubelskiego. Skontaktuj się z naszym działem handlowym, aby uzyskać indywidualną wycenę.</p>
+                      <p className="mb-3">W kategorii <strong>{cat?.name}</strong> znajdziesz produkty do różnych etapów budowy i remontu. Przed zamówieniem warto porównać ich zastosowanie, parametry techniczne oraz zgodność z pozostałymi elementami systemu.</p>
+                      <p>Media Bud przy ul. Chemicznej 8d w Lublinie przygotowuje indywidualne wyceny dla wykonawców i inwestorów. Dostępność produktów, warunki odbioru oraz możliwość transportu na budowę potwierdzamy dla konkretnego zamówienia.</p>
                     </div>
                   </>
                 )}

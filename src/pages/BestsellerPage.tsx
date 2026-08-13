@@ -11,7 +11,7 @@ const SEO_TITLE    = "Bestsellery Materiałów Budowlanych 2026 – Sklep Media 
 const SEO_DESC     = "Najchętniej kupowane materiały budowlane w Lublinie: kleje do styropianu, styropian fasadowy, wełna mineralna, tynki silikonowe, kleje do płytek, farby elewacyjne. Skład budowlany Media Bud, ul. Chemiczna 8d Lublin. Dostawa 24h.";
 const CANONICAL    = "/bestsellery";
 const PAGE_URL     = "https://mediabud.pl/bestsellery";
-const ORG_ID       = "https://mediabud.pl/#organization";
+const ORG_ID       = "https://mediabud.pl/#localbusiness";
 const SITE_ID      = "https://mediabud.pl/#website";
 
 /* ─── TOP-3 badge config ──────────────────────────────────────── */

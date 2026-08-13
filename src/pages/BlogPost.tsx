@@ -36,13 +36,13 @@ export default function BlogPost() {
           "articleSection": post.category,
           "author": {
             "@type": "Organization",
-            "@id": "https://mediabud.pl/#organization",
+            "@id": "https://mediabud.pl/#localbusiness",
             "name": "Media Bud",
             "url": "https://mediabud.pl",
           },
           "publisher": {
             "@type": "Organization",
-            "@id": "https://mediabud.pl/#organization",
+            "@id": "https://mediabud.pl/#localbusiness",
             "name": "Media Bud",
             "logo": { "@type": "ImageObject", "url": "https://mediabud.pl/images/logo-mediabud-main.png", "width": 180, "height": 60 },
           },

@@ -138,7 +138,7 @@ export default function LocalOfferPage() {
           name: offer.title,
           description: offer.description,
           url: `https://mediabud.pl${pathname}`,
-          provider: { "@type": "LocalBusiness", "@id": "https://mediabud.pl/#organization", name: "Media Bud", address: { "@type": "PostalAddress", streetAddress: "ul. Chemiczna 8d", addressLocality: "Lublin", addressCountry: "PL" } },
+          provider: { "@type": "LocalBusiness", "@id": "https://mediabud.pl/#localbusiness", name: "Media Bud", address: { "@type": "PostalAddress", streetAddress: "ul. Chemiczna 8d", addressLocality: "Lublin", addressCountry: "PL" } },
           areaServed: [
             { "@type": "City", name: "Lublin" },
             { "@type": "AdministrativeArea", name: "województwo lubelskie" },

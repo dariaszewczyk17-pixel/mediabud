@@ -350,16 +350,31 @@ export default function Home() {
   /* ── SEO meta tagi ── */
   useSEO({
     title: "Skład Budowlany Lublin – Materiały z Dostawą | Media Bud",
-    description: "Skład budowlany Media Bud w Lublinie. Ponad 15 000 materiałów: styropian, tynki, zaprawy, sucha zabudowa, dachy i chemia budowlana. Dostawa na budowę i fachowe doradztwo.",
+    description: "Skład budowlany Media Bud w Lublinie: styropian, tynki, zaprawy, sucha zabudowa, dachy i chemia budowlana. Dobór, odbiór lub ustalana indywidualnie dostawa.",
     canonical: "/",
     schema: {
       "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: localFaqs.map(faq => ({
-        "@type": "Question",
-        name: faq.question,
-        acceptedAnswer: { "@type": "Answer", text: faq.answer },
-      })),
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://mediabud.pl/#webpage",
+          url: "https://mediabud.pl/",
+          name: "Skład Budowlany Lublin – Media Bud",
+          isPartOf: { "@id": "https://mediabud.pl/#website" },
+          about: { "@id": "https://mediabud.pl/#localbusiness" },
+          mainEntity: { "@id": "https://mediabud.pl/#localbusiness" },
+          inLanguage: "pl-PL",
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://mediabud.pl/#faq",
+          mainEntity: localFaqs.map(faq => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: { "@type": "Answer", text: faq.answer },
+          })),
+        },
+      ],
     },
   });
 
@@ -592,9 +607,9 @@ export default function Home() {
 
                 <div className="space-y-4">
                   {[
-                    ["Ponad 15 000 produktów", "Stała dostępność materiałów z wielu kategorii i sprawdzonych systemów."],
-                    ["15 lat doświadczenia", "Domy, inwestycje i klienci biznesowi obsługiwani w jednym standardzie."],
-                    ["Wycena i kontakt do 24h", "Szybki start rozmowy o inwestycji, zakupach i logistyce dostaw."],
+                    ["Szeroki katalog produktów", "Materiały z wielu kategorii i elementy kompatybilnych systemów."],
+                    ["Obsługa różnych inwestycji", "Domy, inwestycje i klienci biznesowi obsługiwani w jednym standardzie."],
+                    ["Indywidualna wycena", "Rozmowa o inwestycji, zakupach i logistyce dostaw dopasowana do zamówienia."],
                   ].map(([title, desc], idx) => (
                     <div key={title} className="premium-card-soft rounded-[22px] p-4" style={{ transitionDelay: `${idx * 40}ms`, background: "rgba(0,0,0,0.24)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div className="mb-1 text-sm font-black text-white">{title}</div>
@@ -1614,7 +1629,7 @@ export default function Home() {
                   Zapytaj o wycenę
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-                <p className="mt-3 text-center text-[10px]" style={{ color: "rgba(255,255,255,0.38)" }}>Bezpłatna wycena · Odpowiedź do 24h</p>
+                <p className="mt-3 text-center text-[10px]" style={{ color: "rgba(255,255,255,0.38)" }}>Wycena dopasowana do zakresu inwestycji</p>
               </div>
             </div>
           </div>
@@ -1630,7 +1645,7 @@ export default function Home() {
             <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ background: "#f81828", boxShadow: "2px 0 10px rgba(248,24,40,0.5)" }} />
             <div className="absolute inset-0 flex flex-col justify-end p-8">
               <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-1" style={{ color: "#f81828" }}>— ASORTYMENT —</p>
-              <h3 className="font-display text-xl md:text-2xl font-black text-white leading-tight">15 000+ produktów<br/>w jednym miejscu</h3>
+              <h3 className="font-display text-xl md:text-2xl font-black text-white leading-tight">Wiele grup materiałów<br/>w jednym miejscu</h3>
             </div>
           </div>
           <div className="relative h-64 md:h-80 overflow-hidden group">

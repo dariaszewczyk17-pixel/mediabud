@@ -106,6 +106,14 @@ const OFFERS: Record<string, Offer> = {
   },
 };
 
+const LOCAL_OFFER_NAV = [
+  { label: "Materiały budowlane", href: "/materialy-budowlane-lublin" },
+  { label: "Styropian", href: "/styropian-lublin" },
+  { label: "Wełna mineralna", href: "/welna-mineralna-lublin" },
+  { label: "Chemia budowlana", href: "/chemia-budowlana-lublin" },
+  { label: "Dostawa na budowę", href: "/dostawa-materialow-budowlanych-lublin" },
+];
+
 export default function LocalOfferPage() {
   const { pathname } = useLocation();
   const offer = OFFERS[pathname] ?? OFFERS["/materialy-budowlane-lublin"];
@@ -122,6 +130,18 @@ export default function LocalOfferPage() {
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://mediabud.pl/" },
             { "@type": "ListItem", position: 2, name: offer.title, item: "https://mediabud.pl" + pathname },
+          ],
+        },
+        {
+          "@type": "Service",
+          "@id": `https://mediabud.pl${pathname}#service`,
+          name: offer.title,
+          description: offer.description,
+          url: `https://mediabud.pl${pathname}`,
+          provider: { "@type": "LocalBusiness", "@id": "https://mediabud.pl/#organization", name: "Media Bud", address: { "@type": "PostalAddress", streetAddress: "ul. Chemiczna 8d", addressLocality: "Lublin", addressCountry: "PL" } },
+          areaServed: [
+            { "@type": "City", name: "Lublin" },
+            { "@type": "AdministrativeArea", name: "województwo lubelskie" },
           ],
         },
         {
@@ -215,6 +235,16 @@ export default function LocalOfferPage() {
             <Link to="/kontakt">Wyślij zapytanie <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         </div>
+        <nav aria-label="Pozostała oferta lokalna Media Bud" className="mt-10 border-t border-white/10 pt-8">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500">Sprawdź także w Lublinie</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {LOCAL_OFFER_NAV.filter(item => item.href !== pathname).map(item => (
+              <Link key={item.href} to={item.href} className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-gray-300 transition hover:border-[#f81828]/50 hover:text-white">
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </nav>
       </section>
     </main>
   );

@@ -1156,16 +1156,20 @@ export default function CategoryPage() {
   const activeFilterCount = [selectedBrand, selectedUnit, selectedTag, selectedSubcat].filter(Boolean).length + selectedSpecs.length;
 
   const localSeo = slug ? LOCAL_CATEGORY_SEO[slug] : undefined;
+  const canonicalPath = location.pathname.replace(/\/$/, "");
+  const canonicalUrl = `https://mediabud.pl${canonicalPath}`;
+  const categoryTrail = [...breadcrumbs, { name: cat?.name || "", slug: slug || "" }]
+    .filter((item, index, items) => item.slug && items.findIndex(candidate => candidate.slug === item.slug) === index);
 
   /* ── SEO meta tagi ── */
   useSEO({
     title: localSeo?.title ?? (cat
-      ? `${cat.name} Lublin – Ceny, Dostawa 24h | Media Bud Skład Budowlany`
+      ? `${cat.name} Lublin – Oferta i Dostawa | Media Bud`
       : "Kategoria | Media Bud"),
     description: localSeo?.description ?? (cat
-      ? `Kup ${cat.name.toLowerCase()} w Lublinie. ${cat.description ? cat.description.slice(0, 100) + '...' : ''} Dostawa na plac budowy, doradztwo techniczne gratis. Media Bud – ul. Chemiczna 8d Lublin.`
+      ? `${cat.name} w Media Bud Lublin. ${cat.description ? cat.description.slice(0, 105).trim() + '…' : ''} Zapytaj o dobór, dostępność, odbiór lub dostawę na budowę.`
       : undefined),
-    canonical: slug ? location.pathname.replace(/\/$/, "") : undefined,
+    canonical: slug ? canonicalPath : undefined,
     noIndex: !cat || searchParams.toString().length > 0,
   });
 
@@ -1376,8 +1380,13 @@ export default function CategoryPage() {
         "@type": "BreadcrumbList",
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://mediabud.pl/" },
-          { "@type": "ListItem", "position": 2, "name": "Kategorie", "item": "https://mediabud.pl/kategoria" },
-          { "@type": "ListItem", "position": 3, "name": cat.name, "item": `https://mediabud.pl/kategoria/${slug}` },
+          { "@type": "ListItem", "position": 2, "name": "Produkty", "item": "https://mediabud.pl/produkty" },
+          ...categoryTrail.map((item, index) => ({
+            "@type": "ListItem",
+            "position": index + 3,
+            "name": item.name,
+            "item": index === categoryTrail.length - 1 ? canonicalUrl : `https://mediabud.pl/kategoria/${item.slug}`,
+          })),
         ],
       })}} />
 
@@ -1386,10 +1395,11 @@ export default function CategoryPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "@id": `https://mediabud.pl/kategoria/${slug}`,
-          "name": cat.name,
+          "@id": `${canonicalUrl}#collection`,
+          "name": localSeo?.h1 ?? cat.name,
           "description": (cat as any).metaDesc || cat.description || `Materiały budowlane – ${cat.name}. Sklep Media Bud Lublin.`,
-          "url": `https://mediabud.pl/kategoria/${slug}`,
+          "url": canonicalUrl,
+          "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
           "provider": {
             "@type": "Organization",
             "@id": "https://mediabud.pl/#organization",
@@ -1399,9 +1409,10 @@ export default function CategoryPage() {
             "@type": "ItemList",
             "name": `${cat.name} — lista produktów`,
             "numberOfItems": filtered.length,
-            "itemListElement": paginated.slice(0, 10).map((p, i) => ({
+            "itemListOrder": "https://schema.org/ItemListOrderAscending",
+            "itemListElement": paginated.map((p, i) => ({
               "@type": "ListItem",
-              "position": i + 1,
+              "position": (safePage - 1) * PRODUCTS_PER_PAGE + i + 1,
               "url": `https://mediabud.pl/produkt/${p.slug}`,
               "name": p.name,
             })),

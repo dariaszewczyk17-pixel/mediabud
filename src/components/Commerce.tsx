@@ -151,7 +151,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
         ref={cardRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="group rounded-xl overflow-hidden h-full flex flex-col"
+        className="group min-w-0 rounded-xl overflow-hidden h-full flex flex-col"
         style={{
           background: "#0f0f0f",
           border: "1px solid #2d2d2d",
@@ -219,36 +219,36 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
         </Link>
 
         {/* ── Content ── */}
-        <div className="p-4 flex flex-col flex-1">
-          <Link to={`/produkt/${product.slug}`} className="block">
-            <h3 className="text-sm font-bold text-gray-200 leading-snug mb-1.5 group-hover:text-[#f88090] transition-colors line-clamp-2 font-display min-h-[2.7rem]">
+        <div className="min-w-0 overflow-hidden p-3 sm:p-4 flex flex-col flex-1">
+          <Link to={`/produkt/${product.slug}`} className="block min-w-0">
+            <h3 className="min-w-0 break-words [overflow-wrap:anywhere] text-sm font-bold text-gray-200 leading-snug mb-1.5 group-hover:text-[#f88090] transition-colors line-clamp-2 font-display min-h-[2.7rem]">
               {product.name}
             </h3>
           </Link>
 
           {/* Meta: brand + SKU (mockup) */}
           {showBrand && hasMeta && (
-            <div className="flex items-center gap-2 text-[10px] text-gray-500 mb-2">
+            <div className="flex min-w-0 items-center gap-1.5 text-[10px] text-gray-500 mb-2">
               {brandLabel && (
-                <span className="font-semibold tracking-wide text-gray-400">{brandLabel}</span>
+                <span className="min-w-0 truncate font-semibold tracking-wide text-gray-400">{brandLabel}</span>
               )}
-              {brandLabel && skuLabel && <span className="text-gray-600">•</span>}
+              {brandLabel && skuLabel && <span className="shrink-0 text-gray-600">•</span>}
               {skuLabel && (
-                <span className="font-mono text-gray-500 truncate">SKU: {skuLabel}</span>
+                <span className="min-w-0 truncate font-mono text-gray-500">SKU: {skuLabel}</span>
               )}
             </div>
           )}
 
           {/* Short description (mockup) */}
           {shortDesc ? (
-            <p className="text-[11px] text-gray-400 mb-3 line-clamp-2 leading-relaxed min-h-[2.5rem]">{shortDesc}</p>
+            <p className="break-words [overflow-wrap:anywhere] text-[11px] text-gray-400 mb-3 line-clamp-2 leading-relaxed min-h-[2.5rem]">{shortDesc}</p>
           ) : (
             <div className="mb-3 min-h-[2.5rem]" />
           )}
 
           <div className="flex flex-wrap items-center gap-1.5 mb-3">
             <span
-              className="inline-flex items-center rounded-full px-2 py-1 text-[10px] font-medium text-gray-300"
+              className="inline-flex max-w-full min-w-0 items-center break-words [overflow-wrap:anywhere] rounded-full px-2 py-1 text-[10px] font-medium leading-tight text-gray-300"
               style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
               {product.categorySlug.replace(/-/g, " ")}
@@ -256,17 +256,17 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
           </div>
 
           <div
-            className="mb-3 rounded-xl p-3"
+            className="mb-3 min-w-0 rounded-xl p-2.5 sm:p-3"
             style={{
               background: "rgba(255,255,255,0.03)",
               border: "1px solid rgba(255,255,255,0.06)",
             }}
           >
-            <div className="text-[9px] font-black uppercase tracking-[0.18em] text-gray-500 mb-2">
+            <div className="text-[9px] font-black uppercase tracking-[0.1em] sm:tracking-[0.18em] text-gray-500 mb-2">
               PARAMETRY TECHNICZNE
             </div>
             {topSpecs.length > 0 ? (
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 min-h-[38px]">
+              <div className="grid min-w-0 grid-cols-2 gap-x-2 sm:gap-x-4 gap-y-2 min-h-[38px]">
                 {topSpecs.map((spec) => (
                   <div key={spec.label} className="min-w-0 overflow-hidden">
                     <div className="text-[10px] font-bold uppercase tracking-wide text-gray-500 leading-tight mb-0.5 truncate">
@@ -285,12 +285,12 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
             )}
           </div>
 
-          <div className="flex items-center justify-between gap-3 mb-3 text-[11px]">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-300">
-              <Package className="w-3.5 h-3.5" /> Zapytaj o dostępność
+          <div className="grid min-w-0 grid-cols-1 gap-1.5 mb-3 text-[11px]">
+            <span className="inline-flex min-w-0 items-center gap-1.5 font-semibold text-amber-300">
+              <Package className="w-3.5 h-3.5 shrink-0" /> <span className="min-w-0 break-words">Zapytaj o dostępność</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 text-gray-500">
-              <Truck className="w-3.5 h-3.5" /> Odbiór lub dostawa
+            <span className="inline-flex min-w-0 items-center gap-1.5 text-gray-500">
+              <Truck className="w-3.5 h-3.5 shrink-0" /> <span className="min-w-0 break-words">Odbiór lub dostawa</span>
             </span>
           </div>
 
@@ -298,7 +298,7 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
           <div className="flex flex-col gap-2 mt-auto">
             {/* Primary CTA — glowing red, większy */}
             <button
-              className="w-full h-11 text-white text-[13px] font-black rounded-lg flex items-center justify-center gap-2 transition-all duration-200 tracking-wide uppercase"
+              className="w-full h-11 min-w-0 px-2 text-white text-xs sm:text-[13px] font-black rounded-lg flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-200 tracking-wide uppercase"
               style={{
                 background: "linear-gradient(135deg, #f81828 0%, #c8000f 100%)",
                 boxShadow: hovered ? "0 0 20px rgba(248,24,40,0.55), 0 4px 16px rgba(248,24,40,0.3)" : "0 0 10px rgba(248,24,40,0.2)",
@@ -310,8 +310,8 @@ export const ProductCard = React.memo(function ProductCardComponent({ product, s
               onClick={handleAdd}
             >
               {added
-                ? <><Check className="w-4 h-4" /> Dodano do wyceny</>
-                : <><ShoppingCart className="w-4 h-4" /> Dodaj do wyceny</>}
+                ? <><Check className="w-4 h-4 shrink-0" /><span className="sm:hidden">Dodano</span><span className="hidden sm:inline">Dodano do wyceny</span></>
+                : <><ShoppingCart className="w-4 h-4 shrink-0" /><span className="sm:hidden">Do wyceny</span><span className="hidden sm:inline">Dodaj do wyceny</span></>}
             </button>
 
             <div className="grid grid-cols-[1fr_auto] gap-2">

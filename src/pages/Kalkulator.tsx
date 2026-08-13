@@ -1,9 +1,11 @@
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Calculator, Phone, ArrowRight, ChevronRight, Info, Copy, Check } from "lucide-react";
+import { Calculator, Phone, ArrowRight, ChevronRight, Info, Copy, Check, ShoppingCart } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { useWycena } from "@/hooks/useWycena";
+import type { Product } from "@/data/products";
 
-type CalcId = "tynk" | "farba" | "styropian" | "klej" | "plytki" | "izolacja";
+type CalcId = "etics" | "tynk" | "farba" | "styropian" | "klej" | "plytki" | "izolacja";
 
 interface CalcDef {
   id: CalcId;
@@ -16,6 +18,7 @@ interface CalcDef {
 }
 
 const calcs: CalcDef[] = [
+  { id: "etics",      icon: "🏠", label: "Kompletne ocieplenie", desc: "Skonfiguruj pełny system ETICS i listę materiałów.", slug: "system-ocieplenia-elewacji", categoryHref: "/kategoria/izolacje", categoryLabel: "Systemy ociepleń →" },
   { id: "tynk",      icon: "🪣", label: "Tynk elewacyjny",      desc: "Ile kg tynku potrzebujesz na elewację?",         slug: "tynk-elewacyjny",       categoryHref: "/kategoria/tynki",                    categoryLabel: "Tynki elewacyjne →" },
   { id: "farba",     icon: "🎨", label: "Farba elewacyjna",      desc: "Ile litrów farby na ścianę zewnętrzną?",        slug: "farba-elewacyjna",      categoryHref: "/kategoria/farby-i-rozpuszczalniki",  categoryLabel: "Farby elewacyjne →" },
   { id: "styropian", icon: "🧊", label: "Styropian / wełna",     desc: "Ile m² izolacji na ocieplenie budynku?",        slug: "styropian-welna",       categoryHref: "/kategoria/izolacje",                 categoryLabel: "Izolacje ETICS →" },
@@ -28,6 +31,19 @@ const SLUG_TO_ID: Record<string, CalcId> = Object.fromEntries(calcs.map(c => [c.
 
 /* ─── HowTo JSON-LD ──────────────────────────────────── */
 const HOWTO_SCHEMAS: Partial<Record<CalcId, object>> = {
+  etics: {
+    "@context": "https://schema.org", "@type": "HowTo",
+    "name": "Jak obliczyć materiały na kompletne ocieplenie elewacji ETICS",
+    "description": "Oblicz orientacyjne ilości izolacji, zapraw, siatki, łączników, gruntu, tynku i profili.",
+    "totalTime": "PT5M",
+    "tool": [{ "@type": "HowToTool", "name": "Konfigurator systemu ocieplenia Media Bud" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Podaj powierzchnię", "text": "Wpisz powierzchnię ścian i odejmij powierzchnię okien oraz drzwi." },
+      { "@type": "HowToStep", "position": 2, "name": "Wybierz izolację", "text": "Wybierz EPS biały, EPS grafitowy lub wełnę mineralną oraz grubość płyt." },
+      { "@type": "HowToStep", "position": 3, "name": "Wybierz wykończenie", "text": "Określ tynk cienkowarstwowy i liczbę łączników na metr kwadratowy." },
+      { "@type": "HowToStep", "position": 4, "name": "Zweryfikuj zestaw", "text": "Sprawdź listę i prześlij ją do ostatecznego doboru systemowego oraz wyceny." },
+    ],
+  },
   tynk: {
     "@context": "https://schema.org", "@type": "HowTo",
     "name": "Jak obliczyć ilość tynku elewacyjnego",
@@ -443,6 +459,122 @@ function IzolacjaCalc() {
   );
 }
 
+/* ─── KOMPLETNY SYSTEM ETICS ─────────────────────────── */
+const ETICS_INSULATION: Record<string, { label: string; plateArea: number; adhesive: number }> = {
+  eps_white: { label: "Styropian EPS biały", plateArea: 0.5, adhesive: 4.5 },
+  eps_graphite: { label: "Styropian EPS grafitowy", plateArea: 0.5, adhesive: 4.5 },
+  mineral_wool: { label: "Wełna mineralna fasadowa", plateArea: 0.6, adhesive: 5.5 },
+};
+const ETICS_FINISH: Record<string, { label: string; consumption: number }> = {
+  silicone: { label: "Tynk silikonowy 1,5 mm", consumption: 2.5 },
+  silicate: { label: "Tynk silikatowy 1,5 mm", consumption: 2.5 },
+  acrylic: { label: "Tynk akrylowy 1,5 mm", consumption: 2.5 },
+  mineral: { label: "Tynk mineralny 1,5 mm", consumption: 2.8 },
+};
+
+function quoteProduct(id: string, name: string, unit: string, description: string): Product {
+  return {
+    id: `config-etics-${id}`, slug: `konfigurator-${id}`, name,
+    categorySlug: "izolacje", brand: "Dobór systemowy", sku: "", unit,
+    shortDescription: description, description, application: "Kompletny system ocieplenia elewacji ETICS.",
+    technicalSpec: [], images: [], tags: ["ETICS", "konfigurator", "ocieplenie elewacji"], related: [],
+  };
+}
+
+function EticsConfigurator() {
+  const [walls, setWalls] = useState("180");
+  const [openings, setOpenings] = useState("25");
+  const [insulation, setInsulation] = useState("eps_graphite");
+  const [thickness, setThickness] = useState("15");
+  const [finish, setFinish] = useState("silicone");
+  const [waste, setWaste] = useState("10");
+  const [anchors, setAnchors] = useState("6");
+  const [perimeter, setPerimeter] = useState("44");
+  const [corners, setCorners] = useState("60");
+  const [added, setAdded] = useState(false);
+  const addItem = useWycena(s => s.addItem);
+  const removeItem = useWycena(s => s.removeItem);
+
+  const result = useMemo(() => {
+    const gross = safeFloat(walls); const holes = safeFloat(openings);
+    if (gross <= 0 || holes >= gross) return null;
+    const net = gross - holes;
+    const orderedArea = net * (1 + safeFloat(waste) / 100);
+    const ins = ETICS_INSULATION[insulation];
+    const top = ETICS_FINISH[finish];
+    const meshArea = orderedArea * 1.10;
+    return {
+      net, orderedArea, plates: Math.ceil(orderedArea / ins.plateArea),
+      fixingBags: Math.ceil(orderedArea * ins.adhesive / 25),
+      basecoatBags: Math.ceil(orderedArea * (insulation === "mineral_wool" ? 5.5 : 5.0) / 25),
+      meshRolls: Math.ceil(meshArea / 50), meshArea,
+      anchorCount: Math.ceil(orderedArea * safeFloat(anchors, 6)),
+      primerBuckets: Math.ceil(orderedArea * 0.30 / 20),
+      plasterBuckets: Math.ceil(orderedArea * top.consumption / 25),
+      starterProfiles: Math.ceil(safeFloat(perimeter) / 2.5),
+      cornerProfiles: Math.ceil(safeFloat(corners) / 2.5),
+    };
+  }, [walls, openings, insulation, finish, waste, anchors, perimeter, corners]);
+
+  const addSetToQuote = () => {
+    if (!result) return;
+    const ins = ETICS_INSULATION[insulation]; const top = ETICS_FINISH[finish];
+    const lines: [Product, number][] = [
+      [quoteProduct("insulation", `${ins.label} ${thickness} cm — producent do uzgodnienia`, "m²", `Powierzchnia z zapasem: ${fmt(result.orderedArea)} m²; ${result.plates} płyt wg formatu kalkulacyjnego.`), Math.ceil(result.orderedArea)],
+      [quoteProduct("fixing-adhesive", `Zaprawa do przyklejania — do ${ins.label.toLowerCase()}`, "worek 25 kg", "Produkt zgodny z wybranym systemem ETICS."), result.fixingBags],
+      [quoteProduct("basecoat", "Zaprawa do warstwy zbrojonej — dobór systemowy", "worek 25 kg", "Zaprawa zgodna z izolacją i siatką w jednym systemie ETICS."), result.basecoatBags],
+      [quoteProduct("mesh", "Siatka elewacyjna z włókna szklanego ok. 160 g/m²", "rolka 50 m²", `Zapotrzebowanie z zakładami: ${fmt(result.meshArea)} m².`), result.meshRolls],
+      [quoteProduct("anchors", `Łączniki mechaniczne do izolacji ${thickness} cm`, "szt.", "Typ i długość łącznika wymagają potwierdzenia podłoża oraz grubości warstw."), result.anchorCount],
+      [quoteProduct("primer", `Grunt pod ${top.label.toLowerCase()}`, "wiadro 20 kg", "Grunt zgodny z wyprawą tynkarską i systemem ETICS."), result.primerBuckets],
+      [quoteProduct("plaster", `${top.label} — kolor do ustalenia`, "wiadro 25 kg", "Kolor, baza i dokładne zużycie do potwierdzenia przed zamówieniem."), result.plasterBuckets],
+      [quoteProduct("starter-profile", `Listwa startowa do izolacji ${thickness} cm`, "odcinek 2,5 m", `Obwód przyjęty w kalkulatorze: ${fmt(safeFloat(perimeter))} mb.`), result.starterProfiles],
+      [quoteProduct("corner-profile", "Narożnik elewacyjny z siatką", "odcinek 2,5 m", `Długość narożników i ościeży: ${fmt(safeFloat(corners))} mb.`), result.cornerProfiles],
+    ];
+    lines.forEach(([product]) => removeItem(product.id));
+    lines.filter(([, quantity]) => quantity > 0).forEach(([product, quantity]) => addItem(product, quantity));
+    setAdded(true);
+  };
+
+  return (
+    <div className="space-y-5">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <Field label="Całkowita pow. ścian (m²)" value={walls} onChange={setWalls} />
+        <Field label="Okna i drzwi (m²)" value={openings} onChange={setOpenings} min={0} />
+      </div>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SelectField label="Materiał izolacyjny" value={insulation} onChange={setInsulation} options={Object.entries(ETICS_INSULATION).map(([v, d]) => ({ v, l: d.label }))} />
+        <SelectField label="Grubość izolacji" value={thickness} onChange={setThickness} options={["10", "12", "15", "18", "20", "25"].map(v => ({ v, l: `${v} cm` }))} />
+      </div>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SelectField label="Warstwa wykończeniowa" value={finish} onChange={setFinish} options={Object.entries(ETICS_FINISH).map(([v, d]) => ({ v, l: d.label }))} />
+        <SelectField label="Zapas materiału izolacyjnego" value={waste} onChange={setWaste} options={[{ v: "5", l: "5% — prosta bryła" }, { v: "10", l: "10% — standard" }, { v: "15", l: "15% — dużo detali" }]} />
+      </div>
+      <div className="grid sm:grid-cols-3 gap-4">
+        <SelectField label="Łączniki na m²" value={anchors} onChange={setAnchors} options={[{ v: "6", l: "6 szt./m² — standard" }, { v: "8", l: "8 szt./m² — strefy brzegowe" }]} />
+        <Field label="Obwód listwy startowej (mb)" value={perimeter} onChange={setPerimeter} min={0} step="0.1" />
+        <Field label="Narożniki i ościeża (mb)" value={corners} onChange={setCorners} min={0} step="0.1" />
+      </div>
+      {!result && <Warn text="Powierzchnia ścian musi być większa od powierzchni okien i drzwi." />}
+      <Result rows={[
+        { label: "Powierzchnia netto", val: `${fmt(result?.net)} m²` },
+        { label: "Izolacja z zapasem", val: result ? `${fmt(result.orderedArea)} m² / ${result.plates} płyt` : "—", accent: true },
+        { label: "Zaprawa do przyklejania", val: result ? `${result.fixingBags} worków 25 kg` : "—" },
+        { label: "Zaprawa do warstwy zbrojonej", val: result ? `${result.basecoatBags} worków 25 kg` : "—" },
+        { label: "Siatka elewacyjna", val: result ? `${fmt(result.meshArea)} m² / ${result.meshRolls} rolek` : "—" },
+        { label: "Łączniki mechaniczne", val: result ? `${result.anchorCount} szt.` : "—" },
+        { label: "Grunt pod tynk", val: result ? `${result.primerBuckets} wiader 20 kg` : "—" },
+        { label: ETICS_FINISH[finish].label, val: result ? `${result.plasterBuckets} wiader 25 kg` : "—" },
+        { label: "Listwa startowa / narożniki", val: result ? `${result.starterProfiles} / ${result.cornerProfiles} odc. po 2,5 m` : "—" },
+      ]} copyText={result ? `System ETICS: ${fmt(result.orderedArea)} m² izolacji; ${result.fixingBags} worków kleju; ${result.basecoatBags} worków zaprawy zbrojącej; ${result.meshRolls} rolek siatki; ${result.anchorCount} łączników; ${result.primerBuckets} wiader gruntu; ${result.plasterBuckets} wiader tynku.` : ""} />
+      <button type="button" disabled={!result} onClick={addSetToQuote} className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-wide text-white disabled:opacity-40" style={{ background: "#f81828" }}>
+        {added ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
+        {added ? "Komplet dodany — sprawdź wycenę" : "Dodaj komplet do wyceny"}
+      </button>
+      <Note text="Wynik jest orientacyjnym zestawieniem ilościowym. Ostateczny dobór produktów, zużycia, liczby i długości łączników musi uwzględniać instrukcję jednego kompletnego systemu ETICS, rodzaj podłoża, projekt ocieplenia i strefy obciążenia wiatrem." />
+    </div>
+  );
+}
+
 /* ─── HELPERS ─────────────────────────────────────────── */
 function Field({ label, value, onChange, min = 0.1, step = "1" }: { label: string; value: string; onChange: (v: string) => void; min?: number; step?: string }) {
   return (
@@ -526,6 +658,7 @@ function Warn({ text }: { text: string }) {
 
 /* ─── SEO meta per kalkulator ────────────────────────── */
 const CALC_SEO: Record<CalcId, { title: string; description: string }> = {
+  etics:      { title: "Konfigurator systemu ocieplenia ETICS | Media Bud Lublin", description: "Oblicz kompletną listę materiałów na ocieplenie elewacji: izolację, kleje, siatkę, łączniki, grunt, tynk i profile. Dodaj zestaw do wyceny." },
   tynk:      { title: "Kalkulator tynku elewacyjnego — ile kg potrzebujesz? | Media Bud Lublin",     description: "Oblicz ilość tynku elewacyjnego (Weber, Ceresit, Atlas) na m². Wpisz pow. ścian, ziarno i bufor — wynik w kg i workach 25 kg." },
   farba:     { title: "Kalkulator farby elewacyjnej — ile litrów? | Media Bud Lublin",               description: "Oblicz zużycie farby elewacyjnej z buforem 10%. Wybierz rodzaj farby i liczbę warstw — wynik w litrach i opakowaniach 5/10/15 l." },
   styropian: { title: "Kalkulator styropianu i wełny mineralnej — ile m²? | Media Bud Lublin",      description: "Oblicz ile m² styropianu EPS lub wełny mineralnej fasadowej potrzebujesz. Uwzględnia różne formaty płyt ETICS." },
@@ -647,6 +780,7 @@ export default function KalkulatorPage() {
             </h2>
             <p className="text-sm text-gray-500">{activeDef.desc}</p>
           </div>
+          {active === "etics"     && <EticsConfigurator />}
           {active === "tynk"      && <TynkCalc />}
           {active === "farba"     && <FarbaCalc />}
           {active === "styropian" && <StyropianCalc />}

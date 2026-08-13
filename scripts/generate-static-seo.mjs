@@ -27,6 +27,7 @@ const routes = [
   ["/welna-mineralna-lublin", "Wełna mineralna Lublin | Media Bud", "Wełna mineralna w Lublinie do poddaszy, elewacji, ścian działowych, stropów i dachów. Dobór parametrów, wycena oraz dostawa na inwestycję."],
   ["/chemia-budowlana-lublin", "Chemia budowlana Lublin | Media Bud", "Chemia budowlana w Lublinie: kleje, zaprawy, grunty, hydroizolacje, piany i uszczelniacze. Pomoc w doborze oraz wspólna wycena materiałów."],
   ["/dostawa-materialow-budowlanych-lublin", "Dostawa materiałów budowlanych Lublin | Media Bud", "Dostawa materiałów budowlanych na terenie Lublina i województwa lubelskiego. Prześlij listę materiałów, adres oraz informacje o rozładunku."],
+  ["/kalkulator/system-ocieplenia-elewacji", "Konfigurator systemu ocieplenia ETICS | Media Bud Lublin", "Oblicz kompletną listę materiałów na ocieplenie elewacji: izolację, zaprawy, siatkę, łączniki, grunt, tynk oraz profile i prześlij zestaw do wyceny."],
 ];
 
 const esc = value => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;");

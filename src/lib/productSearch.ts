@@ -18,6 +18,45 @@ function normalize(text: string): string {
     .replace(/\u0142/g, "l");          // zapasowo dla ł w innym kodowaniu
 }
 
+/**
+ * Zwraca true dla pojedynczej, typowej literówki w słowie (np. "cersejt"
+ * zamiast "ceresit"). Fuzzy matching uruchamiamy dopiero od 4 znaków, żeby
+ * krótkie zapytania nie generowały przypadkowych wyników.
+ */
+function isOneEditAway(a: string, b: string): boolean {
+  if (a === b) return true;
+  if (Math.abs(a.length - b.length) > 1) return false;
+
+  let i = 0;
+  let j = 0;
+  let edits = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) {
+      i += 1;
+      j += 1;
+      continue;
+    }
+    edits += 1;
+    if (edits > 1) return false;
+    if (a.length > b.length) i += 1;
+    else if (b.length > a.length) j += 1;
+    else {
+      i += 1;
+      j += 1;
+    }
+  }
+  if (i < a.length || j < b.length) edits += 1;
+  return edits <= 1;
+}
+
+function containsFuzzyToken(text: string, token: string): boolean {
+  if (token.length < 4) return false;
+  return text
+    .split(/[^a-z0-9]+/)
+    .filter(word => word.length >= 4)
+    .some(word => isOneEditAway(word, token));
+}
+
 export function scoreProductAgainstQuery(product: Product, rawQuery: string): number {
   const qRaw  = rawQuery.toLowerCase().trim();
   const q     = normalize(rawQuery);
@@ -74,6 +113,12 @@ export function scoreProductAgainstQuery(product: Product, rawQuery: string): nu
     if (specText.includes(token))        score += 5;
     if (tags.some(t => t === token))     score += 15;
     if (tags.some(t => t.includes(token))) score += 8;
+
+    // Literówki dostają mały bonus, więc nigdy nie wyprzedzają dokładnego
+    // dopasowania nazwy, marki, SKU ani parametrów technicznych.
+    if (containsFuzzyToken(name, token)) score += 12;
+    if (containsFuzzyToken(brand, token)) score += 8;
+    if (containsFuzzyToken(specText, token)) score += 4;
   }
 
   // — Bonus za liczbę pasujących tokenów —

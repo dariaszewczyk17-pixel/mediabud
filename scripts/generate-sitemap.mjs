@@ -334,7 +334,7 @@ const STATIC_PAGES = [
 ];
 
 const CALCULATORS = [
-  'tynk-elewacyjny', 'farba-elewacyjna', 'styropian-welna',
+  'system-ocieplenia-elewacji', 'tynk-elewacyjny', 'farba-elewacyjna', 'styropian-welna',
   'klej-do-plytek', 'plytki-ceramiczne', 'izolacja-fundamentow'
 ];
 

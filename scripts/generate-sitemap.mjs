@@ -326,6 +326,11 @@ const STATIC_PAGES = [
   { path: '/kontakt',    lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.7' },
   { path: '/blog',       lastmod: '2026-08-12', changefreq: 'weekly',  priority: '0.8' },
   { path: '/marki',      lastmod: '2026-08-12', changefreq: 'weekly',  priority: '0.8' },
+  { path: '/materialy-budowlane-lublin', lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.9' },
+  { path: '/styropian-lublin', lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.9' },
+  { path: '/welna-mineralna-lublin', lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.9' },
+  { path: '/chemia-budowlana-lublin', lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.9' },
+  { path: '/dostawa-materialow-budowlanych-lublin', lastmod: '2026-08-12', changefreq: 'monthly', priority: '0.9' },
 ];
 
 const CALCULATORS = [

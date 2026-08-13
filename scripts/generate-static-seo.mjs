@@ -22,6 +22,11 @@ const routes = [
   ["/kategoria/farby-elewacyjne", "Farby Elewacyjne Lublin – Silikonowe i Silikatowe", "Farby elewacyjne w Lublinie: silikonowe, silikatowe, akrylowe i gruntujące. Dobór systemu, kolorów oraz dostawa na budowę z Media Bud."],
   ["/kategoria/pokrycia-dachowe", "Pokrycia Dachowe Lublin – Dachówki i Akcesoria", "Pokrycia dachowe w Lublinie: dachówki, membrany, obróbki i akcesoria. Zapytaj Media Bud o dostępność, wycenę i dostawę kompletnego systemu."],
   ["/kategoria/materialy-konstrukcyjne", "Materiały Konstrukcyjne Lublin – Pustaki i Bloczki", "Materiały konstrukcyjne w Lublinie: pustaki ceramiczne, bloczki, nadproża i zaprawy. Wycena zamówienia oraz dostawa na budowę z Media Bud."],
+  ["/materialy-budowlane-lublin", "Materiały budowlane Lublin | Media Bud", "Materiały budowlane w Lublinie z doradztwem, odbiorem osobistym lub dostawą na budowę. Prześlij listę, projekt albo dodaj produkty do wyceny."],
+  ["/styropian-lublin", "Styropian Lublin | Media Bud", "Styropian w Lublinie do elewacji, podłóg, fundamentów i dachów. Pomożemy dobrać parametry, obliczyć ilość i przygotować wycenę z dostawą."],
+  ["/welna-mineralna-lublin", "Wełna mineralna Lublin | Media Bud", "Wełna mineralna w Lublinie do poddaszy, elewacji, ścian działowych, stropów i dachów. Dobór parametrów, wycena oraz dostawa na inwestycję."],
+  ["/chemia-budowlana-lublin", "Chemia budowlana Lublin | Media Bud", "Chemia budowlana w Lublinie: kleje, zaprawy, grunty, hydroizolacje, piany i uszczelniacze. Pomoc w doborze oraz wspólna wycena materiałów."],
+  ["/dostawa-materialow-budowlanych-lublin", "Dostawa materiałów budowlanych Lublin | Media Bud", "Dostawa materiałów budowlanych na terenie Lublina i województwa lubelskiego. Prześlij listę materiałów, adres oraz informacje o rozładunku."],
 ];
 
 const esc = value => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;");

@@ -1428,7 +1428,7 @@ export default function CategoryPage() {
           "significantLink": localLandingLinks.map(link => `https://mediabud.pl${link.href}`),
           "provider": {
             "@type": "Organization",
-            "@id": "https://mediabud.pl/#organization",
+            "@id": "https://mediabud.pl/#localbusiness",
             "name": "Media Bud",
           },
           "mainEntity": {

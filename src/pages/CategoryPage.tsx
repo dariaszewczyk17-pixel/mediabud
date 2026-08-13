@@ -2152,7 +2152,7 @@ export default function CategoryPage() {
                 <div
                   ref={gridReveal.ref}
                   className={view === "grid"
-                    ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-stretch"
+                    ? "grid grid-cols-1 min-[360px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5 items-stretch"
                     : "space-y-4"}
                 >
                   {paginated.length === 0 && productsLoading ? (

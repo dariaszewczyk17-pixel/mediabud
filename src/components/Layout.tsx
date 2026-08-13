@@ -1,10 +1,11 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import BottomNav from "./BottomNav";
 import CookieBanner from "./CookieBanner";
 import { Toaster } from "sonner";
+import { installGlobalContactTracking } from "@/hooks/useConversionTracking";
 
 /* WycenaDrawer lazy — wyciąga Commerce.tsx (~40 kB) z critical path */
 const WycenaDrawer = lazy(() =>
@@ -12,6 +13,8 @@ const WycenaDrawer = lazy(() =>
 );
 
 export default function Layout() {
+  useEffect(() => installGlobalContactTracking(), []);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#080808]">
       {/* ── Skip-link — Lighthouse accessibility ── */}

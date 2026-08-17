@@ -469,7 +469,7 @@ async function main() {
       const depth = cat.depth ?? 2;
       // Użyj pełnej ścieżki hierarchicznej jeśli dostępna (eliminuje 308 redirecty)
       const fullPath = slugToFullPath.get(slug) || slug;
-      return urlEntry({ loc: `${BASE_URL}/kategoria/${escapeXml(fullPath)}`, lastmod: formatDate(cat._updatedAt), changefreq: 'weekly', priority: depth <= 1 ? '0.9' : depth <= 2 ? '0.8' : '0.7' });
+      return urlEntry({ loc: `${BASE_URL}/kategoria/${escapeXml(fullPath)}/`, lastmod: formatDate(cat._updatedAt), changefreq: 'weekly', priority: depth <= 1 ? '0.9' : depth <= 2 ? '0.8' : '0.7' });
     })
     .filter(Boolean);
   await writeXml('sitemap-categories.xml', buildUrlset(catEntries));

@@ -1100,15 +1100,7 @@ export default function Home() {
                 "@type": "ListItem",
                 "position": idx + 1,
                 "url": `https://mediabud.pl/produkt/${slug}`,
-                ...(p ? {
-                  "name": p.name,
-                  "item": {
-                    "@type": "Product",
-                    "name": p.name,
-                    "url": `https://mediabud.pl/produkt/${slug}`,
-                    "brand": { "@type": "Brand", "name": p.brand },
-                  },
-                } : {}),
+                ...(p ? { "name": p.name } : {}),
               };
             }),
           }) }}

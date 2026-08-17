@@ -267,29 +267,53 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen" style={{ background: "#050505" }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org", "@type": "Product",
-        "@id": `${SITE_URL}/produkt/${slug}#product`, "url": `${SITE_URL}/produkt/${slug}`,
-        "mainEntityOfPage": { "@type": "WebPage", "@id": `${SITE_URL}/produkt/${slug}` },
-        "name": product.name, "description": product.shortDescription || product.description || undefined,
-        "brand": product.brand ? { "@type": "Brand", "name": product.brand } : undefined,
-        "manufacturer": product.brand ? { "@type": "Organization", "name": product.brand } : undefined,
-        "sku": product.sku || undefined,
-        "image": images.filter(i => i && !i.includes("placeholder")).map(absoluteProductImage),
-        "category": cat ? { "@type": "Thing", "name": cat.name, "url": `${SITE_URL}/kategoria/${cat.slug}` } : undefined,
-        ...(product.technicalSpec?.length > 0 && {
-          "additionalProperty": product.technicalSpec.map(s => ({ "@type": "PropertyValue", "name": s.label, "value": s.value })),
-        }),
-        ...(related.length > 0 && {
-          "isRelatedTo": related.map(r => ({ "@type": "Product", "url": `https://mediabud.pl/produkt/${r.slug}`, "name": r.name }))
-        }),
-        ...(similarProducts.length > 0 && {
-          "isSimilarTo": similarProducts.map(s => ({ "@type": "Product", "url": `https://mediabud.pl/produkt/${s.slug}`, "name": s.name }))
-        }),
-        // Nie publikujemy AggregateRating ani Offer bez prawdziwych opinii,
-        // aktualnej ceny i potwierdzonej dostępności. Dane można dodać ponownie,
-        // gdy katalog otrzyma wiarygodne pola biznesowe.
-      })}} />
+      {product.priceMin != null && product.priceMin > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org", "@type": "Product",
+          "@id": `${SITE_URL}/produkt/${slug}#product`, "url": `${SITE_URL}/produkt/${slug}`,
+          "mainEntityOfPage": { "@type": "WebPage", "@id": `${SITE_URL}/produkt/${slug}` },
+          "name": product.name, "description": product.shortDescription || product.description || undefined,
+          "brand": product.brand ? { "@type": "Brand", "name": product.brand } : undefined,
+          "manufacturer": product.brand ? { "@type": "Organization", "name": product.brand } : undefined,
+          "sku": product.sku || undefined,
+          "image": images.filter(i => i && !i.includes("placeholder")).map(absoluteProductImage),
+          "category": cat ? { "@type": "Thing", "name": cat.name, "url": `${SITE_URL}/kategoria/${cat.slug}` } : undefined,
+          "offers": product.priceMax != null && product.priceMax > product.priceMin
+            ? {
+                "@type": "AggregateOffer",
+                "url": `${SITE_URL}/produkt/${slug}`,
+                "priceCurrency": "PLN",
+                "lowPrice": product.priceMin,
+                "highPrice": product.priceMax,
+                ...(product.inStock != null && {
+                  "availability": product.inStock
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/OutOfStock",
+                }),
+              }
+            : {
+                "@type": "Offer",
+                "url": `${SITE_URL}/produkt/${slug}`,
+                "priceCurrency": "PLN",
+                "price": product.priceMin,
+                ...(product.inStock != null && {
+                  "availability": product.inStock
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/OutOfStock",
+                }),
+                "seller": { "@type": "Organization", "name": "Media Bud" },
+              },
+          ...(product.technicalSpec?.length > 0 && {
+            "additionalProperty": product.technicalSpec.map(s => ({ "@type": "PropertyValue", "name": s.label, "value": s.value })),
+          }),
+          ...(related.length > 0 && {
+            "isRelatedTo": related.map(r => ({ "@type": "Product", "url": `${SITE_URL}/produkt/${r.slug}`, "name": r.name }))
+          }),
+          ...(similarProducts.length > 0 && {
+            "isSimilarTo": similarProducts.map(s => ({ "@type": "Product", "url": `${SITE_URL}/produkt/${s.slug}`, "name": s.name }))
+          }),
+        })}} />
+      )}
 
       {breadcrumbs.length > 0 && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

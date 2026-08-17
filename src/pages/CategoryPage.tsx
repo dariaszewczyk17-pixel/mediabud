@@ -1181,7 +1181,7 @@ export default function CategoryPage() {
   const activeFilterCount = [selectedBrand, selectedUnit, selectedTag, selectedSubcat].filter(Boolean).length + selectedSpecs.length;
 
   const localSeo = slug ? LOCAL_CATEGORY_SEO[slug] : undefined;
-  const canonicalPath = location.pathname.replace(/\/$/, "");
+  const canonicalPath = `${location.pathname.replace(/\/+$/, "")}/`;
   const canonicalUrl = `https://mediabud.pl${canonicalPath}`;
   const categoryTrail = [...breadcrumbs, { name: cat?.name || "", slug: slug || "" }]
     .filter((item, index, items) => item.slug && items.findIndex(candidate => candidate.slug === item.slug) === index);

@@ -257,9 +257,9 @@ export default function ProductDetail() {
     setTimeout(() => setAdded(false), 2500);
   };
 
-  const structuredPriceMin = (sanityProduct as SanityProduct | undefined)?.priceMin ?? structuredPriceMin;
-  const structuredPriceMax = (sanityProduct as SanityProduct | undefined)?.priceMax ?? structuredPriceMax;
-  const structuredInStock = (sanityProduct as SanityProduct | undefined)?.inStock ?? structuredInStock;
+  const structuredPriceMin = (sanityProduct as SanityProduct | undefined)?.priceMin ?? product.priceMin;
+  const structuredPriceMax = (sanityProduct as SanityProduct | undefined)?.priceMax ?? product.priceMax;
+  const structuredInStock = (sanityProduct as SanityProduct | undefined)?.inStock ?? product.inStock;
 
   const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
     { id: "opis",         label: "Opis produktu",          icon: <Info className="w-4 h-4" /> },

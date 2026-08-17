@@ -378,7 +378,7 @@ async function main() {
         slug, _updatedAt, "brandName": brand->name,
         "hasDescription": defined(shortDescription) && length(shortDescription) > 50,
         "hasLongDesc":    defined(description)       && length(description) > 200,
-        "hasImage":       defined(image),
+        "hasImage":       defined(images[0].asset),
         "hasTechSpec":    defined(technicalSpec)     && count(technicalSpec) > 0,
         "hasValidName":   defined(name)              && length(name) > 10,
         "hasCategory":    defined(category)

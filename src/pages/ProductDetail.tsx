@@ -257,9 +257,10 @@ export default function ProductDetail() {
     setTimeout(() => setAdded(false), 2500);
   };
 
-  const structuredPriceMin = (sanityProduct as SanityProduct | undefined)?.priceMin ?? product.priceMin;
-  const structuredPriceMax = (sanityProduct as SanityProduct | undefined)?.priceMax ?? product.priceMax;
-  const structuredInStock = (sanityProduct as SanityProduct | undefined)?.inStock ?? product.inStock;
+  // Dane oferty pochodzą wyłącznie z Sanity. Brak ceny oznacza brak Product rich result.
+  const structuredPriceMin = (sanityProduct as SanityProduct | undefined)?.priceMin;
+  const structuredPriceMax = (sanityProduct as SanityProduct | undefined)?.priceMax;
+  const structuredInStock = (sanityProduct as SanityProduct | undefined)?.inStock;
 
   const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
     { id: "opis",         label: "Opis produktu",          icon: <Info className="w-4 h-4" /> },

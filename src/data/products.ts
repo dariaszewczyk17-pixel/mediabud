@@ -17,6 +17,8 @@ export interface Product {
   isFeatured?: boolean;
   featured?: boolean;
   inStock?: boolean;
+  priceMin?: number;
+  priceMax?: number;
   popularity?: number;                        // 0-100, używane do sortowania i aggregateRating
   /* SEO / AI-search enrichment */
   advantages?: string[];                    // punkty "dlaczego warto"

@@ -257,6 +257,10 @@ export default function ProductDetail() {
     setTimeout(() => setAdded(false), 2500);
   };
 
+  const structuredPriceMin = (sanityProduct as SanityProduct | undefined)?.priceMin ?? structuredPriceMin;
+  const structuredPriceMax = (sanityProduct as SanityProduct | undefined)?.priceMax ?? structuredPriceMax;
+  const structuredInStock = (sanityProduct as SanityProduct | undefined)?.inStock ?? structuredInStock;
+
   const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
     { id: "opis",         label: "Opis produktu",          icon: <Info className="w-4 h-4" /> },
     { id: "specyfikacja", label: "Specyfikacja techniczna", icon: <BarChart2 className="w-4 h-4" /> },
@@ -267,7 +271,7 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen" style={{ background: "#050505" }}>
-      {product.priceMin != null && product.priceMin > 0 && (
+      {structuredPriceMin != null && structuredPriceMin > 0 && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org", "@type": "Product",
           "@id": `${SITE_URL}/produkt/${slug}#product`, "url": `${SITE_URL}/produkt/${slug}`,
@@ -278,15 +282,15 @@ export default function ProductDetail() {
           "sku": product.sku || undefined,
           "image": images.filter(i => i && !i.includes("placeholder")).map(absoluteProductImage),
           "category": cat ? { "@type": "Thing", "name": cat.name, "url": `${SITE_URL}/kategoria/${cat.slug}` } : undefined,
-          "offers": product.priceMax != null && product.priceMax > product.priceMin
+          "offers": structuredPriceMax != null && structuredPriceMax > structuredPriceMin
             ? {
                 "@type": "AggregateOffer",
                 "url": `${SITE_URL}/produkt/${slug}`,
                 "priceCurrency": "PLN",
-                "lowPrice": product.priceMin,
-                "highPrice": product.priceMax,
-                ...(product.inStock != null && {
-                  "availability": product.inStock
+                "lowPrice": structuredPriceMin,
+                "highPrice": structuredPriceMax,
+                ...(structuredInStock != null && {
+                  "availability": structuredInStock
                     ? "https://schema.org/InStock"
                     : "https://schema.org/OutOfStock",
                 }),
@@ -295,9 +299,9 @@ export default function ProductDetail() {
                 "@type": "Offer",
                 "url": `${SITE_URL}/produkt/${slug}`,
                 "priceCurrency": "PLN",
-                "price": product.priceMin,
-                ...(product.inStock != null && {
-                  "availability": product.inStock
+                "price": structuredPriceMin,
+                ...(structuredInStock != null && {
+                  "availability": structuredInStock
                     ? "https://schema.org/InStock"
                     : "https://schema.org/OutOfStock",
                 }),

@@ -38,7 +38,7 @@ function trunc(str, max) {
 
 async function fetchProduct(slug) {
   const q = encodeURIComponent(
-    `*[_type=="product" && slug.current=="${slug.replace(/"/g, "")}"][0]{name,shortDescription,description,ean,"category":category->name,"categorySlug":category->slug.current,"brand":brand->name,"imageUrl":images[0].asset->url,"specs":specs[]{key,value}}`
+    `*[_type=="product" && slug.current=="${slug.replace(/"/g, "")}"][0]{name,shortDescription,description,ean,"category":category->name,"categorySlug":category->slug.current,"brand":brand->name,"imageUrl":images[0].asset->url,priceMin,priceMax,inStock,"specs":specs[]{key,value}}`
   );
   const res = await fetch(`${SANITY_QUERY_URL}?query=${q}`, {
     cf: { cacheTtl: CACHE_TTL, cacheEverything: true },
@@ -176,23 +176,27 @@ export async function onRequest(context) {
           : `${p.name} dostepny w Media Bud - skladzie budowlanym w Lublinie. Zapytaj o oferte.`;
         const img = p.imageUrl || "https://mediabud.pl/images/placeholder-product_2.png";
 
-        const ld = {
+        const ld = Number(p.priceMin) > 0 ? {
           "@context": "https://schema.org", "@type": "Product",
           name: p.name,
           description: p.description ? trunc(p.description.replace(/#{1,6}\s?/g, "").replace(/\n+/g, " "), 500) : rawDesc,
           url: canonical,
           image: [img],
           sku: slug,
-        };
+        } : null;
+
+        if (ld) ld.offers = Number(p.priceMax) > Number(p.priceMin)
+          ? { "@type": "AggregateOffer", priceCurrency: "PLN", lowPrice: Number(p.priceMin), highPrice: Number(p.priceMax), url: canonical, ...(p.inStock != null ? { availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}) }
+          : { "@type": "Offer", priceCurrency: "PLN", price: Number(p.priceMin), url: canonical, ...(p.inStock != null ? { availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}), seller: { "@type": "Organization", name: "Media Bud" } };
 
         // Brand
-        if (p.brand) ld.brand = { "@type": "Brand", name: p.brand };
+        if (ld && p.brand) ld.brand = { "@type": "Brand", name: p.brand };
         // Kategoria tekstowa
-        if (p.category) ld.category = p.category;
+        if (ld && p.category) ld.category = p.category;
         // EAN/GTIN13
-        if (p.ean) ld.gtin13 = p.ean;
+        if (ld && p.ean) ld.gtin13 = p.ean;
         // Parametry techniczne jako PropertyValue
-        if (p.specs && p.specs.length > 0) {
+        if (ld && p.specs && p.specs.length > 0) {
           ld.additionalProperty = p.specs
             .filter(s => s.key && s.value)
             .map(s => ({ "@type": "PropertyValue", name: s.key, value: s.value }));
@@ -220,7 +224,7 @@ export async function onRequest(context) {
   <meta property="og:url" content="${canonical}" />
   <meta property="og:image" content="${esc(img)}" />
   <meta property="og:site_name" content="Media Bud" />
-  <script type="application/ld+json">${JSON.stringify(ld)}</script>
+  ${ld ? `<script type="application/ld+json">${JSON.stringify(ld)}</script>` : ""}
   <script type="application/ld+json">${JSON.stringify(breadcrumbLD)}</script>
   <style>body{font-family:system-ui,sans-serif;margin:0;padding:20px;background:#0d0d0d;color:#fff}h1{font-size:1.4rem;border-bottom:2px solid #f81828;padding-bottom:8px}.product-img{max-width:400px;height:auto;border-radius:8px;background:#141414}.desc{color:#aaa;font-size:.9rem;margin:12px 0}.meta{font-size:.8rem;color:#888}nav.breadcrumbs{font-size:.8rem;margin-bottom:16px}nav.breadcrumbs a{color:#f81828;text-decoration:none}nav.breadcrumbs span{color:#666;margin:0 4px}</style>
 </head><body>
@@ -279,16 +283,19 @@ export async function onRequest(context) {
       const desc = esc(rawDesc);
       const img = esc(p.imageUrl || "https://mediabud.pl/images/placeholder-product_2.png");
 
-      const ld = {
+      const ld = Number(p.priceMin) > 0 ? {
         "@context": "https://schema.org",
         "@type": "Product",
         name: p.name,
         description: rawDesc,
         url: canonical,
         image: [p.imageUrl || "https://mediabud.pl/images/placeholder-product_2.png"],
-      };
-      if (p.brand) ld.brand = { "@type": "Brand", name: p.brand };
-      if (p.category) ld.category = p.category;
+      } : null;
+      if (ld) ld.offers = Number(p.priceMax) > Number(p.priceMin)
+        ? { "@type": "AggregateOffer", priceCurrency: "PLN", lowPrice: Number(p.priceMin), highPrice: Number(p.priceMax), url: canonical, ...(p.inStock != null ? { availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}) }
+        : { "@type": "Offer", priceCurrency: "PLN", price: Number(p.priceMin), url: canonical, ...(p.inStock != null ? { availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}), seller: { "@type": "Organization", name: "Media Bud" } };
+      if (ld && p.brand) ld.brand = { "@type": "Brand", name: p.brand };
+      if (ld && p.category) ld.category = p.category;
 
       const inject = `
   <title>${pageTitle}</title>
@@ -304,7 +311,7 @@ export async function onRequest(context) {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${pageTitle}" />
   <meta name="twitter:description" content="${desc}" />
-  <script type="application/ld+json">${JSON.stringify(ld)}</script>`;
+  ${ld ? `<script type="application/ld+json">${JSON.stringify(ld)}</script>` : ""}`;
 
       let html = await response.text();
       html = html

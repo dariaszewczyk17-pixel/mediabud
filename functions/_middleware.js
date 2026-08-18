@@ -154,6 +154,29 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const pathname = url.pathname;
 
+  // Trwałe przekierowania dawnych adresów wykrytych w Google Search Console.
+  const legacyCategoryRedirects = {
+    "/kategoria/plyty-do-suchej-zabudowy": "/kategoria/sucha-zabudowa/plyty-do-suchej-zabudowy",
+    "/kategoria/rolety-wewnetrzne": "/kategoria/dachy/okna-dachowe/rolety-wewnetrzne",
+    "/kategoria/rolety-zewnetrzne": "/kategoria/dachy/okna-dachowe/rolety-zewnetrzne",
+    "/kategoria/okna-wylazowe": "/kategoria/dachy/okna-dachowe/okna-wylazowe",
+  };
+  const legacyCategoryTarget = legacyCategoryRedirects[pathname.replace(/\/$/, "")];
+  if (legacyCategoryTarget) return Response.redirect(`${SITE_URL}${legacyCategoryTarget}/`, 301);
+
+  if (pathname === "/szukaj") {
+    const legacyBrandRedirects = {
+      alpol: "alpol", sika: "sika", sopro: "sopro", koramic: "koramic", marazzi: "marazzi",
+      velux: "velux", rockwool: "rockwool", bauder: "bauder", siniat: "siniat-etex-marki",
+      protech: "protech", blue: "blue-dolphin", kreisel: "kreisel", dolina: "dolina-nidy",
+      weber: "weber", ecophon: "ecophon",
+    };
+    const legacyBrand = (url.searchParams.get("brand") || "").trim().toLowerCase();
+    if (legacyBrandRedirects[legacyBrand]) {
+      return Response.redirect(`${SITE_URL}/marki/${legacyBrandRedirects[legacyBrand]}`, 301);
+    }
+  }
+
   // ── /produkt/* — prerender dla botów + inject meta dla użytkowników ──
   if (pathname.startsWith("/produkt/")) {
     const slug = pathname.replace(/^\/produkt\/?/, "").replace(/\/$/, "");

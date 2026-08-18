@@ -110,7 +110,7 @@ async function writeRoute(template, route) {
 
 async function loadCatalogRoutes() {
   const categoryQuery = `*[_type=="category" && defined(slug.current)] | order(_id asc) {name, description, metaTitle, metaDescription, "slug": slug.current, "parent": parent->{name, "slug": slug.current, "parent": parent->{name, "slug": slug.current, "parent": parent->{name, "slug": slug.current}}}}`;
-  const productQuery = `*[_type=="product" && defined(slug.current) && !(name match "P-*")] | order(_id asc) {name, shortDescription, description, metaTitle, metaDescription, sku, "slug": slug.current, "brand": brand->name, "image": coalesce(images[0].asset->url, image.asset->url), "hasTechSpec": count(technicalSpec) > 0, "category": category->{name, "slug": slug.current}}`;
+  const productQuery = `*[_type=="product" && defined(slug.current) && !(name match "P-*")] | order(_id asc) {name, shortDescription, description, metaTitle, metaDescription, sku, "slug": slug.current, "brand": brand->name, "image": coalesce(images[0].asset->url, image.asset->url), "hasTechSpec": count(technicalSpec) > 0, priceMin, priceMax, inStock, "category": category->{name, "slug": slug.current}}`;
   const [categories, products] = await Promise.all([fetchAll(categoryQuery), fetchAll(productQuery)]);
   const categoryRoutes = categories.map(category => {
     const crumbs = ancestors(category);
@@ -133,12 +133,20 @@ async function loadCatalogRoutes() {
     const description = cleanText(product.metaDescription || product.shortDescription || product.description || `${product.name}. Sprawdź parametry i zapytaj Media Bud Lublin o dostępność, odbiór lub dostawę.`);
     return {
       routePath, title: productTitle(product), description, type: "product", image: product.image,
-      schema: {
+      schema: Number(product.priceMin) > 0 ? {
         "@context": "https://schema.org", "@type": "Product", "@id": `${BASE_URL}${routePath}#product`, url: `${BASE_URL}${routePath}`,
         name: product.name, description, ...(product.brand ? { brand: { "@type": "Brand", name: product.brand } } : {}),
         ...(product.sku ? { sku: product.sku } : {}), ...(product.image ? { image: [product.image] } : {}),
         ...(product.category?.name ? { category: product.category.name } : {}), mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE_URL}${routePath}` },
-      },
+        offers: Number(product.priceMax) > Number(product.priceMin) ? {
+          "@type": "AggregateOffer", priceCurrency: "PLN", lowPrice: Number(product.priceMin), highPrice: Number(product.priceMax), url: `${BASE_URL}${routePath}`,
+          ...(product.inStock != null ? { availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}),
+        } : {
+          "@type": "Offer", priceCurrency: "PLN", price: Number(product.priceMin), url: `${BASE_URL}${routePath}`,
+          ...(product.inStock != null ? { availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}),
+          seller: { "@type": "Organization", name: "Media Bud" },
+        },
+      } : undefined,
     };
   });
   return { categoryRoutes, productRoutes, totalProducts: products.length };

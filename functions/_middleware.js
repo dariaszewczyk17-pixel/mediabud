@@ -160,6 +160,14 @@ export async function onRequest(context) {
     "/kategoria/rolety-wewnetrzne": "/kategoria/dachy/okna-dachowe/rolety-wewnetrzne",
     "/kategoria/rolety-zewnetrzne": "/kategoria/dachy/okna-dachowe/rolety-zewnetrzne",
     "/kategoria/okna-wylazowe": "/kategoria/dachy/okna-dachowe/okna-wylazowe",
+    "/kategoria/izolacje-fundamentow": "/kategoria/izolacje/hydroizolacje",
+    "/kategoria/nozyce": "/kategoria/narzedzia-i-mocowania/narzedzia-reczne",
+    "/kategoria/sucha-zabudowa/narozniki-i-listwy/narozniki-do-suchej-zabudowy-aluminiowe": "/kategoria/sucha-zabudowa/narozniki-i-listwy",
+    "/kategoria/narozniki-do-suchej-zabudowy-aluminiowe": "/kategoria/sucha-zabudowa/narozniki-i-listwy",
+    "/kategoria/sucha-zabudowa/narozniki-i-listwy/narozniki-do-suchej-zabudowy-pvc": "/kategoria/sucha-zabudowa/narozniki-i-listwy",
+    "/kategoria/narozniki-do-suchej-zabudowy-elastyczne": "/kategoria/sucha-zabudowa/narozniki-i-listwy",
+    "/kategoria/narozniki-do-suchej-zabudowy-pvc": "/kategoria/sucha-zabudowa/narozniki-i-listwy",
+    "/kategoria/plyty": "/kategoria/sucha-zabudowa/plyty-do-suchej-zabudowy",
   };
   const legacyCategoryTarget = legacyCategoryRedirects[pathname.replace(/\/$/, "")];
   if (legacyCategoryTarget) return Response.redirect(`${SITE_URL}${legacyCategoryTarget}/`, 301);

@@ -168,6 +168,15 @@ export async function onRequest(context) {
     "/kategoria/narozniki-do-suchej-zabudowy-elastyczne": "/kategoria/sucha-zabudowa/narozniki-i-listwy",
     "/kategoria/narozniki-do-suchej-zabudowy-pvc": "/kategoria/sucha-zabudowa/narozniki-i-listwy",
     "/kategoria/plyty": "/kategoria/sucha-zabudowa/plyty-do-suchej-zabudowy",
+    "/kategoria/folie-fundamentowe": "/kategoria/izolacje/folie/folie-fundamentowe",
+    "/kategoria/uszczelniacze-i-silikony": "/kategoria/chemia-budowlana/uszczelniacze-i-silikony",
+    "/kategoria/uszczelniacze-poliuretanowe": "/kategoria/chemia-budowlana/uszczelniacze-i-silikony/uszczelniacze-poliuretanowe",
+    "/kategoria/plytki-tarasowe": "/kategoria/plytki/plytki-ceramiczne/plytki-tarasowe",
+    "/kategoria/silikony-sanitarne": "/kategoria/chemia-budowlana/uszczelniacze-i-silikony/silikony-sanitarne",
+    "/kategoria/akcesoria-malarskie-i-tynkarskie": "/kategoria/narzedzia-i-mocowania/akcesoria-malarskie-i-tynkarskie",
+    "/kategoria/farby-wewnetrzne-kolorowe": "/kategoria/farby-i-rozpuszczalniki/farby-wewnetrzne/farby-wewnetrzne-kolorowe",
+    "/kategoria/plytki-scienne": "/kategoria/plytki/plytki-ceramiczne/plytki-scienne",
+    "/kategoria/rozpuszczalniki": "/kategoria/farby-i-rozpuszczalniki/rozpuszczalniki",
   };
   const legacyCategoryTarget = legacyCategoryRedirects[pathname.replace(/\/$/, "")];
   if (legacyCategoryTarget) return Response.redirect(`${SITE_URL}${legacyCategoryTarget}/`, 301);
